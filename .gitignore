@@ -1,0 +1,20 @@
+# Config file
+/upload/config.php
+
+# Backup files
+/upload/system/backups/*
+!/upload/system/backups/index.html
+
+# Log files
+/upload/system/logs/*
+!/upload/system/logs/index.html
+
+# Modification files
+/upload/system/modification/cache/*
+!/upload/system/modification/cache/index.html
+/upload/system/modification/xml/*
+!/upload/system/modification/xml/index.html
+
+# Upload files
+/upload/upload/*
+!/upload/upload/index.html
