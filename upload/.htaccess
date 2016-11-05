@@ -1,0 +1,20 @@
+# Prevent direct access to config file
+<Files config.php>
+	Deny from all
+</Files>
+
+# Prevent direct access to .htaccess files
+<Files .htaccess>
+	Deny from all
+</Files>
+
+# Prevent direct access to certain file types
+<FilesMatch "\.(tpl|log|xml)$">
+	Deny from all
+</FilesMatch>
+
+# Prevent listing the files in directories
+IndexIgnore */*
+
+# Remove the # below if your server allows it
+# OPTIONS -Indexes

@@ -1,0 +1,56 @@
+$grey: #828282;
+
+.cmtx_container {
+	* {
+		box-sizing: border-box;
+		line-height: normal;
+	}
+
+	*:before {
+		box-sizing: border-box;
+	}
+
+	*:after {
+		box-sizing: border-box;
+	}
+
+	ul, ol {
+		padding-left: 30px;
+	}
+
+	ul {
+		list-style-type: disc;
+	}
+
+	ol {
+		list-style-type: decimal;
+	}
+
+	li {
+		padding: 2px;
+	}
+}
+
+.cmtx_clear::before, .cmtx_clear::after {
+    content: " ";
+    display: table;
+}
+
+.cmtx_clear::after {
+    clear: both;
+}
+
+/* Form */
+@import 'partial/form';
+
+/* Comments */
+@import 'partial/comments';
+
+/* User */
+@import 'partial/user';
+
+/* jQuery.filer */
+@import 'partial/jfiler';
+
+/* jQuery UI Dialog */
+@import 'partial/dialog';

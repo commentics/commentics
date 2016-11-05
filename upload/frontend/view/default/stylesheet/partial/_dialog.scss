@@ -1,0 +1,63 @@
+// _partial/_dialog.scss
+
+.cmtx_dialog input {
+	width: 100%;
+}
+
+.cmtx_dialog_bullet input, .cmtx_dialog_numeric input {
+	width: auto;
+}
+
+.cmtx_dialog_bullet div:first-child, .cmtx_dialog_numeric div:first-child {
+	margin-bottom: 10px;
+}
+
+.cmtx_dialog_link div:last-of-type, .cmtx_dialog_email div:last-of-type {
+	margin-top: 10px;
+}
+
+.ui-widget-header {
+	background: 0;
+	border: 0;
+}
+
+.ui-dialog, .ui-widget, .ui-widget-content, .ui-corner-all, .ui-front, .ui-dialog-buttons, .ui-draggable {
+	font-size: 13px;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	padding: 0;
+	padding-right: 4px;
+}
+
+.ui-dialog {
+	box-shadow: 1px 1px 5px #333;
+}
+
+.ui-dialog .ui-icon-alert {
+	float: left;
+	margin-top: 0;
+	margin-right: 7px;
+}
+
+.ui-dialog .ui-widget-content {
+	min-height: 0 !important;
+}
+
+.ui-widget-overlay {
+	background: #AAAAAA;
+}
+
+@media all and (max-width: 500px) {
+	.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+		float: none;
+	}
+
+	.ui-dialog .ui-dialog-buttonpane button {
+		margin-left: 5px;
+	}
+
+	.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button {
+		width: 100%;
+	}
+}

@@ -1,0 +1,599 @@
+Version: 3.0
+Date: 5th November 2016
+
+[Feature] Responsive
+[Feature] Search comments
+[Feature] HTML emails
+[Feature] Guest subscriptions
+[Feature] Upload images
+[Feature] Share comments
+[Feature] Modification system
+[Improvement] MVC & OOP
+[Improvement] Ajax (no page reload)
+[Improvement] Charts module for dashboard
+[Improvement] Uses Sass
+[Improvement] Auto updates time of comment
+[Improvement] Bio with badges & levels
+[Improvement] ReCaptcha v2
+[Improvement] Better SSL support
+[Improvement] Name and email must match
+[Improvement] Stronger password hashing
+[Improvement] Set modify permissions for admin account
+[Improvement] User emailed to say comment approved
+[Improvement] Change password without being logged out
+[Improvement] Backend uses jQuery UI Dialog
+[Improvement] Uses CSS normalize
+[Improvement] Set amount of repeating characters to detect
+[Improvement] Ability to use different database drivers
+[Improvement] Password strength indicator
+[Improvement] Setting to load jQuery locally or CDN
+[Improvement] Moderate each page differently
+[Improvement] Remembers sorting of admin results
+[Improvement] Setting for format of page number
+[Improvement] Ban using partial IP Address
+[Improvement] Uses fallback if mysqldump unavailable
+[Improvement] Setting to change comment area positions
+[Improvement] Moderate each user differently
+[Improvement] Uses Font Awesome icons
+[Improvement] User can select State location
+[Improvement] Backend uses built-in tables
+[Improvement] Stores modified database dates
+[Improvement] Dashboard shows important notices
+[Improvement] Menu items better organized
+[Improvement] Backend validates all inputs
+[Improvement] More translatable
+[Other] Word data moved to database
+[Other] Email data moved to database
+
+*************************************************************************
+
+Version: 2.5
+Date: 9th March 2014
+
+[Improvement] Switches from MySQL to MySQLi extension
+[Improvement] Subscribe to replies/admin comments only
+[Improvement] Adds ability to display parsing information
+[Improvement] Adds selectable themes to choose from
+[Improvement] Overridable CSS/language/agreement files
+[Improvement] Overridable email and word list files
+[Improvement] Loads jQuery even if no feature needs it
+[Improvement] Uses jQuery for reply smooth scroll
+[Improvement] Adds an IP address limit on unconfirmed subscriptions
+[Improvement] Uses jQuery UI to flash the permalink comment
+[Improvement] Changes true defines from string to boolean
+[Improvement] Flashes the vote number instead of a JS alert
+[Improvement] Moves sticky icon to top and admin name green
+[Improvement] Removes referrer check skip if URL is IP address
+[Improvement] Checks AP referrer against current page URL
+[Improvement] Removes JS alerts for voting error messages
+[Improvement] Removes JS alerts for flag error messages
+[Improvement] Redirects to /installer/ if it exists
+[Improvement] Displays RSS name without text afterwards
+[Improvement] Uses Colorbox for the agreement links
+[Improvement] Fades out the success/approve box
+[Improvement] Uses jQuery UI Sortable for drag & drop
+[Improvement] Uses jQuery UI Dialog for BB Code
+[Improvement] Shows an error message for invalid BB Code
+[Improvement] BB Code/Smiley tags are translatable
+[Improvement] Dates and times are translatable
+[Improvement] Uses JS for cookie so no need for ob_start()
+[Improvement] Improves the website validation function
+[Improvement] Uses jQuery Raty for ajax star rating
+[Improvement] Improves ambiguity of name/town validation
+[Improvement] Auto-populates the Installer
+[Improvement] Allows renaming of /comments/ folder
+[Improvement] Email and RSS use the permalink of comment
+[Improvement] Moves subscription link below signature
+[Improvement] Pagination links are CSS-styled buttons
+[Improvement] Adds descriptive text next to Sort By field
+[Improvement] Adds ability to use form placeholders
+[Improvement] Minor styling changes to RSS links
+[Improvement] Moves 3rd party scripts to dedicated folder
+[Improvement] Adds task to delete old comments
+[Improvement] Adds a php.ini file for CGI servers
+[Improvement] Moves admin notes/tips to admin panel
+[Improvement] Compatibility improvements for scripts
+[Improvement] Displays only one RSS link
+[Improvement] Changes to admin panel encoding
+[Improvement] Standardizing of code
+[Improvement] Installer interface changes
+[Improvement] Adds Italian language
+[Improvement] Minor language changes
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades Swift Mailer script
+[Improvement] Upgrades TinyMCE script
+[Bug Fix] Fixes 1px gap above admin notes textarea
+[Bug Fix] Fixes 'Cannot redeclare htmLawed()' error
+[Bug Fix] Fixes HTML5 validation error for empty countries
+[Bug Fix] Fixes loop causing slow keyword conversion
+[Bug Fix] Fixes missing CSS class for rating field
+[Bug Fix] Negates any letter-spacing on BB Code/Smilies
+[Bug Fix] Handling of viewer times longer than one hour
+[Bug Fix] Dutch language fixes
+[Bug Fix] German language fixes
+[Bug Fix] Admin panel HTML5 fixes
+[Bug Fix] Applies image border styling to Commentics only
+[Bug Fix] Fixes missing unsigned attribute from ints
+[Bug Fix] Attaches anchor directly to heading tags
+[Bug Fix] Only show add subscriber form if pages exist
+[Other] Allows validation of numbers in the name
+[Other] Disables IP address admin check
+[Other] Decreases time check for bots
+
+*************************************************************************
+
+Version: 2.4
+Date: 27th June 2013
+
+[Improvement] Adds bulk actions to the admin pages
+[Improvement] Adds Securimage captcha
+[Improvement] Adds support for custom Gravatar default image
+[Improvement] Adds an email setup page to control settings
+[Improvement] Adds setting to control reply scroll speed
+[Improvement] Minor changes to wording of email subjects
+[Improvement] Removes ID column in Manage -> Admins
+[Improvement] Adds Danish language
+[Improvement] Adds Bulgarian language
+[Improvement] Improves 'delay pages' logic
+[Improvement] Adds a 'trust previous users' approval setting
+[Improvement] Support for <h1> integration keyword
+[Improvement] Installer checks if MySQL extension enabled
+[Improvement] Adds settings to control state of form fields
+[Improvement] Upgrades Swift Mailer script
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades Menu script
+[Bug Fix] Compatibility fixes for mod_rewrite
+[Bug Fix] Compatibility fixes for <base> tag
+[Bug Fix] Admin comments needed approval if approving all
+[Bug Fix] French language fixes
+[Bug Fix] Increases size of URL database column length
+[Bug Fix] Comment min/max check and HTML entities
+[Other] Moves Akismet to its own folder
+[Other] Removes setting class
+[Other] 'Delay pages' setting enabled by default
+
+*************************************************************************
+
+Version: 2.3
+Date: 2nd February 2013
+
+[Feature] Permalink
+[Improvement] Frontend HTML5 compliant
+[Improvement] Lots of encoding improvements and fixes
+[Improvement] Support for MySQL port number
+[Improvement] More helpful database error messages
+[Improvement] Spaces are encoded in user-entered URLs
+[Improvement] Removal of subscriber activation feature
+[Improvement] Flag system simplified
+[Improvement] Cannot report an admin comment
+[Improvement] Support for BB Code video 'youtu.be'
+[Improvement] Viewers feature shows the search engine
+[Improvement] Error/Approve/Success box has BG colour
+[Improvement] Add text around the comment counter
+[Improvement] Performance of comments loop
+[Improvement] Installer checks if filter_var() available
+[Improvement] Installer has more accurate session check
+[Improvement] Removes ID column in Manage -> Pages
+[Improvement] 'Disable all forms' setting moved to Manage -> Pages
+[Improvement] Admin Panel uses HTML5 input type=email
+[Improvement] Admin Panel uses HTML5 'required' and 'autofocus'
+[Improvement] Database Backup tool warns if system() disabled
+[Improvement] ReCaptcha / Akismet warns if fsockopen() disabled
+[Improvement] Upgrades DataTables script
+[Improvement] Upgrades Swift Mailer script
+[Improvement] Upgrades TinyMCE script
+[Improvement] Upgrades jQuery script
+[Bug Fix] Headings were hyperlinked by anchors
+[Bug Fix] Layout when comment counter disabled
+[Bug Fix] Some '$' were not changed to 'jQuery'
+[Bug Fix] Delete replies loop didn't delete voters/reports
+[Bug Fix] All Installer files are now UTF-8
+[Bug Fix] Some anchors were used unnecessarily
+[Bug Fix] No height below reply message in Chrome
+[Bug Fix] Clicking BB Code/Smilies inserted URL of image
+[Bug Fix] Comment button IDs were not unique
+[Bug Fix] Characters like ö, ç and ü were encoded
+[Bug Fix] Question mark at times wrongly removed from URL
+[Bug Fix] Viewers feature did not auto refresh
+[Bug Fix] Multiple spaces in user inputs were preserved
+[Bug Fix] Empty BB Code tags were converted
+[Bug Fix] Fixes Swift Mailer exception error
+[Bug Fix] Disabling all smilies disables the feature
+[Other] Tested with latest PHP / MySQL / Apache
+[Other] Disables 'fix town'
+[Other] Updates copyright
+
+*************************************************************************
+
+Version: 2.2
+Date: 14th September 2012
+
+[Security] Brute-force login protection
+[Feature] Restrict admin page access
+[Improvement] Quick approve in Manage -> Comments
+[Improvement] Add multiple captcha answers with "|"
+[Improvement] Maximum BB Code image size
+[Improvement] Russian language
+[Improvement] Sort By links changed to drop-down
+[Improvement] Password reset limit (limit 5)
+[Improvement] Side-by-side layout option
+[Improvement] Frontend able to work without session
+[Improvement] jQuery '$' changed to 'jQuery'
+[Improvement] No margin/padding on form
+[Improvement] Installer checks if session available
+[Improvement] Added extra options to cURL
+[Improvement] Allows ' and " in JavaScript
+[Improvement] Checks admin cookie is alphanumeric
+[Improvement] Allows multiple cmtx_parameters
+[Improvement] "You're reviewing" changed to "Topic"
+[Improvement] Removes mismatching data ban
+[Improvement] Re-adds honeypot captcha
+[Improvement] Adds time-based captcha
+[Improvement] Style the submit/preview button
+[Improvement] Checks country is in country list
+[Improvement] Uses backticks for DB names/columns
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades TinyMCE script
+[Improvement] Upgrades Swift Mailer script
+[Improvement] Upgrades DataTables script
+[Bug Fix] CSS height_above_powered
+[Bug Fix] BB Code URL and UTF-8
+[Bug Fix] header() redirect fixes
+[Bug Fix] Incorrect setting for SMTP email
+[Bug Fix] RSS omits lastbuilddate if no items
+[Bug Fix] Allows page URI to be mixed case
+[Bug Fix] Comment resubmit check fixes
+[Bug Fix] Referrer check fixes
+[Bug Fix] Allows ' in countries
+[Bug Fix] Time zone fixes
+
+*************************************************************************
+
+Version: 2.1
+Date: 12th July 2012
+
+[Security] Admin panel CSRF protection
+[Security] Admin panel DB backup deletion
+[Security] Admin panel XSS on a few pages
+[Security] Admin panel Drop-downs sanitized
+[Improvement] Upgrades DataTables script
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades Swift Mailer script
+[Improvement] Upgrades TinyMCE script
+[Bug Fix] YouTube and https
+[Bug Fix] Installer cURL check
+[Bug Fix] Admin panel unique session
+[Bug Fix] Admin panel xHTML fixes
+[Bug Fix] Admin panel DB backup details
+[Bug Fix] Admin panel Viewers info updated
+[Other] Enables 'Check Referrer'
+
+*************************************************************************
+
+Version: 2.0
+Date: 19th June 2012
+
+[Feature] ReCaptcha
+[Feature] Hide Form
+[Feature] Read More
+[Improvement] Average rating displays x/5
+[Improvement] Error reporting code in function
+[Improvement] Gravatar size option
+[Improvement] Gravatar options now selectable
+[Improvement] Text Finder tool in admin panel
+[Improvement] Re-connects to original DB after script
+[Improvement] Comment count after heading 'Comments'
+[Improvement] Flag email message is shorter & simpler
+[Improvement] Field label 'Vote' changed to 'Rating'
+[Improvement] No maximum field length ban
+[Improvement] Field sizes controlled by CSS
+[Improvement] Unique CSS variables
+[Improvement] Unique JavaScript variables
+[Improvement] Unique PHP variables
+[Improvement] Translatable countries
+[Improvement] Edit bans in admin panel
+[Improvement] Google Bookmarks changed to Google+
+[Improvement] Word 'Reject' changed to 'Error' in admin panel
+[Improvement] printf and sprintf used in language files
+[Improvement] Default comments order can be any Sort By order
+[Improvement] AP note to explain PHP email method is typical
+[Improvement] Disabled rating field says 'Already Rated'
+[Improvement] Font size of medium for Quote/PHP/Code boxes
+[Improvement] User can choose whether to store the form cookie
+[Improvement] Greater control over sort order of fields
+[Improvement] Admin Panel checks 'Comments URL' setting
+[Improvement] JavaScript disabled message auto width
+[Improvement] Smilies maximum error msg says how many allowed
+[Improvement] Wildcard support for word detection features
+[Improvement] Does not fall back to ID if custom ID not found
+[Improvement] Pass form field values in integration code
+[Improvement] Don't create the page until user posts
+[Improvement] Control cookie expiration for form & admin
+[Improvement] Ignores email subscription related errors
+[Improvement] Displays the topic being reviewed
+[Improvement] Choose the Rich Snippets format
+[Improvement] No need to add Rich Snippets mark-up
+[Improvement] No exclamation marks in JavaScript alerts
+[Improvement] Task to re-activate inactive subscribers
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades Swift Mailer script
+[Improvement] Upgrades DataTables script
+[Improvement] Upgrades TinyMCE script
+[Bug Fix] Page ID/Reference was not decoded for emails
+[Bug Fix] No need to globalise variables before script
+[Bug Fix] Extra 'height_between_comments' divs produced
+[Bug Fix] Character length check of cookies incorrect
+[Bug Fix] Reply link and base href tag
+[Bug Fix] Reply link and quotes
+[Bug Fix] Dutch language fixes
+[Bug Fix] Dollar symbol and database details
+[Bug Fix] Different Page ID due to cmtx_page=x/cmtx_sort=x
+[Bug Fix] Admin Panel xHTML fixes
+[Bug Fix] Display of Sort By links and | character
+[Bug Fix] Dashboard statistics and ban count
+[Bug Fix] < and > pagination xHTML fix
+[Other] Tool -> Viewers moved to Report -> Viewers
+[Other] Renames 'custom_id' column to 'page_id'
+[Other] Notify checkbox unchecked by default
+[Other] More lenient flooding check
+[Other] More lenient min words/chars check
+
+*************************************************************************
+
+Version: 1.8
+Date: 3rd March 2012
+
+[Feature] Akismet
+[Feature] Sort By
+[Feature] Gravatar
+[Feature] Sticky Comments
+[Improvement] BB Code video tag
+[Improvement] Remove spam
+[Improvement] Dutch language
+[Improvement] Unique URL parameters
+[Improvement] Unique anchor tags
+[Improvement] Unique POST data
+[Improvement] Adds 'nofollow' tags
+[Improvement] Dashboard revamp
+[Improvement] WYSIWYG TinyMCE
+[Improvement] Style the reply boxes
+[Improvement] 'require_once' favoured
+[Improvement] Adds more admin tips
+[Improvement] More admin help icons
+[Improvement] DB details has own file
+[Improvement] Removes top/divider
+[Improvement] Change comments/form order
+[Improvement] Can't vote/flag own comment
+[Improvement] Banned cannot vote comments
+[Improvement] Preserves file encoding
+[Improvement] 'Misc' folder for images
+[Improvement] Terms & Conditions edited
+[Improvement] Lock comment replies
+[Improvement] 'Get help..' links to wiki
+[Improvement] Removes trap fields
+[Improvement] Limit 'Manage -> *' results
+[Improvement] No invalid country/rating ban
+[Improvement] Admin menu mobile-compatible
+[Improvement] Upgrades Swift Mailer script
+[Improvement] Upgrades DataTables script
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades script.aculo.us
+[Bug Fix] 'frm' is undefined
+[Bug Fix] RSS uses URL (not server) path
+[Bug Fix] Height fixes (less use of p tag)
+[Bug Fix] Minimizes use of die() function
+[Bug Fix] Some data overly-sanitized
+[Bug Fix] Admin label position
+[Other] Renames 'banned' table to 'bans'
+[Other] Renames 'last_login' table to 'logins'
+[Other] Removes toggle_visibility function
+[Other] Changes two BB Code images
+[Other] Updates copyright
+
+*************************************************************************
+
+Version: 1.7
+Date: 3rd November 2011
+
+[Feature] Rich Snippets
+[Improvement] Threaded replies
+[Improvement] Slovenian language
+[Improvement] Croatian language
+[Improvement] Thai language
+[Improvement] BB Code quote tag
+[Improvement] Smiley choices
+[Improvement] New star images
+[Improvement] Mbstring fallback
+[Improvement] License in Help Menu
+[Improvement] Super Admin column
+[Improvement] More help icons/links
+[Improvement] Adds 'nofollow' tags
+[Improvement] Universal questions
+[Improvement] Admin IP kept up-to-date
+[Improvement] Transparent captcha imgs
+[Improvement] Less strict referrer check
+[Improvement] Swift Mailer integration
+[Improvement] Banned cannot flag comment
+[Improvement] Asterisk for terms/privacy
+[Improvement] View PHPInfo report in AP
+[Improvement] WYSIWYG for Edit Comment
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades captcha script
+[Bug Fix] Mod Rewrite
+[Bug Fix] Edit comment 'Reply to' order
+[Bug Fix] Email comment and UTF-8
+[Bug Fix] Saving of BB Code email tag
+[Bug Fix] Disable Enter affects whole page
+[Other] Removes thumbs.db files
+
+*************************************************************************
+
+Version: 1.6
+Date: 26th July 2011
+
+[Improvement] Multilingual admin panel
+[Improvement] Admin comment label
+[Improvement] Valid XHTML/CSS
+[Improvement] Reply arrow
+[Improvement] Fewer countries
+[Improvement] German translation improved
+[Improvement] More 'repeat rating' options
+[Improvement] jQuery from Google API
+[Improvement] jQuery not loaded if present
+[Improvement] Social links moved
+[Improvement] Reply message instead of field
+[Improvement] Anchor locations changed
+[Improvement] Hide trap bans in Admin Panel
+[Improvement] Field sizes are the same
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades captcha script
+[Improvement] Upgrades jQuery script
+[Bug Fix] Transparency / Dark background
+[Bug Fix] Valid website fix
+[Bug Fix] Anchor tag ID
+[Bug Fix] No title for reply link
+[Bug Fix] RSS name CDATA
+[Bug Fix] Moving a comment moves its replies
+[Bug Fix] Captcha uses URL (not server) path
+[Bug Fix] Agreement uses URL (not server) path
+[Other] Enables JS Like/Dislike OK msg
+[Other] Disables 'check repeats'
+[Other] Disables 'check capitals'
+
+*************************************************************************
+
+Version: 1.5
+Date: 7th May 2011
+
+[Feature] Like/Dislike comment
+[Feature] Report comment
+[Improvement] Admin Panel can chmod DB file
+[Improvement] German translation improved
+[Improvement] Task to delete old comment IPs
+[Improvement] Disable DB file permission check
+[Improvement] Adds two more admin tips
+[Bug Fix] Fixes encoding detection
+[Bug Fix] Image sources use URL (not server) path
+[Bug Fix] Sets time zone for database
+[Bug Fix] Spelling corrections
+[Other] Removes setting for order of form/comments
+[Other] Renames setting for order of comments
+
+*************************************************************************
+
+Version: 1.4
+Date: 7th April 2011
+
+[Feature] Reset admin panel password
+[Feature] AP access log/quick links
+[Improvement] Automatic page creation
+[Improvement] Stops repeating characters
+[Improvement] Adds 'LinkedIn' social image
+[Improvement] Form inputs remembered by cookie
+[Improvement] Consolidation of several functions
+[Improvement] System Check requires mbstring
+[Improvement] Detects links in non-link fields
+[Improvement] Captcha removed following preview
+[Improvement] Increases control over town field
+[Improvement] Upgrades DataTables script
+[Bug Fix] Trap ban and auto-fill
+[Bug Fix] Removes 'Options' from .htaccess files
+[Bug Fix] Outputs only necessary JavaScript
+[Bug Fix] Var $cookie_value undefined in cases
+[Bug Fix] Referrer Check & IP based domains
+[Other] Re-adjusts height between sections
+
+*************************************************************************
+
+Version: 1.3.5
+Date: 23rd January 2011
+
+[Improvement] Smooth scroll
+[Bug Fix] Suhosin compatible
+
+*************************************************************************
+
+Version: 1.3
+Date: 14th January 2011
+
+[Feature] Comment Reply
+[Feature] Social Links
+[Improvement] Multilingual Support
+[Improvement] Help page to explain ban reasons
+[Improvement] Approval statistic sentence red if above 0
+[Improvement] News section allows HTML
+[Improvement] Enable/Disable trap check
+[Improvement] Display or hide date
+[Improvement] Anchors Optional
+[Improvement] Upgrades DataTables
+[Bug Fix] Shortens RSS links
+[Bug Fix] 'FilesMatch' is removed from .htaccess files
+[Bug Fix] Uses 'SET NAMES' if mysql_set_charset() is undefined
+[Bug Fix] Preview text same size as time/date
+[Bug Fix] Minimizes use of Die() Function
+[Bug Fix] Prevent Resubmit
+[Bug Fix] Distinct Function Names/Define Text
+[Bug Fix] Spelling corrections
+[Bug Fix] 'Detect Link' typo
+[Other] Demo Capability
+[Other] Files UTF-8 encoded
+[Other] Donate Page
+[Other] Updates copyright
+
+*************************************************************************
+
+Version: 1.2
+Date: 7th September 2010
+
+[Feature] BB Code
+[Feature] Multiple Administrators
+[Feature] Administrator notes
+[Improvement] Change display order of form & comments
+[Improvement] Dashboard revamp
+[Improvement] Admin comment box has distinct styling
+[Improvement] Extends admin cookie length to 365 days
+[Improvement] Upgrades DataTables script
+[Improvement] Checks comment for excessive capitals
+[Improvement] Separates comment max length & max lines
+[Bug Fix] Referrer & www / Referrer & index.php
+[Bug Fix] Fixes encoding detection
+[Bug Fix] Adds admin link to banned website list
+[Bug Fix] Fixes website ping
+[Bug Fix] Fixes backend 'line break' settings error
+[Other] Removes stylesheet2 for simplicty
+[Other] Adds content-type/charset to emails
+
+*************************************************************************
+
+Version: 1.1
+Date: 8th August 2010
+
+[Feature] Admin reply within user's post
+[Feature] Automatic link parsing
+[Improvement] Reserve email addresses and websites
+[Improvement] Enter your own page ID when creating a page
+[Improvement] Preserves URL parameters (and adjusts referrer check)
+[Improvement] Administrator can not be banned
+[Improvement] Added new words to reserved names
+[Improvement] Dummy data now catches all TLDs
+[Improvement] UTF-8 capable
+[Improvement] Website field has 'nofollow' and 'new window' settings
+[Improvement] Powered By has 'new window' setting
+[Improvement] Enable/Disable referrer check in admin panel
+[Improvement] More accurate 'already installed' check
+[Improvement] Pagination uses anchor text to avoid scrolling
+[Improvement] Deleting a ban deletes ban cookie on next visit
+[Improvement] Login page displays link to 'lost password' FAQ
+[Improvement] System Check during install/upgrade
+[Improvement] Upgrades DataTables script
+[Improvement] Page combo box instead of text field
+[Bug Fix] Removes default value for text columns in installer
+[Bug Fix] Fixes drag & drop JavaScript error
+[Bug Fix] Fixes Opera-only search issue
+[Other] Changes 'pagination range' from 5 to 4
+[Other] Switches default stylesheet
+
+*************************************************************************

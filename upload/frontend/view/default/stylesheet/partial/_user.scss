@@ -1,0 +1,98 @@
+// _partial/_user.scss
+
+.cmtx_user_container {
+	.cmtx_user_heading {
+		color: #636E75;
+		font-size: 32px;
+		font-weight: normal;
+		margin-bottom: 10px;
+		margin-top: 0;
+	}
+
+	.cmtx_message {
+		display: block;
+	}
+
+	.cmtx_user_section_title {
+		background: #585858;
+		color: #FFFFFF;
+		height: 25px;
+		padding-left: 5px;
+		padding-top: 5px;
+	}
+
+	.cmtx_user_section_body {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.cmtx_user_custom_text {
+		color: #838B8B;
+		font-size: 0.8em;
+		margin-bottom: 8px;
+	}
+
+	.cmtx_table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	.cmtx_table tr:nth-of-type(odd) {
+		background: #EEEEEE;
+	}
+
+	.cmtx_table th {
+		background: #FFFFFF;
+		color: #3B3B3B;
+		font-weight: bold;
+	}
+
+	.cmtx_table td, th {
+		padding: 3px;
+		padding-left: 5px;
+		border: 1px solid #CCCCCC;
+		text-align: left;
+	}
+
+	.cmtx_table td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.cmtx_table tbody tr:hover {
+		background-color: #FDFCDC;
+	}
+
+	.cmtx_table td:last-of-type a {
+		outline: none;
+	}
+
+	.cmtx_table .cmtx_no_results {
+		text-align: center;
+	}
+
+	.cmtx_trash_icon:before {
+		font-family: FontAwesome;
+		display: inline-block;
+		content: "\f014";
+		color: #FF0000;
+		cursor: pointer;
+	}
+}
+
+@media all and (max-width: 750px) {
+	.cmtx_table, .cmtx_table thead, .cmtx_table tbody, .cmtx_table th, .cmtx_table td, .cmtx_table tr {
+		display: block;
+	}
+
+	.cmtx_table tr {
+		border: 1px solid #CCCCCC;
+		margin-bottom: 10px;
+	}
+
+	.cmtx_table td {
+		border: none;
+		border-bottom: 1px solid #DEDEDE;
+	}
+}

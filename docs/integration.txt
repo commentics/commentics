@@ -1,0 +1,21 @@
+INTEGRATION (detailed guide at commentics.org/wiki)
+
+Add the following to the very top of your page (if not there already):
+
+<?php
+session_start();
+?>
+
+Add the following inside the <head> tag of your page (if not there already):
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+Add the following inside the <body> tag of your page:
+
+<?php
+$cmtx_identifier = '1';
+$cmtx_reference  = 'Page One';
+$cmtx_folder     = 'upload/';
+require($_SERVER['DOCUMENT_ROOT'] . $cmtx_folder . 'frontend/index.php');
+?>
