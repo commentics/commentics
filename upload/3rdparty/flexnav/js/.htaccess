@@ -1,4 +1,4 @@
-OPTIONS -ExecCGI
+# OPTIONS -ExecCGI
 
 # deny everything
 <FilesMatch ".*">
