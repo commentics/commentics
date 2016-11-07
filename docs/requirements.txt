@@ -4,7 +4,7 @@ The server MUST have:
 		* Ctype extension
 		* Filter extension
 		* JSON extension
-	* MySQL 5.0.7 or higher
+	* MySQL 5.6.5 or higher
 
 The server SHOULD have:
 
