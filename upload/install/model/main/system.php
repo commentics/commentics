@@ -15,7 +15,7 @@ class MainSystemModel extends Model {
 			$check['continue'] = false;
 		}
 
-		if (version_compare($this->db->getServerInfo(), '5.0.7', '>=')) {
+		if (version_compare($this->db->getServerInfo(), '5.6.5', '>=')) {
 			$check['mysql_version'] = true;
 		} else {
 			$check['mysql_version'] = false;
