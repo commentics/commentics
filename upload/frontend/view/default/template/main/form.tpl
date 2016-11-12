@@ -164,7 +164,7 @@
 						<div class="<?php echo 'cmtx_col_' . $geo_column_size; ?>">
 							<div class="cmtx_container cmtx_country_container">
 								<select name="cmtx_country" id="cmtx_country" class="cmtx_field cmtx_select_field cmtx_country_field <?php echo $country_symbol; ?>" title="<?php echo $lang_title_country; ?>" <?php if ($country_is_filled && $filled_country_action == 'disable') { echo 'disabled'; } ?>>
-									<option value="" hidden disabled><?php echo $lang_placeholder_country; ?></option>
+									<option value="" hidden><?php echo $lang_placeholder_country; ?></option>
 									<?php foreach ($countries as $country) { ?>
 										<option value="<?php echo $country['id']; ?>" <?php if ($country['id'] && $country['id'] == $country_id) { echo 'selected'; } ?> <?php if ($country['name'] == '---') { echo 'disabled'; } ?>><?php echo $country['name']; ?></option>
 									<?php } ?>
@@ -177,7 +177,7 @@
 						<div class="<?php echo 'cmtx_col_' . $geo_column_size; ?>">
 							<div class="cmtx_container cmtx_state_container">
 								<select name="cmtx_state" id="cmtx_state" class="cmtx_field cmtx_select_field cmtx_state_field <?php echo $state_symbol; ?>" title="<?php echo $lang_title_state; ?>" <?php if ($state_is_filled && $filled_state_action == 'disable') { echo 'disabled'; } ?>>
-									<option value="" hidden disabled><?php echo $lang_placeholder_state; ?></option>
+									<option value="" hidden><?php echo $lang_placeholder_state; ?></option>
 									<?php foreach ($states as $state) { ?>
 										<option value="<?php echo $state['id']; ?>" <?php if ($state && $state['id'] == $state_id) { echo 'selected'; } ?>><?php echo $state['name']; ?></option>
 									<?php } ?>
@@ -496,7 +496,7 @@
 						setTimeout(function() {
 							states = response;
 
-							html = '<option value=""><?php echo $lang_placeholder_state; ?></option>';
+							html = '<option value="" hidden><?php echo $lang_placeholder_state; ?></option>';
 
 							if (states.length) {
 								for (i = 0; i < states.length; i++) {
