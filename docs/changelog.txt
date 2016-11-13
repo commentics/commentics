@@ -1,3 +1,10 @@
+Version:
+Date:
+
+[Bug Fix] Fix for no default country
+
+*************************************************************************
+
 Version: 3.0
 Date: 5th November 2016
 
