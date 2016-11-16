@@ -13,7 +13,6 @@ class EditCommentController extends Controller {
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 			if ($this->validate()) {
-				//var_dump($this->request->post['comment']);die;
 				$this->model_edit_comment->update($this->request->post, $this->request->get['id']);
 
 				$this->session->data['cmtx_success'] = $this->data['lang_message_success'];
