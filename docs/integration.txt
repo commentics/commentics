@@ -16,6 +16,6 @@ Add the following inside the <body> tag of your page:
 <?php
 $cmtx_identifier = '1';
 $cmtx_reference  = 'Page One';
-$cmtx_folder     = 'upload/';
+$cmtx_folder     = '/upload/';
 require($_SERVER['DOCUMENT_ROOT'] . $cmtx_folder . 'frontend/index.php');
 ?>
