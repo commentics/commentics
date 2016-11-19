@@ -7,7 +7,7 @@ class Variable {
 		if (function_exists('mb_convert_case') && is_callable('mb_convert_case')) {
 			return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
 		} else {
-			return ucwords($this->stringToLower($value));
+			return ucwords($this->strtolower($value));
 		}
 	}
 
