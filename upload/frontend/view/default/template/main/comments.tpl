@@ -415,11 +415,13 @@
 		<script>
 		// <![CDATA[
 		$(document).ready(function() {
-			$('.cmtx_upload_area a').colorbox({
-				maxWidth: '80%',
-				maxHeight: '50%',
-				rel: function() { return $(this).data('cmtx-rel'); }
-			})
+			if (typeof colorbox != 'undefined') {
+				$('.cmtx_upload_area a').colorbox({
+					maxWidth: '80%',
+					maxHeight: '50%',
+					rel: function() { return $(this).data('cmtx-rel'); }
+				})
+			}
 		});
 		// ]]>
 		</script>

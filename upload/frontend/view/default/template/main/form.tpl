@@ -603,9 +603,11 @@
 					if (response['result']['success']) {
 						$('#cmtx_comment, #cmtx_answer, #cmtx_securimage').val('');
 
-						var filerKit = $("#filer_input").prop('jFiler');
+						var filerKit = $('#filer_input').prop('jFiler');
 
-						filerKit.reset();
+						if (typeof filerKit != 'undefined') {
+							filerKit.reset();
+						}
 
 						$('.cmtx_image_row').hide();
 
