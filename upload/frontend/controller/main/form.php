@@ -1312,14 +1312,6 @@ class MainFormController extends Controller {
 					$notes = $this->data['lang_text_moderate_page_n'];
 				} else if ($approve) {
 
-				} else if ($this->setting->has('akismet_enabled') && $this->setting->get('akismet_enabled') && extension_loaded('curl')) {
-					if ($this->model_main_form->isAkismetSpam($ip_address, $page['url'], $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $this->request->post['cmtx_website'], $this->request->post['cmtx_comment'])) {
-						$approve = $this->data['lang_text_moderate_akismet_y'];
-					} else {
-						$approve = '';
-
-						$notes = $this->data['lang_text_moderate_akismet_n'];
-					}
 				} else if ($this->setting->get('approve_comments')) {
 					if ($user && $this->setting->get('trust_previous_users')) {
 						if ($this->model_main_form->hasUserPreviouslyPostedApprovedComment($user['id'])) {
@@ -1331,6 +1323,14 @@ class MainFormController extends Controller {
 						}
 					} else {
 						$approve = $this->data['lang_text_moderate_all'];
+					}
+				} else if ($this->setting->has('akismet_enabled') && $this->setting->get('akismet_enabled') && extension_loaded('curl')) {
+					if ($this->model_main_form->isAkismetSpam($ip_address, $page['url'], $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $this->request->post['cmtx_website'], $this->request->post['cmtx_comment'])) {
+						$approve = $this->data['lang_text_moderate_akismet_y'];
+					} else {
+						$approve = '';
+
+						$notes = $this->data['lang_text_moderate_akismet_n'];
 					}
 				}
 
