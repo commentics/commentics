@@ -41,7 +41,22 @@ class Url {
 	 * For example http://www.example.com becomes //www.example.com
 	 */
 	public function getCommenticsUrl() {
-		return preg_replace('/^https?:/', '', $this->setting->get('commentics_url'));
+		$commentics_url = preg_replace('/^https?:/', '', $this->setting->get('commentics_url'));
+
+		/* If URL being viewed contains www. */
+		if (substr(strtolower($this->request->server['HTTP_HOST']), 0, 4) == 'www.') {
+			/* If Commentics URL setting does not contain www. */
+			if (substr(strtolower($commentics_url), 0, 6) != '//www.') {
+				$commentics_url = substr_replace($commentics_url, 'www.', 2, 0); // Add www.
+			}
+		} else { // URL does not contain www.
+			/* If Commentics URL setting contains www. */
+			if (substr(strtolower($commentics_url), 0, 6) == '//www.') {
+				$commentics_url = substr_replace($commentics_url, '', 2, 4); // Remove www.
+			}
+		}
+
+		return $commentics_url;
 	}
 
 	/* Modifies the supplied page URL by adding a page parameter to be used by search engines */
