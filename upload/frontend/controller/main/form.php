@@ -70,6 +70,13 @@ class MainFormController extends Controller {
 				$this->data['enabled_bb_code_email'] = $this->setting->get('enabled_bb_code_email');
 				$this->data['enabled_bb_code_image'] = $this->setting->get('enabled_bb_code_image');
 				$this->data['enabled_bb_code_youtube'] = $this->setting->get('enabled_bb_code_youtube');
+			} else {
+				$this->data['enabled_bb_code_bullet'] = false;
+				$this->data['enabled_bb_code_numeric'] = false;
+				$this->data['enabled_bb_code_link'] = false;
+				$this->data['enabled_bb_code_email'] = false;
+				$this->data['enabled_bb_code_image'] = false;
+				$this->data['enabled_bb_code_youtube'] = false;
 			}
 
 			/* Smilies */
