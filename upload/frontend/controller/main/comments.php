@@ -209,12 +209,36 @@ class MainCommentsController extends Controller {
 			if ($this->setting->get('comments_position_' . $i) && array_key_exists($this->setting->get('comments_position_' . $i), $outer_components)) {
 				$this->data['comments_position_' . $i] = $outer_components[$this->setting->get('comments_position_' . $i)];
 
-				if (trim(empty($this->data['comments_position_' . $i]))) {
+				if (empty(trim($this->data['comments_position_' . $i]))) {
 					$this->data['comments_position_' . $i] = '&nbsp;';
 				}
 			} else {
 				$this->data['comments_position_' . $i] = '&nbsp;';
 			}
+		}
+
+		if ($this->data['comments_position_1'] != '&nbsp;' || $this->data['comments_position_2'] != '&nbsp;' || $this->data['comments_position_3'] != '&nbsp;') {
+			$this->data['row_one'] = true;
+		} else {
+			$this->data['row_one'] = false;
+		}
+
+		if ($this->data['comments_position_4'] != '&nbsp;' || $this->data['comments_position_5'] != '&nbsp;' || $this->data['comments_position_6'] != '&nbsp;') {
+			$this->data['row_two'] = true;
+		} else {
+			$this->data['row_two'] = false;
+		}
+
+		if ($this->data['comments_position_7'] != '&nbsp;' || $this->data['comments_position_8'] != '&nbsp;' || $this->data['comments_position_9'] != '&nbsp;') {
+			$this->data['row_three'] = true;
+		} else {
+			$this->data['row_three'] = false;
+		}
+
+		if ($this->data['comments_position_10'] != '&nbsp;' || $this->data['comments_position_11'] != '&nbsp;' || $this->data['comments_position_12'] != '&nbsp;') {
+			$this->data['row_four'] = true;
+		} else {
+			$this->data['row_four'] = false;
 		}
 
 		if ($this->setting->has('rich_snippets_enabled') && $this->setting->get('rich_snippets_enabled')) {

@@ -6,17 +6,21 @@
 			<div itemscope itemtype="http://schema.org/<?php echo $rich_snippets_type; ?>">
 		<?php } ?>
 
-		<div class="cmtx_comments_row_one cmtx_clear">
-			<div class="cmtx_row_left <?php if (trim($comments_position_1) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_1; ?></div>
-			<div class="cmtx_row_middle <?php if (trim($comments_position_2) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_2; ?></div>
-			<div class="cmtx_row_right <?php if (trim($comments_position_3) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_3; ?></div>
-		</div>
+		<?php if ($row_one) { ?>
+			<div class="cmtx_comments_row_one cmtx_clear">
+				<div class="cmtx_row_left <?php if ($comments_position_1 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_1; ?></div>
+				<div class="cmtx_row_middle <?php if ($comments_position_2 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_2; ?></div>
+				<div class="cmtx_row_right <?php if ($comments_position_3 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_3; ?></div>
+			</div>
+		<?php } ?>
 
-		<div class="cmtx_comments_row_two cmtx_clear">
-			<div class="cmtx_row_left <?php if (trim($comments_position_4) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_4; ?></div>
-			<div class="cmtx_row_middle <?php if (trim($comments_position_5) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_5; ?></div>
-			<div class="cmtx_row_right <?php if (trim($comments_position_6) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_6; ?></div>
-		</div>
+		<?php if ($row_two) { ?>
+			<div class="cmtx_comments_row_two cmtx_clear">
+				<div class="cmtx_row_left <?php if ($comments_position_4 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_4; ?></div>
+				<div class="cmtx_row_middle <?php if ($comments_position_5 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_5; ?></div>
+				<div class="cmtx_row_right <?php if ($comments_position_6 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_6; ?></div>
+			</div>
+		<?php } ?>
 
 		<div class="cmtx_comment_boxes">
 			<?php foreach ($comments as $comment) { ?>
@@ -75,17 +79,21 @@
 			<?php } ?>
 		</div>
 
-		<div class="cmtx_comments_row_three cmtx_clear">
-			<div class="cmtx_row_left <?php if (trim($comments_position_7) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_7; ?></div>
-			<div class="cmtx_row_middle <?php if (trim($comments_position_8) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_8; ?></div>
-			<div class="cmtx_row_right <?php if (trim($comments_position_9) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_9; ?></div>
-		</div>
+		<?php if ($row_three) { ?>
+			<div class="cmtx_comments_row_three cmtx_clear">
+				<div class="cmtx_row_left <?php if ($comments_position_7 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_7; ?></div>
+				<div class="cmtx_row_middle <?php if ($comments_position_8 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_8; ?></div>
+				<div class="cmtx_row_right <?php if ($comments_position_9 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_9; ?></div>
+			</div>
+		<?php } ?>
 
-		<div class="cmtx_comments_row_four cmtx_clear">
-			<div class="cmtx_row_left <?php if (trim($comments_position_10) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_10; ?></div>
-			<div class="cmtx_row_middle <?php if (trim($comments_position_11) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_11; ?></div>
-			<div class="cmtx_row_right <?php if (trim($comments_position_12) == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_12; ?></div>
-		</div>
+		<?php if ($row_four) { ?>
+			<div class="cmtx_comments_row_four cmtx_clear">
+				<div class="cmtx_row_left <?php if ($comments_position_10 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_10; ?></div>
+				<div class="cmtx_row_middle <?php if ($comments_position_11 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_11; ?></div>
+				<div class="cmtx_row_right <?php if ($comments_position_12 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_12; ?></div>
+			</div>
+		<?php } ?>
 
 		<div id="cmtx_flag_dialog" title="<?php echo $lang_dialog_flag_title; ?>" style="display:none">
 			<span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_flag_content; ?>
