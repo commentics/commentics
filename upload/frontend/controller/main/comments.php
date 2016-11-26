@@ -144,6 +144,7 @@ class MainCommentsController extends Controller {
 		$this->data['show_share_twitter']     = $this->setting->get('show_share_twitter');
 		$this->data['show_flag']              = $this->setting->get('show_flag');
 		$this->data['show_permalink']         = $this->setting->get('show_permalink');
+		$this->data['hide_replies']           = $this->setting->get('hide_replies');
 		$this->data['reply_indent']           = $this->setting->get('reply_indent');
 		$this->data['reply_max_depth']        = $this->setting->get('reply_depth');
 		$this->data['scroll_reply']           = $this->setting->get('scroll_reply');

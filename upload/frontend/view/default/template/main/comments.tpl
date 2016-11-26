@@ -35,7 +35,7 @@
 				<?php require(cmtx_modification(CMTX_DIR_VIEW . 'default/template/main/comment.tpl')); ?>
 
 				<?php if ($has_replies) { ?>
-					<div class="cmtx_replies_group" style="display:none">
+					<div class="cmtx_replies_group <?php if ($hide_replies) { echo 'cmtx_hide'; } ?>">
 				<?php } ?>
 
 				<?php foreach ($comment['reply_id'] as $reply) { ?>

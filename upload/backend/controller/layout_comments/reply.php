@@ -21,6 +21,14 @@ class LayoutCommentsReplyController extends Controller {
 			$this->data['show_reply'] = $this->setting->get('show_reply');
 		}
 
+		if (isset($this->request->post['hide_replies'])) {
+			$this->data['hide_replies'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['hide_replies'])) {
+			$this->data['hide_replies'] = false;
+		} else {
+			$this->data['hide_replies'] = $this->setting->get('hide_replies');
+		}
+
 		if (isset($this->request->post['reply_indent'])) {
 			$this->data['reply_indent'] = $this->request->post['reply_indent'];
 		} else {

@@ -34,6 +34,12 @@
 		</div>
 
 		<div class="fieldset">
+			<label><?php echo $lang_entry_hide; ?></label>
+			<input type="checkbox" name="hide_replies" value="1" <?php if ($hide_replies) { echo 'checked'; } ?>>
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_hide_replies; ?>', this, event, '')">[?]</a>
+		</div>
+
+		<div class="fieldset">
 			<label><?php echo $lang_entry_indent; ?></label>
 			<input type="text" required name="reply_indent" class="small" value="<?php echo $reply_indent; ?>" maxlength="3">
 			<span class="note"><?php echo $lang_note_pixels; ?></span>

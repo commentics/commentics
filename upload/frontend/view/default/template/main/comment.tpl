@@ -181,7 +181,7 @@
 				</div>
 			</div>
 		</div>
-		<?php if ($has_replies && !$reply_depth) { ?>
+		<?php if ($has_replies && !$reply_depth && $hide_replies) { ?>
 			<div class="cmtx_view_replies_area">
 				<a href="#" class="cmtx_view_replies_link" title="View replies"></a>
 			</div>
