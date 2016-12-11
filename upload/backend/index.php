@@ -1,7 +1,7 @@
 <?php
 define('CMTX_BACKEND', true);
 
-define('CMTX_VERSION', '3.0');
+define('CMTX_VERSION', '3.1');
 
 header('Content-Type: text/html; charset=utf-8');
 

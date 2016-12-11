@@ -2,7 +2,7 @@ Project:	Commentics
 
 Website:	https://www.commentics.org
 
-Version:	v3.0 (5th November 2016)
+Version:	v3.1 (11th December 2016)
 
 Description:	Integrates into your website to allow visitors to submit comments
 
