@@ -170,6 +170,8 @@ class MainUpgrade2Model extends Model {
 		}
 
 		if ($version == '3.0 -> 3.1') {
+			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `website` = '' WHERE `website` = 'http://'");
+
 			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'hide_replies', `value` = '1'");
 		}
 	}
