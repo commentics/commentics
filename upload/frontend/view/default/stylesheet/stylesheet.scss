@@ -1,9 +1,10 @@
 $grey: #828282;
 
-.cmtx_container {
+.cmtx_container, #colorbox {
 	* {
 		box-sizing: border-box;
 		line-height: normal;
+		font-weight: normal;
 	}
 
 	*:before {
@@ -12,6 +13,10 @@ $grey: #828282;
 
 	*:after {
 		box-sizing: border-box;
+	}
+
+	h3 {
+		font-weight: bold;
 	}
 
 	ul, ol {
@@ -28,6 +33,14 @@ $grey: #828282;
 
 	li {
 		padding: 2px;
+	}
+
+	a {
+		text-decoration: underline;
+	}
+
+	input, select, textarea, label {
+		margin: 0 !important;
 	}
 }
 

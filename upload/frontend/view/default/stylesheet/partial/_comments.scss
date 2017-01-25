@@ -131,20 +131,24 @@
 	display: table-row;
 }
 
-.cmtx_bio_info_likes span {
-	color: #006400;
-}
-
-.cmtx_bio_info_dislikes span {
-	color: #D12F19;
-}
-
 .cmtx_bio_info label {
 	display: table-cell;
 	padding-right: 10px;
 	vertical-align: top;
 	font-weight: bold;
 	text-align: left;
+}
+
+.cmtx_bio_info span {
+	font-weight: normal;
+}
+
+.cmtx_bio_info_likes span {
+	color: #006400;
+}
+
+.cmtx_bio_info_dislikes span {
+	color: #D12F19;
 }
 
 .cmtx_badge {
@@ -192,7 +196,7 @@
 	margin-top: -2px;
 }
 
-.cmtx_name {
+.cmtx_name_text {
 	font-weight: bold;
 }
 
@@ -243,6 +247,7 @@
 	margin-top: 7px;
 	margin-bottom: 7px;
 	line-height: 22px;
+	font-weight: normal;
 }
 
 .cmtx_replies_group {
@@ -310,6 +315,7 @@
 	color: $grey;
 	font-size: 0.8em;
 	margin-top: 9px;
+	font-weight: normal;
 }
 
 .cmtx_date {
@@ -337,6 +343,7 @@
 .cmtx_icon:before {
 	font-size: 0.9em;
 	font-family: FontAwesome;
+	font-weight: normal;
 	display: inline-block;
 }
 
@@ -695,6 +702,7 @@
 }
 
 .cmtx_page_number {
+	font-weight: normal;
 }
 
 /* Pagination */
@@ -772,18 +780,20 @@
 }
 
 .cmtx_search {
-	width: 125px;
-	height: 20px;
+	width: 125px !important;
+	height: 20px !important;
+	display: inline-block !important;
 	line-height: 20px;
-	transition: width 500ms;
+	transition: width 500ms !important;
 	vertical-align: middle;
 	border-radius: 4px;
 	border: 1px solid #A9A9A9;
-	padding-left: 5px;
+	padding: 0 0 0 5px !important;
+	margin: 0 !important;
 }
 
 .cmtx_search_focus {
-	width: 225px;
+	width: 225px !important;
 }
 
 .cmtx_search_container .fa-search {
@@ -851,12 +861,19 @@
 	color: $grey;
 }
 
+.cmtx_sort_by_field {
+	width: auto !important;
+	height: auto !important;
+	padding: 0 !important;
+}
+
 /* Topic */
 
 .cmtx_topic_block {
 }
 
 .cmtx_topic_intro {
+	font-weight: normal;
 }
 
 .cmtx_topic {

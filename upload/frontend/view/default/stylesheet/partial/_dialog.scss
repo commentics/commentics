@@ -2,6 +2,9 @@
 
 .cmtx_dialog input {
 	width: 100%;
+	width: -moz-available;
+	width: -webkit-fill-available;
+	height: auto;
 }
 
 .cmtx_dialog_bullet input, .cmtx_dialog_numeric input {
@@ -42,6 +45,7 @@
 
 .ui-dialog .ui-widget-content {
 	min-height: 0 !important;
+	font-weight: normal;
 }
 
 .ui-widget-overlay {

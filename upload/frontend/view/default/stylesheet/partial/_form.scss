@@ -34,7 +34,7 @@
 }
 
 .cmtx_honeypot {
-	display: none;
+	display: none !important;
 }
 
 .cmtx_row {
@@ -174,7 +174,7 @@
 	padding: 4px 6px;
 	vertical-align: middle;
 	text-align: center;
-	height: 35px;
+	height: 35px !important;
 }
 
 .cmtx_field_error {
@@ -189,6 +189,11 @@
 
 .cmtx_text_field, .cmtx_textarea_field, .cmtx_select_field {
 	width: 100%;
+}
+
+.cmtx_textarea_field {
+	height: 35px !important;
+	min-height: 35px !important;
 }
 
 .cmtx_required {
@@ -383,8 +388,8 @@
 }
 
 .cmtx_comment_field_active {
-    height: 125px;
-    transition: height 0.25s ease-in;
+    height: 125px !important;
+    transition: height 0.25s ease-in !important;
 	text-align: left;
 	background-image: none;
 }
@@ -504,6 +509,15 @@ select.cmtx_required {
 	margin-top: 20px;
 }
 
+.cmtx_checkbox_container input {
+	margin-right: 2px !important;
+	display: inline-block;
+}
+
+.cmtx_checkbox_container label {
+	display: inline-block;
+}
+
 .cmtx_button_row {
 	margin-top: 20px;
 }
@@ -512,6 +526,7 @@ select.cmtx_required {
 	cursor: default;
 	padding: 6px;
 	height: auto;
+	line-height: 23px;
 }
 
 .cmtx_securimage_refresh {
