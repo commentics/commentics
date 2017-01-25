@@ -36,7 +36,9 @@ class ModuleAkismetController extends Controller {
 		}
 
 		if (isset($this->request->post['akismet_logging'])) {
-			$this->data['akismet_logging'] = $this->request->post['akismet_logging'];
+			$this->data['akismet_logging'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['akismet_logging'])) {
+			$this->data['akismet_logging'] = false;
 		} else {
 			$this->data['akismet_logging'] = $this->setting->get('akismet_logging');
 		}
