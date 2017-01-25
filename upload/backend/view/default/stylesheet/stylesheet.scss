@@ -1061,10 +1061,11 @@ img.loading {
 
 div.success, div.info, div.error, div.warning {
 	border: 1px solid;
-	padding: 5px 5px 5px 25px;
+	padding: 6px 5px 6px 25px;
 	background-repeat: no-repeat;
 	background-position: 5px center;
 	position: relative;
+	line-height: 1em;
 	margin-top: 12px;
 }
 
@@ -1098,7 +1099,7 @@ div.info a:last-child, div.warning a:last-child {
 	float: right;
 	font-size: 1.3em;
 	font-weight: bold;
-	margin-top: -3px;
+	margin-top: -1px;
 	padding-right: 5px;
 	text-decoration: none;
 	outline: none;
