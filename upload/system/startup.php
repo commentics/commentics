@@ -51,6 +51,10 @@ function cmtx_modification($filename) {
 	return $filename;
 }
 
+/* Load the helper classes */
+require_once(cmtx_modification(CMTX_DIR_HELPER . 'password_compat.php'));
+require_once(cmtx_modification(CMTX_DIR_HELPER . 'remove_directory.php'));
+
 /* Load the registry class */
 require_once(cmtx_modification(CMTX_DIR_ENGINE . 'registry.php'));
 
@@ -151,9 +155,6 @@ if ($cmtx_setting->has('time_zone')) {
 if ($cmtx_db->isConnected()) {
 	$cmtx_db->query("SET time_zone = '" . $cmtx_db->escape(date('P')) . "'"); // set time zone DB
 }
-
-/* Load the helper classes */
-require_once(cmtx_modification(CMTX_DIR_HELPER . 'password_compat.php'));
 
 /* Load the engine classes */
 require_once(cmtx_modification(CMTX_DIR_ENGINE . 'base.php'));
