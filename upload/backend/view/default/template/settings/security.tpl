@@ -64,6 +64,12 @@
 		</div>
 
 		<div class="fieldset">
+			<label><?php echo $lang_entry_delete_install; ?></label>
+			<input type="checkbox" name="delete_install" value="1">
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_delete_install; ?>', this, event, '')">[?]</a>
+		</div>
+
+		<div class="fieldset">
 			<label><?php echo $lang_entry_ban_cookie; ?></label>
 			<input type="text" required name="ban_cookie_days" class="small" value="<?php echo $ban_cookie_days; ?>" maxlength="4">
 			<span class="note"><?php echo $lang_note_days; ?></span>

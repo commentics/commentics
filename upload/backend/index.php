@@ -19,7 +19,7 @@ define('CMTX_HTTP_THIS', '');
 define('CMTX_HTTP_ROOT', '../');
 define('CMTX_HTTP_SYSTEM', CMTX_HTTP_ROOT . 'system/');
 define('CMTX_HTTP_BACKUPS', CMTX_HTTP_SYSTEM . 'backups/');
-define('CMTX_HTTP_VIEW', 'view/');
+define('CMTX_HTTP_VIEW', CMTX_HTTP_THIS . 'view/');
 define('CMTX_HTTP_UPLOAD', CMTX_HTTP_ROOT . 'upload/');
 
 define('CMTX_DIR_THIS', str_replace('\\', '/', realpath(__DIR__)) . '/');
@@ -38,6 +38,8 @@ define('CMTX_DIR_MODEL', CMTX_DIR_THIS . 'model/');
 define('CMTX_DIR_VIEW', CMTX_DIR_THIS . 'view/');
 define('CMTX_DIR_CONTROLLER', CMTX_DIR_THIS . 'controller/');
 define('CMTX_DIR_3RDPARTY', CMTX_DIR_ROOT . '3rdparty/');
+define('CMTX_DIR_FRONTEND', CMTX_DIR_ROOT . 'frontend/');
+define('CMTX_DIR_INSTALL', CMTX_DIR_ROOT . 'install/');
 define('CMTX_DIR_UPLOAD', CMTX_DIR_ROOT . 'upload/');
 
 if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'config.php')) {
