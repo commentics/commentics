@@ -22,8 +22,8 @@ class Modification {
 		// Initialise logging variable
 		$log_data = array();
 
-		// Clear all modification files
-		$this->clear(rtrim(CMTX_DIR_MOD_CACHE, '/'));
+		// Clear modification cache
+		remove_directory(CMTX_DIR_MOD_CACHE);
 
 		$xmls = array();
 
@@ -313,6 +313,10 @@ class Modification {
 			}
 		}
 
+		if (!is_dir(CMTX_DIR_MOD_CACHE)) {
+			@mkdir(CMTX_DIR_MOD_CACHE, 0777);
+		}
+
 		/* Write all modification files */
 		foreach ($modification as $key => $value) {
 			if ($original[$key] != $value) { // Only create a file if there are changes
@@ -333,29 +337,6 @@ class Modification {
 				fwrite($handle, $value);
 
 				fclose($handle);
-			}
-		}
-	}
-
-	/* Deletes all files and directories in the /system/modification/cache/ directory */
-	public function clear($dir) {
-		if (is_dir($dir)) {
-			$objects = scandir($dir);
-
-			foreach ($objects as $object) {
-				if ($object != '.' && $object != '..') {
-					if (filetype($dir . '/' . $object) == 'dir') {
-						$this->clear($dir . '/' . $object);
-					} else {
-						unlink($dir . '/' . $object);
-					}
-				}
-			}
-
-			reset($objects);
-
-			if ($dir != rtrim(CMTX_DIR_MOD_CACHE, '/')) {
-				rmdir($dir);
 			}
 		}
 	}
