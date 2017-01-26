@@ -56,6 +56,18 @@
 		<div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>
 	</form>
 
+	<script>
+	// <![CDATA[
+	$(document).ready(function() {
+		$('div.info a:last-child').click(function(e) {
+			e.preventDefault();
+
+			$('div.info').fadeOut(2000);
+		});
+	});
+	// ]]>
+	</script>
+
 </div>
 
 <?php echo $footer; ?>

@@ -43,6 +43,8 @@ class SettingsLanguageController extends Controller {
 
 		$this->data['backend_languages'] = $this->model_common_language->getBackendLanguages();
 
+		$this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/getlanguages');
+
 		$this->components = array('common/header', 'common/footer');
 
 		$this->loadView('settings/language');
