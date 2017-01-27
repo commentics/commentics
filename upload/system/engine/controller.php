@@ -81,12 +81,12 @@ abstract class Controller extends Base {
 	}
 
 	public function loadLanguage($cmtx_language) {
-		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . $this->setting->get('language') . '.php')) {
-			require(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . $this->setting->get('language') . '.php'));
-		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/' . $this->setting->get('language') . '.php')) {
-			require(cmtx_modification(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/' . $this->setting->get('language') . '.php'));
-		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/english/english.php')) {
-			require(cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/english.php'));
+		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php')) {
+			require(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php'));
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/general.php')) {
+			require(cmtx_modification(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/general.php'));
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/english/general.php')) {
+			require(cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/general.php'));
 		}
 
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php')) {
