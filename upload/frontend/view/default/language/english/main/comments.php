@@ -23,8 +23,8 @@ $_['lang_text_bio_info_comments']	= 'Comments:';
 $_['lang_text_bio_info_likes']		= 'Likes:';
 $_['lang_text_bio_info_dislikes']	= 'Dislikes:';
 $_['lang_text_bio_info_since']		= 'Since:';
-$_['lang_text_no_permalink']		= 'No such comment. <a href="#" title="Go back">Go back</a>';
-$_['lang_text_no_results']			= 'No search results. <a href="#" title="Go back">Go back</a>';
+$_['lang_text_no_permalink']		= 'No such comment. <a href="" title="Go back">Go back</a>';
+$_['lang_text_no_results']			= 'No results. <a href="" title="Go back">Go back</a>';
 $_['lang_text_no_comments']			= 'No comments yet. Be the first!';
 
 // Title

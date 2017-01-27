@@ -475,6 +475,8 @@
 	// <![CDATA[
 	$(document).ready(function() {
 		$('body').on('click', '.cmtx_no_permalink a, .cmtx_no_results a', function(e) {
+			e.preventDefault();
+
 			var options = {
 				'commentics_url'	: '<?php echo $commentics_url; ?>',
 				'page_id'			: '<?php echo $page_id; ?>',
