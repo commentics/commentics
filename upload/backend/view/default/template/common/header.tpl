@@ -81,6 +81,7 @@
 						<li><a><?php echo $lang_menu_extensions; ?></a>
 
 							<ul>
+								<?php if (!$has_restriction || ($has_restriction && in_array('extension/installer', $viewable_pages))) { ?> <li><a href="index.php?route=extension/installer"><?php echo $lang_menu_extension_installer; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('extension/modules', $viewable_pages))) { ?> <li><a href="index.php?route=extension/modules"><?php echo $lang_menu_extension_modules; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('extension/themes', $viewable_pages))) { ?> <li><a href="index.php?route=extension/themes"><?php echo $lang_menu_extension_themes; ?></a></li> <?php } ?>
 							</ul>

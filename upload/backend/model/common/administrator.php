@@ -114,6 +114,7 @@ class CommonAdministratorModel extends Model {
 				$restrictions[] = $this->getRestriction('Edit', 'edit/user', 40, false, $viewable_pages, $modifiable_pages);
 
 		$restrictions[] = $this->getRestriction('Extensions', 'extensions', 0, true, $viewable_pages, $modifiable_pages);
+			$restrictions[] = $this->getRestriction('Installer', 'extension/installer', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Modules', 'extension/modules', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Edit', 'module/', 40, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Themes', 'extension/themes', 20, false, $viewable_pages, $modifiable_pages);
@@ -152,6 +153,7 @@ class CommonAdministratorModel extends Model {
 					$restrictions[] = $this->getRestriction('Social', 'layout_comments/social', 60, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('Sort By', 'layout_comments/sort_by', 60, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('Topic', 'layout_comments/topic', 60, false, $viewable_pages, $modifiable_pages);
+					$restrictions[] = $this->getRestriction('General', 'layout_comments/general', 60, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Form', 'settings/layout_form', 40, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('Name', 'layout_form/name', 60, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('Email', 'layout_form/email', 60, false, $viewable_pages, $modifiable_pages);
@@ -170,6 +172,7 @@ class CommonAdministratorModel extends Model {
 					$restrictions[] = $this->getRestriction('Terms', 'layout_form/terms', 60, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('Preview', 'layout_form/preview', 60, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('Powered', 'layout_form/powered', 60, false, $viewable_pages, $modifiable_pages);
+					$restrictions[] = $this->getRestriction('General', 'layout_form/general', 60, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Maintenance', 'settings/maintenance', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Processor', 'settings/processor', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('List', 'data/list', 60, false, $viewable_pages, $modifiable_pages);
@@ -181,7 +184,7 @@ class CommonAdministratorModel extends Model {
 			$restrictions[] = $this->getRestriction('Delete Bans', 'task/delete_bans', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Delete Comments', 'task/delete_comments', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Delete Reporters', 'task/delete_reporters', 20, false, $viewable_pages, $modifiable_pages);
-			$restrictions[] = $this->getRestriction('Delete Subscribers', 'task/delete_subscribers', 20, false, $viewable_pages, $modifiable_pages);
+			$restrictions[] = $this->getRestriction('Delete Subscriptions', 'task/delete_subscriptions', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Delete Voters', 'task/delete_voters', 20, false, $viewable_pages, $modifiable_pages);
 
 		$restrictions[] = $this->getRestriction('Reports', 'reports', 0, true, $viewable_pages, $modifiable_pages);

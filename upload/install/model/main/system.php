@@ -91,6 +91,12 @@ class MainSystemModel extends Model {
 			$check['mcrypt_loaded'] = false;
 		}
 
+		if (extension_loaded('zip')) {
+			$check['zip_loaded'] = true;
+		} else {
+			$check['zip_loaded'] = false;
+		}
+
 		if ((bool)ini_get('allow_url_fopen')) {
 			$check['fopen_enabled'] = true;
 		} else {

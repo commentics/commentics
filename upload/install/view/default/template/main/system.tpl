@@ -117,6 +117,15 @@
 	</div>
 
 	<div class="row">
+		<label class="item"><?php echo $lang_item_zip_loaded; ?></label>
+		<?php if ($check['zip_loaded']) { ?>
+			<span class="green"><?php echo $lang_text_pass; ?></span>
+		<?php } else { ?>
+			<span class="amber"><?php echo $lang_text_fail; ?></span> <span class="note"><?php echo $lang_note_zip_loaded; ?></span>
+		<?php } ?>
+	</div>
+
+	<div class="row">
 		<label class="item"><?php echo $lang_item_fopen_enabled; ?></label>
 		<?php if ($check['fopen_enabled']) { ?>
 			<span class="green"><?php echo $lang_text_pass; ?></span>

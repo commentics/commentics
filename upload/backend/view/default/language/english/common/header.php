@@ -19,6 +19,7 @@ $_['lang_menu_manage_users'] 					= 'Users';
 
 /* Extension */
 $_['lang_menu_extensions'] 						= 'Extensions';
+$_['lang_menu_extension_installer'] 			= 'Installer';
 $_['lang_menu_extension_modules'] 				= 'Modules';
 $_['lang_menu_extension_themes'] 				= 'Themes';
 

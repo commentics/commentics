@@ -1,0 +1,29 @@
+<?php
+// Message
+$_['lang_message_success']	  		= 'Extension installed';
+
+// Heading
+$_['lang_heading']					= 'Installer';
+
+// Description
+$_['lang_description']				= '<p>Install official extensions here.</p>';
+
+// Entry
+$_['lang_entry_upload']				= 'Upload:';
+
+// Button
+$_['lang_button_upload']	 		= 'Upload';
+
+// Error
+$_['lang_error_unable']		 		= 'The Zip extension on your server is disabled. Please contact your host to enable it.';
+$_['lang_error_permission']	 		= 'The folder /commentics/upload/ is not writable.';
+$_['lang_error_no_upload']	 		= 'Nothing was uploaded.';
+$_['lang_error_not_zip']	 		= 'The uploaded file is not a zip.';
+$_['lang_error_no_temp_dir']  		= 'A temp folder could not be created.';
+$_['lang_error_zip_issue']	  		= 'There was an issue with the zip file.';
+$_['lang_error_zip_not_stored']		= 'There was an issue storing the zip file.';
+$_['lang_error_zip_no_extract']		= 'There was an issue extracting the zip file.';
+$_['lang_error_no_upload_in_zip']	= 'There is no upload folder inside the zip file.';
+$_['lang_error_dir_create']			= 'Could not create the extension\'s directory';
+$_['lang_error_file_create']		= 'Could not copy the extension\'s file';
+?>
