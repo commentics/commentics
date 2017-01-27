@@ -97,11 +97,17 @@ class CommonAdministratorModel extends Model {
 			$restrictions[] = $this->getRestriction('Comments', 'manage/comments', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Edit', 'edit/comment', 40, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Spam', 'edit/spam', 40, false, $viewable_pages, $modifiable_pages);
+			$restrictions[] = $this->getRestriction('Countries', 'manage/countries', 20, false, $viewable_pages, $modifiable_pages);
+				$restrictions[] = $this->getRestriction('Add', 'add/country', 40, false, $viewable_pages, $modifiable_pages);
+				$restrictions[] = $this->getRestriction('Edit', 'edit/country', 40, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Pages', 'manage/pages', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Edit', 'edit/page', 40, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Questions', 'manage/questions', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Add', 'add/question', 40, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Edit', 'edit/question', 40, false, $viewable_pages, $modifiable_pages);
+			$restrictions[] = $this->getRestriction('States', 'manage/states', 20, false, $viewable_pages, $modifiable_pages);
+				$restrictions[] = $this->getRestriction('Add', 'add/state', 40, false, $viewable_pages, $modifiable_pages);
+				$restrictions[] = $this->getRestriction('Edit', 'edit/state', 40, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Subscriptions', 'manage/subscriptions', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Edit', 'edit/subscription', 40, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Users', 'manage/users', 20, false, $viewable_pages, $modifiable_pages);
