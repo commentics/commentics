@@ -128,16 +128,17 @@ class ManageUsersController extends Controller {
 			}
 
 			$this->data['users'][] = array(
-				'id'				=> $user['id'],
-				'name'				=> $user['name'],
-				'email'				=> $user['email'],
-				'comments' 			=> $user['comments'],
-				'comments_url'		=> $this->url->link('manage/comments', '&filter_user_id=' . $user['id']),
-				'subscriptions'		=> $user['subscriptions'],
-				'subscriptions_url'	=> $this->url->link('manage/subscriptions', '&filter_user_id=' . $user['id']),
-				'moderate'			=> $moderate,
-				'date_added'		=> $this->variable->formatDate($user['date_added'], $this->data['lang_date_time_format'], $this->data),
-				'action'	   		=> $this->url->link('edit/user', '&id=' . $user['id'])
+				'id'                => $user['id'],
+				'name'              => $user['name'],
+				'email'             => $user['email'],
+				'comments'          => $user['comments'],
+				'comments_url'      => $this->url->link('manage/comments', '&filter_user_id=' . $user['id']),
+				'subscriptions'     => $user['subscriptions'],
+				'subscriptions_url' => $this->url->link('manage/subscriptions', '&filter_user_id=' . $user['id']),
+				'moderate'          => $moderate,
+				'date_added'        => $this->variable->formatDate($user['date_added'], $this->data['lang_date_time_format'], $this->data),
+				'action_view'       => $this->setting->get('commentics_url') . 'frontend/index.php?route=main/user&u-t=' . $user['token'],
+				'action_edit'       => $this->url->link('edit/user', '&id=' . $user['id'])
 			);
 		}
 
@@ -182,6 +183,8 @@ class ManageUsersController extends Controller {
 		$this->data['sort'] = $sort;
 
 		$this->data['order'] = $order;
+
+		$this->data['button_view'] = $this->loadImage('button/view.png');
 
 		$this->data['button_edit'] = $this->loadImage('button/edit.png');
 

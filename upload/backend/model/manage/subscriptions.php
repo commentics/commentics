@@ -3,7 +3,7 @@ namespace Commentics;
 
 class ManageSubscriptionsModel extends Model {
 	public function getSubscriptions($data, $count = false) {
-		$sql = "SELECT `s`.*, `u`.`id` AS `user_id`, `u`.`name` AS `name`,  `u`.`email` AS `email`, `p`.`id` AS `page_id`, `p`.`reference` AS `page_reference` FROM `" . CMTX_DB_PREFIX . "subscriptions` `s`";
+		$sql = "SELECT `s`.*, `u`.`id` AS `user_id`, `u`.`token` AS `user_token`, `u`.`name` AS `name`,  `u`.`email` AS `email`, `p`.`id` AS `page_id`, `p`.`reference` AS `page_reference` FROM `" . CMTX_DB_PREFIX . "subscriptions` `s`";
 
 		$sql .= " LEFT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `s`.`user_id` = `u`.`id`";
 

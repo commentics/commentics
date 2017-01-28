@@ -157,6 +157,7 @@ class ManageSubscriptionsController extends Controller {
 				'confirmed'		=> ($subscription['is_confirmed']) ? $this->data['lang_text_yes'] : $this->data['lang_text_no'],
 				'ip_address'	=> $subscription['ip_address'],
 				'date_added'	=> $this->variable->formatDate($subscription['date_added'], $this->data['lang_date_time_format'], $this->data),
+				'action_view'	=> $this->setting->get('commentics_url') . 'frontend/index.php?route=main/user&u-t=' . $subscription['user_token'],
 				'action_edit'	=> $this->url->link('edit/subscription', '&id=' . $subscription['id'])
 			);
 		}
@@ -206,6 +207,8 @@ class ManageSubscriptionsController extends Controller {
 		$this->data['sort'] = $sort;
 
 		$this->data['order'] = $order;
+
+		$this->data['button_view'] = $this->loadImage('button/view.png');
 
 		$this->data['button_edit'] = $this->loadImage('button/edit.png');
 
