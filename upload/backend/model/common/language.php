@@ -5,7 +5,7 @@ class CommonLanguageModel extends Model {
 	public function getFrontendLanguages() {
 		$languages = array();
 
-		foreach (glob(CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme') . '/language/*', GLOB_ONLYDIR) as $directory) {
+		foreach (glob(CMTX_DIR_ROOT . 'frontend/view/*/language/*', GLOB_ONLYDIR) as $directory) {
 			$language = basename($directory);
 
 			$language_name = $this->getFriendlyLanguageName($language);
@@ -19,7 +19,7 @@ class CommonLanguageModel extends Model {
 	public function getBackendLanguages() {
 		$languages = array();
 
-		foreach (glob(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/*', GLOB_ONLYDIR) as $directory) {
+		foreach (glob(CMTX_DIR_VIEW . '*/language/*', GLOB_ONLYDIR) as $directory) {
 			$language = basename($directory);
 
 			$language_name = $this->getFriendlyLanguageName($language);
