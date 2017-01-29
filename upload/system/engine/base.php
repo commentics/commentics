@@ -62,8 +62,8 @@ abstract class Base {
 	public function loadImage($cmtx_image) {
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/image/' . strtolower($cmtx_image))) {
 			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/image/' . strtolower($cmtx_image);
-		} else if (file_exists(CMTX_HTTP_VIEW . 'default/image/' . strtolower($cmtx_image))) {
-			return CMTX_DIR_VIEW . 'default/image/' . strtolower($cmtx_image);
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/image/' . strtolower($cmtx_image))) {
+			return CMTX_HTTP_VIEW . 'default/image/' . strtolower($cmtx_image);
 		} else {
 			die('<b>Error</b>: Could not load image ' . strtolower($cmtx_image) . '!');
 		}
@@ -82,8 +82,8 @@ abstract class Base {
 	public function loadStylesheet($cmtx_stylesheet) {
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/' . strtolower($cmtx_stylesheet))) {
 			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/' . strtolower($cmtx_stylesheet);
-		} else if (file_exists(CMTX_HTTP_VIEW . 'default/stylesheet/' . strtolower($cmtx_stylesheet))) {
-			return CMTX_DIR_VIEW . 'default/stylesheet/' . strtolower($cmtx_stylesheet);
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/' . strtolower($cmtx_stylesheet))) {
+			return CMTX_HTTP_VIEW . 'default/stylesheet/' . strtolower($cmtx_stylesheet);
 		} else {
 			die('<b>Error</b>: Could not load stylesheet ' . strtolower($cmtx_stylesheet) . '!');
 		}
