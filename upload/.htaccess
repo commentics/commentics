@@ -14,7 +14,9 @@
 </FilesMatch>
 
 # Prevent listing the files in directories
-IndexIgnore */*
+<IfModule mod_autoindex>
+	IndexIgnore *
+</IfModule>
 
 # Remove the # below if your server allows it
 # OPTIONS -Indexes
