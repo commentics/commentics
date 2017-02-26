@@ -106,10 +106,10 @@
 				<?php if ($comments) { ?>
 					<?php foreach ($comments as $comment) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $comment['id']; ?>"></td>
-							<td><a href="<?php echo $comment['name_url']; ?>"><?php echo $comment['name']; ?></a></td>
-							<td><?php echo $comment['comment']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $comment['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_name; ?>:"><a href="<?php echo $comment['name_url']; ?>"><?php echo $comment['name']; ?></a></td>
+							<td data-th="<?php echo $lang_column_comment; ?>:"><?php echo $comment['comment']; ?></td>
+							<td data-th="<?php echo $lang_column_rating; ?>:">
 								<?php if ($comment['rating']) { ?>
 									<?php for ($i = 0; $i < 5; $i++) { ?>
 										<?php if ($i < $comment['rating']) { ?>
@@ -122,14 +122,14 @@
 									<?php echo $lang_text_no_rating; ?>
 								<?php } ?>
 							</td>
-							<td><a href="<?php echo $comment['page_url']; ?>"><?php echo $comment['page']; ?></a></td>
-							<td><?php echo $comment['approved']; ?></td>
-							<td><?php echo $comment['sent']; ?></td>
-							<td><?php echo $comment['reports']; ?></td>
-							<td><?php echo $comment['flagged']; ?></td>
-							<td><?php echo $comment['ip_address']; ?></td>
-							<td><?php echo $comment['date_added']; ?></td>
-							<td>
+							<td data-th="<?php echo $lang_column_page; ?>:"><a href="<?php echo $comment['page_url']; ?>"><?php echo $comment['page']; ?></a></td>
+							<td data-th="<?php echo $lang_column_approved; ?>:"><?php echo $comment['approved']; ?></td>
+							<td data-th="<?php echo $lang_column_sent; ?>:"><?php echo $comment['sent']; ?></td>
+							<td data-th="<?php echo $lang_column_reports; ?>:"><?php echo $comment['reports']; ?></td>
+							<td data-th="<?php echo $lang_column_flagged; ?>:"><?php echo $comment['flagged']; ?></td>
+							<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $comment['ip_address']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $comment['date_added']; ?></td>
+							<td class="actions">
 								<a data-id="<?php echo $comment['id']; ?>" class="single_approve"><img src="<?php echo $button_approve; ?>" class="button_approve" title="<?php echo $lang_button_approve; ?>"></a>
 								<a data-id="<?php echo $comment['id']; ?>" class="single_send"><img src="<?php echo $button_send; ?>" class="button_send" title="<?php echo $lang_button_send; ?>"></a>
 								<a href="<?php echo $comment['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>

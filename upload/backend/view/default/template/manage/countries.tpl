@@ -78,13 +78,13 @@
 				<?php if ($countries) { ?>
 					<?php foreach ($countries as $country) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $country['id']; ?>"></td>
-							<td><?php echo $country['name']; ?></td>
-							<td><a href="<?php echo $country['code_url']; ?>"><?php echo $country['code']; ?></a></td>
-							<td><?php echo $country['top']; ?></td>
-							<td><?php echo $country['enabled']; ?></td>
-							<td><?php echo $country['date_added']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $country['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $country['name']; ?></td>
+							<td data-th="<?php echo $lang_column_code; ?>:"><a href="<?php echo $country['code_url']; ?>"><?php echo $country['code']; ?></a></td>
+							<td data-th="<?php echo $lang_column_top; ?>:"><?php echo $country['top']; ?></td>
+							<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $country['enabled']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $country['date_added']; ?></td>
+							<td class="actions">
 								<a href="<?php echo $country['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $country['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
 							</td>

@@ -62,11 +62,11 @@
 				<?php if ($bans) { ?>
 					<?php foreach ($bans as $ban) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $ban['id']; ?>"></td>
-							<td><?php echo $ban['ip_address']; ?></td>
-							<td><?php echo $ban['reason']; ?></td>
-							<td><?php echo $ban['date_added']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $ban['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $ban['ip_address']; ?></td>
+							<td data-th="<?php echo $lang_column_reason; ?>:"><?php echo $ban['reason']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $ban['date_added']; ?></td>
+							<td class="actions">
 								<a href="<?php echo $ban['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $ban['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
 							</td>

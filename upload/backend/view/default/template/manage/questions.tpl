@@ -66,12 +66,12 @@
 				<?php if ($questions) { ?>
 					<?php foreach ($questions as $question) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $question['id']; ?>"></td>
-							<td><?php echo $question['question']; ?></td>
-							<td><?php echo $question['answer']; ?></td>
-							<td><?php echo $question['language']; ?></td>
-							<td><?php echo $question['date_added']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $question['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_question; ?>:"><?php echo $question['question']; ?></td>
+							<td data-th="<?php echo $lang_column_answer; ?>:"><?php echo $question['answer']; ?></td>
+							<td data-th="<?php echo $lang_column_language; ?>:"><?php echo $question['language']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $question['date_added']; ?></td>
+							<td class="actions">
 								<a href="<?php echo $question['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $question['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
 							</td>

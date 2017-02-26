@@ -63,9 +63,9 @@
 			<?php if ($versions) { ?>
 				<?php foreach ($versions as $version) { ?>
 					<tr>
-						<td><?php echo $version['version']; ?></td>
-						<td><?php echo $version['type']; ?></td>
-						<td><?php echo $version['date_added']; ?></td>
+						<td data-th="<?php echo $lang_column_version; ?>:"><?php echo $version['version']; ?></td>
+						<td data-th="<?php echo $lang_column_type; ?>:"><?php echo $version['type']; ?></td>
+						<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $version['date_added']; ?></td>
 					</tr>
 				<?php } ?>
 			<?php } else { ?>

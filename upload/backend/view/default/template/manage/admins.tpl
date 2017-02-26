@@ -82,14 +82,14 @@
 				<?php if ($admins) { ?>
 					<?php foreach ($admins as $admin) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $admin['id']; ?>"></td>
-							<td><?php echo $admin['username']; ?></td>
-							<td><?php echo $admin['email']; ?></td>
-							<td><?php echo $admin['enabled']; ?></td>
-							<td><?php echo $admin['super']; ?></td>
-							<td><?php echo $admin['last_login']; ?></td>
-							<td><?php echo $admin['date_added']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $admin['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_username; ?>:"><?php echo $admin['username']; ?></td>
+							<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $admin['email']; ?></td>
+							<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $admin['enabled']; ?></td>
+							<td data-th="<?php echo $lang_column_super; ?>:"><?php echo $admin['super']; ?></td>
+							<td data-th="<?php echo $lang_column_last_login; ?>:"><?php echo $admin['last_login']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $admin['date_added']; ?></td>
+							<td class="actions">
 								<a href="<?php echo $admin['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $admin['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
 							</td>

@@ -73,14 +73,14 @@
 				<?php if ($users) { ?>
 					<?php foreach ($users as $user) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $user['id']; ?>"></td>
-							<td><?php echo $user['name']; ?></td>
-							<td><?php echo $user['email']; ?></td>
-							<td><a href="<?php echo $user['comments_url']; ?>"><?php echo $user['comments']; ?></a></td>
-							<td><a href="<?php echo $user['subscriptions_url']; ?>"><?php echo $user['subscriptions']; ?></a></td>
-							<td><?php echo $user['moderate']; ?></td>
-							<td><?php echo $user['date_added']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $user['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $user['name']; ?></td>
+							<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $user['email']; ?></td>
+							<td data-th="<?php echo $lang_column_comments; ?>:"><a href="<?php echo $user['comments_url']; ?>"><?php echo $user['comments']; ?></a></td>
+							<td data-th="<?php echo $lang_column_subscriptions; ?>:"><a href="<?php echo $user['subscriptions_url']; ?>"><?php echo $user['subscriptions']; ?></a></td>
+							<td data-th="<?php echo $lang_column_moderate; ?>:"><?php echo $user['moderate']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $user['date_added']; ?></td>
+							<td class="actions">
 								<a href="<?php echo $user['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
 								<a href="<?php echo $user['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $user['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>

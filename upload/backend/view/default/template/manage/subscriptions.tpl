@@ -78,14 +78,14 @@
 				<?php if ($subscriptions) { ?>
 					<?php foreach ($subscriptions as $subscription) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $subscription['id']; ?>"></td>
-							<td><a href="<?php echo $subscription['name_url']; ?>"><?php echo $subscription['name']; ?></a></td>
-							<td><?php echo $subscription['email']; ?></td>
-							<td><a href="<?php echo $subscription['page_url']; ?>"><?php echo $subscription['page']; ?></a></td>
-							<td><?php echo $subscription['confirmed']; ?></td>
-							<td><?php echo $subscription['ip_address']; ?></td>
-							<td><?php echo $subscription['date_added']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $subscription['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_name; ?>:"><a href="<?php echo $subscription['name_url']; ?>"><?php echo $subscription['name']; ?></a></td>
+							<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $subscription['email']; ?></td>
+							<td data-th="<?php echo $lang_column_page; ?>:"><a href="<?php echo $subscription['page_url']; ?>"><?php echo $subscription['page']; ?></a></td>
+							<td data-th="<?php echo $lang_column_confirmed; ?>:"><?php echo $subscription['confirmed']; ?></td>
+							<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $subscription['ip_address']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $subscription['date_added']; ?></td>
+							<td class="actions">
 								<a href="<?php echo $subscription['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
 								<a href="<?php echo $subscription['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $subscription['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>

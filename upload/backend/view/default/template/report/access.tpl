@@ -63,10 +63,10 @@
 			<?php if ($views) { ?>
 				<?php foreach ($views as $view) { ?>
 					<tr>
-						<td><?php echo $view['username']; ?></td>
-						<td><?php echo $view['ip_address']; ?></td>
-						<td><?php echo $view['page']; ?></td>
-						<td><?php echo $view['date_added']; ?></td>
+						<td data-th="<?php echo $lang_column_username; ?>:"><?php echo $view['username']; ?></td>
+						<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $view['ip_address']; ?></td>
+						<td data-th="<?php echo $lang_column_page; ?>:"><?php echo $view['page']; ?></td>
+						<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $view['date_added']; ?></td>
 					</tr>
 				<?php } ?>
 			<?php } else { ?>

@@ -16,7 +16,7 @@ $_['lang_heading_subscriber_notification_reply']		= 'Email: Subscriber Notificat
 $_['lang_heading_user_comment_approved']				= 'Email: User Comment Approved';
 
 // Notice
-$_['lang_notice']										= 'Select which email to edit at the top right of the page. <a>x</a>';
+$_['lang_notice']										= 'Select which email to edit at the top right. <a>x</a>';
 
 // Description
 $_['lang_description_ban']								= '<p>This is the email the administrator receives when there is a new ban.</p>';

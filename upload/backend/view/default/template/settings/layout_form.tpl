@@ -37,9 +37,9 @@
 		<tbody>
 			<?php foreach ($elements as $element) { ?>
 				<tr>
-					<td><?php echo $element['element']; ?></td>
-					<td><?php echo $element['status']; ?></td>
-					<td><a href="<?php echo $element['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a></td>
+					<td data-th="<?php echo $lang_column_element; ?>:"><?php echo $element['element']; ?></td>
+					<td data-th="<?php echo $lang_column_status; ?>:"><?php echo $element['status']; ?></td>
+					<td class="actions"><a href="<?php echo $element['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a></td>
 				</tr>
 			<?php } ?>
 		</tbody>

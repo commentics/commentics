@@ -76,12 +76,12 @@
 				<?php if ($states) { ?>
 					<?php foreach ($states as $state) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $state['id']; ?>"></td>
-							<td><?php echo $state['name']; ?></td>
-							<td><?php echo $state['country_name']; ?></td>
-							<td><?php echo $state['enabled']; ?></td>
-							<td><?php echo $state['date_added']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $state['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $state['name']; ?></td>
+							<td data-th="<?php echo $lang_column_country; ?>:"><?php echo $state['country_name']; ?></td>
+							<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $state['enabled']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $state['date_added']; ?></td>
+							<td class="actions">
 								<a href="<?php echo $state['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $state['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
 							</td>

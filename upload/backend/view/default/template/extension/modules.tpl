@@ -38,14 +38,14 @@
 				<?php if ($modules) { ?>
 					<?php foreach ($modules as $module) { ?>
 						<tr>
-							<td><?php echo $module['name']; ?></td>
+							<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $module['name']; ?></td>
 							<?php if ($module['installed']) { ?>
-								<td>
+								<td data-th="<?php echo $lang_column_action; ?>:">
 									<a href="<?php echo $module['url']; ?>"><?php echo $lang_link_edit; ?></a>
 									<a data-id="<?php echo $module['module']; ?>" class="uninstall"><?php echo $lang_link_uninstall; ?></a>
 								</td>
 							<?php } else { ?>
-								<td><a data-id="<?php echo $module['module']; ?>" class="install"><?php echo $lang_link_install; ?></a></td>
+								<td data-th="<?php echo $lang_column_action; ?>:"><a data-id="<?php echo $module['module']; ?>" class="install"><?php echo $lang_link_install; ?></a></td>
 							<?php } ?>
 						</tr>
 					<?php } ?>

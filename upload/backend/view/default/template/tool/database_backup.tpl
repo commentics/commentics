@@ -73,12 +73,12 @@
 				<?php if ($backups) { ?>
 					<?php foreach ($backups as $backup) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $backup['id']; ?>"></td>
-							<td><?php echo $backup['description']; ?></td>
-							<td><a href="<?php echo $backup['url']; ?>" download><?php echo $backup['filename']; ?></a></td>
-							<td><?php echo $backup['size']; ?></td>
-							<td><?php echo $backup['dated']; ?></td>
-							<td><a data-id="<?php echo $backup['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a></td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $backup['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_description; ?>:"><?php echo $backup['description']; ?></td>
+							<td data-th="<?php echo $lang_column_filename; ?>:"><a href="<?php echo $backup['url']; ?>" download><?php echo $backup['filename']; ?></a></td>
+							<td data-th="<?php echo $lang_column_size; ?>:"><?php echo $backup['size']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $backup['dated']; ?></td>
+							<td class="actions"><a data-id="<?php echo $backup['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a></td>
 						</tr>
 					<?php } ?>
 				<?php } else { ?>

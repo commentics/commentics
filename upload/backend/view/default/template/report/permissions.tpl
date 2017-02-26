@@ -37,12 +37,12 @@
 		<tbody>
 			<?php foreach ($files as $file) { ?>
 				<tr>
-					<td><?php echo $file['path']; ?></td>
-					<td><?php echo $file['information']; ?></td>
+					<td data-th="<?php echo $lang_column_file; ?>:"><?php echo $file['path']; ?></td>
+					<td data-th="<?php echo $lang_column_information; ?>:"><?php echo $file['information']; ?></td>
 					<?php if ($file['positive']) { ?>
-						<td class="positive"><?php echo $file['text']; ?></td>
+						<td class="positive" data-th="<?php echo $lang_column_result; ?>:"><?php echo $file['text']; ?></td>
 					<?php } else { ?>
-						<td class="negative"><?php echo $file['text']; ?></td>
+						<td class="negative" data-th="<?php echo $lang_column_result; ?>:"><?php echo $file['text']; ?></td>
 					<?php } ?>
 				</tr>
 			<?php } ?>

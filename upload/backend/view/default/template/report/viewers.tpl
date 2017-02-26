@@ -67,12 +67,12 @@
 			<?php if ($viewers) { ?>
 				<?php foreach ($viewers as $viewer) { ?>
 					<tr>
-						<td><img src="<?php echo $viewer['viewer']; ?>" class="viewer" title="<?php echo $viewer['type']; ?>"></td>
-						<td><?php echo $viewer['type']; ?></td>
-						<td><?php echo $viewer['ip_address']; ?></td>
-						<td><?php echo $viewer['page_reference']; ?></td>
-						<td><a href="<?php echo $viewer['page_url']; ?>" target="_blank"><?php echo $viewer['page_url']; ?></a></td>
-						<td><?php echo $viewer['time']; ?></td>
+						<td data-th="<?php echo $lang_column_viewer; ?>:"><img src="<?php echo $viewer['viewer']; ?>" class="viewer" title="<?php echo $viewer['type']; ?>"></td>
+						<td data-th="<?php echo $lang_column_type; ?>:"><?php echo $viewer['type']; ?></td>
+						<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $viewer['ip_address']; ?></td>
+						<td data-th="<?php echo $lang_column_page_reference; ?>:"><?php echo $viewer['page_reference']; ?></td>
+						<td data-th="<?php echo $lang_column_page_url; ?>:"><a href="<?php echo $viewer['page_url']; ?>" target="_blank"><?php echo $viewer['page_url']; ?></a></td>
+						<td data-th="<?php echo $lang_column_last_activity; ?>:"><?php echo $viewer['time']; ?></td>
 					</tr>
 				<?php } ?>
 			<?php } else { ?>

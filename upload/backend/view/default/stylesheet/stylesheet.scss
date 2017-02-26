@@ -873,7 +873,6 @@ img.loading {
 	.chart_block {
 		display: none;
 	}
-
 }
 
 @media all and (max-width: 750px) {
@@ -961,6 +960,10 @@ img.loading {
 		line-height: normal !important;
 	}
 
+	.controls .fieldset::after {
+		margin-bottom: 25px !important;
+	}
+
 	.controls .fieldset label {
 		display: block;
 		margin-bottom: 3px;
@@ -973,10 +976,12 @@ img.loading {
 
 	.controls input[type="text"], .controls input[type="password"], .controls input[type="email"] {
 		width: 100%;
+		padding: 5px;
 	}
 
 	.controls select {
 		width: 100%;
+		padding: 5px;
 	}
 
 	.controls textarea {
@@ -985,12 +990,13 @@ img.loading {
 	}
 
 	.controls .button {
-		margin-top: 5px;
+		margin-top: 10px;
 		width: 100%;
+		padding: 4px;
 	}
 
 	.controls .button:not(:first-child) {
-		margin-top: 15px;
+		margin-top: 28px;
 	}
 
 	span.error  {
@@ -1037,19 +1043,21 @@ img.loading {
 	}
 
 	.pagination_stats {
-		margin-top: 18px;
+		margin-top: 25px;
+		margin-bottom: 25px;
 		float: none;
 		text-align: center;
 	}
 
 	.pagination_links {
-		margin-top: 18px;
 		float: none;
-		text-align: center;
+		margin-top: 18px;
+		display: flex;
+		justify-content: space-between;
 	}
 
-	.pagination_links span {
-		margin-left: 10px;
+	.pagination_links span, .pagination_links span.active {
+		padding: 5px;
 	}
 
 	.edit_comment_page .right textarea {
@@ -1525,6 +1533,18 @@ table.table {
 	.table td {
 		border: none;
 		border-bottom: 1px solid #DEDEDE;
+	}
+
+	.table td:not(.selector):not(.actions):before {
+		padding-right: 5px;
+		font-weight: bold;
+		content: attr(data-th);
+		color: #2C2C2C;
+	}
+
+	.table td.actions {
+		display: flex;
+		justify-content: space-between;
 	}
 
 	.extension_modules_page .table th:last-of-type, .extension_modules_page .table td:last-of-type:not(.no_results) {

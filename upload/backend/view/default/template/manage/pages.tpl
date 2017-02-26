@@ -85,16 +85,16 @@
 				<?php if ($pages) { ?>
 					<?php foreach ($pages as $page) { ?>
 						<tr>
-							<td><input type="checkbox" name="bulk[]" value="<?php echo $page['id']; ?>"></td>
-							<td><?php echo $page['identifier']; ?></td>
-							<td><?php echo $page['reference']; ?></td>
-							<td><a href="<?php echo $page['url']; ?>" target="_blank"><?php echo $page['url']; ?></a></td>
-							<td><a href="<?php echo $page['comments_url']; ?>"><?php echo $page['comments']; ?></a></td>
-							<td><a href="<?php echo $page['subscriptions_url']; ?>"><?php echo $page['subscriptions']; ?></a></td>
-							<td><?php echo $page['moderate']; ?></td>
-							<td><?php echo $page['is_form_enabled']; ?></td>
-							<td><?php echo $page['date_added']; ?></td>
-							<td>
+							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $page['id']; ?>"></td>
+							<td data-th="<?php echo $lang_column_identifier; ?>:"><?php echo $page['identifier']; ?></td>
+							<td data-th="<?php echo $lang_column_reference; ?>:"><?php echo $page['reference']; ?></td>
+							<td data-th="<?php echo $lang_column_url; ?>:"><a href="<?php echo $page['url']; ?>" target="_blank"><?php echo $page['url']; ?></a></td>
+							<td data-th="<?php echo $lang_column_comments; ?>:"><a href="<?php echo $page['comments_url']; ?>"><?php echo $page['comments']; ?></a></td>
+							<td data-th="<?php echo $lang_column_subscriptions; ?>:"><a href="<?php echo $page['subscriptions_url']; ?>"><?php echo $page['subscriptions']; ?></a></td>
+							<td data-th="<?php echo $lang_column_moderate; ?>:"><?php echo $page['moderate']; ?></td>
+							<td data-th="<?php echo $lang_column_form_enabled; ?>:"><?php echo $page['is_form_enabled']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $page['date_added']; ?></td>
+							<td class="actions">
 								<a href="<?php echo $page['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $page['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
 							</td>
