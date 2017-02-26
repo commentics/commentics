@@ -259,7 +259,7 @@ class EditCommentController extends Controller {
 
 		$this->data['countries'] = $this->geo->getCountries();
 
-		$this->data['pages'] = $this->page->getPages();
+		$this->data['pages'] = $this->model_edit_comment->getPages();
 
 		$this->data['loading'] = $this->loadImage('misc/loading.gif');
 

@@ -3,11 +3,15 @@ namespace Commentics;
 
 class ManageUsersModel extends Model {
 	public function getUsers($data, $count = false) {
-		$sql = "SELECT `u`.*,";
+		if ($count) {
+			$sql = "SELECT COUNT(`u`.`id`)";
+		} else {
+			$sql = "SELECT `u`.*,";
 
-		$sql .= " (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "subscriptions` `s` WHERE `s`.`user_id` = `u`.`id`) AS `subscriptions`,";
+			$sql .= " (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "subscriptions` `s` WHERE `s`.`user_id` = `u`.`id`) AS `subscriptions`,";
 
-		$sql .= " (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`user_id` = `u`.`id`) AS `comments`";
+			$sql .= " (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`user_id` = `u`.`id`) AS `comments`";
+		}
 
 		$sql .= " FROM `" . CMTX_DB_PREFIX . "users` `u`";
 

@@ -3,11 +3,15 @@ namespace Commentics;
 
 class ManagePagesModel extends Model {
 	public function getPages($data, $count = false) {
-		$sql = "SELECT `p`.*,";
+		if ($count) {
+			$sql = "SELECT COUNT(`p`.`id`)";
+		} else {
+			$sql = "SELECT `p`.*,";
 
-		$sql .= " (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "subscriptions` `s` WHERE `s`.`page_id` = `p`.`id`) AS `subscriptions`,";
+			$sql .= " (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "subscriptions` `s` WHERE `s`.`page_id` = `p`.`id`) AS `subscriptions`,";
 
-		$sql .= " (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`page_id` = `p`.`id`) AS `comments`";
+			$sql .= " (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`page_id` = `p`.`id`) AS `comments`";
+		}
 
 		$sql .= " FROM `" . CMTX_DB_PREFIX . "pages` `p`";
 

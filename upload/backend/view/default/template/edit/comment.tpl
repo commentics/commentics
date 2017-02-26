@@ -115,8 +115,8 @@
 			<div class="fieldset">
 				<label><?php echo $lang_entry_page; ?></label>
 				<select name="page_id">
-				<?php foreach ($pages as $key => $value) { ?>
-					<option value="<?php echo $key; ?>" <?php if ($key == $page_id) { echo 'selected'; } ?>><?php echo $value['reference']; ?></option>
+				<?php foreach ($pages as $page) { ?>
+					<option value="<?php echo $page['id']; ?>" <?php if ($page['id'] == $page_id) { echo 'selected'; } ?>><?php echo $page['reference']; ?></option>
 				<?php } ?>
 				</select>
 				<?php if ($error_page_id) { ?>

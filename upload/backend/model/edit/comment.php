@@ -38,6 +38,14 @@ class EditCommentModel extends Model {
 		return $comments;
 	}
 
+	public function getPages() {
+		$query = $this->db->query("SELECT `id`, `reference` FROM `" . CMTX_DB_PREFIX . "pages`");
+
+		$results = $this->db->rows($query);
+
+		return $results;
+	}
+
 	public function dismiss() {
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'notice_edit_comment'");
 	}
