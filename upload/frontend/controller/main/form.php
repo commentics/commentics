@@ -666,11 +666,15 @@ class MainFormController extends Controller {
 									if ($this->setting->get('mild_swear_words_enabled')) {
 										if ($this->model_main_form->hasWord($comment, 'mild_swear_words')) {
 											if ($this->setting->get('mild_swear_words_action') == 'mask') {
-												$this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'mild_swear_words');
+												if (!$is_preview) {
+													$this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'mild_swear_words');
+												}
 											} else if ($this->setting->get('mild_swear_words_action') == 'mask_approve') {
-												$this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'mild_swear_words');
+												if (!$is_preview) {
+													$this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'mild_swear_words');
 
-												$approve .= $this->data['lang_error_comment_mild_swearing'] . "\r\n";
+													$approve .= $this->data['lang_error_comment_mild_swearing'] . "\r\n";
+												}
 											} else if ($this->setting->get('mild_swear_words_action') == 'error') {
 												$json['error']['comment'] = $this->data['lang_error_comment_mild_swearing'];
 											} else if ($this->setting->get('mild_swear_words_action') == 'approve') {
@@ -687,11 +691,15 @@ class MainFormController extends Controller {
 									if ($this->setting->get('strong_swear_words_enabled')) {
 										if ($this->model_main_form->hasWord($comment, 'strong_swear_words')) {
 											if ($this->setting->get('strong_swear_words_action') == 'mask') {
-												$this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'strong_swear_words');
+												if (!$is_preview) {
+													$this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'strong_swear_words');
+												}
 											} else if ($this->setting->get('strong_swear_words_action') == 'mask_approve') {
-												$this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'strong_swear_words');
+												if (!$is_preview) {
+													$this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'strong_swear_words');
 
-												$approve .= $this->data['lang_error_comment_strong_swearing'] . "\r\n";
+													$approve .= $this->data['lang_error_comment_strong_swearing'] . "\r\n";
+												}
 											} else if ($this->setting->get('strong_swear_words_action') == 'error') {
 												$json['error']['comment'] = $this->data['lang_error_comment_strong_swearing'];
 											} else if ($this->setting->get('strong_swear_words_action') == 'approve') {
@@ -1232,12 +1240,16 @@ class MainFormController extends Controller {
 
 								/* Privacy */
 								if ($this->setting->get('enabled_privacy') && !isset($this->request->post['cmtx_privacy'])) {
-									$json['result']['error'] = $this->data['lang_error_agree_privacy'];
+									if (!$is_preview || ($is_preview && $this->setting->get('agree_to_preview'))) {
+										$json['result']['error'] = $this->data['lang_error_agree_privacy'];
+									}
 								}
 
 								/* Terms */
 								if ($this->setting->get('enabled_terms') && !isset($this->request->post['cmtx_terms'])) {
-									$json['result']['error'] = $this->data['lang_error_agree_terms'];
+									if (!$is_preview || ($is_preview && $this->setting->get('agree_to_preview'))) {
+										$json['result']['error'] = $this->data['lang_error_agree_terms'];
+									}
 								}
 
 								/* Reply */
@@ -1254,7 +1266,7 @@ class MainFormController extends Controller {
 									if (!$json || ($json && (!isset($json['result']['error']) && !isset($json['error'])))) {
 										if (count($this->request->post['cmtx_upload']) > $this->setting->get('maximum_upload_amount')) {
 											$json['result']['error'] = sprintf($this->data['lang_error_image_amount'], $this->setting->get('maximum_upload_amount'));
-										} else {
+										} else if (!$is_preview) { // don't upload if only a preview
 											foreach($this->request->post['cmtx_upload'] as $base64) {
 												$result = $this->model_main_form->createImageFromBase64($base64);
 
@@ -1290,119 +1302,202 @@ class MainFormController extends Controller {
 					$json['result']['error'] = $this->data['lang_error_review'];
 				}
 			} else {
-				if ($user) {
-					$user_id = $user['id'];
+				if ($is_preview) {
+					$this->loadLanguage('main/comments');
 
-					$user_token = $user['token'];
+					$this->loadModel('main/comments');
+
+					$reply_depth = $reply_indent = $reply_num = 0;
+
+					$show_bio = $has_replies = false;
+
+					$show_gravatar      = $this->setting->get('show_gravatar');
+					$show_level         = $this->setting->get('show_level');
+					$show_rating        = $this->setting->get('show_rating');
+					$show_website       = $this->setting->get('show_website');
+					$website_new_window = $this->setting->get('website_new_window');
+					$website_no_follow  = $this->setting->get('website_no_follow');
+					$show_says          = $this->setting->get('show_says');
+					$show_date          = $this->setting->get('show_date');
+					$date_auto          = $this->setting->get('date_auto');
+
+					$location = '';
+
+					if ($this->setting->get('show_town') && $this->request->post['cmtx_town']) {
+						$location .= $this->request->post['cmtx_town'] . ', ';
+					}
+
+					if ($this->setting->get('show_state') && $this->request->post['cmtx_state']) {
+						$state = $this->geo->getState($this->request->post['cmtx_state']);
+
+						$location .= $state['name'] . ', ';
+					}
+
+					if ($this->setting->get('show_country') && $this->request->post['cmtx_country']) {
+						$country = $this->geo->getCountry($this->request->post['cmtx_country']);
+
+						$location .= $country['name'] . ', ';
+					}
+
+					$location = rtrim($location, ', ');
+
+					if ($this->setting->get('enabled_smilies')) {
+						$comment_post = $this->model_main_comments->convertSmilies($this->request->post['cmtx_comment']);
+					}
+
+					$comment_post = $this->model_main_comments->purifyComment($comment_post);
+
+					$date_added = $this->data['lang_text_today'];
+
+					if ($this->setting->get('date_auto')) {
+						$date_added_title = $this->data['lang_text_timeago_second'] . ' ' . $this->data['lang_text_timeago_ago'];
+					} else {
+						$date_added_title = '';
+					}
+
+					$comment = array(
+						'id'               => 0,
+						'gravatar'         => '//www.gravatar.com/avatar/' . md5(strtolower(trim($this->request->post['cmtx_email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_rating') . '&amp;s=' . $this->setting->get('gravatar_size'),
+						'level'            => $this->data['lang_text_preview'],
+						'name'             => $this->request->post['cmtx_name'],
+						'website'          => $this->request->post['cmtx_website'],
+						'location'         => $location,
+						'is_sticky'        => false,
+						'rating'           => $this->request->post['cmtx_rating'],
+						'comment'          => $comment_post,
+						'is_admin'         => $is_admin,
+						'date_added'       => $date_added,
+						'date_added_title' => $date_added_title,
+						'uploads'          => false,
+						'reply'            => false
+					);
+
+					extract($this->data);
+
+					ob_start();
+
+					if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/main/comment.tpl')) {
+						require_once CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/main/comment.tpl';
+					} else {
+						require_once CMTX_DIR_VIEW . 'default/template/main/comment.tpl';
+					}
+
+					$json['result']['preview'] = ob_get_clean();
 				} else {
-					$user_token = $this->variable->random();
+					if ($user) {
+						$user_token = $user['token'];
 
-					$user_id = $this->user->createUser($this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $user_token, $ip_address);
-				}
+						$user_id = $user['id'];
+					} else {
+						$user_token = $this->variable->random();
 
-				/* Determine if the comment needs to be approved by the administrator */
-				if ($is_admin) { // admin comments don't need to be approved
-					$approve = '';
+						$user_id = $this->user->createUser($this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $user_token, $ip_address);
+					}
 
-					$notes = $this->data['lang_text_moderate_admin'];
-				} else if ($user && $user['moderate'] == 'always') { // the user's moderation setting has secondary precedence
-					$approve = $this->data['lang_text_moderate_user_y'];
-				} else if ($user && $user['moderate'] == 'never') {
-					$approve = '';
+					/* Determine if the comment needs to be approved by the administrator */
+					if ($is_admin) { // admin comments don't need to be approved
+						$approve = '';
 
-					$notes = $this->data['lang_text_moderate_user_n'];
-				} else if ($page['moderate'] == 'always') {
-					$approve = $this->data['lang_text_moderate_page_y'];
-				} else if ($page['moderate'] == 'never') {
-					$approve = '';
+						$notes = $this->data['lang_text_moderate_admin'];
+					} else if ($user && $user['moderate'] == 'always') { // the user's moderation setting has secondary precedence
+						$approve = $this->data['lang_text_moderate_user_y'];
+					} else if ($user && $user['moderate'] == 'never') {
+						$approve = '';
 
-					$notes = $this->data['lang_text_moderate_page_n'];
-				} else if ($approve) {
+						$notes = $this->data['lang_text_moderate_user_n'];
+					} else if ($page['moderate'] == 'always') {
+						$approve = $this->data['lang_text_moderate_page_y'];
+					} else if ($page['moderate'] == 'never') {
+						$approve = '';
 
-				} else if ($this->setting->get('approve_comments')) {
-					if ($user && $this->setting->get('trust_previous_users')) {
-						if ($this->model_main_form->hasUserPreviouslyPostedApprovedComment($user['id'])) {
-							$approve = '';
+						$notes = $this->data['lang_text_moderate_page_n'];
+					} else if ($approve) {
 
-							$notes = $this->data['lang_text_moderate_user_previous'];
+					} else if ($this->setting->get('approve_comments')) {
+						if ($user && $this->setting->get('trust_previous_users')) {
+							if ($this->model_main_form->hasUserPreviouslyPostedApprovedComment($user['id'])) {
+								$approve = '';
+
+								$notes = $this->data['lang_text_moderate_user_previous'];
+							} else {
+								$approve = $this->data['lang_text_moderate_all'];
+							}
 						} else {
 							$approve = $this->data['lang_text_moderate_all'];
 						}
-					} else {
-						$approve = $this->data['lang_text_moderate_all'];
+					} else if ($this->setting->has('akismet_enabled') && $this->setting->get('akismet_enabled') && extension_loaded('curl')) {
+						if ($this->model_main_form->isAkismetSpam($ip_address, $page['url'], $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $this->request->post['cmtx_website'], $this->request->post['cmtx_comment'])) {
+							$approve = $this->data['lang_text_moderate_akismet_y'];
+						} else {
+							$approve = '';
+
+							$notes = $this->data['lang_text_moderate_akismet_n'];
+						}
 					}
-				} else if ($this->setting->has('akismet_enabled') && $this->setting->get('akismet_enabled') && extension_loaded('curl')) {
-					if ($this->model_main_form->isAkismetSpam($ip_address, $page['url'], $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $this->request->post['cmtx_website'], $this->request->post['cmtx_comment'])) {
-						$approve = $this->data['lang_text_moderate_akismet_y'];
-					} else {
-						$approve = '';
 
-						$notes = $this->data['lang_text_moderate_akismet_n'];
-					}
-				}
-
-				if ($approve) {
-					$notes = rtrim($approve, "\r\n");
-				}
-
-				$comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads);
-
-				if ($this->setting->get('enabled_question')) {
-					$question = $this->model_main_form->getQuestion();
-
-					if ($question) {
-						$this->session->data['cmtx_question_id'] = $question['id'];
-
-						$json['question'] = $question['question'];
-					}
-				}
-
-				if ($this->setting->get('enabled_notify') && isset($this->request->post['cmtx_notify']) && !$is_admin) {
-					if (!$this->model_main_form->subscriptionExists($user_id, $page_id) && !$this->model_main_form->userHasSubscriptionAttempt($user_id) && !$this->model_main_form->ipHasSubscriptionAttempt($ip_address)) {
-						$subscription_token = $this->variable->random();
-
-						$subscription_id = $this->model_main_form->addSubscription($user_id, $page_id, $subscription_token, $ip_address);
-
-						$this->notify->subscriberConfirmation($this->setting->get('notify_format'), $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $page['reference'], $page['url'], $user_token, $subscription_token);
-					}
-				}
-
-				if ($this->setting->get('enabled_cookie') && (isset($this->request->post['cmtx_cookie']) || (!isset($this->request->post['cmtx_cookie']) && $this->setting->get('form_cookie')))) {
-					$values = array(
-						$this->security->decode($this->request->post['cmtx_name']),
-						$this->security->decode($this->request->post['cmtx_email']),
-						$this->security->decode($this->request->post['cmtx_website']),
-						$this->security->decode($this->request->post['cmtx_town']),
-						$this->security->decode($this->request->post['cmtx_country']),
-						$this->security->decode($this->request->post['cmtx_state'])
-					);
-
-					$values = implode('|', $values);
-
-					$this->cookie->set('Commentics-Form', $values, 60 * 60 * 24 * $this->setting->get('form_cookie_days') + time());
-				}
-
-				/* Notify admins of comment */
-				if (!$is_admin) {
 					if ($approve) {
-						$this->notify->adminNotifyCommentApprove($comment_id);
-					} else {
-						$this->notify->adminNotifyCommentSuccess($comment_id);
+						$notes = rtrim($approve, "\r\n");
 					}
-				}
 
-				/* Notify subscribers of comment */
-				if ($this->setting->get('enabled_notify') && ($is_admin || (!$this->setting->get('approve_notifications') && !$approve))) {
-					$this->notify->subscriberNotification($comment_id);
-				}
+					$comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads);
 
-				/* Unset that the Captcha is complete so the user has to pass it again */
-				unset($this->session->data['cmtx_captcha_complete']);
+					if ($this->setting->get('enabled_question')) {
+						$question = $this->model_main_form->getQuestion();
 
-				if ($approve) {
-					$json['result']['success'] = $this->data['lang_text_comment_approve'];
-				} else {
-					$json['result']['success'] = $this->data['lang_text_comment_success'];
+						if ($question) {
+							$this->session->data['cmtx_question_id'] = $question['id'];
+
+							$json['question'] = $question['question'];
+						}
+					}
+
+					if ($this->setting->get('enabled_notify') && isset($this->request->post['cmtx_notify']) && !$is_admin) {
+						if (!$this->model_main_form->subscriptionExists($user_id, $page_id) && !$this->model_main_form->userHasSubscriptionAttempt($user_id) && !$this->model_main_form->ipHasSubscriptionAttempt($ip_address)) {
+							$subscription_token = $this->variable->random();
+
+							$subscription_id = $this->model_main_form->addSubscription($user_id, $page_id, $subscription_token, $ip_address);
+
+							$this->notify->subscriberConfirmation($this->setting->get('notify_format'), $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $page['reference'], $page['url'], $user_token, $subscription_token);
+						}
+					}
+
+					if ($this->setting->get('enabled_cookie') && (isset($this->request->post['cmtx_cookie']) || (!isset($this->request->post['cmtx_cookie']) && $this->setting->get('form_cookie')))) {
+						$values = array(
+							$this->security->decode($this->request->post['cmtx_name']),
+							$this->security->decode($this->request->post['cmtx_email']),
+							$this->security->decode($this->request->post['cmtx_website']),
+							$this->security->decode($this->request->post['cmtx_town']),
+							$this->security->decode($this->request->post['cmtx_country']),
+							$this->security->decode($this->request->post['cmtx_state'])
+						);
+
+						$values = implode('|', $values);
+
+						$this->cookie->set('Commentics-Form', $values, 60 * 60 * 24 * $this->setting->get('form_cookie_days') + time());
+					}
+
+					/* Notify admins of comment */
+					if (!$is_admin) {
+						if ($approve) {
+							$this->notify->adminNotifyCommentApprove($comment_id);
+						} else {
+							$this->notify->adminNotifyCommentSuccess($comment_id);
+						}
+					}
+
+					/* Notify subscribers of comment */
+					if ($this->setting->get('enabled_notify') && ($is_admin || (!$this->setting->get('approve_notifications') && !$approve))) {
+						$this->notify->subscriberNotification($comment_id);
+					}
+
+					/* Unset that the Captcha is complete so the user has to pass it again */
+					unset($this->session->data['cmtx_captcha_complete']);
+
+					if ($approve) {
+						$json['result']['success'] = $this->data['lang_text_comment_approve'];
+					} else {
+						$json['result']['success'] = $this->data['lang_text_comment_success'];
+					}
 				}
 			}
 

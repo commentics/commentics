@@ -129,6 +129,8 @@ $_['lang_tag_smiley_shocked']				= ':shocked:';
 // Text
 $_['lang_text_form_disabled']				= 'Adding comments has been disabled.';
 $_['lang_text_javascript_disabled']			= 'JavaScript must be enabled for certain features to work.';
+$_['lang_text_preview']						= 'Preview';
+$_['lang_text_preview_only']				= 'Preview only';
 $_['lang_text_required']		 			= '* Required information';
 $_['lang_text_drag_and_drop']				= 'Drag & drop images (max %d)';
 $_['lang_text_drop_success']				= 'Success';

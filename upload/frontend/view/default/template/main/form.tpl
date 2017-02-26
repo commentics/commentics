@@ -1,6 +1,8 @@
 <div id="cmtx_form_container" class="cmtx_form_container cmtx_clear">
 	<h3 class="cmtx_form_heading"><?php echo $lang_heading_form; ?></h3>
 
+	<div id="cmtx_preview"></div>
+
 	<?php if ($display_form) { ?>
 		<?php if ($maintenance_mode_admin) { ?>
 			<div class="cmtx_maintenance_mode_admin"><?php echo $lang_text_maintenance_admin; ?></div>
@@ -599,6 +601,12 @@
 					$('.cmtx_message_success, .cmtx_message_error, .cmtx_error').remove();
 
 					$('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
+
+					if (response['result']['preview']) {
+						$('#cmtx_preview').html(response['result']['preview']);
+					} else {
+						$('#cmtx_preview').html('');
+					}
 
 					if (response['result']['success']) {
 						$('#cmtx_comment, #cmtx_answer, #cmtx_securimage').val('');

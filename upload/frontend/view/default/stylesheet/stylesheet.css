@@ -30,6 +30,9 @@
 .cmtx_container input, .cmtx_container select, .cmtx_container textarea, .cmtx_container label, #colorbox input, #colorbox select, #colorbox textarea, #colorbox label {
   margin: 0 !important;
 }
+.cmtx_container b, #colorbox b {
+  font-weight: bold;
+}
 
 .cmtx_clear::before, .cmtx_clear::after {
   content: " ";
@@ -47,6 +50,20 @@
 
 .cmtx_form_heading {
   margin-bottom: 12px;
+}
+
+#cmtx_perm_0 {
+  border: 1px dashed #828282;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+}
+
+.cmtx_preview_text {
+  color: #828282;
+  font-size: 0.8em;
+  margin-top: 9px;
+  font-weight: normal;
 }
 
 .cmtx_maintenance_mode_admin {
@@ -1373,7 +1390,7 @@ select.cmtx_required {
 
 /* Pagination */
 .cmtx_pagination_url {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .cmtx_pagination_box {

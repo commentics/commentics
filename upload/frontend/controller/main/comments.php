@@ -150,6 +150,8 @@ class MainCommentsController extends Controller {
 		$this->data['scroll_reply']           = $this->setting->get('scroll_reply');
 		$this->data['scroll_speed']           = $this->setting->get('scroll_speed');
 
+		$this->data['is_preview']           = false;
+
 		if ($this->setting->get('show_reply') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
 			$this->data['show_reply'] = true;
 		} else {

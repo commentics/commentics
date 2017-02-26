@@ -10,6 +10,6 @@ $_['lang_entry_enabled']	= 'Enabled:';
 $_['lang_entry_agree']		= 'Agree:';
 
 // Hint
-$_['lang_hint_enabled']		= 'Whether the button should appear on the form. This feature is still in development so can\'t be enabled.';
+$_['lang_hint_enabled']		= 'Whether the button should appear on the form.';
 $_['lang_hint_agree']		= 'Should the user have to agree to the privacy policy and the terms & conditions before being able to preview the comment?';
 ?>

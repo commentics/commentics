@@ -42,6 +42,11 @@ $grey: #828282;
 	input, select, textarea, label {
 		margin: 0 !important;
 	}
+
+	b {
+		font-weight: bold;
+	}
+
 }
 
 .cmtx_clear::before, .cmtx_clear::after {

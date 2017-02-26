@@ -29,7 +29,7 @@
 	<form action="index.php?route=layout_form/preview" class="controls" method="post">
 		<div class="fieldset">
 			<label><?php echo $lang_entry_enabled; ?></label>
-			<input type="checkbox" name="enabled_preview" disabled value="1" <?php if ($enabled_preview) { echo 'checked'; } ?>>
+			<input type="checkbox" name="enabled_preview" value="1" <?php if ($enabled_preview) { echo 'checked'; } ?>>
 			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_enabled; ?>', this, event, '')">[?]</a>
 		</div>
 
