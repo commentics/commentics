@@ -40,10 +40,6 @@ if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'confi
 
 require_once(CMTX_DIR_SYSTEM . 'startup.php');
 
-if (defined('CMTX_DB_HOSTNAME') && !$cmtx_db->connected) {
-	die('<b>Error</b>: ' . $cmtx_db->connect_error . ($cmtx_db->connect_errno ? ' (' . $cmtx_db->connect_errno . ')' : ''));
-}
-
 if (isset($cmtx_request->get['route']) && preg_match('/^[a-z0-9_]+$/i', $cmtx_request->get['route'])) {
 	if (file_exists(CMTX_DIR_CONTROLLER . 'main/' . $cmtx_request->get['route'] . '.php')) {
 		require_once(CMTX_DIR_CONTROLLER . 'main/' . $cmtx_request->get['route'] . '.php');

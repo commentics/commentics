@@ -50,10 +50,6 @@ if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'confi
 
 require_once(CMTX_DIR_SYSTEM . 'startup.php');
 
-if (!$cmtx_db->isConnected()) {
-	die('<b>Error</b>: ' . $cmtx_db->getConnectError() . ($cmtx_db->getConnectErrno() ? ' (' . $cmtx_db->getConnectErrno() . ')' : ''));
-}
-
 if (!$cmtx_db->isInstalled()) {
 	die('<b>Error</b>: There are no database tables');
 }

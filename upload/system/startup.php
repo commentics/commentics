@@ -85,7 +85,19 @@ require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'variable.php'));
 
 /* Initialise the library classes */
 $cmtx_db = new \Commentics\Db();
-if (defined('CMTX_DB_HOSTNAME')) { $cmtx_db->connect(CMTX_DB_HOSTNAME, CMTX_DB_USERNAME, CMTX_DB_PASSWORD, CMTX_DB_DATABASE, CMTX_DB_PORT, CMTX_DB_PREFIX, CMTX_DB_DRIVER); }
+
+if (defined('CMTX_DB_HOSTNAME')) {
+	$cmtx_db->connect(CMTX_DB_HOSTNAME, CMTX_DB_USERNAME, CMTX_DB_PASSWORD, CMTX_DB_DATABASE, CMTX_DB_PORT, CMTX_DB_PREFIX, CMTX_DB_DRIVER);
+
+	if (!$cmtx_db->connected) {
+		if (defined('CMTX_FRONTEND')) {
+			return;
+		} else {
+			die('<b>Error</b>: ' . $cmtx_db->getConnectError() . ($cmtx_db->getConnectErrno() ? ' (' . $cmtx_db->getConnectErrno() . ')' : ''));
+		}
+	}
+}
+
 $cmtx_registry->set('db', $cmtx_db);
 
 $cmtx_cookie = new \Commentics\Cookie();
