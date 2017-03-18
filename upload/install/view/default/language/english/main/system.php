@@ -6,7 +6,7 @@ $_['lang_text_fail']				= 'Fail';
 
 // Item
 $_['lang_item_php_version']			= 'PHP version is 5.3.7 or higher';
-$_['lang_item_mysql_version']		= 'MySQL is 5.6.5 or higher';
+$_['lang_item_mysql_version']		= 'MySQL is 5.0.7 or higher';
 $_['lang_item_php_session']			= 'A PHP session is available';
 $_['lang_item_ctype_loaded']		= 'Ctype extension is loaded';
 $_['lang_item_filter_loaded']		= 'Filter extension is loaded';
@@ -23,7 +23,7 @@ $_['lang_item_freetype_enabled']	= 'FreeType is enabled';
 
 // Note
 $_['lang_note_php_version']			= 'You must have PHP 5.3.7 or higher.';
-$_['lang_note_mysql_version']		= 'You must have MySQL 5.6.5 or higher.';
+$_['lang_note_mysql_version']		= 'You must have MySQL 5.0.7 or higher.';
 $_['lang_note_php_session']			= 'A session is required for the admin panel.';
 $_['lang_note_ctype_loaded']		= 'The Ctype extension is required for input validation.';
 $_['lang_note_filter_loaded']		= 'The Filter extension is required for input validation.';

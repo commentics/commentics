@@ -54,7 +54,7 @@ class MainInstall2Model extends Model {
 			`username` varchar(250) NOT NULL default '',
 			`ip_address` varchar(250) NOT NULL default '',
 			`page` varchar(250) NOT NULL default '',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -77,15 +77,15 @@ class MainInstall2Model extends Model {
 			`receive_email_flag` tinyint(1) unsigned NOT NULL default '1',
 			`login_attempts` tinyint(1) unsigned NOT NULL default '0',
 			`resets` tinyint(1) unsigned NOT NULL default '0',
-			`last_login` datetime NOT NULL default NOW(),
+			`last_login` datetime NOT NULL,
 			`restrict_pages` tinyint(1) unsigned NOT NULL default '0',
 			`viewable_pages` text NOT NULL,
 			`modifiable_pages` text NOT NULL,
 			`format` varchar(250) NOT NULL default 'html',
 			`is_super` tinyint(1) unsigned NOT NULL default '0',
 			`is_enabled` tinyint(1) unsigned NOT NULL default '1',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
@@ -99,7 +99,7 @@ class MainInstall2Model extends Model {
 			`id` int(10) unsigned NOT NULL auto_increment,
 			`ip_address` varchar(250) NOT NULL default '',
 			`amount` int(10) unsigned NOT NULL default '0',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -112,7 +112,7 @@ class MainInstall2Model extends Model {
 			`description` varchar(250) NOT NULL default '',
 			`filename` varchar(250) NOT NULL default '',
 			`size` int(10) unsigned NOT NULL default '0',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -125,8 +125,8 @@ class MainInstall2Model extends Model {
 			`ip_address` varchar(250) NOT NULL default '',
 			`reason` varchar(250) NOT NULL default '',
 			`unban` tinyint(1) unsigned NOT NULL default '0',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -158,8 +158,8 @@ class MainInstall2Model extends Model {
 			`is_sticky` tinyint(1) unsigned NOT NULL default '0',
 			`is_locked` tinyint(1) unsigned NOT NULL default '0',
 			`is_verified` tinyint(1) unsigned NOT NULL default '0',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -173,8 +173,8 @@ class MainInstall2Model extends Model {
 			`code` varchar(3) NOT NULL default '',
 			`top` tinyint(1) unsigned NOT NULL default '0',
 			`enabled` tinyint(1) unsigned NOT NULL default '1',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
@@ -360,7 +360,7 @@ class MainInstall2Model extends Model {
 			`type` varchar(250) NOT NULL default '',
 			`text` text NOT NULL,
 			`modified_by` varchar(250) NOT NULL default '',
-			`date_modified` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
@@ -399,7 +399,7 @@ class MainInstall2Model extends Model {
 			`text` text NOT NULL,
 			`html` text NOT NULL,
 			`language` varchar(250) NOT NULL default '',
-			`date_modified` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
@@ -421,7 +421,7 @@ class MainInstall2Model extends Model {
 		/********************************************** CREATE TABLE 'logins' ********************************************/
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "logins` (
 			`id` int(10) unsigned NOT NULL auto_increment,
-			`date_modified` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
@@ -435,7 +435,7 @@ class MainInstall2Model extends Model {
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "modules` (
 			`id` int(10) unsigned NOT NULL auto_increment,
 			`module` varchar(250) NOT NULL default '',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -450,8 +450,8 @@ class MainInstall2Model extends Model {
 			`url` varchar(1000) NOT NULL default '',
 			`moderate` varchar(250) NOT NULL default 'default',
 			`is_form_enabled` tinyint(1) unsigned NOT NULL default '1',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -464,8 +464,8 @@ class MainInstall2Model extends Model {
 			`question` varchar(250) NOT NULL default '',
 			`answer` varchar(250) NOT NULL default '',
 			`language` varchar(250) NOT NULL default '',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
@@ -499,7 +499,7 @@ class MainInstall2Model extends Model {
 			`page_id` int(10) unsigned NOT NULL default '0',
 			`rating` tinyint(1) unsigned NOT NULL default '0',
 			`ip_address` varchar(250) NOT NULL default '',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -511,7 +511,7 @@ class MainInstall2Model extends Model {
 			`id` int(10) unsigned NOT NULL auto_increment,
 			`comment_id` int(10) unsigned NOT NULL default '0',
 			`ip_address` varchar(250) NOT NULL default '',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -651,7 +651,7 @@ class MainInstall2Model extends Model {
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'enabled_cookie', `value` = '1'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'enabled_privacy', `value` = '1'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'enabled_terms', `value` = '1'");
-		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'enabled_preview', `value` = '0'");
+		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'enabled_preview', `value` = '1'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'required_email', `value` = '1'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'required_website', `value` = '0'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'required_town', `value` = '0'");
@@ -899,8 +899,8 @@ class MainInstall2Model extends Model {
 			`name` varchar(250) NOT NULL default '',
 			`country_code` varchar(3) NOT NULL default '',
 			`enabled` tinyint(1) unsigned NOT NULL default '1',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
@@ -4245,8 +4245,8 @@ class MainInstall2Model extends Model {
 			`token` varchar(20) NOT NULL default '',
 			`is_confirmed` tinyint(1) unsigned NOT NULL default '0',
 			`ip_address` varchar(250) NOT NULL default '',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -4263,7 +4263,7 @@ class MainInstall2Model extends Model {
 			`extension` varchar(10) NOT NULL default '',
 			`mime_type` varchar(250) NOT NULL default '',
 			`file_size` int(10) unsigned NOT NULL default '0',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -4283,8 +4283,8 @@ class MainInstall2Model extends Model {
 			`to_approve` tinyint(1) unsigned NOT NULL default '1',
 			`format` varchar(250) NOT NULL default 'html',
 			`ip_address` varchar(250) NOT NULL default '',
-			`date_modified` datetime NOT NULL default NOW(),
-			`date_added` datetime NOT NULL default NOW(),
+			`date_modified` datetime NOT NULL,
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/
@@ -4296,7 +4296,7 @@ class MainInstall2Model extends Model {
 			`id` int(10) unsigned NOT NULL auto_increment,
 			`version` varchar(10) NOT NULL default '',
 			`type` varchar(250) NOT NULL default '',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
@@ -4325,7 +4325,7 @@ class MainInstall2Model extends Model {
 			`id` int(10) unsigned NOT NULL auto_increment,
 			`comment_id` int(10) unsigned NOT NULL default '0',
 			`ip_address` varchar(250) NOT NULL default '',
-			`date_added` datetime NOT NULL default NOW(),
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 		/*****************************************************************************************************************/

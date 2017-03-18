@@ -14,13 +14,13 @@ class MainUpgrade2Model extends Model {
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `viewable_pages` text NOT NULL");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `modifiable_pages` text NOT NULL");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `format` varchar(250) NOT NULL default 'html'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `date_modified` datetime NOT NULL default NOW()");
+		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `date_modified` datetime NOT NULL");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` DROP COLUMN `allowed_pages`");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_ban` `receive_email_ban` tinyint(1) unsigned NOT NULL default '1'");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_comment_approve` `receive_email_comment_approve` tinyint(1) unsigned NOT NULL default '1'");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_comment_okay` `receive_email_comment_success` tinyint(1) unsigned NOT NULL default '1'");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_flag` `receive_email_flag` tinyint(1) unsigned NOT NULL default '1'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `dated` `date_added` datetime NOT NULL default NOW()");
+		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `dated` `date_added` datetime NOT NULL");
 
 			/* Attempts */
 		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "attempts`");
@@ -51,15 +51,15 @@ class MainUpgrade2Model extends Model {
 
 			/* Pages */
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD `moderate` varchar(250) NOT NULL default 'default'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD `date_modified` datetime NOT NULL default NOW()");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` CHANGE `dated` `date_added` datetime NOT NULL default NOW()");
+		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD `date_modified` datetime NOT NULL");
+		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` CHANGE `dated` `date_added` datetime NOT NULL");
 
 			/* Questions */
 		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "questions`");
 			$this->model_main_install_2->createTableQuestions();
 
 			/* Ratings */
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "ratings` CHANGE `dated` `date_added` datetime NOT NULL default NOW()");
+		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "ratings` CHANGE `dated` `date_added` datetime NOT NULL");
 
 			/* Reporters */
 		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "reporters`");
@@ -96,7 +96,7 @@ class MainUpgrade2Model extends Model {
 			$this->model_main_install_2->createTableUsers();
 
 			/* Version */
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "version` CHANGE `dated` `date_added` datetime NOT NULL default NOW()");
+		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "version` CHANGE `dated` `date_added` datetime NOT NULL");
 
 			/* Viewers */
 		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "viewers`");
@@ -107,7 +107,7 @@ class MainUpgrade2Model extends Model {
 			$this->model_main_install_2->createTableVoters();
 
 			/* Comments */
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` CHANGE `dated` `date_added` datetime NOT NULL default NOW()");
+		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` CHANGE `dated` `date_added` datetime NOT NULL");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `user_id` int(10) unsigned NOT NULL default '0'");
 
 			$query = $this->db->query("SELECT DISTINCT(`name`) FROM `" . CMTX_DB_PREFIX . "comments` ORDER BY `name` ASC");
@@ -163,7 +163,7 @@ class MainUpgrade2Model extends Model {
 
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` DROP COLUMN `name`, DROP COLUMN `email`, DROP COLUMN `country`");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` CHANGE `approval_reasoning` `notes` text NOT NULL");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `date_modified` datetime NOT NULL default NOW()");
+		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `date_modified` datetime NOT NULL");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `state_id` int(10) NOT NULL default '0'");
 		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `country_id` int(10) NOT NULL default '0'");
 			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `website` = '' WHERE `website` = 'http://'");
