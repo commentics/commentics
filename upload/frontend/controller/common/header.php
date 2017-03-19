@@ -88,6 +88,8 @@ class CommonHeaderController extends Controller {
 
 		$this->data['stylesheet'] = $this->loadStylesheet('stylesheet.css');
 
+		$this->data['additional'] = $this->loadAdditionalCss();
+
 		return $this->data;
 	}
 }

@@ -45,3 +45,7 @@
 <?php } ?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
+
+<?php if ($additional) { ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo $additional; ?>">
+<?php } ?>

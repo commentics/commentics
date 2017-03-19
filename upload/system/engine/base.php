@@ -89,6 +89,16 @@ abstract class Base {
 		}
 	}
 
+	public function loadAdditionalCss() {
+		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/additional.css')) {
+			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/additional.css';
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/additional.css')) {
+			return CMTX_HTTP_VIEW . 'default/stylesheet/additional.css';
+		} else {
+			return '';
+		}
+	}
+
 	public function loadWord($cmtx_route, $cmtx_word = '') {
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_route) . '.php')) {
 			require(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_route) . '.php'));
