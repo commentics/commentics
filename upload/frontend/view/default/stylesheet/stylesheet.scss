@@ -32,6 +32,7 @@ $grey: #828282;
 	}
 
 	li {
+		display: list-item;
 		padding: 2px;
 	}
 
@@ -46,7 +47,10 @@ $grey: #828282;
 	b {
 		font-weight: bold;
 	}
+}
 
+.cmtx_container, #colorbox {
+	text-align: left;
 }
 
 .cmtx_clear::before, .cmtx_clear::after {

@@ -22,6 +22,7 @@
   list-style-type: decimal;
 }
 .cmtx_container li, #colorbox li {
+  display: list-item;
   padding: 2px;
 }
 .cmtx_container a, #colorbox a {
@@ -32,6 +33,10 @@
 }
 .cmtx_container b, #colorbox b {
   font-weight: bold;
+}
+
+.cmtx_container, #colorbox {
+  text-align: left;
 }
 
 .cmtx_clear::before, .cmtx_clear::after {
