@@ -174,6 +174,10 @@ class MainUpgrade2Model extends Model {
 
 			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'hide_replies', `value` = '1'");
 		}
+
+		if ($version == '3.1 -> 3.2') {
+			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'security', `title` = 'check_csrf', `value` = '1'");
+		}
 	}
 
 	public function getInstalledVersion() {

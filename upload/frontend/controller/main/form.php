@@ -621,8 +621,10 @@ class MainFormController extends Controller {
 								}
 
 								/* Check CSRF */
-								if (!isset($this->session->data['cmtx_csrf']) || !isset($this->request->post['cmtx_csrf']) || $this->session->data['cmtx_csrf'] != $this->request->post['cmtx_csrf']) {
-									$json['result']['error'] = $this->data['lang_error_csrf'];
+								if ($this->setting->get('check_csrf')) {
+									if (!isset($this->session->data['cmtx_csrf']) || !isset($this->request->post['cmtx_csrf']) || $this->session->data['cmtx_csrf'] != $this->request->post['cmtx_csrf']) {
+										$json['result']['error'] = $this->data['lang_error_csrf'];
+									}
 								}
 
 								/* Comment */

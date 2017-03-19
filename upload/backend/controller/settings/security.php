@@ -53,6 +53,14 @@ class SettingsSecurityController extends Controller {
 			$this->data['check_ip_address'] = $this->setting->get('check_ip_address');
 		}
 
+		if (isset($this->request->post['check_csrf'])) {
+			$this->data['check_csrf'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['check_csrf'])) {
+			$this->data['check_csrf'] = false;
+		} else {
+			$this->data['check_csrf'] = $this->setting->get('check_csrf');
+		}
+
 		if (isset($this->request->post['ssl_certificate'])) {
 			$this->data['ssl_certificate'] = true;
 		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['ssl_certificate'])) {
