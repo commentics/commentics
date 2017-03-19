@@ -212,7 +212,9 @@ class MainCommentsController extends Controller {
 			if ($this->setting->get('comments_position_' . $i) && array_key_exists($this->setting->get('comments_position_' . $i), $outer_components)) {
 				$this->data['comments_position_' . $i] = $outer_components[$this->setting->get('comments_position_' . $i)];
 
-				if (empty(trim($this->data['comments_position_' . $i]))) {
+				$trimmed = trim($this->data['comments_position_' . $i]);
+
+				if (empty($trimmed)) {
 					$this->data['comments_position_' . $i] = '&nbsp;';
 				}
 			} else {
