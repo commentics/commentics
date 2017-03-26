@@ -623,6 +623,11 @@ class MainFormController extends Controller {
 								/* Check CSRF */
 								if ($this->setting->get('check_csrf')) {
 									if (!isset($this->session->data['cmtx_csrf']) || !isset($this->request->post['cmtx_csrf']) || $this->session->data['cmtx_csrf'] != $this->request->post['cmtx_csrf']) {
+										/* The session may have expired so generate a new CSRF token */
+										$json['csrf'] = $this->variable->random();
+
+										$this->session->data['cmtx_csrf'] = $json['csrf'];
+
 										$json['result']['error'] = $this->data['lang_error_csrf'];
 									}
 								}

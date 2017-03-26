@@ -310,7 +310,7 @@
 
 			<input type="hidden" name="cmtx_time" value="<?php echo $time; ?>">
 
-			<input type="hidden" name="cmtx_csrf" value="<?php echo $csrf; ?>">
+			<input type="hidden" id="cmtx_csrf" name="cmtx_csrf" value="<?php echo $csrf; ?>">
 
 			<input type="text" name="cmtx_honeypot" class="cmtx_honeypot" value="" autocomplete="off">
 		</form>
@@ -725,6 +725,10 @@
 
 					if (response['question']) {
 						$('#cmtx_question').text(response['question']);
+					}
+
+					if (response['csrf']) {
+						$('#cmtx_csrf').val(response['csrf']);
 					}
 
 					$('html, body').animate({
