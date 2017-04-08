@@ -67,8 +67,19 @@ class PartNotifyController extends Controller {
 									}
 
 									/* Check CSRF */
-									if (!isset($this->session->data['cmtx_csrf']) || !isset($this->request->post['cmtx_csrf']) || $this->session->data['cmtx_csrf'] != $this->request->post['cmtx_csrf']) {
-										$json['result']['error'] = $this->data['lang_error_csrf'];
+									if ($this->setting->get('check_csrf')) {
+										if (isset($this->request->post['cmtx_csrf'])) {
+											if (!isset($this->session->data['cmtx_csrf_' . $this->page->getId()]) || $this->session->data['cmtx_csrf_' . $this->page->getId()] != $this->request->post['cmtx_csrf']) {
+												/* The session may have expired so generate a new CSRF token */
+												$json['csrf'] = $this->variable->random();
+
+												$this->session->data['cmtx_csrf_' . $this->page->getId()] = $json['csrf'];
+
+												$json['result']['error'] = $this->data['lang_error_incorrect_csrf'];
+											}
+										} else {
+											$json['result']['error'] = $this->data['lang_error_no_csrf'];
+										}
 									}
 
 									/* Name */
@@ -237,22 +248,25 @@ class PartNotifyController extends Controller {
 										if (isset($this->request->post['cmtx_answer']) && $this->request->post['cmtx_answer'] != '') {
 											$answer = $this->security->decode($this->request->post['cmtx_answer']);
 
-											if (isset($this->session->data['cmtx_question_id'])) {
-												$question_id = $this->session->data['cmtx_question_id'];
+											if (isset($this->session->data['cmtx_question_id_' . $this->page->getId()])) {
+												$question_id = $this->session->data['cmtx_question_id_' . $this->page->getId()];
 
 												if (!$this->model_main_form->isAnswerValid($question_id, $answer)) {
 													$json['error']['answer'] = $this->data['lang_error_answer_invalid'];
 												}
 											} else {
-												/* The session may have expired so generate a new question to answer */
+												/* The session may have expired */
+												$json['error']['answer'] = $this->data['lang_error_question_empty'];
+											}
+
+											/* Generate a new question to answer */
+											if (isset($json['error']['answer'])) {
 												$question = $this->model_main_form->getQuestion();
 
 												if ($question) {
-													$this->session->data['cmtx_question_id'] = $question['id'];
+													$this->session->data['cmtx_question_id_' . $this->page->getId()] = $question['id'];
 
 													$json['question'] = $question['question'];
-
-													$json['error']['answer'] = $this->data['lang_error_question_empty'];
 												}
 											}
 										} else {
@@ -261,7 +275,7 @@ class PartNotifyController extends Controller {
 									}
 
 									/* ReCaptcha */
-									if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha' && (bool)ini_get('allow_url_fopen') && !isset($this->session->data['cmtx_captcha_complete'])) {
+									if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha' && (bool)ini_get('allow_url_fopen') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
 										if (isset($this->request->post['g-recaptcha-response'])) {
 											$captcha = $this->request->post['g-recaptcha-response'];
 
@@ -273,7 +287,7 @@ class PartNotifyController extends Controller {
 												if ($response->success === false) {
 													$json['error']['recaptcha'] = $this->data['lang_error_incorrect_recaptcha'];
 												} else {
-													$this->session->data['cmtx_captcha_complete'] = true;
+													$this->session->data['cmtx_captcha_complete_' . $this->page->getId()] = true;
 												}
 											} else {
 												$json['error']['recaptcha'] = $this->data['lang_error_no_recaptcha'];
@@ -284,7 +298,7 @@ class PartNotifyController extends Controller {
 									}
 
 									/* Securimage */
-									if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'securimage' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext') && !isset($this->session->data['cmtx_captcha_complete'])) {
+									if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'securimage' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
 										if (isset($this->request->post['cmtx_securimage']) && $this->request->post['cmtx_securimage'] != '') {
 											if (!class_exists('Securimage')) {
 												require_once CMTX_DIR_3RDPARTY . 'securimage/securimage.php';
@@ -292,10 +306,12 @@ class PartNotifyController extends Controller {
 
 											$securimage = new \Commentics\Securimage();
 
+											$securimage->setNamespace('cmtx_' . $this->page->getId());
+
 											if ($securimage->check($this->request->post['cmtx_securimage']) == false) {
 												$json['error']['securimage'] = $this->data['lang_error_incorrect_securimage'];
 											} else {
-												$this->session->data['cmtx_captcha_complete'] = true;
+												$this->session->data['cmtx_captcha_complete_' . $this->page->getId()] = true;
 											}
 										} else {
 											$json['error']['securimage'] = $this->data['lang_error_no_securimage'];
@@ -303,7 +319,7 @@ class PartNotifyController extends Controller {
 									}
 
 									/* Captcha */
-									if (isset($this->session->data['cmtx_captcha_complete'])) {
+									if (isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
 										$json['captcha_complete'] = true;
 									}
 								}
@@ -340,7 +356,7 @@ class PartNotifyController extends Controller {
 					$question = $this->model_main_form->getQuestion();
 
 					if ($question) {
-						$this->session->data['cmtx_question_id'] = $question['id'];
+						$this->session->data['cmtx_question_id_' . $this->page->getId()] = $question['id'];
 
 						$json['question'] = $question['question'];
 					}
@@ -353,7 +369,12 @@ class PartNotifyController extends Controller {
 				$this->notify->subscriberConfirmation($this->setting->get('notify_format'), $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $page['reference'], $page['url'], $user_token, $subscription_token);
 
 				/* Unset that the Captcha is complete so the user has to pass it again */
-				unset($this->session->data['cmtx_captcha_complete']);
+				unset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()]);
+
+				/* Generate a new CSRF token */
+				$json['csrf'] = $this->variable->random();
+
+				$this->session->data['cmtx_csrf_' . $this->page->getId()] = $json['csrf'];
 
 				$json['result']['success'] = $this->data['lang_text_notify_success'];
 			}

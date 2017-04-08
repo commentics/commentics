@@ -86,7 +86,7 @@ class Page {
 	}
 
 	public function createPage() {
-		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "pages` SET `identifier` = '" . $this->db->escape($this->identifier) . "', `reference` = '" . $this->db->escape($this->reference) . "', `url` = '" . $this->url->getPageUrl() . "', `moderate` = 'default', `is_form_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "pages` SET `identifier` = '" . $this->db->escape($this->identifier) . "', `reference` = '" . $this->db->escape($this->reference) . "', `url` = '" . $this->db->escape($this->url->getPageUrl()) . "', `moderate` = 'default', `is_form_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
 		return $this->db->insertId();
 	}

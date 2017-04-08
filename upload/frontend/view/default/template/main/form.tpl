@@ -221,7 +221,7 @@
 					<div class="cmtx_col_12">
 						<div class="cmtx_container cmtx_securimage_container">
 							<div>
-								<img id="cmtx_securimage_image" src="<?php echo $securimage_url; ?>securimage_show.php" alt="<?php echo $lang_alt_securimage; ?>">
+								<img id="cmtx_securimage_image" src="<?php echo $securimage_url; ?>securimage_show.php?namespace=<?php echo $captcha_namespace; ?>" alt="<?php echo $lang_alt_securimage; ?>">
 
 								<span id="cmtx_securimage_refresh" class="cmtx_securimage_refresh fa fa-refresh" title="<?php echo $lang_title_refresh; ?>"></span>
 							</div>
@@ -538,7 +538,7 @@
 			// <![CDATA[
 			$(document).ready(function() {
 				$('#cmtx_securimage_refresh').click(function() {
-					var src = '<?php echo $securimage_url; ?>securimage_show.php?' + Math.random();
+					var src = '<?php echo $securimage_url; ?>securimage_show.php?namespace=<?php echo $captcha_namespace; ?>&' + Math.random();
 
 					$('#cmtx_securimage_image').attr('src', src);
 				});
