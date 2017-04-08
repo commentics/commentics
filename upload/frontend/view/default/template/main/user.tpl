@@ -62,7 +62,7 @@
 			</div>
 		</form>
 
-		<div class="cmtx_user_subscriptions_area">
+		<div id="subscriptions" class="cmtx_user_subscriptions_area">
 			<div class="cmtx_user_section_title"><?php echo $lang_text_subscriptions_section; ?></div>
 
 			<div class="cmtx_user_section_body">
