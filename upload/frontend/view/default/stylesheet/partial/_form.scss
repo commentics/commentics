@@ -526,6 +526,7 @@ select.cmtx_required {
 .cmtx_checkbox_container input {
 	margin-right: 2px !important;
 	display: inline-block;
+	vertical-align: baseline;
 }
 
 .cmtx_checkbox_container label {
@@ -564,6 +565,7 @@ select.cmtx_required {
 	padding: 5px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	width: 100%;
+	height: auto;
 }
 
 .cmtx_button::-moz-focus-inner {

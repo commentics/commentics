@@ -30,6 +30,7 @@
 }
 .cmtx_container input, .cmtx_container select, .cmtx_container textarea, .cmtx_container label, #colorbox input, #colorbox select, #colorbox textarea, #colorbox label {
   margin: 0 !important;
+  height: auto;
 }
 .cmtx_container b, #colorbox b {
   font-weight: bold;
@@ -563,6 +564,7 @@ select.cmtx_required {
 .cmtx_checkbox_container input {
   margin-right: 2px !important;
   display: inline-block;
+  vertical-align: baseline;
 }
 
 .cmtx_checkbox_container label {
@@ -601,6 +603,7 @@ select.cmtx_required {
   padding: 5px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 100%;
+  height: auto;
 }
 
 .cmtx_button::-moz-focus-inner {
@@ -1184,9 +1187,13 @@ select.cmtx_required {
   position: absolute;
 }
 
+.cmtx_view_replies_area a {
+  text-decoration: none;
+  outline: 0;
+}
+
 .cmtx_view_replies_link {
   color: #0000EE;
-  text-decoration: none;
 }
 
 .cmtx_reply_num {

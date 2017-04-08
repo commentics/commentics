@@ -477,9 +477,13 @@
 	position: absolute;
 }
 
+.cmtx_view_replies_area a {
+	text-decoration: none;
+	outline: 0;
+}
+
 .cmtx_view_replies_link {
 	color: #0000EE;
-	text-decoration: none;
 }
 
 .cmtx_reply_num {
