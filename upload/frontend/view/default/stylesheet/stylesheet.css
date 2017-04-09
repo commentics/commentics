@@ -1548,6 +1548,24 @@ select.cmtx_required {
   font-weight: bold;
 }
 
+/* Return */
+.cmtx_return {
+  background-color: #FCFCFC;
+  border: 1px dotted #CCCCCC;
+  line-height: 25px;
+  text-align: center;
+}
+
+.cmtx_return a {
+  text-decoration: none;
+  outline: 0;
+}
+
+.cmtx_return_icon:before {
+  content: "\f0e2";
+  color: #222;
+}
+
 /* User */
 .cmtx_user_container .cmtx_user_heading {
   color: #636E75;

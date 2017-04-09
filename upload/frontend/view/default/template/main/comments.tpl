@@ -79,6 +79,10 @@
 			<?php } ?>
 		</div>
 
+		<?php if ($is_permalink || $is_search) { ?>
+			<div class="cmtx_return"><?php echo $lang_text_return; ?></div>
+		<?php } ?>
+
 		<?php if ($row_three) { ?>
 			<div class="cmtx_comments_row_three cmtx_clear">
 				<div class="cmtx_row_left <?php if ($comments_position_7 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_7; ?></div>
@@ -474,8 +478,10 @@
 	<script>
 	// <![CDATA[
 	$(document).ready(function() {
-		$('body').on('click', '.cmtx_no_permalink a, .cmtx_no_results a', function(e) {
+		$('body').on('click', '.cmtx_no_permalink a, .cmtx_no_results a, .cmtx_return a', function(e) {
 			e.preventDefault();
+
+			$('#cmtx_search').val('');
 
 			var options = {
 				'commentics_url'	: '<?php echo $commentics_url; ?>',

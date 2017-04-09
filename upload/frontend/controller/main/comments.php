@@ -97,10 +97,22 @@ class MainCommentsController extends Controller {
 			$this->first_poster = $this->model_main_comments->getFirstPoster($this->page->getId());
 		}
 
+		if ($filter_comment_id) { // if permalink
+			$this->data['is_permalink'] = true;
+		} else {
+			$this->data['is_permalink'] = false;
+		}
+
 		if ($filter_comment_id && !$this->data['total']) { // if permalink returns no results
 			$this->data['permalink_no_results'] = true;
 		} else {
 			$this->data['permalink_no_results'] = false;
+		}
+
+		if ($filter_comment) { // if search
+			$this->data['is_search'] = true;
+		} else {
+			$this->data['is_search'] = false;
 		}
 
 		if ($filter_comment && !$this->data['total']) { // if search returns no results
