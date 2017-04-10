@@ -32,7 +32,7 @@
 					<?php $has_replies = true; ?>
 				<?php } ?>
 
-				<?php require(cmtx_modification(CMTX_DIR_VIEW . 'default/template/main/comment.tpl')); ?>
+				<?php require($this->loadTemplate('main/comment')); ?>
 
 				<?php if ($has_replies) { ?>
 					<div class="cmtx_replies_group <?php if ($hide_replies) { echo 'cmtx_hide'; } ?>">
@@ -42,31 +42,31 @@
 					<?php $reply_depth = 1; ?>
 					<?php $reply_num++; ?>
 					<?php $comment = $reply; ?>
-					<?php require(cmtx_modification(CMTX_DIR_VIEW . 'default/template/main/comment.tpl')); ?>
+					<?php require($this->loadTemplate('main/comment')); ?>
 
 					<?php foreach ($comment['reply_id'] as $reply) { ?>
 						<?php $reply_depth = 2; ?>
 						<?php $reply_num++; ?>
 						<?php $comment = $reply; ?>
-						<?php require(cmtx_modification(CMTX_DIR_VIEW . 'default/template/main/comment.tpl')); ?>
+						<?php require($this->loadTemplate('main/comment')); ?>
 
 						<?php foreach ($comment['reply_id'] as $reply) { ?>
 							<?php $reply_depth = 3; ?>
 							<?php $reply_num++; ?>
 							<?php $comment = $reply; ?>
-							<?php require(cmtx_modification(CMTX_DIR_VIEW . 'default/template/main/comment.tpl')); ?>
+							<?php require($this->loadTemplate('main/comment')); ?>
 
 							<?php foreach ($comment['reply_id'] as $reply) { ?>
 								<?php $reply_depth = 4; ?>
 								<?php $reply_num++; ?>
 								<?php $comment = $reply; ?>
-								<?php require(cmtx_modification(CMTX_DIR_VIEW . 'default/template/main/comment.tpl')); ?>
+								<?php require($this->loadTemplate('main/comment')); ?>
 
 								<?php foreach ($comment['reply_id'] as $reply) { ?>
 									<?php $reply_depth = 5; ?>
 									<?php $reply_num++; ?>
 									<?php $comment = $reply; ?>
-									<?php require(cmtx_modification(CMTX_DIR_VIEW . 'default/template/main/comment.tpl')); ?>
+									<?php require($this->loadTemplate('main/comment')); ?>
 								<?php } ?>
 							<?php } ?>
 						<?php } ?>
