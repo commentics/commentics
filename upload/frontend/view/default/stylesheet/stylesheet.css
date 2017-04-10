@@ -1204,6 +1204,7 @@ select.cmtx_required {
   margin-top: 3px;
   width: 200px;
   margin-bottom: 3px;
+  padding: 0 0 0 2px;
 }
 
 .cmtx_permalink_box a {
