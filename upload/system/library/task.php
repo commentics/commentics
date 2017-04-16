@@ -11,8 +11,8 @@ class Task {
 		$this->comment = $registry->get('comment');
 		$this->setting = $registry->get('setting');
 
-		if (defined('CMTX_INSTALL')) {
-			return; // Don't run if it's the installer
+		if (!$this->db->isConnected() || !$this->db->isInstalled()) {
+			return;
 		}
 
 		if ($this->setting->get('task_enabled_delete_bans')) {

@@ -2,15 +2,17 @@
 namespace Commentics;
 
 class Modification {
+	private $db;
 	private $log;
 	private $setting;
 
 	public function __construct($registry) {
+		$this->db = $registry->get('db');
 		$this->log = $registry->get('log');
 		$this->setting = $registry->get('setting');
 
-		if (defined('CMTX_INSTALL')) {
-			return; // Don't run if it's the installer
+		if (!$this->db->isConnected() || !$this->db->isInstalled()) {
+			return;
 		}
 
 		// Set the log's filename
