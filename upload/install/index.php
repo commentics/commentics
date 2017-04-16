@@ -1,4 +1,9 @@
 <?php
+/* Stop here if PHP less than 5.3 due to no namespaces */
+if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+	die('PHP 5.3.7+ required');
+}
+
 define('CMTX_INSTALL', true);
 
 define('CMTX_VERSION', '3.1');
