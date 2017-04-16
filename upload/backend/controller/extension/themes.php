@@ -108,6 +108,50 @@ class ExtensionThemesController extends Controller {
 		$this->loadView('extension/themes');
 	}
 
+	public function previewFrontend() {
+		if ($this->request->isAjax()) {
+			$this->response->addHeader('Content-Type: application/json');
+
+			$json = array();
+
+			if (isset($this->request->post['theme'])) {
+				$theme = basename($this->request->post['theme']);
+
+				if (file_exists(CMTX_DIR_FRONTEND . 'view/' . $theme . '/image/preview.png')) {
+					$json['preview'] = $this->setting->get('commentics_url') . 'frontend/view/' . $theme . '/image/preview.png';
+				} else {
+					$json['preview'] = $this->setting->get('commentics_url') . 'frontend/view/default/image/preview.png';
+				}
+			} else {
+				$json['preview'] = $this->setting->get('commentics_url') . 'frontend/view/default/image/preview.png';
+			}
+
+			echo json_encode($json);
+		}
+	}
+
+	public function previewBackend() {
+		if ($this->request->isAjax()) {
+			$this->response->addHeader('Content-Type: application/json');
+
+			$json = array();
+
+			if (isset($this->request->post['theme'])) {
+				$theme = basename($this->request->post['theme']);
+
+				if (file_exists(CMTX_DIR_VIEW . $theme . '/image/preview.png')) {
+					$json['preview'] = CMTX_HTTP_VIEW . $theme . '/image/preview.png';
+				} else {
+					$json['preview'] = CMTX_HTTP_VIEW . 'default/image/preview.png';
+				}
+			} else {
+				$json['preview'] = CMTX_HTTP_VIEW . 'default/image/preview.png';
+			}
+
+			echo json_encode($json);
+		}
+	}
+
 	private function validate() {
 		$this->loadModel('common/poster');
 

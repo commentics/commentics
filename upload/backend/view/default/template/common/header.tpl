@@ -18,7 +18,7 @@
 		<script src="../3rdparty/chart/chart.min.js"></script>
 	<?php } ?>
 
-	<?php if ($route == 'main/dashboard' || $route == 'manage/comments') { ?>
+	<?php if ($route == 'main/dashboard' || $route == 'manage/comments' || $route == 'extension/themes') { ?>
 		<link rel="stylesheet" type="text/css" href="../3rdparty/font_awesome/css/font-awesome.min.css">
 	<?php } ?>
 

@@ -39,6 +39,8 @@
 			<?php } ?>
 		</div>
 
+		<img id="theme-preview-frontend" class="theme_preview" src="" alt="">
+
 		<div class="fieldset">
 			<label><?php echo $lang_entry_backend; ?></label>
 			<select name="theme_backend" class="medium">
@@ -50,6 +52,8 @@
 				<span class="error"><?php echo $error_theme_backend; ?></span>
 			<?php } ?>
 		</div>
+
+		<img id="theme-preview-backend" class="theme_preview" src="" alt="">
 
 		<h2><?php echo $lang_subheading; ?></h2>
 
@@ -138,6 +142,80 @@
 
 			$('div.info').fadeOut(2000);
 		});
+	});
+	// ]]>
+	</script>
+
+	<script>
+	// <![CDATA[
+	$(document).ready(function() {
+		$('select[name="theme_frontend"]').change(function() {
+			var theme = $('select[name="theme_frontend"]').val();
+
+			var request = $.ajax({
+				type: 'POST',
+				cache: false,
+				url: 'index.php?route=extension/themes/previewFrontend',
+				data: 'theme=' + encodeURIComponent(theme),
+				dataType: 'json',
+				beforeSend: function() {
+					$('select[name="theme_frontend"]').after('<span class="fa fa-circle-o-notch fa-spin"></span>');
+				}
+			});
+
+			request.always(function() {
+				$('.fa-spin').remove();
+			});
+
+			request.done(function(response) {
+				$('#theme-preview-frontend').attr('src', response['preview']);
+			});
+
+			request.fail(function(jqXHR, textStatus, errorThrown) {
+				if (console && console.log) {
+					console.log(jqXHR.responseText);
+				}
+			});
+		});
+
+		$('select[name="theme_frontend"]').trigger('change');
+	});
+	// ]]>
+	</script>
+
+	<script>
+	// <![CDATA[
+	$(document).ready(function() {
+		$('select[name="theme_backend"]').change(function() {
+			var theme = $('select[name="theme_backend"]').val();
+
+			var request = $.ajax({
+				type: 'POST',
+				cache: false,
+				url: 'index.php?route=extension/themes/previewBackend',
+				data: 'theme=' + encodeURIComponent(theme),
+				dataType: 'json',
+				beforeSend: function() {
+					$('select[name="theme_backend"]').after('<span class="fa fa-circle-o-notch fa-spin"></span>');
+				}
+			});
+
+			request.always(function() {
+				$('.fa-spin').remove();
+			});
+
+			request.done(function(response) {
+				$('#theme-preview-backend').attr('src', response['preview']);
+			});
+
+			request.fail(function(jqXHR, textStatus, errorThrown) {
+				if (console && console.log) {
+					console.log(jqXHR.responseText);
+				}
+			});
+		});
+
+		$('select[name="theme_backend"]').trigger('change');
 	});
 	// ]]>
 	</script>

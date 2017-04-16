@@ -542,6 +542,17 @@ img.loading {
 	text-align: right;
 }
 
+.extension_themes_page .theme_preview {
+	height: 115px;
+	width: 150px;
+	border: 1px solid #EAEAEA;
+}
+
+.extension_themes_page .fa-spin {
+	color: #B1B1B1;
+	margin-left: 5px;
+}
+
 .extension_themes_page .sortable {
 	margin-bottom: 20px;
 }
