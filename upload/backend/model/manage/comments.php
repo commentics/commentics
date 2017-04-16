@@ -3,7 +3,7 @@ namespace Commentics;
 
 class ManageCommentsModel extends Model {
 	public function getComments($data, $count = false) {
-		$sql = "SELECT `c`.*, `u`.`id` AS `user_id`, `u`.`name` AS `name`, `p`.`id` AS `page_id`, `p`.`reference` AS `page_reference` FROM `" . CMTX_DB_PREFIX . "comments` `c`";
+		$sql = "SELECT `c`.*, `u`.`id` AS `user_id`, `u`.`name` AS `name`, `p`.`id` AS `page_id`, `p`.`reference` AS `page_reference`, `p`.`url` AS `page_url` FROM `" . CMTX_DB_PREFIX . "comments` `c`";
 
 		$sql .= " LEFT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `c`.`user_id` = `u`.`id`";
 

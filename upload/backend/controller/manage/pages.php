@@ -153,7 +153,8 @@ class ManagePagesController extends Controller {
 				'moderate'			=> $moderate,
 				'is_form_enabled'	=> ($page['is_form_enabled']) ? $this->data['lang_text_yes'] : $this->data['lang_text_no'],
 				'date_added'		=> $this->variable->formatDate($page['date_added'], $this->data['lang_date_time_format'], $this->data),
-				'action'	   		=> $this->url->link('edit/page', '&id=' . $page['id'])
+				'action_view'		=> $page['url'],
+				'action_edit'		=> $this->url->link('edit/page', '&id=' . $page['id'])
 			);
 		}
 
@@ -208,6 +209,8 @@ class ManagePagesController extends Controller {
 		$this->data['sort'] = $sort;
 
 		$this->data['order'] = $order;
+
+		$this->data['button_view'] = $this->loadImage('button/view.png');
 
 		$this->data['button_edit'] = $this->loadImage('button/edit.png');
 

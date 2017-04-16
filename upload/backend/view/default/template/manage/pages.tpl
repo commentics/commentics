@@ -95,7 +95,8 @@
 							<td data-th="<?php echo $lang_column_form_enabled; ?>:"><?php echo $page['is_form_enabled']; ?></td>
 							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $page['date_added']; ?></td>
 							<td class="actions">
-								<a href="<?php echo $page['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+								<a href="<?php echo $page['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
+								<a href="<?php echo $page['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
 								<a data-id="<?php echo $page['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
 							</td>
 						</tr>

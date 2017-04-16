@@ -130,6 +130,7 @@
 							<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $comment['ip_address']; ?></td>
 							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $comment['date_added']; ?></td>
 							<td class="actions">
+								<a href="<?php echo $comment['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
 								<a data-id="<?php echo $comment['id']; ?>" class="single_approve"><img src="<?php echo $button_approve; ?>" class="button_approve" title="<?php echo $lang_button_approve; ?>"></a>
 								<a data-id="<?php echo $comment['id']; ?>" class="single_send"><img src="<?php echo $button_send; ?>" class="button_send" title="<?php echo $lang_button_send; ?>"></a>
 								<a href="<?php echo $comment['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>

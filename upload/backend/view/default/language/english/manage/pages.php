@@ -45,6 +45,7 @@ $_['lang_dialog_bulk_delete_title']			= 'Delete Pages';
 $_['lang_dialog_bulk_delete_content']		= 'The pages\' comments and subscriptions will be deleted.<br>Are you sure you want to delete these?';
 
 // Button
+$_['lang_button_view']						= 'View';
 $_['lang_button_edit']						= 'Edit';
 $_['lang_button_delete']					= 'Delete';
 ?>

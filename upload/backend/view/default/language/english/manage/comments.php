@@ -59,6 +59,7 @@ $_['lang_dialog_bulk_delete_title']			= 'Delete Comments';
 $_['lang_dialog_bulk_delete_content']		= 'Any replies of the comments will be deleted.<br>Are you sure you want to delete these?';
 
 // Button
+$_['lang_button_view']						= 'View';
 $_['lang_button_approve']					= 'Approve';
 $_['lang_button_send']						= 'Send';
 $_['lang_button_edit']						= 'Edit';

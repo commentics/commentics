@@ -220,6 +220,7 @@ class ManageCommentsController extends Controller {
 				'flagged'		=> ($comment['reports'] >= $this->setting->get('flag_min_per_comment')) ? $this->data['lang_text_yes'] : $this->data['lang_text_no'],
 				'ip_address'	=> $comment['ip_address'],
 				'date_added'	=> $this->variable->formatDate($comment['date_added'], $this->data['lang_date_time_format'], $this->data),
+				'action_view'	=> $this->comment->buildCommentUrl($comment['id'], $comment['page_url']),
 				'action_edit'	=> $this->url->link('edit/comment', '&id=' . $comment['id']),
 				'action_spam'	=> $this->url->link('edit/spam', '&id=' . $comment['id'])
 			);
@@ -284,6 +285,8 @@ class ManageCommentsController extends Controller {
 		$this->data['sort'] = $sort;
 
 		$this->data['order'] = $order;
+
+		$this->data['button_view'] = $this->loadImage('button/view.png');
 
 		$this->data['button_approve'] = $this->loadImage('button/approve.png');
 
