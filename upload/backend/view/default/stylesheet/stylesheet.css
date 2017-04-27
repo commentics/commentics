@@ -446,6 +446,33 @@ img.loading {
   width: 100%;
 }
 
+.main_dashboard_page .sponsors_block .content {
+  padding-right: 5px;
+}
+
+.main_dashboard_page .sponsors {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.main_dashboard_page .sponsor {
+  margin-top: 5px;
+}
+
+.main_dashboard_page .sponsor a img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #E5E5E5;
+}
+
 .main_dashboard_page .chart_block {
   height: 200px;
   margin-bottom: 30px;

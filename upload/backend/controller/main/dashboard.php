@@ -83,6 +83,14 @@ class MainDashboardController extends Controller {
 
 		if ((extension_loaded('curl') || (bool)ini_get('allow_url_fopen')) && !isset($site_issue)) {
 			$this->model_main_dashboard->callHome();
+
+			$sponsors = $this->model_main_dashboard->getSponsors();
+
+			$sponsors = json_decode($sponsors, true);
+
+			$this->data['sponsors'] = $sponsors['sponsors'];
+		} else {
+			$this->data['sponsors'] = array();
 		}
 
 		if (isset($this->request->post['notes'])) {

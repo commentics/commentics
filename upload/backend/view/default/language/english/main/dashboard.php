@@ -14,6 +14,7 @@ $_['lang_title_statistics']				= 'Statistics';
 $_['lang_title_tip_of_the_day']			= 'Tip of the Day';
 $_['lang_title_news']					= 'News';
 $_['lang_title_quick_links']			= 'Quick Links';
+$_['lang_title_sponsors']				= 'Sponsors';
 $_['lang_title_chart']					= 'Chart';
 $_['lang_title_administrator_notes']	= 'Administrator Notes';
 

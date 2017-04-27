@@ -144,6 +144,37 @@ class MainDashboardModel extends Model {
 		return $news;
 	}
 
+	public function getSponsors() {
+		$url = 'http://www.commentics.org/sponsors.php';
+
+		ini_set('user_agent', 'Commentics');
+
+		$sponsors = '';
+
+		if (extension_loaded('curl')) {
+			$ch = curl_init();
+
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_USERAGENT, 'Commentics');
+			curl_setopt($ch, CURLOPT_URL, $url);
+
+			$sponsors = curl_exec($ch);
+
+			curl_close($ch);
+		} else if ((bool)ini_get('allow_url_fopen')) {
+			$sponsors = file_get_contents($url);
+		}
+
+		return $sponsors;
+	}
+
 	public function getQuickLinks() {
 		$query = $this->db->query("SELECT `page`, COUNT(*) AS `frequency` FROM `" . CMTX_DB_PREFIX . "access` WHERE `page` NOT IN ('main/dashboard', 'extension/modules/install', 'extension/modules/uninstall', 'settings/email_editor', 'data/list', 'spam') AND `page` NOT LIKE 'edit%' GROUP BY `page` ORDER BY `frequency` DESC LIMIT 5");
 

@@ -85,6 +85,19 @@
 
 	<div class="clear"></div>
 
+	<?php if ($sponsors) { ?>
+		<div class="block sponsors_block">
+			<div class="title"><span class="fa fa-thumbs-o-up"></span> <?php echo $lang_title_sponsors; ?></div>
+			<div class="content">
+				<ul class="sponsors">
+				<?php foreach ($sponsors as $key => $sponsor) { ?>
+					<li class="sponsor"><a href="<?php echo $sponsor['href']; ?>" target="_blank" title="<?php echo $sponsor['name']; ?>"><img src="<?php echo $sponsor['image']; ?>" alt="<?php echo $sponsor['name']; ?>"></a></li>
+				<?php } ?>
+				</ul>
+			</div>
+		</div>
+	<?php } ?>
+
 	<?php if ($show_chart) { ?>
 		<div class="chart_block">
 			<div class="title"><span class="fa fa-bar-chart"></span> <?php echo $lang_title_chart; ?></div>
