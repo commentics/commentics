@@ -9,96 +9,87 @@
  */
 
 /**
- * DomainKey Signer used to apply DomainKeys Signature to a message
+ * DomainKey Signer used to apply DomainKeys Signature to a message.
  *
- * @package    Swift
- * @subpackage Signatures
- * @author     Xavier De Cock <xdecock@gmail.com>
+ * @author Xavier De Cock <xdecock@gmail.com>
  */
 class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
 {
     /**
-     * PrivateKey
+     * PrivateKey.
      *
      * @var string
      */
     protected $_privateKey;
 
     /**
-     * DomainName
+     * DomainName.
      *
      * @var string
      */
     protected $_domainName;
 
     /**
-     * Selector
+     * Selector.
      *
      * @var string
      */
     protected $_selector;
 
     /**
-     * Hash algorithm used
+     * Hash algorithm used.
      *
      * @var string
      */
     protected $_hashAlgorithm = 'rsa-sha1';
 
     /**
-     * Canonisation method
+     * Canonisation method.
      *
      * @var string
      */
     protected $_canon = 'simple';
 
     /**
-     * Headers not being signed
+     * Headers not being signed.
      *
      * @var array
      */
     protected $_ignoredHeaders = array();
 
     /**
-     * Signer identity
+     * Signer identity.
      *
-     * @var unknown_type
+     * @var string
      */
     protected $_signerIdentity;
 
     /**
      * Must we embed signed headers?
      *
-     * @var boolean
+     * @var bool
      */
     protected $_debugHeaders = false;
 
     // work variables
     /**
-     * Headers used to generate hash
+     * Headers used to generate hash.
      *
      * @var array
      */
     private $_signedHeaders = array();
 
     /**
-     * If debugHeaders is set store debugDatas here
-     *
-     * @var string
-     */
-    private $_debugHeadersData = '';
-
-    /**
-     * Stores the signature header
+     * Stores the signature header.
      *
      * @var Swift_Mime_Headers_ParameterizedHeader
      */
     protected $_domainKeyHeader;
 
     /**
-     * Hash Handler
+     * Hash Handler.
      *
-     * @var hash_ressource
+     * @var resource|null
      */
     private $_hashHandler;
 
@@ -119,7 +110,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     private $_bound = array();
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $privateKey
      * @param string $domainName
@@ -129,14 +120,28 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     {
         $this->_privateKey = $privateKey;
         $this->_domainName = $domainName;
-        $this->_signerIdentity = '@' . $domainName;
+        $this->_signerIdentity = '@'.$domainName;
         $this->_selector = $selector;
     }
 
     /**
-     * Resets internal states
+     * Instanciate DomainKeySigner.
      *
-     * @return Swift_Signers_DomainKeysSigner
+     * @param string $privateKey
+     * @param string $domainName
+     * @param string $selector
+     *
+     * @return self
+     */
+    public static function newInstance($privateKey, $domainName, $selector)
+    {
+        return new static($privateKey, $domainName, $selector);
+    }
+
+    /**
+     * Resets internal states.
+     *
+     * @return $this
      */
     public function reset()
     {
@@ -144,7 +149,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
         $this->_hashHandler = null;
         $this->_bodyCanonIgnoreStart = 2;
         $this->_bodyCanonEmptyCounter = 0;
-        $this->_bodyCanonLastChar = NULL;
+        $this->_bodyCanonLastChar = null;
         $this->_bodyCanonSpace = false;
 
         return $this;
@@ -161,9 +166,10 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
      * second, etc etc).
      *
      * @param string $bytes
-     * @return int
+     *
      * @throws Swift_IoException
-     * @return Swift_Signers_DomainKeysSigner
+     *
+     * @return $this
      */
     public function write($bytes)
     {
@@ -180,7 +186,8 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
      * off the buffer.
      *
      * @throws Swift_IoException
-     * @return Swift_Signers_DomainKeysSigner
+     *
+     * @return $this
      */
     public function commit()
     {
@@ -194,7 +201,8 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
      * All {@link write()} and {@link flushBuffers()} operations will be mirrored.
      *
      * @param Swift_InputByteStream $is
-     * @return Swift_Signers_DomainKeysSigner
+     *
+     * @return $this
      */
     public function bind(Swift_InputByteStream $is)
     {
@@ -211,16 +219,17 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
      * before unbinding occurs.
      *
      * @param Swift_InputByteStream $is
-     * @return Swift_Signers_DomainKeysSigner
+     *
+     * @return $this
      */
     public function unbind(Swift_InputByteStream $is)
     {
         // Don't have to mirror anything
         foreach ($this->_bound as $k => $stream) {
             if ($stream === $is) {
-            	unset($this->_bound[$k]);
+                unset($this->_bound[$k]);
 
-                return;
+                break;
             }
         }
 
@@ -232,7 +241,8 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
      * to the beginning.
      *
      * @throws Swift_IoException
-     * @return Swift_Signers_DomainKeysSigner
+     *
+     * @return $this
      */
     public function flushBuffers()
     {
@@ -242,10 +252,11 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Set hash_algorithm, must be one of rsa-sha256 | rsa-sha1 defaults to rsa-sha256
+     * Set hash_algorithm, must be one of rsa-sha256 | rsa-sha1 defaults to rsa-sha256.
      *
      * @param string $hash
-     * @return Swift_Signers_DomainKeysSigner
+     *
+     * @return $this
      */
     public function setHashAlgorithm($hash)
     {
@@ -255,10 +266,11 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Set the canonicalization algorithm
+     * Set the canonicalization algorithm.
      *
      * @param string $canon simple | nofws defaults to simple
-     * @return Swift_Signers_DomainKeysSigner
+     *
+     * @return $this
      */
     public function setCanon($canon)
     {
@@ -272,10 +284,11 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Set the signer identity
+     * Set the signer identity.
      *
      * @param string $identity
-     * @return Swift_Signers_DomainKeySigner
+     *
+     * @return $this
      */
     public function setSignerIdentity($identity)
     {
@@ -285,10 +298,11 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Enable / disable the DebugHeaders
+     * Enable / disable the DebugHeaders.
      *
-     * @param boolean $debug
-     * @return Swift_Signers_DomainKeySigner
+     * @param bool $debug
+     *
+     * @return $this
      */
     public function setDebugHeaders($debug)
     {
@@ -298,16 +312,14 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Start Body
-     *
+     * Start Body.
      */
     public function startBody()
     {
     }
 
     /**
-     * End Body
-     *
+     * End Body.
      */
     public function endBody()
     {
@@ -315,7 +327,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Returns the list of Headers Tampered by this plugin
+     * Returns the list of Headers Tampered by this plugin.
      *
      * @return array
      */
@@ -323,16 +335,17 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     {
         if ($this->_debugHeaders) {
             return array('DomainKey-Signature', 'X-DebugHash');
-        } else {
-            return array('DomainKey-Signature');
         }
+
+        return array('DomainKey-Signature');
     }
 
     /**
-     * Adds an ignored Header
+     * Adds an ignored Header.
      *
      * @param string $header_name
-     * @return Swift_Signers_DomainKeySigner
+     *
+     * @return $this
      */
     public function ignoreHeader($header_name)
     {
@@ -342,10 +355,11 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Set the headers to sign
+     * Set the headers to sign.
      *
      * @param Swift_Mime_HeaderSet $headers
-     * @return Swift_Signers_DomainKeySigner
+     *
+     * @return $this
      */
     public function setHeaders(Swift_Mime_HeaderSet $headers)
     {
@@ -355,7 +369,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
         $listHeaders = $headers->listAll();
         foreach ($listHeaders as $hName) {
             // Check if we need to ignore Header
-            if (! isset($this->_ignoredHeaders[strtolower($hName)])) {
+            if (!isset($this->_ignoredHeaders[strtolower($hName)])) {
                 if ($headers->has($hName)) {
                     $tmp = $headers->getAll($hName);
                     foreach ($tmp as $header) {
@@ -373,18 +387,19 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Add the signature to the given Headers
+     * Add the signature to the given Headers.
      *
      * @param Swift_Mime_HeaderSet $headers
-     * @return Swift_Signers_DomainKeySigner
+     *
+     * @return $this
      */
     public function addSignature(Swift_Mime_HeaderSet $headers)
     {
         // Prepare the DomainKey-Signature Header
-        $params = array('a' => $this->_hashAlgorithm, 'b' => chunk_split(base64_encode($this->_getEncryptedHash()), 73, " "), 'c' => $this->_canon, 'd' => $this->_domainName, 'h' => implode(': ', $this->_signedHeaders), 'q' => 'dns', 's' => $this->_selector);
+        $params = array('a' => $this->_hashAlgorithm, 'b' => chunk_split(base64_encode($this->_getEncryptedHash()), 73, ' '), 'c' => $this->_canon, 'd' => $this->_domainName, 'h' => implode(': ', $this->_signedHeaders), 'q' => 'dns', 's' => $this->_selector);
         $string = '';
         foreach ($params as $k => $v) {
-            $string .= $k . '=' . $v . '; ';
+            $string .= $k.'='.$v.'; ';
         }
         $string = trim($string);
         $headers->addTextHeader('DomainKey-Signature', $string);
@@ -397,14 +412,14 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     protected function _addHeader($header)
     {
         switch ($this->_canon) {
-            case 'nofws' :
+            case 'nofws':
                 // Prepare Header and cascade
                 $exploded = explode(':', $header, 2);
                 $name = strtolower(trim($exploded[0]));
-                $value = str_replace("\r\n", "", $exploded[1]);
-                $value = preg_replace("/[ \t][ \t]+/", " ", $value);
-                $header = $name . ":" . trim($value) . "\r\n";
-            case 'simple' :
+                $value = str_replace("\r\n", '', $exploded[1]);
+                $value = preg_replace("/[ \t][ \t]+/", ' ', $value);
+                $header = $name.':'.trim($value)."\r\n";
+            case 'simple':
                 // Nothing to do
         }
         $this->_addToHash($header);
@@ -419,17 +434,17 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     {
         $len = strlen($string);
         $canon = '';
-        $nofws = ($this->_canon == "nofws");
+        $nofws = ($this->_canon == 'nofws');
         for ($i = 0; $i < $len; ++$i) {
             if ($this->_bodyCanonIgnoreStart > 0) {
                 --$this->_bodyCanonIgnoreStart;
                 continue;
             }
             switch ($string[$i]) {
-                case "\r" :
+                case "\r":
                     $this->_bodyCanonLastChar = "\r";
                     break;
-                case "\n" :
+                case "\n":
                     if ($this->_bodyCanonLastChar == "\r") {
                         if ($nofws) {
                             $this->_bodyCanonSpace = false;
@@ -445,14 +460,14 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
                         throw new Swift_SwiftException('Invalid new line sequence in mail found \n without preceding \r');
                     }
                     break;
-                case " " :
-                case "\t" :
+                case ' ':
+                case "\t":
                 case "\x09": //HTAB
                     if ($nofws) {
                         $this->_bodyCanonSpace = true;
                         break;
                     }
-                default :
+                default:
                     if ($this->_bodyCanonEmptyCounter > 0) {
                         $canon .= str_repeat("\r\n", $this->_bodyCanonEmptyCounter);
                         $this->_bodyCanonEmptyCounter = 0;
@@ -482,17 +497,22 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     {
         // Init
         switch ($this->_hashAlgorithm) {
-            case 'rsa-sha1' :
+            case 'rsa-sha1':
                 $this->_hashHandler = hash_init('sha1');
                 break;
         }
-        $this->_canonLine = '';
+        $this->_bodyCanonLine = '';
     }
 
+    /**
+     * @throws Swift_SwiftException
+     *
+     * @return string
+     */
     private function _getEncryptedHash()
     {
         $signature = '';
-        $pkeyId=openssl_get_privatekey($this->_privateKey);
+        $pkeyId = openssl_get_privatekey($this->_privateKey);
         if (!$pkeyId) {
             throw new Swift_SwiftException('Unable to load DomainKey Private Key ['.openssl_error_string().']');
         }

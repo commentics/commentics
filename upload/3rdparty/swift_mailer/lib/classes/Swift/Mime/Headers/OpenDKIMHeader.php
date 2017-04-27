@@ -9,11 +9,11 @@
  */
 
 /**
- * A Simple MIME Header.
+ * An OpenDKIM Specific Header using only raw header datas without encoding.
  *
- * @author Chris Corbyn
+ * @author De Cock Xavier <xdecock@gmail.com>
  */
-class Swift_Mime_Headers_UnstructuredHeader extends Swift_Mime_Headers_AbstractHeader
+class Swift_Mime_Headers_OpenDKIMHeader implements Swift_Mime_Header
 {
     /**
      * The value of this Header.
@@ -23,17 +23,18 @@ class Swift_Mime_Headers_UnstructuredHeader extends Swift_Mime_Headers_AbstractH
     private $_value;
 
     /**
-     * Creates a new SimpleHeader with $name.
+     * The name of this Header.
      *
-     * @param string                   $name
-     * @param Swift_Mime_HeaderEncoder $encoder
-     * @param Swift_Mime_Grammar       $grammar
+     * @var string
      */
-    public function __construct($name, Swift_Mime_HeaderEncoder $encoder, Swift_Mime_Grammar $grammar)
+    private $_fieldName;
+
+    /**
+     * @param string $name
+     */
+    public function __construct($name)
     {
-        $this->setFieldName($name);
-        $this->setEncoder($encoder);
-        parent::__construct($grammar);
+        $this->_fieldName = $name;
     }
 
     /**
@@ -90,7 +91,6 @@ class Swift_Mime_Headers_UnstructuredHeader extends Swift_Mime_Headers_AbstractH
      */
     public function setValue($value)
     {
-        $this->clearCachedValueIf($this->_value != $value);
         $this->_value = $value;
     }
 
@@ -101,12 +101,33 @@ class Swift_Mime_Headers_UnstructuredHeader extends Swift_Mime_Headers_AbstractH
      */
     public function getFieldBody()
     {
-        if (!$this->getCachedValue()) {
-            $this->setCachedValue(
-                $this->encodeWords($this, $this->_value)
-                );
-        }
+        return $this->_value;
+    }
 
-        return $this->getCachedValue();
+    /**
+     * Get this Header rendered as a RFC 2822 compliant string.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->_fieldName.': '.$this->_value;
+    }
+
+    /**
+     * Set the Header FieldName.
+     *
+     * @see Swift_Mime_Header::getFieldName()
+     */
+    public function getFieldName()
+    {
+        return $this->_fieldName;
+    }
+
+    /**
+     * Ignored.
+     */
+    public function setCharset($charset)
+    {
     }
 }
