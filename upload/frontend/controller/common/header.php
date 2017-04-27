@@ -45,7 +45,7 @@ class CommonHeaderController extends Controller {
 				$this->data['font_awesome'] = $this->data['commentics_url'] . '3rdparty/font_awesome/css/font-awesome.min.css';
 				break;
 			default:
-				$this->data['font_awesome'] = '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css';
+				$this->data['font_awesome'] = '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
 		}
 
 		if ($this->setting->get('show_read_more')) {
