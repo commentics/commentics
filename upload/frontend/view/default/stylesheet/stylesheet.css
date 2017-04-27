@@ -228,7 +228,7 @@
   font-weight: normal;
   padding: 4px 6px;
   vertical-align: middle;
-  text-align: center;
+  text-align: center !important;
   height: 35px !important;
 }
 
@@ -2080,6 +2080,7 @@ span.jFiler-icon-file.f-audio:after {
   width: -moz-available;
   width: -webkit-fill-available;
   height: auto;
+  margin: 0;
 }
 
 .cmtx_dialog_bullet input, .cmtx_dialog_numeric input {
