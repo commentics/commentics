@@ -3,6 +3,10 @@ A customizable lightbox plugin for jQuery.  See the [project page](http://jacklm
 
 ## Changelog:
 
+##### Version 1.6.4 - 2016/05/10
+
+* Fixed bug where using the inline property would duplicate target elements, if the selector matched multiple elements.
+
 ##### Version 1.6.3 - 2015/07/27
 
 * Fixed regression that caused error in IE8 when the calculated initial size was negative. Fixes #741
@@ -434,7 +438,7 @@ Files Changed: jquery.colorbox.js/jquery.colorbox-min.js
 
 * Added 'innerWidth' and 'innerHeight' options to allow people to easily set the size dimensions for Colorbox, without having to anticipate the size of the borders and buttons.
 * Renamed 'scrollbars' option to 'scrolling' to be in keeping with the existing HTML attribute. The option now also applies to iframes.
-* Bug fix: In Safari, positioning occassionally incorrect when using '100%' dimensions.
+* Bug fix: In Safari, positioning occasionally incorrect when using '100%' dimensions.
 * Bug fix: In IE6, the background overlay is briefly not full size when first viewing.
 * Bug fix: In Firefox, opening Colorbox causes a split second shift with a small minority of webpage layouts.
 * Simplified code in a few areas.
