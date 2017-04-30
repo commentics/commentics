@@ -1,3 +1,8 @@
+/* Reset */
+.cmtx_container, #colorbox {
+  text-align: left;
+}
+
 .cmtx_container *, #colorbox * {
   box-sizing: border-box;
   line-height: normal;
@@ -36,10 +41,7 @@
   font-weight: bold;
 }
 
-.cmtx_container, #colorbox {
-  text-align: left;
-}
-
+/* Base */
 .cmtx_clear::before, .cmtx_clear::after {
   content: " ";
   display: table;

@@ -1,0 +1,12 @@
+// _partial/_base.scss
+
+$grey: #828282;
+
+.cmtx_clear::before, .cmtx_clear::after {
+	content: " ";
+	display: table;
+}
+
+.cmtx_clear::after {
+	clear: both;
+}
