@@ -43,6 +43,10 @@ a:hover {
 	margin-bottom: 10px;
 }
 
+nav .fa {
+	margin-right: 5px;
+}
+
 .error_header {
 	border: 1px solid;
 	padding: 5px 5px 5px 25px;
@@ -507,7 +511,7 @@ img.loading {
 }
 
 .manage_questions_page .buttons {
-	margin-bottom: 18px;
+	margin-bottom: 15px;
 }
 
 /* Edit */
@@ -999,7 +1003,7 @@ img.loading {
 	}
 
 	.controls .fieldset::after {
-		margin-bottom: 25px !important;
+		margin-bottom: 20px !important;
 	}
 
 	.controls .fieldset label {
@@ -1027,10 +1031,14 @@ img.loading {
 		width: 100%;
 	}
 
+	.buttons {
+		margin-bottom: 5px;
+	}
+
 	.controls .button {
 		margin-top: 10px;
 		width: 100%;
-		padding: 4px;
+		padding: 3px;
 	}
 
 	.controls .button:not(:first-child) {

@@ -18,9 +18,7 @@
 		<script src="../3rdparty/chart/chart.min.js"></script>
 	<?php } ?>
 
-	<?php if ($route == 'main/dashboard' || $route == 'manage/comments' || $route == 'extension/themes') { ?>
-		<link rel="stylesheet" type="text/css" href="../3rdparty/font_awesome/css/font-awesome.min.css">
-	<?php } ?>
+	<link rel="stylesheet" type="text/css" href="../3rdparty/font_awesome/css/font-awesome.min.css">
 
 	<?php if ($tinymce_enabled && $route == 'edit/comment') { ?>
 		<script src="../3rdparty/tinymce/tinymce.min.js"></script>
@@ -60,11 +58,11 @@
 			<div class="menu-button"><?php echo $lang_menu; ?></div>
 			<nav>
 				<ul data-breakpoint="1100" class="flexnav">
-					<li><a href="index.php?route=main/dashboard"><?php echo $lang_menu_dashboard; ?></a></li>
+					<li><a href="index.php?route=main/dashboard"><span class="fa fa-tachometer"></span><?php echo $lang_menu_dashboard; ?></a></li>
 
 					<?php if (!$has_restriction || ($has_restriction && in_array('manage', $viewable_pages))) { ?>
 
-						<li><a><?php echo $lang_menu_manage; ?></a>
+						<li><a><span class="fa fa-commenting"></span><?php echo $lang_menu_manage; ?></a>
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('manage/admins', $viewable_pages))) { ?> <li><a href="index.php?route=manage/admins"><?php echo $lang_menu_manage_admins; ?></a></li> <?php } ?>
@@ -78,7 +76,7 @@
 					<?php } ?>
 
 					<?php if (!$has_restriction || ($has_restriction && in_array('extensions', $viewable_pages))) { ?>
-						<li><a><?php echo $lang_menu_extensions; ?></a>
+						<li><a><span class="fa fa-plus-circle"></span><?php echo $lang_menu_extensions; ?></a>
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('extension/installer', $viewable_pages))) { ?> <li><a href="index.php?route=extension/installer"><?php echo $lang_menu_extension_installer; ?></a></li> <?php } ?>
@@ -89,7 +87,7 @@
 					<?php } ?>
 
 					<?php if (!$has_restriction || ($has_restriction && in_array('settings', $viewable_pages))) { ?>
-						<li><a><?php echo $lang_menu_settings; ?></a>
+						<li><a><span class="fa fa-cog"></span><?php echo $lang_menu_settings; ?></a>
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('settings/administrator', $viewable_pages))) { ?> <li><a href="index.php?route=settings/administrator"><?php echo $lang_menu_settings_administrator; ?></a></li> <?php } ?>
@@ -126,7 +124,7 @@
 					<?php } ?>
 
 					<?php if (!$has_restriction || ($has_restriction && in_array('tasks', $viewable_pages))) { ?>
-						<li><a><?php echo $lang_menu_tasks; ?></a>
+						<li><a><span class="fa fa-list-ul"></span><?php echo $lang_menu_tasks; ?></a>
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('task/delete_bans', $viewable_pages))) { ?> <li><a href="index.php?route=task/delete_bans"><?php echo $lang_menu_task_delete_bans; ?></a></li> <?php } ?>
@@ -139,7 +137,7 @@
 					<?php } ?>
 
 					<?php if (!$has_restriction || ($has_restriction && in_array('reports', $viewable_pages))) { ?>
-						<li><a><?php echo $lang_menu_reports; ?></a>
+						<li><a><span class="fa fa-files-o"></span><?php echo $lang_menu_reports; ?></a>
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('report/access', $viewable_pages))) { ?> <li><a href="index.php?route=report/access"><?php echo $lang_menu_report_access; ?></a></li> <?php } ?>
@@ -152,7 +150,7 @@
 					<?php } ?>
 
 					<?php if (!$has_restriction || ($has_restriction && in_array('tools', $viewable_pages))) { ?>
-						<li><a><?php echo $lang_menu_tools; ?></a>
+						<li><a><span class="fa fa-wrench"></span><?php echo $lang_menu_tools; ?></a>
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('tool/database_backup', $viewable_pages))) { ?> <li><a href="index.php?route=tool/database_backup"><?php echo $lang_menu_tool_database_backup; ?></a></li> <?php } ?>
@@ -163,7 +161,7 @@
 					<?php } ?>
 
 					<?php if (!$has_restriction || ($has_restriction && in_array('help', $viewable_pages))) { ?>
-						<li><a><?php echo $lang_menu_help; ?></a>
+						<li><a><span class="fa fa-question-circle"></span><?php echo $lang_menu_help; ?></a>
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('help/donate', $viewable_pages))) { ?> <li><a href="https://www.commentics.org/donate" target="_blank"><?php echo $lang_menu_help_donate; ?></a></li> <?php } ?>
@@ -174,7 +172,7 @@
 						</li>
 					<?php } ?>
 
-					<li><a href="index.php?route=login/logout"><?php echo $lang_menu_log_out; ?></a></li>
+					<li><a href="index.php?route=login/logout"><span class="fa fa-sign-out"></span><?php echo $lang_menu_log_out; ?></a></li>
 				</ul>
 			</nav>
 		</div>
