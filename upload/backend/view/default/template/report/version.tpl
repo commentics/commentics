@@ -51,30 +51,32 @@
 		</div>
 	</div>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th><a href="<?php echo $sort_version; ?>" <?php if ($sort == 'v.version') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_version; ?></a></th>
-				<th><a href="<?php echo $sort_type; ?>" <?php if ($sort == 'v.type') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_type; ?></a></th>
-				<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'v.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php if ($versions) { ?>
-				<?php foreach ($versions as $version) { ?>
+	<div class="table_container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th><a href="<?php echo $sort_version; ?>" <?php if ($sort == 'v.version') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_version; ?></a></th>
+					<th><a href="<?php echo $sort_type; ?>" <?php if ($sort == 'v.type') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_type; ?></a></th>
+					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'v.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if ($versions) { ?>
+					<?php foreach ($versions as $version) { ?>
+						<tr>
+							<td data-th="<?php echo $lang_column_version; ?>:"><?php echo $version['version']; ?></td>
+							<td data-th="<?php echo $lang_column_type; ?>:"><?php echo $version['type']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $version['date_added']; ?></td>
+						</tr>
+					<?php } ?>
+				<?php } else { ?>
 					<tr>
-						<td data-th="<?php echo $lang_column_version; ?>:"><?php echo $version['version']; ?></td>
-						<td data-th="<?php echo $lang_column_type; ?>:"><?php echo $version['type']; ?></td>
-						<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $version['date_added']; ?></td>
+						<td class="no_results" colspan="3"><?php echo $lang_text_no_results; ?></td>
 					</tr>
 				<?php } ?>
-			<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="3"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+	</div>
 
 	<div class="pagination_stats"><?php echo $pagination_stats; ?></div>
 

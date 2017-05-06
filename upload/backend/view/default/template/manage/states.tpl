@@ -61,39 +61,41 @@
 	</div>
 
 	<form action="index.php?route=manage/states" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 's.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
-					<th><a href="<?php echo $sort_country; ?>" <?php if ($sort == 'country_name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_country; ?></a></th>
-					<th><a href="<?php echo $sort_enabled; ?>" <?php if ($sort == 's.enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_enabled; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 's.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($states) { ?>
-					<?php foreach ($states as $state) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $state['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $state['name']; ?></td>
-							<td data-th="<?php echo $lang_column_country; ?>:"><?php echo $state['country_name']; ?></td>
-							<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $state['enabled']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $state['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $state['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $state['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="7"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 's.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
+						<th><a href="<?php echo $sort_country; ?>" <?php if ($sort == 'country_name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_country; ?></a></th>
+						<th><a href="<?php echo $sort_enabled; ?>" <?php if ($sort == 's.enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_enabled; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 's.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($states) { ?>
+						<?php foreach ($states as $state) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $state['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $state['name']; ?></td>
+								<td data-th="<?php echo $lang_column_country; ?>:"><?php echo $state['country_name']; ?></td>
+								<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $state['enabled']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $state['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $state['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $state['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="7"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

@@ -33,45 +33,49 @@
 		</ul>
 
 		<div id="tab-inner">
-			<table class="table">
-				<thead>
-					<tr>
-						<th><?php echo $lang_column_element; ?></th>
-						<th><?php echo $lang_column_status; ?></th>
-						<th><?php echo $lang_column_action; ?></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($inner_elements as $element) { ?>
+			<div class="table_container">
+				<table class="table">
+					<thead>
 						<tr>
-							<td data-th="<?php echo $lang_column_element; ?>:"><?php echo $element['element']; ?></td>
-							<td data-th="<?php echo $lang_column_status; ?>:"><?php echo $element['status']; ?></td>
-							<td class="actions"><a href="<?php echo $element['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a></td>
+							<th><?php echo $lang_column_element; ?></th>
+							<th><?php echo $lang_column_status; ?></th>
+							<th><?php echo $lang_column_action; ?></th>
 						</tr>
-					<?php } ?>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<?php foreach ($inner_elements as $element) { ?>
+							<tr>
+								<td data-th="<?php echo $lang_column_element; ?>:"><?php echo $element['element']; ?></td>
+								<td data-th="<?php echo $lang_column_status; ?>:"><?php echo $element['status']; ?></td>
+								<td class="actions"><a href="<?php echo $element['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a></td>
+							</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 		<div id="tab-outer">
-			<table class="table">
-				<thead>
-					<tr>
-						<th><?php echo $lang_column_element; ?></th>
-						<th><?php echo $lang_column_status; ?></th>
-						<th><?php echo $lang_column_action; ?></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($outer_elements as $element) { ?>
+			<div class="table_container">
+				<table class="table">
+					<thead>
 						<tr>
-							<td data-th="<?php echo $lang_column_element; ?>:"><?php echo $element['element']; ?></td>
-							<td data-th="<?php echo $lang_column_status; ?>:"><?php echo $element['status']; ?></td>
-							<td class="actions"><a href="<?php echo $element['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a></td>
+							<th><?php echo $lang_column_element; ?></th>
+							<th><?php echo $lang_column_status; ?></th>
+							<th><?php echo $lang_column_action; ?></th>
 						</tr>
-					<?php } ?>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<?php foreach ($outer_elements as $element) { ?>
+							<tr>
+								<td data-th="<?php echo $lang_column_element; ?>:"><?php echo $element['element']; ?></td>
+								<td data-th="<?php echo $lang_column_status; ?>:"><?php echo $element['status']; ?></td>
+								<td class="actions"><a href="<?php echo $element['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a></td>
+							</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 

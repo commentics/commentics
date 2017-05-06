@@ -61,44 +61,46 @@
 	</div>
 
 	<form action="index.php?route=manage/subscriptions" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'u.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
-					<th><a href="<?php echo $sort_email; ?>" <?php if ($sort == 'u.email') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_email; ?></a></th>
-					<th><a href="<?php echo $sort_page; ?>" <?php if ($sort == 'p.reference') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_page; ?></a></th>
-					<th><a href="<?php echo $sort_confirmed; ?>" <?php if ($sort == 's.is_confirmed') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_confirmed; ?></a></th>
-					<th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 's.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 's.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($subscriptions) { ?>
-					<?php foreach ($subscriptions as $subscription) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $subscription['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_name; ?>:"><a href="<?php echo $subscription['name_url']; ?>"><?php echo $subscription['name']; ?></a></td>
-							<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $subscription['email']; ?></td>
-							<td data-th="<?php echo $lang_column_page; ?>:"><a href="<?php echo $subscription['page_url']; ?>"><?php echo $subscription['page']; ?></a></td>
-							<td data-th="<?php echo $lang_column_confirmed; ?>:"><?php echo $subscription['confirmed']; ?></td>
-							<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $subscription['ip_address']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $subscription['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $subscription['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
-								<a href="<?php echo $subscription['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $subscription['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="8"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'u.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
+						<th><a href="<?php echo $sort_email; ?>" <?php if ($sort == 'u.email') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_email; ?></a></th>
+						<th><a href="<?php echo $sort_page; ?>" <?php if ($sort == 'p.reference') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_page; ?></a></th>
+						<th><a href="<?php echo $sort_confirmed; ?>" <?php if ($sort == 's.is_confirmed') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_confirmed; ?></a></th>
+						<th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 's.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 's.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($subscriptions) { ?>
+						<?php foreach ($subscriptions as $subscription) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $subscription['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_name; ?>:"><a href="<?php echo $subscription['name_url']; ?>"><?php echo $subscription['name']; ?></a></td>
+								<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $subscription['email']; ?></td>
+								<td data-th="<?php echo $lang_column_page; ?>:"><a href="<?php echo $subscription['page_url']; ?>"><?php echo $subscription['page']; ?></a></td>
+								<td data-th="<?php echo $lang_column_confirmed; ?>:"><?php echo $subscription['confirmed']; ?></td>
+								<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $subscription['ip_address']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $subscription['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $subscription['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
+									<a href="<?php echo $subscription['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $subscription['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="8"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

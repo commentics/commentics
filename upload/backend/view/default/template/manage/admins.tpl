@@ -65,43 +65,45 @@
 	</div>
 
 	<form action="index.php?route=manage/admins" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_username; ?>" <?php if ($sort == 'a.username') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_username; ?></a></th>
-					<th><a href="<?php echo $sort_email; ?>" <?php if ($sort == 'a.email') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_email; ?></a></th>
-					<th><a href="<?php echo $sort_enabled; ?>" <?php if ($sort == 'a.is_enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_enabled; ?></a></th>
-					<th><a href="<?php echo $sort_super; ?>" <?php if ($sort == 'a.is_super') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_super; ?></a></th>
-					<th><a href="<?php echo $sort_last_login; ?>" <?php if ($sort == 'a.last_login') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_last_login; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'a.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($admins) { ?>
-					<?php foreach ($admins as $admin) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $admin['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_username; ?>:"><?php echo $admin['username']; ?></td>
-							<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $admin['email']; ?></td>
-							<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $admin['enabled']; ?></td>
-							<td data-th="<?php echo $lang_column_super; ?>:"><?php echo $admin['super']; ?></td>
-							<td data-th="<?php echo $lang_column_last_login; ?>:"><?php echo $admin['last_login']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $admin['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $admin['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $admin['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="8"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_username; ?>" <?php if ($sort == 'a.username') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_username; ?></a></th>
+						<th><a href="<?php echo $sort_email; ?>" <?php if ($sort == 'a.email') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_email; ?></a></th>
+						<th><a href="<?php echo $sort_enabled; ?>" <?php if ($sort == 'a.is_enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_enabled; ?></a></th>
+						<th><a href="<?php echo $sort_super; ?>" <?php if ($sort == 'a.is_super') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_super; ?></a></th>
+						<th><a href="<?php echo $sort_last_login; ?>" <?php if ($sort == 'a.last_login') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_last_login; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'a.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($admins) { ?>
+						<?php foreach ($admins as $admin) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $admin['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_username; ?>:"><?php echo $admin['username']; ?></td>
+								<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $admin['email']; ?></td>
+								<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $admin['enabled']; ?></td>
+								<td data-th="<?php echo $lang_column_super; ?>:"><?php echo $admin['super']; ?></td>
+								<td data-th="<?php echo $lang_column_last_login; ?>:"><?php echo $admin['last_login']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $admin['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $admin['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $admin['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="8"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

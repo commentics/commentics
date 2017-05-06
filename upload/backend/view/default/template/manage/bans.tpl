@@ -48,37 +48,39 @@
 	</div>
 
 	<form action="index.php?route=manage/bans" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 'b.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
-					<th><a href="<?php echo $sort_reason; ?>" <?php if ($sort == 'b.reason') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_reason; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'b.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($bans) { ?>
-					<?php foreach ($bans as $ban) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $ban['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $ban['ip_address']; ?></td>
-							<td data-th="<?php echo $lang_column_reason; ?>:"><?php echo $ban['reason']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $ban['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $ban['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $ban['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="5"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 'b.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
+						<th><a href="<?php echo $sort_reason; ?>" <?php if ($sort == 'b.reason') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_reason; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'b.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($bans) { ?>
+						<?php foreach ($bans as $ban) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $ban['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $ban['ip_address']; ?></td>
+								<td data-th="<?php echo $lang_column_reason; ?>:"><?php echo $ban['reason']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $ban['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $ban['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $ban['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="5"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

@@ -51,39 +51,41 @@
 	</div>
 
 	<form action="index.php?route=manage/questions" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_question; ?>" <?php if ($sort == 'q.question') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_question; ?></a></th>
-					<th><a href="<?php echo $sort_answer; ?>" <?php if ($sort == 'q.answer') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_answer; ?></a></th>
-					<th><a href="<?php echo $sort_language; ?>" <?php if ($sort == 'q.language') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_language; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'q.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($questions) { ?>
-					<?php foreach ($questions as $question) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $question['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_question; ?>:"><?php echo $question['question']; ?></td>
-							<td data-th="<?php echo $lang_column_answer; ?>:"><?php echo $question['answer']; ?></td>
-							<td data-th="<?php echo $lang_column_language; ?>:"><?php echo $question['language']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $question['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $question['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $question['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="6"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_question; ?>" <?php if ($sort == 'q.question') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_question; ?></a></th>
+						<th><a href="<?php echo $sort_answer; ?>" <?php if ($sort == 'q.answer') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_answer; ?></a></th>
+						<th><a href="<?php echo $sort_language; ?>" <?php if ($sort == 'q.language') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_language; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'q.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($questions) { ?>
+						<?php foreach ($questions as $question) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $question['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_question; ?>:"><?php echo $question['question']; ?></td>
+								<td data-th="<?php echo $lang_column_answer; ?>:"><?php echo $question['answer']; ?></td>
+								<td data-th="<?php echo $lang_column_language; ?>:"><?php echo $question['language']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $question['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $question['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $question['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="6"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

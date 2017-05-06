@@ -85,67 +85,69 @@
 	</div>
 
 	<form action="index.php?route=manage/comments" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'u.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
-					<th><a href="<?php echo $sort_comment; ?>" <?php if ($sort == 'c.comment') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_comment; ?></a></th>
-					<th><a href="<?php echo $sort_rating; ?>" <?php if ($sort == 'c.rating') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_rating; ?></a></th>
-					<th><a href="<?php echo $sort_page; ?>" <?php if ($sort == 'p.reference') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_page; ?></a></th>
-					<th><a href="<?php echo $sort_approved; ?>" <?php if ($sort == 'c.is_approved') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_approved; ?></a></th>
-					<th><a href="<?php echo $sort_sent; ?>" <?php if ($sort == 'c.is_sent') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_sent; ?></a></th>
-					<th><a href="<?php echo $sort_reports; ?>" <?php if ($sort == 'c.reports') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_reports; ?></a></th>
-					<th><a href="<?php echo $sort_flagged; ?>" <?php if ($sort == 'c.flagged') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_flagged; ?></a></th>
-					<th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 'c.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'c.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($comments) { ?>
-					<?php foreach ($comments as $comment) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $comment['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_name; ?>:"><a href="<?php echo $comment['name_url']; ?>"><?php echo $comment['name']; ?></a></td>
-							<td data-th="<?php echo $lang_column_comment; ?>:"><?php echo $comment['comment']; ?></td>
-							<td data-th="<?php echo $lang_column_rating; ?>:">
-								<?php if ($comment['rating']) { ?>
-									<?php for ($i = 0; $i < 5; $i++) { ?>
-										<?php if ($i < $comment['rating']) { ?>
-											<span class="star star_full"></span>
-										<?php } else { ?>
-											<span class="star star_empty"></span>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'u.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
+						<th><a href="<?php echo $sort_comment; ?>" <?php if ($sort == 'c.comment') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_comment; ?></a></th>
+						<th><a href="<?php echo $sort_rating; ?>" <?php if ($sort == 'c.rating') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_rating; ?></a></th>
+						<th><a href="<?php echo $sort_page; ?>" <?php if ($sort == 'p.reference') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_page; ?></a></th>
+						<th><a href="<?php echo $sort_approved; ?>" <?php if ($sort == 'c.is_approved') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_approved; ?></a></th>
+						<th><a href="<?php echo $sort_sent; ?>" <?php if ($sort == 'c.is_sent') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_sent; ?></a></th>
+						<th><a href="<?php echo $sort_reports; ?>" <?php if ($sort == 'c.reports') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_reports; ?></a></th>
+						<th><a href="<?php echo $sort_flagged; ?>" <?php if ($sort == 'c.flagged') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_flagged; ?></a></th>
+						<th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 'c.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'c.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($comments) { ?>
+						<?php foreach ($comments as $comment) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $comment['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_name; ?>:"><a href="<?php echo $comment['name_url']; ?>"><?php echo $comment['name']; ?></a></td>
+								<td data-th="<?php echo $lang_column_comment; ?>:"><?php echo $comment['comment']; ?></td>
+								<td data-th="<?php echo $lang_column_rating; ?>:">
+									<?php if ($comment['rating']) { ?>
+										<?php for ($i = 0; $i < 5; $i++) { ?>
+											<?php if ($i < $comment['rating']) { ?>
+												<span class="star star_full"></span>
+											<?php } else { ?>
+												<span class="star star_empty"></span>
+											<?php } ?>
 										<?php } ?>
+									<?php } else { ?>
+										<?php echo $lang_text_no_rating; ?>
 									<?php } ?>
-								<?php } else { ?>
-									<?php echo $lang_text_no_rating; ?>
-								<?php } ?>
-							</td>
-							<td data-th="<?php echo $lang_column_page; ?>:"><a href="<?php echo $comment['page_url']; ?>"><?php echo $comment['page']; ?></a></td>
-							<td data-th="<?php echo $lang_column_approved; ?>:"><?php echo $comment['approved']; ?></td>
-							<td data-th="<?php echo $lang_column_sent; ?>:"><?php echo $comment['sent']; ?></td>
-							<td data-th="<?php echo $lang_column_reports; ?>:"><?php echo $comment['reports']; ?></td>
-							<td data-th="<?php echo $lang_column_flagged; ?>:"><?php echo $comment['flagged']; ?></td>
-							<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $comment['ip_address']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $comment['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $comment['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
-								<a data-id="<?php echo $comment['id']; ?>" class="single_approve"><img src="<?php echo $button_approve; ?>" class="button_approve" title="<?php echo $lang_button_approve; ?>"></a>
-								<a data-id="<?php echo $comment['id']; ?>" class="single_send"><img src="<?php echo $button_send; ?>" class="button_send" title="<?php echo $lang_button_send; ?>"></a>
-								<a href="<?php echo $comment['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $comment['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-								<a href="<?php echo $comment['action_spam']; ?>"><img src="<?php echo $button_spam; ?>" class="button_spam" title="<?php echo $lang_button_spam; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="12"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+								</td>
+								<td data-th="<?php echo $lang_column_page; ?>:"><a href="<?php echo $comment['page_url']; ?>"><?php echo $comment['page']; ?></a></td>
+								<td data-th="<?php echo $lang_column_approved; ?>:"><?php echo $comment['approved']; ?></td>
+								<td data-th="<?php echo $lang_column_sent; ?>:"><?php echo $comment['sent']; ?></td>
+								<td data-th="<?php echo $lang_column_reports; ?>:"><?php echo $comment['reports']; ?></td>
+								<td data-th="<?php echo $lang_column_flagged; ?>:"><?php echo $comment['flagged']; ?></td>
+								<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $comment['ip_address']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $comment['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $comment['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
+									<a data-id="<?php echo $comment['id']; ?>" class="single_approve"><img src="<?php echo $button_approve; ?>" class="button_approve" title="<?php echo $lang_button_approve; ?>"></a>
+									<a data-id="<?php echo $comment['id']; ?>" class="single_send"><img src="<?php echo $button_send; ?>" class="button_send" title="<?php echo $lang_button_send; ?>"></a>
+									<a href="<?php echo $comment['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $comment['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+									<a href="<?php echo $comment['action_spam']; ?>"><img src="<?php echo $button_spam; ?>" class="button_spam" title="<?php echo $lang_button_spam; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="12"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

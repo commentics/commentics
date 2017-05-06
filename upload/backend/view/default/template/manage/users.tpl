@@ -56,44 +56,46 @@
 	</div>
 
 	<form action="index.php?route=manage/users" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'u.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
-					<th><a href="<?php echo $sort_email; ?>" <?php if ($sort == 'u.email') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_email; ?></a></th>
-					<th><a href="<?php echo $sort_comments; ?>" <?php if ($sort == 'comments') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_comments; ?></a></th>
-					<th><a href="<?php echo $sort_subscriptions; ?>" <?php if ($sort == 'subscriptions') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_subscriptions; ?></a></th>
-					<th><a href="<?php echo $sort_moderate; ?>" <?php if ($sort == 'u.moderate') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_moderate; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'u.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($users) { ?>
-					<?php foreach ($users as $user) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $user['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $user['name']; ?></td>
-							<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $user['email']; ?></td>
-							<td data-th="<?php echo $lang_column_comments; ?>:"><a href="<?php echo $user['comments_url']; ?>"><?php echo $user['comments']; ?></a></td>
-							<td data-th="<?php echo $lang_column_subscriptions; ?>:"><a href="<?php echo $user['subscriptions_url']; ?>"><?php echo $user['subscriptions']; ?></a></td>
-							<td data-th="<?php echo $lang_column_moderate; ?>:"><?php echo $user['moderate']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $user['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $user['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
-								<a href="<?php echo $user['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $user['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="8"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'u.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
+						<th><a href="<?php echo $sort_email; ?>" <?php if ($sort == 'u.email') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_email; ?></a></th>
+						<th><a href="<?php echo $sort_comments; ?>" <?php if ($sort == 'comments') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_comments; ?></a></th>
+						<th><a href="<?php echo $sort_subscriptions; ?>" <?php if ($sort == 'subscriptions') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_subscriptions; ?></a></th>
+						<th><a href="<?php echo $sort_moderate; ?>" <?php if ($sort == 'u.moderate') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_moderate; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'u.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($users) { ?>
+						<?php foreach ($users as $user) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $user['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $user['name']; ?></td>
+								<td data-th="<?php echo $lang_column_email; ?>:"><?php echo $user['email']; ?></td>
+								<td data-th="<?php echo $lang_column_comments; ?>:"><a href="<?php echo $user['comments_url']; ?>"><?php echo $user['comments']; ?></a></td>
+								<td data-th="<?php echo $lang_column_subscriptions; ?>:"><a href="<?php echo $user['subscriptions_url']; ?>"><?php echo $user['subscriptions']; ?></a></td>
+								<td data-th="<?php echo $lang_column_moderate; ?>:"><?php echo $user['moderate']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $user['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $user['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
+									<a href="<?php echo $user['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $user['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="8"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

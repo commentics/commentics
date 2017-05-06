@@ -58,36 +58,38 @@
 	</form>
 
 	<form action="index.php?route=tool/database_backup" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_description; ?>" <?php if ($sort == 'b.description') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_description; ?></a></th>
-					<th><a href="<?php echo $sort_filename; ?>" <?php if ($sort == 'b.filename') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_filename; ?></a></th>
-					<th><?php echo $lang_column_size; ?></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'b.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($backups) { ?>
-					<?php foreach ($backups as $backup) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $backup['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_description; ?>:"><?php echo $backup['description']; ?></td>
-							<td data-th="<?php echo $lang_column_filename; ?>:"><a href="<?php echo $backup['url']; ?>" download><?php echo $backup['filename']; ?></a></td>
-							<td data-th="<?php echo $lang_column_size; ?>:"><?php echo $backup['size']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $backup['dated']; ?></td>
-							<td class="actions"><a data-id="<?php echo $backup['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a></td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="6"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_description; ?>" <?php if ($sort == 'b.description') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_description; ?></a></th>
+						<th><a href="<?php echo $sort_filename; ?>" <?php if ($sort == 'b.filename') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_filename; ?></a></th>
+						<th><?php echo $lang_column_size; ?></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'b.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($backups) { ?>
+						<?php foreach ($backups as $backup) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $backup['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_description; ?>:"><?php echo $backup['description']; ?></td>
+								<td data-th="<?php echo $lang_column_filename; ?>:"><a href="<?php echo $backup['url']; ?>" download><?php echo $backup['filename']; ?></a></td>
+								<td data-th="<?php echo $lang_column_size; ?>:"><?php echo $backup['size']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $backup['dated']; ?></td>
+								<td class="actions"><a data-id="<?php echo $backup['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a></td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="6"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

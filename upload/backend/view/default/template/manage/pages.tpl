@@ -66,48 +66,50 @@
 	</div>
 
 	<form action="index.php?route=manage/pages" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_identifier; ?>" <?php if ($sort == 'p.identifier') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_identifier; ?></a></th>
-					<th><a href="<?php echo $sort_reference; ?>" <?php if ($sort == 'p.reference') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_reference; ?></a></th>
-					<th><a href="<?php echo $sort_url; ?>" <?php if ($sort == 'p.url') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_url; ?></a></th>
-					<th><a href="<?php echo $sort_comments; ?>" <?php if ($sort == 'comments') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_comments; ?></a></th>
-					<th><a href="<?php echo $sort_subscriptions; ?>" <?php if ($sort == 'subscriptions') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_subscriptions; ?></a></th>
-					<th><a href="<?php echo $sort_moderate; ?>" <?php if ($sort == 'p.moderate') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_moderate; ?></a></th>
-					<th><a href="<?php echo $sort_is_form_enabled; ?>" <?php if ($sort == 'p.is_form_enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_form_enabled; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'p.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($pages) { ?>
-					<?php foreach ($pages as $page) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $page['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_identifier; ?>:"><?php echo $page['identifier']; ?></td>
-							<td data-th="<?php echo $lang_column_reference; ?>:"><?php echo $page['reference']; ?></td>
-							<td data-th="<?php echo $lang_column_url; ?>:"><a href="<?php echo $page['url']; ?>" target="_blank"><?php echo $page['url']; ?></a></td>
-							<td data-th="<?php echo $lang_column_comments; ?>:"><a href="<?php echo $page['comments_url']; ?>"><?php echo $page['comments']; ?></a></td>
-							<td data-th="<?php echo $lang_column_subscriptions; ?>:"><a href="<?php echo $page['subscriptions_url']; ?>"><?php echo $page['subscriptions']; ?></a></td>
-							<td data-th="<?php echo $lang_column_moderate; ?>:"><?php echo $page['moderate']; ?></td>
-							<td data-th="<?php echo $lang_column_form_enabled; ?>:"><?php echo $page['is_form_enabled']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $page['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $page['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
-								<a href="<?php echo $page['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $page['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="10"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_identifier; ?>" <?php if ($sort == 'p.identifier') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_identifier; ?></a></th>
+						<th><a href="<?php echo $sort_reference; ?>" <?php if ($sort == 'p.reference') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_reference; ?></a></th>
+						<th><a href="<?php echo $sort_url; ?>" <?php if ($sort == 'p.url') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_url; ?></a></th>
+						<th><a href="<?php echo $sort_comments; ?>" <?php if ($sort == 'comments') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_comments; ?></a></th>
+						<th><a href="<?php echo $sort_subscriptions; ?>" <?php if ($sort == 'subscriptions') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_subscriptions; ?></a></th>
+						<th><a href="<?php echo $sort_moderate; ?>" <?php if ($sort == 'p.moderate') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_moderate; ?></a></th>
+						<th><a href="<?php echo $sort_is_form_enabled; ?>" <?php if ($sort == 'p.is_form_enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_form_enabled; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'p.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($pages) { ?>
+						<?php foreach ($pages as $page) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $page['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_identifier; ?>:"><?php echo $page['identifier']; ?></td>
+								<td data-th="<?php echo $lang_column_reference; ?>:"><?php echo $page['reference']; ?></td>
+								<td data-th="<?php echo $lang_column_url; ?>:"><a href="<?php echo $page['url']; ?>" target="_blank"><?php echo $page['url']; ?></a></td>
+								<td data-th="<?php echo $lang_column_comments; ?>:"><a href="<?php echo $page['comments_url']; ?>"><?php echo $page['comments']; ?></a></td>
+								<td data-th="<?php echo $lang_column_subscriptions; ?>:"><a href="<?php echo $page['subscriptions_url']; ?>"><?php echo $page['subscriptions']; ?></a></td>
+								<td data-th="<?php echo $lang_column_moderate; ?>:"><?php echo $page['moderate']; ?></td>
+								<td data-th="<?php echo $lang_column_form_enabled; ?>:"><?php echo $page['is_form_enabled']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $page['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $page['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
+									<a href="<?php echo $page['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $page['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="10"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

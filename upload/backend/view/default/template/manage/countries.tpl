@@ -62,41 +62,43 @@
 	</div>
 
 	<form action="index.php?route=manage/countries" class="controls" method="post">
-		<table class="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox"></th>
-					<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'c.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
-					<th><a href="<?php echo $sort_code; ?>" <?php if ($sort == 'c.code') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_code; ?></a></th>
-					<th><a href="<?php echo $sort_top; ?>" <?php if ($sort == 'c.top') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_top; ?></a></th>
-					<th><a href="<?php echo $sort_enabled; ?>" <?php if ($sort == 'c.enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_enabled; ?></a></th>
-					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'c.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-					<th><?php echo $lang_column_action; ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($countries) { ?>
-					<?php foreach ($countries as $country) { ?>
-						<tr>
-							<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $country['id']; ?>"></td>
-							<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $country['name']; ?></td>
-							<td data-th="<?php echo $lang_column_code; ?>:"><a href="<?php echo $country['code_url']; ?>"><?php echo $country['code']; ?></a></td>
-							<td data-th="<?php echo $lang_column_top; ?>:"><?php echo $country['top']; ?></td>
-							<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $country['enabled']; ?></td>
-							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $country['date_added']; ?></td>
-							<td class="actions">
-								<a href="<?php echo $country['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
-								<a data-id="<?php echo $country['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
-							</td>
-						</tr>
-					<?php } ?>
-				<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="7"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-			</tbody>
-		</table>
+		<div class="table_container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'c.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
+						<th><a href="<?php echo $sort_code; ?>" <?php if ($sort == 'c.code') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_code; ?></a></th>
+						<th><a href="<?php echo $sort_top; ?>" <?php if ($sort == 'c.top') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_top; ?></a></th>
+						<th><a href="<?php echo $sort_enabled; ?>" <?php if ($sort == 'c.enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_enabled; ?></a></th>
+						<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'c.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+						<th><?php echo $lang_column_action; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($countries) { ?>
+						<?php foreach ($countries as $country) { ?>
+							<tr>
+								<td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $country['id']; ?>"></td>
+								<td data-th="<?php echo $lang_column_name; ?>:"><?php echo $country['name']; ?></td>
+								<td data-th="<?php echo $lang_column_code; ?>:"><a href="<?php echo $country['code_url']; ?>"><?php echo $country['code']; ?></a></td>
+								<td data-th="<?php echo $lang_column_top; ?>:"><?php echo $country['top']; ?></td>
+								<td data-th="<?php echo $lang_column_enabled; ?>:"><?php echo $country['enabled']; ?></td>
+								<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $country['date_added']; ?></td>
+								<td class="actions">
+									<a href="<?php echo $country['action']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
+									<a data-id="<?php echo $country['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
+								</td>
+							</tr>
+						<?php } ?>
+					<?php } else { ?>
+					<tr>
+						<td class="no_results" colspan="7"><?php echo $lang_text_no_results; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 

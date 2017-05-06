@@ -26,28 +26,30 @@
 
 	<div class="description"><?php echo $lang_description; ?></div>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th><?php echo $lang_column_file; ?></th>
-				<th><?php echo $lang_column_information; ?></th>
-				<th><?php echo $lang_column_result; ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach ($files as $file) { ?>
+	<div class="table_container">
+		<table class="table">
+			<thead>
 				<tr>
-					<td data-th="<?php echo $lang_column_file; ?>:"><?php echo $file['path']; ?></td>
-					<td data-th="<?php echo $lang_column_information; ?>:"><?php echo $file['information']; ?></td>
-					<?php if ($file['positive']) { ?>
-						<td class="positive" data-th="<?php echo $lang_column_result; ?>:"><?php echo $file['text']; ?></td>
-					<?php } else { ?>
-						<td class="negative" data-th="<?php echo $lang_column_result; ?>:"><?php echo $file['text']; ?></td>
-					<?php } ?>
+					<th><?php echo $lang_column_file; ?></th>
+					<th><?php echo $lang_column_information; ?></th>
+					<th><?php echo $lang_column_result; ?></th>
 				</tr>
-			<?php } ?>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<?php foreach ($files as $file) { ?>
+					<tr>
+						<td data-th="<?php echo $lang_column_file; ?>:"><?php echo $file['path']; ?></td>
+						<td data-th="<?php echo $lang_column_information; ?>:"><?php echo $file['information']; ?></td>
+						<?php if ($file['positive']) { ?>
+							<td class="positive" data-th="<?php echo $lang_column_result; ?>:"><?php echo $file['text']; ?></td>
+						<?php } else { ?>
+							<td class="negative" data-th="<?php echo $lang_column_result; ?>:"><?php echo $file['text']; ?></td>
+						<?php } ?>
+					</tr>
+				<?php } ?>
+			</tbody>
+		</table>
+	</div>
 
 </div>
 

@@ -50,32 +50,34 @@
 		</div>
 	</div>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th><a href="<?php echo $sort_username; ?>" <?php if ($sort == 'a.username') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_username; ?></a></th>
-				<th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 'a.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
-				<th><a href="<?php echo $sort_page; ?>" <?php if ($sort == 'a.page') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_page; ?></a></th>
-				<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'a.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php if ($views) { ?>
-				<?php foreach ($views as $view) { ?>
+	<div class="table_container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th><a href="<?php echo $sort_username; ?>" <?php if ($sort == 'a.username') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_username; ?></a></th>
+					<th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 'a.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
+					<th><a href="<?php echo $sort_page; ?>" <?php if ($sort == 'a.page') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_page; ?></a></th>
+					<th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'a.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if ($views) { ?>
+					<?php foreach ($views as $view) { ?>
+						<tr>
+							<td data-th="<?php echo $lang_column_username; ?>:"><?php echo $view['username']; ?></td>
+							<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $view['ip_address']; ?></td>
+							<td data-th="<?php echo $lang_column_page; ?>:"><?php echo $view['page']; ?></td>
+							<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $view['date_added']; ?></td>
+						</tr>
+					<?php } ?>
+				<?php } else { ?>
 					<tr>
-						<td data-th="<?php echo $lang_column_username; ?>:"><?php echo $view['username']; ?></td>
-						<td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $view['ip_address']; ?></td>
-						<td data-th="<?php echo $lang_column_page; ?>:"><?php echo $view['page']; ?></td>
-						<td data-th="<?php echo $lang_column_date; ?>:"><?php echo $view['date_added']; ?></td>
+						<td class="no_results" colspan="4"><?php echo $lang_text_no_results; ?></td>
 					</tr>
 				<?php } ?>
-			<?php } else { ?>
-				<tr>
-					<td class="no_results" colspan="4"><?php echo $lang_text_no_results; ?></td>
-				</tr>
-			<?php } ?>
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+	</div>
 
 	<div class="pagination_stats"><?php echo $pagination_stats; ?></div>
 
