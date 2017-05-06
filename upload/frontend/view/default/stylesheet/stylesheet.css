@@ -248,6 +248,10 @@
   width: 100%;
 }
 
+.cmtx_select_field {
+  text-align: left !important;
+}
+
 .cmtx_textarea_field {
   height: 35px !important;
   min-height: 35px !important;
@@ -444,7 +448,7 @@
 .cmtx_comment_field_active {
   height: 125px !important;
   transition: height 0.25s ease-in !important;
-  text-align: left;
+  text-align: left !important;
   background-image: none;
 }
 
@@ -729,6 +733,11 @@ select.cmtx_required {
   }
 
   .cmtx_required_text {
+    display: none;
+  }
+}
+@media all and (max-width: 400px) {
+  .cmtx_checkbox_extra {
     display: none;
   }
 }

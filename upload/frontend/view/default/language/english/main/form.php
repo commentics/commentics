@@ -3,10 +3,10 @@
 $_['lang_heading_form']				  		= 'Add Comment';
 
 // Entry
-$_['lang_entry_notify']				  		= 'Notify me of new comments via email.';
-$_['lang_entry_cookie']						= 'Remember my form inputs on this computer.';
-$_['lang_entry_privacy']					= 'I have read and understand the <a href="" id="cmtx_privacy_link" title="View the privacy policy">privacy policy</a>.';
-$_['lang_entry_terms']						= 'I have read and agree to the <a href="" id="cmtx_terms_link" title="View the terms and conditions">terms and conditions</a>.';
+$_['lang_entry_notify']				  		= 'Notify me of new comments<span class="cmtx_checkbox_extra"> via email</span>.';
+$_['lang_entry_cookie']						= 'Remember my form inputs<span class="cmtx_checkbox_extra"> on this computer</span>.';
+$_['lang_entry_privacy']					= 'I have read <span class="cmtx_checkbox_extra">and understand</span> the <a href="" id="cmtx_privacy_link" title="View the privacy policy">privacy policy</a>.';
+$_['lang_entry_terms']						= 'I have read <span class="cmtx_checkbox_extra">and agree to</span> the <a href="" id="cmtx_terms_link" title="View the terms and conditions">terms and conditions</a>.';
 
 // Placeholder
 $_['lang_placeholder_comment']				= 'Enter your comment here ..';
