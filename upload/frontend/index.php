@@ -1,7 +1,7 @@
 <?php
 define('CMTX_FRONTEND', true);
 
-define('CMTX_VERSION', '3.1');
+define('CMTX_VERSION', '3.2');
 
 if (!session_id()) {
 	ini_set('session.cookie_httponly', 1);

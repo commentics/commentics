@@ -22,10 +22,12 @@ class MainUpgrade2Controller extends Controller {
 					break;
 				case '3.0':
 					$this->model_main_upgrade_2->upgrade('3.0 -> 3.1');
+					$this->model_main_upgrade_2->upgrade('3.1 -> 3.2');
 					break;
 				case '2.5':
 					$this->model_main_upgrade_2->upgrade('2.5 -> 3.0');
-					$this->model_main_upgrade_2->upgrade('3.0 -> 3.1');					
+					$this->model_main_upgrade_2->upgrade('3.0 -> 3.1');
+					$this->model_main_upgrade_2->upgrade('3.1 -> 3.2');
 					break;
 				default:
 					$valid_upgrade = false;

@@ -1,3 +1,42 @@
+Version: 3.2
+Date: 7th May 2017
+
+[Feature] Extension installer
+[Feature] Preview comment
+[Improvement] Database query optimization
+[Improvement] Mobile improvements
+[Improvement] Admin area view links
+[Improvement] Admin area menu icons
+[Improvement] Bootstrap compatibility
+[Improvement] Foundation compatibility
+[Improvement] Adds delete installer setting
+[Improvement] Refactors language loading
+[Improvement] Database error handling
+[Improvement] Return to all comments link
+[Improvement] Shows list of sponsors
+[Improvement] Ability to load extra CSS
+[Improvement] Adds check CSRF setting
+[Improvement] Displays theme preview
+[Improvement] Upgrades chart script
+[Improvement] Upgrades Colorbox script
+[Improvement] Upgrades Font Awesome
+[Improvement] Upgrades highlight script
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades Swift Mailer script
+[Improvement] Upgrades Timeago script
+[Improvement] Upgrades TinyMCE script
+[Bug Fix] Akismet setting
+[Bug Fix] Admin permissions
+[Bug Fix] Fixes engine loading
+[Bug Fix] Htaccess indexignore
+[Bug Fix] Modification clear cache
+[Bug Fix] Comment positions error
+[Bug Fix] Session expiration fixes
+[Bug Fix] Session multiple pages
+[Other] Lowers min MySQL version
+
+*************************************************************************
+
 Version: 3.1
 Date: 11th December 2016
 
