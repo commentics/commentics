@@ -1359,8 +1359,10 @@ class MainFormController extends Controller {
 
 					$location = rtrim($location, ', ');
 
+					$comment_post = $this->request->post['cmtx_comment'];
+
 					if ($this->setting->get('enabled_smilies')) {
-						$comment_post = $this->model_main_comments->convertSmilies($this->request->post['cmtx_comment']);
+						$comment_post = $this->model_main_comments->convertSmilies($comment_post);
 					}
 
 					$comment_post = $this->model_main_comments->purifyComment($comment_post);
