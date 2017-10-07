@@ -13,7 +13,9 @@ namespace {
 					}
 				}
 
-				rmdir($dir);
+				if (is_dir($dir)) {
+					@rmdir($dir);
+				}
 			}
 		}
 	}

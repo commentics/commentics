@@ -334,11 +334,13 @@ class Modification {
 					}
 				}
 
-				$handle = fopen(CMTX_DIR_MOD_CACHE . $key, 'w');
+				$handle = @fopen(CMTX_DIR_MOD_CACHE . $key, 'w');
 
-				fwrite($handle, $value);
+				if ($handle) {
+					fwrite($handle, $value);
 
-				fclose($handle);
+					fclose($handle);
+				}
 			}
 		}
 	}
