@@ -340,19 +340,19 @@ class MainCommentsController extends Controller {
 			}
 
 			$comment['bio_info_since'] = $this->variable->formatDate($comment['date_added_user'], 'M Y', $this->data);
-
-			$uploads = $comment['uploads'];
-
-			foreach ($uploads as $key => &$upload) {
-				if (file_exists(CMTX_DIR_UPLOAD . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'])) {
-					$upload['image'] = $this->url->getCommenticsUrl() . 'upload/' . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'];
-				} else {
-					unset($uploads[$key]);
-				}
-			}
-
-			$comment['uploads'] = $uploads;
 		}
+
+		$uploads = $comment['uploads'];
+
+		foreach ($uploads as $key => &$upload) {
+			if (file_exists(CMTX_DIR_UPLOAD . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'])) {
+				$upload['image'] = $this->url->getCommenticsUrl() . 'upload/' . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'];
+			} else {
+				unset($uploads[$key]);
+			}
+		}
+
+		$comment['uploads'] = $uploads;
 
 		$location = '';
 
