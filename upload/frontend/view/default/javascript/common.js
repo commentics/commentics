@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 /* Adds a smiley tag */
 $(document).ready(function() {
-	$('.cmtx_smiley').click(function() {
+	$('.cmtx_smilies_container .cmtx_smiley').click(function() {
 		var smiley = $(this).attr('data-cmtx-tag');
 
 		cmtx_add_tag('', smiley);
