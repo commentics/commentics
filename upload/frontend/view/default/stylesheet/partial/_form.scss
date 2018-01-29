@@ -317,14 +317,6 @@
     background-position: -83px -83px;
 }
 
-.cmtx_icons_separator {
-	border-left: 1px solid #BDBDBD;
-	float: left;
-	height: 22px;
-	margin-left: 15px;
-	margin-right: 15px;
-}
-
 .cmtx_smiley {
     background-image: url(../image/smilies/sprite.png);
     background-repeat: no-repeat;
@@ -621,16 +613,8 @@ select.cmtx_required {
 }
 
 @media all and (max-width: 1200px) {
-	.cmtx_icons_separator {
-		display: none;
-	}
-
 	.cmtx_bb_code_container, .cmtx_smilies_container {
 		float: none;
-	}
-
-	.cmtx_icons_separator + .cmtx_smilies_container {
-		margin-top: 5px;
 	}
 }
 

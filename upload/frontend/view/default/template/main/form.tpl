@@ -44,10 +44,6 @@
 								</div>
 							<?php } ?>
 
-							<?php if ($enabled_bb_code && $enabled_smilies) { ?>
-								<div class="cmtx_icons_separator"></div>
-							<?php } ?>
-
 							<?php if ($enabled_smilies) { ?>
 								<div class="cmtx_smilies_container">
 									<?php if ($enabled_smilies_smile) { ?><span class="cmtx_smiley cmtx_smiley_smile" data-cmtx-tag="<?php echo $lang_tag_smiley_smile; ?>" title="<?php echo $lang_title_smiley_smile; ?>"></span><?php } ?>
