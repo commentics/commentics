@@ -584,14 +584,14 @@ class MainFormController extends Controller {
 								}
 
 								/* Check for flooding (delay) */
-								if ($this->setting->get('flood_control_delay_enabled')) {
+								if ($this->setting->get('flood_control_delay_enabled') && !$is_admin) {
 									if ($this->model_main_form->isFloodingDelay($ip_address, $page_id)) {
 										$json['result']['error'] = $this->data['lang_error_flooding_delay'];
 									}
 								}
 
 								/* Check for flooding (maximum) */
-								if ($this->setting->get('flood_control_maximum_enabled')) {
+								if ($this->setting->get('flood_control_maximum_enabled') && !$is_admin) {
 									if ($this->model_main_form->isFloodingMaximum($ip_address, $page_id)) {
 										$json['result']['error'] = $this->data['lang_error_flooding_maximum'];
 									}
