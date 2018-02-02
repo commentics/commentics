@@ -21,6 +21,8 @@ $(document).ready(function() {
 	$('.cmtx_average_rating label').click(function(e) {
 		e.preventDefault();
 
+		var element = $(this);
+
 		var rating = $(this).prev().val();
 
 		var request = $.ajax({
@@ -50,17 +52,27 @@ $(document).ready(function() {
 
 				$('.cmtx_action_message_success').clearQueue();
 				$('.cmtx_action_message_success').html(response['success']);
-				$('.cmtx_action_message_success').css('top', e.pageY);
-				$('.cmtx_action_message_success').css('left', e.pageX);
 				$('.cmtx_action_message_success').fadeIn(500).delay(2000).fadeOut(500);
+
+				$('.cmtx_action_message_success').position({
+					my: 'left',
+					at: 'right top',
+					of: element,
+					collision: 'fit'
+				});
 			}
 
 			if (response['error']) {
 				$('.cmtx_action_message_error').clearQueue();
 				$('.cmtx_action_message_error').html(response['error']);
-				$('.cmtx_action_message_error').css('top', e.pageY);
-				$('.cmtx_action_message_error').css('left', e.pageX);
 				$('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
+
+				$('.cmtx_action_message_error').position({
+					my: 'left',
+					at: 'right top',
+					of: element,
+					collision: 'fit'
+				});
 			}
 		});
 

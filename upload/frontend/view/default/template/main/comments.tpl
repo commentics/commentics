@@ -188,9 +188,14 @@
 						if (response['error']) {
 							$('.cmtx_action_message_error').clearQueue();
 							$('.cmtx_action_message_error').html(response['error']);
-							$('.cmtx_action_message_error').css('top', e.pageY);
-							$('.cmtx_action_message_error').css('left', e.pageX - 75);
 							$('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
+
+							$('.cmtx_action_message_error').position({
+								my: 'left',
+								at: 'right top',
+								of: vote_link,
+								collision: 'fit'
+							});
 						}
 					});
 
@@ -214,20 +219,27 @@
 
 					$('.cmtx_share_box').hide();
 
-					var sharelink = $(this).attr('data-cmtx-sharelink');
+					var share_link = $(this);
 
-					$('.cmtx_share_digg').parent().attr('href', '<?php echo $comment["share_digg"]; ?>' + encodeURIComponent(sharelink));
-					$('.cmtx_share_facebook').parent().attr('href', '<?php echo $comment["share_facebook"]; ?>' + encodeURIComponent(sharelink));
-					$('.cmtx_share_google').parent().attr('href', '<?php echo $comment["share_google"]; ?>' + encodeURIComponent(sharelink));
-					$('.cmtx_share_linkedin').parent().attr('href', '<?php echo $comment["share_linkedin"]; ?>' + encodeURIComponent(sharelink));
-					$('.cmtx_share_reddit').parent().attr('href', '<?php echo $comment["share_reddit"]; ?>' + encodeURIComponent(sharelink));
-					$('.cmtx_share_stumbleupon').parent().attr('href', '<?php echo $comment["share_stumbleupon"]; ?>' + encodeURIComponent(sharelink));
-					$('.cmtx_share_twitter').parent().attr('href', '<?php echo $comment["share_twitter"]; ?>' + encodeURIComponent(sharelink));
+					var permalink = $(this).attr('data-cmtx-sharelink');
+
+					$('.cmtx_share_digg').parent().attr('href', '<?php echo $comment["share_digg"]; ?>' + encodeURIComponent(permalink));
+					$('.cmtx_share_facebook').parent().attr('href', '<?php echo $comment["share_facebook"]; ?>' + encodeURIComponent(permalink));
+					$('.cmtx_share_google').parent().attr('href', '<?php echo $comment["share_google"]; ?>' + encodeURIComponent(permalink));
+					$('.cmtx_share_linkedin').parent().attr('href', '<?php echo $comment["share_linkedin"]; ?>' + encodeURIComponent(permalink));
+					$('.cmtx_share_reddit').parent().attr('href', '<?php echo $comment["share_reddit"]; ?>' + encodeURIComponent(permalink));
+					$('.cmtx_share_stumbleupon').parent().attr('href', '<?php echo $comment["share_stumbleupon"]; ?>' + encodeURIComponent(permalink));
+					$('.cmtx_share_twitter').parent().attr('href', '<?php echo $comment["share_twitter"]; ?>' + encodeURIComponent(permalink));
 
 					$('.cmtx_share_box').clearQueue();
-					$('.cmtx_share_box').css('top', e.pageY);
-					$('.cmtx_share_box').css('left', e.pageX - 50);
 					$('.cmtx_share_box').fadeIn(1000);
+
+					$('.cmtx_share_box').position({
+						my: 'left',
+						at: 'right top',
+						of: share_link,
+						collision: 'fit'
+					});
 				});
 
 				$(document).mouseup(function(e) {
@@ -277,17 +289,27 @@
 									if (response['success']) {
 										$('.cmtx_action_message_success').clearQueue();
 										$('.cmtx_action_message_success').html(response['success']);
-										$('.cmtx_action_message_success').css('top', e.pageY);
-										$('.cmtx_action_message_success').css('left', e.pageX - 150);
 										$('.cmtx_action_message_success').fadeIn(500).delay(2000).fadeOut(500);
+
+										$('.cmtx_action_message_success').position({
+											my: 'left',
+											at: 'right top',
+											of: flag_link,
+											collision: 'fit'
+										});
 									}
 
 									if (response['error']) {
 										$('.cmtx_action_message_error').clearQueue();
 										$('.cmtx_action_message_error').html(response['error']);
-										$('.cmtx_action_message_error').css('top', e.pageY);
-										$('.cmtx_action_message_error').css('left', e.pageX - 150);
 										$('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
+
+										$('.cmtx_action_message_error').position({
+											my: 'left',
+											at: 'right top',
+											of: flag_link,
+											collision: 'fit'
+										});
 									}
 								});
 
@@ -321,14 +343,21 @@
 
 					$('.cmtx_permalink_box').hide();
 
+					var permalink_link = $(this);
+
 					var permalink = $(this).attr('data-cmtx-permalink');
 
 					$('#cmtx_permalink').val(permalink);
 
 					$('.cmtx_permalink_box').clearQueue();
-					$('.cmtx_permalink_box').css('top', e.pageY);
-					$('.cmtx_permalink_box').css('left', e.pageX - 225);
 					$('.cmtx_permalink_box').fadeIn(1000);
+
+					$('.cmtx_permalink_box').position({
+						my: 'left',
+						at: 'right top',
+						of: permalink_link,
+						collision: 'fit'
+					});
 
 					$('#cmtx_permalink').select();
 				});
