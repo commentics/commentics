@@ -5,6 +5,16 @@ class PartNotifyController extends Controller {
 	public function index() {
 		$this->loadLanguage('part/notify');
 
+		/* These are passed to common.js via the template */
+		$this->data['cmtx_js_settings_notify'] = array(
+			'lang_button_processing'   => $this->data['lang_button_processing'],
+			'lang_button_notify'       => $this->data['lang_button_notify'],
+			'lang_heading_notify'      => $this->data['lang_heading_notify'],
+			'lang_text_notify_info'    => $this->data['lang_text_notify_info'],
+			'lang_title_cancel_notify' => $this->data['lang_title_cancel_notify'],
+			'lang_link_cancel'         => $this->data['lang_link_cancel']
+		 );
+
 		return $this->data;
 	}
 

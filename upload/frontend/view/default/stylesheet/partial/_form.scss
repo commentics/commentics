@@ -189,6 +189,7 @@
 	vertical-align: middle;
 	text-align: center !important;
 	height: 35px !important;
+	background-color: #FFFFFF;
 }
 
 .cmtx_field_error {
@@ -317,6 +318,14 @@
     background-position: -83px -83px;
 }
 
+.cmtx_icons_separator {
+	border-left: 1px solid #BDBDBD;
+	float: left;
+	height: 22px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
 .cmtx_smiley {
     background-image: url(../image/smilies/sprite.png);
     background-repeat: no-repeat;
@@ -394,7 +403,9 @@
 }
 
 .cmtx_comment_field {
-	padding: 8px;
+	font-size: 14px;
+    line-height: 25px;
+	overflow: hidden;
 }
 
 .cmtx_comment_field_active {
@@ -402,6 +413,9 @@
     transition: height 0.25s ease-in !important;
 	text-align: left !important;
 	background-image: none;
+	line-height: normal;
+	font-size: inherit;
+	padding: 5px;
 }
 
 .cmtx_counter {
@@ -613,8 +627,16 @@ select.cmtx_required {
 }
 
 @media all and (max-width: 1200px) {
+	.cmtx_icons_separator {
+		display: none;
+	}
+
 	.cmtx_bb_code_container, .cmtx_smilies_container {
 		float: none;
+	}
+
+	.cmtx_icons_separator + .cmtx_smilies_container {
+		margin-top: 5px;
 	}
 }
 

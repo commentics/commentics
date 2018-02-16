@@ -115,18 +115,6 @@ class MainFormController extends Controller {
 
 			$this->data['enabled_upload'] = $this->setting->get('enabled_upload');
 
-			$this->data['maximum_upload_size'] = $this->setting->get('maximum_upload_size');
-
-			$this->data['maximum_upload_amount'] = $this->setting->get('maximum_upload_amount');
-
-			$this->data['lang_text_drag_and_drop'] = $this->variable->escapeSingle(sprintf($this->data['lang_text_drag_and_drop'], $this->setting->get('maximum_upload_amount')));
-			$this->data['lang_text_drop_success'] = $this->variable->escapeSingle($this->data['lang_text_drop_success']);
-			$this->data['lang_text_drop_error'] = $this->variable->escapeSingle($this->data['lang_text_drop_error']);
-			$this->data['lang_error_file_type'] = $this->variable->escapeSingle($this->data['lang_error_file_type']);
-			$this->data['lang_error_file_num'] = $this->variable->escapeSingle($this->data['lang_error_file_num']);
-			$this->data['lang_error_file_size'] = $this->variable->escapeSingle($this->data['lang_error_file_size']);
-			$this->data['lang_error_file_size_all'] = $this->variable->escapeSingle($this->data['lang_error_file_size_all']);
-
 			/* Name */
 
 			$this->data['enabled_name'] = true;
@@ -397,14 +385,14 @@ class MainFormController extends Controller {
 
 			$this->data['securimage'] = false;
 
+			$this->data['securimage_url'] = CMTX_HTTP_3RDPARTY . 'securimage/';
+
+			$this->data['captcha_namespace'] = 'cmtx_' . $this->page->getId();
+
 			if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'securimage' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext')) {
 				$this->data['securimage'] = true;
 
 				$this->data['maximum_securimage'] = $this->setting->get('securimage_length');
-
-				$this->data['securimage_url'] = CMTX_HTTP_3RDPARTY . 'securimage/';
-
-				$this->data['captcha_namespace'] = 'cmtx_' . $this->page->getId();
 			}
 
 			/* Notify */
@@ -511,6 +499,34 @@ class MainFormController extends Controller {
 			}
 
 			$this->data['hidden_data'] = str_replace('&', '&amp;', $hidden_data);
+
+			/* These are passed to common.js via the template */
+			$this->data['cmtx_js_settings_form'] = array(
+				'commentics_url'           => $this->url->getCommenticsUrl(),
+				'page_id'                  => (int)$this->page->getId(),
+				'enabled_country'          => (bool)$this->data['enabled_country'],
+				'enabled_state'            => (bool)$this->data['enabled_state'],
+				'state_id'                 => (int)$this->data['state_id'],
+				'enabled_upload'           => (bool)$this->data['enabled_upload'],
+				'maximum_upload_amount'    => (int)$this->setting->get('maximum_upload_amount'),
+				'maximum_upload_size'      => (int)$this->setting->get('maximum_upload_size'),
+				'securimage'               => (bool)$this->data['securimage'],
+				'securimage_url'           =>  $this->data['securimage_url'],
+				'captcha_namespace'        =>  $this->data['captcha_namespace'],
+				'lang_text_drag_and_drop'  =>  sprintf($this->data['lang_text_drag_and_drop'], $this->setting->get('maximum_upload_amount')),
+				'lang_text_drop_success'   =>  $this->data['lang_text_drop_success'],
+				'lang_text_drop_error'     =>  $this->data['lang_text_drop_error'],
+				'lang_error_file_num'      =>  $this->data['lang_error_file_num'],
+				'lang_error_file_type'     =>  $this->data['lang_error_file_type'],
+				'lang_error_file_size'     =>  $this->data['lang_error_file_size'],
+				'lang_error_file_size_all' =>  $this->data['lang_error_file_size_all'],
+				'lang_text_loading'        =>  $this->data['lang_text_loading'],
+				'lang_placeholder_state'   =>  $this->data['lang_placeholder_state'],
+				'lang_text_country_first'  =>  $this->data['lang_text_country_first'],
+				'lang_button_processing'   =>  $this->data['lang_button_processing'],
+				'lang_button_submit'       =>  $this->data['lang_button_submit'],
+				'lang_button_preview'      =>  $this->data['lang_button_preview']
+			 );
 		}
 
 		return $this->data;
@@ -584,14 +600,14 @@ class MainFormController extends Controller {
 								}
 
 								/* Check for flooding (delay) */
-								if ($this->setting->get('flood_control_delay_enabled') && !$is_admin) {
+								if ($this->setting->get('flood_control_delay_enabled')) {
 									if ($this->model_main_form->isFloodingDelay($ip_address, $page_id)) {
 										$json['result']['error'] = $this->data['lang_error_flooding_delay'];
 									}
 								}
 
 								/* Check for flooding (maximum) */
-								if ($this->setting->get('flood_control_maximum_enabled') && !$is_admin) {
+								if ($this->setting->get('flood_control_maximum_enabled')) {
 									if ($this->model_main_form->isFloodingMaximum($ip_address, $page_id)) {
 										$json['result']['error'] = $this->data['lang_error_flooding_maximum'];
 									}
@@ -1359,10 +1375,8 @@ class MainFormController extends Controller {
 
 					$location = rtrim($location, ', ');
 
-					$comment_post = $this->request->post['cmtx_comment'];
-
 					if ($this->setting->get('enabled_smilies')) {
-						$comment_post = $this->model_main_comments->convertSmilies($comment_post);
+						$comment_post = $this->model_main_comments->convertSmilies($this->request->post['cmtx_comment']);
 					}
 
 					$comment_post = $this->model_main_comments->purifyComment($comment_post);

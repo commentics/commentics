@@ -21,26 +21,3 @@
 		<?php } ?>
 	</div>
 </div>
-
-<script>
-// <![CDATA[
-$(document).ready(function() {
-	$('.cmtx_pagination_url').click(function(e) {
-		e.preventDefault();
-
-		// This is to stop multiple calls to this event.
-		// Occurs when pagination links shown twice (e.g. above and below comments).
-		e.stopImmediatePropagation();
-
-		var options = {
-			'commentics_url'	: '<?php echo $commentics_url; ?>',
-			'page_id'			: '<?php echo $page_id; ?>',
-			'page_number'		: $(this).find('span').attr('data-cmtx-page'),
-			'effect'			: true
-		}
-
-		cmtxRefreshComments(options);
-	});
-});
-// ]]>
-</script>

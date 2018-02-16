@@ -125,8 +125,6 @@ class MainCommentsController extends Controller {
 			$this->data['comments'][$comment['id']] = $this->getComment($comment['id']);
 		}
 
-		$this->data['commentics_url'] = $this->url->getCommenticsUrl();
-
 		if ($this->setting->get('show_comment_count')) {
 			$this->data['lang_heading_comments'] .= ' (' . $this->data['total'] . ')';
 		}
@@ -139,8 +137,6 @@ class MainCommentsController extends Controller {
 		$this->data['website_no_follow']      = $this->setting->get('website_no_follow');
 		$this->data['show_says']              = $this->setting->get('show_says');
 		$this->data['show_rating']            = $this->setting->get('show_rating');
-		$this->data['show_read_more']         = $this->setting->get('show_read_more');
-		$this->data['read_more_limit']        = $this->setting->get('read_more_limit');
 		$this->data['show_date']              = $this->setting->get('show_date');
 		$this->data['date_auto']              = $this->setting->get('date_auto');
 		$this->data['show_like']              = $this->setting->get('show_like');
@@ -159,10 +155,8 @@ class MainCommentsController extends Controller {
 		$this->data['hide_replies']           = $this->setting->get('hide_replies');
 		$this->data['reply_indent']           = $this->setting->get('reply_indent');
 		$this->data['reply_max_depth']        = $this->setting->get('reply_depth');
-		$this->data['scroll_reply']           = $this->setting->get('scroll_reply');
-		$this->data['scroll_speed']           = $this->setting->get('scroll_speed');
 
-		$this->data['is_preview']           = false;
+		$this->data['is_preview'] = false;
 
 		if ($this->setting->get('show_reply') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
 			$this->data['show_reply'] = true;
@@ -170,16 +164,10 @@ class MainCommentsController extends Controller {
 			$this->data['show_reply'] = false;
 		}
 
-		$this->data['lang_dialog_flag_title'] = $this->variable->encodeDouble($this->data['lang_dialog_flag_title']);
-
-		$this->data['lang_dialog_yes'] = $this->variable->escapeSingle($this->data['lang_dialog_yes']);
-
-		$this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_dialog_no']);
-
 		if (isset($this->request->get['cmtx_perm']) && $this->validation->isInt($this->request->get['cmtx_perm'])) {
-			$this->data['flash_id'] = (int)$this->request->get['cmtx_perm'];
+			$flash_id = (int)$this->request->get['cmtx_perm'];
 		} else {
-			$this->data['flash_id'] = 0;
+			$flash_id = 0;
 		}
 
 		$outer_components = array();
@@ -271,12 +259,42 @@ class MainCommentsController extends Controller {
 		}
 
 		if ($this->setting->get('enabled_bb_code') && ($this->setting->get('enabled_bb_code_code') || ($this->setting->get('enabled_bb_code_php')))) {
-			$this->data['highlight'] = true;
+			$highlight = true;
 		} else {
-			$this->data['highlight'] = false;
+			$highlight = false;
 		}
 
-		$this->data['page_id'] = $this->page->getId();
+		/* These are passed to common.js via the template */
+		$this->data['cmtx_js_settings_comments'] = array(
+			'commentics_url'          => $this->url->getCommenticsUrl(),
+			'page_id'                 => (int)$this->page->getId(),
+			'flash_id'                => (int)$flash_id,
+			'lang_dialog_yes'         => $this->data['lang_dialog_yes'],
+			'lang_dialog_no'          => $this->data['lang_dialog_no'],
+			'scroll_reply'            => (bool)$this->setting->get('scroll_reply'),
+			'scroll_speed'            => (int)$this->setting->get('scroll_speed'),
+			'lang_text_replying_to'   => $this->data['lang_text_replying_to'],
+			'lang_title_cancel_reply' => $this->data['lang_title_cancel_reply'],
+			'lang_link_cancel'        => $this->data['lang_link_cancel'],
+			'lang_text_not_replying'  => $this->data['lang_text_not_replying'],
+			'show_read_more'          => (bool)$this->setting->get('show_read_more'),
+			'read_more_limit'         => (int)$this->setting->get('read_more_limit'),
+			'highlight'               => (bool)$highlight,
+			'date_auto'               => (bool)$this->setting->get('date_auto'),
+			'timeago_suffixAgo'       => $this->data['lang_text_timeago_ago'],
+			'timeago_inPast'          => $this->data['lang_text_timeago_second'],
+			'timeago_seconds'         => $this->data['lang_text_timeago_seconds'],
+			'timeago_minute'          => $this->data['lang_text_timeago_minute'],
+			'timeago_minutes'         => $this->data['lang_text_timeago_minutes'],
+			'timeago_hour'            => $this->data['lang_text_timeago_hour'],
+			'timeago_hours'           => $this->data['lang_text_timeago_hours'],
+			'timeago_day'             => $this->data['lang_text_timeago_day'],
+			'timeago_days'            => $this->data['lang_text_timeago_days'],
+			'timeago_month'           => $this->data['lang_text_timeago_month'],
+			'timeago_months'          => $this->data['lang_text_timeago_months'],
+			'timeago_year'            => $this->data['lang_text_timeago_year'],
+			'timeago_years'           => $this->data['lang_text_timeago_years']
+		 );
 
 		return $this->data;
 	}
@@ -340,19 +358,19 @@ class MainCommentsController extends Controller {
 			}
 
 			$comment['bio_info_since'] = $this->variable->formatDate($comment['date_added_user'], 'M Y', $this->data);
-		}
 
-		$uploads = $comment['uploads'];
+			$uploads = $comment['uploads'];
 
-		foreach ($uploads as $key => &$upload) {
-			if (file_exists(CMTX_DIR_UPLOAD . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'])) {
-				$upload['image'] = $this->url->getCommenticsUrl() . 'upload/' . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'];
-			} else {
-				unset($uploads[$key]);
+			foreach ($uploads as $key => &$upload) {
+				if (file_exists(CMTX_DIR_UPLOAD . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'])) {
+					$upload['image'] = $this->url->getCommenticsUrl() . 'upload/' . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'];
+				} else {
+					unset($uploads[$key]);
+				}
 			}
-		}
 
-		$comment['uploads'] = $uploads;
+			$comment['uploads'] = $uploads;
+		}
 
 		$location = '';
 
@@ -375,14 +393,6 @@ class MainCommentsController extends Controller {
 		}
 
 		$comment['comment'] = $this->model_main_comments->purifyComment($comment['comment']);
-
-		$comment['share_digg'] = 'http://digg.com/submit?url=';
-		$comment['share_facebook'] = 'https://www.facebook.com/sharer.php?u=';
-		$comment['share_google'] = 'https://plus.google.com/share?url=';
-		$comment['share_linkedin'] = 'https://www.linkedin.com/shareArticle?url=';
-		$comment['share_reddit'] = 'http://reddit.com/submit?url=';
-		$comment['share_stumbleupon'] = 'http://www.stumbleupon.com/submit?url=';
-		$comment['share_twitter'] = 'https://twitter.com/intent/tweet?url=';
 
 		$comment['permalink'] = $this->comment->buildCommentUrl($comment['id'], $comment['page_url']);
 
@@ -507,7 +517,7 @@ class MainCommentsController extends Controller {
 
 					$this->model_main_comments->addReport($comment_id, $ip_address);
 
-					$json['success'] = $this->data['lang_error_reported'];
+					$json['success'] = $this->data['lang_text_reported'];
 				}
 			}
 

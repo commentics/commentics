@@ -16,9 +16,7 @@ $_['lang_text_level_1']				= 'Regular';
 $_['lang_text_level_0']				= 'New';
 $_['lang_text_today']				= 'Today';
 $_['lang_text_yesterday']			= 'Yesterday';
-$_['lang_text_view']				= 'View';
-$_['lang_text_reply']				= 'reply';
-$_['lang_text_replies']				= 'replies';
+$_['lang_text_view_replies']		= 'View Replies';
 $_['lang_text_bio_info_comments']	= 'Comments:';
 $_['lang_text_bio_info_likes']		= 'Likes:';
 $_['lang_text_bio_info_dislikes']	= 'Dislikes:';
@@ -27,6 +25,7 @@ $_['lang_text_return']				= '<a href="" title="Return to comments"><span class="
 $_['lang_text_no_permalink']		= 'No such comment. <a href="" title="Go back">Go back</a>';
 $_['lang_text_no_results']			= 'No results. <a href="" title="Go back">Go back</a>';
 $_['lang_text_no_comments']			= 'No comments yet. Be the first!';
+$_['lang_text_reported']			= 'Thanks for the report';
 
 // Title
 $_['lang_title_sticky']				= 'Sticky';
@@ -44,6 +43,7 @@ $_['lang_title_linkedin']			= 'LinkedIn';
 $_['lang_title_reddit']				= 'Reddit';
 $_['lang_title_stumbleupon']		= 'StumbleUpon';
 $_['lang_title_twitter']			= 'Twitter';
+$_['lang_title_view_replies']		= 'View Replies';
 
 // Dialog
 $_['lang_dialog_flag_title']		= 'Report Comment';
@@ -65,7 +65,6 @@ $_['lang_error_report_own']			= 'You can\'t report yourself';
 $_['lang_error_report_admin']		= 'You can\'t report an admin';
 $_['lang_error_report_already']		= 'You\'ve already reported';
 $_['lang_error_report_max']			= 'You can\'t report anymore';
-$_['lang_error_reported']			= 'Thanks for the report';
 $_['lang_error_flagged']			= 'This is already flagged';
 $_['lang_error_verified']			= 'This is already verified';
 $_['lang_error_banned']				= 'You\'ve been banned';

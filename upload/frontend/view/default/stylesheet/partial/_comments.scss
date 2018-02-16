@@ -9,10 +9,6 @@
 	margin-bottom: 15px;
 }
 
-.cmtx_comments_row_one, .cmtx_comments_row_two, .cmtx_comments_row_three, .cmtx_comments_row_four {
-	background-color: #FCFCFC;
-}
-
 .cmtx_comments_row_one, .cmtx_comments_row_two {
 	margin-bottom: 20px;
 }
@@ -31,9 +27,12 @@
 	line-height: 25px;
 	width: 33.3%;
 	vertical-align: middle;
+	padding: 2px;
+	background-color: #FCFCFC;
 }
 
 .cmtx_row_left *, .cmtx_row_middle *, .cmtx_row_right * {
+	height: 25px;
 	line-height: 25px;
 }
 
@@ -390,14 +389,13 @@
 .cmtx_action_message {
 	cursor: default;
 	position: absolute;
-	margin-top: 10px;
-	margin-left: 10px;
 	padding: 3px;
 	font-size: 0.8em;
 	font-weight: bold;
 	font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	background-color: #FFFFFF;
 	display: none;
+	width: fit-content;
 }
 
 .cmtx_action_message_success {
@@ -470,11 +468,11 @@
 }
 
 .cmtx_view_replies_area {
-	bottom: 20px;
+	bottom: 0;
 	font-size: 0.9em;
 	left: 50%;
-	margin-left: -45px;
 	position: absolute;
+	transform: translate(-50%, 0);
 }
 
 .cmtx_view_replies_area a {
@@ -547,9 +545,8 @@
 @media all and (max-width: 600px) {
 	.cmtx_view_replies_area {
 		position: static;
-		bottom: 0;
-		margin-left: 0;
 		margin-top: 15px;
+		transform: none;
 	}
 }
 
@@ -560,6 +557,11 @@
 
 	.cmtx_comment_box:not(:last-of-type) {
 		margin-bottom: 50px;
+	}
+
+	.cmtx_replies_group {
+		margin-top: 0;
+		margin-bottom: 70px;
 	}
 
 	.cmtx_sticky {
@@ -786,15 +788,24 @@
 
 .cmtx_search {
 	width: 125px !important;
-	height: 20px !important;
+	height: 25px !important;
 	display: inline-block !important;
-	line-height: 20px;
+	line-height: 25px;
 	transition: width 500ms !important;
-	vertical-align: middle;
 	border-radius: 4px;
 	border: 1px solid #A9A9A9;
 	padding: 0 0 0 5px !important;
 	margin: 0 !important;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+.cmtx_search::-webkit-search-cancel-button {
+	display: none;
+}
+
+.cmtx_search::-ms-clear {
+	display: none;
 }
 
 .cmtx_search_focus {
@@ -803,7 +814,7 @@
 
 .cmtx_search_container .fa-search {
 	position: relative;
-	top: 1px;
+	bottom: 2px;
 	right: 19px;
 	font-size: 12px;
 	color: #AAAAAA;
@@ -870,6 +881,10 @@
 	width: auto !important;
 	height: auto !important;
 	padding: 0 !important;
+	font-family: inherit;
+	font-size: inherit;
+	height: 25px !important;
+	line-height: 25px;
 }
 
 /* Topic */
