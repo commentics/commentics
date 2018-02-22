@@ -33,7 +33,7 @@
 					<?php if ($comment['top_poster']) { ?>
 						<div class="cmtx_badge">
 							<div class="fa fa-star cmtx_badge_star_left" aria-hidden="true"></div>
-							<div>Top Poster</div>
+							<div><?php echo $lang_text_badge_top_poster; ?></div>
 							<div class="fa fa-star cmtx_badge_star_right" aria-hidden="true"></div>
 						</div>
 					<?php } ?>
@@ -41,7 +41,7 @@
 					<?php if ($show_like && $comment['most_likes']) { ?>
 						<div class="cmtx_badge">
 							<div class="fa fa-star cmtx_badge_star_left" aria-hidden="true"></div>
-							<div>Most Likes</div>
+							<div><?php echo $lang_text_badge_most_likes; ?></div>
 							<div class="fa fa-star cmtx_badge_star_right" aria-hidden="true"></div>
 						</div>
 					<?php } ?>
@@ -49,7 +49,7 @@
 					<?php if ($comment['first_poster']) { ?>
 						<div class="cmtx_badge">
 							<div class="fa fa-star cmtx_badge_star_left" aria-hidden="true"></div>
-							<div>First Poster</div>
+							<div><?php echo $lang_text_badge_first_poster; ?></div>
 							<div class="fa fa-star cmtx_badge_star_right" aria-hidden="true"></div>
 						</div>
 					<?php } ?>
