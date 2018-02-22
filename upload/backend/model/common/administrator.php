@@ -173,6 +173,7 @@ class CommonAdministratorModel extends Model {
 					$restrictions[] = $this->getRestriction('Preview', 'layout_form/preview', 60, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('Powered', 'layout_form/powered', 60, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('General', 'layout_form/general', 60, false, $viewable_pages, $modifiable_pages);
+			$restrictions[] = $this->getRestriction('Licence', 'settings/licence', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Maintenance', 'settings/maintenance', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Processor', 'settings/processor', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('List', 'data/list', 60, false, $viewable_pages, $modifiable_pages);

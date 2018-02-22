@@ -81,6 +81,23 @@
 				<?php } ?>
 			</div>
 		</div>
+
+		<div class="block licence_block">
+			<div class="title"><span class="fa fa-id-card"></span> <?php echo $lang_title_licence; ?></div>
+			<div class="content">
+				<?php if ($is_licence_valid) { ?>
+					<?php echo $licence; ?>
+				<?php } else { ?>
+					<?php if ($licence_result == 'none') { ?>
+						<span class="negative"><?php echo $lang_text_no_licence; ?></span> (<a href="https://www.commentics.org/pricing" target="_blank"><?php echo $lang_text_purchase; ?></a>)
+					<?php } else if ($licence_result == 'unable') { ?>
+						<span class="negative"><?php echo $lang_text_unable; ?></span>
+					<?php } else if ($licence_result == 'invalid') { ?>
+						<span class="negative"><?php echo $lang_text_licence_invalid; ?></span> (<a href="https://www.commentics.org/pricing" target="_blank"><?php echo $lang_text_purchase; ?></a>)
+					<?php } ?>
+				<?php } ?>
+			</div>
+		</div>
 	</div>
 
 	<div class="clear"></div>

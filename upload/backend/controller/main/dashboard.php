@@ -25,8 +25,10 @@ class MainDashboardController extends Controller {
 			}
 		}
 
+		$site_issue = false;
+
 		if (extension_loaded('curl') || (bool)ini_get('allow_url_fopen')) {
-			$latest_version = $this->model_main_dashboard->getLatestVersion();
+			$latest_version = $this->home->getLatestVersion();
 
 			if ($this->validation->isFloat($latest_version)) {
 				if (version_compare($this->model_main_dashboard->getCurrentVersion(), $latest_version, '<')) {
@@ -37,10 +39,10 @@ class MainDashboardController extends Controller {
 			} else {
 				$site_issue = true;
 
-				$this->data['version_check'] = array('type' => 'negative', 'text' => $this->data['lang_text_version_issue']);
+				$this->data['version_check'] = array('type' => 'negative', 'text' => $this->data['lang_text_site_issue']);
 			}
 		} else {
-			$this->data['version_check'] = array('type' => 'negative', 'text' => $this->data['lang_text_version_unable']);
+			$this->data['version_check'] = array('type' => 'negative', 'text' => $this->data['lang_text_unable']);
 		}
 
 		$this->data['lang_text_last_login'] = sprintf($this->data['lang_text_last_login'], $this->variable->formatDate($this->model_main_dashboard->getLastLogin(), $this->data['lang_time_format'], $this->data), $this->variable->formatDate($this->model_main_dashboard->getLastLogin(), $this->data['lang_date_format'], $this->data));
@@ -54,10 +56,10 @@ class MainDashboardController extends Controller {
 		$this->data['tip_of_the_day'] = $this->model_main_dashboard->getTipOfTheDay();
 
 		if (extension_loaded('curl') || (bool)ini_get('allow_url_fopen')) {
-			if (isset($site_issue)) {
+			if ($site_issue) {
 				$this->data['news'] = $this->data['lang_text_no_news'];
 			} else {
-				$news = $this->model_main_dashboard->getNews();
+				$news = $this->home->getNews();
 
 				$news = $this->security->encode($news);
 
@@ -71,6 +73,32 @@ class MainDashboardController extends Controller {
 
 		$this->data['quick_links'] = $this->model_main_dashboard->getQuickLinks();
 
+		$this->data['licence'] = $this->setting->get('licence');
+
+		$this->data['is_licence_valid'] = false;
+
+		$this->data['licence_result'] = '';
+
+		if ($this->setting->get('licence')) {
+			if ((extension_loaded('curl') || (bool)ini_get('allow_url_fopen'))) {
+				if ($site_issue && $this->setting->get('licence')) {
+					$this->data['is_licence_valid'] = true;
+				} else {
+					$this->data['is_licence_valid'] = $this->home->checkLicence($this->setting->get('licence'), $this->setting->get('forum_user'));
+
+					$this->data['licence_result'] = 'invalid';
+				}
+			} else {
+				$this->data['licence_result'] = 'unable';
+			}
+		} else {
+			$this->data['licence_result'] = 'none';
+		}
+
+		if (!$this->data['is_licence_valid']) {
+			$this->model_main_dashboard->enabledPoweredBy();
+		}
+
 		if ($this->setting->has('chart_enabled') && $this->setting->get('chart_enabled')) {
 			$this->data['chart_enabled'] = true;
 
@@ -81,10 +109,10 @@ class MainDashboardController extends Controller {
 			$this->data['chart_enabled'] = false;
 		}
 
-		if ((extension_loaded('curl') || (bool)ini_get('allow_url_fopen')) && !isset($site_issue)) {
-			$this->model_main_dashboard->callHome();
+		if ((extension_loaded('curl') || (bool)ini_get('allow_url_fopen')) && !$site_issue) {
+			$this->home->callHome();
 
-			$sponsors = $this->model_main_dashboard->getSponsors();
+			$sponsors = $this->home->getSponsors();
 
 			$sponsors = json_decode($sponsors, true);
 

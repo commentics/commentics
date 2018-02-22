@@ -31,6 +31,9 @@
 			<label><?php echo $lang_entry_enabled; ?></label>
 			<input type="checkbox" name="enabled_powered_by" value="1" <?php if ($enabled_powered_by) { echo 'checked'; } ?>>
 			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_enabled; ?>', this, event, '')">[?]</a>
+			<?php if ($error_enabled_powered_by) { ?>
+				<span class="error"><?php echo $error_enabled_powered_by; ?></span>
+			<?php } ?>
 		</div>
 
 		<div class="fieldset">
@@ -58,10 +61,6 @@
 		<div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
 	</form>
 
-	<div id="confirm_dialog" title="<?php echo $lang_dialog_confirm_title; ?>" style="display:none">
-		<span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_confirm_content; ?>
-	</div>
-
 	<script>
 	// <![CDATA[
 	$(document).ready(function() {
@@ -69,39 +68,6 @@
 			e.preventDefault();
 
 			$('div.info').fadeOut(2000);
-		});
-	});
-	// ]]>
-	</script>
-
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		$('input[type="submit"]').click(function(e) {
-			if (!$('input[name="enabled_powered_by"]').is(':checked')) {
-				e.preventDefault();
-
-				$('#confirm_dialog').dialog({
-					modal: true,
-					height: 'auto',
-					width: 'auto',
-					resizable: false,
-					draggable: false,
-					center: true,
-					buttons: {
-						'<?php echo $lang_dialog_yes; ?>': function() {
-							$('form').submit();
-
-							$(this).dialog('close');
-						},
-						'<?php echo $lang_dialog_no; ?>': function() {
-							$(this).dialog('close');
-						}
-					}
-				});
-
-				$('#confirm_dialog').dialog('open');
-			}
 		});
 	});
 	// ]]>

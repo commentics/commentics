@@ -68,6 +68,7 @@ require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'db.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'email.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'encryption.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'geo.php'));
+require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'home.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'log.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'modification.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'notify.php'));
@@ -156,6 +157,9 @@ $cmtx_registry->set('page', $cmtx_page);
 
 $cmtx_user = new \Commentics\User($cmtx_registry);
 $cmtx_registry->set('user', $cmtx_user);
+
+$cmtx_home = new \Commentics\Home($cmtx_registry);
+$cmtx_registry->set('home', $cmtx_home);
 
 /* Time zone */
 if ($cmtx_setting->has('time_zone')) {

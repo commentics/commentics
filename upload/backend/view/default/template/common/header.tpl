@@ -114,6 +114,7 @@
 										</ul>
 									</li>
 								<?php } ?>
+								<?php if (!$has_restriction || ($has_restriction && in_array('settings/licence', $viewable_pages))) { ?> <li><a href="index.php?route=settings/licence"><?php echo $lang_menu_settings_licence; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('settings/maintenance', $viewable_pages))) { ?> <li><a href="index.php?route=settings/maintenance"><?php echo $lang_menu_settings_maintenance; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('settings/processor', $viewable_pages))) { ?> <li><a href="index.php?route=settings/processor"><?php echo $lang_menu_settings_processor; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('settings/security', $viewable_pages))) { ?> <li><a href="index.php?route=settings/security"><?php echo $lang_menu_settings_security; ?></a></li> <?php } ?>

@@ -35,23 +35,23 @@ class LayoutFormPoweredController extends Controller {
 			$this->data['powered_by_new_window'] = $this->setting->get('powered_by_new_window');
 		}
 
+		if (isset($this->error['enabled_powered_by'])) {
+			$this->data['error_enabled_powered_by'] = $this->error['enabled_powered_by'];
+		} else {
+			$this->data['error_enabled_powered_by'] = '';
+		}
+
 		if (isset($this->error['powered_by_type'])) {
 			$this->data['error_powered_by_type'] = $this->error['powered_by_type'];
 		} else {
 			$this->data['error_powered_by_type'] = '';
 		}
 
-		$this->data['lang_dialog_confirm_title'] = $this->variable->encodeDouble($this->data['lang_dialog_confirm_title']);
-
-		$this->data['lang_dialog_yes'] = $this->variable->escapeSingle($this->data['lang_text_yes']);
-
-		$this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_text_no']);
-
 		$this->data['link_back'] = $this->url->link('settings/layout_form');
 
-		$this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/donate');
-
-		$this->data['lang_dialog_confirm_content'] = sprintf($this->data['lang_dialog_confirm_content'], 'https://www.commentics.org/donate');
+		if (!$this->setting->get('licence')) {
+			$this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/pricing');
+		}
 
 		$this->components = array('common/header', 'common/footer');
 
@@ -67,6 +67,10 @@ class LayoutFormPoweredController extends Controller {
 			$this->data['error'] = $unpostable;
 
 			return false;
+		}
+
+		if (!isset($this->request->post['enabled_powered_by']) && !$this->setting->get('licence')) {
+			$this->error['enabled_powered_by'] = $this->data['lang_error_licence'];
 		}
 
 		if (!isset($this->request->post['powered_by_type']) || !in_array($this->request->post['powered_by_type'], array('text', 'image'))) {

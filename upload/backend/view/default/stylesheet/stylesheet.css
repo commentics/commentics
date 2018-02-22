@@ -418,7 +418,7 @@ img.loading {
 }
 
 .main_dashboard_page .news_block {
-  height: 119px;
+  height: 55px;
   overflow: auto;
 }
 
@@ -508,6 +508,15 @@ img.loading {
 }
 
 /* Edit */
+.edit_admin_page input[name="viewable_pages[]"] {
+  margin-right: 2px;
+}
+
+.edit_admin_page input[name="modifiable_pages[]"] {
+  margin-left: 2px;
+  margin-right: 5px;
+}
+
 .edit_comment_page .left {
   float: left;
   width: 49.5%;

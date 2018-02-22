@@ -37,6 +37,7 @@ $_['lang_menu_settings_language'] 				= 'Language';
 $_['lang_menu_settings_layout'] 				= 'Layout';
 $_['lang_menu_settings_layout_comments']		= 'Comments';
 $_['lang_menu_settings_layout_form']			= 'Form';
+$_['lang_menu_settings_licence'] 				= 'Licence';
 $_['lang_menu_settings_maintenance'] 			= 'Maintenance';
 $_['lang_menu_settings_processor']	 			= 'Processor';
 $_['lang_menu_settings_security'] 				= 'Security';
