@@ -182,6 +182,10 @@ class MainUpgrade2Model extends Model {
 			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'licence', `title` = 'licence', `value` = ''");
 			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'licence', `title` = 'forum_user', `value` = ''");
 			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '1' WHERE `title` = 'enabled_powered_by'");
+
+			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_top_poster', `value` = '1'");
+			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_most_likes', `value` = '1'");
+			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_first_poster', `value` = '1'");
 		}
 	}
 

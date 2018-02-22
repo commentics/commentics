@@ -30,7 +30,7 @@
 							<div class="cmtx_bio_info_since"><label><?php echo $lang_text_bio_info_since; ?></label> <span><?php echo $comment['bio_info_since']; ?></span></div>
 						</div>
 
-					<?php if ($comment['top_poster']) { ?>
+					<?php if ($show_badge_top_poster && $comment['top_poster']) { ?>
 						<div class="cmtx_badge">
 							<div class="fa fa-star cmtx_badge_star_left" aria-hidden="true"></div>
 							<div><?php echo $lang_text_badge_top_poster; ?></div>
@@ -38,7 +38,7 @@
 						</div>
 					<?php } ?>
 
-					<?php if ($show_like && $comment['most_likes']) { ?>
+					<?php if ($show_badge_most_likes && $show_like && $comment['most_likes']) { ?>
 						<div class="cmtx_badge">
 							<div class="fa fa-star cmtx_badge_star_left" aria-hidden="true"></div>
 							<div><?php echo $lang_text_badge_most_likes; ?></div>
@@ -46,7 +46,7 @@
 						</div>
 					<?php } ?>
 
-					<?php if ($comment['first_poster']) { ?>
+					<?php if ($show_badge_first_poster && $comment['first_poster']) { ?>
 						<div class="cmtx_badge">
 							<div class="fa fa-star cmtx_badge_star_left" aria-hidden="true"></div>
 							<div><?php echo $lang_text_badge_first_poster; ?></div>

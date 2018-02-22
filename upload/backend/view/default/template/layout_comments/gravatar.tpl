@@ -143,6 +143,24 @@
 			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_show_bio; ?>', this, event, '')">[?]</a>
 		</div>
 
+		<div class="fieldset">
+			<label><?php echo $lang_entry_top_poster; ?></label>
+			<input type="checkbox" name="show_badge_top_poster" value="1" <?php if ($show_badge_top_poster) { echo 'checked'; } ?>>
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_top_poster; ?>', this, event, '')">[?]</a>
+		</div>
+
+		<div class="fieldset">
+			<label><?php echo $lang_entry_most_likes; ?></label>
+			<input type="checkbox" name="show_badge_most_likes" value="1" <?php if ($show_badge_most_likes) { echo 'checked'; } ?>>
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_most_likes; ?>', this, event, '')">[?]</a>
+		</div>
+
+		<div class="fieldset">
+			<label><?php echo $lang_entry_first_poster; ?></label>
+			<input type="checkbox" name="show_badge_first_poster" value="1" <?php if ($show_badge_first_poster) { echo 'checked'; } ?>>
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_first_poster; ?>', this, event, '')">[?]</a>
+		</div>
+
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
 		<div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>

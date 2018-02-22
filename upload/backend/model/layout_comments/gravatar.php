@@ -28,6 +28,12 @@ class LayoutCommentsGravatarModel extends Model {
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int)$data['level_0'] . "' WHERE `title` = 'level_0'");
 
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_bio']) ? 1 : 0) . "' WHERE `title` = 'show_bio'");
+
+		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_badge_top_poster']) ? 1 : 0) . "' WHERE `title` = 'show_badge_top_poster'");
+
+		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_badge_most_likes']) ? 1 : 0) . "' WHERE `title` = 'show_badge_most_likes'");
+
+		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_badge_first_poster']) ? 1 : 0) . "' WHERE `title` = 'show_badge_first_poster'");
 	}
 }
 ?>

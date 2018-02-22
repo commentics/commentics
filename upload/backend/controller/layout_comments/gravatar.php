@@ -97,6 +97,30 @@ class LayoutCommentsGravatarController extends Controller {
 			$this->data['show_bio'] = $this->setting->get('show_bio');
 		}
 
+		if (isset($this->request->post['show_badge_top_poster'])) {
+			$this->data['show_badge_top_poster'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_badge_top_poster'])) {
+			$this->data['show_badge_top_poster'] = false;
+		} else {
+			$this->data['show_badge_top_poster'] = $this->setting->get('show_badge_top_poster');
+		}
+
+		if (isset($this->request->post['show_badge_most_likes'])) {
+			$this->data['show_badge_most_likes'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_badge_most_likes'])) {
+			$this->data['show_badge_most_likes'] = false;
+		} else {
+			$this->data['show_badge_most_likes'] = $this->setting->get('show_badge_most_likes');
+		}
+
+		if (isset($this->request->post['show_badge_first_poster'])) {
+			$this->data['show_badge_first_poster'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_badge_first_poster'])) {
+			$this->data['show_badge_first_poster'] = false;
+		} else {
+			$this->data['show_badge_first_poster'] = $this->setting->get('show_badge_first_poster');
+		}
+
 		if (isset($this->error['gravatar_default'])) {
 			$this->data['error_gravatar_default'] = $this->error['gravatar_default'];
 		} else {
