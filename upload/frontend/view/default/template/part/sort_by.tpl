@@ -2,7 +2,7 @@
 	<div class="cmtx_sort_by_container">
 		<span class="cmtx_sort_by_text"><?php echo $lang_text_sort_by; ?></span>
 
-		<select name="cmtx_sort_by" id="cmtx_sort_by" class="cmtx_sort_by_field" title="<?php echo $lang_title_sort_by; ?>">
+		<select name="cmtx_sort_by" class="cmtx_sort_by_field" title="<?php echo $lang_title_sort_by; ?>">
 			<?php if ($show_sort_by_1) { ?>
 				<option value="1"<?php if ($comments_order == '1') { echo ' selected'; } ?>><?php echo $lang_entry_sort_by_1; ?></option>
 			<?php } ?>

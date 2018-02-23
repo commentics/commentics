@@ -1207,6 +1207,10 @@ select.cmtx_required {
   outline: 0;
 }
 
+.cmtx_view_replies_area a i {
+  color: #4E4C4C;
+}
+
 .cmtx_view_replies_link {
   color: #0000EE;
 }
@@ -1506,12 +1510,16 @@ select.cmtx_required {
 }
 
 .cmtx_search_container .fa-search {
-  position: relative;
-  bottom: 2px;
-  right: 19px;
+  position: absolute;
+  right: 5px;
   font-size: 12px;
   color: #AAAAAA;
   cursor: pointer;
+}
+
+.cmtx_search_wrapper {
+  display: inline;
+  position: relative;
 }
 
 /* Social */

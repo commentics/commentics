@@ -746,6 +746,8 @@ $(document).ready(function() {
 					'commentics_url'	: cmtx_js_settings_form.commentics_url,
 					'page_id'			: cmtx_js_settings_form.page_id,
 					'page_number'		: '',
+					'sort_by'			: '',
+					'search'			: '',
 					'effect'			: false
 				}
 
@@ -892,13 +894,15 @@ $(document).ready(function() {
 
 /* Sort by */
 $(document).ready(function() {
-	$('#cmtx_container').on('change', '#cmtx_sort_by', function(e) {
+	$('#cmtx_container').on('change', '.cmtx_sort_by_field', function(e) {
 		e.preventDefault();
 
 		var options = {
 			'commentics_url'	: cmtx_js_settings_comments.commentics_url,
 			'page_id'			: cmtx_js_settings_comments.page_id,
 			'page_number'		: '',
+			'sort_by'			: $(this).val(),
+			'search'			: '',
 			'effect'			: true
 		}
 
@@ -908,8 +912,8 @@ $(document).ready(function() {
 
 /* Search */
 $(document).ready(function() {
-	$('#cmtx_container').on('focus', '#cmtx_search', function(e) {
-		$('#cmtx_search').addClass('cmtx_search_focus');
+	$('#cmtx_container').on('focus', '.cmtx_search', function(e) {
+		$(this).addClass('cmtx_search_focus');
 	});
 
 	$('#cmtx_container').on('click', '.cmtx_search_container .fa-search', function(e) {
@@ -919,15 +923,17 @@ $(document).ready(function() {
 			'commentics_url'	: cmtx_js_settings_comments.commentics_url,
 			'page_id'			: cmtx_js_settings_comments.page_id,
 			'page_number'	  	: '',
+			'sort_by'	  		: '',
+			'search'	  		: $(this).prev().val(),
 			'effect'			: true
 		}
 
 		cmtxRefreshComments(options);
 	});
 
-	$('#cmtx_container').on('keypress', '#cmtx_search', function(e) {
+	$('#cmtx_container').on('keypress', '.cmtx_search', function(e) {
 		if (e.which == 13) {
-			$('.cmtx_search_container .fa-search').trigger('click');
+			$(this).next().trigger('click');
 		}
 	});
 });
@@ -1013,6 +1019,8 @@ $(document).ready(function() {
 			'commentics_url'	: cmtx_js_settings_comments.commentics_url,
 			'page_id'			: cmtx_js_settings_comments.page_id,
 			'page_number'		: $(this).find('span').attr('data-cmtx-page'),
+			'sort_by'	  		: '',
+			'search'			: '',
 			'effect'			: true
 		}
 
@@ -1472,6 +1480,8 @@ $(document).ready(function() {
 			'commentics_url' : cmtx_js_settings_comments.commentics_url,
 			'page_id'		 : cmtx_js_settings_comments.page_id,
 			'page_number'	 : '',
+			'sort_by'	  	 : '',
+			'search'		 : '',
 			'effect'		 : true
 		}
 
@@ -1534,23 +1544,11 @@ $(document).ready(function() {
 
 /* Function to refresh the comments using ajax */
 function cmtxRefreshComments(options) {
-	if (typeof $('#cmtx_sort_by').val() != 'undefined') {
-		sort_by = $('#cmtx_sort_by').val();
-	} else {
-		sort_by = '';
-	}
-
-	if (typeof $('#cmtx_search').val() != 'undefined') {
-		search = $('#cmtx_search').val();
-	} else {
-		search = '';
-	}
-
 	var request = $.ajax({
 		type: 'POST',
 		cache: false,
 		url: options.commentics_url + 'frontend/index.php?route=main/comments/getComments',
-		data: 'cmtx_page_id=' + encodeURIComponent(options.page_id) + '&cmtx_sort_by=' + encodeURIComponent(sort_by) + '&cmtx_search=' + encodeURIComponent(search) + '&cmtx_page=' + encodeURIComponent(options.page_number),
+		data: 'cmtx_page_id=' + encodeURIComponent(options.page_id) + '&cmtx_sort_by=' + encodeURIComponent(options.sort_by) + '&cmtx_search=' + encodeURIComponent(options.search) + '&cmtx_page=' + encodeURIComponent(options.page_number),
 		dataType: 'json',
 		beforeSend: function() {
 			if (options.effect) {
