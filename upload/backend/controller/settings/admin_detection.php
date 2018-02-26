@@ -74,7 +74,7 @@ class SettingsAdminDetectionController extends Controller {
 		}
 
 		if ($this->setting->get('notice_settings_admin_detection')) {
-			$this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/wiki/doku.php?id=admin:settings/admin_detection');
+			$this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/help/settings_admin_detection');
 		}
 
 		$this->components = array('common/header', 'common/footer');

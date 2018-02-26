@@ -32,7 +32,7 @@ class CommonHeaderController extends Controller {
 
 			$this->data['csrf_key'] = $this->session->data['cmtx_csrf_key'];
 
-			$this->data['page_help_link'] = '<a href="https://www.commentics.org/wiki/doku.php?id=admin:' . $this->request->get['route'] . '" target="_blank">' . $this->data['lang_text_help'] . '</a>';
+			$this->data['page_help_link'] = '<a href="https://www.commentics.org/help/' . str_replace('/', '_', $this->request->get['route']) . '" target="_blank">' . $this->data['lang_text_help'] . '</a>';
 
 			$this->data['error_header'] = false;
 
