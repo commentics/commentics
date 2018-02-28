@@ -33,7 +33,7 @@ class SettingsLayoutFormController extends Controller {
 			),
 			array(
 				'element'		=> $this->data['lang_text_email'],
-				'status' 		=> $this->data['lang_text_enabled'] . $this->data['lang_text_mandatory'],
+				'status' 		=> ($this->setting->get('enabled_email')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
 				'action' 		=> $this->url->link('layout_form/email')
 			),
 			array(

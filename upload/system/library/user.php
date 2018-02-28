@@ -63,8 +63,28 @@ class User {
 		}
 	}
 
-	public function userExistsByNameOrEmail($name, $email) {
-		if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users` WHERE `name` = '" . $this->db->escape($name) . "' OR `email` = '" . $this->db->escape($email) . "'"))) {
+	public function getUserByNameAndNoEmail($name) {
+		$query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "users` WHERE `name` = '" . $this->db->escape($name) . "' AND `email` = ''");
+
+		$result = $this->db->row($query);
+
+		if ($result) {
+			return $this->getUser($result['id']);
+		} else {
+			return false;
+		}
+	}
+
+	public function userExistsByName($name) {
+		if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users` WHERE `name` = '" . $this->db->escape($name) . "'"))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function userExistsByEmail($email) {
+		if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users` WHERE `email` = '" . $this->db->escape($email) . "'"))) {
 			return true;
 		} else {
 			return false;

@@ -146,7 +146,7 @@ class MainFormController extends Controller {
 
 			/* Email */
 
-			$this->data['enabled_email'] = true;
+			$this->data['enabled_email'] = $this->setting->get('enabled_email');
 
 			$this->data['email_is_filled'] = false;
 
@@ -168,7 +168,7 @@ class MainFormController extends Controller {
 				$this->data['email'] = $this->setting->get('default_email');
 			}
 
-			$this->data['email_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
+			$this->data['email_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_email') ? 'cmtx_required' : '');
 
 			$this->data['maximum_email'] = $this->setting->get('maximum_email');
 
@@ -928,69 +928,87 @@ class MainFormController extends Controller {
 								}
 
 								/* Email */
-								if (isset($this->request->post['cmtx_email']) && $this->request->post['cmtx_email'] != '') {
-									$email = $this->security->decode($this->request->post['cmtx_email']);
+								if ($this->setting->get('enabled_email')) {
+									if (isset($this->request->post['cmtx_email']) && $this->request->post['cmtx_email'] != '') {
+										$email = $this->security->decode($this->request->post['cmtx_email']);
 
-									if (!$this->validation->isEmail($email)) {
-										$json['error']['email'] = $this->data['lang_error_email_invalid'];
-									}
+										if (!$this->validation->isEmail($email)) {
+											$json['error']['email'] = $this->data['lang_error_email_invalid'];
+										}
 
-									if ($this->validation->length($email) < 1 || $this->validation->length($email) > $this->setting->get('maximum_email')) {
-										$json['error']['email'] = sprintf($this->data['lang_error_length'], 1, $this->setting->get('maximum_email'));
-									}
+										if ($this->validation->length($email) < 1 || $this->validation->length($email) > $this->setting->get('maximum_email')) {
+											$json['error']['email'] = sprintf($this->data['lang_error_length'], 1, $this->setting->get('maximum_email'));
+										}
 
-									if ($this->security->isInjected($email)) {
-										$json['result']['error'] = $this->data['lang_error_ban'];
-
-										$this->user->ban($ip_address, $this->data['lang_error_email_injected']);
-									}
-
-									if ($this->setting->get('reserved_emails_enabled') && !$is_admin && $this->model_main_form->hasWord($email, 'reserved_emails', false)) {
-										if ($this->setting->get('reserved_emails_action') == 'error') {
-											$json['error']['email'] = $this->data['lang_error_email_reserved'];
-										} else if ($this->setting->get('reserved_emails_action') == 'approve') {
-											$approve .= $this->data['lang_error_email_reserved'] . "\r\n";
-										} else {
+										if ($this->security->isInjected($email)) {
 											$json['result']['error'] = $this->data['lang_error_ban'];
 
-											$this->user->ban($ip_address, $this->data['lang_error_email_reserved']);
+											$this->user->ban($ip_address, $this->data['lang_error_email_injected']);
 										}
-									}
 
-									if ($this->setting->get('dummy_emails_enabled') && $this->model_main_form->hasWord($email, 'dummy_emails', false)) {
-										if ($this->setting->get('dummy_emails_action') == 'error') {
-											$json['error']['email'] = $this->data['lang_error_email_dummy'];
-										} else if ($this->setting->get('dummy_emails_action') == 'approve') {
-											$approve .= $this->data['lang_error_email_dummy'] . "\r\n";
-										} else {
-											$json['result']['error'] = $this->data['lang_error_ban'];
+										if ($this->setting->get('reserved_emails_enabled') && !$is_admin && $this->model_main_form->hasWord($email, 'reserved_emails', false)) {
+											if ($this->setting->get('reserved_emails_action') == 'error') {
+												$json['error']['email'] = $this->data['lang_error_email_reserved'];
+											} else if ($this->setting->get('reserved_emails_action') == 'approve') {
+												$approve .= $this->data['lang_error_email_reserved'] . "\r\n";
+											} else {
+												$json['result']['error'] = $this->data['lang_error_ban'];
 
-											$this->user->ban($ip_address, $this->data['lang_error_email_dummy']);
+												$this->user->ban($ip_address, $this->data['lang_error_email_reserved']);
+											}
 										}
-									}
 
-									if ($this->setting->get('banned_emails_enabled') && $this->model_main_form->hasWord($email, 'banned_emails', false)) {
-										if ($this->setting->get('banned_emails_action') == 'error') {
-											$json['error']['email'] = $this->data['lang_error_email_banned'];
-										} else if ($this->setting->get('banned_emails_action') == 'approve') {
-											$approve .= $this->data['lang_error_email_banned'] . "\r\n";
-										} else {
-											$json['result']['error'] = $this->data['lang_error_ban'];
+										if ($this->setting->get('dummy_emails_enabled') && $this->model_main_form->hasWord($email, 'dummy_emails', false)) {
+											if ($this->setting->get('dummy_emails_action') == 'error') {
+												$json['error']['email'] = $this->data['lang_error_email_dummy'];
+											} else if ($this->setting->get('dummy_emails_action') == 'approve') {
+												$approve .= $this->data['lang_error_email_dummy'] . "\r\n";
+											} else {
+												$json['result']['error'] = $this->data['lang_error_ban'];
 
-											$this->user->ban($ip_address, $this->data['lang_error_email_banned']);
+												$this->user->ban($ip_address, $this->data['lang_error_email_dummy']);
+											}
 										}
+
+										if ($this->setting->get('banned_emails_enabled') && $this->model_main_form->hasWord($email, 'banned_emails', false)) {
+											if ($this->setting->get('banned_emails_action') == 'error') {
+												$json['error']['email'] = $this->data['lang_error_email_banned'];
+											} else if ($this->setting->get('banned_emails_action') == 'approve') {
+												$approve .= $this->data['lang_error_email_banned'] . "\r\n";
+											} else {
+												$json['result']['error'] = $this->data['lang_error_ban'];
+
+												$this->user->ban($ip_address, $this->data['lang_error_email_banned']);
+											}
+										}
+									} else if ($this->setting->get('required_email')) {
+										$json['error']['email'] = $this->data['lang_error_email_empty'];
+									} else {
+										$this->request->post['cmtx_email'] = '';
 									}
 								} else {
-									$json['error']['email'] = $this->data['lang_error_email_empty'];
+									$this->request->post['cmtx_email'] = '';
 								}
 
 								/* User */
-								if (isset($this->request->post['cmtx_name']) && $this->request->post['cmtx_name'] != '' && isset($this->request->post['cmtx_email']) && $this->request->post['cmtx_email'] != '') {
-									$user = $this->user->getUserByNameAndEmail($this->request->post['cmtx_name'], $this->request->post['cmtx_email']);
+								if (isset($this->request->post['cmtx_name']) && $this->request->post['cmtx_name'] != '') {
+									if (isset($this->request->post['cmtx_email']) && $this->request->post['cmtx_email'] != '') {
+										$user = $this->user->getUserByNameAndEmail($this->request->post['cmtx_name'], $this->request->post['cmtx_email']);
+
+										if (!$user) {
+											if ($this->user->userExistsByEmail($this->request->post['cmtx_email'])) {
+												$json['error']['email'] = $this->data['lang_error_email_partial'];
+											}
+										}
+									} else {
+										$user = $this->user->getUserByNameAndNoEmail($this->request->post['cmtx_name']);
+									}
 
 									if (!$user) {
-										if ($this->user->userExistsByNameOrEmail($this->request->post['cmtx_name'], $this->request->post['cmtx_email'])) {
-											$json['result']['error'] = $this->data['lang_error_user_partial'];
+										if ($this->setting->get('unique_name_enabled')) {
+											if ($this->user->userExistsByName($this->request->post['cmtx_name'])) {
+												$json['error']['name'] = $this->data['lang_error_name_partial'];
+											}
 										}
 									}
 								}
@@ -1082,6 +1100,8 @@ class MainFormController extends Controller {
 										}
 									} else if ($this->setting->get('required_website')) {
 										$json['error']['website'] = $this->data['lang_error_website_empty'];
+									} else {
+										$this->request->post['cmtx_website'] = '';
 									}
 								} else {
 									$this->request->post['cmtx_website'] = '';
@@ -1157,6 +1177,8 @@ class MainFormController extends Controller {
 										}
 									} else if ($this->setting->get('required_town')) {
 										$json['error']['town'] = $this->data['lang_error_town_empty'];
+									} else {
+										$this->request->post['cmtx_town'] = '';
 									}
 								} else {
 									$this->request->post['cmtx_town'] = '';
@@ -1172,6 +1194,8 @@ class MainFormController extends Controller {
 										}
 									} else if ($this->setting->get('required_country')) {
 										$json['error']['country'] = $this->data['lang_error_country_empty'];
+									} else {
+										$this->request->post['cmtx_country'] = 0;
 									}
 								} else {
 									$this->request->post['cmtx_country'] = 0;
@@ -1187,6 +1211,8 @@ class MainFormController extends Controller {
 										}
 									} else if ($this->setting->get('required_state')) {
 										$json['error']['state'] = $this->data['lang_error_state_empty'];
+									} else {
+										$this->request->post['cmtx_state'] = 0;
 									}
 								} else {
 									$this->request->post['cmtx_state'] = 0;
@@ -1487,7 +1513,7 @@ class MainFormController extends Controller {
 						}
 					}
 
-					if ($this->setting->get('enabled_notify') && isset($this->request->post['cmtx_notify']) && !$is_admin) {
+					if ($this->setting->get('enabled_notify') && isset($this->request->post['cmtx_notify']) && $this->setting->get('enabled_email') && $this->request->post['cmtx_email'] && !$is_admin) {
 						if (!$this->model_main_form->subscriptionExists($user_id, $page_id) && !$this->model_main_form->userHasSubscriptionAttempt($user_id) && !$this->model_main_form->ipHasSubscriptionAttempt($ip_address)) {
 							$subscription_token = $this->variable->random();
 

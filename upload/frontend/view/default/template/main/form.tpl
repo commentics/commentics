@@ -233,7 +233,7 @@
 			<?php } ?>
 
 			<div class="cmtx_checkbox_container <?php if ($hide_form) { echo 'cmtx_wait_for_user'; } ?>">
-				<?php if ($enabled_notify) { ?>
+				<?php if ($enabled_notify && $enabled_email) { ?>
 					<div class="cmtx_row cmtx_notify_row cmtx_clear">
 						<div class="cmtx_col_12">
 							<div class="cmtx_container cmtx_notify_container">

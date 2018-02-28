@@ -46,7 +46,9 @@
 
 			<div>
 				<input type="checkbox" name="add_name" value="1" <?php if ($add_name) { echo 'checked'; } ?>> <?php echo $lang_text_add_name; ?><br>
-				<input type="checkbox" name="add_email" value="1" <?php if ($add_email) { echo 'checked'; } ?>> <?php echo $lang_text_add_email; ?><br>
+				<?php if ($has_email) { ?>
+					<input type="checkbox" name="add_email" value="1" <?php if ($add_email) { echo 'checked'; } ?>> <?php echo $lang_text_add_email; ?><br>
+				<?php } ?>
 				<?php if ($has_website) { ?>
 					<input type="checkbox" name="add_website" value="1" <?php if ($add_website) { echo 'checked'; } ?>> <?php echo $lang_text_add_website; ?>
 				<?php } ?>

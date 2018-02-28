@@ -13,6 +13,22 @@ class LayoutFormEmailController extends Controller {
 			}
 		}
 
+		if (isset($this->request->post['enabled_email'])) {
+			$this->data['enabled_email'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_email'])) {
+			$this->data['enabled_email'] = false;
+		} else {
+			$this->data['enabled_email'] = $this->setting->get('enabled_email');
+		}
+
+		if (isset($this->request->post['required_email'])) {
+			$this->data['required_email'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_email'])) {
+			$this->data['required_email'] = false;
+		} else {
+			$this->data['required_email'] = $this->setting->get('required_email');
+		}
+
 		if (isset($this->request->post['default_email'])) {
 			$this->data['default_email'] = $this->request->post['default_email'];
 		} else {

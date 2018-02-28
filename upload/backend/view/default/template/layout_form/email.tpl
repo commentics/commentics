@@ -28,6 +28,18 @@
 
 	<form action="index.php?route=layout_form/email" class="controls" method="post">
 		<div class="fieldset">
+			<label><?php echo $lang_entry_enabled; ?></label>
+			<input type="checkbox" name="enabled_email" value="1" <?php if ($enabled_email) { echo 'checked'; } ?>>
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_enabled; ?>', this, event, '')">[?]</a>
+		</div>
+
+		<div class="fieldset">
+			<label><?php echo $lang_entry_required; ?></label>
+			<input type="checkbox" name="required_email" value="1" <?php if ($required_email) { echo 'checked'; } ?>>
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_required; ?>', this, event, '')">[?]</a>
+		</div>
+
+		<div class="fieldset">
 			<label><?php echo $lang_entry_default; ?></label>
 			<input type="text" name="default_email" class="medium" value="<?php echo $default_email; ?>" maxlength="250">
 			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_default; ?>', this, event, '')">[?]</a>

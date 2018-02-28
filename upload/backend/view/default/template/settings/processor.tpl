@@ -45,10 +45,16 @@
 					<a class="hint" onmouseover="showhint('<?php echo $lang_hint_one_name; ?>', this, event, '')">[?]</a>
 				</div>
 
-				<div class="fieldset divide_after">
+				<div class="fieldset">
 					<label><?php echo $lang_entry_fix_name; ?></label>
 					<input type="checkbox" name="fix_name_enabled" value="1" <?php if ($fix_name_enabled) { echo 'checked'; } ?>>
 					<a class="hint" onmouseover="showhint('<?php echo $lang_hint_fix_name; ?>', this, event, '')">[?]</a>
+				</div>
+
+				<div class="fieldset divide_after">
+					<label><?php echo $lang_entry_unique_name; ?></label>
+					<input type="checkbox" name="unique_name_enabled" value="1" <?php if ($unique_name_enabled) { echo 'checked'; } ?>>
+					<a class="hint" onmouseover="showhint('<?php echo $lang_hint_unique_name; ?>', this, event, '')">[?]</a>
 				</div>
 
 				<div class="fieldset">

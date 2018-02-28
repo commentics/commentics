@@ -29,6 +29,14 @@ class SettingsProcessorController extends Controller {
 			$this->data['fix_name_enabled'] = $this->setting->get('fix_name_enabled');
 		}
 
+		if (isset($this->request->post['unique_name_enabled'])) {
+			$this->data['unique_name_enabled'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['unique_name_enabled'])) {
+			$this->data['unique_name_enabled'] = false;
+		} else {
+			$this->data['unique_name_enabled'] = $this->setting->get('unique_name_enabled');
+		}
+
 		if (isset($this->request->post['detect_link_in_name_enabled'])) {
 			$this->data['detect_link_in_name_enabled'] = true;
 		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['detect_link_in_name_enabled'])) {

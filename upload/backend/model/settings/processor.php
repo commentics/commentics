@@ -7,6 +7,8 @@ class SettingsProcessorModel extends Model {
 
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['fix_name_enabled']) ? 1 : 0) . "' WHERE `title` = 'fix_name_enabled'");
 
+		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['unique_name_enabled']) ? 1 : 0) . "' WHERE `title` = 'unique_name_enabled'");
+
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['detect_link_in_name_enabled']) ? 1 : 0) . "' WHERE `title` = 'detect_link_in_name_enabled'");
 
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['link_in_name_action']) . "' WHERE `title` = 'link_in_name_action'");

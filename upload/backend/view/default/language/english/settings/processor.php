@@ -17,6 +17,7 @@ $_['lang_tab_cookie']					= 'Cookie';
 // Entry
 $_['lang_entry_one_name']				= 'One Name:';
 $_['lang_entry_fix_name']				= 'Fix Name:';
+$_['lang_entry_unique_name']			= 'Unique Name:';
 $_['lang_entry_fix_town']				= 'Fix Town:';
 $_['lang_entry_detect_links']			= 'Detect Links:';
 $_['lang_entry_reserved_name']			= 'Reserved Name:';
@@ -81,6 +82,7 @@ $_['lang_note_percent']					= '%';
 // Hint
 $_['lang_hint_one_name']				= 'Show an error if more than one word is entered.';
 $_['lang_hint_fix_name']				= 'Capitalizes first letter. Remaining letters lowercase.';
+$_['lang_hint_unique_name']				= 'Prevent new users from entering existing names.';
 $_['lang_hint_fix_town']				= 'Capitalizes first letter. Remaining letters lowercase.';
 $_['lang_hint_approve_websites']		= 'Manually approve the comment if the user has entered a website address in the website field.';
 $_['lang_hint_validate_website_ping']	= 'Checks whether the website exists and is not simply made up.';

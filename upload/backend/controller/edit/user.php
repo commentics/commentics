@@ -101,20 +101,22 @@ class EditUserController extends Controller {
 
 		$this->loadModel('edit/user');
 
-		if (!isset($this->request->post['name']) || $this->model_edit_user->nameExists($this->request->post['name'], $this->request->get['id'])) {
-			$this->error['name'] = $this->data['lang_error_name_exists'];
+		if ($this->setting->get('unique_name_enabled')) {
+			if (isset($this->request->post['name']) && $this->request->post['name'] && $this->model_edit_user->nameExists($this->request->post['name'], $this->request->get['id'])) {
+				$this->error['name'] = $this->data['lang_error_name_exists'];
+			}
 		}
 
 		if (!isset($this->request->post['name']) || $this->validation->length($this->request->post['name']) < 1 || $this->validation->length($this->request->post['name']) > 250) {
 			$this->error['name'] = sprintf($this->data['lang_error_length'], 1, 250);
 		}
 
-		if (!isset($this->request->post['email']) || $this->model_edit_user->emailExists($this->request->post['email'], $this->request->get['id'])) {
+		if (isset($this->request->post['email']) && $this->request->post['email'] && $this->model_edit_user->emailExists($this->request->post['email'], $this->request->get['id'])) {
 			$this->error['email'] = $this->data['lang_error_email_exists'];
 		}
 
-		if (!isset($this->request->post['email']) || $this->validation->length($this->request->post['email']) < 1 || $this->validation->length($this->request->post['email']) > 250) {
-			$this->error['email'] = sprintf($this->data['lang_error_length'], 1, 250);
+		if (!isset($this->request->post['email']) || $this->validation->length($this->request->post['email']) < 0 || $this->validation->length($this->request->post['email']) > 250) {
+			$this->error['email'] = sprintf($this->data['lang_error_length'], 0, 250);
 		}
 
 		if (!isset($this->request->post['moderate']) || !in_array($this->request->post['moderate'], array('default', 'never', 'always'))) {

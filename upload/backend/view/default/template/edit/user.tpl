@@ -37,7 +37,7 @@
 
 		<div class="fieldset">
 			<label><?php echo $lang_entry_email; ?></label>
-			<input type="email" required name="email" class="large" value="<?php echo $email; ?>" maxlength="250">
+			<input type="email" name="email" class="large" value="<?php echo $email; ?>" maxlength="250">
 			<?php if ($error_email) { ?>
 				<span class="error"><?php echo $error_email; ?></span>
 			<?php } ?>

@@ -71,6 +71,12 @@ class EditSpamController extends Controller {
 			$this->data['has_website'] = false;
 		}
 
+		if ($comment['email']) {
+			$this->data['has_email'] = true;
+		} else {
+			$this->data['has_email'] = false;
+		}
+
 		$this->data['lang_text_delete_all'] = sprintf($this->data['lang_text_delete_all'], $comment['ip_address']);
 
 		$this->data['lang_text_add_name'] = sprintf($this->data['lang_text_add_name'], $comment['name']);

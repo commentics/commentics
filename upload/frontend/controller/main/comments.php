@@ -179,7 +179,7 @@ class MainCommentsController extends Controller {
 			$outer_components['average_rating'] = $this->getComponent('part/average_rating');
 		}
 
-		if ($this->setting->get('show_notify') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
+		if ($this->setting->get('show_notify') && $this->setting->get('enabled_email') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
 			$outer_components['notify'] = $this->getComponent('part/notify');
 		}
 
