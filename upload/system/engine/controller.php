@@ -99,6 +99,14 @@ abstract class Controller extends Base {
 			die('<b>Error</b>: Could not load language ' . strtolower($cmtx_language) . '!');
 		}
 
+		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom.php')) {
+			require(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom.php'));
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/custom.php')) {
+			require(cmtx_modification(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/custom.php'));
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/english/custom.php')) {
+			require(cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/custom.php'));
+		}
+
 		$this->data = array_merge($this->data, $_);
 	}
 }

@@ -89,11 +89,11 @@ abstract class Base {
 		}
 	}
 
-	public function loadExtraCss() {
-		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/extra.css')) {
-			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/extra.css';
-		} else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/extra.css')) {
-			return CMTX_HTTP_VIEW . 'default/stylesheet/extra.css';
+	public function loadCustomCss() {
+		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/custom.css')) {
+			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/custom.css';
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/custom.css')) {
+			return CMTX_HTTP_VIEW . 'default/stylesheet/custom.css';
 		} else {
 			return '';
 		}

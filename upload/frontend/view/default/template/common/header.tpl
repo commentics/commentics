@@ -46,6 +46,6 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
 
-<?php if ($extra) { ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo $extra; ?>">
+<?php if ($custom) { ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo $custom; ?>">
 <?php } ?>
