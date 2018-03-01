@@ -508,11 +508,11 @@ img.loading {
 }
 
 /* Edit */
-.edit_admin_page input[name="viewable_pages[]"] {
+.edit_admin_page input[name="viewable_pages[]"], .add_admin_page input[name="viewable_pages[]"] {
   margin-right: 2px;
 }
 
-.edit_admin_page input[name="modifiable_pages[]"] {
+.edit_admin_page input[name="modifiable_pages[]"], .add_admin_page input[name="modifiable_pages[]"] {
   margin-left: 2px;
   margin-right: 5px;
 }

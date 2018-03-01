@@ -73,6 +73,10 @@ class SettingsLicenceController extends Controller {
 			$this->error['forum_user'] = sprintf($this->data['lang_error_length'], 0, 250);
 		}
 
+		if (empty($this->request->post['licence']) && isset($this->request->post['forum_user']) && $this->request->post['forum_user']) {
+			$this->error['forum_user'] = $this->data['lang_error_no_licence'];
+		}
+
 		if ($this->error) {
 			$this->data['error'] = $this->data['lang_message_error'];
 

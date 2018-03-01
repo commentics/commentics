@@ -116,7 +116,7 @@ class Home {
 		if ($last_call != $date) {
 			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($date) . "' WHERE `title` = 'last_call'");
 
-			$url = 'http://www.commentics.org/call_home.php';
+			$url = 'https://www.commentics.org/call_home.php';
 
 			$data = array('site_id'          => $this->setting->get('site_id'),
 						  'version'          => CMTX_VERSION,
@@ -166,7 +166,7 @@ class Home {
 
 	public function checkLicence($licence, $forum_user) {
 		if ($licence) {
-			$url = 'http://www.commentics.org/licence_check.php';
+			$url = 'https://www.commentics.org/licence_check.php';
 
 			$data = array('site_id'    => $this->setting->get('site_id'),
 						  'domain'     => $this->setting->get('site_domain'),
