@@ -834,10 +834,6 @@ $(document).ready(function() {
 				$('#cmtx_question').text(response['question']);
 			}
 
-			if (response['csrf']) {
-				$('#cmtx_csrf').val(response['csrf']);
-			}
-
 			$('html, body').animate({
 				scrollTop: $('#cmtx_form_container').offset().top
 			}, 1000);

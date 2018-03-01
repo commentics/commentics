@@ -58,12 +58,6 @@
 		</div>
 
 		<div class="fieldset">
-			<label><?php echo $lang_entry_check_csrf; ?></label>
-			<input type="checkbox" name="check_csrf" value="1" <?php if ($check_csrf) { echo 'checked'; } ?>>
-			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_csrf; ?>', this, event, '')">[?]</a>
-		</div>
-
-		<div class="fieldset">
 			<label><?php echo $lang_entry_ssl_certificate; ?></label>
 			<input type="checkbox" name="ssl_certificate" value="1" <?php if ($ssl_certificate) { echo 'checked'; } ?>>
 			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_ssl_certificate; ?>', this, event, '')">[?]</a>

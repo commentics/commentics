@@ -76,22 +76,6 @@ class PartNotifyController extends Controller {
 										$json['result']['error'] = $this->data['lang_error_time'];
 									}
 
-									/* Check CSRF */
-									if ($this->setting->get('check_csrf')) {
-										if (isset($this->request->post['cmtx_csrf'])) {
-											if (!isset($this->session->data['cmtx_csrf_' . $this->page->getId()]) || $this->session->data['cmtx_csrf_' . $this->page->getId()] != $this->request->post['cmtx_csrf']) {
-												/* The session may have expired so generate a new CSRF token */
-												$json['csrf'] = $this->variable->random();
-
-												$this->session->data['cmtx_csrf_' . $this->page->getId()] = $json['csrf'];
-
-												$json['result']['error'] = $this->data['lang_error_incorrect_csrf'];
-											}
-										} else {
-											$json['result']['error'] = $this->data['lang_error_no_csrf'];
-										}
-									}
-
 									/* Name */
 									if (isset($this->request->post['cmtx_name']) && $this->request->post['cmtx_name'] != '') {
 										$name = $this->security->decode($this->request->post['cmtx_name']);
@@ -386,11 +370,6 @@ class PartNotifyController extends Controller {
 
 				/* Unset that the Captcha is complete so the user has to pass it again */
 				unset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()]);
-
-				/* Generate a new CSRF token */
-				$json['csrf'] = $this->variable->random();
-
-				$this->session->data['cmtx_csrf_' . $this->page->getId()] = $json['csrf'];
 
 				$json['result']['success'] = $this->data['lang_text_notify_success'];
 			}

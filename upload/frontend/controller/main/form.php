@@ -451,10 +451,6 @@ class MainFormController extends Controller {
 
 			$this->data['time'] = time();
 
-			$this->data['csrf'] = $this->variable->random();
-
-			$this->session->data['cmtx_csrf_' . $this->page->getId()] = $this->data['csrf'];
-
 			/* Unset that the Captcha is complete */
 			unset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()]);
 
@@ -636,22 +632,6 @@ class MainFormController extends Controller {
 								/* Check time */
 								if ($this->setting->get('check_time') && (!isset($this->request->post['cmtx_time']) || (time() - intval($this->request->post['cmtx_time'])) < 5)) {
 									$json['result']['error'] = $this->data['lang_error_time'];
-								}
-
-								/* Check CSRF */
-								if ($this->setting->get('check_csrf')) {
-									if (isset($this->request->post['cmtx_csrf'])) {
-										if (!isset($this->session->data['cmtx_csrf_' . $this->page->getId()]) || $this->session->data['cmtx_csrf_' . $this->page->getId()] != $this->request->post['cmtx_csrf']) {
-											/* The session may have expired so generate a new CSRF token */
-											$json['csrf'] = $this->variable->random();
-
-											$this->session->data['cmtx_csrf_' . $this->page->getId()] = $json['csrf'];
-
-											$json['result']['error'] = $this->data['lang_error_incorrect_csrf'];
-										}
-									} else {
-										$json['result']['error'] = $this->data['lang_error_no_csrf'];
-									}
 								}
 
 								/* Comment */
@@ -1554,11 +1534,6 @@ class MainFormController extends Controller {
 
 					/* Unset that the Captcha is complete so the user has to pass it again */
 					unset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()]);
-
-					/* Generate a new CSRF token */
-					$json['csrf'] = $this->variable->random();
-
-					$this->session->data['cmtx_csrf_' . $this->page->getId()] = $json['csrf'];
 
 					if ($approve) {
 						$json['result']['success'] = $this->data['lang_text_comment_approve'];
