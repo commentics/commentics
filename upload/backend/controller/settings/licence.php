@@ -58,8 +58,12 @@ class SettingsLicenceController extends Controller {
 		if (isset($this->request->post['licence'])) {
 			if ($this->request->post['licence']) {
 				if ((extension_loaded('curl') || (bool)ini_get('allow_url_fopen'))) {
-					if (!$this->home->checkLicence($this->request->post['licence'], $this->request->post['forum_user'])) {
-						$this->error['licence'] = $this->data['lang_error_invalid'];
+					$check = $this->home->checkLicence($this->request->post['licence'], $this->request->post['forum_user']);
+
+					$check = json_decode($check, true);
+
+					if (isset($check['result']) && $check['result'] == 'invalid') {
+						$this->error['licence'] = $check['error'];
 					}
 				} else {
 					$this->error['licence'] = $this->data['lang_error_unable'];

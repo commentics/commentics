@@ -84,7 +84,13 @@ class MainDashboardController extends Controller {
 				if ($site_issue && $this->setting->get('licence')) {
 					$this->data['is_licence_valid'] = true;
 				} else {
-					$this->data['is_licence_valid'] = $this->home->checkLicence($this->setting->get('licence'), $this->setting->get('forum_user'));
+					$check = $this->home->checkLicence($this->setting->get('licence'), $this->setting->get('forum_user'));
+
+					$check = json_decode($check, true);
+
+					if (isset($check['result']) && $check['result'] == 'valid') {
+						$this->data['is_licence_valid'] = true;
+					}
 
 					$this->data['licence_result'] = 'invalid';
 				}

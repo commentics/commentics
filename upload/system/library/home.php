@@ -165,45 +165,41 @@ class Home {
 	}
 
 	public function checkLicence($licence, $forum_user) {
-		if ($licence) {
-			$url = 'https://www.commentics.org/licence_check.php';
+		$url = 'https://www.commentics.org/licence_check.php';
 
-			$data = array('site_id'    => $this->setting->get('site_id'),
-						  'domain'     => $this->setting->get('site_domain'),
-						  'forum_user' => $forum_user,
-						  'ip_address' => $this->user->getIpAddress(),
-						  'licence'    => $licence
-						);
+		$data = array('site_id'    => $this->setting->get('site_id'),
+					  'domain'     => $this->setting->get('site_domain'),
+					  'forum_user' => $forum_user,
+					  'ip_address' => $this->user->getIpAddress(),
+					  'licence'    => $licence
+					);
 
-			$url .= '?' . http_build_query($data);
+		$url .= '?' . http_build_query($data);
 
-			ini_set('user_agent', 'Commentics');
+		ini_set('user_agent', 'Commentics');
 
-			if (extension_loaded('curl')) {
-				$ch = curl_init();
+		if (extension_loaded('curl')) {
+			$ch = curl_init();
 
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLOPT_HEADER, false);
-				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-				curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
-				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-				curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-				curl_setopt($ch, CURLOPT_USERAGENT, 'Commentics');
-				curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_USERAGENT, 'Commentics');
+			curl_setopt($ch, CURLOPT_URL, $url);
 
-				$is_valid = curl_exec($ch);
+			$result = curl_exec($ch);
 
-				curl_close($ch);
-			} else if ((bool)ini_get('allow_url_fopen')) {
-				$is_valid = file_get_contents($url);
-			}
-
-			return (bool)$is_valid;
-		} else {
-			return false;
+			curl_close($ch);
+		} else if ((bool)ini_get('allow_url_fopen')) {
+			$result = file_get_contents($url);
 		}
+
+		return $result;
 	}
 
 	private function getNumAdminsTotal() {

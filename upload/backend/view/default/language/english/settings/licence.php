@@ -13,7 +13,6 @@ $_['lang_entry_forum_user']			= 'Forum User:';
 $_['lang_hint_forum_user']			= 'If you have a forum account, enter your forum username so you are able to get support if needed.';
 
 // Error
-$_['lang_error_invalid']			= 'The licence entered is invalid';
 $_['lang_error_unable']				= 'Your server is unable to check';
 $_['lang_error_no_licence']			= 'You must have a valid licence';
 ?>
