@@ -869,7 +869,7 @@ $(document).ready(function() {
 	$('body').on('click', '.cmtx_view_replies_link', function(e) {
 		e.preventDefault();
 
-		$(this).fadeOut('slow');
+		$(this).parent().hide();
 
 		$(this).closest('.cmtx_comment_box').next().fadeIn('slow');
 	});
@@ -893,12 +893,18 @@ $(document).ready(function() {
 	$('#cmtx_container').on('change', '.cmtx_sort_by_field', function(e) {
 		e.preventDefault();
 
+		var search = $('input[name="cmtx_search"]').val();
+
+		if (typeof search == 'undefined') {
+			search = '';
+		}
+
 		var options = {
 			'commentics_url'	: cmtx_js_settings_comments.commentics_url,
 			'page_id'			: cmtx_js_settings_comments.page_id,
 			'page_number'		: '',
 			'sort_by'			: $(this).val(),
-			'search'			: '',
+			'search'			: search,
 			'effect'			: true
 		}
 
@@ -915,11 +921,17 @@ $(document).ready(function() {
 	$('#cmtx_container').on('click', '.cmtx_search_container .fa-search', function(e) {
 		e.preventDefault();
 
+		var sort_by = $('select[name="cmtx_sort_by"]').val();
+
+		if (typeof sort_by == 'undefined') {
+			sort_by = '';
+		}
+
 		var options = {
 			'commentics_url'	: cmtx_js_settings_comments.commentics_url,
 			'page_id'			: cmtx_js_settings_comments.page_id,
 			'page_number'	  	: '',
-			'sort_by'	  		: '',
+			'sort_by'	  		: sort_by,
 			'search'	  		: $(this).prev().val(),
 			'effect'			: true
 		}
@@ -1015,8 +1027,8 @@ $(document).ready(function() {
 			'commentics_url'	: cmtx_js_settings_comments.commentics_url,
 			'page_id'			: cmtx_js_settings_comments.page_id,
 			'page_number'		: $(this).find('span').attr('data-cmtx-page'),
-			'sort_by'	  		: '',
-			'search'			: '',
+			'sort_by'	  		: $('select[name="cmtx_sort_by"]').val(),
+			'search'			: $('input[name="cmtx_search"]').val(),
 			'effect'			: true
 		}
 
@@ -1565,7 +1577,7 @@ function cmtxRefreshComments(options) {
 
 	request.done(function(response) {
 		if (response['result']) {
-			$('.cmtx_comment_section').html(response['result']);
+			$('.cmtx_comments_section').html(response['result']);
 
 			if ($('#cmtx_search').val() != '') {
 				$('#cmtx_search').addClass('cmtx_search_focus');

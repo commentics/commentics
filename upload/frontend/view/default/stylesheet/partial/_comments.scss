@@ -54,12 +54,16 @@
 .cmtx_comment_boxes {
 }
 
+.cmtx_comment_section:not(:last-of-type) {
+	border-bottom: 1px dotted #D2D2D2;
+	margin-bottom: 20px;
+}
+
 .cmtx_comment_box {
 	position: relative;
 	padding: 5px;
 	line-height: 1;
 	margin-bottom: 20px;
-	padding-bottom: 20px;
 }
 
 .cmtx_sticky_icon:before {
@@ -250,7 +254,6 @@
 }
 
 .cmtx_replies_group {
-	margin-top: -8px;
 }
 
 .cmtx_code_box, .cmtx_php_box, .cmtx_quote_box {
@@ -547,25 +550,8 @@
 }
 
 @media all and (max-width: 600px) {
-	.cmtx_view_replies_area {
-		position: static;
-		margin-top: 15px;
-		transform: none;
-	}
-}
-
-@media all and (max-width: 500px) {
 	.cmtx_comment_box {
 		text-align: center;
-	}
-
-	.cmtx_comment_box:not(:last-of-type) {
-		margin-bottom: 50px;
-	}
-
-	.cmtx_replies_group {
-		margin-top: 0;
-		margin-bottom: 70px;
 	}
 
 	.cmtx_sticky {
@@ -627,6 +613,12 @@
 	.cmtx_action_area {
 		margin-top: 15px;
 		position: static;
+	}
+
+	.cmtx_view_replies_area {
+		position: static;
+		margin-top: 15px;
+		transform: none;
 	}
 }
 

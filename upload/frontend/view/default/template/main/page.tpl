@@ -9,7 +9,7 @@
 		<?php if ($order_parts == '1,2') { ?>
 			<div class="cmtx_form_section"><?php echo $form; ?></div>
 		<?php } else { ?>
-			<div class="cmtx_comment_section"><?php echo $comments; ?></div>
+			<div class="cmtx_comments_section"><?php echo $comments; ?></div>
 		<?php } ?>
 
 		<?php if ($display_parsing) { ?>
@@ -20,7 +20,7 @@
 		<?php } ?>
 
 		<?php if ($order_parts == '1,2') { ?>
-			<div class="cmtx_comment_section"><?php echo $comments; ?></div>
+			<div class="cmtx_comments_section"><?php echo $comments; ?></div>
 		<?php } else { ?>
 			<div class="cmtx_form_section"><?php echo $form; ?></div>
 		<?php } ?>
