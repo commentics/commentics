@@ -15,7 +15,7 @@ class Home {
 	}
 
 	public function getLatestVersion() {
-		$url = 'http://www.commentics.org/version.txt';
+		$url = 'https://www.commentics.org/version.txt';
 
 		ini_set('user_agent', 'Commentics');
 
@@ -46,7 +46,7 @@ class Home {
 	}
 
 	public function getNews() {
-		$url = 'http://www.commentics.org/news.txt';
+		$url = 'https://www.commentics.org/news.txt';
 
 		ini_set('user_agent', 'Commentics');
 
@@ -77,7 +77,7 @@ class Home {
 	}
 
 	public function getSponsors() {
-		$url = 'http://www.commentics.org/sponsors.php';
+		$url = 'https://www.commentics.org/sponsors.php';
 
 		ini_set('user_agent', 'Commentics');
 
