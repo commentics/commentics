@@ -95,15 +95,6 @@
 		</div>
 
 		<div class="fieldset">
-			<label><?php echo $lang_entry_mysqldump_path; ?></label>
-			<input type="text" name="mysqldump_path" class="large" value="<?php echo $mysqldump_path; ?>" maxlength="250">
-			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_mysqldump_path; ?>', this, event, '')">[?]</a>
-			<?php if ($error_mysqldump_path) { ?>
-				<span class="error"><?php echo $error_mysqldump_path; ?></span>
-			<?php } ?>
-		</div>
-
-		<div class="fieldset">
 			<label><?php echo $lang_entry_use_wysiwyg; ?></label>
 			<input type="checkbox" name="use_wysiwyg" value="1" <?php if ($use_wysiwyg) { echo 'checked'; } ?>>
 			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_use_wysiwyg; ?>', this, event, '')">[?]</a>

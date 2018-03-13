@@ -5,77 +5,66 @@ class ToolDatabaseBackupModel extends Model {
 	public function create($description = '') {
 		$filename = CMTX_DIR_BACKUPS . $this->variable->random(50) . '.sql';
 
-		if (function_exists('system') && is_callable('system')) {
-			if (CMTX_DB_PORT) {
-				$hostname = CMTX_DB_HOSTNAME . ':' . CMTX_DB_PORT;
-			} else {
-				$hostname = CMTX_DB_HOSTNAME;
-			}
+		$query = $this->db->query("SHOW TABLES");
 
-			$command = $this->setting->get('mysqldump_path') . 'mysqldump --host=' . $hostname . ' --user=' . CMTX_DB_USERNAME . ' --password=' . CMTX_DB_PASSWORD . ' ' .  CMTX_DB_DATABASE . ' > ' . $filename;
+		$result = $this->db->rows($query);
 
-			system($command);
-		} else {
-			$query = $this->db->query("SHOW TABLES");
+		$tables =  new \RecursiveIteratorIterator(new \RecursiveArrayIterator($result));
 
-			$result = $this->db->rows($query);
+		$tables = iterator_to_array($tables, false);
 
-			$tables =  new \RecursiveIteratorIterator(new \RecursiveArrayIterator($result));
+		$output = '';
 
-			$tables = iterator_to_array($tables, false);
+		foreach ($tables as $table) {
+			$output .= 'DROP TABLE IF EXISTS `' . $table . '`;' . "\n\n";
 
-			$output = '';
+			$query = $this->db->query("SHOW CREATE TABLE `" . $table . "`");
 
-			foreach ($tables as $table) {
-				$output .= 'DROP TABLE IF EXISTS `' . $table . '`;' . "\n\n";
+			$result = $this->db->row($query);
 
-				$query = $this->db->query("SHOW CREATE TABLE `" . $table . "`");
+			$output .= $result['Create Table'] . ';' . "\n\n";
 
-				$result = $this->db->row($query);
+			$query = $this->db->query("SELECT * FROM `" . $table . "`");
 
-				$output .= $result['Create Table'] . ';' . "\n\n";
+			$results = $this->db->rows($query);
 
-				$query = $this->db->query("SELECT * FROM `" . $table . "`");
+			foreach ($results as $result) {
+				$columns = '';
 
-				$results = $this->db->rows($query);
-
-				foreach ($results as $result) {
-					$columns = '';
-
-					foreach (array_keys($result) as $value) {
-						$columns .= '`' . $value . '`, ';
-					}
-
-					$values = '';
-
-					foreach (array_values($result) as $value) {
-						$value = str_replace(array("\x00", "\x0a", "\x0d", "\x1a"), array('\0', '\n', '\r', '\Z'), $value);
-						$value = str_replace(array("\n", "\r", "\t"), array('\n', '\r', '\t'), $value);
-						$value = str_replace('\\', '\\\\',	$value);
-						$value = str_replace('\'', '\\\'',	$value);
-						$value = str_replace('\\\n', '\n',	$value);
-						$value = str_replace('\\\r', '\r',	$value);
-						$value = str_replace('\\\t', '\t',	$value);			
-
-						$values .= '\'' . $value . '\', ';
-					}
-
-					$output .= 'INSERT INTO `' . $table . '` (' . preg_replace('/, $/', '', $columns) . ') VALUES (' . preg_replace('/, $/', '', $values) . ');' . "\n";
+				foreach (array_keys($result) as $value) {
+					$columns .= '`' . $value . '`, ';
 				}
 
-				if ($results) {
-					$output .= "\n";
+				$values = '';
+
+				foreach (array_values($result) as $value) {
+					$value = str_replace(array("\x00", "\x0a", "\x0d", "\x1a"), array('\0', '\n', '\r', '\Z'), $value);
+					$value = str_replace(array("\n", "\r", "\t"), array('\n', '\r', '\t'), $value);
+					$value = str_replace(array("\n", "\r", "\t"), array('\n', '\r', '\t'), $value);
+					$value = str_replace('\\', '\\\\', $value);
+					$value = str_replace('\'', '\\\'', $value);
+					$value = str_replace('\\\n', '\n', $value);
+					$value = str_replace('\\\r', '\r', $value);
+					$value = str_replace('\\\t', '\t', $value);
+
+					$values .= '\'' . $value . '\', ';
 				}
+
+				$output .= 'INSERT INTO `' . $table . '` (' . preg_replace('/, $/', '', $columns) . ') VALUES (' . preg_replace('/, $/', '', $values) . ');' . "\n";
 			}
 
-			$output = rtrim($output, "\n\n");
-
-			$handle = fopen($filename, 'w+');
-
-			fwrite($handle, $output);
-
-			fclose($handle);
+			if ($results) {
+				$output .= "\n";
+			}
 		}
+
+		$output = rtrim($output, "\n\n");
+
+		$handle = fopen($filename, 'w+');
+
+		fwrite($handle, $output);
+
+		fclose($handle);
 
 		$size = filesize($filename);
 

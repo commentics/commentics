@@ -55,12 +55,6 @@ class SettingsSystemController extends Controller {
 			$this->data['backend_folder'] = $this->setting->get('backend_folder');
 		}
 
-		if (isset($this->request->post['mysqldump_path'])) {
-			$this->data['mysqldump_path'] = $this->request->post['mysqldump_path'];
-		} else {
-			$this->data['mysqldump_path'] = $this->setting->get('mysqldump_path');
-		}
-
 		if (isset($this->request->post['use_wysiwyg'])) {
 			$this->data['use_wysiwyg'] = true;
 		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['use_wysiwyg'])) {
@@ -129,12 +123,6 @@ class SettingsSystemController extends Controller {
 			$this->data['error_backend_folder'] = $this->error['backend_folder'];
 		} else {
 			$this->data['error_backend_folder'] = '';
-		}
-
-		if (isset($this->error['mysqldump_path'])) {
-			$this->data['error_mysqldump_path'] = $this->error['mysqldump_path'];
-		} else {
-			$this->data['error_mysqldump_path'] = '';
 		}
 
 		if (isset($this->error['limit_results'])) {
@@ -211,14 +199,6 @@ class SettingsSystemController extends Controller {
 
 		if (!isset($this->request->post['backend_folder']) || $this->validation->length($this->request->post['backend_folder']) < 1 || $this->validation->length($this->request->post['backend_folder']) > 250) {
 			$this->error['backend_folder'] = sprintf($this->data['lang_error_length'], 1, 250);
-		}
-
-		if (isset($this->request->post['mysqldump_path']) && !empty($this->request->post['mysqldump_path']) && !$this->validation->isPath($this->request->post['mysqldump_path'])) {
-			$this->error['mysqldump_path'] = $this->data['lang_error_path'];
-		}
-
-		if (!isset($this->request->post['mysqldump_path']) || $this->validation->length($this->request->post['mysqldump_path']) > 250) {
-			$this->error['mysqldump_path'] = sprintf($this->data['lang_error_length'], 0, 250);
 		}
 
 		if (!isset($this->request->post['limit_results']) || !$this->validation->isInt($this->request->post['limit_results']) || $this->request->post['limit_results'] < 5 || $this->request->post['limit_results'] > 1000) {

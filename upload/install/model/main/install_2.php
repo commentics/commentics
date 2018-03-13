@@ -862,7 +862,6 @@ class MainInstall2Model extends Model {
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'commentics_url', `value` = '" . $this->db->escape($commentics_url) . "'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'backend_folder', `value` = '" . $this->db->escape($backend_folder) . "'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'ssl_certificate', `value` = '" . (int)$ssl_certificate . "'");
-		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'mysqldump_path', `value` = ''");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'use_wysiwyg', `value` = '1'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'display_parsing', `value` = '0'");
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'is_demo', `value` = '0'");
