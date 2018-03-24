@@ -492,164 +492,170 @@ $(document).ready(function() {
 
 /* Image uploads */
 $(document).ready(function() {
-	if (cmtx_js_settings_form.enabled_upload) {
-		$('#filer_input').filer({
-			limit: cmtx_js_settings_form.maximum_upload_amount,
-			maxSize: cmtx_js_settings_form.maximum_upload_size,
-			extensions: ['jpg', 'jpeg', 'png', 'gif'],
-			changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-text" style="margin-top:-6px"><span>' + cmtx_js_settings_form.lang_text_drag_and_drop + '</span></div></div></div>',
-			showThumbs: true,
-			appendTo: '.cmtx_image_container',
-			theme: 'dragdropbox',
-			templates: {
-				box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
-				item: 	'<li class="jFiler-item">\
-							<div class="jFiler-item-container">\
-								<div class="jFiler-item-inner">\
-									<div class="jFiler-item-thumb">\
-										<div class="jFiler-item-status"></div>\
-										<div class="jFiler-item-info">\
-											<span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
-											<span class="jFiler-item-others">{{fi-size2}}</span>\
+	if (typeof(cmtx_js_settings_form) != 'undefined') {
+		if (cmtx_js_settings_form.enabled_upload) {
+			$('#filer_input').filer({
+				limit: cmtx_js_settings_form.maximum_upload_amount,
+				maxSize: cmtx_js_settings_form.maximum_upload_size,
+				extensions: ['jpg', 'jpeg', 'png', 'gif'],
+				changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-text" style="margin-top:-6px"><span>' + cmtx_js_settings_form.lang_text_drag_and_drop + '</span></div></div></div>',
+				showThumbs: true,
+				appendTo: '.cmtx_image_container',
+				theme: 'dragdropbox',
+				templates: {
+					box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+					item: 	'<li class="jFiler-item">\
+								<div class="jFiler-item-container">\
+									<div class="jFiler-item-inner">\
+										<div class="jFiler-item-thumb">\
+											<div class="jFiler-item-status"></div>\
+											<div class="jFiler-item-info">\
+												<span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+												<span class="jFiler-item-others">{{fi-size2}}</span>\
+											</div>\
+											{{fi-image}}\
 										</div>\
-										{{fi-image}}\
-									</div>\
-									<div class="jFiler-item-assets jFiler-row">\
-										<ul class="list-inline pull-left">\
-											<li>{{fi-progressBar}}</li>\
-										</ul>\
-										<ul class="list-inline pull-right">\
-											<li><a class="fa fa-trash-o jFiler-item-trash-action"></a></li>\
-										</ul>\
+										<div class="jFiler-item-assets jFiler-row">\
+											<ul class="list-inline pull-left">\
+												<li>{{fi-progressBar}}</li>\
+											</ul>\
+											<ul class="list-inline pull-right">\
+												<li><a class="fa fa-trash-o jFiler-item-trash-action"></a></li>\
+											</ul>\
+										</div>\
 									</div>\
 								</div>\
-							</div>\
-						</li>',
-				progressBar: '<div class="bar"></div>',
-				itemAppendToEnd: false,
-				removeConfirmation: false,
-				_selectors: {
-					list: '.jFiler-items-list',
-					item: '.jFiler-item',
-					progressBar: '.bar',
-					remove: '.jFiler-item-trash-action'
-				}
-			},
-			dragDrop: {
-				dragEnter: null,
-				dragLeave: null,
-				drop: null
-			},
-			uploadFile: {
-				url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/sendUpload',
-				data: null,
-				type: 'POST',
-				enctype: 'multipart/form-data',
-				beforeSend: function(){},
-				success: function(data, el) {
-					var parent = el.find(".jFiler-jProgressBar").parent();
-					el.find(".jFiler-jProgressBar").fadeOut("slow", function() {
-						$('<div class="jFiler-item-others text-success"><i class="fa fa-check"></i> ' + cmtx_js_settings_form.lang_text_drop_success + '</div>').hide().appendTo(parent).fadeIn('slow');
-					});
+							</li>',
+					progressBar: '<div class="bar"></div>',
+					itemAppendToEnd: false,
+					removeConfirmation: false,
+					_selectors: {
+						list: '.jFiler-items-list',
+						item: '.jFiler-item',
+						progressBar: '.bar',
+						remove: '.jFiler-item-trash-action'
+					}
 				},
-				error: function(el) {
-					var parent = el.find(".jFiler-jProgressBar").parent();
-					el.find(".jFiler-jProgressBar").fadeOut("slow", function() {
-						$('<div class="jFiler-item-others text-error"><i class="fa fa-exclamation"></i> ' + cmtx_js_settings_form.lang_text_drop_error + '</div>').hide().appendTo(parent).fadeIn('slow');
-					});
+				dragDrop: {
+					dragEnter: null,
+					dragLeave: null,
+					drop: null
 				},
-				statusCode: null,
-				onProgress: null,
-				onComplete: null
-			},
-			addMore: true,
-			beforeShow: function() {
-				$('.cmtx_image_row').show();
+				uploadFile: {
+					url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/sendUpload',
+					data: null,
+					type: 'POST',
+					enctype: 'multipart/form-data',
+					beforeSend: function(){},
+					success: function(data, el) {
+						var parent = el.find(".jFiler-jProgressBar").parent();
+						el.find(".jFiler-jProgressBar").fadeOut("slow", function() {
+							$('<div class="jFiler-item-others text-success"><i class="fa fa-check"></i> ' + cmtx_js_settings_form.lang_text_drop_success + '</div>').hide().appendTo(parent).fadeIn('slow');
+						});
+					},
+					error: function(el) {
+						var parent = el.find(".jFiler-jProgressBar").parent();
+						el.find(".jFiler-jProgressBar").fadeOut("slow", function() {
+							$('<div class="jFiler-item-others text-error"><i class="fa fa-exclamation"></i> ' + cmtx_js_settings_form.lang_text_drop_error + '</div>').hide().appendTo(parent).fadeIn('slow');
+						});
+					},
+					statusCode: null,
+					onProgress: null,
+					onComplete: null
+				},
+				addMore: true,
+				beforeShow: function() {
+					$('.cmtx_image_row').show();
 
-				return true;
-			},
-			onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl) {
-				if ($('.jFiler-item').length == 1) {
-					$('.cmtx_image_row').hide();
+					return true;
+				},
+				onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl) {
+					if ($('.jFiler-item').length == 1) {
+						$('.cmtx_image_row').hide();
+					}
+				},
+				captions: {
+					errors: {
+						filesLimit: cmtx_js_settings_form.lang_error_file_num,
+						filesType: cmtx_js_settings_form.lang_error_file_type,
+						filesSize: cmtx_js_settings_form.lang_error_file_size,
+						filesSizeAll: cmtx_js_settings_form.lang_error_file_size_all
+					}
 				}
-			},
-			captions: {
-				errors: {
-					filesLimit: cmtx_js_settings_form.lang_error_file_num,
-					filesType: cmtx_js_settings_form.lang_error_file_type,
-					filesSize: cmtx_js_settings_form.lang_error_file_size,
-					filesSizeAll: cmtx_js_settings_form.lang_error_file_size_all
-				}
-			}
-		});
+			});
+		}
 	}
 });
 
 /* Populate states field */
 $(document).ready(function() {
-	if (cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
-		$('#cmtx_country').bind('change', function() {
-			var data = 'country_id=' + encodeURIComponent($('#cmtx_country').val());
+	if (typeof(cmtx_js_settings_form) != 'undefined') {
+		if (cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
+			$('#cmtx_country').bind('change', function() {
+				var data = 'country_id=' + encodeURIComponent($('#cmtx_country').val());
 
-			var request = $.ajax({
-				type: 'POST',
-				cache: false,
-				url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates',
-				data: data,
-				dataType: 'json',
-				beforeSend: function() {
-					$('#cmtx_state').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
-				}
-			});
-
-			request.always(function() {
-			});
-
-			request.done(function(response) {
-				setTimeout(function() {
-					states = response;
-
-					html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
-
-					if (states.length) {
-						for (i = 0; i < states.length; i++) {
-							html += '<option value="' + states[i]['id'] + '"';
-
-							if (states[i]['id'] == cmtx_js_settings_form.state_id) {
-								html += ' selected';
-							}
-
-							html += '>' + states[i]['name'] + '</option>';
-						}
-					} else {
-						html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
+				var request = $.ajax({
+					type: 'POST',
+					cache: false,
+					url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates',
+					data: data,
+					dataType: 'json',
+					beforeSend: function() {
+						$('#cmtx_state').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
 					}
+				});
 
-					$('#cmtx_state').html(html);
+				request.always(function() {
+				});
 
-					$('#cmtx_state').trigger('change');
-				}, 500);
+				request.done(function(response) {
+					setTimeout(function() {
+						states = response;
+
+						html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
+
+						if (states.length) {
+							for (i = 0; i < states.length; i++) {
+								html += '<option value="' + states[i]['id'] + '"';
+
+								if (states[i]['id'] == cmtx_js_settings_form.state_id) {
+									html += ' selected';
+								}
+
+								html += '>' + states[i]['name'] + '</option>';
+							}
+						} else {
+							html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
+						}
+
+						$('#cmtx_state').html(html);
+
+						$('#cmtx_state').trigger('change');
+					}, 500);
+				});
+
+				request.fail(function(jqXHR, textStatus, errorThrown) {
+					if (console && console.log) {
+						console.log(jqXHR.responseText);
+					}
+				});
 			});
 
-			request.fail(function(jqXHR, textStatus, errorThrown) {
-				if (console && console.log) {
-					console.log(jqXHR.responseText);
-				}
-			});
-		});
-
-		$('#cmtx_country').trigger('change');
+			$('#cmtx_country').trigger('change');
+		}
 	}
 });
 
 /* Securimage captcha */
 $(document).ready(function() {
-	if (cmtx_js_settings_form.securimage) {
-		$('#cmtx_securimage_refresh').click(function() {
-			var src = cmtx_js_settings_form.securimage_url + 'securimage_show.php?namespace=' + cmtx_js_settings_form.captcha_namespace + '&' + Math.random();
+	if (typeof(cmtx_js_settings_form) != 'undefined') {
+		if (cmtx_js_settings_form.securimage) {
+			$('#cmtx_securimage_refresh').click(function() {
+				var src = cmtx_js_settings_form.securimage_url + 'securimage_show.php?namespace=' + cmtx_js_settings_form.captcha_namespace + '&' + Math.random();
 
-			$('#cmtx_securimage_image').attr('src', src);
-		});
+				$('#cmtx_securimage_image').attr('src', src);
+			});
+		}
 	}
 });
 
@@ -1435,8 +1441,10 @@ $(document).ready(function() {
 		}
 	});
 
-	if (cmtx_js_settings_comments.flash_id > 0) {
-		$('div[data-cmtx-comment-id="' + cmtx_js_settings_comments.flash_id + '"]').effect('highlight', {color: '#FFFF99'}, 2000);
+	if (typeof(cmtx_js_settings_comments) != 'undefined') {
+		if (cmtx_js_settings_comments.flash_id > 0) {
+			$('div[data-cmtx-comment-id="' + cmtx_js_settings_comments.flash_id + '"]').effect('highlight', {color: '#FFFF99'}, 2000);
+		}
 	}
 });
 
@@ -1499,10 +1507,12 @@ $(document).ready(function() {
 
 /* Highlight any user-entered code */
 function cmtxHighlightCode() {
-	if (cmtx_js_settings_comments.highlight) {
-		$('.cmtx_code_box, .cmtx_php_box').each(function(i, block) {
-			hljs.highlightBlock(block);
-		});
+	if (typeof(cmtx_js_settings_comments) != 'undefined') {
+		if (cmtx_js_settings_comments.highlight) {
+			$('.cmtx_code_box, .cmtx_php_box').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
+		}
 	}
 }
 $(document).ready(function() {
@@ -1511,13 +1521,15 @@ $(document).ready(function() {
 
 /* Hide the last part of long comments */
 function cmtxReadMore() {
-	if (cmtx_js_settings_comments.show_read_more) {
-		$('.cmtx_comment_area').readmore({
-			collapsedHeight: cmtx_js_settings_comments.read_more_limit,
-			speed: 750,
-			moreLink: '<a class="cmtx_read_more"><span class="cmtx_down_icon"></span></a>',
-			lessLink: '<a class="cmtx_read_less"><span class="cmtx_up_icon"></span></a>'
-		});
+	if (typeof(cmtx_js_settings_comments) != 'undefined') {
+		if (cmtx_js_settings_comments.show_read_more) {
+			$('.cmtx_comment_area').readmore({
+				collapsedHeight: cmtx_js_settings_comments.read_more_limit,
+				speed: 750,
+				moreLink: '<a class="cmtx_read_more"><span class="cmtx_down_icon"></span></a>',
+				lessLink: '<a class="cmtx_read_less"><span class="cmtx_up_icon"></span></a>'
+			});
+		}
 	}
 }
 $(window).load(function() { // Important to use $(window).load() here
@@ -1526,24 +1538,26 @@ $(window).load(function() { // Important to use $(window).load() here
 
 /* Auto update the time with e.g. '2 minutes ago' */
 function cmtxTimeago() {
-	if (cmtx_js_settings_comments.date_auto) {
-		$.timeago.settings.strings = {
-			suffixAgo : cmtx_js_settings_comments.timeago_suffixAgo,
-			inPast    : cmtx_js_settings_comments.timeago_inPast,
-			seconds   : cmtx_js_settings_comments.timeago_seconds,
-			minute    : cmtx_js_settings_comments.timeago_minute,
-			minutes   : cmtx_js_settings_comments.timeago_minutes,
-			hour      : cmtx_js_settings_comments.timeago_hour,
-			hours     : cmtx_js_settings_comments.timeago_hours,
-			day       : cmtx_js_settings_comments.timeago_day,
-			days      : cmtx_js_settings_comments.timeago_days,
-			month     : cmtx_js_settings_comments.timeago_month,
-			months    : cmtx_js_settings_comments.timeago_months,
-			year      : cmtx_js_settings_comments.timeago_year,
-			years     : cmtx_js_settings_comments.timeago_years
-		};
+	if (typeof(cmtx_js_settings_comments) != 'undefined') {
+		if (cmtx_js_settings_comments.date_auto) {
+			$.timeago.settings.strings = {
+				suffixAgo : cmtx_js_settings_comments.timeago_suffixAgo,
+				inPast    : cmtx_js_settings_comments.timeago_inPast,
+				seconds   : cmtx_js_settings_comments.timeago_seconds,
+				minute    : cmtx_js_settings_comments.timeago_minute,
+				minutes   : cmtx_js_settings_comments.timeago_minutes,
+				hour      : cmtx_js_settings_comments.timeago_hour,
+				hours     : cmtx_js_settings_comments.timeago_hours,
+				day       : cmtx_js_settings_comments.timeago_day,
+				days      : cmtx_js_settings_comments.timeago_days,
+				month     : cmtx_js_settings_comments.timeago_month,
+				months    : cmtx_js_settings_comments.timeago_months,
+				year      : cmtx_js_settings_comments.timeago_year,
+				years     : cmtx_js_settings_comments.timeago_years
+			};
 
-		$('.cmtx_date_area .timeago').timeago();
+			$('.cmtx_date_area .timeago').timeago();
+		}
 	}
 }
 $(document).ready(function() {
