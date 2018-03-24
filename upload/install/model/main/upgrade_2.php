@@ -194,6 +194,10 @@ class MainUpgrade2Model extends Model {
 			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'check_csrf'");
 
 			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'mysqldump_path'");
+
+			if (file_exists(CMTX_DIR_ROOT . 'frontend/php.ini')) {
+				@unlink(CMTX_DIR_ROOT . 'frontend/php.ini');
+			}
 		}
 	}
 
