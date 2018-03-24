@@ -1,4 +1,4 @@
-INSTALLATION (detailed guide at commentics.org/wiki)
+INSTALLATION (detailed guide at commentics.org/docs)
 
 1. Download and unzip the programme.
 2. Rename the upload folder /upload/

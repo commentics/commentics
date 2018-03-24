@@ -1,4 +1,4 @@
-INTEGRATION (detailed guide at commentics.org/wiki)
+INTEGRATION (detailed guide at commentics.org/docs)
 
 Add the following to the very top of your page (if not there already):
 

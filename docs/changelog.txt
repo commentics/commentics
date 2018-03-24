@@ -1,3 +1,27 @@
+Version: 3.3
+Date: 24th March 2018
+
+[Improvement] Email field optional
+[Improvement] Adds settings for badges
+[Improvement] Moves JavaScript to JS file
+[Improvement] Easier theme editing
+[Improvement] Bootstrap compatibility
+[Improvement] Styling improvements
+[Bug Fix] Fixes hardcoded lang text
+[Bug Fix] Fix for admin flooding
+[Bug Fix] Fix uploads when gravatar disabled
+[Bug Fix] Fix preview when smilies disabled
+[Bug Fix] Fix clicking smilies in comments
+[Bug Fix] Fix for multiple search fields
+[Bug Fix] Fix for multiple sort by fields
+[Bug Fix] Session fixes
+[Other] Adds licencing
+[Other] Removes mysqldump
+[Other] Removes frontend CSRF check
+[Other] Removes cURL follow location
+
+*************************************************************************
+
 Version: 3.2
 Date: 7th May 2017
 
