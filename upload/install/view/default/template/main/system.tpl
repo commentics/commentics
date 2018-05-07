@@ -108,11 +108,11 @@
 	</div>
 
 	<div class="row">
-		<label class="item"><?php echo $lang_item_mcrypt_loaded; ?></label>
-		<?php if ($check['mcrypt_loaded']) { ?>
+		<label class="item"><?php echo $lang_item_openssl_loaded; ?></label>
+		<?php if ($check['openssl_loaded']) { ?>
 			<span class="green"><?php echo $lang_text_pass; ?></span>
 		<?php } else { ?>
-			<span class="amber"><?php echo $lang_text_fail; ?></span> <span class="note"><?php echo $lang_note_mcrypt_loaded; ?></span>
+			<span class="amber"><?php echo $lang_text_fail; ?></span> <span class="note"><?php echo $lang_note_openssl_loaded; ?></span>
 		<?php } ?>
 	</div>
 

@@ -85,10 +85,10 @@ class MainSystemModel extends Model {
 			$check['libxml_loaded'] = false;
 		}
 
-		if (extension_loaded('mcrypt')) {
-			$check['mcrypt_loaded'] = true;
+		if (extension_loaded('openssl')) {
+			$check['openssl_loaded'] = true;
 		} else {
-			$check['mcrypt_loaded'] = false;
+			$check['openssl_loaded'] = false;
 		}
 
 		if (extension_loaded('zip')) {

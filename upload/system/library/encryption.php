@@ -9,11 +9,39 @@ class Encryption {
 	}
 
 	public function encrypt($value) {
-		return trim(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, hash('sha256', $this->setting->get('encryption_key'), true), $value, MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND))));
+		$key = hash('sha256', $this->setting->get('encryption_key'), true);
+
+		$iv = openssl_random_pseudo_bytes(16);
+
+		$cipher = openssl_encrypt($value, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+
+		$hash = hash_hmac('sha256', $cipher, $key, true);
+
+		$encrypted = $iv . $hash . $cipher;
+
+		$encrypted = base64_encode($encrypted);
+
+		return $encrypted;
 	}
 
 	public function decrypt($value) {
-		return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, hash('sha256', $this->setting->get('encryption_key'), true), base64_decode($value), MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND)));
+		$value = base64_decode($value);
+
+		$iv = substr($value, 0, 16);
+
+		$hash = substr($value, 16, 32);
+
+		$cipher = substr($value, 48);
+
+		$key = hash('sha256', $this->setting->get('encryption_key'), true);
+
+		if (hash_hmac('sha256', $cipher, $key, true) !== $hash) {
+			return '';
+		}
+
+		$decrypted = openssl_decrypt($cipher, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+
+		return $decrypted;
 	}
 }
 ?>
