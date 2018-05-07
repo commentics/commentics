@@ -35,7 +35,6 @@ $_['lang_note_dom_loaded']			= 'The DOM extension is required for the modificati
 $_['lang_note_libxml_loaded']		= 'The LibXML extension is required for the modification system.';
 $_['lang_note_openssl_loaded']		= 'The OpenSSL extension is required for encryption.';
 $_['lang_note_zip_loaded']			= 'The Zip extension is required for the extension installer.';
-$_['lang_note_system_enabled']		= 'The system() function is required for the database backup tool.';
 $_['lang_note_fopen_enabled']		= 'The fopen(URL) function is used for ReCaptcha.';
 $_['lang_note_freetype_enabled']	= 'The FreeType function is required for the Securimage captcha.';
 
