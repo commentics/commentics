@@ -33,6 +33,8 @@ class MainDashboardController extends Controller {
 			if ($this->validation->isFloat($latest_version)) {
 				if (version_compare($this->model_main_dashboard->getCurrentVersion(), $latest_version, '<')) {
 					$this->data['version_check'] = array('type' => 'negative', 'text' => $this->data['lang_text_version_newer']);
+
+					$this->data['upgrade_url'] = $this->url->link('tool/upgrade');
 				} else {
 					$this->data['version_check'] = array('type' => 'positive', 'text' => $this->data['lang_text_version_latest']);
 				}

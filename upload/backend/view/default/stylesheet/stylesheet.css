@@ -868,6 +868,10 @@ img.loading {
   margin-bottom: 25px;
 }
 
+.upgrade_page .controls {
+  margin-top: 0;
+}
+
 /******************* Media Queries *******************/
 @media all and (max-width: 1250px) {
   .edit_comment_page .left {

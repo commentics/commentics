@@ -199,6 +199,10 @@ class MainUpgrade2Model extends Model {
 				@unlink(CMTX_DIR_ROOT . 'frontend/php.ini');
 			}
 		}
+
+		if ($version == '3.3 -> 3.4') {
+			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_tool_upgrade', `value` = '1'");
+		}
 	}
 
 	public function getInstalledVersion() {

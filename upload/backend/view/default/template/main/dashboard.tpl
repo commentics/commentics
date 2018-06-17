@@ -32,7 +32,7 @@
 					<span class="positive"><?php echo $version_check['text']; ?></span>
 				<?php }	?>
 				<?php if ($version_check['type'] == 'negative') { ?>
-					<span class="negative"><?php echo $version_check['text']; ?></span>
+					<span class="negative"><?php echo $version_check['text']; ?></span> (<a href="<?php echo $upgrade_url; ?>"><?php echo $lang_text_upgrade; ?></a>)
 				<?php }	?>
 			</div>
 		</div>

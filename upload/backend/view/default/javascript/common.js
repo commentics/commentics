@@ -119,3 +119,136 @@ $(document).ready(function() {
 $(document).ready(function() {
 	$('.divide_after').after('<div class="fieldset"><label></label></div>');
 });
+
+/* Upgrade */
+function cmtx_start_upgrade(csrf_key) {
+	var request = $.ajax({
+		type: 'POST',
+		cache: false,
+		url: 'index.php?route=tool/upgrade/download',
+		data: 'csrf_key=' + csrf_key,
+		dataType: 'json'
+	});
+
+	request.done(function(response) {
+		$.each(response['messages'], function(index, value) {
+			$('#upgrade-progress').append('<p>' + value + '</p>');
+		});
+
+		if (response['error']) {
+			$('#upgrade-progress').append('<p class="negative">' + response['error'] + '</p>');
+		} else {
+			var request = $.ajax({
+				type: 'POST',
+				cache: false,
+				url: 'index.php?route=tool/upgrade/unpack',
+				data: 'csrf_key=' + csrf_key,
+				dataType: 'json'
+			});
+
+			request.done(function(response) {
+				$.each(response['messages'], function(index, value) {
+					$('#upgrade-progress').append('<p>' + value + '</p>');
+				});
+
+				if (response['error']) {
+					$('#upgrade-progress').append('<p class="negative">' + response['error'] + '</p>');
+				} else {
+					var request = $.ajax({
+						type: 'POST',
+						cache: false,
+						url: 'index.php?route=tool/upgrade/verify',
+						data: 'csrf_key=' + csrf_key,
+						dataType: 'json'
+					});
+
+					request.done(function(response) {
+						$.each(response['messages'], function(index, value) {
+							$('#upgrade-progress').append('<p>' + value + '</p>');
+						});
+
+						if (response['error']) {
+							$('#upgrade-progress').append('<p class="negative">' + response['error'] + '</p>');
+						} else {
+							var request = $.ajax({
+								type: 'POST',
+								cache: false,
+								url: 'index.php?route=tool/upgrade/requirements',
+								data: 'csrf_key=' + csrf_key,
+								dataType: 'json'
+							});
+
+							request.done(function(response) {
+								$.each(response['messages'], function(index, value) {
+									$('#upgrade-progress').append('<p>' + value + '</p>');
+								});
+
+								if (response['error']) {
+									$('#upgrade-progress').append('<p class="negative">' + response['error'] + '</p>');
+								} else {
+									var request = $.ajax({
+										type: 'POST',
+										cache: false,
+										url: 'index.php?route=tool/upgrade/install',
+										data: 'csrf_key=' + csrf_key,
+										dataType: 'json'
+									});
+
+									request.done(function(response) {
+										$.each(response['messages'], function(index, value) {
+											$('#upgrade-progress').append('<p>' + value + '</p>');
+										});
+
+										if (response['error']) {
+											$('#upgrade-progress').append('<p class="negative">' + response['error'] + '</p>');
+										} else {
+											var request = $.ajax({
+												type: 'POST',
+												cache: false,
+												url: 'index.php?route=tool/upgrade/database',
+												data: 'csrf_key=' + csrf_key,
+												dataType: 'json'
+											});
+
+											request.done(function(response) {
+												$.each(response['messages'], function(index, value) {
+													$('#upgrade-progress').append('<p>' + value + '</p>');
+												});
+
+												if (response['error']) {
+													$('#upgrade-progress').append('<p class="negative">' + response['error'] + '</p>');
+												} else {
+													var request = $.ajax({
+														type: 'POST',
+														cache: false,
+														url: 'index.php?route=tool/upgrade/clean',
+														data: 'csrf_key=' + csrf_key,
+														dataType: 'json'
+													});
+
+													request.done(function(response) {
+														$.each(response['messages'], function(index, value) {
+															$('#upgrade-progress').append('<p>' + value + '</p>');
+														});
+
+														if (response['error']) {
+															$('#upgrade-progress').append('<p class="negative">' + response['error'] + '</p>');
+														}
+
+														if (response['success']) {
+															$('#upgrade-progress').append('<p class="positive">' + response['success'] + '</p>');
+														}
+													});
+												}
+											});
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			});
+		}
+	});
+}

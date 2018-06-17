@@ -37,13 +37,15 @@ class ExtensionInstallerModel extends Model {
 
 			// Extract the zip file
 			if ($zip->open($zip_file)) {
-				$zip->extractTo($temp_folder);
+				if (!$zip->extractTo($temp_folder)) {
+					return $error['lang_error_zip_extract'];
+				}
 
 				$zip->close();
 			} else {
 				remove_directory($temp_folder);
 
-				return $error['lang_error_zip_no_extract'];
+				return $error['lang_error_zip_open'];
 			}
 
 			// Delete the zip file
@@ -104,7 +106,7 @@ class ExtensionInstallerModel extends Model {
 					if (!mkdir($destination)) {
 						remove_directory($temp_folder);
 
-						return $error['lang_error_dir_create'];
+						return $error['lang_error_create_dir'];
 					}
 				}
 			}
@@ -114,7 +116,7 @@ class ExtensionInstallerModel extends Model {
 				if (!copy($file, $destination)) {
 					remove_directory($temp_folder);
 
-					return $error['lang_error_file_create'];
+					return $error['lang_error_copy_file'];
 				}
 			}
 		}

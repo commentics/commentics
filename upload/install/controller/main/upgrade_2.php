@@ -17,6 +17,9 @@ class MainUpgrade2Controller extends Controller {
 			$installed_version = $this->model_main_upgrade_2->getInstalledVersion();
 
 			switch ($installed_version) {
+				case '3.3':
+					$this->model_main_upgrade_2->upgrade('3.3 -> 3.4');
+					break;
 				case '3.2':
 					$this->model_main_upgrade_2->upgrade('3.2 -> 3.3');
 					break;

@@ -43,6 +43,35 @@ class Home {
 		return $latest_version;
 	}
 
+	public function getVersions() {
+		$url = 'https://www.commentics.org/versions.php';
+
+		ini_set('user_agent', 'Commentics');
+
+		$versions = '';
+
+		if (extension_loaded('curl')) {
+			$ch = curl_init();
+
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_USERAGENT, 'Commentics');
+			curl_setopt($ch, CURLOPT_URL, $url);
+
+			$versions = curl_exec($ch);
+
+			curl_close($ch);
+		} else if ((bool)ini_get('allow_url_fopen')) {
+			$versions = file_get_contents($url);
+		}
+
+		return $versions;
+	}
+
 	public function getNews() {
 		$url = 'https://www.commentics.org/news.txt';
 

@@ -200,6 +200,7 @@ class CommonAdministratorModel extends Model {
 			$restrictions[] = $this->getRestriction('Database Backup', 'tool/database_backup', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Optimize Tables', 'tool/optimize_tables', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Text Finder', 'tool/text_finder', 20, false, $viewable_pages, $modifiable_pages);
+			$restrictions[] = $this->getRestriction('Upgrade', 'tool/upgrade', 20, false, $viewable_pages, $modifiable_pages);
 
 		$restrictions[] = $this->getRestriction('Help', 'help', 0, true, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Donate', 'help/donate', 20, false, $viewable_pages, $modifiable_pages);
