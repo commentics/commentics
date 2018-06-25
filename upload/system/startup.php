@@ -143,9 +143,6 @@ $cmtx_registry->set('email', $cmtx_email);
 $cmtx_comment = new \Commentics\Comment($cmtx_registry);
 $cmtx_registry->set('comment', $cmtx_comment);
 
-$cmtx_task = new \Commentics\Task($cmtx_registry);
-$cmtx_registry->set('task', $cmtx_task);
-
 $cmtx_geo = new \Commentics\Geo($cmtx_registry);
 $cmtx_registry->set('geo', $cmtx_geo);
 
@@ -160,6 +157,9 @@ $cmtx_registry->set('user', $cmtx_user);
 
 $cmtx_home = new \Commentics\Home($cmtx_registry);
 $cmtx_registry->set('home', $cmtx_home);
+
+$cmtx_task = new \Commentics\Task($cmtx_registry);
+$cmtx_registry->set('task', $cmtx_task);
 
 /* Time zone */
 if ($cmtx_setting->has('time_zone')) {

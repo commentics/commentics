@@ -145,6 +145,43 @@ class Notify {
 		}
 	}
 
+	/* Notify the admin that there is a newer version available */
+	public function adminNotifyNewVersion($installed, $newest) {
+		/* Get super admins */
+		$query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "admins` WHERE `is_super` = '1' AND `is_enabled` = '1'");
+
+		$admins = $this->db->rows($query);
+
+		if ($admins) {
+			$email = $this->email->get('new_version', $this->setting->get('language_backend'));
+
+			foreach ($admins as $admin) {
+				if ($admin['format'] == 'text') {
+					$body = $email['text'];
+				} else {
+					$body = $email['html'];
+				}
+
+				$subject = $this->security->decode($email['subject']);
+
+				$body = str_ireplace('[username]', $admin['username'], $body);
+				$body = str_ireplace('[installed version]', 'v' . $installed, $body);
+				$body = str_ireplace('[newest version]', 'v' . $newest, $body);
+				$body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
+
+				if ($admin['format'] == 'text') {
+					$body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
+				} else {
+					$body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+				}
+
+				$body = $this->security->decode($body);
+
+				$this->email->send($admin['email'], null, $subject, $body, $admin['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
+			}
+		}
+	}
+
 	/* Notify the user that their comment is approved */
 	public function approvalNotification($id) {
 		$comment = $this->comment->getComment($id); // get the details of the comment

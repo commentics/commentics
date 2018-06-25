@@ -4,35 +4,54 @@ namespace Commentics;
 class Task {
 	private $db;
 	private $comment;
+	private $home;
+	private $notify;
 	private $setting;
+	private $validation;
 
 	public function __construct($registry) {
 		$this->db = $registry->get('db');
 		$this->comment = $registry->get('comment');
+		$this->home = $registry->get('home');
+		$this->notify = $registry->get('notify');
 		$this->setting = $registry->get('setting');
+		$this->validation = $registry->get('validation');
 
 		if (!$this->db->isConnected() || !$this->db->isInstalled()) {
 			return;
 		}
 
-		if ($this->setting->get('task_enabled_delete_bans')) {
-			$this->deleteBans();
-		}
+		$last_task = $this->setting->get('last_task');
 
-		if ($this->setting->get('task_enabled_delete_comments')) {
-			$this->deleteComments();
-		}
+		$date = date('Y-m-d');
 
-		if ($this->setting->get('task_enabled_delete_reporters')) {
-			$this->deleteReporters();
-		}
+		/* Only run the tasks once a day */
+		if ($last_task != $date) {
+			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($date) . "' WHERE `title` = 'last_task'");
 
-		if ($this->setting->get('task_enabled_delete_subscriptions')) {
-			$this->deleteSubscriptions();
-		}
+			if ($this->setting->get('task_enabled_delete_bans')) {
+				$this->deleteBans();
+			}
 
-		if ($this->setting->get('task_enabled_delete_voters')) {
-			$this->deleteVoters();
+			if ($this->setting->get('task_enabled_delete_comments')) {
+				$this->deleteComments();
+			}
+
+			if ($this->setting->get('task_enabled_delete_reporters')) {
+				$this->deleteReporters();
+			}
+
+			if ($this->setting->get('task_enabled_delete_subscriptions')) {
+				$this->deleteSubscriptions();
+			}
+
+			if ($this->setting->get('task_enabled_delete_voters')) {
+				$this->deleteVoters();
+			}
+
+			if (!$this->setting->get('new_version_notified')) {
+				$this->checkVersion();
+			}
 		}
 	}
 
@@ -58,6 +77,20 @@ class Task {
 
 	private function deleteVoters() {
 		$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "voters` WHERE `date_added` < DATE_SUB(NOW(), INTERVAL " . (int)$this->setting->get('days_to_delete_voters') . " DAY)");
+	}
+
+	private function checkVersion() {
+		if (extension_loaded('curl') || (bool)ini_get('allow_url_fopen')) {
+			$latest_version = $this->home->getLatestVersion();
+
+			if ($this->validation->isFloat($latest_version)) {
+				if (version_compare(CMTX_VERSION, $latest_version, '<')) {
+					$this->notify->adminNotifyNewVersion(CMTX_VERSION, $latest_version);
+
+					$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '1' WHERE `title` = 'new_version_notified'");
+				}
+			}
+		}
 	}
 }
 ?>

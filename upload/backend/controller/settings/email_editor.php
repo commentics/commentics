@@ -41,6 +41,12 @@ class SettingsEmailEditorController extends Controller {
 					$this->data['languages']		= $backend_languages;
 					$this->data['keywords']			= '<span>username</span> <span>page reference</span> <span>page url</span> <span>comment url</span> <span>poster</span> <span>comment</span> <span>admin link</span> <span>signature</span>';
 					break;
+				case 'new_version':
+					$this->data['lang_heading']		= $this->data['lang_heading_new_version'];
+					$this->data['lang_description']	= $this->data['lang_description_new_version'];
+					$this->data['languages']		= $backend_languages;
+					$this->data['keywords']			= '<span>username</span> <span>installed version</span> <span>newest version</span> <span>admin link</span> <span>signature</span>';
+					break;
 				case 'password_reset':
 					$this->data['lang_heading']		= $this->data['lang_heading_password_reset'];
 					$this->data['lang_description']	= $this->data['lang_description_password_reset'];
@@ -104,6 +110,7 @@ class SettingsEmailEditorController extends Controller {
 			$this->data['lang_select_comment_approve']					=> 'comment_approve',
 			$this->data['lang_select_comment_success']					=> 'comment_success',
 			$this->data['lang_select_flag']								=> 'flag',
+			$this->data['lang_select_new_version']						=> 'new_version',
 			$this->data['lang_select_password_reset']					=> 'password_reset',
 			$this->data['lang_select_setup_test']						=> 'setup_test',
 			$this->data['lang_select_subscriber']						=> 'subscriber',

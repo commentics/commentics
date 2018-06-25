@@ -258,6 +258,8 @@ class ToolUpgradeModel extends Model {
 
 	public function setVersion($version) {
 		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "version` SET `version` = '" . $this->db->escape($version) . "', `type` = 'Upgrade', `date_added` = NOW()");
+
+		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'new_version_notified'");
 	}
 }
 ?>
