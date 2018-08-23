@@ -39,7 +39,6 @@
 			<label><?php echo $lang_entry_country; ?></label>
 			<select name="country_code">
 				<option value=""><?php echo $lang_select_select; ?></option>
-				<option value="">---</option>
 				<?php foreach ($countries as $country) { ?>
 					<option value="<?php echo $country['code']; ?>" <?php if ($country_code && $country['code'] == $country_code) { echo 'selected'; } ?>><?php echo $country['name']; ?></option>
 				<?php } ?>

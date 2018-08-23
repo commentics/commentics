@@ -27,13 +27,16 @@
 	<div class="description"><?php echo $lang_description; ?></div>
 
 	<form action="index.php?route=edit/country&amp;id=<?php echo $id; ?>" class="controls" method="post">
-		<div class="fieldset">
-			<label><?php echo $lang_entry_name; ?></label>
-			<input type="text" required name="name" class="large" value="<?php echo $name; ?>" maxlength="250">
-			<?php if ($error_name) { ?>
-				<span class="error"><?php echo $error_name; ?></span>
-			<?php } ?>
-		</div>
+		<?php foreach ($languages as $key => $value) { ?>
+			<div class="fieldset">
+				<label><?php echo $lang_entry_name; ?></label>
+				<input type="text" required name="name[<?php echo $value; ?>]" class="large" value="<?php echo isset($name[$value]) ? $name[$value] : ''; ?>" maxlength="250">
+				<span class="note">(<?php echo $key; ?>)</span>
+				<?php if (isset($error_name[$value])) { ?>
+					<span class="error"><?php echo $error_name[$value]; ?></span>
+				<?php } ?>
+			</div>
+		<?php } ?>
 
 		<div class="fieldset">
 			<label><?php echo $lang_entry_code; ?></label>

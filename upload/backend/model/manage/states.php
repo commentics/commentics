@@ -5,7 +5,12 @@ class ManageStatesModel extends Model {
 	public function getStates($data, $count = false) {
 		$sql = "SELECT `s`.*,";
 
-		$sql .= " (SELECT `c`.`name` FROM `" . CMTX_DB_PREFIX . "countries` `c` WHERE `s`.`country_code` = `c`.`code`) AS `country_name`";
+		$sql .= " ( SELECT `g`.`name`
+					FROM `" . CMTX_DB_PREFIX . "countries` `c`
+					LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
+					WHERE `s`.`country_code` = `c`.`code`
+					AND `g`.`language` = '" . $this->db->escape($this->setting->get('language_backend')) . "'
+				  ) AS `country_name`";
 
 		$sql .= " FROM `" . CMTX_DB_PREFIX . "states` `s`";
 

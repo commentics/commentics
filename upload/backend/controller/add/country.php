@@ -7,6 +7,8 @@ class AddCountryController extends Controller {
 
 		$this->loadModel('add/country');
 
+		$this->loadModel('common/language');
+
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 			if ($this->validate()) {
 				$this->model_add_country->add($this->request->post);
@@ -20,7 +22,7 @@ class AddCountryController extends Controller {
 		if (isset($this->request->post['name'])) {
 			$this->data['name'] = $this->request->post['name'];
 		} else {
-			$this->data['name'] = '';
+			$this->data['name'] = array();
 		}
 
 		if (isset($this->request->post['code'])) {
@@ -65,6 +67,8 @@ class AddCountryController extends Controller {
 			$this->data['error_enabled'] = '';
 		}
 
+		$this->data['languages'] = $this->model_common_language->getFrontendLanguages();
+
 		$this->data['link_back'] = $this->url->link('manage/countries');
 
 		$this->components = array('common/header', 'common/footer');
@@ -83,8 +87,10 @@ class AddCountryController extends Controller {
 			return false;
 		}
 
-		if (!isset($this->request->post['name']) || $this->validation->length($this->request->post['name']) < 1 || $this->validation->length($this->request->post['name']) > 250) {
-			$this->error['name'] = sprintf($this->data['lang_error_length'], 1, 250);
+		foreach ($this->request->post['name'] as $key => $value) {
+			if ($this->validation->length($value) < 1 || $this->validation->length($value) > 250) {
+				$this->error['name'][$key] = sprintf($this->data['lang_error_length'], 1, 250);
+			}
 		}
 
 		if (!isset($this->request->post['code']) || $this->validation->length($this->request->post['code']) != 3 || !$this->validation->isUpper($this->request->post['code'])) {

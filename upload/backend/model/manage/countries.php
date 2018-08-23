@@ -3,16 +3,20 @@ namespace Commentics;
 
 class ManageCountriesModel extends Model {
 	public function getCountries($data, $count = false) {
-		$sql = "SELECT * FROM `" . CMTX_DB_PREFIX . "countries` `c`";
+		$sql = "SELECT `c`.*, `g`.`name` FROM `" . CMTX_DB_PREFIX . "countries` `c`";
+
+		$sql .= " LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`";
 
 		$sql .= " WHERE 1 = 1";
+
+		$sql .= " AND `g`.`language` = '" . $this->db->escape($this->setting->get('language_backend')) . "'";
 
 		if ($data['filter_id']) {
 			$sql .= " AND `c`.`id` = '" . (int)$data['filter_id'] . "'";
 		}
 
 		if ($data['filter_name']) {
-			$sql .= " AND `c`.`name` LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+			$sql .= " AND `g`.`name` LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
 		if ($data['filter_code']) {
@@ -159,7 +163,7 @@ class ManageCountriesModel extends Model {
 
 			$content = explode('|', $content);
 
-			if (isset($content[0]) && in_array($content[0], array('c.name', 'c.code', 'c.top', 'c.enabled', 'c.date_added'))) {
+			if (isset($content[0]) && in_array($content[0], array('g.name', 'c.code', 'c.top', 'c.enabled', 'c.date_added'))) {
 				$sort = $content[0];
 			}
 

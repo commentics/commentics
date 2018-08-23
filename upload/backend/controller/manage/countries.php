@@ -90,7 +90,7 @@ class ManageCountriesController extends Controller {
 		} else if ($page_cookie['sort']) {
 			$sort = $page_cookie['sort'];
 		} else {
-			$sort = 'c.name';
+			$sort = 'g.name';
 		}
 
 		if (isset($this->request->get['order'])) {
@@ -140,7 +140,7 @@ class ManageCountriesController extends Controller {
 
 		$sort_url = $this->model_manage_countries->sortUrl();
 
-		$this->data['sort_name'] = $this->url->link('manage/countries', '&sort=c.name' . $sort_url);
+		$this->data['sort_name'] = $this->url->link('manage/countries', '&sort=g.name' . $sort_url);
 
 		$this->data['sort_code'] = $this->url->link('manage/countries', '&sort=c.code' . $sort_url);
 
@@ -204,7 +204,7 @@ class ManageCountriesController extends Controller {
 			return false;
 		}
 
-		if (isset($this->request->get['sort']) && !in_array($this->request->get['sort'], array('c.name', 'c.code', 'c.top', 'c.enabled', 'c.date_added'))) {
+		if (isset($this->request->get['sort']) && !in_array($this->request->get['sort'], array('g.name', 'c.code', 'c.top', 'c.enabled', 'c.date_added'))) {
 			return false;
 		}
 
@@ -227,9 +227,9 @@ class ManageCountriesController extends Controller {
 				if (isset($this->request->get['filter_name'])) {
 					$filter_name = $this->request->get['filter_name'];
 
-					$group_by = 'c.name';
+					$group_by = 'g.name';
 
-					$sort = 'c.name';
+					$sort = 'g.name';
 				} else {
 					$filter_name = '';
 				}

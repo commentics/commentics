@@ -67,7 +67,7 @@
 				<thead>
 					<tr>
 						<th><input type="checkbox"></th>
-						<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'c.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
+						<th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'g.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
 						<th><a href="<?php echo $sort_code; ?>" <?php if ($sort == 'c.code') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_code; ?></a></th>
 						<th><a href="<?php echo $sort_top; ?>" <?php if ($sort == 'c.top') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_top; ?></a></th>
 						<th><a href="<?php echo $sort_enabled; ?>" <?php if ($sort == 'c.enabled') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_enabled; ?></a></th>

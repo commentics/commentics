@@ -3,9 +3,11 @@ namespace Commentics;
 
 class Geo {
 	private $db;
+	private $setting;
 
 	public function __construct($registry) {
 		$this->db = $registry->get('db');
+		$this->setting = $registry->get('setting');
 	}
 
 	public function countryExists($id) {
@@ -33,7 +35,18 @@ class Geo {
 	}
 
 	public function getCountry($id) {
-		$query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "countries` WHERE `id` = '" . (int)$id . "'");
+		if (defined('CMTX_FRONTEND')) {
+			$language = $this->setting->get('language_frontend');
+		} else {
+			$language = $this->setting->get('language_backend');
+		}
+
+		$query = $this->db->query(" SELECT `c`.*, `g`.`name`
+									FROM `" . CMTX_DB_PREFIX . "countries` `c`
+									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
+									WHERE `c`.`id` = '" . (int)$id . "'
+									AND `g`.`language` = '" . $this->db->escape($language) . "'
+									");
 
 		$result = $this->db->row($query);
 
@@ -41,9 +54,21 @@ class Geo {
 	}
 
 	public function getCountries() {
+		if (defined('CMTX_FRONTEND')) {
+			$language = $this->setting->get('language_frontend');
+		} else {
+			$language = $this->setting->get('language_backend');
+		}
+
 		$countries = array();
 
-		$query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "countries` WHERE `top` = '1' AND `enabled` = '1' ORDER BY `name` ASC");
+		$query = $this->db->query(" SELECT `c`.*, `g`.`name`
+									FROM `" . CMTX_DB_PREFIX . "countries` `c`
+									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
+									WHERE `c`.`top` = '1'
+									AND `c`.`enabled` = '1'
+									AND `g`.`language` = '" . $this->db->escape($language) . "'
+									ORDER BY `g`.`name` ASC");
 
 		if ($this->db->numRows($query)) {
 			$results = $this->db->rows($query);
@@ -69,7 +94,13 @@ class Geo {
 			);
 		}
 
-		$query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "countries` WHERE `top` = '0' AND `enabled` = '1' ORDER BY `name` ASC");
+		$query = $this->db->query(" SELECT `c`.*, `g`.`name`
+									FROM `" . CMTX_DB_PREFIX . "countries` `c`
+									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
+									WHERE `c`.`top` = '0'
+									AND `c`.`enabled` = '1'
+									AND `g`.`language` = '" . $this->db->escape($language) . "'
+									ORDER BY `g`.`name` ASC");
 
 		$results = $this->db->rows($query);
 
@@ -90,6 +121,8 @@ class Geo {
 		$result = $this->db->row($query);
 
 		$code = $result['code'];
+
+		$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "geo` WHERE `country_code` = '" . $this->db->escape($code) . "'");
 
 		$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "states` WHERE `country_code` = '" . $this->db->escape($code) . "'");
 

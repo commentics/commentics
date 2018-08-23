@@ -7,6 +7,8 @@ class EditCountryController extends Controller {
 
 		$this->loadModel('edit/country');
 
+		$this->loadModel('common/language');
+
 		if (!isset($this->request->get['id']) || !$this->geo->countryExists($this->request->get['id'])) {
 			$this->response->redirect('main/dashboard');
 		}
@@ -26,7 +28,7 @@ class EditCountryController extends Controller {
 		if (isset($this->request->post['name'])) {
 			$this->data['name'] = $this->request->post['name'];
 		} else {
-			$this->data['name'] = $country['name'];
+			$this->data['name'] = $this->model_edit_country->getName($country['code']);
 		}
 
 		if (isset($this->request->post['code'])) {
@@ -81,6 +83,8 @@ class EditCountryController extends Controller {
 
 		$this->data['id'] = $this->request->get['id'];
 
+		$this->data['languages'] = $this->model_common_language->getFrontendLanguages();
+
 		$this->data['link_back'] = $this->url->link('manage/countries');
 
 		$this->components = array('common/header', 'common/footer');
@@ -99,8 +103,10 @@ class EditCountryController extends Controller {
 			return false;
 		}
 
-		if (!isset($this->request->post['name']) || $this->validation->length($this->request->post['name']) < 1 || $this->validation->length($this->request->post['name']) > 250) {
-			$this->error['name'] = sprintf($this->data['lang_error_length'], 1, 250);
+		foreach ($this->request->post['name'] as $key => $value) {
+			if ($this->validation->length($value) < 1 || $this->validation->length($value) > 250) {
+				$this->error['name'][$key] = sprintf($this->data['lang_error_length'], 1, 250);
+			}
 		}
 
 		if (!isset($this->request->post['code']) || $this->validation->length($this->request->post['code']) != 3 || !$this->validation->isUpper($this->request->post['code'])) {

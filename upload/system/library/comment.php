@@ -3,10 +3,12 @@ namespace Commentics;
 
 class Comment {
 	private $db;
+	private $setting;
 	private $replies = array();
 
 	public function __construct($registry) {
 		$this->db = $registry->get('db');
+		$this->setting = $registry->get('setting');
 	}
 
 	public function createComment($user_id, $page_id, $website, $town, $state_id, $country_id, $rating, $reply_to, $comment, $ip_address, $approve, $notes, $is_admin, $uploads) {
@@ -30,13 +32,22 @@ class Comment {
 	}
 
 	public function getComment($id) {
-		$query = $this->db->query(" SELECT `p`.*, `u`.*, `u`.`date_added` AS `date_added_user`, `c`.*, `states`.`name` AS `state_name`, `countries`.`name` AS `country_name`
+		if (defined('CMTX_FRONTEND')) {
+			$language = $this->setting->get('language_frontend');
+		} else {
+			$language = $this->setting->get('language_backend');
+		}
+
+		$query = $this->db->query(" SELECT `p`.*, `u`.*, `u`.`date_added` AS `date_added_user`, `c`.*, `states`.`name` AS `state_name`, `g`.`name` AS `country_name`
 									FROM `" . CMTX_DB_PREFIX . "comments` `c`
 									RIGHT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `c`.`page_id` = `p`.`id`
 									RIGHT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `c`.`user_id` = `u`.`id`
 									LEFT JOIN `" . CMTX_DB_PREFIX . "states` `states` ON `c`.`state_id` = `states`.`id`
 									LEFT JOIN `" . CMTX_DB_PREFIX . "countries` `countries` ON `c`.`country_id` = `countries`.`id`
-									WHERE `c`.`id` = '" . (int)$id . "'");
+									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `countries`.`code`
+									WHERE `c`.`id` = '" . (int)$id . "'
+									AND `g`.`language` = '" . $this->db->escape($language) . "'
+									");
 
 		if ($this->db->numRows($query)) {
 			$comment = $this->db->row($query);
