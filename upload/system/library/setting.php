@@ -2,14 +2,13 @@
 namespace Commentics;
 
 class Setting {
-	private $settings = array();
 	private $db = '';
+	private $settings = array();
 
 	public function __construct($registry) {
 		$this->db = $registry->get('db');
 
 		if ($this->db->isConnected() && $this->db->isInstalled()) {
-
 			$settings = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "settings`");
 
 			while ($setting = $this->db->row($settings)) {

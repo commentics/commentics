@@ -2,22 +2,22 @@
 namespace Commentics;
 
 class Notify {
-	private $db;
 	private $comment;
+	private $db;
 	private $email;
-	private $setting;
 	private $security;
+	private $setting;
 	private $variable;
 	private $users = array();
 	private $parents = array();
 	private $sent_to = 0;
 
 	public function __construct($registry) {
-		$this->db = $registry->get('db');
 		$this->comment = $registry->get('comment');
+		$this->db = $registry->get('db');
 		$this->email = $registry->get('email');
-		$this->setting = $registry->get('setting');
 		$this->security = $registry->get('security');
+		$this->setting = $registry->get('setting');
 		$this->variable = $registry->get('variable');
 	}
 

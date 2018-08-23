@@ -2,22 +2,22 @@
 namespace Commentics;
 
 class User {
-	private $is_admin = false;
-	public $login = array();
 	private $comment;
-	private $db;
 	private $cookie;
+	private $db;
 	private $email;
 	private $request;
 	private $security;
 	private $setting;
 	private $validation;
 	private $variable;
+	private $is_admin = false;
+	public $login = array();
 
 	public function __construct($registry) {
 		$this->comment = $registry->get('comment');
-		$this->db = $registry->get('db');
 		$this->cookie = $registry->get('cookie');
+		$this->db = $registry->get('db');
 		$this->email = $registry->get('email');
 		$this->request = $registry->get('request');
 		$this->security = $registry->get('security');

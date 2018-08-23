@@ -2,12 +2,12 @@
 namespace Commentics;
 
 class Email {
-	private $setting;
 	private $db;
+	private $setting;
 
 	public function __construct($registry) {
-		$this->setting = $registry->get('setting');
 		$this->db = $registry->get('db');
+		$this->setting = $registry->get('setting');
 	}
 
 	public function get($type, $language = '') {

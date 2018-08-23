@@ -2,16 +2,16 @@
 namespace Commentics;
 
 class Task {
-	private $db;
 	private $comment;
+	private $db;
 	private $home;
 	private $notify;
 	private $setting;
 	private $validation;
 
 	public function __construct($registry) {
-		$this->db = $registry->get('db');
 		$this->comment = $registry->get('comment');
+		$this->db = $registry->get('db');
 		$this->home = $registry->get('home');
 		$this->notify = $registry->get('notify');
 		$this->setting = $registry->get('setting');

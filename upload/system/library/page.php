@@ -2,15 +2,15 @@
 namespace Commentics;
 
 class Page {
+	private $db;
+	private $request;
+	private $security;
+	private $url;
 	private $id = 0;
 	private $identifier = '';
 	private $reference = '';
 	private $page_url = '';
 	private $form_enabled = true;
-	private $db;
-	private $request;
-	private $security;
-	private $url;
 
 	public function __construct($registry) {
 		$this->db = $registry->get('db');
