@@ -1,9 +1,9 @@
 /* Initialise the FlexNav menu */
 $(document).ready(function() {
-	$(".flexnav").flexNav({
-		"animationSpeed": 300,
-		"transitionOpacity": false,
-		"calcItemWidths": true
+	$('.flexnav').flexNav({
+		'animationSpeed': 300,
+		'transitionOpacity': false,
+		'calcItemWidths': true
 	});
 });
 
