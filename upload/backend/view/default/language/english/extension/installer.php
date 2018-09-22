@@ -6,7 +6,7 @@ $_['lang_message_success']	  		= 'Extension installed';
 $_['lang_heading']					= 'Installer';
 
 // Description
-$_['lang_description']				= '<p>Install official extensions here.</p>';
+$_['lang_description']				= '<p>Install official extensions such as languages, modules and themes.</p>';
 
 // Entry
 $_['lang_entry_upload']				= 'Upload:';

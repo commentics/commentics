@@ -29,7 +29,7 @@
 	<form action="index.php?route=extension/installer" class="controls" method="post" enctype="multipart/form-data">
 		<div class="fieldset">
 			<label><?php echo $lang_entry_upload; ?></label>
-			<input type="file" name="file">
+			<input type="file" name="file" accept=".zip">
 		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
