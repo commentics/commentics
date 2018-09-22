@@ -26,6 +26,31 @@ class ToolUpgradeModel extends Model {
 		}
 	}
 
+	public function getChangelog($version) {
+		$version = str_replace('.', '-', $version);
+
+		$url = 'https://www.commentics.org/changelogs/commentics-' . $version . '.txt';
+
+		ini_set('user_agent', 'Commentics');
+
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HEADER, false);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Commentics');
+		curl_setopt($ch, CURLOPT_URL, $url);
+
+		$changelog = curl_exec($ch);
+
+		curl_close($ch);
+
+		return $changelog;
+	}
+
 	public function download($version, $temp_folder) {
 		$lang = $this->loadWord('tool/upgrade');
 

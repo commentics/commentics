@@ -33,6 +33,8 @@ class ToolUpgradeController extends Controller {
 				'next_version'    => $next_version
 			);
 
+			$this->data['changelog'] = $this->model_tool_upgrade->getChangelog($next_version);
+
 			$this->data['lang_text_version'] = sprintf($this->data['lang_text_version'], $next_version);
 		} else {
 			$upgrade_info = array();

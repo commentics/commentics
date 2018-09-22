@@ -30,11 +30,11 @@
 		<script>$(document).ready(function() { cmtx_start_upgrade('<?php echo $csrf_key; ?>'); });</script>
 	<?php } else { ?>
 		<?php if ($next_version) { ?>
-			<p><?php echo $lang_text_newer; ?></p>
-
-			<p><?php echo $lang_text_version; ?></p>
+			<p><?php echo $lang_text_newer; ?> <?php echo $lang_text_version; ?></p>
 
 			<form action="index.php?route=tool/upgrade" class="controls" method="post">
+				<textarea readonly><?php echo $changelog; ?></textarea>
+
 				<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
 				<p><input type="submit" class="button" value="<?php echo $lang_button_upgrade; ?>" title="<?php echo $lang_button_upgrade; ?>"></p>

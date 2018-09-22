@@ -872,6 +872,11 @@ img.loading {
   margin-top: 15px;
 }
 
+.upgrade_page textarea {
+  width: 100%;
+  height: 300px;
+}
+
 /******************* Media Queries *******************/
 @media all and (max-width: 1250px) {
   .edit_comment_page .left {
