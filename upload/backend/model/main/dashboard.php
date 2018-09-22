@@ -18,6 +18,20 @@ class MainDashboardModel extends Model {
 		return $result['date_modified'];
 	}
 
+	public function getDaysInstalled() {
+		$query = $this->db->query("SELECT `date_added` FROM `" . CMTX_DB_PREFIX . "version` WHERE `type` = 'Installation' LIMIT 1");
+
+		$result = $this->db->row($query);
+
+		$date = strtotime($result['date_added']);
+
+		$difference = time() - $date;
+
+		$days = floor($difference / (60 * 60 * 24));
+
+		return $days;
+	}
+
 	public function getNumCommentsApprove() {
 		return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '0'"));
 	}

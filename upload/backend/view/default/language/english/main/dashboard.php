@@ -7,6 +7,9 @@ $_['lang_message_errors']				= 'There are errors that <a href="%s">need attentio
 // Heading
 $_['lang_heading']						= 'Dashboard';
 
+// Notice
+$_['lang_notice']						= 'Purchase a <a href="%s" target="_blank">licence</a> to remove the \'Powered By\', access support and keep the project going. <a>x</a>';
+
 // Title
 $_['lang_title_version_check']			= 'Version Check';
 $_['lang_title_last_login']				= 'Last Login';

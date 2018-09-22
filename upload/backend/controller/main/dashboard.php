@@ -101,6 +101,10 @@ class MainDashboardController extends Controller {
 			}
 		} else {
 			$this->data['licence_result'] = 'none';
+
+			if ($this->model_main_dashboard->getDaysInstalled() >= 10) {
+				$this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/pricing');
+			}
 		}
 
 		if (!$this->data['is_licence_valid']) {
