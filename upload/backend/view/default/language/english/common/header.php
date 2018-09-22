@@ -20,6 +20,7 @@ $_['lang_menu_manage_users'] 					= 'Users';
 /* Extension */
 $_['lang_menu_extensions'] 						= 'Extensions';
 $_['lang_menu_extension_installer'] 			= 'Installer';
+$_['lang_menu_extension_languages'] 			= 'Languages';
 $_['lang_menu_extension_modules'] 				= 'Modules';
 $_['lang_menu_extension_themes'] 				= 'Themes';
 
@@ -33,7 +34,6 @@ $_['lang_menu_settings_email_editor'] 			= 'Editor';
 $_['lang_menu_settings_email_setup'] 			= 'Setup';
 $_['lang_menu_settings_error_reporting'] 		= 'Error Reporting';
 $_['lang_menu_settings_flooding'] 				= 'Flooding';
-$_['lang_menu_settings_language'] 				= 'Language';
 $_['lang_menu_settings_layout'] 				= 'Layout';
 $_['lang_menu_settings_layout_comments']		= 'Comments';
 $_['lang_menu_settings_layout_form']			= 'Form';

@@ -80,6 +80,7 @@
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('extension/installer', $viewable_pages))) { ?> <li><a href="index.php?route=extension/installer"><?php echo $lang_menu_extension_installer; ?></a></li> <?php } ?>
+								<?php if (!$has_restriction || ($has_restriction && in_array('extension/languages', $viewable_pages))) { ?> <li><a href="index.php?route=extension/languages"><?php echo $lang_menu_extension_languages; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('extension/modules', $viewable_pages))) { ?> <li><a href="index.php?route=extension/modules"><?php echo $lang_menu_extension_modules; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('extension/themes', $viewable_pages))) { ?> <li><a href="index.php?route=extension/themes"><?php echo $lang_menu_extension_themes; ?></a></li> <?php } ?>
 							</ul>
@@ -104,7 +105,6 @@
 								<?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('settings/error_reporting', $viewable_pages))) { ?> <li><a href="index.php?route=settings/error_reporting"><?php echo $lang_menu_settings_error_reporting; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('settings/flooding', $viewable_pages))) { ?> <li><a href="index.php?route=settings/flooding"><?php echo $lang_menu_settings_flooding; ?></a></li> <?php } ?>
-								<?php if (!$has_restriction || ($has_restriction && in_array('settings/language', $viewable_pages))) { ?> <li><a href="index.php?route=settings/language"><?php echo $lang_menu_settings_language; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('settings/layout', $viewable_pages))) { ?>
 									<li><a><?php echo $lang_menu_settings_layout; ?></a>
 

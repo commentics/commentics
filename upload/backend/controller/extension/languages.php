@@ -1,17 +1,17 @@
 <?php
 namespace Commentics;
 
-class SettingsLanguageController extends Controller {
+class ExtensionLanguagesController extends Controller {
 	public function index() {
-		$this->loadLanguage('settings/language');
+		$this->loadLanguage('extension/languages');
 
-		$this->loadModel('settings/language');
+		$this->loadModel('extension/languages');
 
 		$this->loadModel('common/language');
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 			if ($this->validate()) {
-				$this->model_settings_language->update($this->request->post);
+				$this->model_extension_languages->update($this->request->post);
 			}
 		}
 
@@ -47,7 +47,7 @@ class SettingsLanguageController extends Controller {
 
 		$this->components = array('common/header', 'common/footer');
 
-		$this->loadView('settings/language');
+		$this->loadView('extension/languages');
 	}
 
 	private function validate() {

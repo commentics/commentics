@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_language_page">
+<div class="extension_languages_page">
 
 	<div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -26,7 +26,7 @@
 
 	<div class="description"><?php echo $lang_description; ?></div>
 
-	<form action="index.php?route=settings/language" class="controls" method="post">
+	<form action="index.php?route=extension/languages" class="controls" method="post">
 		<div class="fieldset">
 			<label><?php echo $lang_entry_frontend; ?></label>
 			<select name="language_frontend" class="medium">
