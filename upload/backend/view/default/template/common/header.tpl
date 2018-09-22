@@ -155,6 +155,7 @@
 
 							<ul>
 								<?php if (!$has_restriction || ($has_restriction && in_array('tool/database_backup', $viewable_pages))) { ?> <li><a href="index.php?route=tool/database_backup"><?php echo $lang_menu_tool_database_backup; ?></a></li> <?php } ?>
+								<?php if (!$has_restriction || ($has_restriction && in_array('tool/export_import', $viewable_pages))) { ?> <li><a href="index.php?route=tool/export_import"><?php echo $lang_menu_tool_export_import; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('tool/optimize_tables', $viewable_pages))) { ?> <li><a href="index.php?route=tool/optimize_tables"><?php echo $lang_menu_tool_optimize_tables; ?></a></li> <?php } ?>
 								<?php if (!$has_restriction || ($has_restriction && in_array('tool/text_finder', $viewable_pages))) { ?> <li><a href="index.php?route=tool/text_finder"><?php echo $lang_menu_tool_text_finder; ?></a></li> <?php } ?>
 							</ul>

@@ -24,6 +24,22 @@ class Request {
 		}
 	}
 
+	public function getCsvData($file) {
+		$csv_data = array();
+
+		$file = fopen($file, 'r');
+
+		if ($file) {
+			while ($row = fgetcsv($file)) {
+				$csv_data[] = $row;
+			}
+
+			fclose($file);
+		}
+
+		return $csv_data;
+	}
+
 	private function clean($data) {
 		if (is_array($data)) {
 			foreach ($data as $key => $value) {

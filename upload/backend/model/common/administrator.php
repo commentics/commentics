@@ -115,6 +115,7 @@ class CommonAdministratorModel extends Model {
 
 		$restrictions[] = $this->getRestriction('Extensions', 'extensions', 0, true, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Installer', 'extension/installer', 20, false, $viewable_pages, $modifiable_pages);
+			$restrictions[] = $this->getRestriction('Languages', 'extension/languages', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Modules', 'extension/modules', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Edit', 'module/', 40, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Themes', 'extension/themes', 20, false, $viewable_pages, $modifiable_pages);
@@ -128,7 +129,6 @@ class CommonAdministratorModel extends Model {
 				$restrictions[] = $this->getRestriction('Setup', 'settings/email_setup', 40, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Error Reporting', 'settings/error_reporting', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Flooding', 'settings/flooding', 20, false, $viewable_pages, $modifiable_pages);
-			$restrictions[] = $this->getRestriction('Language', 'settings/language', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Layout', 'settings/layout', 20, false, $viewable_pages, $modifiable_pages);
 				$restrictions[] = $this->getRestriction('Comments', 'settings/layout_comments', 40, false, $viewable_pages, $modifiable_pages);
 					$restrictions[] = $this->getRestriction('Gravatar', 'layout_comments/gravatar', 60, false, $viewable_pages, $modifiable_pages);
@@ -198,6 +198,7 @@ class CommonAdministratorModel extends Model {
 
 		$restrictions[] = $this->getRestriction('Tools', 'tools', 0, true, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Database Backup', 'tool/database_backup', 20, false, $viewable_pages, $modifiable_pages);
+			$restrictions[] = $this->getRestriction('Export / Import', 'tool/export_import', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Optimize Tables', 'tool/optimize_tables', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Text Finder', 'tool/text_finder', 20, false, $viewable_pages, $modifiable_pages);
 			$restrictions[] = $this->getRestriction('Upgrade', 'tool/upgrade', 20, false, $viewable_pages, $modifiable_pages);

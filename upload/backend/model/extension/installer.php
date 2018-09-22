@@ -66,6 +66,33 @@ class ExtensionInstallerModel extends Model {
 			return $error['lang_error_no_upload_in_zip'];
 		}
 
+		// Import translated countries if they exist
+		if (file_exists($temp_folder . '/countries.csv')) {
+			$this->loadModel('tool/export_import');
+
+			$csv_data = $this->request->getCsvData($temp_folder . '/countries.csv');
+
+			$this->model_tool_export_import->importCountries($csv_data);
+		}
+
+		// Import translated emails if they exist
+		if (file_exists($temp_folder . '/emails.csv')) {
+			$this->loadModel('tool/export_import');
+
+			$csv_data = $this->request->getCsvData($temp_folder . '/emails.csv');
+
+			$this->model_tool_export_import->importEmails($csv_data);
+		}
+
+		// Import translated questions if they exist
+		if (file_exists($temp_folder . '/questions.csv')) {
+			$this->loadModel('tool/export_import');
+
+			$csv_data = $this->request->getCsvData($temp_folder . '/questions.csv');
+
+			$this->model_tool_export_import->importQuestions($csv_data);
+		}
+
 		// Variable to store the list of files to upload
 		$files = array();
 

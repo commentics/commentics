@@ -69,7 +69,7 @@ class EditStateController extends Controller {
 
 		$this->data['id'] = $this->request->get['id'];
 
-		$this->data['countries'] = $this->geo->getCountries();
+		$this->data['countries'] = $this->geo->getCountries(true);
 
 		$this->data['link_back'] = $this->url->link('manage/states');
 

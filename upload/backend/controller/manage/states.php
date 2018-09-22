@@ -182,7 +182,7 @@ class ManageStatesController extends Controller {
 
 		$this->data['lang_description'] = sprintf($this->data['lang_description'], $this->url->link('add/state'));
 
-		$this->data['countries'] = $this->geo->getCountries();
+		$this->data['countries'] = $this->geo->getCountries(true);
 
 		$this->components = array('common/header', 'common/footer');
 

@@ -53,11 +53,17 @@ class Geo {
 		return $result;
 	}
 
-	public function getCountries() {
+	public function getCountries($all = false) {
 		if (defined('CMTX_FRONTEND')) {
 			$language = $this->setting->get('language_frontend');
 		} else {
 			$language = $this->setting->get('language_backend');
+		}
+
+		if ($all) {
+			$status = '0,1';
+		} else {
+			$status = '1';
 		}
 
 		$countries = array();
@@ -66,7 +72,7 @@ class Geo {
 									FROM `" . CMTX_DB_PREFIX . "countries` `c`
 									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
 									WHERE `c`.`top` = '1'
-									AND `c`.`enabled` = '1'
+									AND `c`.`enabled` IN (" . $status . ")
 									AND `g`.`language` = '" . $this->db->escape($language) . "'
 									ORDER BY `g`.`name` ASC");
 
@@ -98,7 +104,7 @@ class Geo {
 									FROM `" . CMTX_DB_PREFIX . "countries` `c`
 									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
 									WHERE `c`.`top` = '0'
-									AND `c`.`enabled` = '1'
+									AND `c`.`enabled` IN (" . $status . ")
 									AND `g`.`language` = '" . $this->db->escape($language) . "'
 									ORDER BY `g`.`name` ASC");
 
