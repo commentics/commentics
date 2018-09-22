@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="optimize_tables_page">
+<div class="tool_optimize_tables_page">
 
 	<div class='page_help_block'><?php echo $page_help_link; ?></div>
 

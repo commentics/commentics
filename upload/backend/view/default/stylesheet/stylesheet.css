@@ -852,7 +852,7 @@ img.loading {
   text-align: right;
 }
 
-.optimize_tables_page .controls {
+.tool_optimize_tables_page .controls {
   margin-top: 0;
 }
 
@@ -868,11 +868,11 @@ img.loading {
   margin-bottom: 25px;
 }
 
-.upgrade_page .controls {
+.tool_upgrade_page .controls {
   margin-top: 15px;
 }
 
-.upgrade_page textarea {
+.tool_upgrade_page textarea {
   width: 100%;
   height: 300px;
 }
