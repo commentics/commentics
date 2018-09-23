@@ -402,6 +402,10 @@ img.loading {
 	margin-bottom: 8px;
 }
 
+.main_dashboard_page div.info a:last-child {
+	display: none;
+}
+
 .main_dashboard_page .left {
 	float: left;
 	width: 49.5%;
