@@ -111,8 +111,8 @@ span.totop a, span.totop a:visited {color: #6699cc;}
 
 <div id="body">
 <br />
-<div class="comment">htmLawed_README.txt, 11 February 2017<br />
-htmLawed 1.2, 11 February 2017<br />
+<div class="comment">htmLawed_README.txt, 12 September 2017<br />
+htmLawed 1.2.4.1, 12 September 2017<br />
 Copyright Santosh Patnaik<br />
 Dual licensed with LGPL 3 and GPL 2+<br />
 A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed</a>&#160;</div>
@@ -586,6 +586,8 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; <strong>Note</strong>: To deny an attribute for all elements for which it is legal, <span class="term">$config["deny_attribute"]</span>&#160;(see <a href="#s3.4">section 3.4</a>) can be used instead of <span class="term">$spec</span>. Also, attributes can be allowed element-specifically through <span class="term">$spec</span>&#160;while being denied globally through <span class="term">$config["deny_attribute"]</span>. The <span class="term">hook_tag</span>&#160;parameter (<a href="#s3.4.9">section 3.4.9</a>) can also be possibly used to implement a functionality like that achieved using <span class="term">$spec</span>&#160;functionality.<br />
 <br />
+&#160; <strong>Note</strong>: Attributes' specifications for an element may be set through multiple rules. In case of conflict, the attribute specification in the first rule will get precedence.<br />
+<br />
 &#160; <span class="term">$spec</span>&#160;can also be used to permit custom, non-standard attributes as well as custom rules for standard attributes. Thus, the following value of <span class="term">$spec</span>&#160;will permit the custom uses of the standard <span class="term">rel</span>&#160;attribute in <span class="term">input</span>&#160;(not permitted as per standards) and of a non-standard attribute, <span class="term">vFlag</span>, in <span class="term">img</span>.<br />
 <br />
 
@@ -749,7 +751,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; * &#160;Named character entities must be properly cased. Thus, <span class="term">&amp;Lt;</span>&#160;or <span class="term">&amp;TILDE;</span>&#160;will not be recognized as entities and will be <em>neutralized</em>.<br />
 <br />
-&#160; * &#160;HTML comments should not be inside element tags (they can be between tags), and should begin with <span class="term">&lt;!--</span>&#160;and end with <span class="term">--&gt;</span>. Characters like <span class="term">&lt;</span>, <span class="term">&gt;</span>, and <span class="term">&amp;</span>&#160;may be allowed inside depending on <span class="term">$config</span>, but any <span class="term">--&gt;</span>&#160;inside should be put in as <span class="term">--&amp;gt;</span>. Any <span class="term">--</span>&#160;inside will be automatically converted to <span class="term">-</span>, and a space will be added before the comment delimiter <span class="term">--&gt;</span>.<br />
+&#160; * &#160;HTML comments should not be inside element tags (they can be between tags), and should begin with <span class="term">&lt;!--</span>&#160;and end with <span class="term">--&gt;</span>. Characters like <span class="term">&lt;</span>, <span class="term">&gt;</span>, and <span class="term">&amp;</span>&#160;may be allowed inside depending on <span class="term">$config</span>, but any <span class="term">--&gt;</span>&#160;inside should be put in as <span class="term">--&amp;gt;</span>. Any <span class="term">--</span>&#160;inside will be automatically converted to <span class="term">-</span>, and a space will be added before the <span class="term">--&gt;</span>&#160;comment-closing marker &#160;unless <span class="term">$config["comments"]</span>&#160;is set to <span class="term">4</span>&#160;(<a href="#s3.3.1">section 3.3.1</a>).<br />
 <br />
 &#160; * &#160;<span class="term">CDATA</span>&#160;sections should not be inside element tags, and can be in element content only if plain text is allowed for that element. They should begin with <span class="term">&lt;[CDATA[</span>&#160;and end with <span class="term">]]&gt;</span>. Characters like <span class="term">&lt;</span>, <span class="term">&gt;</span>, and <span class="term">&amp;</span>&#160;may be allowed inside depending on <span class="term">$config</span>, but any <span class="term">]]&gt;</span>&#160;inside should be put in as <span class="term">]]&amp;gt;</span>.<br />
 <br />
@@ -1074,7 +1076,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; <span class="term">CDATA</span>&#160;sections have the format <span class="term">&lt;![CDATA[...anything but not "]]&gt;"...]]&gt;</span>, and HTML comments, <span class="term">&lt;!--...anything but not "--&gt;"... --&gt;</span>. Neither HTML comments nor <span class="term">CDATA</span>&#160;sections can reside inside tags. HTML comments can exist anywhere else, but <span class="term">CDATA</span>&#160;sections can exist only where plain text is allowed (e.g., immediately inside <span class="term">td</span>&#160;element content but not immediately inside <span class="term">tr</span>&#160;element content).<br />
 <br />
-&#160; htmLawed (function <span class="term">hl_cmtcd()</span>) handles HTML comments or <span class="term">CDATA</span>&#160;sections depending on the values of <span class="term">$config["comment"]</span>&#160;or <span class="term">$config["cdata"]</span>. If <span class="term">0</span>, such markup is not looked for and the text is processed like plain text. If <span class="term">1</span>, it is removed completely. If <span class="term">2</span>, it is preserved but any <span class="term">&lt;</span>, <span class="term">&gt;</span>&#160;and <span class="term">&amp;</span>&#160;inside are changed to entities. If <span class="term">3</span>, they are left as such.<br />
+&#160; htmLawed (function <span class="term">hl_cmtcd()</span>) handles HTML comments or <span class="term">CDATA</span>&#160;sections depending on the values of <span class="term">$config["comment"]</span>&#160;or <span class="term">$config["cdata"]</span>. If <span class="term">0</span>, such markup is not looked for and the text is processed like plain text. If <span class="term">1</span>, it is removed completely. If <span class="term">2</span>, it is preserved but any <span class="term">&lt;</span>, <span class="term">&gt;</span>&#160;and <span class="term">&amp;</span>&#160;inside are changed to entities. If <span class="term">3</span>&#160;for <span class="term">$config["cdata"]</span>, or <span class="term">3</span>&#160;or <span class="term">4</span>&#160;for <span class="term">$config["comment"]</span>, they are left as such. When <span class="term">$config["comment"]</span>&#160;is set to <span class="term">4</span>, htmLawed will not force a space character before the <span class="term">--&gt;</span>&#160;comment-closing marker. While such a space is required for standard-compliance, it can corrupt marker code put in HTML by some software (such as Microsoft Outlook).<br />
 <br />
 &#160; Note that for the last two cases, HTML comments and <span class="term">CDATA</span>&#160;sections will always be removed from tag content (function <span class="term">hl_tag()</span>).<br />
 <br />
@@ -1082,11 +1084,11 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; Input:<br />
 
-<code class="code">&#160; &#160; &lt;!-- home link --&gt;&lt;a href="home.htm"&gt;&lt;![CDATA[x=&amp;y]]&gt;Home&lt;/a&gt;</code>
+<code class="code">&#160; &#160; &lt;!-- home link--&gt;&lt;a href="home.htm"&gt;&lt;![CDATA[x=&amp;y]]&gt;Home&lt;/a&gt;</code>
 <br />
 &#160; Output (<span class="term">$config["comment"] = 0, $config["cdata"] = 2</span>):<br />
 
-<code class="code">&#160; &#160; &amp;lt;-- home link --&amp;gt;&lt;a href="home.htm"&gt;&lt;![CDATA[x=&amp;amp;y]]&gt;Home&lt;/a&gt;</code>
+<code class="code">&#160; &#160; &amp;lt;-- home link--&amp;gt;&lt;a href="home.htm"&gt;&lt;![CDATA[x=&amp;amp;y]]&gt;Home&lt;/a&gt;</code>
 <br />
 &#160; Output (<span class="term">$config["comment"] = 1, $config["cdata"] = 2</span>):<br />
 
@@ -1104,8 +1106,12 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 
 <code class="code">&#160; &#160; &lt;!-- home link --&gt;&lt;a href="home.htm"&gt;&lt;![CDATA[x=&amp;y]]&gt;Home&lt;/a&gt;</code>
 <br />
+&#160; Output (<span class="term">$config["comment"] = 4, $config["cdata"] = 3</span>):<br />
+
+<code class="code">&#160; &#160; &lt;!-- home link--&gt;&lt;a href="home.htm"&gt;&lt;![CDATA[x=&amp;y]]&gt;Home&lt;/a&gt;</code>
 <br />
-&#160; For standard-compliance, comments are given the form <span class="term">&lt;!--comment --&gt;</span>, and any <span class="term">--</span>&#160;in the content is made <span class="term">-</span>.<br />
+<br />
+&#160; For standard-compliance, comments are given the form <span class="term">&lt;!--comment --&gt;</span>, and any <span class="term">--</span>&#160;in the content is made <span class="term">-</span>. When <span class="term">$config["comment"]</span>&#160;is set to <span class="term">4</span>, htmLawed will not force a space character before the <span class="term">--&gt;</span>&#160;comment-closing marker.<br />
 <br />
 &#160; When <span class="term">$config["safe"] = 1</span>, CDATA sections and comments are considered plain text unless <span class="term">$config["comment"]</span>&#160;or <span class="term">$config["cdata"]</span>&#160;is explicitly specified; see <a href="#s3.6">section 3.6</a>.<br />
 
@@ -1381,13 +1387,13 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; These default sets are used when <span class="term">$config["schemes"]</span>&#160;is not set (see <a href="#s2.2">section 2.2</a>). To over-ride the defaults, <span class="term">$config["schemes"]</span>&#160;is defined as a string of semi-colon-separated sub-strings of type <span class="term">attribute&#58; comma-separated schemes</span>. E.g., <span class="term">href&#58; mailto, http, https; onclick&#58; javascript; src&#58; http, https</span>. For unspecified attributes, <span class="term">data</span>, <span class="term">file</span>, <span class="term">http</span>, <span class="term">https</span>&#160;and <span class="term">javascript</span>&#160;are permitted. This can be changed by passing schemes for <span class="term">&#42;</span>&#160;in <span class="term">$config["schemes"]</span>. E.g., <span class="term">href&#58; mailto, http, https; &#42;&#58; https, https</span>.<br />
 <br />
-&#160; <span class="term">&#42;</span>&#160;can be put in the list of schemes to permit all protocols. E.g., <span class="term">style&#58; &#42;; img&#58; http, https</span>&#160;results in protocols not being checked in <span class="term">style</span>&#160;attribute values. However, in such cases, any relative-to-absolute URL conversion, or vice versa, (<a href="#s3.4.4">section 3.4.4</a>) is not done.<br />
+&#160; <span class="term">&#42;</span>&#160;(asterisk) can be put in the list of schemes to permit all protocols. E.g., <span class="term">style&#58; &#42;; img&#58; http, https</span>&#160;results in protocols not being checked in <span class="term">style</span>&#160;attribute values. However, in such cases, any relative-to-absolute URL conversion, or vice versa, (<a href="#s3.4.4">section 3.4.4</a>) is not done. When an attribute is explicitly listed in <span class="term">$config["schemes"]</span>, then filtering is dictated by the setting for the attribute, with no effect of the setting for asterisk. That is, the set of attributes that asterisk refers to no longer includes the listed attribute.<br />
 <br />
 &#160; Thus, <em>to allow the xmpp scheme</em>, one can set <span class="term">$config["schemes"]</span>&#160;as <span class="term">href&#58; mailto, http, https; &#42;&#58; http, https, xmpp</span>, or <span class="term">href&#58; mailto, http, https, xmpp; &#42;&#58; http, https, xmpp</span>, or <span class="term">&#42;&#58; &#42;</span>, and so on. The consequence of each of these example values will be different (e.g., only the last two but not the first will allow <span class="term">xmpp</span>&#160;in <span class="term">href</span>)<br />
 <br />
 &#160; As a side-note, one may find <span class="term">style&#58; &#42;</span>&#160;useful as URLs in <span class="term">style</span>&#160;attributes can be specified in a variety of ways, and the patterns that htmLawed uses to identify URLs may mistakenly identify non-URL text.<br />
 <br />
-&#160; <span class="term">!</span>&#160;can be put in the list of schemes to disallow all protocols as well as <em>local</em>&#160;URLs. Thus, with <span class="term">href&#58; http, style&#58; !</span>, '&lt;a href="http://cnn.com" style="background-image: url('local.jpg');"&gt;CNN&lt;/a&gt;' will become '&lt;a href="http://cnn.com" style="background-image: url('denied:local.jpg');"&gt;CNN&lt;/a&gt;'.<br />
+&#160; <span class="term">!</span>&#160;can be put in the list of schemes to disallow all protocols as well as <em>local</em>&#160;URLs. Thus, with <span class="term">href&#58; http, style&#58; !</span>, <span class="term">&lt;a href="http&#58;//cnn.com" style="background-image&#58; url(local.jpg);"&gt;CNN&lt;/a&gt;</span>&#160;will become <span class="term">&lt;a href="http&#58;//cnn.com" style="background-image&#58; url(denied&#58;local.jpg);"&gt;CNN&lt;/a&gt;</span><br />
 <br />
 &#160; <strong>Note</strong>: If URL-accepting attributes other than those listed above are being allowed, then the scheme will not be checked unless the attribute name contains the string <span class="term">src</span>&#160;(e.g., <span class="term">dynsrc</span>) or starts with <span class="term">o</span>&#160;(e.g., <span class="term">onbeforecopy</span>).<br />
 <br />
@@ -1821,25 +1827,37 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; <em>Version number - Release date. Notes</em><br />
 <br />
+&#160; 1.2.4.1 - 12 September 2017. Corrects a function re-declaration bug introduced in version 1.2.4<br />
+<br />
+&#160; 1.2.4 - 31 August 2017. Removes use of PHP <span class="term">create_function</span>&#160;function and <span class="term">$php_errormsg</span>&#160;reserved variable (deprecated in PHP 7.2)<br />
+<br />
+&#160; 1.2.3 - 5 July 2017. New option value of <span class="term">4</span>&#160;for <span class="term">$config["comments"]</span>&#160;to stop enforcing a space character before the <span class="term">--&gt;</span>&#160;comment-closing marker<br />
+<br />
+&#160; 1.2.2 - 25 May 2017. Fix for a bug in parsing <span class="term">$spec</span>&#160;that got introduced in version 1.2; also, <span class="term">$spec</span>&#160;is now parsed to accommodate specifications for an HTML element when they are specified in multiple rules<br />
+<br />
+&#160; 1.2.1.1 - 17 May 2017. Fix for a potential security vulnerability in transformation of deprecated attributes<br />
+<br />
+&#160; 1.2.1 - 15 May 2017. Fix for a potential security vulnerability in transformation of deprecated attributes<br />
+<br />
 &#160; 1.2 - 11 February 2017. (First beta release on 26 May 2013). Added support for HTML version 5; ARIA, data-* and microdata attributes; <span class="term">app</span>, <span class="term">data</span>, <span class="term">javascript</span>&#160;and <span class="term">tel</span>&#160;URL schemes (thus, <span class="term">javascript&#58;</span>&#160;is not filtered in default mode). Removed support for code using Kses functions (see <a href="#s2.6">section 2.6</a>). Changes in revisions to the beta releases are not noted here.<br />
 <br />
-&#160; 1.1.22 - 5 March 2016. Improved testing of attribute value rules specified in <span class="term">$spec</span>.<br />
+&#160; 1.1.22 - 5 March 2016. Improved testing of attribute value rules specified in <span class="term">$spec</span><br />
 <br />
-&#160; 1.1.21 - 27 February 2016. Improvement and security fix in transforming <span class="term">font</span>&#160;element.<br />
+&#160; 1.1.21 - 27 February 2016. Improvement and security fix in transforming <span class="term">font</span>&#160;element<br />
 <br />
-&#160; 1.1.20 - 9 June 2015. Fix for a potential security vulnerability arising from unescaped double-quote character in single-quoted attribute value of some deprecated elements when tag transformation is enabled; recognition for non-(HTML 4) standard <span class="term">allowfullscreen</span>&#160;attribute of <span class="term">iframe.</span><br />
+&#160; 1.1.20 - 9 June 2015. Fix for a potential security vulnerability arising from unescaped double-quote character in single-quoted attribute value of some deprecated elements when tag transformation is enabled; recognition for non-(HTML 4) standard <span class="term">allowfullscreen</span>&#160;attribute of <span class="term">iframe</span><br />
 <br />
-&#160; 1.1.19 - 19 January 2015. Fix for a bug in cleaning of soft-hyphens in URL values, etc.<br />
+&#160; 1.1.19 - 19 January 2015. Fix for a bug in cleaning of soft-hyphens in URL values, etc<br />
 <br />
 &#160; 1.1.18 - 2 August 2014. Fix for a potential security vulnerability arising from specially encoded text with serial opening tags<br />
 <br />
-&#160; 1.1.17 - 11 March 2014. Removed use of PHP function preg_replace with <span class="term">e</span>&#160;modifier for compatibility with PHP 5.5<br />
+&#160; 1.1.17 - 11 March 2014. Removed use of PHP function preg_replace with <span class="term">e</span>&#160;modifier for compatibility with PHP 5.5.<br />
 <br />
 &#160; 1.1.16 - 29 August 2013. Fix for a potential security vulnerability arising from specialy encoded space characters in URL schemes/protocols<br />
 <br />
 &#160; 1.1.15 - 11 August 2013. Improved tidying/prettifying functionality<br />
 <br />
-&#160; 1.1.14 - 8 August 2012. Fix for possible segmental loss of incremental indentation during <span class="term">tidying</span>&#160;when <span class="term">balance</span>&#160;is disabled; fix for non-effectuation under some circumstances of a corrective behavior to preserve plain text within elements like <span class="term">blockquote</span>.<br />
+&#160; 1.1.14 - 8 August 2012. Fix for possible segmental loss of incremental indentation during <span class="term">tidying</span>&#160;when <span class="term">balance</span>&#160;is disabled; fix for non-effectuation under some circumstances of a corrective behavior to preserve plain text within elements like <span class="term">blockquote</span><br />
 <br />
 &#160; 1.1.13 - 22 July 2012. Added feature allowing use of custom, non-standard attributes or custom rules for standard attributes<br />
 <br />
@@ -1966,7 +1984,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s4.10" id="s4.10"></a><span class="item-no">4.10</span>&#160; Acknowledgements
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, Edward Yang, and many anonymous users.<br />
+&#160; Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Alexandre Chouinard, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, Edward Yang, and many anonymous users.<br />
 <br />
 &#160; Thank you!<br />
 
@@ -2260,7 +2278,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 </div>
 </div>
 <br />
-<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 12 Feb, 2017 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
+<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 12 Sep, 2017 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
 </div><!-- ended div body -->
 </div><!-- ended div top -->
 </body>

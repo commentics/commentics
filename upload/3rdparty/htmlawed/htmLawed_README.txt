@@ -1,6 +1,6 @@
 /*
-htmLawed_README.txt, 11 February 2017
-htmLawed 1.2, 11 February 2017
+htmLawed_README.txt, 12 September 2017
+htmLawed 1.2.4.1, 12 September 2017
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed
@@ -503,6 +503,8 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
    
   *Note*: To deny an attribute for all elements for which it is legal, '$config["deny_attribute"]' (see section:- #3.4) can be used instead of '$spec'. Also, attributes can be allowed element-specifically through '$spec' while being denied globally through '$config["deny_attribute"]'. The 'hook_tag' parameter (section:- #3.4.9) can also be possibly used to implement a functionality like that achieved using '$spec' functionality.
   
+  *Note*: Attributes' specifications for an element may be set through multiple rules. In case of conflict, the attribute specification in the first rule will get precedence.
+  
   '$spec' can also be used to permit custom, non-standard attributes as well as custom rules for standard attributes. Thus, the following value of '$spec' will permit the custom uses of the standard 'rel' attribute in 'input' (not permitted as per standards) and of a non-standard attribute, 'vFlag', in 'img'.
   
     $spec = 'img=vFlag; input=rel'
@@ -602,7 +604,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   *  Named character entities must be properly cased. Thus, '&Lt;' or '&TILDE;' will not be recognized as entities and will be `neutralized`.
 
-  *  HTML comments should not be inside element tags (they can be between tags), and should begin with '<!--' and end with '-->'. Characters like '<', '>', and '&' may be allowed inside depending on '$config', but any '-->' inside should be put in as '--&gt;'. Any '--' inside will be automatically converted to '-', and a space will be added before the comment delimiter '-->'.
+  *  HTML comments should not be inside element tags (they can be between tags), and should begin with '<!--' and end with '-->'. Characters like '<', '>', and '&' may be allowed inside depending on '$config', but any '-->' inside should be put in as '--&gt;'. Any '--' inside will be automatically converted to '-', and a space will be added before the '-->' comment-closing marker  unless '$config["comments"]' is set to '4' (section:- #3.3.1).
 
   *  'CDATA' sections should not be inside element tags, and can be in element content only if plain text is allowed for that element. They should begin with '<[CDATA[' and end with ']]>'. Characters like '<', '>', and '&' may be allowed inside depending on '$config', but any ']]>' inside should be put in as ']]&gt;'.
 
@@ -865,16 +867,16 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   'CDATA' sections have the format '<![CDATA[...anything but not "]]>"...]]>', and HTML comments, '<!--...anything but not "-->"... -->'. Neither HTML comments nor 'CDATA' sections can reside inside tags. HTML comments can exist anywhere else, but 'CDATA' sections can exist only where plain text is allowed (e.g., immediately inside 'td' element content but not immediately inside 'tr' element content).
 
-  htmLawed (function 'hl_cmtcd()') handles HTML comments or 'CDATA' sections depending on the values of '$config["comment"]' or '$config["cdata"]'. If '0', such markup is not looked for and the text is processed like plain text. If '1', it is removed completely. If '2', it is preserved but any '<', '>' and '&' inside are changed to entities. If '3', they are left as such.
+  htmLawed (function 'hl_cmtcd()') handles HTML comments or 'CDATA' sections depending on the values of '$config["comment"]' or '$config["cdata"]'. If '0', such markup is not looked for and the text is processed like plain text. If '1', it is removed completely. If '2', it is preserved but any '<', '>' and '&' inside are changed to entities. If '3' for '$config["cdata"]', or '3' or '4' for '$config["comment"]', they are left as such. When '$config["comment"]' is set to '4', htmLawed will not force a space character before the '-->' comment-closing marker. While such a space is required for standard-compliance, it can corrupt marker code put in HTML by some software (such as Microsoft Outlook).  
 
   Note that for the last two cases, HTML comments and 'CDATA' sections will always be removed from tag content (function 'hl_tag()').
 
   Examples:
 
   Input:
-    <!-- home link --><a href="home.htm"><![CDATA[x=&y]]>Home</a>
+    <!-- home link--><a href="home.htm"><![CDATA[x=&y]]>Home</a>
   Output ('$config["comment"] = 0, $config["cdata"] = 2'):
-    &lt;-- home link --&gt;<a href="home.htm"><![CDATA[x=&amp;y]]>Home</a>
+    &lt;-- home link--&gt;<a href="home.htm"><![CDATA[x=&amp;y]]>Home</a>
   Output ('$config["comment"] = 1, $config["cdata"] = 2'):
     <a href="home.htm"><![CDATA[x=&amp;y]]>Home</a>
   Output ('$config["comment"] = 2, $config["cdata"] = 2'):
@@ -883,8 +885,10 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
     <!-- home link --><a href="home.htm">Home</a>
   Output ('$config["comment"] = 3, $config["cdata"] = 3'):
     <!-- home link --><a href="home.htm"><![CDATA[x=&y]]>Home</a>
-
-  For standard-compliance, comments are given the form '<!--comment -->', and any '--' in the content is made '-'.
+  Output ('$config["comment"] = 4, $config["cdata"] = 3'):
+    <!-- home link--><a href="home.htm"><![CDATA[x=&y]]>Home</a>
+    
+  For standard-compliance, comments are given the form '<!--comment -->', and any '--' in the content is made '-'. When '$config["comment"]' is set to '4', htmLawed will not force a space character before the '-->' comment-closing marker.
 
   When '$config["safe"] = 1', CDATA sections and comments are considered plain text unless '$config["comment"]' or '$config["cdata"]' is explicitly specified; see section:- #3.6.
 
@@ -1087,13 +1091,13 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   
   These default sets are used when '$config["schemes"]' is not set (see section:- #2.2). To over-ride the defaults, '$config["schemes"]' is defined as a string of semi-colon-separated sub-strings of type 'attribute: comma-separated schemes'. E.g., 'href: mailto, http, https; onclick: javascript; src: http, https'. For unspecified attributes, 'data', 'file', 'http', 'https' and 'javascript' are permitted. This can be changed by passing schemes for '*' in '$config["schemes"]'. E.g., 'href: mailto, http, https; *: https, https'.
 
-  '*' can be put in the list of schemes to permit all protocols. E.g., 'style: *; img: http, https' results in protocols not being checked in 'style' attribute values. However, in such cases, any relative-to-absolute URL conversion, or vice versa, (section:- #3.4.4) is not done.
+  '*' (asterisk) can be put in the list of schemes to permit all protocols. E.g., 'style: *; img: http, https' results in protocols not being checked in 'style' attribute values. However, in such cases, any relative-to-absolute URL conversion, or vice versa, (section:- #3.4.4) is not done. When an attribute is explicitly listed in '$config["schemes"]', then filtering is dictated by the setting for the attribute, with no effect of the setting for asterisk. That is, the set of attributes that asterisk refers to no longer includes the listed attribute. 
 
   Thus, `to allow the xmpp scheme`, one can set '$config["schemes"]' as 'href: mailto, http, https; *: http, https, xmpp', or 'href: mailto, http, https, xmpp; *: http, https, xmpp', or '*: *', and so on. The consequence of each of these example values will be different (e.g., only the last two but not the first will allow 'xmpp' in 'href')
 
   As a side-note, one may find 'style: *' useful as URLs in 'style' attributes can be specified in a variety of ways, and the patterns that htmLawed uses to identify URLs may mistakenly identify non-URL text.
   
-  '!' can be put in the list of schemes to disallow all protocols as well as `local` URLs. Thus, with 'href: http, style: !', '<a href="http://cnn.com" style="background-image: url('local.jpg');">CNN</a>' will become '<a href="http://cnn.com" style="background-image: url('denied:local.jpg');">CNN</a>'.
+  '!' can be put in the list of schemes to disallow all protocols as well as `local` URLs. Thus, with 'href: http, style: !', '<a href="http://cnn.com" style="background-image: url(local.jpg);">CNN</a>' will become '<a href="http://cnn.com" style="background-image: url(denied:local.jpg);">CNN</a>'
 
   *Note*: If URL-accepting attributes other than those listed above are being allowed, then the scheme will not be checked unless the attribute name contains the string 'src' (e.g., 'dynsrc') or starts with 'o' (e.g., 'onbeforecopy').
 
@@ -1365,26 +1369,38 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   (The release date for the downloadable package of files containing documentation, demo script, test-cases, etc., besides the 'htmLawed.php' file, may be updated without a change-log entry if the secondary files, but not htmLawed per se, are revised.)
 
   `Version number - Release date. Notes`
+
+  1.2.4.1 - 12 September 2017. Corrects a function re-declaration bug introduced in version 1.2.4
+    
+  1.2.4 - 31 August 2017. Removes use of PHP 'create_function' function and '$php_errormsg' reserved variable (deprecated in PHP 7.2)
+  
+  1.2.3 - 5 July 2017. New option value of '4' for '$config["comments"]' to stop enforcing a space character before the '-->' comment-closing marker
+  
+  1.2.2 - 25 May 2017. Fix for a bug in parsing '$spec' that got introduced in version 1.2; also, '$spec' is now parsed to accommodate specifications for an HTML element when they are specified in multiple rules
+  
+  1.2.1.1 - 17 May 2017. Fix for a potential security vulnerability in transformation of deprecated attributes
+  
+  1.2.1 - 15 May 2017. Fix for a potential security vulnerability in transformation of deprecated attributes
   
   1.2 - 11 February 2017. (First beta release on 26 May 2013). Added support for HTML version 5; ARIA, data-* and microdata attributes; 'app', 'data', 'javascript' and 'tel' URL schemes (thus, 'javascript:' is not filtered in default mode). Removed support for code using Kses functions (see section:- #2.6). Changes in revisions to the beta releases are not noted here.
 
-  1.1.22 - 5 March 2016. Improved testing of attribute value rules specified in '$spec'.
+  1.1.22 - 5 March 2016. Improved testing of attribute value rules specified in '$spec'
   
-  1.1.21 - 27 February 2016. Improvement and security fix in transforming 'font' element.
+  1.1.21 - 27 February 2016. Improvement and security fix in transforming 'font' element
 
-  1.1.20 - 9 June 2015. Fix for a potential security vulnerability arising from unescaped double-quote character in single-quoted attribute value of some deprecated elements when tag transformation is enabled; recognition for non-(HTML 4) standard 'allowfullscreen' attribute of 'iframe.'
+  1.1.20 - 9 June 2015. Fix for a potential security vulnerability arising from unescaped double-quote character in single-quoted attribute value of some deprecated elements when tag transformation is enabled; recognition for non-(HTML 4) standard 'allowfullscreen' attribute of 'iframe'
     
-  1.1.19 - 19 January 2015. Fix for a bug in cleaning of soft-hyphens in URL values, etc.
+  1.1.19 - 19 January 2015. Fix for a bug in cleaning of soft-hyphens in URL values, etc
 
   1.1.18 - 2 August 2014. Fix for a potential security vulnerability arising from specially encoded text with serial opening tags
   
-  1.1.17 - 11 March 2014. Removed use of PHP function preg_replace with 'e' modifier for compatibility with PHP 5.5 
+  1.1.17 - 11 March 2014. Removed use of PHP function preg_replace with 'e' modifier for compatibility with PHP 5.5.
 
   1.1.16 - 29 August 2013. Fix for a potential security vulnerability arising from specialy encoded space characters in URL schemes/protocols
   
   1.1.15 - 11 August 2013. Improved tidying/prettifying functionality
   
-  1.1.14 - 8 August 2012. Fix for possible segmental loss of incremental indentation during 'tidying' when 'balance' is disabled; fix for non-effectuation under some circumstances of a corrective behavior to preserve plain text within elements like 'blockquote'.
+  1.1.14 - 8 August 2012. Fix for possible segmental loss of incremental indentation during 'tidying' when 'balance' is disabled; fix for non-effectuation under some circumstances of a corrective behavior to preserve plain text within elements like 'blockquote'
   
   1.1.13 - 22 July 2012. Added feature allowing use of custom, non-standard attributes or custom rules for standard attributes
   
@@ -1504,7 +1520,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 -- 4.10  Acknowledgements ------------------------------------------o
 
 
-  Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, Edward Yang, and many anonymous users.
+  Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Alexandre Chouinard, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, Edward Yang, and many anonymous users.
 
   Thank you!
 
