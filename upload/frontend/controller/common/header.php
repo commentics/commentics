@@ -49,7 +49,7 @@ class CommonHeaderController extends Controller {
 		}
 
 		if ($this->setting->get('show_read_more')) {
-			$this->data['read_more'] = $this->data['commentics_url'] . '3rdparty/read_more/read_more.js';
+			$this->data['read_more'] = $this->data['commentics_url'] . '3rdparty/read_more/read_more.min.js';
 		} else {
 			$this->data['read_more'] = '';
 		}
