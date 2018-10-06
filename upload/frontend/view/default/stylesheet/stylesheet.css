@@ -273,7 +273,7 @@
 }
 
 .cmtx_icons_container {
-  background: transparent -moz-linear-gradient(center top, #FBFBFB, #FFFFFF) repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) -moz-linear-gradient(center top, #FBFBFB, #FFFFFF) repeat scroll 0 0;
   border: 1px solid #DDDDDD;
   border-radius: 3px;
   padding: 3px;
@@ -2009,11 +2009,11 @@ span.jFiler-icon-file.f-audio:after {
   width: 100%;
   color: #fff;
   padding: 6px 10px;
-  background: -moz-linear-gradient(bottom, black 0, transparent 100%);
-  background: -webkit-linear-gradient(bottom, black 0, transparent 100%);
-  background: -o-linear-gradient(bottom, black 0, transparent 100%);
-  background: -ms-linear-gradient(bottom, black 0, transparent 100%);
-  background: linear-gradient(to top, black 0, transparent 100%);
+  background: -moz-linear-gradient(bottom, black 0, rgba(0, 0, 0, 0) 100%);
+  background: -webkit-linear-gradient(bottom, black 0, rgba(0, 0, 0, 0) 100%);
+  background: -o-linear-gradient(bottom, black 0, rgba(0, 0, 0, 0) 100%);
+  background: -ms-linear-gradient(bottom, black 0, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(to top, black 0, rgba(0, 0, 0, 0) 100%);
   z-index: 9;
   opacity: 0;
   filter: opacity(0);

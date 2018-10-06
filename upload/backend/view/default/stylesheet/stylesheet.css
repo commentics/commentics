@@ -31,7 +31,7 @@ a:hover {
 }
 
 .header_top {
-  background: transparent linear-gradient(#C6C6C6, #FFFFFF) repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) linear-gradient(#C6C6C6, #FFFFFF) repeat scroll 0 0;
   height: 50px;
   padding: 10px 5px 5px;
 }
@@ -1406,13 +1406,19 @@ nav ul {
   }
 }
 /*********************** Editor **********************/
-.mce-tinymce {
-  margin-bottom: 12px !important;
+.note-editor {
+  margin-bottom: 15px !important;
   width: 700px !important;
+  overflow: hidden !important;
+  line-height: initial !important;
+}
+
+.note-group-select-from-files {
+  display: none;
 }
 
 @media all and (max-width: 1700px) {
-  .mce-tinymce {
+  .note-editor {
     width: auto !important;
   }
 }
@@ -1519,12 +1525,12 @@ table.table {
 }
 
 .table th .asc {
-  background: url("../image/misc/asc.png") no-repeat scroll right center transparent;
+  background: url("../image/misc/asc.png") no-repeat scroll right center rgba(0, 0, 0, 0);
   padding-right: 15px;
 }
 
 .table th .desc {
-  background: url("../image/misc/desc.png") no-repeat scroll right center transparent;
+  background: url("../image/misc/desc.png") no-repeat scroll right center rgba(0, 0, 0, 0);
   padding-right: 15px;
 }
 

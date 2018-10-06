@@ -252,9 +252,9 @@ class EditCommentController extends Controller {
 		$this->data['id'] = $this->request->get['id'];
 
 		if ($this->setting->get('use_wysiwyg')) {
-			$this->data['tinymce_enabled'] = true;
+			$this->data['wysiwyg_enabled'] = true;
 		} else {
-			$this->data['tinymce_enabled'] = false;
+			$this->data['wysiwyg_enabled'] = false;
 		}
 
 		$this->data['countries'] = $this->geo->getCountries();

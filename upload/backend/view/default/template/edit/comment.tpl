@@ -333,39 +333,21 @@
 	// ]]>
 	</script>
 
-	<?php if ($tinymce_enabled) { ?>
+	<?php if ($wysiwyg_enabled) { ?>
 		<script>
 		// <![CDATA[
 		$(document).ready(function() {
-			tinymce.init({
-				// General options
-				selector				: '.left textarea',
-				theme 					: 'modern',
-				plugins 				: 'autolink lists link image charmap print preview code media table contextmenu paste searchreplace hr',
-				toolbar					: 'undo redo | bold italic underline | bullist numlist | link image | hr searchreplace preview',
-
-				// Editing options
-				convert_urls			: false,
-				entity_encoding			: 'raw',
-				element_format			: 'html',
-				relative_urls			: false,
-				remove_linebreaks		: false,
-				verify_html 			: false,
-				protect:				[/<\?php.*?\?>/g],
-
-				// Menu
-				menu: {
-					file				: {title: 'File', items: 'newdocument print'},
-					edit				: {title: 'Edit', items: 'undo redo | cut copy paste | selectall'},
-					insert				: {title: 'Insert', items: 'link image media | charmap'},
-					view				: {title: 'View', items: 'preview'},
-					format				: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | removeformat'},
-					table				: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
-					tools				: {title: 'Tools', items: 'code'}
-				},
-
-				// Layout options
-				height 					: 135
+			$('.left textarea').summernote({
+				height: 175,
+				disableDragAndDrop: true,
+				shortcuts: false,
+				toolbar: [
+					['font', ['bold', 'italic', 'underline', 'clear']],
+					['color', ['color']],
+					['para', ['ul', 'ol']],
+					['insert', ['link', 'picture', 'hr']],
+					['view', ['codeview']]
+				],
 			});
 		});
 		// ]]>

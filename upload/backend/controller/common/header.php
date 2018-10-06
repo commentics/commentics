@@ -61,9 +61,9 @@ class CommonHeaderController extends Controller {
 			$this->data['route'] = $this->request->get['route'];
 
 			if ($this->setting->get('use_wysiwyg')) {
-				$this->data['tinymce_enabled'] = true;
+				$this->data['wysiwyg_enabled'] = true;
 			} else {
-				$this->data['tinymce_enabled'] = false;
+				$this->data['wysiwyg_enabled'] = false;
 			}
 
 			if ($this->setting->has('chart_enabled') && $this->setting->get('chart_enabled')) {

@@ -1438,13 +1438,19 @@ nav ul {
 
 /*********************** Editor **********************/
 
-.mce-tinymce {
-	margin-bottom: 12px !important;
+.note-editor {
+	margin-bottom: 15px !important;
 	width: 700px !important;
+	overflow: hidden !important;
+	line-height: initial !important;
+}
+
+.note-group-select-from-files {
+	display: none;
 }
 
 @media all and (max-width: 1700px) {
-	.mce-tinymce {
+	.note-editor {
 		width: auto !important;
 	}
 }
