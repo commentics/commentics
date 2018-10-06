@@ -3,7 +3,7 @@
 $_['lang_heading']			= 'Task: Delete Voters';
 
 // Description
-$_['lang_description']		= '<p>This task automatically deletes voters who are older than the configured time period.</p>';
+$_['lang_description']		= '<p>This task automatically deletes voters whose votes are older than the configured time period.</p>';
 
 // Entry
 $_['lang_entry_enabled']	= 'Enabled:';

@@ -321,7 +321,7 @@ class MainFormModel extends Model {
 
 	/* Gets a random question to verify the user is human */
 	public function getQuestion() {
-		$query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "questions` WHERE `language` = '" . $this->db->escape($this->setting->get('language_frontend')) . "' ORDER BY RAND() LIMIT 1");
+		$query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "questions` WHERE `language` = '" . $this->db->escape($this->setting->get('language')) . "' ORDER BY RAND() LIMIT 1");
 
 		$result = $this->db->row($query);
 

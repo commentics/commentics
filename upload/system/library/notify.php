@@ -153,7 +153,7 @@ class Notify {
 		$admins = $this->db->rows($query);
 
 		if ($admins) {
-			$email = $this->email->get('new_version', $this->setting->get('language_backend'));
+			$email = $this->email->get('new_version');
 
 			foreach ($admins as $admin) {
 				if ($admin['format'] == 'text') {

@@ -32,12 +32,6 @@ class Comment {
 	}
 
 	public function getComment($id) {
-		if (defined('CMTX_FRONTEND')) {
-			$language = $this->setting->get('language_frontend');
-		} else {
-			$language = $this->setting->get('language_backend');
-		}
-
 		$query = $this->db->query(" SELECT `p`.*, `u`.*, `u`.`date_added` AS `date_added_user`, `c`.*, `states`.`name` AS `state_name`, `g`.`name` AS `country_name`
 									FROM `" . CMTX_DB_PREFIX . "comments` `c`
 									RIGHT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `c`.`page_id` = `p`.`id`
@@ -46,7 +40,7 @@ class Comment {
 									LEFT JOIN `" . CMTX_DB_PREFIX . "countries` `countries` ON `c`.`country_id` = `countries`.`id`
 									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `countries`.`code`
 									WHERE `c`.`id` = '" . (int)$id . "'
-									AND `g`.`language` = '" . $this->db->escape($language) . "'
+									AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
 									");
 
 		if ($this->db->numRows($query)) {

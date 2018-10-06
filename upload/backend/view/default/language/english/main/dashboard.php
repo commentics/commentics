@@ -1,14 +1,14 @@
 <?php
 // Message
 $_['lang_message_success']				= 'Notes updated';
-$_['lang_message_comments']				= 'There are comments that <a href="%s">need approval</a> soon. <a>x</a>';
-$_['lang_message_errors']				= 'There are errors that <a href="%s">need attention</a> soon. <a>x</a>';
+$_['lang_message_comments']				= 'There are comments that <a href="%s">need approval</a> soon <a>x</a>';
+$_['lang_message_errors']				= 'There are errors that <a href="%s">need attention</a> soon <a>x</a>';
 
 // Heading
 $_['lang_heading']						= 'Dashboard';
 
 // Notice
-$_['lang_notice']						= 'Purchase a <a href="%s" target="_blank">licence</a> to remove the \'Powered By\', access support and keep the project going. <a>x</a>';
+$_['lang_notice']						= 'Purchase a <a href="%s" target="_blank">licence</a> to remove the \'Powered By\' and keep the project going <a>x</a>';
 
 // Title
 $_['lang_title_version_check']			= 'Version Check';

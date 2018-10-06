@@ -89,6 +89,15 @@ if (isset($cmtx_state)) {
 	define('CMTX_STATE', $cmtx_state);
 }
 
+/*
+ * The user's language can be passed to Commentics. Make sure it matches with its folder name. For
+ * example $cmtx_language = 'german'; selects '/frontend/view/default/language/german/'.
+ */
+
+if (isset($cmtx_language)) {
+	define('CMTX_LANGUAGE', $cmtx_language);
+}
+
 require_once(CMTX_DIR_SYSTEM . 'startup.php');
 
 if (!$cmtx_db->isConnected()) {

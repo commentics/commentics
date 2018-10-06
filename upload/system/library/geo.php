@@ -35,17 +35,11 @@ class Geo {
 	}
 
 	public function getCountry($id) {
-		if (defined('CMTX_FRONTEND')) {
-			$language = $this->setting->get('language_frontend');
-		} else {
-			$language = $this->setting->get('language_backend');
-		}
-
 		$query = $this->db->query(" SELECT `c`.*, `g`.`name`
 									FROM `" . CMTX_DB_PREFIX . "countries` `c`
 									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
 									WHERE `c`.`id` = '" . (int)$id . "'
-									AND `g`.`language` = '" . $this->db->escape($language) . "'
+									AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
 									");
 
 		$result = $this->db->row($query);
@@ -54,12 +48,6 @@ class Geo {
 	}
 
 	public function getCountries($all = false) {
-		if (defined('CMTX_FRONTEND')) {
-			$language = $this->setting->get('language_frontend');
-		} else {
-			$language = $this->setting->get('language_backend');
-		}
-
 		if ($all) {
 			$status = '0,1';
 		} else {
@@ -73,7 +61,7 @@ class Geo {
 									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
 									WHERE `c`.`top` = '1'
 									AND `c`.`enabled` IN (" . $status . ")
-									AND `g`.`language` = '" . $this->db->escape($language) . "'
+									AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
 									ORDER BY `g`.`name` ASC");
 
 		if ($this->db->numRows($query)) {
@@ -105,7 +93,7 @@ class Geo {
 									LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
 									WHERE `c`.`top` = '0'
 									AND `c`.`enabled` IN (" . $status . ")
-									AND `g`.`language` = '" . $this->db->escape($language) . "'
+									AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
 									ORDER BY `g`.`name` ASC");
 
 		$results = $this->db->rows($query);

@@ -10,8 +10,11 @@ class Email {
 		$this->setting = $registry->get('setting');
 	}
 
-	public function get($type, $language = '') {
-		if (!$language) {
+	public function get($type) {
+		/* The new version email is sent from the frontend but uses the backend language */
+		if ($type == 'new_version') {
+			$language = $this->setting->get('language_backend');
+		} else {
 			$language = $this->setting->get('language');
 		}
 
