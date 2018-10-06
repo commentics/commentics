@@ -37,7 +37,11 @@
 
 			<div class="fieldset">
 				<label><?php echo $lang_entry_email; ?></label>
-				<div><?php echo $email; ?></div>
+				<?php if ($email) { ?>
+					<div><?php echo $email; ?></div>
+				<?php } else { ?>
+					<div><i><?php echo $lang_text_no_email; ?></i></div>
+				<?php } ?>
 			</div>
 
 			<div class="fieldset">

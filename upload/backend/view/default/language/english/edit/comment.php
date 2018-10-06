@@ -53,6 +53,7 @@ $_['lang_hint_sticky']				= 'Stick this comment at the top of the page. You can\
 $_['lang_hint_locked']				= 'Lock this comment so that no one can reply any further to it.';
 
 // Text
+$_['lang_text_no_email']			= 'No email address entered';
 $_['lang_text_nobody']				= 'Nobody';
 $_['lang_text_replies_single']		= 'This comment has 1 reply';
 $_['lang_text_replies_plural']		= 'This comment has %d replies';
