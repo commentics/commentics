@@ -347,7 +347,6 @@
 				shortcuts: false,
 				toolbar: [
 					['font', ['bold', 'italic', 'underline', 'clear']],
-					['color', ['color']],
 					['para', ['ul', 'ol']],
 					['insert', ['link', 'picture', 'hr']],
 					['view', ['codeview']]
