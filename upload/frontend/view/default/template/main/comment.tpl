@@ -192,18 +192,4 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-	$(document).ready(function() {
-		<?php
-		if ($reply_num == 1) {
-			$reply_text = $lang_text_view . ' <span class="cmtx_reply_num">1</span> ' . $lang_text_reply;
-		} else {
-			$reply_text = $lang_text_view . ' <span class="cmtx_reply_num">' . $reply_num . '</span> ' . $lang_text_replies;
-		}
-		?>
-
-	   	$('#cmtx_perm_<?php echo $comment["id"]; ?>').closest('.cmtx_replies_group').prev().find('.cmtx_view_replies_link').html('<i class="fa fa-commenting-o" aria-hidden="true"></i> <?php echo $reply_text; ?>');
-	});
-	</script>
 </div>

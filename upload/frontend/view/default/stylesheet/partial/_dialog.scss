@@ -21,8 +21,8 @@
 }
 
 .ui-widget-header {
-	background: 0;
-	border: 0;
+	background: 0 !important;
+	border: 0 !important;
 }
 
 .ui-dialog, .ui-widget, .ui-widget-content, .ui-corner-all, .ui-front, .ui-dialog-buttons, .ui-draggable {
@@ -30,39 +30,14 @@
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-	padding: 0;
-	padding-right: 4px;
+	padding: 0 !important;
+	padding-right: 4px !important;
 }
 
 .ui-dialog {
 	box-shadow: 1px 1px 5px #333;
 }
 
-.ui-dialog .ui-icon-alert {
-	float: left;
-	margin-top: 0;
-	margin-right: 7px;
-}
-
 .ui-dialog .ui-widget-content {
 	min-height: 0 !important;
-	font-weight: normal;
-}
-
-.ui-widget-overlay {
-	background: #AAAAAA;
-}
-
-@media all and (max-width: 500px) {
-	.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-		float: none;
-	}
-
-	.ui-dialog .ui-dialog-buttonpane button {
-		margin-left: 5px;
-	}
-
-	.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button {
-		width: 100%;
-	}
 }

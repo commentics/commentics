@@ -73,10 +73,12 @@
 							<?php } ?>
 						<?php } ?>
 					<?php } ?>
-
+						
 					<?php if ($has_replies) { ?>
 						</div>
 					<?php } ?>
+
+					<span class="cmtx_reply_counter" style="display:none"><?php echo $reply_num; ?></span>
 				</section>
 			<?php } ?>
 		</div>
