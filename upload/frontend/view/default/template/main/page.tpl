@@ -26,5 +26,18 @@
 		<?php } ?>
 	<?php } ?>
 
+	<?php if ($auto_detect) { ?>
+		<div id="cmtx_autodetect_modal" class="cmtx_modal_box">
+			<header>
+				<div><?php echo $lang_modal_autodetect_heading; ?></div>
+			</header>
+			<div class="cmtx_modal_body">
+				<?php echo $lang_modal_autodetect_content; ?>
+			</div>
+		</div>
+	<?php } ?>
+
+	<div id="cmtx_js_settings_page" style="display:none"><?php echo json_encode($cmtx_js_settings_page); ?></div>
+
 	<?php echo $footer; ?>
 </div>

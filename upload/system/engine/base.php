@@ -84,20 +84,20 @@ abstract class Base {
 	}
 
 	public function loadStylesheet($cmtx_stylesheet) {
-		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/' . strtolower($cmtx_stylesheet))) {
-			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/' . strtolower($cmtx_stylesheet);
-		} else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/' . strtolower($cmtx_stylesheet))) {
-			return CMTX_HTTP_VIEW . 'default/stylesheet/' . strtolower($cmtx_stylesheet);
+		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet))) {
+			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet);
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet))) {
+			return CMTX_HTTP_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet);
 		} else {
 			die('<b>Error</b>: Could not load stylesheet ' . strtolower($cmtx_stylesheet) . '!');
 		}
 	}
 
 	public function loadCustomCss() {
-		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/custom.css')) {
-			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/custom.css';
-		} else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/custom.css')) {
-			return CMTX_HTTP_VIEW . 'default/stylesheet/custom.css';
+		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css')) {
+			return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css';
+		} else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/custom.css')) {
+			return CMTX_HTTP_VIEW . 'default/stylesheet/css/custom.css';
 		} else {
 			return '';
 		}

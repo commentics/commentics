@@ -1,0 +1,66 @@
+// _partial/_base.scss
+
+$beige:  #FDFCDC;
+$black:  #000000;
+$blue:   #0000FF;
+$green:  #008000;
+$orange: #E97013;
+$red:    #FF0000;
+$white:  #FFFFFF;
+
+$grey-lightest: lighten($black, 99%);
+$grey-lighter:  lighten($black, 90%);
+$grey-light:    lighten($black, 80%);
+$grey:          lighten($black, 50%);
+$grey-dark:     lighten($black, 30%);
+$grey-darker:   lighten($black, 20%);
+$grey-darkest:  lighten($black, 10%);
+
+$star-full:  #FFD700;
+$star-hover: #FFED85;
+$star-empty: $grey-lighter;
+
+$green-dark: darken($green, 5%);
+$red-dark:   darken($red, 5%);
+
+.cmtx_button {
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) $grey;
+	border-radius: 4px;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 5px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	width: 100%;
+	height: auto;
+	min-width: 50px;
+	color: $grey-dark;
+	background-image: linear-gradient(to bottom, $white, $grey-lighter);
+
+	&:hover {
+		background-image: linear-gradient(to bottom, $white, $grey-light);
+	}
+
+	&::-moz-focus-inner {
+		border: 0;
+	}
+}
+
+.cmtx_button_primary {
+	background-image: linear-gradient(to bottom, #5189B6, #053D6D);
+	color: $white;
+
+	&:hover {
+		background-image: linear-gradient(to bottom, #5189B6, #182454);
+	}
+}
+
+.cmtx_clear::before, .cmtx_clear::after {
+	content: " ";
+	display: table;
+}
+
+.cmtx_clear::after {
+	clear: both;
+}

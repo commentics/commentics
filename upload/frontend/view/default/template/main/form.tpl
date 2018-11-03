@@ -35,12 +35,12 @@
 									<?php if ($enabled_bb_code_php) { ?><span class="cmtx_bb_code cmtx_bb_code_php" data-cmtx-tag="<?php echo $lang_tag_bb_code_php_start; ?>|<?php echo $lang_tag_bb_code_php_end; ?>" title="<?php echo $lang_title_bb_code_php; ?>"></span><?php } ?>
 									<?php if ($enabled_bb_code_quote) { ?><span class="cmtx_bb_code cmtx_bb_code_quote" data-cmtx-tag="<?php echo $lang_tag_bb_code_quote_start; ?>|<?php echo $lang_tag_bb_code_quote_end; ?>" title="<?php echo $lang_title_bb_code_quote; ?>"></span><?php } ?>
 									<?php if ($enabled_bb_code_line) { ?><span class="cmtx_bb_code cmtx_bb_code_line" data-cmtx-tag="<?php echo $lang_tag_bb_code_line; ?>" title="<?php echo $lang_title_bb_code_line; ?>"></span><?php } ?>
-									<?php if ($enabled_bb_code_bullet) { ?><span class="cmtx_bb_code cmtx_bb_code_bullet" data-cmtx-tag="dialog:|<?php echo $lang_tag_bb_code_bullet_1; ?>|<?php echo $lang_tag_bb_code_bullet_2; ?>|<?php echo $lang_tag_bb_code_bullet_3; ?>|<?php echo $lang_tag_bb_code_bullet_4; ?>" title="<?php echo $lang_title_bb_code_bullet; ?>"></span><?php } ?>
-									<?php if ($enabled_bb_code_numeric) { ?><span class="cmtx_bb_code cmtx_bb_code_numeric" data-cmtx-tag="dialog:|<?php echo $lang_tag_bb_code_numeric_1; ?>|<?php echo $lang_tag_bb_code_numeric_2; ?>|<?php echo $lang_tag_bb_code_numeric_3; ?>|<?php echo $lang_tag_bb_code_numeric_4; ?>" title="<?php echo $lang_title_bb_code_numeric; ?>"></span><?php } ?>
-									<?php if ($enabled_bb_code_link) { ?><span class="cmtx_bb_code cmtx_bb_code_link" data-cmtx-tag="dialog:|<?php echo $lang_tag_bb_code_link_1; ?>|<?php echo $lang_tag_bb_code_link_2; ?>|<?php echo $lang_tag_bb_code_link_3; ?>|<?php echo $lang_tag_bb_code_link_4; ?>" title="<?php echo $lang_title_bb_code_link; ?>"></span><?php } ?>
-									<?php if ($enabled_bb_code_email) { ?><span class="cmtx_bb_code cmtx_bb_code_email" data-cmtx-tag="dialog:|<?php echo $lang_tag_bb_code_email_1; ?>|<?php echo $lang_tag_bb_code_email_2; ?>|<?php echo $lang_tag_bb_code_email_3; ?>|<?php echo $lang_tag_bb_code_email_4; ?>" title="<?php echo $lang_title_bb_code_email; ?>"></span><?php } ?>
-									<?php if ($enabled_bb_code_image) { ?><span class="cmtx_bb_code cmtx_bb_code_image" data-cmtx-tag="dialog:|<?php echo $lang_tag_bb_code_image_1; ?>|<?php echo $lang_tag_bb_code_image_2; ?>" title="<?php echo $lang_title_bb_code_image; ?>"></span><?php } ?>
-									<?php if ($enabled_bb_code_youtube) { ?><span class="cmtx_bb_code cmtx_bb_code_youtube" data-cmtx-tag="dialog:|<?php echo $lang_tag_bb_code_youtube_1; ?>|<?php echo $lang_tag_bb_code_youtube_2; ?>" title="<?php echo $lang_title_bb_code_youtube; ?>"></span><?php } ?>
+									<?php if ($enabled_bb_code_bullet) { ?><span class="cmtx_bb_code cmtx_bb_code_bullet" data-cmtx-tag="<?php echo $lang_tag_bb_code_bullet_1; ?>|<?php echo $lang_tag_bb_code_bullet_2; ?>|<?php echo $lang_tag_bb_code_bullet_3; ?>|<?php echo $lang_tag_bb_code_bullet_4; ?>" title="<?php echo $lang_title_bb_code_bullet; ?>" data-cmtx-target-modal="#cmtx_bullet_modal"></span><?php } ?>
+									<?php if ($enabled_bb_code_numeric) { ?><span class="cmtx_bb_code cmtx_bb_code_numeric" data-cmtx-tag="<?php echo $lang_tag_bb_code_numeric_1; ?>|<?php echo $lang_tag_bb_code_numeric_2; ?>|<?php echo $lang_tag_bb_code_numeric_3; ?>|<?php echo $lang_tag_bb_code_numeric_4; ?>" title="<?php echo $lang_title_bb_code_numeric; ?>" data-cmtx-target-modal="#cmtx_numeric_modal"></span><?php } ?>
+									<?php if ($enabled_bb_code_link) { ?><span class="cmtx_bb_code cmtx_bb_code_link" data-cmtx-tag="<?php echo $lang_tag_bb_code_link_1; ?>|<?php echo $lang_tag_bb_code_link_2; ?>|<?php echo $lang_tag_bb_code_link_3; ?>|<?php echo $lang_tag_bb_code_link_4; ?>" title="<?php echo $lang_title_bb_code_link; ?>" data-cmtx-target-modal="#cmtx_link_modal"></span><?php } ?>
+									<?php if ($enabled_bb_code_email) { ?><span class="cmtx_bb_code cmtx_bb_code_email" data-cmtx-tag="<?php echo $lang_tag_bb_code_email_1; ?>|<?php echo $lang_tag_bb_code_email_2; ?>|<?php echo $lang_tag_bb_code_email_3; ?>|<?php echo $lang_tag_bb_code_email_4; ?>" title="<?php echo $lang_title_bb_code_email; ?>" data-cmtx-target-modal="#cmtx_email_modal"></span><?php } ?>
+									<?php if ($enabled_bb_code_image) { ?><span class="cmtx_bb_code cmtx_bb_code_image" data-cmtx-tag="<?php echo $lang_tag_bb_code_image_1; ?>|<?php echo $lang_tag_bb_code_image_2; ?>" title="<?php echo $lang_title_bb_code_image; ?>" data-cmtx-target-modal="#cmtx_image_modal"></span><?php } ?>
+									<?php if ($enabled_bb_code_youtube) { ?><span class="cmtx_bb_code cmtx_bb_code_youtube" data-cmtx-tag="<?php echo $lang_tag_bb_code_youtube_1; ?>|<?php echo $lang_tag_bb_code_youtube_2; ?>" title="<?php echo $lang_title_bb_code_youtube; ?>" data-cmtx-target-modal="#cmtx_youtube_modal"></span><?php } ?>
 								</div>
 							<?php } ?>
 
@@ -256,7 +256,7 @@
 				<?php if ($enabled_privacy) { ?>
 					<div class="cmtx_row cmtx_privacy_row cmtx_clear">
 						<div class="cmtx_col_12">
-							<div class="cmtx_container cmtx_privacy_container">
+							<div class="cmtx_container cmtx_privacy_container" data-cmtx-target-modal="#cmtx_privacy_modal">
 								<input type="checkbox" id="cmtx_privacy" name="cmtx_privacy" value="1"> <label for="cmtx_privacy"><?php echo $lang_entry_privacy; ?></label>
 							</div>
 						</div>
@@ -266,7 +266,7 @@
 				<?php if ($enabled_terms) { ?>
 					<div class="cmtx_row cmtx_terms_row cmtx_clear">
 						<div class="cmtx_col_12">
-							<div class="cmtx_container cmtx_terms_container">
+							<div class="cmtx_container cmtx_terms_container" data-cmtx-target-modal="#cmtx_terms_modal">
 								<input type="checkbox" id="cmtx_terms" name="cmtx_terms" value="1"> <label for="cmtx_terms"><?php echo $lang_entry_terms; ?></label>
 							</div>
 						</div>
@@ -277,14 +277,14 @@
 			<div class="cmtx_row cmtx_button_row cmtx_clear">
 				<div class="cmtx_col_2">
 					<div class="cmtx_container cmtx_submit_button_container">
-						<input type="button" id="cmtx_submit_button" class="cmtx_button cmtx_submit_button <?php if ($is_admin) { echo 'cmtx_admin_button'; } ?>" data-cmtx-type="submit" value="<?php echo $lang_button_submit; ?>" title="<?php echo $lang_button_submit; ?>">
+						<input type="button" id="cmtx_submit_button" class="cmtx_button cmtx_button_primary <?php if ($is_admin) { echo 'cmtx_admin_button'; } ?>" data-cmtx-type="submit" value="<?php echo $lang_button_submit; ?>" title="<?php echo $lang_button_submit; ?>">
 					</div>
 				</div>
 
 				<div class="cmtx_col_2">
 					<?php if ($enabled_preview) { ?>
 						<div class="cmtx_container cmtx_preview_button_container">
-							<input type="button" id="cmtx_preview_button" class="cmtx_button cmtx_preview_button <?php if ($is_admin) { echo 'cmtx_admin_button'; } ?>" data-cmtx-type="preview" value="<?php echo $lang_button_preview; ?>" title="<?php echo $lang_button_preview; ?>">
+							<input type="button" id="cmtx_preview_button" class="cmtx_button cmtx_button_secondary <?php if ($is_admin) { echo 'cmtx_admin_button'; } ?>" data-cmtx-type="preview" value="<?php echo $lang_button_preview; ?>" title="<?php echo $lang_button_preview; ?>">
 						</div>
 					<?php } ?>
 				</div>
@@ -314,66 +314,150 @@
 		</form>
 
 		<?php if ($enabled_bb_code_bullet) { ?>
-			<div id="cmtx_dialog_bullet" class="cmtx_dialog cmtx_dialog_bullet" title="<?php echo $lang_dialog_bullet_heading; ?>" style="display:none">
-				<div><?php echo $lang_dialog_bullet_content; ?></div>
-				<div><span><?php echo $lang_dialog_bullet_item; ?></span> <input type="text" id="cmtx_dialog_bullet_field_1"></div>
-				<div><span><?php echo $lang_dialog_bullet_item; ?></span> <input type="text" id="cmtx_dialog_bullet_field_2"></div>
-				<div><span><?php echo $lang_dialog_bullet_item; ?></span> <input type="text" id="cmtx_dialog_bullet_field_3"></div>
-				<div><span><?php echo $lang_dialog_bullet_item; ?></span> <input type="text" id="cmtx_dialog_bullet_field_4"></div>
-				<div><span><?php echo $lang_dialog_bullet_item; ?></span> <input type="text" id="cmtx_dialog_bullet_field_5"></div>
+			<div id="cmtx_bullet_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_bullet_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<div><?php echo $lang_modal_bullet_content; ?></div>
+					<div><span><?php echo $lang_modal_bullet_item; ?></span> <input type="text"></div>
+					<div><span><?php echo $lang_modal_bullet_item; ?></span> <input type="text"></div>
+					<div><span><?php echo $lang_modal_bullet_item; ?></span> <input type="text"></div>
+					<div><span><?php echo $lang_modal_bullet_item; ?></span> <input type="text"></div>
+					<div><span><?php echo $lang_modal_bullet_item; ?></span> <input type="text"></div>
+				</div>
+				<footer>
+					<input type="button" id="cmtx_bullet_modal_insert" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_insert; ?>">
+					<input type="button" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_cancel; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_numeric) { ?>
-			<div id="cmtx_dialog_numeric" class="cmtx_dialog cmtx_dialog_numeric" title="<?php echo $lang_dialog_numeric_heading; ?>" style="display:none">
-				<div><?php echo $lang_dialog_numeric_content; ?></div>
-				<div><span><?php echo $lang_dialog_numeric_item; ?></span> <input type="text" id="cmtx_dialog_numeric_field_1"></div>
-				<div><span><?php echo $lang_dialog_numeric_item; ?></span> <input type="text" id="cmtx_dialog_numeric_field_2"></div>
-				<div><span><?php echo $lang_dialog_numeric_item; ?></span> <input type="text" id="cmtx_dialog_numeric_field_3"></div>
-				<div><span><?php echo $lang_dialog_numeric_item; ?></span> <input type="text" id="cmtx_dialog_numeric_field_4"></div>
-				<div><span><?php echo $lang_dialog_numeric_item; ?></span> <input type="text" id="cmtx_dialog_numeric_field_5"></div>
+			<div id="cmtx_numeric_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_numeric_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<div><?php echo $lang_modal_numeric_content; ?></div>
+					<div><span><?php echo $lang_modal_numeric_item; ?></span> <input type="text"></div>
+					<div><span><?php echo $lang_modal_numeric_item; ?></span> <input type="text"></div>
+					<div><span><?php echo $lang_modal_numeric_item; ?></span> <input type="text"></div>
+					<div><span><?php echo $lang_modal_numeric_item; ?></span> <input type="text"></div>
+					<div><span><?php echo $lang_modal_numeric_item; ?></span> <input type="text"></div>
+				</div>
+				<footer>
+					<input type="button" id="cmtx_numeric_modal_insert" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_insert; ?>">
+					<input type="button" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_cancel; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_link) { ?>
-			<div id="cmtx_dialog_link" class="cmtx_dialog cmtx_dialog_link" title="<?php echo $lang_dialog_link_heading; ?>" style="display:none">
-				<div><?php echo $lang_dialog_link_content_1; ?></div> <input type="url" id="cmtx_dialog_link_field_1" value="http://">
-				<div><?php echo $lang_dialog_link_content_2; ?></div> <input type="text" id="cmtx_dialog_link_field_2">
+			<div id="cmtx_link_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_link_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<div><?php echo $lang_modal_link_content_1; ?></div>
+					<div><input type="url"></div>
+					<div><?php echo $lang_modal_link_content_2; ?></div>
+					<div><input type="text"></div>
+				</div>
+				<footer>
+					<input type="button" id="cmtx_link_modal_insert" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_insert; ?>">
+					<input type="button" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_cancel; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_email) { ?>
-			<div id="cmtx_dialog_email" class="cmtx_dialog cmtx_dialog_email" title="<?php echo $lang_dialog_email_heading; ?>" style="display:none">
-				<div><?php echo $lang_dialog_email_content_1; ?></div> <input type="email" id="cmtx_dialog_email_field_1">
-				<div><?php echo $lang_dialog_email_content_2; ?></div> <input type="text" id="cmtx_dialog_email_field_2">
+			<div id="cmtx_email_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_email_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<div><?php echo $lang_modal_email_content_1; ?></div>
+					<div><input type="email"></div>
+					<div><?php echo $lang_modal_email_content_2; ?></div>
+					<div><input type="text"></div>
+				</div>
+				<footer>
+					<input type="button" id="cmtx_email_modal_insert" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_insert; ?>">
+					<input type="button" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_cancel; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_image) { ?>
-			<div id="cmtx_dialog_image" class="cmtx_dialog cmtx_dialog_image" title="<?php echo $lang_dialog_image_heading; ?>" style="display:none">
-				<div><?php echo $lang_dialog_image_content; ?></div> <input type="url" id="cmtx_dialog_image_field" value="http://">
+			<div id="cmtx_image_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_image_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<div><?php echo $lang_modal_image_content; ?></div>
+					<div><input type="url" value="http://"></div>
+				</div>
+				<footer>
+					<input type="button" id="cmtx_image_modal_insert" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_insert; ?>">
+					<input type="button" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_cancel; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_youtube) { ?>
-			<div id="cmtx_dialog_youtube" class="cmtx_dialog cmtx_dialog_youtube" title="<?php echo $lang_dialog_youtube_heading; ?>" style="display:none">
-				<div><?php echo $lang_dialog_youtube_content; ?></div> <input type="url" id="cmtx_dialog_youtube_field" value="http://">
+			<div id="cmtx_youtube_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_youtube_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<div><?php echo $lang_modal_youtube_content; ?></div>
+					<div><input type="url" value="http://"></div>
+				</div>
+				<footer>
+					<input type="button" id="cmtx_youtube_modal_insert" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_insert; ?>">
+					<input type="button" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_cancel; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
 		<?php if ($enabled_privacy) { ?>
-			<div id="cmtx_privacy_content" style="display:none">
-				<?php echo $lang_text_privacy; ?>
+			<div id="cmtx_privacy_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_privacy_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<?php echo $lang_modal_privacy_content; ?>
+				</div>
+				<footer>
+					<input type="button" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_close; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
 		<?php if ($enabled_terms) { ?>
-			<div id="cmtx_terms_content" style="display:none">
-				<?php echo $lang_text_terms; ?>
+			<div id="cmtx_terms_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_terms_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<?php echo $lang_modal_terms_content; ?>
+				</div>
+				<footer>
+					<input type="button" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_close; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
-		<script>cmtx_js_settings_form = <?php echo json_encode($cmtx_js_settings_form); ?>;</script>
+		<div id="cmtx_js_settings_form" style="display:none"><?php echo json_encode($cmtx_js_settings_form); ?></div>
 	<?php } else { ?>
 		<div class="cmtx_form_disabled"><?php echo $lang_error_form_disabled; ?></div>
 	<?php } ?>

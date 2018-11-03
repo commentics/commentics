@@ -6,7 +6,7 @@ $_['lang_heading_comments']			= 'Comments';
 $_['lang_text_says']				= 'says...';
 $_['lang_text_permalink']			= 'Share a link to this comment';
 $_['lang_text_replying_to']			= 'You are replying to';
-$_['lang_text_not_replying']		= 'You are not replying to anyone.';
+$_['lang_text_not_replying']		= 'You are not replying to anyone';
 $_['lang_text_admin']				= 'Admin';
 $_['lang_text_level_5']				= 'Senior';
 $_['lang_text_level_4']				= 'Regular';
@@ -51,10 +51,10 @@ $_['lang_title_twitter']			= 'Twitter';
 $_['lang_title_view_replies']		= 'View Replies';
 
 // Dialog
-$_['lang_dialog_flag_title']		= 'Report Comment';
-$_['lang_dialog_flag_content']		= 'Are you sure you want to report it?';
-$_['lang_dialog_yes']				= 'Yes';
-$_['lang_dialog_no']				= 'No';
+$_['lang_modal_flag_heading']		= 'Report Comment';
+$_['lang_modal_flag_content']		= 'Are you sure you want to report it?';
+$_['lang_modal_yes']				= 'Yes';
+$_['lang_modal_no']					= 'No';
 
 // Link
 $_['lang_link_close']				= 'Close';

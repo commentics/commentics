@@ -1,9 +1,83 @@
+/* Wait for jQuery to load, in case loaded after Commentics */
 var cmtx_wait_for_jquery = setInterval(function() {
+	/* jQuery is loaded */
 	if (window.jQuery) {
 		clearInterval(cmtx_wait_for_jquery);
 
-		// The document (excluding images) has finished loading
-		jQuery(document).ready(function() {
+		/* The document (excluding images) has finished loading */
+		$(document).ready(function() {
+			/* Form settings may not exist (if the form is disabled) */
+			if ($('#cmtx_js_settings_form').length) {
+				cmtx_js_settings_form = JSON.parse($('#cmtx_js_settings_form').text());
+			}
+
+			/* Comment settings may not exist (if there are no comments) */
+			if ($('#cmtx_js_settings_comments').length) {
+				cmtx_js_settings_comments = JSON.parse($('#cmtx_js_settings_comments').text());
+			}
+
+			/* Notify settings may not exist (if the notify feature is disabled) */
+			if ($('#cmtx_js_settings_notify').length) {
+				cmtx_js_settings_notify = JSON.parse($('#cmtx_js_settings_notify').text());
+			}
+
+			/* Show a BB Code modal */
+			$('#cmtx_container span[data-cmtx-target-modal]').click(function(e) {
+				e.preventDefault();
+
+				var target = $(this).attr('data-cmtx-target-modal');
+
+				$('body').append('<div class="cmtx_overlay"></div>');
+
+				$('.cmtx_overlay').fadeIn(200);
+
+				$(target).fadeIn(200);
+			});
+
+			/* Show an agreement modal */
+			$('#cmtx_container label[for="cmtx_privacy"] a, #cmtx_container label[for="cmtx_terms"] a').click(function(e) {
+				e.preventDefault();
+
+				var target = $(this).parent().parent().attr('data-cmtx-target-modal');
+
+				$('body').append('<div class="cmtx_overlay"></div>');
+
+				$('.cmtx_overlay').fadeIn(200);
+
+				$(target).fadeIn(200);
+			});
+
+			/* Show the flag modal */
+			$('#cmtx_container').on('click', '.cmtx_flag_link', function(e) {
+				e.preventDefault();
+
+				var comment_id = $(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
+
+				$('#cmtx_flag_modal_yes').attr('data-cmtx-comment-id', comment_id);
+
+				$('body').append('<div class="cmtx_overlay"></div>');
+
+				$('.cmtx_overlay').fadeIn(200);
+
+				$('#cmtx_flag_modal').fadeIn(200);
+			});
+
+			/* Modal cancel button */
+			$('#cmtx_container').on('click', '.cmtx_modal_box .cmtx_button_secondary', function(e) {
+				e.preventDefault();
+
+				$('.cmtx_modal_close').trigger('click');
+			});
+
+			/* Close modal */
+			$('body').on('click', '.cmtx_modal_close, .cmtx_overlay', function(e) {
+				e.preventDefault();
+
+				$('.cmtx_modal_box, .cmtx_overlay').fadeOut(200, function() {
+					$('.cmtx_overlay').remove();
+				});
+			});
+
 			/* Style the blank select options as placeholders */
 			var selected = $('.cmtx_form_container select').find('option:selected');
 
@@ -38,19 +112,17 @@ var cmtx_wait_for_jquery = setInterval(function() {
 				}
 			});
 
-			/* Adds a BB Code tag for the simple non-dialog ones */
-			$('.cmtx_bb_code').click(function() {
+			/* Adds a BB Code tag for the simple non-modal ones */
+			$('.cmtx_bb_code:not([data-cmtx-target-modal])').click(function() {
 				var bb_code = $(this).attr('data-cmtx-tag');
 
 				if (bb_code) {
 					bb_code = bb_code.split('|');
 
-					if (bb_code[0] != 'dialog:') {
-						if (typeof(bb_code[1]) === 'undefined') {
-							cmtx_add_tag('', bb_code[0]);
-						} else {
-							cmtx_add_tag(bb_code[0], bb_code[1]);
-						}
+					if (typeof(bb_code[1]) === 'undefined') {
+						cmtx_add_tag('', bb_code[0]);
+					} else {
+						cmtx_add_tag(bb_code[0], bb_code[1]);
 					}
 				}
 			});
@@ -62,320 +134,150 @@ var cmtx_wait_for_jquery = setInterval(function() {
 				cmtx_add_tag('', smiley);
 			});
 
-			/* Show a dialog for the BB Code bullet */
-			$('.cmtx_bb_code_bullet').click(function() {
-				$('#cmtx_dialog_bullet').dialog({
-					modal: true,
-					height: 'auto',
-					width: 'auto',
-					resizable: false,
-					draggable: false,
-					center: true,
-					buttons: {
-						'Insert': function() {
-							var bb_code = $('.cmtx_bb_code_bullet').attr('data-cmtx-tag');
+			/* Insert content from bullet modal */
+			$('#cmtx_bullet_modal_insert').click(function(e) {
+				var bb_code = $('.cmtx_bb_code_bullet').attr('data-cmtx-tag');
 
-							bb_code = bb_code.split('|');
+				bb_code = bb_code.split('|');
 
-							var tag = '';
+				var tag = '';
 
-							var item_1 = $('#cmtx_dialog_bullet_field_1').val();
-							var item_2 = $('#cmtx_dialog_bullet_field_2').val();
-							var item_3 = $('#cmtx_dialog_bullet_field_3').val();
-							var item_4 = $('#cmtx_dialog_bullet_field_4').val();
-							var item_5 = $('#cmtx_dialog_bullet_field_5').val();
+				$('#cmtx_bullet_modal input[type="text"]').each(function() {
+					var item = $.trim($(this).val());
 
-							var items = new Array(item_1, item_2, item_3, item_4, item_5);
-
-							for (var i = 0; i < 5; i++) {
-								var item = items[i];
-
-								item = $.trim(item);
-
-								if (item != null && item != '') {
-									tag += bb_code[2] + item + bb_code[3] + '\r\n';
-								}
-							}
-
-							if (tag != null && tag != '') {
-								tag = bb_code[1] + '\r\n' + tag + bb_code[4];
-
-								cmtx_add_tag('', tag);
-							}
-
-							$('#cmtx_dialog_bullet_field_1, #cmtx_dialog_bullet_field_2, #cmtx_dialog_bullet_field_3, #cmtx_dialog_bullet_field_4, #cmtx_dialog_bullet_field_5').val('');
-
-							$(this).dialog('close');
-						},
-						'Cancel': function() {
-							$(this).dialog('close');
-						}
+					if (item != null && item != '') {
+						tag += bb_code[1] + item + bb_code[2] + '\r\n';
 					}
 				});
 
-				$('button:first-of-type .ui-button-text').addClass('fa fa-check').text('');
+				if (tag != null && tag != '') {
+					tag = bb_code[0] + '\r\n' + tag + bb_code[3];
 
-				$('button:last-of-type .ui-button-text').addClass('fa fa-times').text('');
+					cmtx_add_tag('', tag);
+				}
 
-				$('#cmtx_dialog_bullet').dialog('open');
+				$('#cmtx_bullet_modal input[type="text"]').val('');
 
-				return false;
+				$('.cmtx_modal_close').trigger('click');
 			});
 
-			/* Show a dialog for the BB Code numeric */
-			$('.cmtx_bb_code_numeric').click(function() {
-				$('#cmtx_dialog_numeric').dialog({
-					modal: true,
-					height: 'auto',
-					width: 'auto',
-					resizable: false,
-					draggable: false,
-					center: true,
-					buttons: {
-						'Insert': function() {
-							var bb_code = $('.cmtx_bb_code_numeric').attr('data-cmtx-tag');
+			/* Insert content from numeric modal */
+			$('#cmtx_numeric_modal_insert').click(function(e) {
+				var bb_code = $('.cmtx_bb_code_numeric').attr('data-cmtx-tag');
 
-							bb_code = bb_code.split('|');
+				bb_code = bb_code.split('|');
 
-							var tag = '';
+				var tag = '';
 
-							var item_1 = $('#cmtx_dialog_numeric_field_1').val();
-							var item_2 = $('#cmtx_dialog_numeric_field_2').val();
-							var item_3 = $('#cmtx_dialog_numeric_field_3').val();
-							var item_4 = $('#cmtx_dialog_numeric_field_4').val();
-							var item_5 = $('#cmtx_dialog_numeric_field_5').val();
+				$('#cmtx_numeric_modal input[type="text"]').each(function() {
+					var item = $.trim($(this).val());
 
-							var items = new Array(item_1, item_2, item_3, item_4, item_5);
-
-							for (var i = 0; i < 5; i++) {
-								var item = items[i];
-
-								item = $.trim(item);
-
-								if (item != null && item != '') {
-									tag += bb_code[2] + item + bb_code[3] + '\r\n';
-								}
-							}
-
-							if (tag != null && tag != '') {
-								tag = bb_code[1] + '\r\n' + tag + bb_code[4];
-
-								cmtx_add_tag('', tag);
-							}
-
-							$('#cmtx_dialog_numeric_field_1, #cmtx_dialog_numeric_field_2, #cmtx_dialog_numeric_field_3, #cmtx_dialog_numeric_field_4, #cmtx_numeric_bullet_field_5').val('');
-
-							$(this).dialog('close');
-						},
-						'Cancel': function() {
-							$(this).dialog('close');
-						}
+					if (item != null && item != '') {
+						tag += bb_code[1] + item + bb_code[2] + '\r\n';
 					}
 				});
 
-				$('button:first-of-type .ui-button-text').addClass('fa fa-check').text('');
+				if (tag != null && tag != '') {
+					tag = bb_code[0] + '\r\n' + tag + bb_code[3];
 
-				$('button:last-of-type .ui-button-text').addClass('fa fa-times').text('');
+					cmtx_add_tag('', tag);
+				}
 
-				$('#cmtx_dialog_numeric').dialog('open');
+				$('#cmtx_numeric_modal input[type="text"]').val('');
 
-				return false;
+				$('.cmtx_modal_close').trigger('click');
 			});
 
-			/* Show a dialog for the BB Code link */
-			$('.cmtx_bb_code_link').click(function() {
-				$('#cmtx_dialog_link').dialog({
-					modal: true,
-					height: 'auto',
-					width: 'auto',
-					resizable: false,
-					draggable: false,
-					center: true,
-					buttons: {
-						'Insert': function() {
-							var bb_code = $('.cmtx_bb_code_link').attr('data-cmtx-tag');
+			/* Insert content from link modal */
+			$('#cmtx_link_modal_insert').click(function(e) {
+				var bb_code = $('.cmtx_bb_code_link').attr('data-cmtx-tag');
 
-							bb_code = bb_code.split('|');
+				bb_code = bb_code.split('|');
 
-							var link = $.trim($('#cmtx_dialog_link_field_1').val());
+				var link = $.trim($('#cmtx_link_modal input[type="url"]').val());
 
-							if (link != null && link != '' && link != 'http://') {
-								var text = $.trim($('#cmtx_dialog_link_field_2').val());
+				if (link != null && link != '' && link != 'http://') {
+					var text = $.trim($('#cmtx_link_modal input[type="text"]').val());
 
-								if (text != null && text != '') {
-									var tag = bb_code[2] + link + bb_code[3] + text + bb_code[4];
-								} else {
-									var tag = bb_code[1] + link + bb_code[4];
-								}
-
-								cmtx_add_tag('', tag);
-							}
-
-							$('#cmtx_dialog_link_field_1').val('http://');
-
-							$('#cmtx_dialog_link_field_2').val('');
-
-							$(this).dialog('close');
-						},
-						'Cancel': function() {
-							$(this).dialog('close');
-						}
+					if (text != null && text != '') {
+						var tag = bb_code[1] + link + bb_code[2] + text + bb_code[3];
+					} else {
+						var tag = bb_code[0] + link + bb_code[3];
 					}
-				});
 
-				var value = $('#cmtx_dialog_link_field_1').val();
+					cmtx_add_tag('', tag);
+				}
 
-				$('#cmtx_dialog_link_field_1').focus().val('').val(value);
+				$('#cmtx_link_modal input[type="url"]').val('http://');
 
-				$('button:first-of-type .ui-button-text').addClass('fa fa-check').text('');
+				$('#cmtx_link_modal input[type="text"]').val('');
 
-				$('button:last-of-type .ui-button-text').addClass('fa fa-times').text('');
-
-				$('#cmtx_dialog_link').dialog('open');
-
-				return false;
+				$('.cmtx_modal_close').trigger('click');
 			});
 
-			/* Show a dialog for the BB Code email */
-			$('.cmtx_bb_code_email').click(function() {
-				$('#cmtx_dialog_email').dialog({
-					modal: true,
-					height: 'auto',
-					width: 'auto',
-					resizable: false,
-					draggable: false,
-					center: true,
-					buttons: {
-						'Insert': function() {
-							var bb_code = $('.cmtx_bb_code_email').attr('data-cmtx-tag');
+			/* Insert content from email modal */
+			$('#cmtx_email_modal_insert').click(function(e) {
+				var bb_code = $('.cmtx_bb_code_email').attr('data-cmtx-tag');
 
-							bb_code = bb_code.split('|');
+				bb_code = bb_code.split('|');
 
-							var email = $.trim($('#cmtx_dialog_email_field_1').val());
+				var email = $.trim($('#cmtx_email_modal input[type="email"]').val());
 
-							if (email != null && email != '') {
-								var text = $.trim($('#cmtx_dialog_email_field_2').val());
+				if (email != null && email != '') {
+					var text = $.trim($('#cmtx_email_modal input[type="text"]').val());
 
-								if (text != null && text != '') {
-									var tag = bb_code[2] + email + bb_code[3] + text + bb_code[4];
-								} else {
-									var tag = bb_code[1] + email + bb_code[4];
-								}
-
-								cmtx_add_tag('', tag);
-							}
-
-							$('#cmtx_dialog_email_field_1').val('');
-
-							$('#cmtx_dialog_email_field_2').val('');
-
-							$(this).dialog('close');
-						},
-						'Cancel': function() {
-							$(this).dialog('close');
-						}
+					if (text != null && text != '') {
+						var tag = bb_code[1] + email + bb_code[2] + text + bb_code[3];
+					} else {
+						var tag = bb_code[0] + email + bb_code[3];
 					}
-				});
 
-				$('button:first-of-type .ui-button-text').addClass('fa fa-check').text('');
+					cmtx_add_tag('', tag);
+				}
 
-				$('button:last-of-type .ui-button-text').addClass('fa fa-times').text('');
+				$('#cmtx_email_modal input[type="email"]').val('');
 
-				$('#cmtx_dialog_email').dialog('open');
+				$('#cmtx_email_modal input[type="text"]').val('');
 
-				return false;
+				$('.cmtx_modal_close').trigger('click');
 			});
 
-			/* Show a dialog for the BB Code image */
-			$('.cmtx_bb_code_image').click(function() {
-				$('#cmtx_dialog_image').dialog({
-					modal: true,
-					height: 'auto',
-					width: 'auto',
-					resizable: false,
-					draggable: false,
-					center: true,
-					buttons: {
-						'Insert': function() {
-							var bb_code = $('.cmtx_bb_code_image').attr('data-cmtx-tag');
+			/* Insert content from image modal */
+			$('#cmtx_image_modal_insert').click(function(e) {
+				var bb_code = $('.cmtx_bb_code_image').attr('data-cmtx-tag');
 
-							bb_code = bb_code.split('|');
+				bb_code = bb_code.split('|');
 
-							var image = $.trim($('#cmtx_dialog_image_field').val());
+				var image = $.trim($('#cmtx_image_modal input[type="url"]').val());
 
-							if (image != null && image != '' && image != 'http://') {
-								var tag = bb_code[1] + image + bb_code[2];
+				if (image != null && image != '' && image != 'http://') {
+					var tag = bb_code[0] + image + bb_code[1];
 
-								cmtx_add_tag('', tag);
-							}
+					cmtx_add_tag('', tag);
+				}
 
-							$('#cmtx_dialog_image_field').val('http://');
+				$('#cmtx_image_modal input[type="url"]').val('http://');
 
-							$(this).dialog('close');
-						},
-						'Cancel': function() {
-							$(this).dialog('close');
-						}
-					}
-				});
-
-				var value = $('#cmtx_dialog_image_field').val();
-
-				$('#cmtx_dialog_image_field').focus().val('').val(value);
-
-				$('button:first-of-type .ui-button-text').addClass('fa fa-check').text('');
-
-				$('button:last-of-type .ui-button-text').addClass('fa fa-times').text('');
-
-				$('#cmtx_dialog_image').dialog('open');
-
-				return false;
+				$('.cmtx_modal_close').trigger('click');
 			});
 
-			/* Show a dialog for the BB Code YouTube */
-			$('.cmtx_bb_code_youtube').click(function() {
-				$('#cmtx_dialog_youtube').dialog({
-					modal: true,
-					height: 'auto',
-					width: 'auto',
-					resizable: false,
-					draggable: false,
-					center: true,
-					buttons: {
-						'Insert': function() {
-							var bb_code = $('.cmtx_bb_code_youtube').attr('data-cmtx-tag');
+			/* Insert content from YouTube modal */
+			$('#cmtx_youtube_modal_insert').click(function(e) {
+				var bb_code = $('.cmtx_bb_code_youtube').attr('data-cmtx-tag');
 
-							bb_code = bb_code.split('|');
+				bb_code = bb_code.split('|');
 
-							var video = $.trim($('#cmtx_dialog_youtube_field').val());
+				var video = $.trim($('#cmtx_youtube_modal input[type="url"]').val());
 
-							if (video != null && video != '' && video != 'http://') {
-								var tag = bb_code[1] + video + bb_code[2];
+				if (video != null && video != '' && video != 'http://') {
+					var tag = bb_code[0] + video + bb_code[1];
 
-								cmtx_add_tag('', tag);
-							}
+					cmtx_add_tag('', tag);
+				}
 
-							$('#cmtx_dialog_youtube_field').val('http://');
+				$('#cmtx_youtube_modal input[type="url"]').val('http://');
 
-							$(this).dialog('close');
-						},
-						'Cancel': function() {
-							$(this).dialog('close');
-						}
-					}
-				});
-
-				var value = $('#cmtx_dialog_youtube_field').val();
-
-				$('#cmtx_dialog_youtube_field').focus().val('').val(value);
-
-				$('button:first-of-type .ui-button-text').addClass('fa fa-check').text('');
-
-				$('button:last-of-type .ui-button-text').addClass('fa fa-times').text('');
-
-				$('#cmtx_dialog_youtube').dialog('open');
-
-				return false;
+				$('.cmtx_modal_close').trigger('click');
 			});
 
 			/* Update the comment counter whenever anything is entered */
@@ -389,42 +291,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
 			/* Simulate entering a comment on page load to update the counter in case it has default text */
 			$('#cmtx_comment').trigger('keyup');
-
-			/* Show a lightbox when clicking on the privacy link */
-			$('#cmtx_privacy_link').click(function(e) {
-				e.preventDefault();
-
-				$.colorbox({
-					inline: true,
-					href: '#cmtx_privacy_content',
-					maxWidth: '80%',
-					maxHeight: '50%',
-					onClosed: function() {
-						$('#cmtx_privacy_content').hide();
-					},
-					onOpen: function() {
-						$('#cmtx_privacy_content').show();
-					}
-				});
-			});
-
-			/* Show a lightbox when clicking on the terms link */
-			$('#cmtx_terms_link').click(function(e) {
-				e.preventDefault();
-
-				$.colorbox({
-					inline: true,
-					href: '#cmtx_terms_content',
-					maxWidth: '80%',
-					maxHeight: '50%',
-					onClosed: function() {
-						$('#cmtx_terms_content').hide();
-					},
-					onOpen: function() {
-						$('#cmtx_terms_content').show();
-					}
-				});
-			});
 
 			/* Allows the user to deselect the star rating */
 			$('input[type="radio"][name="cmtx_rating"]').on('click', function() {
@@ -549,9 +415,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
 							}
 						});
 
-						request.always(function() {
-						});
-
 						request.done(function(response) {
 							setTimeout(function() {
 								states = response;
@@ -628,18 +491,18 @@ var cmtx_wait_for_jquery = setInterval(function() {
 					data: serialized + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id) + '&cmtx_type=' + encodeURIComponent($(this).attr('data-cmtx-type')) + $('#cmtx_hidden_data').val(),
 					dataType: 'json',
 					beforeSend: function() {
-						$('.cmtx_button').val(cmtx_js_settings_form.lang_button_processing);
+						$('#cmtx_submit_button, #cmtx_preview_button').val(cmtx_js_settings_form.lang_button_processing);
 
-						$('.cmtx_button').prop('disabled', true);
+						$('#cmtx_submit_button, #cmtx_preview_button').prop('disabled', true);
 					}
 				});
 
 				request.always(function() {
-					$('.cmtx_submit_button').val(cmtx_js_settings_form.lang_button_submit);
+					$('#cmtx_submit_button').val(cmtx_js_settings_form.lang_button_submit);
 
-					$('.cmtx_preview_button').val(cmtx_js_settings_form.lang_button_preview);
+					$('#cmtx_preview_button').val(cmtx_js_settings_form.lang_button_preview);
 
-					$('.cmtx_button').prop('disabled', false);
+					$('#cmtx_submit_button, #cmtx_preview_button').prop('disabled', false);
 
 					$('#cmtx_comment').addClass('cmtx_comment_field_active');
 
@@ -655,6 +518,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
 					if (response['result']['preview']) {
 						$('#cmtx_preview').html(response['result']['preview']);
+
+						cmtxHighlightCode();
 					} else {
 						$('#cmtx_preview').html('');
 					}
@@ -816,17 +681,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
 				$(this).closest('.cmtx_comment_box').next().fadeIn('slow');
 			});
 
-			/* Apply colorbox to image uploads */
-			$('#cmtx_container').on('click', '.cmtx_upload_area a', function(e) {
-				if (typeof colorbox != 'undefined') {
-					$('.cmtx_upload_area a').colorbox({
-						maxWidth: '80%',
-						maxHeight: '50%',
-						rel: function() { return $(this).data('cmtx-rel'); }
-					})
-				}
-			});
-
 			/* Sort by */
 			$('#cmtx_container').on('change', '.cmtx_sort_by_field', function(e) {
 				e.preventDefault();
@@ -897,9 +751,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
 					dataType: 'json',
 					beforeSend: function() {
 					}
-				});
-
-				request.always(function() {
 				});
 
 				request.done(function(response) {
@@ -984,7 +835,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 				}
 
 				$('.cmtx_form_heading').fadeOut(500, function() {
-					$('.cmtx_form_heading').text(cmtx_js_settings_notify.lang_heading_notify).fadeIn(3000);
+					$('.cmtx_form_heading').text(cmtx_js_settings_notify.lang_heading_notify).fadeIn(500);
 				});
 
 				var notify_button = '';
@@ -995,7 +846,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
 						notify_button += '<div class="cmtx_container cmtx_submit_button_container">';
 
-							notify_button += '<input type="button" id="cmtx_notify_button" class="cmtx_button cmtx_submit_button" value="' + cmtx_js_settings_notify.lang_button_notify + '" title="' + cmtx_js_settings_notify.lang_button_notify + '">';
+							notify_button += '<input type="button" id="cmtx_notify_button" class="cmtx_button cmtx_button_primary" value="' + cmtx_js_settings_notify.lang_button_notify + '" title="' + cmtx_js_settings_notify.lang_button_notify + '">';
 
 						notify_button += '</div>';
 
@@ -1015,7 +866,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 					scrollTop: $('#cmtx_form_container').offset().top
 				}, 1000);
 
-				$('.cmtx_message_notify').fadeIn(2000);
+				$('.cmtx_message_notify').fadeIn(1000);
 			});
 
 			$('html, body').on('click', '.cmtx_message_notify a', function(e) {
@@ -1136,12 +987,12 @@ var cmtx_wait_for_jquery = setInterval(function() {
 				$('#cmtx_comment').addClass('cmtx_comment_field_active');
 
 				$('.cmtx_form_heading').fadeOut(250, function() {
-					$('.cmtx_form_heading').text(cmtx_heading_text).fadeIn(3000);
+					$('.cmtx_form_heading').text(cmtx_heading_text).fadeIn(500);
 				});
 
 				$('input[name="cmtx_subscribe"]').val('');
 
-				$('.cmtx_message_notify').fadeOut(1500);
+				$('.cmtx_message_notify').fadeOut(500);
 			}
 
 			/* Like or dislike a comment */
@@ -1164,9 +1015,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
 					dataType: 'json',
 					beforeSend: function() {
 					}
-				});
-
-				request.always(function() {
 				});
 
 				request.done(function(response) {
@@ -1220,7 +1068,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 				$('.cmtx_share_twitter').parent().attr('href', 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(permalink));
 
 				$('.cmtx_share_box').clearQueue();
-				$('.cmtx_share_box').fadeIn(1000);
+				$('.cmtx_share_box').fadeIn(400);
 
 				$('.cmtx_share_box').position({
 					my: 'left',
@@ -1234,88 +1082,63 @@ var cmtx_wait_for_jquery = setInterval(function() {
 				var container = $('.cmtx_share_box');
 
 				if (!container.is(e.target) && container.has(e.target).length === 0) {
-					container.fadeOut(1000);
+					container.fadeOut(400);
 				}
 			});
 
-			/* Flag a comment */
-			$('#cmtx_container').on('click', '.cmtx_flag_link', function(e) {
+			/* Flag modal */
+			$('#cmtx_container').on('click', '#cmtx_flag_modal_yes', function(e) {
 				e.preventDefault();
 
-				var flag_link = $(this);
+				var comment_id = $(this).attr('data-cmtx-comment-id');
 
-				$('#cmtx_flag_dialog').dialog({
-					modal: true,
-					height: 'auto',
-					width: 'auto',
-					resizable: false,
-					draggable: false,
-					center: true,
-					buttons: [
-						{
-							id: 'cmtx_flag_button_yes',
-							text: cmtx_js_settings_comments.lang_dialog_yes,
-							click: function() {
-								var request = $.ajax({
-									type: 'POST',
-									cache: false,
-									url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/flag',
-									data: 'cmtx_comment_id=' + encodeURIComponent(flag_link.closest('.cmtx_comment_box').attr('data-cmtx-comment-id')),
-									dataType: 'json',
-									beforeSend: function() {
-									}
-								});
+				var flag_link = $('.cmtx_comment_box[data-cmtx-comment-id=' + comment_id + '] .cmtx_flag_link');
 
-								request.always(function() {
-								});
-
-								request.done(function(response) {
-									if (response['success']) {
-										$('.cmtx_action_message_success').clearQueue();
-										$('.cmtx_action_message_success').html(response['success']);
-										$('.cmtx_action_message_success').fadeIn(500).delay(2000).fadeOut(500);
-
-										$('.cmtx_action_message_success').position({
-											my: 'left',
-											at: 'right top',
-											of: flag_link,
-											collision: 'fit'
-										});
-									}
-
-									if (response['error']) {
-										$('.cmtx_action_message_error').clearQueue();
-										$('.cmtx_action_message_error').html(response['error']);
-										$('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
-
-										$('.cmtx_action_message_error').position({
-											my: 'left',
-											at: 'right top',
-											of: flag_link,
-											collision: 'fit'
-										});
-									}
-								});
-
-								request.fail(function(jqXHR, textStatus, errorThrown) {
-									if (console && console.log) {
-										console.log(jqXHR.responseText);
-									}
-								});
-
-								$(this).dialog('close');
-							}
-						}, {
-							id: 'cmtx_flag_button_no',
-							text: cmtx_js_settings_comments.lang_dialog_no,
-							click: function() {
-								$(this).dialog('close');
-							}
-						}
-					]
+				var request = $.ajax({
+					type: 'POST',
+					cache: false,
+					url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/flag',
+					data: 'cmtx_comment_id=' + encodeURIComponent(comment_id),
+					dataType: 'json',
+					beforeSend: function() {
+					}
 				});
 
-				$('#cmtx_flag_dialog').dialog('open');
+				request.done(function(response) {
+					if (response['success']) {
+						$('.cmtx_action_message_success').clearQueue();
+						$('.cmtx_action_message_success').html(response['success']);
+						$('.cmtx_action_message_success').fadeIn(500).delay(2000).fadeOut(500);
+
+						$('.cmtx_action_message_success').position({
+							my: 'left',
+							at: 'right top',
+							of: flag_link,
+							collision: 'fit'
+						});
+					}
+
+					if (response['error']) {
+						$('.cmtx_action_message_error').clearQueue();
+						$('.cmtx_action_message_error').html(response['error']);
+						$('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
+
+						$('.cmtx_action_message_error').position({
+							my: 'left',
+							at: 'right top',
+							of: flag_link,
+							collision: 'fit'
+						});
+					}
+				});
+
+				request.fail(function(jqXHR, textStatus, errorThrown) {
+					if (console && console.log) {
+						console.log(jqXHR.responseText);
+					}
+				});
+
+				$('.cmtx_modal_close').trigger('click');
 			});
 
 			/* Permalink for a comment */
@@ -1331,7 +1154,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 				$('#cmtx_permalink').val(permalink);
 
 				$('.cmtx_permalink_box').clearQueue();
-				$('.cmtx_permalink_box').fadeIn(1000);
+				$('.cmtx_permalink_box').fadeIn(400);
 
 				$('.cmtx_permalink_box').position({
 					my: 'left',
@@ -1346,14 +1169,14 @@ var cmtx_wait_for_jquery = setInterval(function() {
 			$('#cmtx_container').on('click', '.cmtx_permalink_box a', function(e) {
 				e.preventDefault();
 
-				$('.cmtx_permalink_box').fadeOut(1000);
+				$('.cmtx_permalink_box').fadeOut(400);
 			});
 
 			$(document).mouseup(function(e) {
 				var container = $('.cmtx_permalink_box');
 
 				if (!container.is(e.target) && container.has(e.target).length === 0) {
-					container.fadeOut(1000);
+					container.fadeOut(400);
 				}
 			});
 
@@ -1379,7 +1202,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
 				$('input[name="cmtx_reply_to"]').val(comment_id);
 
-				$('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_reply">' + cmtx_js_settings_comments.lang_text_replying_to + ' ' + name + '. <a href="#" title="' + cmtx_js_settings_comments.lang_title_cancel_reply + '">' + cmtx_js_settings_comments.lang_link_cancel + '</a></div>');
+				$('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_reply">' + cmtx_js_settings_comments.lang_text_replying_to + ' ' + name + ' <a href="#" title="' + cmtx_js_settings_comments.lang_title_cancel_reply + '">' + cmtx_js_settings_comments.lang_link_cancel + '</a></div>');
 
 				if (cmtx_js_settings_comments.scroll_reply) {
 					$('html, body').animate({
@@ -1429,7 +1252,7 @@ var cmtx_wait_for_window = setInterval(function() {
 	if (document.readyState === 'complete') {
 		clearInterval(cmtx_wait_for_window);
 
-		// The window (including images) has finished loading
+		/* The window (including images) has finished loading */
 		if (document.readyState === 'complete') {
 			cmtxReadMore();
 		};

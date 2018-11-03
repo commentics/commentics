@@ -18,3 +18,7 @@
 # Upload files
 /upload/upload/*
 !/upload/upload/index.html
+
+# Gulp
+node_modules
+package-lock.json

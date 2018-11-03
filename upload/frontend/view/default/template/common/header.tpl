@@ -22,27 +22,11 @@
 	<script src="<?php echo $recaptcha_api; ?>" async defer></script>
 <?php } ?>
 
-<script src="<?php echo $common; ?>"></script>
-
-<?php if ($jquery_theme) { ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo $jquery_theme; ?>">
-<?php } ?>
-
-<?php if ($font_awesome) { ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo $font_awesome; ?>">
-<?php } ?>
-
-<?php if ($colorbox) { ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo $commentics_url; ?>3rdparty/colorbox/colorbox.css">
-
-	<script src="<?php echo $commentics_url; ?>3rdparty/colorbox/jquery.colorbox-min.js" defer></script>
-<?php } ?>
-
 <?php if ($highlight) { ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo $commentics_url; ?>3rdparty/highlight/styles/default.css">
-
-	<script src="<?php echo $commentics_url; ?>3rdparty/highlight/highlight.pack.js" defer></script>
+	<script src="<?php echo $highlight; ?>" defer></script>
 <?php } ?>
+
+<script src="<?php echo $common; ?>" defer></script>
 
 <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
 

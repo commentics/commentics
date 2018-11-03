@@ -267,13 +267,15 @@ class MainCommentsController extends Controller {
 			$highlight = false;
 		}
 
+		$this->data['lang_modal_yes'] = $this->variable->encodeDouble($this->data['lang_modal_yes']);
+
+		$this->data['lang_modal_no'] = $this->variable->encodeDouble($this->data['lang_modal_no']);
+
 		/* These are passed to common.js via the template */
 		$this->data['cmtx_js_settings_comments'] = array(
 			'commentics_url'          => $this->url->getCommenticsUrl(),
 			'page_id'                 => (int)$this->page->getId(),
 			'flash_id'                => (int)$flash_id,
-			'lang_dialog_yes'         => $this->data['lang_dialog_yes'],
-			'lang_dialog_no'          => $this->data['lang_dialog_no'],
 			'scroll_reply'            => (bool)$this->setting->get('scroll_reply'),
 			'scroll_speed'            => (int)$this->setting->get('scroll_speed'),
 			'lang_text_view'          => $this->data['lang_text_view'],

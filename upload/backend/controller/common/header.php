@@ -7,13 +7,11 @@ class CommonHeaderController extends Controller {
 
 		$this->loadModel('common/header');
 
-		$this->data['jquery'] = $this->loadJavascript('jquery.min.js');
+		$this->data['jquery'] = $this->loadJavascript('jquery/jquery.min.js');
 
-		$this->data['jquery_ui'] = $this->loadJavascript('jquery-ui/jquery-ui.min.js');
+		$this->data['jquery_ui'] = $this->loadJavascript('jquery/jquery-ui.min.js');
 
-		$this->data['jquery_theme'] = $this->loadJavascript('jquery-ui/jquery-ui.min.css');
-
-		$this->data['normalize'] = $this->loadStylesheet('normalize.css');
+		$this->data['jquery_theme'] = $this->loadJavascript('jquery/jquery-ui.min.css');
 
 		$this->data['stylesheet'] = $this->loadStylesheet('stylesheet.css');
 

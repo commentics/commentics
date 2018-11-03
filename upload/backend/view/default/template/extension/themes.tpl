@@ -58,6 +58,18 @@
 		<h2><?php echo $lang_subheading; ?></h2>
 
 		<div class="fieldset">
+			<label><?php echo $lang_entry_auto_detect; ?></label>
+			<input type="checkbox" name="auto_detect" value="1" <?php if ($auto_detect) { echo 'checked'; } ?>>
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_auto_detect; ?>', this, event, '')">[?]</a>
+		</div>
+
+		<div class="fieldset">
+			<label><?php echo $lang_entry_optimize; ?></label>
+			<input type="checkbox" name="optimize" value="1" <?php if ($optimize) { echo 'checked'; } ?>>
+			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_optimize; ?>', this, event, '')">[?]</a>
+		</div>
+
+		<div class="fieldset">
 			<label><?php echo $lang_entry_jquery; ?></label>
 			<select name="jquery_source">
 				<option value="" <?php if ($jquery_source == '') { echo 'selected'; } ?>><?php echo $lang_select_no; ?></option>
@@ -82,31 +94,6 @@
 			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_jquery_ui_source; ?>', this, event, '')">[?]</a>
 			<?php if ($error_jquery_ui_source) { ?>
 				<span class="error"><?php echo $error_jquery_ui_source; ?></span>
-			<?php } ?>
-		</div>
-
-		<div class="fieldset">
-			<label><?php echo $lang_entry_font_awesome; ?></label>
-			<select name="font_awesome_source">
-				<option value="" <?php if ($font_awesome_source == '') { echo 'selected'; } ?>><?php echo $lang_select_no; ?></option>
-				<option value="local" <?php if ($font_awesome_source == 'local') { echo 'selected'; } ?>><?php echo $lang_select_local; ?></option>
-				<option value="maxcdn" <?php if ($font_awesome_source == 'maxcdn') { echo 'selected'; } ?>><?php echo $lang_select_maxcdn; ?></option>
-			</select>
-			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_font_awesome_source; ?>', this, event, '')">[?]</a>
-			<?php if ($error_font_awesome_source) { ?>
-				<span class="error"><?php echo $error_font_awesome_source; ?></span>
-			<?php } ?>
-		</div>
-
-		<div class="fieldset">
-			<label><?php echo $lang_entry_colorbox; ?></label>
-			<select name="colorbox_source">
-				<option value="" <?php if ($colorbox_source == '') { echo 'selected'; } ?>><?php echo $lang_select_no; ?></option>
-				<option value="local" <?php if ($colorbox_source == 'local') { echo 'selected'; } ?>><?php echo $lang_select_local; ?></option>
-			</select>
-			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_colorbox_source; ?>', this, event, '')">[?]</a>
-			<?php if ($error_colorbox_source) { ?>
-				<span class="error"><?php echo $error_colorbox_source; ?></span>
 			<?php } ?>
 		</div>
 

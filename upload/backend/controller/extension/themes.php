@@ -25,6 +25,22 @@ class ExtensionThemesController extends Controller {
 			$this->data['theme_backend'] = $this->setting->get('theme_backend');
 		}
 
+		if (isset($this->request->post['auto_detect'])) {
+			$this->data['auto_detect'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['auto_detect'])) {
+			$this->data['auto_detect'] = false;
+		} else {
+			$this->data['auto_detect'] = $this->setting->get('auto_detect');
+		}
+
+		if (isset($this->request->post['optimize'])) {
+			$this->data['optimize'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['optimize'])) {
+			$this->data['optimize'] = false;
+		} else {
+			$this->data['optimize'] = $this->setting->get('optimize');
+		}
+
 		if (isset($this->request->post['jquery_source'])) {
 			$this->data['jquery_source'] = $this->request->post['jquery_source'];
 		} else {
@@ -35,18 +51,6 @@ class ExtensionThemesController extends Controller {
 			$this->data['jquery_ui_source'] = $this->request->post['jquery_ui_source'];
 		} else {
 			$this->data['jquery_ui_source'] = $this->setting->get('jquery_ui_source');
-		}
-
-		if (isset($this->request->post['font_awesome_source'])) {
-			$this->data['font_awesome_source'] = $this->request->post['font_awesome_source'];
-		} else {
-			$this->data['font_awesome_source'] = $this->setting->get('font_awesome_source');
-		}
-
-		if (isset($this->request->post['colorbox_source'])) {
-			$this->data['colorbox_source'] = $this->request->post['colorbox_source'];
-		} else {
-			$this->data['colorbox_source'] = $this->setting->get('colorbox_source');
 		}
 
 		if (isset($this->request->post['order_parts'])) {
@@ -83,12 +87,6 @@ class ExtensionThemesController extends Controller {
 			$this->data['error_font_awesome_source'] = $this->error['font_awesome_source'];
 		} else {
 			$this->data['error_font_awesome_source'] = '';
-		}
-
-		if (isset($this->error['colorbox_source'])) {
-			$this->data['error_colorbox_source'] = $this->error['colorbox_source'];
-		} else {
-			$this->data['error_colorbox_source'] = '';
 		}
 
 		if (isset($this->error['order_parts'])) {
@@ -179,14 +177,6 @@ class ExtensionThemesController extends Controller {
 
 		if (!isset($this->request->post['jquery_ui_source']) || !in_array($this->request->post['jquery_ui_source'], array('', 'local', 'google', 'jquery'))) {
 			$this->error['jquery_ui_source'] = $this->data['lang_error_selection'];
-		}
-
-		if (!isset($this->request->post['font_awesome_source']) || !in_array($this->request->post['font_awesome_source'], array('', 'local', 'maxcdn'))) {
-			$this->error['font_awesome_source'] = $this->data['lang_error_selection'];
-		}
-
-		if (!isset($this->request->post['colorbox_source']) || !in_array($this->request->post['colorbox_source'], array('', 'local'))) {
-			$this->error['colorbox_source'] = $this->data['lang_error_selection'];
 		}
 
 		if (!isset($this->request->post['order_parts']) || !in_array($this->request->post['order_parts'], array('1,2', '2,1'))) {

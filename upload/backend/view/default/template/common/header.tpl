@@ -18,8 +18,6 @@
 		<script src="../3rdparty/chart/chart.min.js"></script>
 	<?php } ?>
 
-	<link rel="stylesheet" type="text/css" href="../3rdparty/font_awesome/css/font-awesome.min.css">
-
 	<?php if ($wysiwyg_enabled && $route == 'edit/comment') { ?>
 		<script src="../3rdparty/summernote/summernote-lite.js"></script>
 		<link rel="stylesheet" type="text/css" href="../3rdparty/summernote/summernote-lite.css">
@@ -39,8 +37,7 @@
 	<?php } ?>
 <?php } ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo $normalize; ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
 </head>
 <body>
 

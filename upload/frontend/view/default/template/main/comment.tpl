@@ -112,7 +112,7 @@
 			<?php if ($comment['uploads']) { ?>
 				<div class="cmtx_upload_area">
 					<?php foreach ($comment['uploads'] as $upload) { ?>
-						<a href="<?php echo $upload['image']; ?>" data-cmtx-rel="cmtx_rel_<?php echo $comment['id']; ?>"><img src="<?php echo $upload['image']; ?>" class="cmtx_upload" alt="Upload"></a>
+						<img src="<?php echo $upload['image']; ?>" class="cmtx_upload" alt="Upload">
 					<?php } ?>
 				</div>
 			<?php } ?>

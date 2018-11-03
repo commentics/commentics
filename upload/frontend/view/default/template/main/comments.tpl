@@ -73,7 +73,7 @@
 							<?php } ?>
 						<?php } ?>
 					<?php } ?>
-						
+
 					<?php if ($has_replies) { ?>
 						</div>
 					<?php } ?>
@@ -141,8 +141,18 @@
 		<?php } ?>
 
 		<?php if ($show_flag) { ?>
-			<div id="cmtx_flag_dialog" title="<?php echo $lang_dialog_flag_title; ?>" style="display:none">
-				<span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_flag_content; ?>
+			<div id="cmtx_flag_modal" class="cmtx_modal_box">
+				<header>
+					<a href="#" class="cmtx_modal_close">x</a>
+					<div><?php echo $lang_modal_flag_heading; ?></div>
+				</header>
+				<div class="cmtx_modal_body">
+					<div><span class="cmtx_icon cmtx_alert_icon"></span> <?php echo $lang_modal_flag_content; ?></div>
+				</div>
+				<footer>
+					<input type="button" id="cmtx_flag_modal_yes" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_yes; ?>">
+					<input type="button" id="cmtx_flag_modal_no" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_no; ?>">
+				</footer>
 			</div>
 		<?php } ?>
 
@@ -156,7 +166,7 @@
 			</div>
 		<?php } ?>
 
-		<script>cmtx_js_settings_comments = <?php echo json_encode($cmtx_js_settings_comments); ?>;</script>
+		<div id="cmtx_js_settings_comments" style="display:none"><?php echo json_encode($cmtx_js_settings_comments); ?></div>
 
 		<?php if ($rich_snippets_enabled) { ?>
 			</div>

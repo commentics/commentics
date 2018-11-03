@@ -3,10 +3,10 @@
 $_['lang_heading_form']				  		= 'Add Comment';
 
 // Entry
-$_['lang_entry_notify']				  		= 'Notify me of new comments<span class="cmtx_checkbox_extra"> via email</span>.';
-$_['lang_entry_cookie']						= 'Remember my form inputs<span class="cmtx_checkbox_extra"> on this computer</span>.';
-$_['lang_entry_privacy']					= 'I have read <span class="cmtx_checkbox_extra">and understand</span> the <a href="" id="cmtx_privacy_link" title="View the privacy policy">privacy policy</a>.';
-$_['lang_entry_terms']						= 'I have read <span class="cmtx_checkbox_extra">and agree to</span> the <a href="" id="cmtx_terms_link" title="View the terms and conditions">terms and conditions</a>.';
+$_['lang_entry_notify']				  		= 'Notify me of new comments<span class="cmtx_checkbox_extra"> via email</span>';
+$_['lang_entry_cookie']						= 'Remember my form inputs<span class="cmtx_checkbox_extra"> on this computer</span>';
+$_['lang_entry_privacy']					= 'I have read <span class="cmtx_checkbox_extra">and understand</span> the <a href="#" title="View the privacy policy">privacy policy</a>';
+$_['lang_entry_terms']						= 'I have read <span class="cmtx_checkbox_extra">and agree to</span> the <a href="#" title="View the terms and conditions">terms and conditions</a>';
 
 // Placeholder
 $_['lang_placeholder_comment']				= 'Enter your comment here ..';
@@ -127,8 +127,7 @@ $_['lang_tag_smiley_confused']				= ':confused:';
 $_['lang_tag_smiley_shocked']				= ':shocked:';
 
 // Text
-$_['lang_text_form_disabled']				= 'Adding comments has been disabled.';
-$_['lang_text_javascript_disabled']			= 'JavaScript must be enabled for certain features to work.';
+$_['lang_text_javascript_disabled']			= 'JavaScript must be enabled for certain features to work';
 $_['lang_text_preview']						= 'Preview';
 $_['lang_text_preview_only']				= 'Preview only';
 $_['lang_text_required']		 			= '* Required information';
@@ -137,8 +136,6 @@ $_['lang_text_drop_success']				= 'Success';
 $_['lang_text_drop_error']					= 'Error';
 $_['lang_text_loading']						= 'Loading ..';
 $_['lang_text_country_first']				= 'Please select a country first';
-$_['lang_text_privacy']						= '<h3>Privacy Policy</h3><p>This policy contains information about your privacy. By posting, you are declaring that you understand this policy:</p><ul><li>Your name, rating, website address, town, country, state and comment will be publicly displayed if entered.</li><li>Aside from the data entered into these form fields, other stored data about your comment will include:<ul><li>Your IP address (not displayed)</li><li>The time/date of your submission (displayed)</li></ul></li><li>Your email address will not be shared. It is collected for only two reasons:<ul><li>Administrative purposes, should a need to contact you arise.</li><li>To inform you of new comments, should you subscribe to receive notifications.</li></ul></li><li>A cookie may be set on your computer. This is used to remember your inputs. It will expire by itself.</li></ul><p>This policy is subject to change at any time and without notice.</p>';
-$_['lang_text_terms']						= '<h3>Terms and Conditions</h3><p>These terms and conditions contain rules about posting comments. By submitting a comment, you are declaring that you agree with these rules:</p><ul><li>Although the administrator will attempt to moderate comments, it is impossible for every comment to have been moderated at any given time.</li><li>You acknowledge that all comments express the views and opinions of the original author and not those of the administrator.</li><li>You agree not to post any material which is knowingly false, obscene, hateful, threatening, harassing or invasive of a person\'s privacy.</li><li>The administrator has the right to edit, move or remove any comment for any reason and without notice.</li></ul><p>Failure to comply with these rules may result in being banned from further commenting.</p><p>These terms and conditions are subject to change at any time and without notice.</p>';
 $_['lang_text_powered_by']					= 'Powered by <a href="%s" title="Commentics" %s>Commentics</a>';
 $_['lang_text_maintenance_admin']			= 'The script is in maintenance mode. Only you can see this.';
 $_['lang_text_moderate_admin']				= 'This user posted as the admin.';
@@ -153,27 +150,34 @@ $_['lang_text_moderate_all']				= 'Moderating all comments.';
 $_['lang_text_comment_success']				= 'Your comment has been added';
 $_['lang_text_comment_approve']				= 'Your comment is awaiting approval';
 
-// Dialog
-$_['lang_dialog_bullet_heading']			= 'Insert Bullet List';
-$_['lang_dialog_bullet_content']			= 'Please enter at least one item.';
-$_['lang_dialog_bullet_item']				= 'Item:';
-$_['lang_dialog_numeric_heading']			= 'Insert Numeric List';
-$_['lang_dialog_numeric_content']			= 'Please enter at least one item.';
-$_['lang_dialog_numeric_item']				= 'Item:';
-$_['lang_dialog_link_heading']				= 'Insert Link';
-$_['lang_dialog_link_content_1']			= 'Please enter the link of the website';
-$_['lang_dialog_link_content_2']			= 'Optionally you can add display text';
-$_['lang_dialog_email_heading']				= 'Insert Email';
-$_['lang_dialog_email_content_1']			= 'Please enter the email address';
-$_['lang_dialog_email_content_2']			= 'Optionally add any display text';
-$_['lang_dialog_image_heading']				= 'Insert Image';
-$_['lang_dialog_image_content']				= 'Please enter the link of the image';
-$_['lang_dialog_youtube_heading']			= 'Insert YouTube Video';
-$_['lang_dialog_youtube_content']			= 'Please enter the link of the video';
+// Modal
+$_['lang_modal_privacy_heading']			= 'Privacy Policy';
+$_['lang_modal_privacy_content']			= '<p>This policy contains information about your privacy. By posting, you are declaring that you understand this policy:</p><ul><li>Your name, rating, website address, town, country, state and comment will be publicly displayed if entered.</li><li>Aside from the data entered into these form fields, other stored data about your comment will include:<ul><li>Your IP address (not displayed)</li><li>The time/date of your submission (displayed)</li></ul></li><li>Your email address will not be shared. It is collected for only two reasons:<ul><li>Administrative purposes, should a need to contact you arise.</li><li>To inform you of new comments, should you subscribe to receive notifications.</li></ul></li><li>A cookie may be set on your computer. This is used to remember your inputs. It will expire by itself.</li></ul><p>This policy is subject to change at any time and without notice.</p>';
+$_['lang_modal_terms_heading']				= 'Terms and Conditions';
+$_['lang_modal_terms_content']				= '<p>These terms and conditions contain rules about posting comments. By submitting a comment, you are declaring that you agree with these rules:</p><ul><li>Although the administrator will attempt to moderate comments, it is impossible for every comment to have been moderated at any given time.</li><li>You acknowledge that all comments express the views and opinions of the original author and not those of the administrator.</li><li>You agree not to post any material which is knowingly false, obscene, hateful, threatening, harassing or invasive of a person\'s privacy.</li><li>The administrator has the right to edit, move or remove any comment for any reason and without notice.</li></ul><p>Failure to comply with these rules may result in being banned from further commenting.</p><p>These terms and conditions are subject to change at any time and without notice.</p>';
+$_['lang_modal_bullet_heading']				= 'Insert Bullet List';
+$_['lang_modal_bullet_content']				= 'Please enter at least one item.';
+$_['lang_modal_bullet_item']				= 'Item:';
+$_['lang_modal_numeric_heading']			= 'Insert Numeric List';
+$_['lang_modal_numeric_content']			= 'Please enter at least one item.';
+$_['lang_modal_numeric_item']				= 'Item:';
+$_['lang_modal_link_heading']				= 'Insert Link';
+$_['lang_modal_link_content_1']				= 'Please enter the link of the website';
+$_['lang_modal_link_content_2']				= 'Optionally you can add display text';
+$_['lang_modal_email_heading']				= 'Insert Email';
+$_['lang_modal_email_content_1']			= 'Please enter the email address';
+$_['lang_modal_email_content_2']			= 'Optionally add any display text';
+$_['lang_modal_image_heading']				= 'Insert Image';
+$_['lang_modal_image_content']				= 'Please enter the link of the image';
+$_['lang_modal_youtube_heading']			= 'Insert YouTube Video';
+$_['lang_modal_youtube_content']			= 'Please enter the link of the video';
+$_['lang_modal_insert']						= 'Insert';
+$_['lang_modal_cancel']						= 'Cancel';
+$_['lang_modal_close']						= 'Close';
 
 // Error
 $_['lang_error_page_invalid']				= 'The page data is invalid. Please contact the administrator.';
-$_['lang_error_form_disabled']				= 'Adding comments has been disabled.';
+$_['lang_error_form_disabled']				= 'Adding comments has been disabled';
 $_['lang_error_comment_empty']				= 'Please enter your comment';
 $_['lang_error_comment_has_repeats']		= 'The comment has repeating characters';
 $_['lang_error_comment_has_capitals']		= 'The comment has too many capitals';

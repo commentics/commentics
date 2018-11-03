@@ -55,5 +55,17 @@ class MainPageModel extends Model {
 
 		return $viewer;
 	}
+
+	public function autoDetect($data) {
+		if (!$data['jquery']) {
+			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = 'local' WHERE `title` = 'jquery_source'");
+		}
+
+		if (!$data['jquery_ui']) {
+			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = 'local' WHERE `title` = 'jquery_ui_source'");
+		}
+
+		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'auto_detect'");
+	}
 }
 ?>

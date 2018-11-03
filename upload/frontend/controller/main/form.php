@@ -411,13 +411,9 @@ class MainFormController extends Controller {
 
 			$this->data['enabled_privacy'] = $this->setting->get('enabled_privacy');
 
-			$this->data['lang_text_privacy'] = $this->data['lang_text_privacy'];
-
 			/* Terms */
 
 			$this->data['enabled_terms'] = $this->setting->get('enabled_terms');
-
-			$this->data['lang_text_terms'] = $this->data['lang_text_terms'];
 
 			/* Preview */
 
@@ -495,6 +491,10 @@ class MainFormController extends Controller {
 			}
 
 			$this->data['hidden_data'] = str_replace('&', '&amp;', $hidden_data);
+
+			$this->data['lang_modal_insert'] = $this->variable->encodeDouble($this->data['lang_modal_insert']);
+			$this->data['lang_modal_cancel'] = $this->variable->encodeDouble($this->data['lang_modal_cancel']);
+			$this->data['lang_modal_close'] = $this->variable->encodeDouble($this->data['lang_modal_close']);
 
 			/* These are passed to common.js via the template */
 			$this->data['cmtx_js_settings_form'] = array(
