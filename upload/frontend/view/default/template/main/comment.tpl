@@ -1,4 +1,4 @@
-<div id="cmtx_perm_<?php echo $comment['id']; ?>" class="cmtx_comment_box cmtx_clear" data-cmtx-comment-id="<?php echo $comment['id']; ?>">
+<div id="cmtx_perm_<?php echo $comment['id']; ?>" class="cmtx_comment_box cmtx_clear" data-cmtx-comment-id="<?php echo $comment['id']; ?>" itemscope itemtype="http://schema.org/Comment">
 	<div class="cmtx_content_area" style="margin-left:<?php echo $reply_depth * $reply_indent; ?>px">
 		<?php if ($show_gravatar) { ?>
 			<div class="cmtx_gravatar_area">
@@ -76,17 +76,24 @@
 					</div>
 				<?php } ?>
 
-				<div class="cmtx_user_area">
+				<div class="cmtx_user_area" itemprop="creator" itemscope itemtype="http://schema.org/Person">
 					<span class="cmtx_name <?php if ($comment['is_admin']) { echo 'cmtx_name_admin'; } ?>">
-						<?php if ($show_website && $comment['website']) { ?>
-							<a href="<?php echo $comment['website']; ?>" <?php if ($website_new_window) { echo 'target="_blank"'; } ?> <?php if ($website_no_follow) { echo 'rel="nofollow"'; } ?>><span class="cmtx_name_text"><?php echo $comment['name']; ?></span></a>
-						<?php } else { ?>
-							<span class="cmtx_name_text"><?php echo $comment['name']; ?></span>
-						<?php } ?>
+						<span class="cmtx_name_text">
+							<?php if ($show_website && $comment['website']) { ?>
+								<a href="<?php echo $comment['website']; ?>" itemprop="url" <?php if ($website_new_window) { echo 'target="_blank"'; } ?> <?php if ($website_no_follow) { echo 'rel="nofollow"'; } ?>>
+							<?php } ?>
+							<span itemprop="name"><?php echo $comment['name']; ?></span>
+							<?php if ($show_website && $comment['website']) { ?>
+								</a>
+							<?php } ?>
+							<?php if ($show_gravatar) { ?>
+								<meta itemprop="image" content="<?php echo $comment['gravatar']; ?>">
+							<?php } ?>
+						</span>
 					</span>
 
 					<?php if ($comment['location']) { ?>
-						<span class="cmtx_geo">
+						<span class="cmtx_geo" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 							(<?php echo $comment['location']; ?>)
 						</span>
 					<?php } ?>
@@ -99,7 +106,7 @@
 				</div>
 			</div>
 
-			<div class="cmtx_comment_area">
+			<div class="cmtx_comment_area" itemprop="text">
 				<?php echo $comment['comment']; ?>
 			</div>
 
@@ -125,6 +132,7 @@
 						<?php } else { ?>
 							<time class="cmtx_date"><?php echo $comment['date_added']; ?></time>
 						<?php } ?>
+						<meta itemprop="dateCreated" content="<?php echo $comment['date_added']; ?>">
 					</div>
 				<?php } ?>
 
@@ -136,7 +144,7 @@
 							<div class="cmtx_like_area">
 								<a href="#" class="cmtx_vote_link cmtx_like_link" title="<?php echo $lang_title_like; ?>">
 									<span class="cmtx_icon cmtx_like_icon"></span>
-									<span class="cmtx_vote_count cmtx_like_count"><?php echo $comment['likes']; ?></span>
+									<span class="cmtx_vote_count cmtx_like_count" itemprop="upvoteCount"><?php echo $comment['likes']; ?></span>
 								</a>
 							</div>
 						<?php } ?>
@@ -145,7 +153,7 @@
 							<div class="cmtx_dislike_area">
 								<a href="#" class="cmtx_vote_link cmtx_dislike_link" title="<?php echo $lang_title_dislike; ?>">
 									<span class="cmtx_icon cmtx_dislike_icon"></span>
-									<span class="cmtx_vote_count cmtx_dislike_count"><?php echo $comment['dislikes']; ?></span>
+									<span class="cmtx_vote_count cmtx_dislike_count" itemprop="downvoteCount"><?php echo $comment['dislikes']; ?></span>
 								</a>
 							</div>
 						<?php } ?>
@@ -172,6 +180,7 @@
 									<span class="cmtx_icon cmtx_permalink_icon"></span>
 								</a>
 							</div>
+							<meta itemprop="url" content="<?php echo $comment['permalink']; ?>">
 						<?php } ?>
 
 						<?php if ($show_reply && !$comment['is_locked'] && $reply_depth < $reply_max_depth) { ?>

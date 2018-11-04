@@ -371,15 +371,15 @@ class MainCommentsController extends Controller {
 		$location = '';
 
 		if ($this->setting->get('show_town') && $comment['town']) {
-			$location .= $comment['town'] . ', ';
+			$location .= '<span itemprop="addressLocality">' . $comment['town'] . '</span>, ';
 		}
 
 		if ($this->setting->get('show_state') && $comment['state']) {
-			$location .= $comment['state'] . ', ';
+			$location .= '<span itemprop="addressRegion">' . $comment['state'] . '</span>, ';
 		}
 
 		if ($this->setting->get('show_country') && $comment['country']) {
-			$location .= $comment['country'] . ', ';
+			$location .= '<span itemprop="addressCountry">' . $comment['country'] . '</span>, ';
 		}
 
 		$comment['location'] = rtrim($location, ', ');
