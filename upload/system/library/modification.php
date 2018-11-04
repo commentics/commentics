@@ -29,8 +29,12 @@ class Modification {
 
 		$xmls = array();
 
-		foreach (glob(CMTX_DIR_MOD_XML . '*.xml') as $filename) {
-			$xmls[] = file_get_contents($filename);
+		$files = glob(CMTX_DIR_MOD_XML . '*.xml');
+
+		if ($files) {
+			foreach ($files as $file) {
+				$xmls[] = file_get_contents($file);
+			}
 		}
 
 		// Don't run if server does not support 'DOM' extension
