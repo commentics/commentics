@@ -84,32 +84,7 @@
 
 	</form>
 
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		$('.form').submit(function(e) {
-			$('.field_error').remove();
-
-			if ($('.password_1').val().length < 5) {
-				$('.password_1').next().after('<div class="field_error"><?php echo $lang_error_password_length; ?></div>');
-			} else if ($('.password_1').val() != $('.password_2').val()) {
-				$('.password_1').next().after('<div class="field_error"><?php echo $lang_error_password_mismatch; ?></div>');
-				$('.password_2').next().after('<div class="field_error"><?php echo $lang_error_password_mismatch; ?></div>');
-			}
-
-			if ($('.site_name').val() == 'My Site') {
-				$('.site_name').next().after('<div class="field_error"><?php echo $lang_error_site_name; ?></div>');
-			}
-
-			if ($('.field_error').length) {
-				e.preventDefault();
-			} else {
-				$('.form').submit();
-			}
-		});
-	});
-	// ]]>
-	</script>
+	<div id="cmtx_js_settings_install_1" style="display:none"><?php echo json_encode($cmtx_js_settings_install_1); ?></div>
 
 	<?php } ?>
 

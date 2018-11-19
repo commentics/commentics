@@ -723,6 +723,9 @@
 	color: $grey;
 	font-size: 14px;
 	padding: 0px 4px;
+}
+
+.cmtx_pagination_box:not(.cmtx_pagination_box_active) {
 	cursor: pointer;
 }
 
@@ -888,6 +891,17 @@
 
 .cmtx_topic {
 	font-weight: bold;
+}
+
+/* More Comments */
+
+.cmtx_more_button_row {
+	text-align: center;
+	margin-top: 25px;
+	margin-bottom: 30px;
+}
+
+#cmtx_more_button {
 }
 
 /* Return */

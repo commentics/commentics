@@ -21,6 +21,13 @@ class MainInstall1Controller extends Controller {
 
 		$this->data['page'] = '5';
 
+		/* These are passed to common.js via the template */
+		$this->data['cmtx_js_settings_install_1'] = array(
+			'lang_error_password_length'   => $this->data['lang_error_password_length'],
+			'lang_error_password_mismatch' => $this->data['lang_error_password_mismatch'],
+			'lang_error_site_name'         => $this->data['lang_error_site_name']
+		 );
+
 		$this->components = array('common/header', 'common/footer');
 
 		$this->loadView('main/install_1');

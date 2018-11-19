@@ -20,7 +20,7 @@
 			<?php } ?>
 
 			<?php if ($enabled_bb_code || $enabled_smilies) { ?>
-				<div class="cmtx_row cmtx_icons_row cmtx_clear <?php if ($hide_form) { echo 'cmtx_wait_for_comment'; } ?>">
+				<div class="cmtx_row cmtx_icons_row cmtx_clear <?php if ($hide_form) { echo 'cmtx_wait_for_comment'; } ?>" role="toolbar">
 					<div class="cmtx_col_12">
 						<div class="cmtx_container cmtx_icons_container cmtx_clear">
 							<?php if ($enabled_bb_code) { ?>
@@ -314,7 +314,7 @@
 		</form>
 
 		<?php if ($enabled_bb_code_bullet) { ?>
-			<div id="cmtx_bullet_modal" class="cmtx_modal_box">
+			<div id="cmtx_bullet_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_bullet_heading; ?></div>
@@ -335,7 +335,7 @@
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_numeric) { ?>
-			<div id="cmtx_numeric_modal" class="cmtx_modal_box">
+			<div id="cmtx_numeric_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_numeric_heading; ?></div>
@@ -356,14 +356,14 @@
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_link) { ?>
-			<div id="cmtx_link_modal" class="cmtx_modal_box">
+			<div id="cmtx_link_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_link_heading; ?></div>
 				</header>
 				<div class="cmtx_modal_body">
 					<div><?php echo $lang_modal_link_content_1; ?></div>
-					<div><input type="url"></div>
+					<div><input type="url" placeholder="http://"></div>
 					<div><?php echo $lang_modal_link_content_2; ?></div>
 					<div><input type="text"></div>
 				</div>
@@ -375,7 +375,7 @@
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_email) { ?>
-			<div id="cmtx_email_modal" class="cmtx_modal_box">
+			<div id="cmtx_email_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_email_heading; ?></div>
@@ -394,14 +394,14 @@
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_image) { ?>
-			<div id="cmtx_image_modal" class="cmtx_modal_box">
+			<div id="cmtx_image_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_image_heading; ?></div>
 				</header>
 				<div class="cmtx_modal_body">
 					<div><?php echo $lang_modal_image_content; ?></div>
-					<div><input type="url" value="http://"></div>
+					<div><input type="url" placeholder="http://"></div>
 				</div>
 				<footer>
 					<input type="button" id="cmtx_image_modal_insert" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_insert; ?>">
@@ -411,14 +411,14 @@
 		<?php } ?>
 
 		<?php if ($enabled_bb_code_youtube) { ?>
-			<div id="cmtx_youtube_modal" class="cmtx_modal_box">
+			<div id="cmtx_youtube_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_youtube_heading; ?></div>
 				</header>
 				<div class="cmtx_modal_body">
 					<div><?php echo $lang_modal_youtube_content; ?></div>
-					<div><input type="url" value="http://"></div>
+					<div><input type="url" placeholder="http://"></div>
 				</div>
 				<footer>
 					<input type="button" id="cmtx_youtube_modal_insert" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_insert; ?>">
@@ -428,7 +428,7 @@
 		<?php } ?>
 
 		<?php if ($enabled_privacy) { ?>
-			<div id="cmtx_privacy_modal" class="cmtx_modal_box">
+			<div id="cmtx_privacy_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_privacy_heading; ?></div>
@@ -443,7 +443,7 @@
 		<?php } ?>
 
 		<?php if ($enabled_terms) { ?>
-			<div id="cmtx_terms_modal" class="cmtx_modal_box">
+			<div id="cmtx_terms_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_terms_heading; ?></div>
@@ -457,7 +457,7 @@
 			</div>
 		<?php } ?>
 
-		<div id="cmtx_js_settings_form" style="display:none"><?php echo json_encode($cmtx_js_settings_form); ?></div>
+		<div id="cmtx_js_settings_form" style="display:none" hidden><?php echo json_encode($cmtx_js_settings_form); ?></div>
 	<?php } else { ?>
 		<div class="cmtx_form_disabled"><?php echo $lang_error_form_disabled; ?></div>
 	<?php } ?>

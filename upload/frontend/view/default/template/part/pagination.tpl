@@ -1,4 +1,4 @@
-<div class="cmtx_pagination_block">
+<div class="cmtx_pagination_block" role="navigation">
 	<div class="cmtx_pagination_container">
 		<?php if ($current_page > 1) { ?>
 			<a href="<?php echo $pagination_url . 1; ?>" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="<?php echo $lang_title_first; ?>" data-cmtx-page="1"><?php echo $lang_link_first; ?></span></a>
@@ -8,7 +8,11 @@
 
 		<?php if ($total_pages > 1) { ?>
 			<?php for ($i = $start; $i <= $end; $i++) { ?>
-				<a href="<?php echo $pagination_url . $i; ?>" class="cmtx_pagination_url"><span class="cmtx_pagination_box <?php if ($current_page == $i) { echo 'cmtx_pagination_box_active'; } ?>" title="<?php echo $i; ?>" data-cmtx-page="<?php echo $i; ?>"><?php echo $i; ?></span></a>
+				<?php if ($current_page == $i) { ?>
+					<span class="cmtx_pagination_box cmtx_pagination_box_active" title="<?php echo $i; ?>" data-cmtx-page="<?php echo $i; ?>"><?php echo $i; ?></span>
+				<?php } else { ?>
+					<a href="<?php echo $pagination_url . $i; ?>" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="<?php echo $i; ?>" data-cmtx-page="<?php echo $i; ?>"><?php echo $i; ?></span></a>
+				<?php } ?>
 			<?php } ?>
 		<?php } else { ?>
 			&nbsp;

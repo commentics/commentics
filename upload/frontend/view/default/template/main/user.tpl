@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title><?php echo $lang_title; ?></title>
 <meta name="robots" content="noindex">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="../3rdparty/font_awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
-<script src="<?php echo $jquery; ?>"></script>
-<script src="<?php echo $timeago; ?>"></script>
+<?php if ($custom) { ?>
+<link rel="stylesheet" type="text/css" href="<?php echo $custom; ?>">
+<?php } ?>
+<script src="<?php echo $common; ?>"></script>
 </head>
 <body>
 
@@ -106,206 +107,10 @@
 				<a href="#" class="cmtx_delete_all" title="<?php echo $lang_title_delete_all; ?>"><?php echo $lang_link_delete; ?></a>
 			</div>
 		</div>
+
+		<div id="cmtx_js_settings_user" style="display:none" hidden><?php echo json_encode($cmtx_js_settings_user); ?></div>
 	<?php } ?>
 </div>
-
-<?php if ($user) { ?>
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		<?php if ($user['to_all']) { ?>
-			$('.cmtx_user_section_custom').hide();
-		<?php } else { ?>
-			$('.cmtx_user_section_custom').show();
-		<?php } ?>
-	});
-	// ]]>
-	</script>
-
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		$('input[name="to_all"]').on('change', function() {
-			if ($(this).val() == '1') {
-				$('.cmtx_user_section_custom').fadeOut(500);
-			} else {
-				$('.cmtx_user_section_custom').fadeIn(1000);
-			}
-		});
-	});
-	// ]]>
-	</script>
-
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		$.timeago.settings.strings = {
-			suffixAgo: '<?php echo $lang_text_timeago_ago; ?>',
-			inPast   : '<?php echo $lang_text_timeago_second; ?>',
-			seconds  : '<?php echo $lang_text_timeago_seconds; ?>',
-			minute   : '<?php echo $lang_text_timeago_minute; ?>',
-			minutes  : '<?php echo $lang_text_timeago_minutes; ?>',
-			hour     : '<?php echo $lang_text_timeago_hour; ?>',
-			hours    : '<?php echo $lang_text_timeago_hours; ?>',
-			day      : '<?php echo $lang_text_timeago_day; ?>',
-			days     : '<?php echo $lang_text_timeago_days; ?>',
-			month    : '<?php echo $lang_text_timeago_month; ?>',
-			months   : '<?php echo $lang_text_timeago_months; ?>',
-			year     : '<?php echo $lang_text_timeago_year; ?>',
-			years    : '<?php echo $lang_text_timeago_years; ?>'
-		};
-
-		$('.timeago').timeago();
-	});
-	// ]]>
-	</script>
-
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		$('input').change(function(e) {
-			var request = $.ajax({
-				type: 'POST',
-				cache: false,
-				url: '<?php echo $commentics_url; ?>frontend/index.php?route=main/user/save',
-				data: $('form').serialize() + '&u-t=' + encodeURIComponent('<?php echo $user["token"]; ?>'),
-				dataType: 'json',
-				beforeSend: function() {
-					$('.cmtx_message').remove();
-
-					$('form').before('<div class="cmtx_message cmtx_message_info">' + '<?php echo $lang_text_saving; ?>' + '</div>');
-
-					$('.cmtx_message').show();
-				}
-			});
-
-			request.always(function() {
-			});
-
-			request.done(function(response) {
-				$('html, body').animate({
-					scrollTop: $('.cmtx_user_container').offset().top
-				}, 1000);
-
-				setTimeout(function() {
-					$('.cmtx_message').remove();
-
-					if (response['success']) {
-						$('form').before('<div class="cmtx_message cmtx_message_success">' + response['success'] + '</div>');
-
-						$('.cmtx_message').show();
-					}
-
-					if (response['error']) {
-						$('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
-
-						$('.cmtx_message').show();
-					}
-				}, 1000);
-			});
-		});
-	});
-	// ]]>
-	</script>
-
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		$('.cmtx_trash_icon').click(function(e) {
-			var $this = $(this);
-
-			var request = $.ajax({
-				type: 'POST',
-				cache: false,
-				url: '<?php echo $commentics_url; ?>frontend/index.php?route=main/user/deleteSubscription',
-				data: '&u-t=' + encodeURIComponent('<?php echo $user["token"]; ?>') + '&s-t=' + encodeURIComponent($(this).attr('data-sub-token')),
-				dataType: 'json',
-				beforeSend: function() {
-				}
-			});
-
-			request.always(function() {
-			});
-
-			request.done(function(response) {
-				$('.cmtx_message').remove();
-
-				if (response['success']) {
-					$this.parent().parent().remove();
-
-					$('.count').text(response['count']);
-
-					if (response['count'] == '0') {
-						$('tbody').append('<tr><td class="cmtx_no_results" colspan="4"><?php echo $lang_text_no_results; ?></td></tr>');
-					} else {
-						var i = 1;
-
-						$('tbody tr td:first-child').each(function() {
-							$(this).text(i);
-
-							i++;
-						});
-					}
-				}
-
-				if (response['error']) {
-					$('html, body').animate({
-						scrollTop: $('.cmtx_user_container').offset().top
-					}, 1000);
-
-					$('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
-
-					$('.cmtx_message').show();
-				}
-			});
-		});
-	});
-	// ]]>
-	</script>
-
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		$('.cmtx_delete_all').click(function(e) {
-			e.preventDefault();
-
-			var request = $.ajax({
-				type: 'POST',
-				cache: false,
-				url: '<?php echo $commentics_url; ?>frontend/index.php?route=main/user/deleteAllSubscriptions',
-				data: '&u-t=' + encodeURIComponent('<?php echo $user["token"]; ?>'),
-				dataType: 'json',
-				beforeSend: function() {
-				}
-			});
-
-			request.always(function() {
-			});
-
-			request.done(function(response) {
-				$('.cmtx_message').remove();
-
-				if (response['success']) {
-					$('.count').text('0');
-
-					$('tbody').html('<tr><td class="cmtx_no_results" colspan="4"><?php echo $lang_text_no_results; ?></td></tr>');
-				}
-
-				if (response['error']) {
-					$('html, body').animate({
-						scrollTop: $('.cmtx_user_container').offset().top
-					}, 1000);
-
-					$('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
-
-					$('.cmtx_message').show();
-				}
-			});
-		});
-	});
-	// ]]>
-	</script>
-<?php } ?>
 
 </body>
 </html>

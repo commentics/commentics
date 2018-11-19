@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Installer</title>
 <meta name="robots" content="noindex">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script src="<?php echo $jquery; ?>"></script>
-<script src="<?php echo $jquery_ui; ?>"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $jquery_theme; ?>">
-
-<link rel="stylesheet" type="text/css" href="<?php echo $normalize; ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
-
+<script src="<?php echo $jquery; ?>"></script>
 <script src="<?php echo $common; ?>"></script>
 </head>
 <body>

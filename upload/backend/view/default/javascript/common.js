@@ -1,23 +1,19 @@
-/* Initialise the FlexNav menu */
 $(document).ready(function() {
+	/* Initialise the FlexNav menu */
 	$('.flexnav').flexNav({
 		'animationSpeed': 300,
 		'transitionOpacity': false,
 		'calcItemWidths': true
 	});
-});
 
-/* When pressing Enter inside filter fields, submit the form */
-$(document).ready(function() {
+	/* When pressing Enter inside filter fields, submit the form */
 	$('.filter').keydown(function(e) {
 		if (e.keyCode == 13) {
 			$('#filter').trigger('click');
 		}
 	});
-});
 
-/* When top checkbox is selected, select all checkboxes */
-$(document).ready(function() {
+	/* When top checkbox is selected, select all checkboxes */
 	$('table thead input:checkbox').change(function() {
 		if ($('table thead input:checkbox').is(':checked')) {
 			$('table tbody input:checkbox').prop('checked', true);
@@ -25,10 +21,8 @@ $(document).ready(function() {
 			$('table tbody input:checkbox').prop('checked', false);
 		}
 	});
-});
 
-/* When all checkboxes are selected, select top checkbox */
-$(document).ready(function() {
+	/* When all checkboxes are selected, select top checkbox */
 	$('table tbody input:checkbox').change(function() {
 		var all_checked = true;
 
@@ -44,10 +38,8 @@ $(document).ready(function() {
 			$('table thead input:checkbox').prop('checked', false);
 		}
 	});
-});
 
-/* Show a password strength indicator for better security */
-$(document).ready(function() {
+	/* Show a password strength indicator for better security */
 	$('input[name="password_1"]').keyup(function() {
 		var password = $('input[name="password_1"]').val();
 
@@ -101,23 +93,22 @@ $(document).ready(function() {
 
 		$('#password_strength').addClass('strength_' + score);
 	});
-});
 
-/* Convert certain inputs to jQuery UI datepicker */
-$(document).ready(function() {
+	/* Convert certain inputs to jQuery UI datepicker */
 	$('.datepicker').datepicker({
 		dateFormat: 'yy-mm-dd'
 	});
-});
 
-/* Convert certain inputs to jQuery UI tabs */
-$(document).ready(function() {
+	/* Convert certain inputs to jQuery UI tabs */
 	$('#tabs').tabs();
-});
 
-/* Add a divider after certain fields */
-$(document).ready(function() {
+	/* Add a divider after certain fields */
 	$('.divide_after').after('<div class="fieldset"><label></label></div>');
+
+
+
+
+
 });
 
 /* Upgrade */

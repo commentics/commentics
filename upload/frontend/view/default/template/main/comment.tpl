@@ -11,7 +11,7 @@
 				</div>
 
 				<?php if ($show_bio) { ?>
-					<div class="cmtx_bio">
+					<div class="cmtx_bio" role="dialog">
 						<div class="cmtx_bio_name <?php if ($comment['is_admin']) { echo 'cmtx_name_admin'; } ?>"><?php echo $comment['name']; ?></div>
 
 						<img src="<?php echo $comment['gravatar_bio']; ?>" class="cmtx_gravatar_bio" alt="Gravatar">
@@ -136,7 +136,7 @@
 					</div>
 				<?php } ?>
 
-				<div class="cmtx_action_area">
+				<div class="cmtx_action_area" role="toolbar">
 					<?php if ($is_preview) { ?>
 						<span class="cmtx_preview_text"><?php echo $lang_text_preview_only; ?></span>
 					<?php } else { ?>

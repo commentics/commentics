@@ -18,14 +18,6 @@
 
 	<?php } ?>
 
-	<script>
-	// <![CDATA[
-	$(document).ready(function() {
-		$('.success').delay(3000).fadeOut(2000);
-	});
-	// ]]>
-	</script>
-
 </div>
 
 <?php echo $footer; ?>

@@ -24,6 +24,16 @@ gulp.task('sass-frontend', function() {
 		.pipe(gulp.dest('upload/frontend/view/default/stylesheet/css'))
 });
 
+/* Precompile and minify Sass for install */
+gulp.task('sass-install', function() {
+	return gulp.src('upload/install/view/default/stylesheet/sass/stylesheet.scss')
+		.pipe(sass({outputStyle: 'expanded'}))
+		.pipe(gulp.dest('upload/install/view/default/stylesheet/css'))
+		.pipe(rename('stylesheet.min.css'))
+		.pipe(sass({outputStyle: 'compressed'}))
+		.pipe(gulp.dest('upload/install/view/default/stylesheet/css'))
+});
+
 var js_files = [
 	'upload/frontend/view/default/javascript/autodetect.js',
 	'upload/3rdparty/highlight/highlight.js',
@@ -86,9 +96,10 @@ gulp.task('common-jq-jqui', function() {
 gulp.task('watch', function() {
 	gulp.watch('upload/backend/view/default/stylesheet/sass/**/*.scss', ['sass-backend']);
 	gulp.watch('upload/frontend/view/default/stylesheet/sass/**/*.scss', ['sass-frontend']);
+	gulp.watch('upload/install/view/default/stylesheet/sass/**/*.scss', ['sass-install']);
 });
 
-gulp.task('sass', ['sass-backend', 'sass-frontend']);
+gulp.task('sass', ['sass-backend', 'sass-frontend', 'sass-install']);
 
 gulp.task('js', ['common', 'common-jq', 'common-jqui', 'common-jq-jqui']);
 

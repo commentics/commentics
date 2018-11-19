@@ -1,10 +1,10 @@
 <?php
 // Message
-$_['lang_message_success']				= 'Your subscription is confirmed.';
-$_['lang_message_error_confirmed']		= 'Your subscription is already confirmed.';
-$_['lang_message_error_no_sub']			= 'No subscription found.';
-$_['lang_message_error_no_user']		= 'No user found.';
-$_['lang_message_error_invalid']		= 'Invalid request.';
+$_['lang_message_success']				= 'Your subscription is confirmed';
+$_['lang_message_error_confirmed']		= 'Your subscription is already confirmed';
+$_['lang_message_error_no_sub']			= 'No subscription found';
+$_['lang_message_error_no_user']		= 'No user found';
+$_['lang_message_error_invalid']		= 'Invalid request';
 
 // Column
 $_['lang_column_number']	   			= 'Number';
@@ -35,8 +35,8 @@ $_['lang_title_delete']					= 'Delete';
 $_['lang_title_delete_all']				= 'Delete all subscriptions';
 
 // Error
-$_['lang_error_no_user']				= 'No user found.';
-$_['lang_error_no_subscription']		= 'No subscription found.';
+$_['lang_error_no_user']				= 'No user found';
+$_['lang_error_no_subscription']		= 'No subscription found';
 $_['lang_error_maintenance']			= 'The script is in maintenance mode';
 $_['lang_error_banned']					= 'You\'ve been banned';
 

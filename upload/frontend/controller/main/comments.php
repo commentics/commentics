@@ -155,6 +155,9 @@ class MainCommentsController extends Controller {
 		$this->data['show_share_twitter']      = $this->setting->get('show_share_twitter');
 		$this->data['show_flag']               = $this->setting->get('show_flag');
 		$this->data['show_permalink']          = $this->setting->get('show_permalink');
+		$this->data['show_pagination']         = $this->setting->get('show_pagination');
+		$this->data['pagination_type']         = $this->setting->get('pagination_type');
+		$this->data['pagination_amount']       = $this->setting->get('pagination_amount');
 		$this->data['hide_replies']            = $this->setting->get('hide_replies');
 		$this->data['reply_indent']            = $this->setting->get('reply_indent');
 		$this->data['reply_max_depth']         = $this->setting->get('reply_depth');
@@ -183,11 +186,11 @@ class MainCommentsController extends Controller {
 			$outer_components['notify'] = $this->getComponent('part/notify');
 		}
 
-		if ($this->setting->get('show_page_number')) {
+		if ($this->setting->get('show_page_number') && $this->setting->get('show_pagination') && $this->setting->get('pagination_type') == 'multiple') {
 			$outer_components['page_number'] = $this->getComponent('part/page_number', array('current_page' => $page, 'total_pages' => ceil($this->data['total'] / $this->setting->get('pagination_amount'))));
 		}
 
-		if ($this->setting->get('show_pagination') && ceil($this->data['total'] / $this->setting->get('pagination_amount')) > 1) {
+		if ($this->setting->get('show_pagination') && $this->setting->get('pagination_type') == 'multiple' && ceil($this->data['total'] / $this->setting->get('pagination_amount')) > 1) {
 			$outer_components['pagination'] = $this->getComponent('part/pagination', array('current_page' => $page, 'total_pages' => ceil($this->data['total'] / $this->setting->get('pagination_amount'))));
 		}
 
@@ -285,10 +288,14 @@ class MainCommentsController extends Controller {
 			'lang_title_cancel_reply' => $this->data['lang_title_cancel_reply'],
 			'lang_link_cancel'        => $this->data['lang_link_cancel'],
 			'lang_text_not_replying'  => $this->data['lang_text_not_replying'],
+			'lang_button_loading'     => $this->data['lang_button_loading'],
+			'lang_button_more'        => $this->data['lang_button_more'],
 			'show_read_more'          => (bool)$this->setting->get('show_read_more'),
 			'read_more_limit'         => (int)$this->setting->get('read_more_limit'),
 			'highlight'               => (bool)$highlight,
 			'date_auto'               => (bool)$this->setting->get('date_auto'),
+			'show_pagination'         => (bool)$this->setting->get('show_pagination'),
+			'pagination_type'         => $this->setting->get('pagination_type'),
 			'timeago_suffixAgo'       => $this->data['lang_text_timeago_ago'],
 			'timeago_inPast'          => $this->data['lang_text_timeago_second'],
 			'timeago_seconds'         => $this->data['lang_text_timeago_seconds'],

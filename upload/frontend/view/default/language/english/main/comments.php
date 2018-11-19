@@ -49,6 +49,7 @@ $_['lang_title_reddit']				= 'Reddit';
 $_['lang_title_stumbleupon']		= 'StumbleUpon';
 $_['lang_title_twitter']			= 'Twitter';
 $_['lang_title_view_replies']		= 'View Replies';
+$_['lang_title_more_comments']		= 'More Comments';
 
 // Dialog
 $_['lang_modal_flag_heading']		= 'Report Comment';
@@ -59,6 +60,10 @@ $_['lang_modal_no']					= 'No';
 // Link
 $_['lang_link_close']				= 'Close';
 $_['lang_link_cancel']				= '[Cancel]';
+
+// Button
+$_['lang_button_more']				= 'More Comments';
+$_['lang_button_loading']			= 'Loading..';
 
 // Error
 $_['lang_error_no_comment']			= 'This comment no longer exists';

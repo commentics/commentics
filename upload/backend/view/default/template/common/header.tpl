@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Commentics: <?php echo $lang_title; ?></title>
 <meta name="robots" content="noindex">

@@ -1,3 +1,9 @@
+/* Font Awesome (3rd party) */
+@import 'partial/fontawesome';
+
+/* Normalize (3rd party) */
+@import 'partial/normalize';
+
 body {
 	color: #2C2C2C;
 	font-family: arial;
@@ -102,7 +108,7 @@ input[type="text"], input[type="email"], input[type="password"], select {
 }
 
 .button {
-	background: url("../image/button/gradient.png") repeat-x scroll 0 100% #FFAC47;
+	background: url("../../image/button/gradient.png") repeat-x scroll 0 100% #FFAC47;
 	border-color: #ED6502 #A04300 #A04300 #ED6502;
 	border-style: solid;
 	border-width: 1px;
@@ -129,31 +135,31 @@ input[type="text"], input[type="email"], input[type="password"], select {
 .success {
 	color: #4F8A10;
 	background-color: #E8FCDC;
-	background-image: url("../image/message/success.png");
+	background-image: url("../../image/message/success.png");
 }
 
 .info {
 	color: #00529B;
 	background-color: #BDE5F8;
-	background-image: url("../image/message/information.png");
+	background-image: url("../../image/message/information.png");
 }
 
 .error {
 	color: #D8000C;
 	background-color: #FFBABA;
-	background-image: url("../image/message/error.png");
+	background-image: url("../../image/message/error.png");
 }
 
 .warning {
 	color: #9F6000;
 	background-color: #FEEFB3;
-	background-image: url("../image/message/warning.png");
+	background-image: url("../../image/message/warning.png");
 }
 
 .failure {
 	color: #D8000C;
 	background-color: #FFBABA;
-	background-image: url("../image/message/error.png");
+	background-image: url("../../image/message/error.png");
 }
 
 /******************* Start Page **********************/

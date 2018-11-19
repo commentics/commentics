@@ -7,7 +7,7 @@
 		<?php } ?>
 
 		<?php if ($row_one) { ?>
-			<div class="cmtx_comments_row_one cmtx_clear">
+			<div class="cmtx_comments_row_one cmtx_clear" role="toolbar">
 				<div class="cmtx_row_left <?php if ($comments_position_1 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_1; ?></div>
 				<div class="cmtx_row_middle <?php if ($comments_position_2 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_2; ?></div>
 				<div class="cmtx_row_right <?php if ($comments_position_3 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_3; ?></div>
@@ -15,14 +15,14 @@
 		<?php } ?>
 
 		<?php if ($row_two) { ?>
-			<div class="cmtx_comments_row_two cmtx_clear">
+			<div class="cmtx_comments_row_two cmtx_clear" role="toolbar">
 				<div class="cmtx_row_left <?php if ($comments_position_4 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_4; ?></div>
 				<div class="cmtx_row_middle <?php if ($comments_position_5 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_5; ?></div>
 				<div class="cmtx_row_right <?php if ($comments_position_6 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_6; ?></div>
 			</div>
 		<?php } ?>
 
-		<div class="cmtx_comment_boxes">
+		<div class="cmtx_comment_boxes" role="feed">
 			<?php foreach ($comments as $comment) { ?>
 				<?php $has_replies = false; ?>
 				<?php $reply_depth = 0; ?>
@@ -78,17 +78,23 @@
 						</div>
 					<?php } ?>
 
-					<span class="cmtx_reply_counter" style="display:none"><?php echo $reply_num; ?></span>
+					<span class="cmtx_reply_counter" style="display:none" hidden><?php echo $reply_num; ?></span>
 				</section>
 			<?php } ?>
 		</div>
+
+		<?php if ($show_pagination && $pagination_type == 'button' && $total > $pagination_amount) { ?>
+			<div class="cmtx_more_button_row">
+				<input type="button" id="cmtx_more_button" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_button_more; ?>" title="<?php echo $lang_title_more_comments; ?>">
+			</div>
+		<?php } ?>
 
 		<?php if ($is_permalink || $is_search) { ?>
 			<div class="cmtx_return"><?php echo $lang_text_return; ?></div>
 		<?php } ?>
 
 		<?php if ($row_three) { ?>
-			<div class="cmtx_comments_row_three cmtx_clear">
+			<div class="cmtx_comments_row_three cmtx_clear" role="toolbar">
 				<div class="cmtx_row_left <?php if ($comments_position_7 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_7; ?></div>
 				<div class="cmtx_row_middle <?php if ($comments_position_8 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_8; ?></div>
 				<div class="cmtx_row_right <?php if ($comments_position_9 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_9; ?></div>
@@ -96,20 +102,20 @@
 		<?php } ?>
 
 		<?php if ($row_four) { ?>
-			<div class="cmtx_comments_row_four cmtx_clear">
+			<div class="cmtx_comments_row_four cmtx_clear" role="toolbar">
 				<div class="cmtx_row_left <?php if ($comments_position_10 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_10; ?></div>
 				<div class="cmtx_row_middle <?php if ($comments_position_11 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_11; ?></div>
 				<div class="cmtx_row_right <?php if ($comments_position_12 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_12; ?></div>
 			</div>
 		<?php } ?>
 
-		<div class="cmtx_loading_icon"></div>
+		<div class="cmtx_loading_icon" hidden></div>
 
-		<div class="cmtx_action_message cmtx_action_message_success"></div>
-		<div class="cmtx_action_message cmtx_action_message_error"></div>
+		<div class="cmtx_action_message cmtx_action_message_success" hidden></div>
+		<div class="cmtx_action_message cmtx_action_message_error" hidden></div>
 
 		<?php if ($show_share) { ?>
-			<div class="cmtx_share_box">
+			<div class="cmtx_share_box" hidden role="dialog">
 				<?php if ($show_share_digg) { ?>
 					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_digg; ?>"><span class="cmtx_share cmtx_share_digg"></span></a>
 				<?php } ?>
@@ -141,7 +147,7 @@
 		<?php } ?>
 
 		<?php if ($show_flag) { ?>
-			<div id="cmtx_flag_modal" class="cmtx_modal_box">
+			<div id="cmtx_flag_modal" class="cmtx_modal_box" hidden role="dialog">
 				<header>
 					<a href="#" class="cmtx_modal_close">x</a>
 					<div><?php echo $lang_modal_flag_heading; ?></div>
@@ -157,7 +163,7 @@
 		<?php } ?>
 
 		<?php if ($show_permalink) { ?>
-			<div class="cmtx_permalink_box">
+			<div class="cmtx_permalink_box" hidden role="dialog">
 				<div><?php echo $lang_text_permalink; ?></div>
 
 				<input type="text" name="cmtx_permalink" id="cmtx_permalink" class="cmtx_permalink" value="">
@@ -166,7 +172,11 @@
 			</div>
 		<?php } ?>
 
-		<div id="cmtx_js_settings_comments" style="display:none"><?php echo json_encode($cmtx_js_settings_comments); ?></div>
+		<input type="hidden" name="cmtx_next_page" id="cmtx_next_page" value="2">
+
+		<div id="cmtx_loading_helper" data-cmtx-load="1" data-cmtx-total-comments="<?php echo $total; ?>"></div>
+
+		<div id="cmtx_js_settings_comments" style="display:none" hidden><?php echo json_encode($cmtx_js_settings_comments); ?></div>
 
 		<?php if ($rich_snippets_enabled) { ?>
 			</div>

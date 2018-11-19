@@ -24,22 +24,22 @@ $green-dark: darken($green, 5%);
 $red-dark:   darken($red, 5%);
 
 .cmtx_button {
-	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) $grey;
-	border-radius: 4px;
-	border-style: solid;
-	border-width: 1px;
 	font-size: 14px;
-	line-height: 20px;
-	padding: 5px;
+	text-align: center;
+	padding: 10px;
+	border: none;
+	display: inline-block;
+	text-decoration: none;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	width: 100%;
 	height: auto;
 	min-width: 50px;
-	color: $grey-dark;
-	background-image: linear-gradient(to bottom, $white, $grey-lighter);
+	background-color: #E7E7E7;
+	color: $black;
+	transition-duration: 0.4s;
 
 	&:hover {
-		background-image: linear-gradient(to bottom, $white, $grey-light);
+		background-color: darken(#E7E7E7, 5%);
 	}
 
 	&::-moz-focus-inner {
@@ -48,12 +48,21 @@ $red-dark:   darken($red, 5%);
 }
 
 .cmtx_button_primary {
-	background-image: linear-gradient(to bottom, #5189B6, #053D6D);
+	background-color: #3F6F95;
 	color: $white;
 
 	&:hover {
-		background-image: linear-gradient(to bottom, #5189B6, #182454);
+		background-color: darken(#3F6F95, 10%);
 	}
+}
+
+.cmtx_button_disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.cmtx_button_row input[type="button"] {
+	border-radius: 5px;
 }
 
 .cmtx_clear::before, .cmtx_clear::after {

@@ -21,6 +21,12 @@ class LayoutCommentsPaginationController extends Controller {
 			$this->data['show_pagination'] = $this->setting->get('show_pagination');
 		}
 
+		if (isset($this->request->post['pagination_type'])) {
+			$this->data['pagination_type'] = $this->request->post['pagination_type'];
+		} else {
+			$this->data['pagination_type'] = $this->setting->get('pagination_type');
+		}
+
 		if (isset($this->request->post['pagination_amount'])) {
 			$this->data['pagination_amount'] = $this->request->post['pagination_amount'];
 		} else {
@@ -31,6 +37,12 @@ class LayoutCommentsPaginationController extends Controller {
 			$this->data['pagination_range'] = $this->request->post['pagination_range'];
 		} else {
 			$this->data['pagination_range'] = $this->setting->get('pagination_range');
+		}
+
+		if (isset($this->error['pagination_type'])) {
+			$this->data['error_pagination_type'] = $this->error['pagination_type'];
+		} else {
+			$this->data['error_pagination_type'] = '';
 		}
 
 		if (isset($this->error['pagination_amount'])) {
@@ -61,6 +73,10 @@ class LayoutCommentsPaginationController extends Controller {
 			$this->data['error'] = $unpostable;
 
 			return false;
+		}
+
+		if (!isset($this->request->post['pagination_type']) || !in_array($this->request->post['pagination_type'], array('multiple', 'button', 'infinite'))) {
+			$this->error['pagination_type'] = $this->data['lang_error_selection'];
 		}
 
 		if (!isset($this->request->post['pagination_amount']) || !$this->validation->isInt($this->request->post['pagination_amount']) || $this->request->post['pagination_amount'] < 1 || $this->request->post['pagination_amount'] > 100) {

@@ -49,23 +49,23 @@
 
 /* Base */
 .cmtx_button {
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) gray;
-  border-radius: 4px;
-  border-style: solid;
-  border-width: 1px;
   font-size: 14px;
-  line-height: 20px;
-  padding: 5px;
+  text-align: center;
+  padding: 10px;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 100%;
   height: auto;
   min-width: 50px;
-  color: #4d4d4d;
-  background-image: linear-gradient(to bottom, #FFFFFF, #e6e6e6);
+  background-color: #E7E7E7;
+  color: #000000;
+  transition-duration: 0.4s;
 }
 
 .cmtx_button:hover {
-  background-image: linear-gradient(to bottom, #FFFFFF, #cccccc);
+  background-color: #dadada;
 }
 
 .cmtx_button::-moz-focus-inner {
@@ -73,12 +73,21 @@
 }
 
 .cmtx_button_primary {
-  background-image: linear-gradient(to bottom, #5189B6, #053D6D);
+  background-color: #3F6F95;
   color: #FFFFFF;
 }
 
 .cmtx_button_primary:hover {
-  background-image: linear-gradient(to bottom, #5189B6, #182454);
+  background-color: #305471;
+}
+
+.cmtx_button_disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cmtx_button_row input[type="button"] {
+  border-radius: 5px;
 }
 
 .cmtx_clear::before, .cmtx_clear::after {
@@ -4951,6 +4960,9 @@ select.cmtx_required {
   color: gray;
   font-size: 14px;
   padding: 0px 4px;
+}
+
+.cmtx_pagination_box:not(.cmtx_pagination_box_active) {
   cursor: pointer;
 }
 
@@ -5096,6 +5108,13 @@ select.cmtx_required {
 
 .cmtx_topic {
   font-weight: bold;
+}
+
+/* More Comments */
+.cmtx_more_button_row {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 30px;
 }
 
 /* Return */
@@ -5276,21 +5295,16 @@ select.cmtx_required {
   margin-bottom: 10px;
 }
 
-#cmtx_privacy_modal .cmtx_modal_body, #cmtx_terms_modal .cmtx_modal_body {
+#cmtx_privacy_modal .cmtx_modal_body, #cmtx_terms_modal .cmtx_modal_body, #cmtx_autodetect_modal .cmtx_modal_body {
   margin-top: 0;
-  margin-bottom: 0;
-}
-
-#cmtx_autodetect_modal .cmtx_modal_body {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 #cmtx_autodetect_modal .cmtx_modal_body a {
   text-decoration: none;
 }
 
-.cmtx_modal_box input {
+.cmtx_modal_box input[type="text"], .cmtx_modal_box input[type="url"], .cmtx_modal_box input[type="email"] {
   width: 100%;
   width: -moz-available;
   width: -webkit-fill-available;
@@ -5299,6 +5313,10 @@ select.cmtx_required {
   outline-style: auto;
   outline-color: #D3D3D3;
   background-color: #FFFFFF;
+}
+
+.cmtx_modal_box input[type="button"] {
+  padding: 6px;
 }
 
 #cmtx_bullet_modal .cmtx_modal_body div:first-child, #cmtx_numeric_modal .cmtx_modal_body div:first-child {

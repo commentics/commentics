@@ -7,11 +7,11 @@ class MainUserController extends Controller {
 
 		$this->loadModel('main/user');
 
-		$this->data['stylesheet'] = $this->loadStylesheet('stylesheet.css');
+		$this->data['stylesheet'] = $this->loadStylesheet('stylesheet.min.css');
 
-		$this->data['jquery'] = $this->loadJavascript('jquery.min.js');
+		$this->data['custom'] = $this->loadCustomCss();
 
-		$this->data['timeago'] = $this->url->getCommenticsUrl() . '3rdparty/timeago/timeago.js';
+		$this->data['common'] = $this->loadJavascript('common-jq.min.js');
 
 		$this->data['commentics_url'] = $this->url->getCommenticsUrl();
 
@@ -58,6 +58,28 @@ class MainUserController extends Controller {
 				}
 
 				$this->data['subscriptions'] = $subscriptions;
+
+				/* These are passed to common.js via the template */
+				$this->data['cmtx_js_settings_user'] = array(
+					'commentics_url'       => $this->url->getCommenticsUrl(),
+					'token'                => $user['token'],
+					'to_all'               => (bool)$user['to_all'],
+					'lang_text_saving'     => $this->data['lang_text_saving'],
+					'lang_text_no_results' => $this->data['lang_text_no_results'],
+					'timeago_suffixAgo'    => $this->data['lang_text_timeago_ago'],
+					'timeago_inPast'       => $this->data['lang_text_timeago_second'],
+					'timeago_seconds'      => $this->data['lang_text_timeago_seconds'],
+					'timeago_minute'       => $this->data['lang_text_timeago_minute'],
+					'timeago_minutes'      => $this->data['lang_text_timeago_minutes'],
+					'timeago_hour'         => $this->data['lang_text_timeago_hour'],
+					'timeago_hours'        => $this->data['lang_text_timeago_hours'],
+					'timeago_day'          => $this->data['lang_text_timeago_day'],
+					'timeago_days'         => $this->data['lang_text_timeago_days'],
+					'timeago_month'        => $this->data['lang_text_timeago_month'],
+					'timeago_months'       => $this->data['lang_text_timeago_months'],
+					'timeago_year'         => $this->data['lang_text_timeago_year'],
+					'timeago_years'        => $this->data['lang_text_timeago_years']
+				 );
 			} else {
 				$this->data['error'] = $this->data['lang_message_error_no_user'];
 
