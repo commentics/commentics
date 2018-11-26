@@ -104,11 +104,6 @@ $(document).ready(function() {
 
 	/* Add a divider after certain fields */
 	$('.divide_after').after('<div class="fieldset"><label></label></div>');
-
-
-
-
-
 });
 
 /* Upgrade */

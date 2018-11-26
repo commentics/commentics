@@ -143,7 +143,7 @@
 						<?php if ($show_like) { ?>
 							<div class="cmtx_like_area">
 								<a href="#" class="cmtx_vote_link cmtx_like_link" title="<?php echo $lang_title_like; ?>">
-									<span class="cmtx_icon cmtx_like_icon"></span>
+									<span class="cmtx_icon cmtx_like_icon" aria-hidden></span>
 									<span class="cmtx_vote_count cmtx_like_count" itemprop="upvoteCount"><?php echo $comment['likes']; ?></span>
 								</a>
 							</div>
@@ -152,7 +152,7 @@
 						<?php if ($show_dislike) { ?>
 							<div class="cmtx_dislike_area">
 								<a href="#" class="cmtx_vote_link cmtx_dislike_link" title="<?php echo $lang_title_dislike; ?>">
-									<span class="cmtx_icon cmtx_dislike_icon"></span>
+									<span class="cmtx_icon cmtx_dislike_icon" aria-hidden></span>
 									<span class="cmtx_vote_count cmtx_dislike_count" itemprop="downvoteCount"><?php echo $comment['dislikes']; ?></span>
 								</a>
 							</div>
@@ -161,7 +161,7 @@
 						<?php if ($show_share) { ?>
 							<div class="cmtx_share_area" title="<?php echo $lang_title_share; ?>">
 								<a href="#" class="cmtx_share_link" data-cmtx-sharelink="<?php echo $comment['permalink']; ?>">
-									<span class="cmtx_icon cmtx_share_icon"></span>
+									<span class="cmtx_icon cmtx_share_icon" aria-hidden></span>
 								</a>
 							</div>
 						<?php } ?>
@@ -169,7 +169,7 @@
 						<?php if ($show_flag) { ?>
 							<div class="cmtx_flag_area">
 								<a href="#" class="cmtx_flag_link" title="<?php echo $lang_title_report; ?>">
-									<span class="cmtx_icon cmtx_flag_icon"></span>
+									<span class="cmtx_icon cmtx_flag_icon" aria-hidden></span>
 								</a>
 							</div>
 						<?php } ?>
@@ -177,7 +177,7 @@
 						<?php if ($show_permalink) { ?>
 							<div class="cmtx_permalink_area">
 								<a href="#" class="cmtx_permalink_link" title="<?php echo $lang_title_permalink; ?>" data-cmtx-permalink="<?php echo $comment['permalink']; ?>">
-									<span class="cmtx_icon cmtx_permalink_icon"></span>
+									<span class="cmtx_icon cmtx_permalink_icon" aria-hidden></span>
 								</a>
 							</div>
 							<meta itemprop="url" content="<?php echo $comment['permalink']; ?>">
@@ -186,7 +186,7 @@
 						<?php if ($show_reply && !$comment['is_locked'] && $reply_depth < $reply_max_depth) { ?>
 							<div class="cmtx_reply_area">
 								<a href="#" class="cmtx_reply_link" title="<?php echo $lang_title_reply; ?>">
-									<span class="cmtx_icon cmtx_reply_icon"></span>
+									<span class="cmtx_icon cmtx_reply_icon" aria-hidden></span>
 								</a>
 							</div>
 						<?php } ?>

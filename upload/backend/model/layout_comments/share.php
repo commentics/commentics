@@ -11,15 +11,13 @@ class LayoutCommentsShareModel extends Model {
 
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_facebook']) ? 1 : 0) . "' WHERE `title` = 'show_share_facebook'");
 
-		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_google']) ? 1 : 0) . "' WHERE `title` = 'show_share_google'");
-
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_linkedin']) ? 1 : 0) . "' WHERE `title` = 'show_share_linkedin'");
 
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_reddit']) ? 1 : 0) . "' WHERE `title` = 'show_share_reddit'");
 
-		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_stumbleupon']) ? 1 : 0) . "' WHERE `title` = 'show_share_stumbleupon'");
-
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_twitter']) ? 1 : 0) . "' WHERE `title` = 'show_share_twitter'");
+
+		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_weibo']) ? 1 : 0) . "' WHERE `title` = 'show_share_weibo'");
 	}
 
 	public function getShares() {
@@ -29,15 +27,13 @@ class LayoutCommentsShareModel extends Model {
 
 		$shares['facebook'] = $this->getImage('facebook.png');
 
-		$shares['google'] = $this->getImage('google.png');
-
 		$shares['linkedin'] = $this->getImage('linkedin.png');
 
 		$shares['reddit'] = $this->getImage('reddit.png');
 
-		$shares['stumbleupon'] = $this->getImage('stumbleupon.png');
-
 		$shares['twitter'] = $this->getImage('twitter.png');
+
+		$shares['weibo'] = $this->getImage('weibo.png');
 
 		return $shares;
 	}

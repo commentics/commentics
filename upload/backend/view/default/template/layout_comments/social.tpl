@@ -50,11 +50,6 @@
 		</div>
 
 		<div class="fieldset social">
-			<label><img src="<?php echo $socials['google']; ?>" title="<?php echo $lang_title_google; ?>"></label>
-			<input type="checkbox" name="show_social_google" value="1" <?php if ($show_social_google) { echo 'checked'; } ?>>
-		</div>
-
-		<div class="fieldset social">
 			<label><img src="<?php echo $socials['linkedin']; ?>" title="<?php echo $lang_title_linkedin; ?>"></label>
 			<input type="checkbox" name="show_social_linkedin" value="1" <?php if ($show_social_linkedin) { echo 'checked'; } ?>>
 		</div>
@@ -65,13 +60,13 @@
 		</div>
 
 		<div class="fieldset social">
-			<label><img src="<?php echo $socials['stumbleupon']; ?>" title="<?php echo $lang_title_stumbleupon; ?>"></label>
-			<input type="checkbox" name="show_social_stumbleupon" value="1" <?php if ($show_social_stumbleupon) { echo 'checked'; } ?>>
+			<label><img src="<?php echo $socials['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
+			<input type="checkbox" name="show_social_twitter" value="1" <?php if ($show_social_twitter) { echo 'checked'; } ?>>
 		</div>
 
 		<div class="fieldset social">
-			<label><img src="<?php echo $socials['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
-			<input type="checkbox" name="show_social_twitter" value="1" <?php if ($show_social_twitter) { echo 'checked'; } ?>>
+			<label><img src="<?php echo $socials['weibo']; ?>" title="<?php echo $lang_title_weibo; ?>"></label>
+			<input type="checkbox" name="show_social_weibo" value="1" <?php if ($show_social_weibo) { echo 'checked'; } ?>>
 		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">

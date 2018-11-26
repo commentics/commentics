@@ -4371,6 +4371,7 @@ select.cmtx_required {
 }
 
 .cmtx_gravatar_area {
+  display: inline-block;
   float: left;
   margin-right: 5px;
   position: relative;
@@ -4715,31 +4716,27 @@ select.cmtx_required {
 }
 
 .cmtx_share_digg {
-  background-position: -5px -5px;
-}
-
-.cmtx_share_facebook {
-  background-position: -31px -5px;
-}
-
-.cmtx_share_google {
-  background-position: -5px -31px;
-}
-
-.cmtx_share_linkedin {
   background-position: -31px -31px;
 }
 
-.cmtx_share_reddit {
+.cmtx_share_facebook {
   background-position: -57px -5px;
 }
 
-.cmtx_share_stumbleupon {
+.cmtx_share_linkedin {
   background-position: -57px -31px;
 }
 
+.cmtx_share_reddit {
+  background-position: -5px -5px;
+}
+
 .cmtx_share_twitter {
-  background-position: -5px -57px;
+  background-position: -31px -5px;
+}
+
+.cmtx_share_weibo {
+  background-position: -5px -31px;
 }
 
 .cmtx_view_replies_area {
@@ -5058,31 +5055,27 @@ select.cmtx_required {
 }
 
 .cmtx_social_digg {
-  background-position: -5px -5px;
-}
-
-.cmtx_social_facebook {
-  background-position: -31px -5px;
-}
-
-.cmtx_social_google {
-  background-position: -5px -31px;
-}
-
-.cmtx_social_linkedin {
   background-position: -31px -31px;
 }
 
-.cmtx_social_reddit {
+.cmtx_social_facebook {
   background-position: -57px -5px;
 }
 
-.cmtx_social_stumbleupon {
+.cmtx_social_linkedin {
   background-position: -57px -31px;
 }
 
+.cmtx_social_reddit {
+  background-position: -5px -5px;
+}
+
 .cmtx_social_twitter {
-  background-position: -5px -57px;
+  background-position: -31px -5px;
+}
+
+.cmtx_social_weibo {
+  background-position: -5px -31px;
 }
 
 /* Sort By */

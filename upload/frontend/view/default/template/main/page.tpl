@@ -27,7 +27,7 @@
 	<?php } ?>
 
 	<?php if ($auto_detect) { ?>
-		<div id="cmtx_autodetect_modal" class="cmtx_modal_box">
+		<div id="cmtx_autodetect_modal" class="cmtx_modal_box" hidden role="dialog">
 			<header>
 				<div><?php echo $lang_modal_autodetect_heading; ?></div>
 			</header>
@@ -37,7 +37,7 @@
 		</div>
 	<?php } ?>
 
-	<div id="cmtx_js_settings_page" style="display:none"><?php echo json_encode($cmtx_js_settings_page); ?></div>
+	<div id="cmtx_js_settings_page" style="display:none" hidden><?php echo json_encode($cmtx_js_settings_page); ?></div>
 
 	<?php echo $footer; ?>
 </div>

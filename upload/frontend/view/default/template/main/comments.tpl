@@ -115,17 +115,13 @@
 		<div class="cmtx_action_message cmtx_action_message_error" hidden></div>
 
 		<?php if ($show_share) { ?>
-			<div class="cmtx_share_box" hidden role="dialog">
+			<div class="cmtx_share_box" data-cmtx-reference="<?php echo $page_reference; ?>" hidden role="dialog">
 				<?php if ($show_share_digg) { ?>
 					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_digg; ?>"><span class="cmtx_share cmtx_share_digg"></span></a>
 				<?php } ?>
 
 				<?php if ($show_share_facebook) { ?>
 					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_facebook; ?>"><span class="cmtx_share cmtx_share_facebook"></span></a>
-				<?php } ?>
-
-				<?php if ($show_share_google) { ?>
-					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_google; ?>"><span class="cmtx_share cmtx_share_google"></span></a>
 				<?php } ?>
 
 				<?php if ($show_share_linkedin) { ?>
@@ -136,12 +132,12 @@
 					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_reddit; ?>"><span class="cmtx_share cmtx_share_reddit"></span></a>
 				<?php } ?>
 
-				<?php if ($show_share_stumbleupon) { ?>
-					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_stumbleupon; ?>"><span class="cmtx_share cmtx_share_stumbleupon"></span></a>
-				<?php } ?>
-
 				<?php if ($show_share_twitter) { ?>
 					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_twitter; ?>"><span class="cmtx_share cmtx_share_twitter"></span></a>
+				<?php } ?>
+
+				<?php if ($show_share_weibo) { ?>
+					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_weibo; ?>"><span class="cmtx_share cmtx_share_weibo"></span></a>
 				<?php } ?>
 			</div>
 		<?php } ?>
@@ -153,7 +149,7 @@
 					<div><?php echo $lang_modal_flag_heading; ?></div>
 				</header>
 				<div class="cmtx_modal_body">
-					<div><span class="cmtx_icon cmtx_alert_icon"></span> <?php echo $lang_modal_flag_content; ?></div>
+					<div><span class="cmtx_icon cmtx_alert_icon" aria-hidden></span> <?php echo $lang_modal_flag_content; ?></div>
 				</div>
 				<footer>
 					<input type="button" id="cmtx_flag_modal_yes" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_yes; ?>">

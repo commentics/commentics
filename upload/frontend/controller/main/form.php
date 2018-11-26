@@ -522,7 +522,7 @@ class MainFormController extends Controller {
 				'lang_button_processing'   =>  $this->data['lang_button_processing'],
 				'lang_button_submit'       =>  $this->data['lang_button_submit'],
 				'lang_button_preview'      =>  $this->data['lang_button_preview']
-			 );
+			);
 		}
 
 		return $this->data;

@@ -1058,15 +1058,16 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
 				var share_link = $(this);
 
-				var permalink = $(this).attr('data-cmtx-sharelink');
+				var permalink = encodeURIComponent($(this).attr('data-cmtx-sharelink'));
 
-				$('.cmtx_share_digg').parent().attr('href', 'http://digg.com/submit?url=' + encodeURIComponent(permalink));
-				$('.cmtx_share_facebook').parent().attr('href', 'https://www.facebook.com/sharer.php?u=' + encodeURIComponent(permalink));
-				$('.cmtx_share_google').parent().attr('href', 'https://plus.google.com/share?url=' + encodeURIComponent(permalink));
-				$('.cmtx_share_linkedin').parent().attr('href', 'https://www.linkedin.com/shareArticle?url=' + encodeURIComponent(permalink));
-				$('.cmtx_share_reddit').parent().attr('href', 'http://reddit.com/submit?url=' + encodeURIComponent(permalink));
-				$('.cmtx_share_stumbleupon').parent().attr('href', 'http://www.stumbleupon.com/submit?url=' + encodeURIComponent(permalink));
-				$('.cmtx_share_twitter').parent().attr('href', 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(permalink));
+				var reference = encodeURIComponent($('.cmtx_share_box').attr('data-cmtx-reference'));
+
+				$('.cmtx_share_digg').parent().attr('href', 'http://digg.com/submit?url=' + permalink + '&title=' + reference);
+				$('.cmtx_share_facebook').parent().attr('href', 'https://www.facebook.com/sharer.php?u=' + permalink);
+				$('.cmtx_share_linkedin').parent().attr('href', 'https://www.linkedin.com/shareArticle?mini=true&url=' + permalink + '&title=' + reference);
+				$('.cmtx_share_reddit').parent().attr('href', 'https://reddit.com/submit?url=' + permalink + '&title=' + reference);
+				$('.cmtx_share_twitter').parent().attr('href', 'https://twitter.com/intent/tweet?url=' + permalink + '&text=' + reference);
+				$('.cmtx_share_weibo').parent().attr('href', 'http://service.weibo.com/share/share.php?url=' + permalink + '&title=' + reference);
 
 				$('.cmtx_share_box').clearQueue();
 				$('.cmtx_share_box').fadeIn(400);

@@ -13,7 +13,7 @@ class PartNotifyController extends Controller {
 			'lang_text_notify_info'    => $this->data['lang_text_notify_info'],
 			'lang_title_cancel_notify' => $this->data['lang_title_cancel_notify'],
 			'lang_link_cancel'         => $this->data['lang_link_cancel']
-		 );
+		);
 
 		return $this->data;
 	}

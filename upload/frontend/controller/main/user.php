@@ -79,7 +79,7 @@ class MainUserController extends Controller {
 					'timeago_months'       => $this->data['lang_text_timeago_months'],
 					'timeago_year'         => $this->data['lang_text_timeago_year'],
 					'timeago_years'        => $this->data['lang_text_timeago_years']
-				 );
+				);
 			} else {
 				$this->data['error'] = $this->data['lang_message_error_no_user'];
 

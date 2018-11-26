@@ -50,11 +50,6 @@
 		</div>
 
 		<div class="fieldset share">
-			<label><img src="<?php echo $shares['google']; ?>" title="<?php echo $lang_title_google; ?>"></label>
-			<input type="checkbox" name="show_share_google" value="1" <?php if ($show_share_google) { echo 'checked'; } ?>>
-		</div>
-
-		<div class="fieldset share">
 			<label><img src="<?php echo $shares['linkedin']; ?>" title="<?php echo $lang_title_linkedin; ?>"></label>
 			<input type="checkbox" name="show_share_linkedin" value="1" <?php if ($show_share_linkedin) { echo 'checked'; } ?>>
 		</div>
@@ -65,13 +60,13 @@
 		</div>
 
 		<div class="fieldset share">
-			<label><img src="<?php echo $shares['stumbleupon']; ?>" title="<?php echo $lang_title_stumbleupon; ?>"></label>
-			<input type="checkbox" name="show_share_stumbleupon" value="1" <?php if ($show_share_stumbleupon) { echo 'checked'; } ?>>
+			<label><img src="<?php echo $shares['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
+			<input type="checkbox" name="show_share_twitter" value="1" <?php if ($show_share_twitter) { echo 'checked'; } ?>>
 		</div>
 
 		<div class="fieldset share">
-			<label><img src="<?php echo $shares['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
-			<input type="checkbox" name="show_share_twitter" value="1" <?php if ($show_share_twitter) { echo 'checked'; } ?>>
+			<label><img src="<?php echo $shares['weibo']; ?>" title="<?php echo $lang_title_weibo; ?>"></label>
+			<input type="checkbox" name="show_share_weibo" value="1" <?php if ($show_share_weibo) { echo 'checked'; } ?>>
 		</div>
 
 		<input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">

@@ -11,15 +11,13 @@ class LayoutCommentsSocialModel extends Model {
 
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_facebook']) ? 1 : 0) . "' WHERE `title` = 'show_social_facebook'");
 
-		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_google']) ? 1 : 0) . "' WHERE `title` = 'show_social_google'");
-
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_linkedin']) ? 1 : 0) . "' WHERE `title` = 'show_social_linkedin'");
 
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_reddit']) ? 1 : 0) . "' WHERE `title` = 'show_social_reddit'");
 
-		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_stumbleupon']) ? 1 : 0) . "' WHERE `title` = 'show_social_stumbleupon'");
-
 		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_twitter']) ? 1 : 0) . "' WHERE `title` = 'show_social_twitter'");
+
+		$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_weibo']) ? 1 : 0) . "' WHERE `title` = 'show_social_weibo'");
 	}
 
 	public function getSocials() {
@@ -29,15 +27,13 @@ class LayoutCommentsSocialModel extends Model {
 
 		$socials['facebook'] = $this->getImage('facebook.png');
 
-		$socials['google'] = $this->getImage('google.png');
-
 		$socials['linkedin'] = $this->getImage('linkedin.png');
 
 		$socials['reddit'] = $this->getImage('reddit.png');
 
-		$socials['stumbleupon'] = $this->getImage('stumbleupon.png');
-
 		$socials['twitter'] = $this->getImage('twitter.png');
+
+		$socials['weibo'] = $this->getImage('weibo.png');
 
 		return $socials;
 	}

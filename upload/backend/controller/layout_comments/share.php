@@ -45,14 +45,6 @@ class LayoutCommentsShareController extends Controller {
 			$this->data['show_share_facebook'] = $this->setting->get('show_share_facebook');
 		}
 
-		if (isset($this->request->post['show_share_google'])) {
-			$this->data['show_share_google'] = true;
-		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_google'])) {
-			$this->data['show_share_google'] = false;
-		} else {
-			$this->data['show_share_google'] = $this->setting->get('show_share_google');
-		}
-
 		if (isset($this->request->post['show_share_linkedin'])) {
 			$this->data['show_share_linkedin'] = true;
 		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_linkedin'])) {
@@ -69,20 +61,20 @@ class LayoutCommentsShareController extends Controller {
 			$this->data['show_share_reddit'] = $this->setting->get('show_share_reddit');
 		}
 
-		if (isset($this->request->post['show_share_stumbleupon'])) {
-			$this->data['show_share_stumbleupon'] = true;
-		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_stumbleupon'])) {
-			$this->data['show_share_stumbleupon'] = false;
-		} else {
-			$this->data['show_share_stumbleupon'] = $this->setting->get('show_share_stumbleupon');
-		}
-
 		if (isset($this->request->post['show_share_twitter'])) {
 			$this->data['show_share_twitter'] = true;
 		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_twitter'])) {
 			$this->data['show_share_twitter'] = false;
 		} else {
 			$this->data['show_share_twitter'] = $this->setting->get('show_share_twitter');
+		}
+
+		if (isset($this->request->post['show_share_weibo'])) {
+			$this->data['show_share_weibo'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_weibo'])) {
+			$this->data['show_share_weibo'] = false;
+		} else {
+			$this->data['show_share_weibo'] = $this->setting->get('show_share_weibo');
 		}
 
 		$this->data['shares'] = $this->model_layout_comments_share->getShares();

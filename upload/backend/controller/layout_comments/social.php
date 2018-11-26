@@ -45,14 +45,6 @@ class LayoutCommentsSocialController extends Controller {
 			$this->data['show_social_facebook'] = $this->setting->get('show_social_facebook');
 		}
 
-		if (isset($this->request->post['show_social_google'])) {
-			$this->data['show_social_google'] = true;
-		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_google'])) {
-			$this->data['show_social_google'] = false;
-		} else {
-			$this->data['show_social_google'] = $this->setting->get('show_social_google');
-		}
-
 		if (isset($this->request->post['show_social_linkedin'])) {
 			$this->data['show_social_linkedin'] = true;
 		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_linkedin'])) {
@@ -69,20 +61,20 @@ class LayoutCommentsSocialController extends Controller {
 			$this->data['show_social_reddit'] = $this->setting->get('show_social_reddit');
 		}
 
-		if (isset($this->request->post['show_social_stumbleupon'])) {
-			$this->data['show_social_stumbleupon'] = true;
-		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_stumbleupon'])) {
-			$this->data['show_social_stumbleupon'] = false;
-		} else {
-			$this->data['show_social_stumbleupon'] = $this->setting->get('show_social_stumbleupon');
-		}
-
 		if (isset($this->request->post['show_social_twitter'])) {
 			$this->data['show_social_twitter'] = true;
 		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_twitter'])) {
 			$this->data['show_social_twitter'] = false;
 		} else {
 			$this->data['show_social_twitter'] = $this->setting->get('show_social_twitter');
+		}
+
+		if (isset($this->request->post['show_social_weibo'])) {
+			$this->data['show_social_weibo'] = true;
+		} else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_weibo'])) {
+			$this->data['show_social_weibo'] = false;
+		} else {
+			$this->data['show_social_weibo'] = $this->setting->get('show_social_weibo');
 		}
 
 		$this->data['socials'] = $this->model_layout_comments_social->getSocials();

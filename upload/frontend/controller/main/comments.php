@@ -148,11 +148,10 @@ class MainCommentsController extends Controller {
 		$this->data['share_new_window']        = $this->setting->get('share_new_window');
 		$this->data['show_share_digg']         = $this->setting->get('show_share_digg');
 		$this->data['show_share_facebook']     = $this->setting->get('show_share_facebook');
-		$this->data['show_share_google']       = $this->setting->get('show_share_google');
 		$this->data['show_share_linkedin']     = $this->setting->get('show_share_linkedin');
 		$this->data['show_share_reddit']       = $this->setting->get('show_share_reddit');
-		$this->data['show_share_stumbleupon']  = $this->setting->get('show_share_stumbleupon');
 		$this->data['show_share_twitter']      = $this->setting->get('show_share_twitter');
+		$this->data['show_share_weibo']    	   = $this->setting->get('show_share_weibo');
 		$this->data['show_flag']               = $this->setting->get('show_flag');
 		$this->data['show_permalink']          = $this->setting->get('show_permalink');
 		$this->data['show_pagination']         = $this->setting->get('show_pagination');
@@ -274,6 +273,8 @@ class MainCommentsController extends Controller {
 
 		$this->data['lang_modal_no'] = $this->variable->encodeDouble($this->data['lang_modal_no']);
 
+		$this->data['page_reference'] = $this->page->getReference();
+
 		/* These are passed to common.js via the template */
 		$this->data['cmtx_js_settings_comments'] = array(
 			'commentics_url'          => $this->url->getCommenticsUrl(),
@@ -309,7 +310,7 @@ class MainCommentsController extends Controller {
 			'timeago_months'          => $this->data['lang_text_timeago_months'],
 			'timeago_year'            => $this->data['lang_text_timeago_year'],
 			'timeago_years'           => $this->data['lang_text_timeago_years']
-		 );
+		);
 
 		return $this->data;
 	}

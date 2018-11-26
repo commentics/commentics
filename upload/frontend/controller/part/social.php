@@ -9,21 +9,21 @@ class PartSocialController extends Controller {
 
 		$this->data['show_social_digg']        = $this->setting->get('show_social_digg');
 		$this->data['show_social_facebook']    = $this->setting->get('show_social_facebook');
-		$this->data['show_social_google']      = $this->setting->get('show_social_google');
 		$this->data['show_social_linkedin']    = $this->setting->get('show_social_linkedin');
 		$this->data['show_social_reddit']      = $this->setting->get('show_social_reddit');
-		$this->data['show_social_stumbleupon'] = $this->setting->get('show_social_stumbleupon');
 		$this->data['show_social_twitter']     = $this->setting->get('show_social_twitter');
+		$this->data['show_social_weibo']   	   = $this->setting->get('show_social_weibo');
 
-		$url = $this->page->getUrl();
+		$url = $this->url->encode($this->page->getUrl());
 
-		$this->data['social_digg']             = 'http://digg.com/submit?url=' . $url;
+		$reference = $this->url->encode($this->page->getReference());
+
+		$this->data['social_digg']             = 'http://digg.com/submit?url=' . $url . '&title=' . $reference;
 		$this->data['social_facebook']         = 'https://www.facebook.com/sharer.php?u=' . $url;
-		$this->data['social_google']           = 'https://plus.google.com/share?url=' . $url;
-		$this->data['social_linkedin']         = 'https://www.linkedin.com/shareArticle?url=' . $url;
-		$this->data['social_reddit']           = 'http://reddit.com/submit?url=' . $url;
-		$this->data['social_stumbleupon']      = 'http://www.stumbleupon.com/submit?url=' . $url;
-		$this->data['social_twitter']          = 'https://twitter.com/intent/tweet?url=' . $url;
+		$this->data['social_linkedin']         = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $url . '&title=' . $reference;
+		$this->data['social_reddit']           = 'https://reddit.com/submit?url=' . $url . '&title=' . $reference;
+		$this->data['social_twitter']          = 'https://twitter.com/intent/tweet?url=' . $url . '&text=' . $reference;
+		$this->data['social_weibo']            = 'http://service.weibo.com/share/share.php?url=' . $url . '&title=' . $reference;
 
 		return $this->data;
 	}
