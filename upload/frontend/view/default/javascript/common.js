@@ -461,7 +461,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 			if (typeof(cmtx_js_settings_form) != 'undefined') {
 				if (cmtx_js_settings_form.securimage) {
 					$('#cmtx_securimage_refresh').click(function() {
-						var src = cmtx_js_settings_form.securimage_url + 'securimage_show.php?namespace=' + cmtx_js_settings_form.captcha_namespace + '&' + Math.random();
+						var src = cmtx_js_settings_form.securimage_url + '&' + Math.random();
 
 						$('#cmtx_securimage_image').attr('src', src);
 					});

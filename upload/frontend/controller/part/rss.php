@@ -5,7 +5,11 @@ class PartRssController extends Controller {
 	public function index() {
 		$this->loadLanguage('part/rss');
 
-		$this->data['rss_new_window'] = $this->setting->get('rss_new_window');
+		if ($this->setting->get('rss_new_window')) {
+            $this->data['new_window'] = 'target="_blank"';
+        } else {
+            $this->data['new_window'] = '';
+        }
 
 		$this->data['url'] = $this->url->getCommenticsUrl() . 'frontend/index.php?route=part/rss/rss&amp;id=' . $this->page->getId();
 

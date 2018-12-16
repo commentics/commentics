@@ -1,116 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title><?php echo $lang_title; ?></title>
-<meta name="robots" content="noindex">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
-<?php if ($custom) { ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $custom; ?>">
-<?php } ?>
-<script src="<?php echo $common; ?>"></script>
+    <title>{{ lang_title }}</title>
+    <meta name="robots" content="noindex">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ stylesheet }}">
+    @if custom
+        <link rel="stylesheet" type="text/css" href="{{ custom }}">
+    @endif
+    <script src="{{ common }}"></script>
 </head>
 <body>
+    <div id="cmtx_user_container" class="cmtx_user_container cmtx_clear">
+        @if lang_heading
+            <h1 class="cmtx_user_heading">{{ lang_heading }}</h1>
+        @endif
 
-<div id="cmtx_user_container" class="cmtx_user_container cmtx_clear">
-	<?php if ($lang_heading) { ?>
-		<h1 class="cmtx_user_heading"><?php echo $lang_heading; ?></h1>
-	<?php } ?>
+        @if success
+            <div class="cmtx_message cmtx_message_success">{{ success }}</div>
+        @endif
 
-	<?php if ($success) { ?>
-		<div class="cmtx_message cmtx_message_success"><?php echo $success; ?></div>
-	<?php } ?>
+        @if info
+            <div class="cmtx_message cmtx_message_info">{{ info }}</div>
+        @endif
 
-	<?php if ($info) { ?>
-		<div class="cmtx_message cmtx_message_info"><?php echo $info; ?></div>
-	<?php } ?>
+        @if error
+            <div class="cmtx_message cmtx_message_error">{{ error }}</div>
+        @endif
 
-	<?php if ($error) { ?>
-		<div class="cmtx_message cmtx_message_error"><?php echo $error; ?></div>
-	<?php } ?>
+        @if warning
+            <div class="cmtx_message cmtx_message_warning">{{ warning }}</div>
+        @endif
 
-	<?php if ($warning) { ?>
-		<div class="cmtx_message cmtx_message_warning"><?php echo $warning; ?></div>
-	<?php } ?>
+        @if user
+            <form>
+                <div class="cmtx_user_options_area">
+                    <div class="cmtx_user_section_title">{{ lang_text_options_section }}</div>
 
-	<?php if ($user) { ?>
-		<form>
-			<div class="cmtx_user_options_area">
-				<div class="cmtx_user_section_title"><?php echo $lang_text_options_section; ?></div>
+                    <div class="cmtx_user_section_body">
+                        <div><input type="radio" id="everything" name="to_all" value="1" {{ everything_checked }}> <label for="everything">{{ lang_text_everything }}</label></div>
+                        <div><input type="radio" id="custom" name="to_all" value="0" {{ custom_checked }}> <label for="custom">{{ lang_text_custom }}</label></div>
+                    </div>
 
-				<div class="cmtx_user_section_body">
-					<div><input type="radio" id="everything" name="to_all" value="1" <?php if ($user['to_all']) { echo 'checked'; } ?>> <label for="everything"><?php echo $lang_text_everything; ?></label></div>
-					<div><input type="radio" id="custom" name="to_all" value="0" <?php if (!$user['to_all']) { echo 'checked'; } ?>> <label for="custom"><?php echo $lang_text_custom; ?></label></div>
-				</div>
+                    <div class="cmtx_user_section_body cmtx_user_section_custom">
+                        <div class="cmtx_user_custom_text">{{ lang_text_custom_section }}</div>
 
-				<div class="cmtx_user_section_body cmtx_user_section_custom">
-					<div class="cmtx_user_custom_text"><?php echo $lang_text_custom_section; ?></div>
+                        <div><input type="checkbox" id="to_admin" name="to_admin" value="1" {{ to_admin_checked }}> <label for="to_admin">{{ lang_text_admin_comments }}</label></div>
+                        <div><input type="checkbox" id="to_reply" name="to_reply" value="1" {{ to_reply_checked }}> <label for="to_reply">{{ lang_text_reply_comments }}</label></div>
+                        <div><input type="checkbox" id="to_approve" name="to_approve" value="1" {{ to_approve_checked }}> <label for="to_approve">{{ lang_text_approved_comments }}</label></div>
+                    </div>
+                </div>
 
-					<div><input type="checkbox" id="to_admin" name="to_admin" value="1" <?php if ($user['to_admin']) { echo 'checked'; } ?>> <label for="to_admin"><?php echo $lang_text_admin_comments; ?></label></div>
-					<div><input type="checkbox" id="to_reply" name="to_reply" value="1" <?php if ($user['to_reply']) { echo 'checked'; } ?>> <label for="to_reply"><?php echo $lang_text_reply_comments; ?></label></div>
-					<div><input type="checkbox" id="to_approve" name="to_approve" value="1" <?php if ($user['to_approve']) { echo 'checked'; } ?>> <label for="to_approve"><?php echo $lang_text_approved_comments; ?></label></div>
-				</div>
-			</div>
+                <div class="cmtx_user_format_area">
+                    <div class="cmtx_user_section_title">{{ lang_text_format_section }}</div>
 
-			<div class="cmtx_user_format_area">
-				<div class="cmtx_user_section_title"><?php echo $lang_text_format_section; ?></div>
+                    <div class="cmtx_user_section_body">
+                        <div><input type="radio" id="html" name="format" value="html" {{ html_checked }}> <label for="html">{{ lang_text_html }}</label></div>
+                        <div><input type="radio" id="text" name="format" value="text" {{ text_checked }}> <label for="text">{{ lang_text_text }}</label></div>
+                    </div>
+                </div>
+            </form>
 
-				<div class="cmtx_user_section_body">
-					<div><input type="radio" id="html" name="format" value="html" <?php if ($user['format'] == 'html') { echo 'checked'; } ?>> <label for="html"><?php echo $lang_text_html; ?></label></div>
-					<div><input type="radio" id="text" name="format" value="text" <?php if ($user['format'] == 'text') { echo 'checked'; } ?>> <label for="text"><?php echo $lang_text_text; ?></label></div>
-				</div>
-			</div>
-		</form>
+            <div id="subscriptions" class="cmtx_user_subscriptions_area">
+                <div class="cmtx_user_section_title">{{ lang_text_subscriptions_section }}</div>
 
-		<div id="subscriptions" class="cmtx_user_subscriptions_area">
-			<div class="cmtx_user_section_title"><?php echo $lang_text_subscriptions_section; ?></div>
+                <div class="cmtx_user_section_body">
+                    <table class="cmtx_table">
+                        <thead>
+                            <tr>
+                                <th>{{ lang_column_number }}</th>
+                                <th>{{ lang_column_page }}</th>
+                                <th>{{ lang_column_date }}</th>
+                                <th>{{ lang_column_action }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if subscriptions
+                                @start count at 1
 
-			<div class="cmtx_user_section_body">
-				<table class="cmtx_table">
-					<thead>
-						<tr>
-							<th><?php echo $lang_column_number; ?></th>
-							<th><?php echo $lang_column_page; ?></th>
-							<th><?php echo $lang_column_date; ?></th>
-							<th><?php echo $lang_column_action; ?></th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php if ($subscriptions) { ?>
-							<?php $i = 1; ?>
+                                @foreach subscriptions as subscription
+                                    <tr>
+                                        <td>{{ count }}</td>
+                                        <td><a href="{{ subscription.url }}" target="_blank">{{ subscription.reference }}</a></td>
+                                        <td><time class="timeago" datetime="{{ subscription.date_added }}" title="{{ subscription.date_added_title }}"></time></td>
+                                        <td><span class="cmtx_trash_icon" title="{{ lang_title_delete }}" data-sub-token="{{ subscription.token }}"></span></td>
+                                    </tr>
 
-							<?php foreach ($subscriptions as $subscription) { ?>
-								<tr>
-									<td><?php echo $i; ?></td>
-									<td><a href="<?php echo $subscription['url']; ?>" target="_blank"><?php echo $subscription['reference']; ?></a></td>
-									<td><time class="timeago" datetime="<?php echo $subscription['date_added']; ?>" title="<?php echo $subscription['date_added_title']; ?>"></time></td>
-									<td><span class="cmtx_trash_icon" title="<?php echo $lang_title_delete; ?>" data-sub-token="<?php echo $subscription['token']; ?>"></span></td>
-								</tr>
+                                    @increase count
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td class="cmtx_no_results" colspan="4">{{ lang_text_no_results }}</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-								<?php $i++; ?>
-							<?php } ?>
-						<?php } else { ?>
-							<tr>
-								<td class="cmtx_no_results" colspan="4"><?php echo $lang_text_no_results; ?></td>
-							</tr>
-						<?php } ?>
-					</tbody>
-				</table>
-			</div>
-		</div>
+            <div class="cmtx_user_delete_area">
+                <div class="cmtx_user_section_title">{{ lang_text_delete_section }}</div>
 
-		<div class="cmtx_user_delete_area">
-			<div class="cmtx_user_section_title"><?php echo $lang_text_delete_section; ?></div>
+                <div class="cmtx_user_section_body">
+                    <a href="#" class="cmtx_delete_all" title="{{ lang_title_delete_all }}">{{ lang_link_delete }}</a>
+                </div>
+            </div>
 
-			<div class="cmtx_user_section_body">
-				<a href="#" class="cmtx_delete_all" title="<?php echo $lang_title_delete_all; ?>"><?php echo $lang_link_delete; ?></a>
-			</div>
-		</div>
-
-		<div id="cmtx_js_settings_user" style="display:none" hidden><?php echo json_encode($cmtx_js_settings_user); ?></div>
-	<?php } ?>
-</div>
-
+            {# These settings are passed to common.js #}
+            <div id="cmtx_js_settings_user" style="display:none" hidden>{{ cmtx_js_settings_user }}</div>
+        @endif
+    </div>
 </body>
 </html>

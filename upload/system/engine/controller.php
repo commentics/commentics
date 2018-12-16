@@ -44,15 +44,20 @@ abstract class Controller extends Base {
 		extract($this->data);
 
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_view) . '.tpl')) {
-			require_once(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_view) . '.tpl'));
+			$file = cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_view) . '.tpl');
 		} else if (file_exists(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_view) . '.tpl')) {
-			require_once(cmtx_modification(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_view) . '.tpl'));
+			$file = cmtx_modification(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_view) . '.tpl');
 		} else {
 			die('<b>Error</b>: Could not load view ' . strtolower($cmtx_view) . '!');
 		}
+
+        $cmtx_view = $this->parse($cmtx_view, $file);
+
+        require($cmtx_view);
 	}
 
 	public function getComponent($cmtx_component, $cmtx_component_data = array()) {
+        /* Some components have a controller */
 		if (file_exists(CMTX_DIR_CONTROLLER . strtolower($cmtx_component) . '.php')) {
 			require_once(cmtx_modification(CMTX_DIR_CONTROLLER . strtolower($cmtx_component) . '.php'));
 
@@ -70,17 +75,86 @@ abstract class Controller extends Base {
 		ob_start();
 
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_component) . '.tpl')) {
-			require_once(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_component) . '.tpl'));
+			$file = cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_component) . '.tpl');
 		} else if (file_exists(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_component) . '.tpl')) {
-			require_once(cmtx_modification(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_component) . '.tpl'));
+			$file = cmtx_modification(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_component) . '.tpl');
 		} else {
 			return;
 		}
 
+        $cmtx_component = $this->parse($cmtx_component, $file);
+
+        require($cmtx_component);
+
 		return ob_get_clean();
 	}
 
+	public function loadTemplate($cmtx_template) {
+		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_template) . '.tpl')) {
+			$file = cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_template) . '.tpl');
+		} else if (file_exists(cmtx_modification(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_template) . '.tpl'))) {
+			$file = cmtx_modification(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_template) . '.tpl');
+		} else {
+			die('<b>Error</b>: Could not load template ' . strtolower($cmtx_template) . '!');
+		}
+
+        $cmtx_template = $this->parse($cmtx_template, $file);
+
+        return $cmtx_template;
+	}
+
+    private function parse($name, $file) {
+        if (defined('CMTX_FRONTEND')) {
+            $cached_file = CMTX_DIR_CACHE . str_replace('/', '_', strtolower($name)) . '.tpl';
+
+            $parse_template = false;
+
+            clearstatcache();
+
+            if (file_exists($cached_file)) {
+            	$cached_file_time = filemtime($cached_file);
+
+            	$template_file_time = filemtime($file);
+
+            	/* if modification time of both files was determined */
+            	if ($cached_file_time && $template_file_time) {
+            		/* if cached file is older than template file */
+            		if ($cached_file_time < $template_file_time) {
+            			$parse_template = true;
+            		}
+            	}
+            } else {
+            	$parse_template = true;
+            }
+
+            if ($parse_template) {
+                $code = file_get_contents($file);
+
+                $this->template->setCode($code);
+
+                $parsed = $this->template->parse();
+
+        		$handle = fopen($cached_file, 'w');
+
+                if ($handle) {
+            		fputs($handle, $parsed);
+
+            		fclose($handle);
+                }
+
+                if (!file_exists($cached_file)) {
+        			die('<b>Error</b>: Could not save cache for ' . strtolower($name) . '!');
+                }
+            }
+
+            return $cached_file;
+        } else {
+            return $file;
+        }
+    }
+
 	public function loadLanguage($cmtx_language) {
+        /* Always load general.php */
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php')) {
 			require(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php'));
 		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/general.php')) {
@@ -89,6 +163,7 @@ abstract class Controller extends Base {
 			require(cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/general.php'));
 		}
 
+        /* Load requested language file */
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php')) {
 			require_once(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php'));
 		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php')) {
@@ -99,6 +174,7 @@ abstract class Controller extends Base {
 			die('<b>Error</b>: Could not load language ' . strtolower($cmtx_language) . '!');
 		}
 
+        /* Load custom language file if it exists */
 		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom.php')) {
 			require(cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom.php'));
 		} else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/custom.php')) {
@@ -107,6 +183,7 @@ abstract class Controller extends Base {
 			require(cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/custom.php'));
 		}
 
+        /* Combine language files together */
 		$this->data = array_merge($this->data, $_);
 	}
 }

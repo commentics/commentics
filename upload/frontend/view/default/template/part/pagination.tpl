@@ -1,27 +1,27 @@
 <div class="cmtx_pagination_block" role="navigation">
-	<div class="cmtx_pagination_container">
-		<?php if ($current_page > 1) { ?>
-			<a href="<?php echo $pagination_url . 1; ?>" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="<?php echo $lang_title_first; ?>" data-cmtx-page="1"><?php echo $lang_link_first; ?></span></a>
+    <div class="cmtx_pagination_container">
+        @if current_page bigger than 1
+            <a href="{{ pagination_url_first }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ lang_title_first }}" data-cmtx-page="1">{{ lang_link_first }}</span></a>
 
-			<a href="<?php echo $pagination_url . ($current_page - 1); ?>" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="<?php echo $lang_title_previous; ?>" data-cmtx-page="<?php echo $current_page - 1; ?>"><?php echo $lang_link_previous; ?></span></a>
-		<?php } ?>
+            <a href="{{ pagination_url_previous }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ lang_title_previous }}" data-cmtx-page="{{ previous_page }}">{{ lang_link_previous }}</span></a>
+        @endif
 
-		<?php if ($total_pages > 1) { ?>
-			<?php for ($i = $start; $i <= $end; $i++) { ?>
-				<?php if ($current_page == $i) { ?>
-					<span class="cmtx_pagination_box cmtx_pagination_box_active" title="<?php echo $i; ?>" data-cmtx-page="<?php echo $i; ?>"><?php echo $i; ?></span>
-				<?php } else { ?>
-					<a href="<?php echo $pagination_url . $i; ?>" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="<?php echo $i; ?>" data-cmtx-page="<?php echo $i; ?>"><?php echo $i; ?></span></a>
-				<?php } ?>
-			<?php } ?>
-		<?php } else { ?>
-			&nbsp;
-		<?php } ?>
+        @if total_pages bigger than 1
+            @foreach pages as page
+                @if current_page equals page.number
+                    <span class="cmtx_pagination_box cmtx_pagination_box_active" title="{{ page.number }}" data-cmtx-page="{{ page.number }}">{{ page.number }}</span>
+                @else
+                    <a href="{{ page.url }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ page.number }}" data-cmtx-page="{{ page.number }}">{{ page.number }}</span></a>
+                @endif
+            @endforeach
+        @else
+            &nbsp;
+        @endif
 
-		<?php if ($current_page < $total_pages) { ?>
-			<a href="<?php echo $pagination_url . ($current_page + 1); ?>" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="<?php echo $lang_title_next; ?>" data-cmtx-page="<?php echo $current_page + 1; ?>"><?php echo $lang_link_next; ?></span></a>
+        @if current_page bigger than total_pages
+            <a href="{{ pagination_url_next }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ lang_title_next }}" data-cmtx-page="{{ next_page }}">{{ lang_link_next }}</span></a>
 
-			<a href="<?php echo $pagination_url . $total_pages; ?>" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="<?php echo $lang_title_last; ?>" data-cmtx-page="<?php echo $total_pages; ?>"><?php echo $lang_link_last; ?></span></a>
-		<?php } ?>
-	</div>
+            <a href="{{ pagination_url_last }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ lang_title_last }}" data-cmtx-page="{{ total_pages }}">{{ lang_link_last }}</span></a>
+        @endif
+    </div>
 </div>

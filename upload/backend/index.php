@@ -26,6 +26,7 @@ define('CMTX_DIR_THIS', str_replace('\\', '/', realpath(__DIR__)) . '/');
 define('CMTX_DIR_ROOT', str_replace('\\', '/', realpath(__DIR__ . '/../')) . '/');
 define('CMTX_DIR_SYSTEM', CMTX_DIR_ROOT . 'system/');
 define('CMTX_DIR_BACKUPS', CMTX_DIR_SYSTEM . 'backups/');
+define('CMTX_DIR_CACHE', CMTX_DIR_SYSTEM . 'cache/');
 define('CMTX_DIR_DATABASE', CMTX_DIR_SYSTEM . 'database/');
 define('CMTX_DIR_ENGINE', CMTX_DIR_SYSTEM . 'engine/');
 define('CMTX_DIR_HELPER', CMTX_DIR_SYSTEM . 'helper/');

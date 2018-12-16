@@ -29,6 +29,40 @@ class MainUserController extends Controller {
 
 				$this->data['lang_heading'] = $user['name'];
 
+                if ($user['to_all']) {
+                    $this->data['everything_checked'] = 'checked';
+                    $this->data['custom_checked'] = '';
+                } else {
+                    $this->data['everything_checked'] = '';
+                    $this->data['custom_checked'] = 'checked';
+                }
+
+                if ($user['format'] == 'html') {
+                    $this->data['html_checked'] = 'checked';
+                    $this->data['text_checked'] = '';
+                } else {
+                    $this->data['html_checked'] = '';
+                    $this->data['text_checked'] = 'checked';
+                }
+
+                if ($user['to_admin']) {
+                    $this->data['to_admin_checked'] = 'checked';
+                } else {
+                    $this->data['to_admin_checked'] = '';
+                }
+
+                if ($user['to_reply']) {
+                    $this->data['to_reply_checked'] = 'checked';
+                } else {
+                    $this->data['to_reply_checked'] = '';
+                }
+
+                if ($user['to_approve']) {
+                    $this->data['to_approve_checked'] = 'checked';
+                } else {
+                    $this->data['to_approve_checked'] = '';
+                }
+
 				if (isset($this->request->get['s-t'])) {
 					$subscription = $this->model_main_user->getSubscription($this->request->get['u-t'], $this->request->get['s-t']);
 
@@ -80,6 +114,8 @@ class MainUserController extends Controller {
 					'timeago_year'         => $this->data['lang_text_timeago_year'],
 					'timeago_years'        => $this->data['lang_text_timeago_years']
 				);
+
+                $this->data['cmtx_js_settings_user'] = json_encode($this->data['cmtx_js_settings_user']);
 			} else {
 				$this->data['error'] = $this->data['lang_message_error_no_user'];
 

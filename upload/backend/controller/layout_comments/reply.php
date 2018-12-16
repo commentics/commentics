@@ -29,12 +29,6 @@ class LayoutCommentsReplyController extends Controller {
 			$this->data['hide_replies'] = $this->setting->get('hide_replies');
 		}
 
-		if (isset($this->request->post['reply_indent'])) {
-			$this->data['reply_indent'] = $this->request->post['reply_indent'];
-		} else {
-			$this->data['reply_indent'] = $this->setting->get('reply_indent');
-		}
-
 		if (isset($this->request->post['reply_depth'])) {
 			$this->data['reply_depth'] = $this->request->post['reply_depth'];
 		} else {
@@ -89,10 +83,6 @@ class LayoutCommentsReplyController extends Controller {
 			$this->data['error'] = $unpostable;
 
 			return false;
-		}
-
-		if (!isset($this->request->post['reply_indent']) || !$this->validation->isInt($this->request->post['reply_indent']) || $this->request->post['reply_indent'] < 1 || $this->request->post['reply_indent'] > 100) {
-			$this->error['reply_indent'] = sprintf($this->data['lang_error_range'], 1, 100);
 		}
 
 		if (!isset($this->request->post['reply_depth']) || !$this->validation->isInt($this->request->post['reply_depth']) || $this->request->post['reply_depth'] < 1 || $this->request->post['reply_depth'] > 5) {

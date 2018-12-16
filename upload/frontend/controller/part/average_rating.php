@@ -21,6 +21,36 @@ class PartAverageRatingController extends Controller {
 			$this->data['rich_snippets_enabled'] = false;
 		}
 
+        if ($this->data['average_rating'] == 5) {
+            $this->data['rating_5_checked'] = 'checked';
+        } else {
+            $this->data['rating_5_checked'] = '';
+        }
+
+        if ($this->data['average_rating'] == 4) {
+            $this->data['rating_4_checked'] = 'checked';
+        } else {
+            $this->data['rating_4_checked'] = '';
+        }
+
+        if ($this->data['average_rating'] == 3) {
+            $this->data['rating_3_checked'] = 'checked';
+        } else {
+            $this->data['rating_3_checked'] = '';
+        }
+
+        if ($this->data['average_rating'] == 2) {
+            $this->data['rating_2_checked'] = 'checked';
+        } else {
+            $this->data['rating_2_checked'] = '';
+        }
+
+        if ($this->data['average_rating'] == 1) {
+            $this->data['rating_1_checked'] = 'checked';
+        } else {
+            $this->data['rating_1_checked'] = '';
+        }
+
 		return $this->data;
 	}
 

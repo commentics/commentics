@@ -40,16 +40,6 @@
 		</div>
 
 		<div class="fieldset">
-			<label><?php echo $lang_entry_indent; ?></label>
-			<input type="text" required name="reply_indent" class="small" value="<?php echo $reply_indent; ?>" maxlength="3">
-			<span class="note"><?php echo $lang_note_pixels; ?></span>
-			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_reply_indent; ?>', this, event, '')">[?]</a>
-			<?php if ($error_reply_indent) { ?>
-				<span class="error"><?php echo $error_reply_indent; ?></span>
-			<?php } ?>
-		</div>
-
-		<div class="fieldset">
 			<label><?php echo $lang_entry_depth; ?></label>
 			<input type="text" required name="reply_depth" class="small" value="<?php echo $reply_depth; ?>" maxlength="3">
 			<a class="hint" onmouseover="showhint('<?php echo $lang_hint_reply_depth; ?>', this, event, '')">[?]</a>

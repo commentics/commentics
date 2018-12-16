@@ -140,6 +140,12 @@ class MainFormController extends Controller {
 				$this->data['name'] = $this->setting->get('default_name');
 			}
 
+            if ($this->data['name_is_filled'] && $this->data['filled_name_action'] == 'disable') {
+                $this->data['name_readonly'] = 'readonly';
+            } else {
+                $this->data['name_readonly'] = '';
+            }
+
 			$this->data['name_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
 
 			$this->data['maximum_name'] = $this->setting->get('maximum_name');
@@ -168,6 +174,12 @@ class MainFormController extends Controller {
 				$this->data['email'] = $this->setting->get('default_email');
 			}
 
+            if ($this->data['email_is_filled'] && $this->data['filled_email_action'] == 'disable') {
+                $this->data['email_readonly'] = 'readonly';
+            } else {
+                $this->data['email_readonly'] = '';
+            }
+
 			$this->data['email_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_email') ? 'cmtx_required' : '');
 
 			$this->data['maximum_email'] = $this->setting->get('maximum_email');
@@ -189,15 +201,21 @@ class MainFormController extends Controller {
 			$user_columns = (int)$this->data['enabled_name'] + (int)$this->data['enabled_email'];
 
 			if ($user_columns) {
-				$this->data['user_row_visible'] = true;
+				$user_row_visible = true;
+                $this->data['user_row_visible'] = '';
 			} else {
-				$this->data['user_row_visible'] = false;
+				$user_row_visible = false;
+                $this->data['user_row_visible'] = 'cmtx_hide';
 			}
 
-			if ($this->data['user_row_visible'] && $this->setting->get('hide_form')) {
-				$this->data['hide_form'] = true;
+			if ($user_row_visible && $this->setting->get('hide_form')) {
+				//$this->data['hide_form'] = true;
+				$this->data['cmtx_wait_for_comment'] = 'cmtx_wait_for_comment';
+				$this->data['cmtx_wait_for_user'] = 'cmtx_wait_for_user';
 			} else {
-				$this->data['hide_form'] = false;
+				//$this->data['hide_form'] = false;
+				$this->data['cmtx_wait_for_comment'] = '';
+				$this->data['cmtx_wait_for_user'] = '';
 			}
 
 			switch ($user_columns) {
@@ -221,7 +239,37 @@ class MainFormController extends Controller {
 
 			$this->data['rating_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_rating') ? 'cmtx_required' : '');
 
-			$this->data['default_rating'] = $this->setting->get('default_rating');
+			$default_rating = $this->setting->get('default_rating');
+
+            if ($default_rating == '1') {
+                $this->data['rating_1_checked'] = 'checked';
+            } else {
+                $this->data['rating_1_checked'] = '';
+            }
+
+            if ($default_rating == '2') {
+                $this->data['rating_2_checked'] = 'checked';
+            } else {
+                $this->data['rating_2_checked'] = '';
+            }
+
+            if ($default_rating == '3') {
+                $this->data['rating_3_checked'] = 'checked';
+            } else {
+                $this->data['rating_3_checked'] = '';
+            }
+
+            if ($default_rating == '4') {
+                $this->data['rating_4_checked'] = 'checked';
+            } else {
+                $this->data['rating_4_checked'] = '';
+            }
+
+            if ($default_rating == '5') {
+                $this->data['rating_5_checked'] = 'checked';
+            } else {
+                $this->data['rating_5_checked'] = '';
+            }
 
 			/* Website */
 
@@ -248,6 +296,12 @@ class MainFormController extends Controller {
 			} else {
 				$this->data['website'] = $this->setting->get('default_website');
 			}
+
+            if ($this->data['website_is_filled'] && $this->data['filled_website_action'] == 'disable') {
+                $this->data['website_readonly'] = 'readonly';
+            } else {
+                $this->data['website_readonly'] = '';
+            }
 
 			$this->data['maximum_website'] = $this->setting->get('maximum_website');
 
@@ -283,6 +337,12 @@ class MainFormController extends Controller {
 				$this->data['town'] = $this->setting->get('default_town');
 			}
 
+            if ($this->data['town_is_filled'] && $this->data['filled_town_action'] == 'disable') {
+                $this->data['town_readonly'] = 'readonly';
+            } else {
+                $this->data['town_readonly'] = '';
+            }
+
 			$this->data['maximum_town'] = $this->setting->get('maximum_town');
 
 			/* Country */
@@ -312,6 +372,12 @@ class MainFormController extends Controller {
 			} else {
 				$this->data['country_id'] = $this->setting->get('default_country');
 			}
+
+            if ($this->data['country_is_filled'] && $this->data['filled_country_action'] == 'disable') {
+                $this->data['country_disabled'] = 'disabled';
+            } else {
+                $this->data['country_disabled'] = '';
+            }
 
 			/* State */
 
@@ -349,6 +415,12 @@ class MainFormController extends Controller {
 				$this->data['state_id'] = $this->setting->get('default_state');
 			}
 
+            if ($this->data['state_is_filled'] && $this->data['filled_state_action'] == 'disable') {
+                $this->data['state_disabled'] = 'disabled';
+            } else {
+                $this->data['state_disabled'] = '';
+            }
+
 			/* Question */
 
 			$this->data['question'] = false;
@@ -385,9 +457,7 @@ class MainFormController extends Controller {
 
 			$this->data['securimage'] = false;
 
-			$this->data['securimage_url'] = CMTX_HTTP_3RDPARTY . 'securimage/';
-
-			$this->data['captcha_namespace'] = 'cmtx_' . $this->page->getId();
+			$this->data['securimage_url'] = CMTX_HTTP_3RDPARTY . 'securimage/securimage_show.php?namespace=cmtx_' . $this->page->getId();
 
 			if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'securimage' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext')) {
 				$this->data['securimage'] = true;
@@ -399,13 +469,25 @@ class MainFormController extends Controller {
 
 			$this->data['enabled_notify'] = $this->setting->get('enabled_notify');
 
-			$this->data['default_notify'] = $this->setting->get('default_notify');
+			$default_notify = $this->setting->get('default_notify');
+
+            if ($default_notify) {
+    			$this->data['notify_checked'] = 'checked';
+            } else {
+    			$this->data['notify_checked'] = '';
+            }
 
 			/* Cookie */
 
 			$this->data['enabled_cookie'] = $this->setting->get('enabled_cookie');
 
-			$this->data['default_cookie'] = $this->setting->get('default_cookie');
+			$default_cookie = $this->setting->get('default_cookie');
+
+            if ($default_cookie) {
+    			$this->data['cookie_checked'] = 'checked';
+            } else {
+    			$this->data['cookie_checked'] = '';
+            }
 
 			/* Privacy */
 
@@ -441,7 +523,13 @@ class MainFormController extends Controller {
 			}
 
 			/* Is this an administrator? */
-			$this->data['is_admin'] = $this->user->isAdmin();
+			$is_admin = $this->user->isAdmin();
+
+            if ($is_admin) {
+                $this->data['cmtx_admin_button'] = 'cmtx_admin_button';
+            } else {
+                $this->data['cmtx_admin_button'] = '';
+            }
 
 			$this->data['page_id'] = $this->page->getId();
 
@@ -471,10 +559,18 @@ class MainFormController extends Controller {
 			$geo_columns = (int)$this->data['enabled_town'] + (int)$this->data['enabled_country'] + (int)$this->data['enabled_state'];
 
 			if ($geo_columns) {
-				$this->data['geo_row_visible'] = true;
+				$geo_row_visible = true;
 			} else {
-				$this->data['geo_row_visible'] = false;
+				$geo_row_visible = false;
 			}
+
+            if (!$geo_row_visible) {
+				$this->data['geo_row_visible'] = 'cmtx_hide';
+            } else if ($this->setting->get('hide_form')) {
+				$this->data['geo_row_visible'] = 'cmtx_wait_for_user';
+            } else {
+				$this->data['geo_row_visible'] = '';
+            }
 
 			switch ($geo_columns) {
 				case '1':
@@ -489,6 +585,22 @@ class MainFormController extends Controller {
 				default:
 					$this->data['geo_column_size'] = '4';
 			}
+
+            $this->data['lang_tag_bb_code_bold'] = $this->data['lang_tag_bb_code_bold_start'] . '|' . $this->data['lang_tag_bb_code_bold_end'];
+            $this->data['lang_tag_bb_code_italic'] = $this->data['lang_tag_bb_code_italic_start'] . '|' . $this->data['lang_tag_bb_code_italic_end'];
+            $this->data['lang_tag_bb_code_underline'] = $this->data['lang_tag_bb_code_underline_start'] . '|' . $this->data['lang_tag_bb_code_underline_end'];
+            $this->data['lang_tag_bb_code_strike'] = $this->data['lang_tag_bb_code_strike_start'] . '|' . $this->data['lang_tag_bb_code_strike_end'];
+            $this->data['lang_tag_bb_code_superscript'] = $this->data['lang_tag_bb_code_superscript_start'] . '|' . $this->data['lang_tag_bb_code_superscript_end'];
+            $this->data['lang_tag_bb_code_subscript'] = $this->data['lang_tag_bb_code_subscript_start'] . '|' . $this->data['lang_tag_bb_code_subscript_end'];
+            $this->data['lang_tag_bb_code_code'] = $this->data['lang_tag_bb_code_code_start'] . '|' . $this->data['lang_tag_bb_code_code_end'];
+            $this->data['lang_tag_bb_code_php'] = $this->data['lang_tag_bb_code_php_start'] . '|' . $this->data['lang_tag_bb_code_php_end'];
+            $this->data['lang_tag_bb_code_quote'] = $this->data['lang_tag_bb_code_quote_start'] . '|' . $this->data['lang_tag_bb_code_quote_end'];
+            $this->data['lang_tag_bb_code_bullet'] = $this->data['lang_tag_bb_code_bullet_1'] . '|' . $this->data['lang_tag_bb_code_bullet_2'] . '|' . $this->data['lang_tag_bb_code_bullet_3'] . '|' . $this->data['lang_tag_bb_code_bullet_4'];
+            $this->data['lang_tag_bb_code_numeric'] = $this->data['lang_tag_bb_code_numeric_1'] . '|' . $this->data['lang_tag_bb_code_numeric_2'] . '|' . $this->data['lang_tag_bb_code_numeric_3'] . '|' . $this->data['lang_tag_bb_code_numeric_4'];
+            $this->data['lang_tag_bb_code_link'] = $this->data['lang_tag_bb_code_link_1'] . '|' . $this->data['lang_tag_bb_code_link_2'] . '|' . $this->data['lang_tag_bb_code_link_3'] . '|' . $this->data['lang_tag_bb_code_link_4'];
+            $this->data['slang_tag_bb_code_email'] = $this->data['lang_tag_bb_code_email_1'] . '|' . $this->data['lang_tag_bb_code_email_2'] . '|' . $this->data['lang_tag_bb_code_email_3'] . '|' . $this->data['lang_tag_bb_code_email_4'];
+            $this->data['lang_tag_bb_code_image'] = $this->data['lang_tag_bb_code_image_1'] . '|' . $this->data['lang_tag_bb_code_image_2'];
+            $this->data['lang_tag_bb_code_youtube'] = $this->data['lang_tag_bb_code_youtube_1'] . '|' . $this->data['lang_tag_bb_code_youtube_2'];
 
 			$this->data['hidden_data'] = str_replace('&', '&amp;', $hidden_data);
 
@@ -508,7 +620,6 @@ class MainFormController extends Controller {
 				'maximum_upload_size'      => (int)$this->setting->get('maximum_upload_size'),
 				'securimage'               => (bool)$this->data['securimage'],
 				'securimage_url'           =>  $this->data['securimage_url'],
-				'captcha_namespace'        =>  $this->data['captcha_namespace'],
 				'lang_text_drag_and_drop'  =>  sprintf($this->data['lang_text_drag_and_drop'], $this->setting->get('maximum_upload_amount')),
 				'lang_text_drop_success'   =>  $this->data['lang_text_drop_success'],
 				'lang_text_drop_error'     =>  $this->data['lang_text_drop_error'],
@@ -523,6 +634,8 @@ class MainFormController extends Controller {
 				'lang_button_submit'       =>  $this->data['lang_button_submit'],
 				'lang_button_preview'      =>  $this->data['lang_button_preview']
 			);
+
+            $this->data['cmtx_js_settings_form'] = json_encode($this->data['cmtx_js_settings_form']);
 		}
 
 		return $this->data;
@@ -1418,11 +1531,7 @@ class MainFormController extends Controller {
 
 					ob_start();
 
-					if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/main/comment.tpl')) {
-						require_once CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/main/comment.tpl';
-					} else {
-						require_once CMTX_DIR_VIEW . 'default/template/main/comment.tpl';
-					}
+                    require($this->loadTemplate('main/comment'));
 
 					$json['result']['preview'] = ob_get_clean();
 				} else {

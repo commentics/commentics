@@ -124,13 +124,5 @@ abstract class Base {
 			return $_;
 		}
 	}
-
-	public function loadTemplate($cmtx_template) {
-		if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_template) . '.tpl')) {
-			return cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_template) . '.tpl');
-		} else {
-			return cmtx_modification(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_template) . '.tpl');
-		}
-	}
 }
 ?>

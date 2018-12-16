@@ -21,6 +21,12 @@ class ReportPermissionsController extends Controller {
 				'text' 			=> ($this->model_report_permissions->isWritable(CMTX_DIR_BACKUPS)) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
 			),
 			array(
+				'path'			=> '/commentics/system/cache/',
+				'information' 	=> $this->data['lang_text_cache'],
+				'positive' 		=> ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE)) ? true : false,
+				'text' 			=> ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE)) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
+			),
+			array(
 				'path'			=> '/commentics/system/logs/',
 				'information' 	=> $this->data['lang_text_logs'],
 				'positive' 		=> ($this->model_report_permissions->isWritable(CMTX_DIR_LOGS)) ? true : false,

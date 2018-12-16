@@ -1,187 +1,187 @@
 <div id="cmtx_comments_container" class="cmtx_comments_container cmtx_clear">
-	<h3 class="cmtx_comments_heading"><?php echo $lang_heading_comments; ?></h3>
+    <h3 class="cmtx_comments_heading">{{ lang_heading_comments }}</h3>
 
-	<?php if ($comments) { ?>
-		<?php if ($rich_snippets_enabled) { ?>
-			<div itemscope itemtype="http://schema.org/<?php echo $rich_snippets_type; ?>">
-		<?php } ?>
+    @if comments
+        @if rich_snippets_enabled
+            <div itemscope itemtype="http://schema.org/{{ rich_snippets_type }}">
+        @endif
 
-		<?php if ($row_one) { ?>
-			<div class="cmtx_comments_row_one cmtx_clear" role="toolbar">
-				<div class="cmtx_row_left <?php if ($comments_position_1 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_1; ?></div>
-				<div class="cmtx_row_middle <?php if ($comments_position_2 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_2; ?></div>
-				<div class="cmtx_row_right <?php if ($comments_position_3 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_3; ?></div>
-			</div>
-		<?php } ?>
+        @if row_one
+            <div class="cmtx_comments_row_one cmtx_clear" role="toolbar">
+                <div class="cmtx_row_left {{ cmtx_empty_position_1 }}">{{ comments_position_1 }}</div>
+                <div class="cmtx_row_middle {{ cmtx_empty_position_2 }}">{{ comments_position_2 }}</div>
+                <div class="cmtx_row_right {{ cmtx_empty_position_3 }}">{{ comments_position_3 }}</div>
+            </div>
+        @endif
 
-		<?php if ($row_two) { ?>
-			<div class="cmtx_comments_row_two cmtx_clear" role="toolbar">
-				<div class="cmtx_row_left <?php if ($comments_position_4 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_4; ?></div>
-				<div class="cmtx_row_middle <?php if ($comments_position_5 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_5; ?></div>
-				<div class="cmtx_row_right <?php if ($comments_position_6 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_6; ?></div>
-			</div>
-		<?php } ?>
+        @if row_two
+            <div class="cmtx_comments_row_two cmtx_clear" role="toolbar">
+                <div class="cmtx_row_left {{ cmtx_empty_position_4 }}">{{ comments_position_4 }}</div>
+                <div class="cmtx_row_middle {{ cmtx_empty_position_5 }}">{{ comments_position_5 }}</div>
+                <div class="cmtx_row_right {{ cmtx_empty_position_6 }}">{{ comments_position_6 }}</div>
+            </div>
+        @endif
 
-		<div class="cmtx_comment_boxes" role="feed">
-			<?php foreach ($comments as $comment) { ?>
-				<?php $has_replies = false; ?>
-				<?php $reply_depth = 0; ?>
-				<?php $reply_num = 0; ?>
+        <div class="cmtx_comment_boxes" role="feed">
+            @foreach comments as comment
+                @set reply_depth = 0
 
-				<?php if ($comment['reply_id']) { ?>
-					<?php $has_replies = true; ?>
-				<?php } ?>
+                {# Count the number of replies #}
+                @start count at 0
 
-				<section class="cmtx_comment_section">
-					<?php require($this->loadTemplate('main/comment')); ?>
+                <section class="cmtx_comment_section">
+                    {# This is the parent comment #}
+                    @template main/comment
 
-					<?php if ($has_replies) { ?>
-						<div class="cmtx_replies_group <?php if ($hide_replies) { echo 'cmtx_hide'; } ?>">
-					<?php } ?>
+                    {# If the comment has any replies they are put into a div #}
+                    @if comment.reply_id
+                        <div class="cmtx_replies_group {{ hide_replies }}">
+                    @endif
 
-					<?php foreach ($comment['reply_id'] as $reply) { ?>
-						<?php $reply_depth = 1; ?>
-						<?php $reply_num++; ?>
-						<?php $comment = $reply; ?>
-						<?php require($this->loadTemplate('main/comment')); ?>
+                    {# For each reply #}
+                    @foreach comment.reply_id as comment
+                        @set reply_depth = 1
+                        @increase count
+                        @template main/comment
 
-						<?php foreach ($comment['reply_id'] as $reply) { ?>
-							<?php $reply_depth = 2; ?>
-							<?php $reply_num++; ?>
-							<?php $comment = $reply; ?>
-							<?php require($this->loadTemplate('main/comment')); ?>
+                        @foreach comment.reply_id as comment
+                            @set reply_depth = 2
+                            @increase count
+                            @template main/comment
 
-							<?php foreach ($comment['reply_id'] as $reply) { ?>
-								<?php $reply_depth = 3; ?>
-								<?php $reply_num++; ?>
-								<?php $comment = $reply; ?>
-								<?php require($this->loadTemplate('main/comment')); ?>
+                            @foreach comment.reply_id as comment
+                                @set reply_depth = 3
+                                @increase count
+                                @template main/comment
 
-								<?php foreach ($comment['reply_id'] as $reply) { ?>
-									<?php $reply_depth = 4; ?>
-									<?php $reply_num++; ?>
-									<?php $comment = $reply; ?>
-									<?php require($this->loadTemplate('main/comment')); ?>
+                                @foreach comment.reply_id as comment
+                                    @set reply_depth = 4
+                                    @increase count
+                                    @template main/comment
 
-									<?php foreach ($comment['reply_id'] as $reply) { ?>
-										<?php $reply_depth = 5; ?>
-										<?php $reply_num++; ?>
-										<?php $comment = $reply; ?>
-										<?php require($this->loadTemplate('main/comment')); ?>
-									<?php } ?>
-								<?php } ?>
-							<?php } ?>
-						<?php } ?>
-					<?php } ?>
+                                    @foreach comment.reply_id as comment
+                                        @set reply_depth = 5
+                                        @increase count
+                                        @template main/comment
+                                    @endforeach
 
-					<?php if ($has_replies) { ?>
-						</div>
-					<?php } ?>
+                                @endforeach
 
-					<span class="cmtx_reply_counter" style="display:none" hidden><?php echo $reply_num; ?></span>
-				</section>
-			<?php } ?>
-		</div>
+                            @endforeach
 
-		<?php if ($show_pagination && $pagination_type == 'button' && $total > $pagination_amount) { ?>
-			<div class="cmtx_more_button_row">
-				<input type="button" id="cmtx_more_button" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_button_more; ?>" title="<?php echo $lang_title_more_comments; ?>">
-			</div>
-		<?php } ?>
+                        @endforeach
 
-		<?php if ($is_permalink || $is_search) { ?>
-			<div class="cmtx_return"><?php echo $lang_text_return; ?></div>
-		<?php } ?>
+                    @endforeach
 
-		<?php if ($row_three) { ?>
-			<div class="cmtx_comments_row_three cmtx_clear" role="toolbar">
-				<div class="cmtx_row_left <?php if ($comments_position_7 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_7; ?></div>
-				<div class="cmtx_row_middle <?php if ($comments_position_8 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_8; ?></div>
-				<div class="cmtx_row_right <?php if ($comments_position_9 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_9; ?></div>
-			</div>
-		<?php } ?>
+                    {# If the comment had any replies close the div #}
+                    @if count bigger than 0
+                        </div>
+                    @endif
 
-		<?php if ($row_four) { ?>
-			<div class="cmtx_comments_row_four cmtx_clear" role="toolbar">
-				<div class="cmtx_row_left <?php if ($comments_position_10 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_10; ?></div>
-				<div class="cmtx_row_middle <?php if ($comments_position_11 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_11; ?></div>
-				<div class="cmtx_row_right <?php if ($comments_position_12 == '&nbsp;') { echo 'cmtx_empty_position'; } ?>"><?php echo $comments_position_12; ?></div>
-			</div>
-		<?php } ?>
+                    <span class="cmtx_reply_counter" style="display:none" hidden>{{ count }}</span>
+                </section>
+            @endforeach
+        </div>
 
-		<div class="cmtx_loading_icon" hidden></div>
+        @if show_pagination and pagination_type equals 'button' and total bigger than pagination_amount
+            <div class="cmtx_more_button_row">
+                <input type="button" id="cmtx_more_button" class="cmtx_button cmtx_button_primary" value="{{ lang_button_more }}" title="{{ lang_title_more_comments }}">
+            </div>
+        @endif
 
-		<div class="cmtx_action_message cmtx_action_message_success" hidden></div>
-		<div class="cmtx_action_message cmtx_action_message_error" hidden></div>
+        @if is_permalink or is_search
+            <div class="cmtx_return">{{ lang_text_return }}</div>
+        @endif
 
-		<?php if ($show_share) { ?>
-			<div class="cmtx_share_box" data-cmtx-reference="<?php echo $page_reference; ?>" hidden role="dialog">
-				<?php if ($show_share_digg) { ?>
-					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_digg; ?>"><span class="cmtx_share cmtx_share_digg"></span></a>
-				<?php } ?>
+        @if row_three
+            <div class="cmtx_comments_row_three cmtx_clear" role="toolbar">
+                <div class="cmtx_row_left {{ cmtx_empty_position_7 }}">{{ comments_position_7 }}</div>
+                <div class="cmtx_row_middle {{ cmtx_empty_position_8 }}">{{ comments_position_8 }}</div>
+                <div class="cmtx_row_right {{ cmtx_empty_position_9 }}">{{ comments_position_9 }}</div>
+            </div>
+        @endif
 
-				<?php if ($show_share_facebook) { ?>
-					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_facebook; ?>"><span class="cmtx_share cmtx_share_facebook"></span></a>
-				<?php } ?>
+        @if row_four
+            <div class="cmtx_comments_row_four cmtx_clear" role="toolbar">
+                <div class="cmtx_row_left {{ cmtx_empty_position_10 }}">{{ comments_position_10 }}</div>
+                <div class="cmtx_row_middle {{ cmtx_empty_position_11 }}">{{ comments_position_11 }}</div>
+                <div class="cmtx_row_right {{ cmtx_empty_position_12 }}">{{ comments_position_12 }}</div>
+            </div>
+        @endif
 
-				<?php if ($show_share_linkedin) { ?>
-					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_linkedin; ?>"><span class="cmtx_share cmtx_share_linkedin"></span></a>
-				<?php } ?>
+        <div class="cmtx_loading_icon" hidden></div>
 
-				<?php if ($show_share_reddit) { ?>
-					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_reddit; ?>"><span class="cmtx_share cmtx_share_reddit"></span></a>
-				<?php } ?>
+        <div class="cmtx_action_message cmtx_action_message_success" hidden></div>
+        <div class="cmtx_action_message cmtx_action_message_error" hidden></div>
 
-				<?php if ($show_share_twitter) { ?>
-					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_twitter; ?>"><span class="cmtx_share cmtx_share_twitter"></span></a>
-				<?php } ?>
+        @if show_share
+            <div class="cmtx_share_box" data-cmtx-reference="{{ page_reference }}" hidden role="dialog">
+                @if show_share_digg
+                    <a href="#" {{ share_new_window }} title="{{ lang_title_digg }}"><span class="cmtx_share cmtx_share_digg"></span></a>
+                @endif
 
-				<?php if ($show_share_weibo) { ?>
-					<a href="#" <?php if ($share_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_weibo; ?>"><span class="cmtx_share cmtx_share_weibo"></span></a>
-				<?php } ?>
-			</div>
-		<?php } ?>
+                @if show_share_facebook
+                    <a href="#" {{ share_new_window }} title="{{ lang_title_facebook }}"><span class="cmtx_share cmtx_share_facebook"></span></a>
+                @endif
 
-		<?php if ($show_flag) { ?>
-			<div id="cmtx_flag_modal" class="cmtx_modal_box" hidden role="dialog">
-				<header>
-					<a href="#" class="cmtx_modal_close">x</a>
-					<div><?php echo $lang_modal_flag_heading; ?></div>
-				</header>
-				<div class="cmtx_modal_body">
-					<div><span class="cmtx_icon cmtx_alert_icon" aria-hidden></span> <?php echo $lang_modal_flag_content; ?></div>
-				</div>
-				<footer>
-					<input type="button" id="cmtx_flag_modal_yes" class="cmtx_button cmtx_button_primary" value="<?php echo $lang_modal_yes; ?>">
-					<input type="button" id="cmtx_flag_modal_no" class="cmtx_button cmtx_button_secondary" value="<?php echo $lang_modal_no; ?>">
-				</footer>
-			</div>
-		<?php } ?>
+                @if show_share_linkedin
+                    <a href="#" {{ share_new_window }} title="{{ lang_title_linkedin }}"><span class="cmtx_share cmtx_share_linkedin"></span></a>
+                @endif
 
-		<?php if ($show_permalink) { ?>
-			<div class="cmtx_permalink_box" hidden role="dialog">
-				<div><?php echo $lang_text_permalink; ?></div>
+                @if show_share_reddit
+                    <a href="#" {{ share_new_window }} title="{{ lang_title_reddit }}"><span class="cmtx_share cmtx_share_reddit"></span></a>
+                @endif
 
-				<input type="text" name="cmtx_permalink" id="cmtx_permalink" class="cmtx_permalink" value="">
+                @if show_share_twitter
+                    <a href="#" {{ share_new_window }} title="{{ lang_title_twitter }}"><span class="cmtx_share cmtx_share_twitter"></span></a>
+                @endif
 
-				<div><a href="#"><?php echo $lang_link_close; ?></a></div>
-			</div>
-		<?php } ?>
+                @if show_share_weibo
+                    <a href="#" {{ share_new_window }} title="{{ lang_title_weibo }}"><span class="cmtx_share cmtx_share_weibo"></span></a>
+                @endif
+            </div>
+        @endif
 
-		<input type="hidden" name="cmtx_next_page" id="cmtx_next_page" value="2">
+        @if show_flag
+            <div id="cmtx_flag_modal" class="cmtx_modal_box" hidden role="dialog">
+                <header>
+                    <a href="#" class="cmtx_modal_close">x</a>
+                    <div>{{ lang_modal_flag_heading }}</div>
+                </header>
+                <div class="cmtx_modal_body">
+                    <div><span class="cmtx_icon cmtx_alert_icon" aria-hidden></span> {{ lang_modal_flag_content }}</div>
+                </div>
+                <footer>
+                    <input type="button" id="cmtx_flag_modal_yes" class="cmtx_button cmtx_button_primary" value="{{ lang_modal_yes }}">
+                    <input type="button" id="cmtx_flag_modal_no" class="cmtx_button cmtx_button_secondary" value="{{ lang_modal_no }}">
+                </footer>
+            </div>
+        @endif
 
-		<div id="cmtx_loading_helper" data-cmtx-load="1" data-cmtx-total-comments="<?php echo $total; ?>"></div>
+        @if show_permalink
+            <div class="cmtx_permalink_box" hidden role="dialog">
+                <div>{{ lang_text_permalink }}</div>
 
-		<div id="cmtx_js_settings_comments" style="display:none" hidden><?php echo json_encode($cmtx_js_settings_comments); ?></div>
+                <input type="text" name="cmtx_permalink" id="cmtx_permalink" class="cmtx_permalink" value="">
 
-		<?php if ($rich_snippets_enabled) { ?>
-			</div>
-		<?php } ?>
-	<?php } else if ($permalink_no_results) { ?>
-		<div class="cmtx_no_permalink"><?php echo $lang_text_no_permalink; ?></div>
-	<?php } else if ($search_no_results) { ?>
-		<div class="cmtx_no_results"><?php echo $lang_text_no_results; ?></div>
-	<?php } else { ?>
-		<div class="cmtx_no_comments"><?php echo $lang_text_no_comments; ?></div>
-	<?php } ?>
+                <div><a href="#">{{ lang_link_close }}</a></div>
+            </div>
+        @endif
+
+        <input type="hidden" name="cmtx_next_page" id="cmtx_next_page" value="2">
+
+        <div id="cmtx_loading_helper" data-cmtx-load="1" data-cmtx-total-comments="{{ total }}"></div>
+
+        <div id="cmtx_js_settings_comments" style="display:none" hidden>{{ cmtx_js_settings_comments }}</div>
+
+        @if rich_snippets_enabled
+            </div>
+        @endif
+    @elseif permalink_no_results
+        <div class="cmtx_no_permalink">{{ lang_text_no_permalink }}</div>
+    @elseif search_no_results
+        <div class="cmtx_no_results">{{ lang_text_no_results }}</div>
+    @else
+        <div class="cmtx_no_comments">{{ lang_text_no_comments }}</div>
+    @endif
 </div>

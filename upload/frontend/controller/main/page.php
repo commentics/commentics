@@ -44,6 +44,8 @@ class MainPageController extends Controller {
 			'auto_detect'    => $this->setting->get('auto_detect')
 		);
 
+        $this->data['cmtx_js_settings_page'] = json_encode($this->data['cmtx_js_settings_page']);
+
 		$this->components = array('common/header', 'common/footer', 'main/form', 'main/comments');
 
 		$this->loadView('main/page');

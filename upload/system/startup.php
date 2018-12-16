@@ -79,6 +79,7 @@ require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'security.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'session.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'setting.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'task.php'));
+require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'template.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'url.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'user.php'));
 require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'validation.php'));
@@ -160,6 +161,9 @@ $cmtx_registry->set('home', $cmtx_home);
 
 $cmtx_task = new \Commentics\Task($cmtx_registry);
 $cmtx_registry->set('task', $cmtx_task);
+
+$cmtx_template = new \Commentics\Template($cmtx_registry);
+$cmtx_registry->set('template', $cmtx_template);
 
 /* Time zone */
 if ($cmtx_setting->has('time_zone')) {

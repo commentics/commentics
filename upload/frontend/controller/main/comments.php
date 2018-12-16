@@ -129,6 +129,30 @@ class MainCommentsController extends Controller {
 			$this->data['lang_heading_comments'] .= ' (' . $this->data['total'] . ')';
 		}
 
+        if ($this->setting->get('website_new_window')) {
+	    	$this->data['website_new_window'] = 'target="_blank"';
+        } else {
+    		$this->data['website_new_window'] = '';
+        }
+
+        if ($this->setting->get('website_no_follow')) {
+	    	$this->data['website_no_follow'] = 'rel="nofollow"';
+        } else {
+    		$this->data['website_no_follow'] = '';
+        }
+
+		if ($this->setting->get('share_new_window')) {
+            $this->data['share_new_window'] = 'target="_blank"';
+        } else {
+            $this->data['share_new_window'] = '';
+        }
+
+		if ($this->setting->get('hide_replies')) {
+            $this->data['hide_replies'] = 'cmtx_hide';
+        } else {
+            $this->data['hide_replies'] = '';
+        }
+
 		$this->data['show_gravatar']           = $this->setting->get('show_gravatar');
 		$this->data['show_level']              = $this->setting->get('show_level');
 		$this->data['show_bio']                = $this->setting->get('show_bio');
@@ -136,8 +160,6 @@ class MainCommentsController extends Controller {
 		$this->data['show_badge_most_likes']   = $this->setting->get('show_badge_most_likes');
 		$this->data['show_badge_first_poster'] = $this->setting->get('show_badge_first_poster');
 		$this->data['show_website']            = $this->setting->get('show_website');
-		$this->data['website_new_window']      = $this->setting->get('website_new_window');
-		$this->data['website_no_follow']       = $this->setting->get('website_no_follow');
 		$this->data['show_says']               = $this->setting->get('show_says');
 		$this->data['show_rating']             = $this->setting->get('show_rating');
 		$this->data['show_date']               = $this->setting->get('show_date');
@@ -145,7 +167,6 @@ class MainCommentsController extends Controller {
 		$this->data['show_like']               = $this->setting->get('show_like');
 		$this->data['show_dislike']            = $this->setting->get('show_dislike');
 		$this->data['show_share']              = $this->setting->get('show_share');
-		$this->data['share_new_window']        = $this->setting->get('share_new_window');
 		$this->data['show_share_digg']         = $this->setting->get('show_share_digg');
 		$this->data['show_share_facebook']     = $this->setting->get('show_share_facebook');
 		$this->data['show_share_linkedin']     = $this->setting->get('show_share_linkedin');
@@ -157,8 +178,6 @@ class MainCommentsController extends Controller {
 		$this->data['show_pagination']         = $this->setting->get('show_pagination');
 		$this->data['pagination_type']         = $this->setting->get('pagination_type');
 		$this->data['pagination_amount']       = $this->setting->get('pagination_amount');
-		$this->data['hide_replies']            = $this->setting->get('hide_replies');
-		$this->data['reply_indent']            = $this->setting->get('reply_indent');
 		$this->data['reply_max_depth']         = $this->setting->get('reply_depth');
 
 		$this->data['is_preview'] = false;
@@ -217,13 +236,17 @@ class MainCommentsController extends Controller {
 			if ($this->setting->get('comments_position_' . $i) && array_key_exists($this->setting->get('comments_position_' . $i), $outer_components)) {
 				$this->data['comments_position_' . $i] = $outer_components[$this->setting->get('comments_position_' . $i)];
 
+				$this->data['cmtx_empty_position_' . $i] = '';
+
 				$trimmed = trim($this->data['comments_position_' . $i]);
 
 				if (empty($trimmed)) {
 					$this->data['comments_position_' . $i] = '&nbsp;';
+    				$this->data['cmtx_empty_position_' . $i] = 'cmtx_empty_position';
 				}
 			} else {
 				$this->data['comments_position_' . $i] = '&nbsp;';
+   				$this->data['cmtx_empty_position_' . $i] = 'cmtx_empty_position';
 			}
 		}
 
@@ -269,6 +292,8 @@ class MainCommentsController extends Controller {
 			$highlight = false;
 		}
 
+		$this->data['ratings'] = array(0,1,2,3,4);
+
 		$this->data['lang_modal_yes'] = $this->variable->encodeDouble($this->data['lang_modal_yes']);
 
 		$this->data['lang_modal_no'] = $this->variable->encodeDouble($this->data['lang_modal_no']);
@@ -311,6 +336,8 @@ class MainCommentsController extends Controller {
 			'timeago_year'            => $this->data['lang_text_timeago_year'],
 			'timeago_years'           => $this->data['lang_text_timeago_years']
 		);
+
+        $this->data['cmtx_js_settings_comments'] = json_encode($this->data['cmtx_js_settings_comments']);
 
 		return $this->data;
 	}
@@ -553,11 +580,7 @@ class MainCommentsController extends Controller {
 
 			ob_start();
 
-			if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/main/comments.tpl')) {
-				require_once CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/main/comments.tpl';
-			} else {
-				require_once CMTX_DIR_VIEW . 'default/template/main/comments.tpl';
-			}
+            require($this->loadTemplate('main/comments'));
 
 			$json['result'] = ob_get_clean();
 

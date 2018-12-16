@@ -1,3 +1,3 @@
 <div class="cmtx_rss_block">
-	<a href="<?php echo $url; ?>" <?php if ($rss_new_window) { echo 'target="_blank"'; } ?> title="<?php echo $lang_title_rss; ?>"><span class="cmtx_icon cmtx_rss_icon" aria-hidden></span> <span class="cmtx_rss_text"><?php echo $lang_text_rss; ?></span></a>
+    <a href="{{ url }}" {{ new_window }} title="{{ lang_title_rss }}"><span class="cmtx_icon cmtx_rss_icon" aria-hidden></span> <span class="cmtx_rss_text">{{ lang_text_rss }}</span></a>
 </div>

@@ -35,19 +35,32 @@ class PartPaginationController extends Controller {
 			}
 		}
 
+		$pagination_url = $this->url->getPaginationUrl($this->page->getUrl()); // Used for search engines to index pages
+
 		$this->data['current_page'] = $current_page;
 
 		$this->data['total_pages'] = $total_pages;
 
-		$this->data['start'] = $start;
+        $this->data['pagination_url_first'] = $pagination_url . '1';
 
-		$this->data['end'] = $end;
+        $this->data['pagination_url_previous'] = $pagination_url . ($current_page - 1);
 
-		$this->data['commentics_url'] = $this->url->getCommenticsUrl();
+        $this->data['pagination_url_next'] = $pagination_url . ($current_page + 1);
 
-		$this->data['pagination_url'] = $this->url->getPaginationUrl($this->page->getUrl()); // Used for search engines to index pages
+        $this->data['pagination_url_last'] = $pagination_url . $total_pages;
 
-		$this->data['page_id'] = $this->page->getId();
+        $this->data['previous_page'] = $current_page - 1;
+
+        $this->data['next_page'] = $current_page + 1;
+
+		$this->data['pages'] = array();
+
+        for ($i = $start; $i <= $end; $i++) {
+            $this->data['pages'][] = array(
+                'number' => $i,
+                'url'    => $pagination_url . $i
+            );
+        }
 
 		return $this->data;
 	}

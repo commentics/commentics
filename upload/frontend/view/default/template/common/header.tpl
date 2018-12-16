@@ -1,35 +1,35 @@
-<?php if ($jquery) { ?>
-	<script src="<?php echo $jquery; ?>"></script>
-<?php } ?>
+@if jquery
+    <script src="{{ jquery }}"></script>
+@endif
 
-<?php if ($jquery_ui) { ?>
-	<script src="<?php echo $jquery_ui; ?>" defer></script>
-<?php } ?>
+@if jquery_ui
+    <script src="{{ jquery_ui }}" defer></script>
+@endif
 
-<?php if ($read_more) { ?>
-	<script src="<?php echo $read_more; ?>" defer></script>
-<?php } ?>
+@if read_more
+    <script src="{{ read_more }}" defer></script>
+@endif
 
-<?php if ($filer) { ?>
-	<script src="<?php echo $filer; ?>" defer></script>
-<?php } ?>
+@if filer
+    <script src="{{ filer }}" defer></script>
+@endif
 
-<?php if ($timeago) { ?>
-	<script src="<?php echo $timeago; ?>" defer></script>
-<?php } ?>
+@if timeago
+    <script src="{{ timeago }}" defer></script>
+@endif
 
-<?php if ($recaptcha_api) { ?>
-	<script src="<?php echo $recaptcha_api; ?>" async defer></script>
-<?php } ?>
+@if recaptcha_api
+    <script src="{{ recaptcha_api }}" async defer></script>
+@endif
 
-<?php if ($highlight) { ?>
-	<script src="<?php echo $highlight; ?>" defer></script>
-<?php } ?>
+@if highlight
+    <script src="{{ highlight }}" defer></script>
+@endif
 
-<script src="<?php echo $common; ?>" defer></script>
+<script src="{{ common }}" defer></script>
 
-<link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
+<link rel="stylesheet" type="text/css" href="{{ stylesheet }}">
 
-<?php if ($custom) { ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo $custom; ?>">
-<?php } ?>
+@if custom
+    <link rel="stylesheet" type="text/css" href="{{ custom }}">
+@endif

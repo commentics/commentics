@@ -13,6 +13,7 @@ $_['lang_column_result']		= 'Result';
 // Text
 $_['lang_text_config']			= 'This file contains site configuration details and should be read-only.';
 $_['lang_text_backups']			= 'This folder is used to store the database backups.';
+$_['lang_text_cache']			= 'This folder is used to store template cache.';
 $_['lang_text_logs']			= 'This folder is used to store the log files.';
 $_['lang_text_errors']			= 'This file may contain errors from the script.';
 $_['lang_text_mod_cache']		= 'This folder is used to store modification cache.';

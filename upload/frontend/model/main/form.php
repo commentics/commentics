@@ -92,7 +92,7 @@ class MainFormModel extends Model {
 
 	/* Remove new line endings */
 	public function removeLineBreaks($comment) {
-		return str_ireplace("\r\n", ' ', $comment);
+		return str_replace("\r\n", ' ', $comment);
 	}
 
 	/* Convert BB code to HTML */

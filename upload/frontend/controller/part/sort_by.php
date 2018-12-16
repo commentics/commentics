@@ -42,10 +42,46 @@ class PartSortByController extends Controller {
 		}
 
 		if (isset($this->request->post['cmtx_sort_by']) && $this->request->post['cmtx_sort_by']) {
-			$this->data['comments_order'] = $this->request->post['cmtx_sort_by'];
+			$comments_order = $this->request->post['cmtx_sort_by'];
 		} else {
-			$this->data['comments_order'] = $this->setting->get('comments_order');
+			$comments_order = $this->setting->get('comments_order');
 		}
+
+        if ($comments_order == '1') {
+            $this->data['option_1_selected'] = 'selected';
+        } else {
+            $this->data['option_1_selected'] = '';
+        }
+
+        if ($comments_order == '2') {
+            $this->data['option_2_selected'] = 'selected';
+        } else {
+            $this->data['option_2_selected'] = '';
+        }
+
+        if ($comments_order == '3') {
+            $this->data['option_3_selected'] = 'selected';
+        } else {
+            $this->data['option_3_selected'] = '';
+        }
+
+        if ($comments_order == '4') {
+            $this->data['option_4_selected'] = 'selected';
+        } else {
+            $this->data['option_4_selected'] = '';
+        }
+
+        if ($comments_order == '5') {
+            $this->data['option_5_selected'] = 'selected';
+        } else {
+            $this->data['option_5_selected'] = '';
+        }
+
+        if ($comments_order == '6') {
+            $this->data['option_6_selected'] = 'selected';
+        } else {
+            $this->data['option_6_selected'] = '';
+        }
 
 		$this->data['commentics_url'] = $this->url->getCommenticsUrl();
 
