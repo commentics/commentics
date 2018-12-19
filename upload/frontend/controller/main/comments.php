@@ -294,10 +294,6 @@ class MainCommentsController extends Controller {
 
 		$this->data['ratings'] = array(0,1,2,3,4);
 
-		$this->data['lang_modal_yes'] = $this->variable->encodeDouble($this->data['lang_modal_yes']);
-
-		$this->data['lang_modal_no'] = $this->variable->encodeDouble($this->data['lang_modal_no']);
-
 		$this->data['page_reference'] = $this->page->getReference();
 
 		/* These are passed to common.js via the template */

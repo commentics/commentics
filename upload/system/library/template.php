@@ -3,6 +3,7 @@ namespace Commentics;
 
 class Template {
 	private $code;
+	private $minify = false;
 
 	public function getCode() {
 		return $this->code;
@@ -10,6 +11,10 @@ class Template {
 
 	public function setCode($code) {
 		$this->code = $code;
+	}
+
+	public function setMinify($minify) {
+		$this->minify = $minify;
 	}
 
 	public function parse() {
@@ -33,6 +38,10 @@ class Template {
 		$this->increaseCount();
 
 		$this->loadTemplate();
+
+        if ($this->minify) {
+    		$this->minify();
+        }
 
 		$this->code = trim($this->code);
 
@@ -245,6 +254,38 @@ class Template {
 				$this->code = str_replace($tag, "<?php require(\$this->loadTemplate('$template')); ?>" . PHP_EOL, $this->code);
 			}
 		}
+	}
+
+	/* Minify HTML */
+	private function minify() {
+        $replace = array(
+            // remove tabs before and after HTML tags
+            '/\>[^\S ]+/s' => '>',
+            '/[^\S ]+\</s' => '<',
+            // shorten multiple white space sequences; keep new line characters because they matter in JS.
+            '/([\t ])+/s' => ' ',
+            // remove leading and trailing spaces
+            '/^([\t ])+/m' => '',
+            '/([\t ])+$/m' => '',
+            // remove JS line comments (simple only); do NOT remove lines containing URL.
+            '~//[a-zA-Z0-9 ]+$~m' => '',
+            // remove empty lines (sequence of line-ends and white space characters)
+            '/[\r\n]+([\t ]?[\r\n]+)+/s' => "\n",
+            // remove empty lines (between HTML tags); cannot remove just any line-end characters because in inline JS they matter.
+            '/\>[\r\n\t ]+\</s' => '><',
+            // remove "empty" lines containing only JS's block end character; join with next line.
+            '/}[\r\n\t ]+/s' => '}',
+            '/}[\r\n\t ]+,[\r\n\t ]+/s' => '},',
+            // remove new line after JS's function or condition start; join with next line.
+            '/\)[\r\n\t ]?{[\r\n\t ]+/s' => '){',
+            '/,[\r\n\t ]?{[\r\n\t ]+/s' => ',{',
+            // remove new line after JS's line-end (only most obvious and safe cases)
+            '/\),[\r\n\t ]+/s' => '),',
+            // remove quotes from HTML attributes that do not contain spaces; keep quotes around URLs.
+            '~([\r\n\t ])?([a-zA-Z0-9]+)="([a-zA-Z0-9_/\\-]+)"([\r\n\t ])?~s' => '$1$2=$3$4'
+        );
+
+        $this->code = preg_replace(array_keys($replace), array_values($replace), $this->code);
 	}
 }
 ?>

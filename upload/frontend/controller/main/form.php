@@ -604,10 +604,6 @@ class MainFormController extends Controller {
 
 			$this->data['hidden_data'] = str_replace('&', '&amp;', $hidden_data);
 
-			$this->data['lang_modal_insert'] = $this->variable->encodeDouble($this->data['lang_modal_insert']);
-			$this->data['lang_modal_cancel'] = $this->variable->encodeDouble($this->data['lang_modal_cancel']);
-			$this->data['lang_modal_close'] = $this->variable->encodeDouble($this->data['lang_modal_close']);
-
 			/* These are passed to common.js via the template */
 			$this->data['cmtx_js_settings_form'] = array(
 				'commentics_url'           => $this->url->getCommenticsUrl(),
@@ -1460,9 +1456,9 @@ class MainFormController extends Controller {
 
 					$this->loadModel('main/comments');
 
-					$reply_depth = $reply_indent = $reply_num = 0;
+					$reply_depth = 0;
 
-					$show_bio = $has_replies = false;
+					$show_bio = false;
 
 					$show_gravatar      = $this->setting->get('show_gravatar');
 					$show_level         = $this->setting->get('show_level');

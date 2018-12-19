@@ -132,6 +132,8 @@ abstract class Controller extends Base {
 
                 $this->template->setCode($code);
 
+                $this->template->setMinify($this->setting->get('optimize'));
+
                 $parsed = $this->template->parse();
 
         		$handle = fopen($cached_file, 'w');

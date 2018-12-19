@@ -1,7 +1,7 @@
 <?php
 namespace {
     if (!function_exists('remove_directory')) {
-		function remove_directory($dir) {
+		function remove_directory($dir, $inclusive = true) {
 			if (is_dir($dir)) {
 				$i = new DirectoryIterator($dir);
 
@@ -13,7 +13,7 @@ namespace {
 					}
 				}
 
-				if (is_dir($dir)) {
+				if ($inclusive && is_dir($dir)) {
 					@rmdir($dir);
 				}
 			}

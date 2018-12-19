@@ -30,7 +30,7 @@ $_['lang_text_comments']  			= 'Comments';
 
 // Hint
 $_['lang_hint_auto_detect']	   		= 'If enabled and you view your page, it will determine if jQuery and jQuery UI are loaded and update the below settings accordingly.';
-$_['lang_hint_optimize']	   		= 'Combine and minify CSS and JS to help improve performance.';
+$_['lang_hint_optimize']	   		= 'Combine and minify resources to help improve performance.';
 $_['lang_hint_jquery_source']		= 'jQuery can be sourced locally from the files, from Google or from the jQuery website.';
 $_['lang_hint_jquery_ui_source']	= 'jQuery UI can be sourced locally from the files, from Google or from the jQuery website.';
 ?>

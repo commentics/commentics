@@ -25,7 +25,7 @@ class Modification {
 		$log_data = array();
 
 		// Clear modification cache
-		remove_directory(CMTX_DIR_MOD_CACHE);
+		remove_directory(CMTX_DIR_MOD_CACHE, false);
 
 		$xmls = array();
 
