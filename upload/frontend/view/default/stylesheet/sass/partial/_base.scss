@@ -24,52 +24,52 @@ $green-dark: darken($green, 5%);
 $red-dark:   darken($red, 5%);
 
 .cmtx_button {
-	font-size: 14px;
-	text-align: center;
-	padding: 10px;
-	border: none;
-	display: inline-block;
-	text-decoration: none;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	width: 100%;
-	height: auto;
-	min-width: 50px;
-	background-color: #E7E7E7;
-	color: $black;
-	transition-duration: 0.4s;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    display: inline-block;
+    text-decoration: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 100%;
+    height: auto;
+    min-width: 50px;
+    background-color: #E7E7E7;
+    color: $black;
+    transition-duration: 0.4s;
 
-	&:hover {
-		background-color: darken(#E7E7E7, 5%);
-	}
+    &:hover {
+        background-color: darken(#E7E7E7, 5%);
+    }
 
-	&::-moz-focus-inner {
-		border: 0;
-	}
+    &::-moz-focus-inner {
+        border: 0;
+    }
 }
 
 .cmtx_button_primary {
-	background-color: #3F6F95;
-	color: $white;
+    background-color: #3F6F95;
+    color: $white;
 
-	&:hover {
-		background-color: darken(#3F6F95, 10%);
-	}
+    &:hover {
+        background-color: darken(#3F6F95, 10%);
+    }
 }
 
 .cmtx_button_disabled {
-	opacity: 0.6;
-	cursor: not-allowed;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .cmtx_button_row input[type="button"] {
-	border-radius: 5px;
+    border-radius: 5px;
 }
 
 .cmtx_clear::before, .cmtx_clear::after {
-	content: " ";
-	display: table;
+    content: " ";
+    display: table;
 }
 
 .cmtx_clear::after {
-	clear: both;
+    clear: both;
 }

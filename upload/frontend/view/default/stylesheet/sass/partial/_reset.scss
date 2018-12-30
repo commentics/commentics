@@ -1,49 +1,49 @@
 // _partial/_reset.scss
 
 .cmtx_container {
-	text-align: left;
+    text-align: left;
 
-	* {
-		box-sizing: border-box;
-		line-height: normal;
-		font-weight: normal;
-	}
+    * {
+        box-sizing: border-box;
+        line-height: normal;
+        font-weight: normal;
+    }
 
-	*:before {
-		box-sizing: border-box;
-	}
+    *:before {
+        box-sizing: border-box;
+    }
 
-	*:after {
-		box-sizing: border-box;
-	}
+    *:after {
+        box-sizing: border-box;
+    }
 
-	h3, b {
-		font-weight: bold;
-	}
+    h3, b {
+        font-weight: bold;
+    }
 
-	ul, ol {
-		padding-left: 30px;
-	}
+    ul, ol {
+        padding-left: 30px;
+    }
 
-	ul {
-		list-style-type: disc;
-	}
+    ul {
+        list-style-type: disc;
+    }
 
-	ol {
-		list-style-type: decimal;
-	}
+    ol {
+        list-style-type: decimal;
+    }
 
-	li {
-		display: list-item;
-		padding: 2px;
-	}
+    li {
+        display: list-item;
+        padding: 2px;
+    }
 
-	a {
-		text-decoration: underline;
-	}
+    a {
+        text-decoration: underline;
+    }
 
-	input, select, textarea, label {
-		margin: 0;
-		height: auto;
-	}
+    input, select, textarea, label {
+        margin: 0;
+        height: auto;
+    }
 }

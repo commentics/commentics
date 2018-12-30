@@ -1,286 +1,290 @@
 <?php
 namespace Commentics;
 
-class MainUpgrade2Model extends Model {
-	public function upgrade($version) {
-		if ($version == '2.5 -> 3.0') {
-			$this->loadModel('main/install_2');
-
-			/* Access */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "access`");
-			$this->model_main_install_2->createTableAccess();
-
-			/* Admins */
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `viewable_pages` text NOT NULL");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `modifiable_pages` text NOT NULL");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `format` varchar(250) NOT NULL default 'html'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `date_modified` datetime NOT NULL");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` DROP COLUMN `allowed_pages`");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_ban` `receive_email_ban` tinyint(1) unsigned NOT NULL default '1'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_comment_approve` `receive_email_comment_approve` tinyint(1) unsigned NOT NULL default '1'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_comment_okay` `receive_email_comment_success` tinyint(1) unsigned NOT NULL default '1'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_flag` `receive_email_flag` tinyint(1) unsigned NOT NULL default '1'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `dated` `date_added` datetime NOT NULL");
-
-			/* Attempts */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "attempts`");
-			$this->model_main_install_2->createTableAttempts();
-
-			/* Backups */
-			$this->model_main_install_2->createTableBackups();
-
-			/* Bans */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "bans`");
-			$this->model_main_install_2->createTableBans();
-
-			/* Countries */
-			$this->model_main_install_2->createTableCountries();
-
-			/* Data */
-			$this->model_main_install_2->createTableData($this->setting->get('site_name'), $this->setting->get('site_url'));
-
-			/* Emails */
-			$this->model_main_install_2->createTableEmails($this->setting->get('site_name'), $this->setting->get('site_domain'));
-
-			/* Logins */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "logins`");
-			$this->model_main_install_2->createTableLogins();
-
-			/* Modules */
-			$this->model_main_install_2->createTableModules();
-
-			/* Pages */
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD `moderate` varchar(250) NOT NULL default 'default'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD `date_modified` datetime NOT NULL");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` CHANGE `dated` `date_added` datetime NOT NULL");
-
-			/* Questions */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "questions`");
-			$this->model_main_install_2->createTableQuestions();
-
-			/* Ratings */
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "ratings` CHANGE `dated` `date_added` datetime NOT NULL");
-
-			/* Reporters */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "reporters`");
-			$this->model_main_install_2->createTableReporters();
-
-			/* Settings */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "settings`");
-			$this->model_main_install_2->createTableSettings($this->setting->get('site_name'), $this->setting->get('site_domain'), $this->setting->get('site_url'), $this->setting->get('security_key'), $this->setting->get('session_key'), $this->variable->random(), $this->variable->random(), $this->setting->get('time_zone'), $this->setting->get('commentics_folder'), $this->setting->get('commentics_url'), $this->setting->get('admin_folder'), 0);
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int)$this->setting->get('maintenance_mode') . "' WHERE `title` = 'maintenance_mode'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('maintenance_message')) . "' WHERE `title` = 'maintenance_message'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '1' WHERE `title` = 'checklist_complete'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('transport_method')) . "' WHERE `title` = 'transport_method'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('smtp_host')) . "' WHERE `title` = 'smtp_host'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int)$this->setting->get('smtp_port') . "' WHERE `title` = 'smtp_port'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('smtp_encrypt')) . "' WHERE `title` = 'smtp_encrypt'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('smtp_username')) . "' WHERE `title` = 'smtp_username'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('smtp_password')) . "' WHERE `title` = 'smtp_password'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('sendmail_path')) . "' WHERE `title` = 'sendmail_path'");
-			$this->setting->set('notify_format', 'html');
-			$this->setting->set('notify_type', 'all');
-			$this->setting->set('notify_approve', '1');
-
-			/* States */
-			$this->model_main_install_2->createTableStates();
-
-			/* Subscriptions */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "subscribers`");
-			$this->model_main_install_2->createTableSubscriptions();
-
-			/* Uploads */
-			$this->model_main_install_2->createTableUploads();
-
-			/* Users */
-			$this->model_main_install_2->createTableUsers();
-
-			/* Version */
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "version` CHANGE `dated` `date_added` datetime NOT NULL");
-
-			/* Viewers */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "viewers`");
-			$this->model_main_install_2->createTableViewers();
-
-			/* Voters */
-		 	$this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "voters`");
-			$this->model_main_install_2->createTableVoters();
+class MainUpgrade2Model extends Model
+{
+    public function upgrade($version)
+    {
+        if ($version == '2.5 -> 3.0') {
+            $this->loadModel('main/install_2');
+
+            /* Access */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "access`");
+            $this->model_main_install_2->createTableAccess();
+
+            /* Admins */
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `viewable_pages` text NOT NULL");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `modifiable_pages` text NOT NULL");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `format` varchar(250) NOT NULL default 'html'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `date_modified` datetime NOT NULL");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` DROP COLUMN `allowed_pages`");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_ban` `receive_email_ban` tinyint(1) unsigned NOT NULL default '1'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_comment_approve` `receive_email_comment_approve` tinyint(1) unsigned NOT NULL default '1'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_comment_okay` `receive_email_comment_success` tinyint(1) unsigned NOT NULL default '1'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `receive_email_new_flag` `receive_email_flag` tinyint(1) unsigned NOT NULL default '1'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CHANGE `dated` `date_added` datetime NOT NULL");
+
+            /* Attempts */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "attempts`");
+            $this->model_main_install_2->createTableAttempts();
+
+            /* Backups */
+            $this->model_main_install_2->createTableBackups();
+
+            /* Bans */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "bans`");
+            $this->model_main_install_2->createTableBans();
+
+            /* Countries */
+            $this->model_main_install_2->createTableCountries();
+
+            /* Data */
+            $this->model_main_install_2->createTableData($this->setting->get('site_name'), $this->setting->get('site_url'));
+
+            /* Emails */
+            $this->model_main_install_2->createTableEmails($this->setting->get('site_name'), $this->setting->get('site_domain'));
+
+            /* Logins */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "logins`");
+            $this->model_main_install_2->createTableLogins();
+
+            /* Modules */
+            $this->model_main_install_2->createTableModules();
+
+            /* Pages */
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD `moderate` varchar(250) NOT NULL default 'default'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD `date_modified` datetime NOT NULL");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` CHANGE `dated` `date_added` datetime NOT NULL");
+
+            /* Questions */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "questions`");
+            $this->model_main_install_2->createTableQuestions();
+
+            /* Ratings */
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "ratings` CHANGE `dated` `date_added` datetime NOT NULL");
+
+            /* Reporters */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "reporters`");
+            $this->model_main_install_2->createTableReporters();
+
+            /* Settings */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "settings`");
+            $this->model_main_install_2->createTableSettings($this->setting->get('site_name'), $this->setting->get('site_domain'), $this->setting->get('site_url'), $this->setting->get('security_key'), $this->setting->get('session_key'), $this->variable->random(), $this->variable->random(), $this->setting->get('time_zone'), $this->setting->get('commentics_folder'), $this->setting->get('commentics_url'), $this->setting->get('admin_folder'), 0);
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $this->setting->get('maintenance_mode') . "' WHERE `title` = 'maintenance_mode'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('maintenance_message')) . "' WHERE `title` = 'maintenance_message'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '1' WHERE `title` = 'checklist_complete'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('transport_method')) . "' WHERE `title` = 'transport_method'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('smtp_host')) . "' WHERE `title` = 'smtp_host'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $this->setting->get('smtp_port') . "' WHERE `title` = 'smtp_port'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('smtp_encrypt')) . "' WHERE `title` = 'smtp_encrypt'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('smtp_username')) . "' WHERE `title` = 'smtp_username'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('smtp_password')) . "' WHERE `title` = 'smtp_password'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($this->setting->get('sendmail_path')) . "' WHERE `title` = 'sendmail_path'");
+            $this->setting->set('notify_format', 'html');
+            $this->setting->set('notify_type', 'all');
+            $this->setting->set('notify_approve', '1');
+
+            /* States */
+            $this->model_main_install_2->createTableStates();
+
+            /* Subscriptions */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "subscribers`");
+            $this->model_main_install_2->createTableSubscriptions();
+
+            /* Uploads */
+            $this->model_main_install_2->createTableUploads();
+
+            /* Users */
+            $this->model_main_install_2->createTableUsers();
+
+            /* Version */
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "version` CHANGE `dated` `date_added` datetime NOT NULL");
+
+            /* Viewers */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "viewers`");
+            $this->model_main_install_2->createTableViewers();
 
-			/* Comments */
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` CHANGE `dated` `date_added` datetime NOT NULL");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `user_id` int(10) unsigned NOT NULL default '0'");
+            /* Voters */
+            $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "voters`");
+            $this->model_main_install_2->createTableVoters();
 
-			$query = $this->db->query("SELECT DISTINCT(`name`) FROM `" . CMTX_DB_PREFIX . "comments` ORDER BY `name` ASC");
+            /* Comments */
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` CHANGE `dated` `date_added` datetime NOT NULL");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `user_id` int(10) unsigned NOT NULL default '0'");
 
-			$names = $this->db->rows($query);
+            $query = $this->db->query("SELECT DISTINCT(`name`) FROM `" . CMTX_DB_PREFIX . "comments` ORDER BY `name` ASC");
 
-			foreach ($names as $name) {
-				$name = $name['name'];
+            $names = $this->db->rows($query);
 
-				/* Get most commonly used email address for this name */
-				$query = $this->db->query("SELECT `email`, COUNT(*) AS `frequency`
-										  FROM `" . CMTX_DB_PREFIX . "comments`
-										  WHERE `name` = '" . $this->db->escape($name) . "'
-										  GROUP BY `email`
-										  ORDER BY `frequency` DESC
-										  LIMIT 1
-										  ");
+            foreach ($names as $name) {
+                $name = $name['name'];
 
-				$result = $this->db->row($query);
+                /* Get most commonly used email address for this name */
+                $query = $this->db->query("SELECT `email`, COUNT(*) AS `frequency`
+                                          FROM `" . CMTX_DB_PREFIX . "comments`
+                                          WHERE `name` = '" . $this->db->escape($name) . "'
+                                          GROUP BY `email`
+                                          ORDER BY `frequency` DESC
+                                          LIMIT 1
+                                          ");
 
-				$email = $result['email'];
+                $result = $this->db->row($query);
 
-				/* Get date of first comment by this name */
-				$query = $this->db->query("SELECT `date_added`
-										  FROM `" . CMTX_DB_PREFIX . "comments`
-										  WHERE `name` = '" . $this->db->escape($name) . "'
-										  ORDER BY `date_added` ASC
-										  LIMIT 1
-										  ");
+                $email = $result['email'];
 
-				$result = $this->db->row($query);
+                /* Get date of first comment by this name */
+                $query = $this->db->query("SELECT `date_added`
+                                          FROM `" . CMTX_DB_PREFIX . "comments`
+                                          WHERE `name` = '" . $this->db->escape($name) . "'
+                                          ORDER BY `date_added` ASC
+                                          LIMIT 1
+                                          ");
 
-				$date_added = $result['date_added'];
+                $result = $this->db->row($query);
 
-				/* Get IP address of most recent comment by this name */
-				$query = $this->db->query("SELECT `ip_address`
-										  FROM `" . CMTX_DB_PREFIX . "comments`
-										  WHERE `name` = '" . $this->db->escape($name) . "'
-										  ORDER BY `date_added` DESC
-										  LIMIT 1
-										  ");
+                $date_added = $result['date_added'];
 
-				$result = $this->db->row($query);
+                /* Get IP address of most recent comment by this name */
+                $query = $this->db->query("SELECT `ip_address`
+                                          FROM `" . CMTX_DB_PREFIX . "comments`
+                                          WHERE `name` = '" . $this->db->escape($name) . "'
+                                          ORDER BY `date_added` DESC
+                                          LIMIT 1
+                                          ");
 
-				$ip_address = $result['ip_address'];
+                $result = $this->db->row($query);
 
-				$user_id = $this->user->createUser($name, $email, $this->variable->random(), $ip_address);
+                $ip_address = $result['ip_address'];
 
-				$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `date_added` = '" . $this->db->escape($date_added) . "' WHERE `id` = '" . (int)$user_id . "'");
+                $user_id = $this->user->createUser($name, $email, $this->variable->random(), $ip_address);
 
-				$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int)$user_id . "' WHERE `name` = '" . $this->db->escape($name) . "'");
-			}
+                $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `date_added` = '" . $this->db->escape($date_added) . "' WHERE `id` = '" . (int) $user_id . "'");
 
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` DROP COLUMN `name`, DROP COLUMN `email`, DROP COLUMN `country`");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` CHANGE `approval_reasoning` `notes` text NOT NULL");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `date_modified` datetime NOT NULL");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `state_id` int(10) NOT NULL default '0'");
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `country_id` int(10) NOT NULL default '0'");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `website` = '' WHERE `website` = 'http://'");
-		}
+                $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int) $user_id . "' WHERE `name` = '" . $this->db->escape($name) . "'");
+            }
 
-		if ($version == '3.0 -> 3.1') {
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `website` = '' WHERE `website` = 'http://'");
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'hide_replies', `value` = '1'");
-		}
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` DROP COLUMN `name`, DROP COLUMN `email`, DROP COLUMN `country`");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` CHANGE `approval_reasoning` `notes` text NOT NULL");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `date_modified` datetime NOT NULL");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `state_id` int(10) NOT NULL default '0'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `country_id` int(10) NOT NULL default '0'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `website` = '' WHERE `website` = 'http://'");
+        }
 
-		if ($version == '3.1 -> 3.2') {
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'security', `title` = 'check_csrf', `value` = '1'");
-		}
+        if ($version == '3.0 -> 3.1') {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `website` = '' WHERE `website` = 'http://'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'hide_replies', `value` = '1'");
+        }
 
-		if ($version == '3.2 -> 3.3') {
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'licence', `title` = 'licence', `value` = ''");
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'licence', `title` = 'forum_user', `value` = ''");
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '1' WHERE `title` = 'enabled_powered_by'");
+        if ($version == '3.1 -> 3.2') {
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'security', `title` = 'check_csrf', `value` = '1'");
+        }
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_top_poster', `value` = '1'");
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_most_likes', `value` = '1'");
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_first_poster', `value` = '1'");
+        if ($version == '3.2 -> 3.3') {
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'licence', `title` = 'licence', `value` = ''");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'licence', `title` = 'forum_user', `value` = ''");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '1' WHERE `title` = 'enabled_powered_by'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'enabled_email', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_top_poster', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_most_likes', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_badge_first_poster', `value` = '1'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'unique_name_enabled', `value` = '0'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'enabled_email', `value` = '1'");
 
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'check_csrf'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'unique_name_enabled', `value` = '0'");
 
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'mysqldump_path'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'check_csrf'");
 
-			if (file_exists(CMTX_DIR_ROOT . 'frontend/php.ini')) {
-				@unlink(CMTX_DIR_ROOT . 'frontend/php.ini');
-			}
-		}
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'mysqldump_path'");
 
-		if ($version == '3.3 -> 3.4') {
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'colorbox_source'");
+            if (file_exists(CMTX_DIR_ROOT . 'frontend/php.ini')) {
+                @unlink(CMTX_DIR_ROOT . 'frontend/php.ini');
+            }
+        }
 
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'font_awesome_source'");
+        if ($version == '3.3 -> 3.4') {
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'colorbox_source'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_tool_upgrade', `value` = '1'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'font_awesome_source'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'last_task', `value` = ''");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_tool_upgrade', `value` = '1'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'new_version_notified', `value` = '0'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'last_task', `value` = ''");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'auto_detect', `value` = '0'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'new_version_notified', `value` = '0'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'optimize', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'auto_detect', `value` = '0'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'pagination_type', `value` = 'multiple'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'optimize', `value` = '1'");
 
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_social_google'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'pagination_type', `value` = 'multiple'");
 
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_social_stumbleupon'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_social_google'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_social_weibo', `value` = '0'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_social_stumbleupon'");
 
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_share_google'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_social_weibo', `value` = '0'");
 
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_share_stumbleupon'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_share_google'");
 
-			$this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'reply_indent'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_share_stumbleupon'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_share_weibo', `value` = '0'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'reply_indent'");
 
-			$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = 'new_version', `subject` = 'New Version', `from_name` = '" . $this->db->escape($this->setting->get('site_name')) . "', `from_email` = 'comments@" . $this->db->escape($this->setting->get('site_domain')) . "', `reply_to` = 'no-reply@" . $this->db->escape($this->setting->get('site_domain')) . "', `text` = 'Hello [username],\r\n\r\nA newer version of Commentics is available.\r\n\r\nYour installed version is [installed version]. The newest version is [newest version].\r\n\r\nPlease upgrade at your earliest convenience.\r\n\r\nHere is the link to your admin panel:\r\n[admin link]\r\n\r\nRegards,\r\n\r\n[signature]', `html` = '<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td>Hello [username],</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">A newer version of Commentics is available.</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Your installed version is [installed version]. The newest version is [newest version].</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Please upgrade at your earliest convenience.</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Here is the link to your admin panel:</td>\r\n</tr>\r\n<tr>\r\n<td><a href=\"[admin link]\">[admin link]</a></td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Regards,</td>\r\n</tr>\r\n</table>\r\n\r\n[signature]', `language` = 'english', `date_modified` = NOW()");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_share_weibo', `value` = '0'");
 
-			$this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "geo` (
-				`id` int(10) unsigned NOT NULL auto_increment,
-				`name` varchar(250) NOT NULL default '',
-				`country_code` varchar(3) NOT NULL default '',
-				`language` varchar(250) NOT NULL default '',
-				`date_added` datetime NOT NULL,
-				PRIMARY KEY (`id`)
-			) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = 'new_version', `subject` = 'New Version', `from_name` = '" . $this->db->escape($this->setting->get('site_name')) . "', `from_email` = 'comments@" . $this->db->escape($this->setting->get('site_domain')) . "', `reply_to` = 'no-reply@" . $this->db->escape($this->setting->get('site_domain')) . "', `text` = 'Hello [username],\r\n\r\nA newer version of Commentics is available.\r\n\r\nYour installed version is [installed version]. The newest version is [newest version].\r\n\r\nPlease upgrade at your earliest convenience.\r\n\r\nHere is the link to your admin panel:\r\n[admin link]\r\n\r\nRegards,\r\n\r\n[signature]', `html` = '<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td>Hello [username],</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">A newer version of Commentics is available.</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Your installed version is [installed version]. The newest version is [newest version].</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Please upgrade at your earliest convenience.</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Here is the link to your admin panel:</td>\r\n</tr>\r\n<tr>\r\n<td><a href=\"[admin link]\">[admin link]</a></td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Regards,</td>\r\n</tr>\r\n</table>\r\n\r\n[signature]', `language` = 'english', `date_modified` = NOW()");
 
-			$query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "countries`");
+            $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "geo` (
+                `id` int(10) unsigned NOT NULL auto_increment,
+                `name` varchar(250) NOT NULL default '',
+                `country_code` varchar(3) NOT NULL default '',
+                `language` varchar(250) NOT NULL default '',
+                `date_added` datetime NOT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
-			$countries = $this->db->rows($query);
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "countries`");
 
-			foreach ($countries as $country) {
-				$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = '" . $country['name'] . "', `country_code` = '" . $country['code'] . "', `language` = 'english', `date_added` = NOW()");
-			}
+            $countries = $this->db->rows($query);
 
-		 	$this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "countries` DROP `name`");
-		}
-	}
+            foreach ($countries as $country) {
+                $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = '" . $country['name'] . "', `country_code` = '" . $country['code'] . "', `language` = 'english', `date_added` = NOW()");
+            }
 
-	public function getInstalledVersion() {
-		if ($this->db->numRows($this->db->query("SHOW COLUMNS FROM `" . CMTX_DB_PREFIX . "version` LIKE 'dated'"))) {
-			/* For users upgrading from versions < v3.0 */
-			$query = $this->db->query("SELECT `version` FROM `" . CMTX_DB_PREFIX . "version` ORDER BY `dated` DESC LIMIT 1");
-		} else {
-			$query = $this->db->query("SELECT `version` FROM `" . CMTX_DB_PREFIX . "version` ORDER BY `date_added` DESC LIMIT 1");
-		}
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "countries` DROP `name`");
+        }
+    }
 
-		$result = $this->db->row($query);
+    public function getInstalledVersion()
+    {
+        if ($this->db->numRows($this->db->query("SHOW COLUMNS FROM `" . CMTX_DB_PREFIX . "version` LIKE 'dated'"))) {
+            /* For users upgrading from versions < v3.0 */
+            $query = $this->db->query("SELECT `version` FROM `" . CMTX_DB_PREFIX . "version` ORDER BY `dated` DESC LIMIT 1");
+        } else {
+            $query = $this->db->query("SELECT `version` FROM `" . CMTX_DB_PREFIX . "version` ORDER BY `date_added` DESC LIMIT 1");
+        }
 
-		return $result['version'];
-	}
+        $result = $this->db->row($query);
 
-	public function setVersion() {
-		$this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "version` SET `version` = '" . $this->db->escape(CMTX_VERSION) . "', `type` = 'Upgrade', `date_added` = NOW()");
+        return $result['version'];
+    }
 
-		if (version_compare(CMTX_VERSION, 3.4, '>')) {
-			$this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'new_version_notified'");
-		}
-	}
+    public function setVersion()
+    {
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "version` SET `version` = '" . $this->db->escape(CMTX_VERSION) . "', `type` = 'Upgrade', `date_added` = NOW()");
 
-	public function getBackendFolder() {
-		$query = $this->db->query("SELECT `value` FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'backend_folder'");
+        if (version_compare(CMTX_VERSION, 3.4, '>')) {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'new_version_notified'");
+        }
+    }
 
-		$result = $this->db->row($query);
+    public function getBackendFolder()
+    {
+        $query = $this->db->query("SELECT `value` FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'backend_folder'");
 
-		return $result['value'];
-	}
+        $result = $this->db->row($query);
+
+        return $result['value'];
+    }
 }
-?>

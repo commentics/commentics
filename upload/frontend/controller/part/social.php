@@ -1,11 +1,13 @@
 <?php
 namespace Commentics;
 
-class PartSocialController extends Controller {
-	public function index() {
-		$this->loadLanguage('part/social');
+class PartSocialController extends Controller
+{
+    public function index()
+    {
+        $this->loadLanguage('part/social');
 
-		if ($this->setting->get('social_new_window')) {
+        if ($this->setting->get('social_new_window')) {
             $this->data['new_window'] = 'target="_blank"';
         } else {
             $this->data['new_window'] = '';
@@ -18,9 +20,9 @@ class PartSocialController extends Controller {
         $this->data['show_twitter']  = $this->setting->get('show_social_twitter');
         $this->data['show_weibo']    = $this->setting->get('show_social_weibo');
 
-		$url = $this->url->encode($this->page->getUrl());
+        $url = $this->url->encode($this->page->getUrl());
 
-		$reference = $this->url->encode($this->page->getReference());
+        $reference = $this->url->encode($this->page->getReference());
 
         $this->data['digg_url']     = 'http://digg.com/submit?url=' . $url . '&title=' . $reference;
         $this->data['facebook_url'] = 'https://www.facebook.com/sharer.php?u=' . $url;
@@ -29,7 +31,6 @@ class PartSocialController extends Controller {
         $this->data['twitter_url']  = 'https://twitter.com/intent/tweet?url=' . $url . '&text=' . $reference;
         $this->data['weibo_url']    = 'http://service.weibo.com/share/share.php?url=' . $url . '&title=' . $reference;
 
-		return $this->data;
-	}
+        return $this->data;
+    }
 }
-?>

@@ -1,127 +1,127 @@
 // _partial/_modal.scss
 
 .cmtx_modal_box {
-	display: none;
-	z-index: $z-index-modal;
-	width: auto;
-	background: $white;
-	border-bottom: 1px solid $grey;
-	border-radius: 4px;
-	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	background-clip: padding-box;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+    display: none;
+    z-index: $z-index-modal;
+    width: auto;
+    background: $white;
+    border-bottom: 1px solid $grey;
+    border-radius: 4px;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-clip: padding-box;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .cmtx_modal_box header {
-	padding: 10px;
-	border-bottom: 1px solid $grey-lighter;
+    padding: 10px;
+    border-bottom: 1px solid $grey-lighter;
 }
 
 .cmtx_modal_box header div {
-	padding: 5px;
-	font-weight: bold;
+    padding: 5px;
+    font-weight: bold;
 }
 
 .cmtx_modal_box .cmtx_modal_body {
-	padding-left: 12px;
-	padding-right: 12px;
-	max-height: 500px;
-	overflow: auto;
+    padding-left: 12px;
+    padding-right: 12px;
+    max-height: 500px;
+    overflow: auto;
 }
 
 .cmtx_modal_box .cmtx_button {
-	width: auto;
+    width: auto;
 }
 
 .cmtx_modal_box footer {
-	padding: 10px;
-	border-top: 1px solid $grey-lighter;
-	background: rgba(0, 0, 0, 0.02);
-	text-align: right;
+    padding: 10px;
+    border-top: 1px solid $grey-lighter;
+    background: rgba(0, 0, 0, 0.02);
+    text-align: right;
 }
 
 .cmtx_modal_box header a {
-	line-height: 1;
-	font-size: 23px;
-	position: absolute;
-	right: 10px;
-	text-decoration: none;
-	color: $grey-light;
+    line-height: 1;
+    font-size: 23px;
+    position: absolute;
+    right: 10px;
+    text-decoration: none;
+    color: $grey-light;
 }
 
 .cmtx_modal_box header a:hover {
-	color: $grey-dark;
-	-webkit-transition: color 1s ease;
-	-moz-transition: color 1s ease;
-	transition: color 1s ease;
+    color: $grey-dark;
+    -webkit-transition: color 1s ease;
+    -moz-transition: color 1s ease;
+    transition: color 1s ease;
 }
 
 .cmtx_modal_body {
-	margin-top: 8px;
-	margin-bottom: 10px;
+    margin-top: 8px;
+    margin-bottom: 10px;
 }
 
 #cmtx_privacy_modal .cmtx_modal_body, #cmtx_terms_modal .cmtx_modal_body, #cmtx_autodetect_modal .cmtx_modal_body {
-	margin-top: 0;
-	margin-bottom: 5px;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 #cmtx_autodetect_modal .cmtx_modal_body a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .cmtx_modal_box input[type="text"], .cmtx_modal_box input[type="url"], .cmtx_modal_box input[type="email"] {
-	width: 100%;
-	width: -moz-available;
-	width: -webkit-fill-available;
-	height: auto;
-	margin: 0;
-	outline-style: auto;
-	outline-color: #D3D3D3;
-	background-color: $white;
+    width: 100%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    height: auto;
+    margin: 0;
+    outline-style: auto;
+    outline-color: #D3D3D3;
+    background-color: $white;
 }
 
 .cmtx_modal_box input[type="button"] {
-	padding: 6px;
+    padding: 6px;
 }
 
 #cmtx_bullet_modal .cmtx_modal_body div:first-child, #cmtx_numeric_modal .cmtx_modal_body div:first-child {
-	margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
 #cmtx_bullet_modal input, #cmtx_numeric_modal input {
-	width: auto;
+    width: auto;
 }
 
 #cmtx_link_modal .cmtx_modal_body div:nth-of-type(3), #cmtx_email_modal .cmtx_modal_body div:nth-of-type(3) {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 .cmtx_alert_icon:before {
-	content: "\f071";
-	color: $grey-dark;
-	margin-right: 2px;
+    content: "\f071";
+    color: $grey-dark;
+    margin-right: 2px;
 }
 
 .cmtx_overlay {
-	position: fixed;
-	display: none;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: $z-index-overlay;
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: $z-index-overlay;
 }
 
 @media all and (max-width: 300px) {
-	.cmtx_modal_box {
-		width: 80%;
-	}
+    .cmtx_modal_box {
+        width: 80%;
+    }
 }

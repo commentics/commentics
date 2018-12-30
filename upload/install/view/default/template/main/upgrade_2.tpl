@@ -2,21 +2,21 @@
 
 <div class="upgrade_2_page">
 
-	<?php if ($error) { ?>
+    <?php if ($error) { ?>
 
-		<div class="error"><?php echo $lang_error_failure; ?></div>
+        <div class="error"><?php echo $lang_error_failure; ?></div>
 
-		<br>
+        <br>
 
-		<?php echo $error; ?>
+        <?php echo $error; ?>
 
-	<?php } else { ?>
+    <?php } else { ?>
 
-		<div class="success"><?php echo $lang_success_upgrade; ?></div>
+        <div class="success"><?php echo $lang_success_upgrade; ?></div>
 
-		<div class="info"><?php echo $lang_info_backend; ?></div>
+        <div class="info"><?php echo $lang_info_backend; ?></div>
 
-	<?php } ?>
+    <?php } ?>
 
 </div>
 

@@ -1,11 +1,10 @@
 <?php
 // Heading
-$_['lang_heading']			= 'Task: Delete Comments';
+$_['lang_heading']       = 'Task: Delete Comments';
 
 // Description
-$_['lang_description']		= '<p>This task automatically deletes comments that are older than the configured time period.</p>';
+$_['lang_description']   = '<p>This task automatically deletes comments that are older than the configured time period.</p>';
 
 // Entry
-$_['lang_entry_enabled']	= 'Enabled:';
-$_['lang_entry_days']		= 'Days:';
-?>
+$_['lang_entry_enabled'] = 'Enabled:';
+$_['lang_entry_days']    = 'Days:';

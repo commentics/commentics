@@ -11,15 +11,15 @@
 </head>
 <body>
 <header>
-	<img src="<?php echo $logo; ?>" class="logo" title="Commentics" alt="Commentics">
+    <img src="<?php echo $logo; ?>" class="logo" title="Commentics" alt="Commentics">
 
-	<div class="steps">
-		<div class="step <?php if ($page == '1') { echo 'active'; } ?>"><?php echo $lang_heading_welcome; ?></div>
-		<div class="step <?php if ($page == '2') { echo 'active'; } ?>"><?php echo $lang_heading_database; ?></div>
-		<div class="step <?php if ($page == '3') { echo 'active'; } ?>"><?php echo $lang_heading_system; ?></div>
-		<div class="step <?php if ($page == '4') { echo 'active'; } ?>"><?php echo $lang_heading_menu; ?></div>
-		<div class="step <?php if ($page == '5') { echo 'active'; } ?>"><?php echo $lang_heading_action; ?></div>
-		<div class="step <?php if ($page == '6') { echo 'active'; } ?>"><?php echo $lang_heading_done; ?></div>
-	</div>
+    <div class="steps">
+        <div class="step <?php if ($page == '1') { echo 'active'; } ?>"><?php echo $lang_heading_welcome; ?></div>
+        <div class="step <?php if ($page == '2') { echo 'active'; } ?>"><?php echo $lang_heading_database; ?></div>
+        <div class="step <?php if ($page == '3') { echo 'active'; } ?>"><?php echo $lang_heading_system; ?></div>
+        <div class="step <?php if ($page == '4') { echo 'active'; } ?>"><?php echo $lang_heading_menu; ?></div>
+        <div class="step <?php if ($page == '5') { echo 'active'; } ?>"><?php echo $lang_heading_action; ?></div>
+        <div class="step <?php if ($page == '6') { echo 'active'; } ?>"><?php echo $lang_heading_done; ?></div>
+    </div>
 </header>
 <main>

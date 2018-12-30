@@ -1,23 +1,23 @@
 The server MUST have:
 
-	* PHP 5.3.7 or higher
-		* Ctype extension
-		* Filter extension
-		* JSON extension
-	* MySQL 5.0.7 or higher
+    * PHP 5.3.7 or higher
+        * Ctype extension
+        * Filter extension
+        * JSON extension
+    * MySQL 5.0.7 or higher
 
 The server SHOULD have:
 
-	* cURL extension
-	* MbString extension
-	* GD extension
-	* DOM extension
-	* Lib extension
-	* Mcrypt extension
-	* Zip extension
-	* fopen(URL) enabled
-	* FreeType enabled
+    * cURL extension
+    * MbString extension
+    * GD extension
+    * DOM extension
+    * Lib extension
+    * OpenSSL extension
+    * Zip extension
+    * fopen(URL) enabled
+    * FreeType enabled
 
 The server SHOULD NOT have:
 
-	* Magic Quotes enabled
+    * Magic Quotes enabled

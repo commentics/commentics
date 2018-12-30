@@ -1,51 +1,51 @@
 // _partial/_comments.scss
 
 .cmtx_comments_container {
-	clear: left;
+    clear: left;
 }
 
 .cmtx_comments_heading {
-	margin-top: 40px;
-	margin-bottom: 15px;
+    margin-top: 40px;
+    margin-bottom: 15px;
 }
 
 .cmtx_comments_row_one, .cmtx_comments_row_two {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .cmtx_comments_row_three, .cmtx_comments_row_four {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .cmtx_comments_row_four {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .cmtx_row_left, .cmtx_row_middle, .cmtx_row_right {
-	float: left;
-	border: 1px dotted $grey-lighter;
-	line-height: 25px;
-	width: 33.3%;
-	vertical-align: middle;
-	padding: 2px;
-	background-color: $grey-lightest;
+    float: left;
+    border: 1px dotted $grey-lighter;
+    line-height: 25px;
+    width: 33.3%;
+    vertical-align: middle;
+    padding: 2px;
+    background-color: $grey-lightest;
 }
 
 .cmtx_row_left *, .cmtx_row_middle *, .cmtx_row_right * {
-	height: 25px;
-	line-height: 25px;
+    height: 25px;
+    line-height: 25px;
 }
 
 .cmtx_row_left {
-	text-align: left;
+    text-align: left;
 }
 
 .cmtx_row_middle {
-	text-align: center;
+    text-align: center;
 }
 
 .cmtx_row_right {
-	text-align: right;
+    text-align: right;
 }
 
 .cmtx_no_comments {
@@ -55,242 +55,242 @@
 }
 
 .cmtx_comment_section:not(:last-of-type) {
-	border-bottom: 1px dotted $grey-light;
-	margin-bottom: 20px;
+    border-bottom: 1px dotted $grey-light;
+    margin-bottom: 20px;
 }
 
 .cmtx_comment_box {
-	position: relative;
-	padding: 5px;
-	line-height: 1;
-	margin-bottom: 20px;
+    position: relative;
+    padding: 5px;
+    line-height: 1;
+    margin-bottom: 20px;
 }
 
 .cmtx_sticky_icon:before {
-	font-size: 0.9em;
-	font-family: FontAwesome;
-	display: inline-block;
-	content: "\f08d";
-	position: absolute;
-	left: 49.6%;
-	color: $grey;
-	cursor: default;
+    font-size: 0.9em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f08d";
+    position: absolute;
+    left: 49.6%;
+    color: $grey;
+    cursor: default;
 }
 
 .cmtx_content_area {
 }
 
 .cmtx_gravatar_area {
-	display: inline-block;
-	float: left;
-	margin-right: 5px;
-	position: relative;
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+    position: relative;
 }
 
 .cmtx_gravatar_area img {
-	max-width: 100%;
-	position: relative;
-	vertical-align: middle;
+    max-width: 100%;
+    position: relative;
+    vertical-align: middle;
 }
 
 .cmtx_level {
-	position: absolute;
-	width: 100%;
-	background-color: $grey-dark;
-	border-radius: 5px;
-	color: $white;
-	font-size: 0.7em;
-	margin-top: -8px;
-	padding-bottom: 1px;
-	text-align: center;
-	vertical-align: middle;
+    position: absolute;
+    width: 100%;
+    background-color: $grey-dark;
+    border-radius: 5px;
+    color: $white;
+    font-size: 0.7em;
+    margin-top: -8px;
+    padding-bottom: 1px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .cmtx_bio {
-	display: none;
-	background-color: $white;
-	border: 1px solid $grey-light;
-	left: 20%;
-	top: 25%;
-	padding: 10px;
-	padding-top: 3px;
-	position: absolute;
-	width: 180px;
-	z-index: $z-index-bio;
+    display: none;
+    background-color: $white;
+    border: 1px solid $grey-light;
+    left: 20%;
+    top: 25%;
+    padding: 10px;
+    padding-top: 3px;
+    position: absolute;
+    width: 180px;
+    z-index: $z-index-bio;
 }
 
 .cmtx_bio_name {
-	font-weight: bold;
-	text-align: center;
-	margin-bottom: 3px;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cmtx_bio_info {
-	margin-top: 5px;
+    margin-top: 5px;
 }
 
 .cmtx_bio_info div {
-	display: table-row;
+    display: table-row;
 }
 
 .cmtx_bio_info label {
-	display: table-cell;
-	padding-right: 10px;
-	vertical-align: top;
-	font-weight: bold;
-	text-align: left;
+    display: table-cell;
+    padding-right: 10px;
+    vertical-align: top;
+    font-weight: bold;
+    text-align: left;
 }
 
 .cmtx_bio_info span {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 .cmtx_bio_info_likes span {
-	color: $green;
+    color: $green;
 }
 
 .cmtx_bio_info_dislikes span {
-	color: $red;
+    color: $red;
 }
 
 .cmtx_badge {
-	background-color: $grey-dark;
-	border-radius: 5px;
-	color: $white;
-	font-size: 0.8em;
-	margin-top: 8px;
-	padding-bottom: 1px;
-	text-align: center;
-	vertical-align: middle;
-	line-height: 3px;
+    background-color: $grey-dark;
+    border-radius: 5px;
+    color: $white;
+    font-size: 0.8em;
+    margin-top: 8px;
+    padding-bottom: 1px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 3px;
 }
 
 .cmtx_badge div {
-	display: inline-block;
-	vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .cmtx_badge_star_left, .cmtx_badge_star_right {
-	color: $white;
-	padding-top: 1px;
+    color: $white;
+    padding-top: 1px;
 }
 
 .cmtx_badge_star_left {
-	float: left;
-	margin-left: 3px;
+    float: left;
+    margin-left: 3px;
 }
 
 .cmtx_badge_star_right {
-	float: right;
-	margin-right: 3px;
+    float: right;
+    margin-right: 3px;
 }
 
 .cmtx_main_area {
-	overflow: hidden;
-	position: relative;
+    overflow: hidden;
+    position: relative;
 }
 
 .cmtx_user_and_rating_area {
-	min-height: 16px;
+    min-height: 16px;
 }
 
 .cmtx_user_area {
-	margin-top: -2px;
+    margin-top: -2px;
 }
 
 .cmtx_name_text, .cmtx_name_text span {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .cmtx_name a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .cmtx_name_admin, .cmtx_name_admin a {
-	color: $green-dark;
-	font-weight: bold;
+    color: $green-dark;
+    font-weight: bold;
 }
 
 .cmtx_says {
 }
 
 .cmtx_rating_area {
-	position: absolute;
-	right: 0;
-	top: 0;
-	line-height: 1;
-	cursor: default;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 1;
+    cursor: default;
 }
 
 .cmtx_star:before {
-	font-size: 1.1em;
-	font-family: FontAwesome;
-	display: inline-block;
-	content: "\f005";
+    font-size: 1.1em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
 }
 
 .cmtx_star_empty {
-	color: $star-empty;
+    color: $star-empty;
 }
 
 .cmtx_star_full {
-	color: $star-full;
+    color: $star-full;
 }
 
 .cmtx_comment_area {
-	margin-top: 11px;
-	margin-bottom: 15px;
+    margin-top: 11px;
+    margin-bottom: 15px;
 }
 
 .cmtx_comment_area p {
-	margin-top: 7px;
-	margin-bottom: 7px;
-	line-height: 22px;
-	font-weight: normal;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    line-height: 22px;
+    font-weight: normal;
 }
 
 .cmtx_replies_group {
 }
 
 .cmtx_code_box, .cmtx_php_box, .cmtx_quote_box {
-	display: block;
-	overflow-x: auto;
-	padding: 0.5em;
-	background: $grey-lighter;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: $grey-lighter;
 }
 
 .cmtx_read_more, .cmtx_read_less {
-	text-align: center;
+    text-align: center;
 }
 
 .cmtx_down_icon:before {
-	font-size: 0.9em;
-	font-family: FontAwesome;
-	display: inline-block;
-	content: "\f103";
-	color: $grey;
-	cursor: pointer;
+    font-size: 0.9em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f103";
+    color: $grey;
+    cursor: pointer;
 }
 
 .cmtx_up_icon:before {
-	font-size: 0.9em;
-	font-family: FontAwesome;
-	display: inline-block;
-	content: "\f102";
-	color: $grey;
-	cursor: pointer;
+    font-size: 0.9em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f102";
+    color: $grey;
+    cursor: pointer;
 }
 
 .cmtx_reply_area {
 }
 
 .cmtx_reply_area .cmtx_admin_reply {
-	color: $green-dark;
-	font-weight: bold;
-	float: left;
-	padding-right: 5px;
+    color: $green-dark;
+    font-weight: bold;
+    float: left;
+    padding-right: 5px;
 }
 
 .reply_indent_0 {
@@ -321,134 +321,134 @@
 }
 
 .cmtx_upload {
-	display: inline-block;
-	max-width: 400px;
-	width: auto;
-	height: auto;
+    display: inline-block;
+    max-width: 400px;
+    width: auto;
+    height: auto;
 }
 
 .cmtx_upload_area a:not(:last-child) {
-	padding-right: 5px;
+    padding-right: 5px;
 }
 
 .cmtx_date_and_action_area {
-	min-height: 16px;
+    min-height: 16px;
 }
 
 .cmtx_date_area {
-	color: $grey;
-	font-size: 0.8em;
-	margin-top: 9px;
-	font-weight: normal;
+    color: $grey;
+    font-size: 0.8em;
+    margin-top: 9px;
+    font-weight: normal;
 }
 
 .cmtx_date {
 }
 
 .cmtx_action_area {
-	position: absolute;
-	right: 0;
-	bottom: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .cmtx_action_area div {
-	display: inline-block;
+    display: inline-block;
 }
 
 .cmtx_action_area div:not(:last-of-type) {
-	margin-right: 15px;
+    margin-right: 15px;
 }
 
 .cmtx_action_area a, .cmtx_action_area a * {
-	text-decoration: none !important;
-	outline: 0;
+    text-decoration: none !important;
+    outline: 0;
 }
 
 .cmtx_icon:before {
-	font-size: 0.9em;
-	font-family: FontAwesome;
-	font-weight: normal;
-	display: inline-block;
+    font-size: 0.9em;
+    font-family: FontAwesome;
+    font-weight: normal;
+    display: inline-block;
 }
 
 .cmtx_like_icon:before {
-	content: "\f087";
-	color: #006400;
+    content: "\f087";
+    color: #006400;
 }
 
 .cmtx_dislike_icon:before {
-	content: "\f088";
-	color: #D12F19;
+    content: "\f088";
+    color: #D12F19;
 }
 
 .cmtx_share_icon:before {
-	content: "\f1e0";
-	color: $grey;
+    content: "\f1e0";
+    color: $grey;
 }
 
 .cmtx_flag_icon:before {
-	content: "\f11d";
-	color: $grey;
+    content: "\f11d";
+    color: $grey;
 }
 
 .cmtx_permalink_icon:before {
-	content: "\f0c1";
-	color: $grey;
+    content: "\f0c1";
+    color: $grey;
 }
 
 .cmtx_reply_icon:before {
-	content: "\f112";
-	color: $grey;
+    content: "\f112";
+    color: $grey;
 }
 
 .cmtx_like_count {
-	color: $green-dark;
-	font-weight: bold;
+    color: $green-dark;
+    font-weight: bold;
 }
 
 .cmtx_dislike_count {
-	color: $red-dark;
-	font-weight: bold;
+    color: $red-dark;
+    font-weight: bold;
 }
 
 .cmtx_action_message {
-	cursor: default;
-	position: absolute;
-	padding: 3px;
-	font-size: 0.8em;
-	font-weight: bold;
-	font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
-	background-color: $white;
-	display: none;
-	width: fit-content;
+    cursor: default;
+    position: absolute;
+    padding: 3px;
+    font-size: 0.8em;
+    font-weight: bold;
+    font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    background-color: $white;
+    display: none;
+    width: fit-content;
 }
 
 .cmtx_action_message_success {
-	color: $green-dark;
-	border: 1px solid $green-dark;
+    color: $green-dark;
+    border: 1px solid $green-dark;
 }
 
 .cmtx_action_message_error {
-	color: $red-dark;
-	border: 1px solid $red-dark;
+    color: $red-dark;
+    border: 1px solid $red-dark;
 }
 
 .cmtx_share_box, .cmtx_permalink_box {
-	cursor: default;
-	position: absolute;
-	margin-top: 10px;
-	margin-left: 10px;
-	padding: 3px;
-	font-size: 0.8em;
-	font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
-	background-color: $grey-lightest;
-	display: none;
-	border: 1px solid $grey-light;
-	width: auto;
+    cursor: default;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 3px;
+    font-size: 0.8em;
+    font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    background-color: $grey-lightest;
+    display: none;
+    border: 1px solid $grey-light;
+    width: auto;
 }
 
 .cmtx_share_box a {
-	outline: none;
+    outline: none;
 }
 
 .cmtx_share {
@@ -457,11 +457,11 @@
     display: inline-block;
     width: 16px;
     height: 16px;
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 .cmtx_share_box a:not(:first-child) {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 
 .cmtx_share_digg {
@@ -473,7 +473,7 @@
 }
 
 .cmtx_share_linkedin {
-	background-position: -57px -31px;
+    background-position: -57px -31px;
 }
 
 .cmtx_share_reddit {
@@ -485,159 +485,159 @@
 }
 
 .cmtx_share_weibo {
-	background-position: -5px -31px;
+    background-position: -5px -31px;
 }
 
 .cmtx_view_replies_area {
-	bottom: 0;
-	font-size: 0.9em;
-	left: 50%;
-	position: absolute;
-	transform: translate(-50%, 0);
+    bottom: 0;
+    font-size: 0.9em;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, 0);
 }
 
 .cmtx_view_replies_area a, .cmtx_view_replies_area a * {
-	text-decoration: none !important;
-	outline: 0;
+    text-decoration: none !important;
+    outline: 0;
 }
 
 .cmtx_view_replies_area a i {
-	color: $grey-dark;
+    color: $grey-dark;
 }
 
 .cmtx_view_replies_link {
-	color: $blue;
+    color: $blue;
 }
 
 .cmtx_reply_num {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .cmtx_permalink_box input {
-	margin-top: 3px;
-	width: 200px;
-	margin-bottom: 3px;
-	padding: 0 0 0 2px;
+    margin-top: 3px;
+    width: 200px;
+    margin-bottom: 3px;
+    padding: 0 0 0 2px;
 }
 
 .cmtx_permalink_box a {
-	color: $blue;
-	text-decoration: none;
-	font-size: 0.9em;
+    color: $blue;
+    text-decoration: none;
+    font-size: 0.9em;
 }
 
 .cmtx_youtube_container {
 }
 
 .cmtx_youtube_container iframe {
-	max-width: 100%;
-	height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .cmtx_loading_body {
-	opacity: 0.3;
+    opacity: 0.3;
 }
 
 .cmtx_loading_icon {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin-top: -20px;
-	-webkit-animation: fa-spin 2s infinite linear;
-	animation: fa-spin 2s infinite linear;
-	display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+    display: none;
 }
 
 .cmtx_loading_icon:before {
-	content: "\f110";
-	font-family: FontAwesome;
-	font-size: 20px;
+    content: "\f110";
+    font-family: FontAwesome;
+    font-size: 20px;
 }
 
 @media all and (max-width: 800px) {
-	.cmtx_row_left, .cmtx_row_middle, .cmtx_row_right {
-		float: none;
-		width: 100%;
-		margin-bottom: 10px;
-		text-align: center;
-	}
+    .cmtx_row_left, .cmtx_row_middle, .cmtx_row_right {
+        float: none;
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 
-	.cmtx_empty_position {
-		display: none;
-	}	
+    .cmtx_empty_position {
+        display: none;
+    }
 }
 
 @media all and (max-width: 600px) {
-	.cmtx_comment_box {
-		text-align: center;
-	}
+    .cmtx_comment_box {
+        text-align: center;
+    }
 
-	.cmtx_sticky {
-		padding-top: 10px;
-		padding-bottom: 15px;
-	}
+    .cmtx_sticky {
+        padding-top: 10px;
+        padding-bottom: 15px;
+    }
 
-	.cmtx_content_area {
-		margin-left: 0 !important;
-	}
+    .cmtx_content_area {
+        margin-left: 0 !important;
+    }
 
-	.cmtx_gravatar_area {
-		float: none;
-		margin-right: 0;
-	}
+    .cmtx_gravatar_area {
+        float: none;
+        margin-right: 0;
+    }
 
-	.cmtx_level {
-		left: 0;
-		right: 0;
-		width: 72px;
-		margin: 0 auto;
-		margin-top: -8px;
-	}
+    .cmtx_level {
+        left: 0;
+        right: 0;
+        width: 72px;
+        margin: 0 auto;
+        margin-top: -8px;
+    }
 
-	.cmtx_main_area {
-		margin-top: 10px;
-	}
+    .cmtx_main_area {
+        margin-top: 10px;
+    }
 
-	.cmtx_user_and_rating_area {
-		min-height: 0;
-	}
+    .cmtx_user_and_rating_area {
+        min-height: 0;
+    }
 
-	.cmtx_user_area {
-		margin-top: 15px;
-	}
+    .cmtx_user_area {
+        margin-top: 15px;
+    }
 
-	.cmtx_rating_area {
-		margin-top: 10px;
-		position: static;
-		margin-bottom: 10px;
-	}
+    .cmtx_rating_area {
+        margin-top: 10px;
+        position: static;
+        margin-bottom: 10px;
+    }
 
-	.cmtx_reply_area .cmtx_admin_reply {
-		float: none;
-	}
+    .cmtx_reply_area .cmtx_admin_reply {
+        float: none;
+    }
 
-	.cmtx_upload {
-		max-width: 90%;
-	}
+    .cmtx_upload {
+        max-width: 90%;
+    }
 
-	.cmtx_code_box, .cmtx_php_box {
-		text-align: left;
-	}
+    .cmtx_code_box, .cmtx_php_box {
+        text-align: left;
+    }
 
-	.cmtx_date_and_action_area {
-		min-height: 0;
-	}
+    .cmtx_date_and_action_area {
+        min-height: 0;
+    }
 
-	.cmtx_action_area {
-		margin-top: 15px;
-		position: static;
-	}
+    .cmtx_action_area {
+        margin-top: 15px;
+        position: static;
+    }
 
-	.cmtx_view_replies_area {
-		position: static;
-		margin-top: 15px;
-		transform: none;
-	}
+    .cmtx_view_replies_area {
+        position: static;
+        margin-top: 15px;
+        transform: none;
+    }
 }
 
 /**************************** Outer *****************************/
@@ -645,48 +645,48 @@
 /* Average Rating */
 
 .cmtx_average_rating_block {
-	line-height: 0;
+    line-height: 0;
 }
 
 .cmtx_average_rating {
-	display: inline-block;
-	margin-left: -4px;
-	vertical-align: middle;
+    display: inline-block;
+    margin-left: -4px;
+    vertical-align: middle;
 }
 
 .cmtx_average_rating > input {
-	display: none;
+    display: none;
 }
 
 .cmtx_average_rating > label:before {
-	margin: 5px;
-	font-size: 1.1em;
-	font-family: FontAwesome;
-	display: inline-block;
-	content: "\f005";
-	line-height: 0;
+    margin: 5px;
+    font-size: 1.1em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+    line-height: 0;
 }
 
 .cmtx_average_rating > label {
-	color: $star-empty;
-	float: right;
+    color: $star-empty;
+    float: right;
 }
 
 .cmtx_average_rating > input:checked ~ label, .cmtx_average_rating:not(:checked) > label:hover, .cmtx_average_rating:not(:checked) > label:hover ~ label {
-	color: $star-full;
+    color: $star-full;
 }
 
 .cmtx_average_rating > input:checked + label:hover, .cmtx_average_rating > input:checked ~ label:hover, .cmtx_average_rating > label:hover ~ input:checked ~ label, .cmtx_average_rating > input:checked ~ label:hover ~ label {
-	color: $star-hover;
+    color: $star-hover;
 }
 
 .cmtx_average_rating_stats {
-	font-size: 0.8em;
-	vertical-align: middle;
+    font-size: 0.8em;
+    vertical-align: middle;
 }
 
 .cmtx_average_rating_block div[itemprop] {
-	display: inline-block;
+    display: inline-block;
 }
 
 /* Notify */
@@ -695,26 +695,26 @@
 }
 
 .cmtx_notify_block a, .cmtx_notify_block a * {
-	text-decoration: none !important;
-	outline: 0;
+    text-decoration: none !important;
+    outline: 0;
 }
 
 .cmtx_notify_icon:before {
-	content: "\f003";
-	color: $grey-dark;
-	font-size: medium;
+    content: "\f003";
+    color: $grey-dark;
+    font-size: medium;
 }
 
 .cmtx_notify_text {
-	padding-left: 2px;
+    padding-left: 2px;
 }
 
 .cmtx_message_notify {
 }
 
 .cmtx_message_notify a {
-	color: $blue;
-	text-decoration: none;
+    color: $blue;
+    text-decoration: none;
 }
 
 /* Page Number */
@@ -723,7 +723,7 @@
 }
 
 .cmtx_page_number {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 /* Pagination */
@@ -735,33 +735,33 @@
 }
 
 .cmtx_pagination_url, .cmtx_pagination_url * {
-	text-decoration: none !important;
+    text-decoration: none !important;
 }
 
 .cmtx_pagination_box {
-	background: none repeat scroll 0 0 $grey-lightest;
-	border: 1px solid $grey-lighter;
-	color: $grey;
-	font-size: 14px;
-	padding: 0px 4px;
+    background: none repeat scroll 0 0 $grey-lightest;
+    border: 1px solid $grey-lighter;
+    color: $grey;
+    font-size: 14px;
+    padding: 0px 4px;
 }
 
 .cmtx_pagination_box:not(.cmtx_pagination_box_active) {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .cmtx_pagination_block span:not(:first-of-type) {
-	margin-left: 1px;
+    margin-left: 1px;
 }
 
 .cmtx_pagination_box:hover {
-	border: 1px solid #9E9E9E;
+    border: 1px solid #9E9E9E;
 }
 
 .cmtx_pagination_box_active {
-	background: none repeat scroll 0 0 $grey-dark;
-	border: 1px solid $grey-dark;
-	color: $white;
+    background: none repeat scroll 0 0 $grey-dark;
+    border: 1px solid $grey-dark;
+    color: $white;
 }
 
 /* RSS */
@@ -770,18 +770,18 @@
 }
 
 .cmtx_rss_block a, .cmtx_rss_block a * {
-	text-decoration: none !important;
-	outline: 0;
+    text-decoration: none !important;
+    outline: 0;
 }
 
 .cmtx_rss_icon:before {
-	content: "\f143";
-	color: $orange;
-	font-size: medium;
+    content: "\f143";
+    color: $orange;
+    font-size: medium;
 }
 
 .cmtx_rss_text {
-	padding-left: 2px;
+    padding-left: 2px;
 }
 
 /* Search */
@@ -790,49 +790,49 @@
 }
 
 .cmtx_search_container {
-	position: relative;
+    position: relative;
 }
 
 .cmtx_search {
-	width: 125px !important;
-	height: 25px !important;
-	display: inline-block !important;
-	line-height: 25px;
-	transition: width 500ms !important;
-	border-radius: 4px;
-	border: 1px solid $grey-light;
-	padding: 0 0 0 5px !important;
-	margin: 0 !important;
-	font-family: inherit;
-	font-size: inherit;
+    width: 125px !important;
+    height: 25px !important;
+    display: inline-block !important;
+    line-height: 25px;
+    transition: width 500ms !important;
+    border-radius: 4px;
+    border: 1px solid $grey-light;
+    padding: 0 0 0 5px !important;
+    margin: 0 !important;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 .cmtx_search::-webkit-search-cancel-button {
-	display: none;
+    display: none;
 }
 
 .cmtx_search::-ms-clear {
-	display: none;
+    display: none;
 }
 
 .cmtx_search_focus {
-	width: 225px !important;
+    width: 225px !important;
 }
 
 .cmtx_search_container .fa-search {
-	position: absolute;
-	right: 5px;
-	font-size: 12px !important;
-	height: 12px;
-	color: $grey-light;
-	cursor: pointer;
-	bottom: 50%;
-	transform: translateY(50%);
+    position: absolute;
+    right: 5px;
+    font-size: 12px !important;
+    height: 12px;
+    color: $grey-light;
+    cursor: pointer;
+    bottom: 50%;
+    transform: translateY(50%);
 }
 
 .cmtx_search_wrapper {
-	display: inline-block;
-	position: relative;
+    display: inline-block;
+    position: relative;
 }
 
 /* Social */
@@ -846,11 +846,11 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 .cmtx_social_block a:not(:first-child) {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 
 .cmtx_social_digg {
@@ -862,7 +862,7 @@
 }
 
 .cmtx_social_linkedin {
-	background-position: -57px -31px;
+    background-position: -57px -31px;
 }
 
 .cmtx_social_reddit {
@@ -874,7 +874,7 @@
 }
 
 .cmtx_social_weibo {
-	background-position: -5px -31px;
+    background-position: -5px -31px;
 }
 
 /* Sort By */
@@ -883,18 +883,18 @@
 }
 
 .cmtx_sort_by_text {
-	font-size: 0.8em;
-	color: $grey;
+    font-size: 0.8em;
+    color: $grey;
 }
 
 .cmtx_sort_by_field {
-	width: auto !important;
-	height: auto !important;
-	padding: 0 !important;
-	font-family: inherit;
-	font-size: inherit;
-	height: 25px !important;
-	line-height: 25px;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    font-family: inherit;
+    font-size: inherit;
+    height: 25px !important;
+    line-height: 25px;
 }
 
 /* Topic */
@@ -903,19 +903,19 @@
 }
 
 .cmtx_topic_intro {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 .cmtx_topic {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 /* More Comments */
 
 .cmtx_more_button_row {
-	text-align: center;
-	margin-top: 25px;
-	margin-bottom: 30px;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 30px;
 }
 
 #cmtx_more_button {
@@ -924,18 +924,18 @@
 /* Return */
 
 .cmtx_return {
-	background-color: $grey-lightest;
-	border: 1px dotted $grey-lighter;
-	line-height: 25px;
-	text-align: center;
+    background-color: $grey-lightest;
+    border: 1px dotted $grey-lighter;
+    line-height: 25px;
+    text-align: center;
 }
 
 .cmtx_return a, .cmtx_return a * {
-	text-decoration: none !important;
-	outline: 0;
+    text-decoration: none !important;
+    outline: 0;
 }
 
 .cmtx_return_icon:before {
-	content: "\f0e2";
-	color: $grey-dark;
+    content: "\f0e2";
+    color: $grey-dark;
 }

@@ -6,11 +6,11 @@ error_reporting(-1); // report every possible error
 ini_set('error_log', CMTX_DIR_LOGS . 'errors.log'); // set log path
 
 if (defined('CMTX_INSTALL')) { // if it's the installer
-	ini_set('log_errors', 0); // don't log errors
-	ini_set('display_errors', 1); // display errors
+    ini_set('log_errors', 0); // don't log errors
+    ini_set('display_errors', 1); // display errors
 } else {
-	ini_set('log_errors', 1); // log errors
-	ini_set('display_errors', 0); // don't display errors
+    ini_set('log_errors', 1); // log errors
+    ini_set('display_errors', 0); // don't display errors
 }
 
 ini_set('default_charset', 'utf-8'); // set charset as UTF-8
@@ -19,85 +19,86 @@ ini_set('allow_url_fopen', 1); // allow fopen(URL)
 
 /* Make sure HTTP_HOST is set for IIS servers */
 if (!isset($_SERVER['HTTP_HOST'])) {
-	$_SERVER['HTTP_HOST'] = getenv('HTTP_HOST');
+    $_SERVER['HTTP_HOST'] = getenv('HTTP_HOST');
 }
 
 /* Make sure REQUEST_URI is set for IIS servers */
 if (!isset($_SERVER['REQUEST_URI'])) {
-	$_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'], 1);
+    $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'], 1);
 
-	if (isset($_SERVER['QUERY_STRING'])) {
-		$_SERVER['REQUEST_URI'] .= '?' . $_SERVER['QUERY_STRING'];
-	}
+    if (isset($_SERVER['QUERY_STRING'])) {
+        $_SERVER['REQUEST_URI'] .= '?' . $_SERVER['QUERY_STRING'];
+    }
 }
 
-function cmtx_modification($filename) {
-	if (defined('CMTX_FRONTEND')) {
-		$file = CMTX_DIR_MOD_CACHE . substr($filename, strlen(CMTX_DIR_ROOT));
-	} else if (defined('CMTX_BACKEND')) {
-		$file = CMTX_DIR_MOD_CACHE . substr($filename, strlen(CMTX_DIR_ROOT));
-	} else {
-		return $filename;
-	}
+function cmtx_modification($filename)
+{
+    if (defined('CMTX_FRONTEND')) {
+        $file = CMTX_DIR_MOD_CACHE . substr($filename, strlen(CMTX_DIR_ROOT));
+    } else if (defined('CMTX_BACKEND')) {
+        $file = CMTX_DIR_MOD_CACHE . substr($filename, strlen(CMTX_DIR_ROOT));
+    } else {
+        return $filename;
+    }
 
-	if (substr($filename, 0, strlen(CMTX_DIR_SYSTEM)) == CMTX_DIR_SYSTEM) {
-		$file = CMTX_DIR_MOD_CACHE . 'system/' . substr($filename, strlen(CMTX_DIR_SYSTEM));
-	}
+    if (substr($filename, 0, strlen(CMTX_DIR_SYSTEM)) == CMTX_DIR_SYSTEM) {
+        $file = CMTX_DIR_MOD_CACHE . 'system/' . substr($filename, strlen(CMTX_DIR_SYSTEM));
+    }
 
-	if (is_file($file)) {
-		return $file;
-	}
+    if (is_file($file)) {
+        return $file;
+    }
 
-	return $filename;
+    return $filename;
 }
 
 /* Load the helper classes */
-require_once(cmtx_modification(CMTX_DIR_HELPER . 'password_compat.php'));
-require_once(cmtx_modification(CMTX_DIR_HELPER . 'remove_directory.php'));
+require_once cmtx_modification(CMTX_DIR_HELPER . 'password_compat.php');
+require_once cmtx_modification(CMTX_DIR_HELPER . 'remove_directory.php');
 
 /* Load the registry class */
-require_once(cmtx_modification(CMTX_DIR_ENGINE . 'registry.php'));
+require_once cmtx_modification(CMTX_DIR_ENGINE . 'registry.php');
 
 /* Initialise the registry class */
 $cmtx_registry = new \Commentics\Registry();
 
 /* Load the library classes */
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'comment.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'cookie.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'db.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'email.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'encryption.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'geo.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'home.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'log.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'modification.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'notify.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'page.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'request.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'response.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'security.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'session.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'setting.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'task.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'template.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'url.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'user.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'validation.php'));
-require_once(cmtx_modification(CMTX_DIR_LIBRARY . 'variable.php'));
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'comment.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'cookie.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'db.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'email.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'encryption.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'geo.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'home.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'log.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'modification.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'notify.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'page.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'request.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'response.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'security.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'session.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'setting.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'task.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'template.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'url.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'user.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'validation.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'variable.php');
 
 /* Initialise the library classes */
 $cmtx_db = new \Commentics\Db();
 
 if (defined('CMTX_DB_HOSTNAME')) {
-	$cmtx_db->connect(CMTX_DB_HOSTNAME, CMTX_DB_USERNAME, CMTX_DB_PASSWORD, CMTX_DB_DATABASE, CMTX_DB_PORT, CMTX_DB_PREFIX, CMTX_DB_DRIVER);
+    $cmtx_db->connect(CMTX_DB_HOSTNAME, CMTX_DB_USERNAME, CMTX_DB_PASSWORD, CMTX_DB_DATABASE, CMTX_DB_PORT, CMTX_DB_PREFIX, CMTX_DB_DRIVER);
 
-	if (!$cmtx_db->connected) {
-		if (defined('CMTX_FRONTEND')) {
-			return;
-		} else {
-			die('<b>Error</b>: ' . $cmtx_db->getConnectError() . ($cmtx_db->getConnectErrno() ? ' (' . $cmtx_db->getConnectErrno() . ')' : ''));
-		}
-	}
+    if (!$cmtx_db->connected) {
+        if (defined('CMTX_FRONTEND')) {
+            return;
+        } else {
+            die('<b>Error</b>: ' . $cmtx_db->getConnectError() . ($cmtx_db->getConnectErrno() ? ' (' . $cmtx_db->getConnectErrno() . ')' : ''));
+        }
+    }
 }
 
 $cmtx_registry->set('db', $cmtx_db);
@@ -167,33 +168,32 @@ $cmtx_registry->set('template', $cmtx_template);
 
 /* Time zone */
 if ($cmtx_setting->has('time_zone')) {
-	date_default_timezone_set($cmtx_setting->get('time_zone')); // set time zone PHP
+    date_default_timezone_set($cmtx_setting->get('time_zone')); // set time zone PHP
 } else {
-	date_default_timezone_set('UTC'); // set time zone PHP
+    date_default_timezone_set('UTC'); // set time zone PHP
 }
 
 if ($cmtx_db->isConnected()) {
-	$cmtx_db->query("SET time_zone = '" . $cmtx_db->escape(date('P')) . "'"); // set time zone DB
+    $cmtx_db->query("SET time_zone = '" . $cmtx_db->escape(date('P')) . "'"); // set time zone DB
 }
 
 /* Load the engine classes */
-require_once(cmtx_modification(CMTX_DIR_ENGINE . 'base.php'));
-require_once(cmtx_modification(CMTX_DIR_ENGINE . 'controller.php'));
-require_once(cmtx_modification(CMTX_DIR_ENGINE . 'model.php'));
+require_once cmtx_modification(CMTX_DIR_ENGINE . 'base.php');
+require_once cmtx_modification(CMTX_DIR_ENGINE . 'controller.php');
+require_once cmtx_modification(CMTX_DIR_ENGINE . 'model.php');
 
 if (!defined('CMTX_INSTALL') && $cmtx_db->isInstalled()) {
-	if ((defined('CMTX_FRONTEND') && $cmtx_setting->get('error_reporting_frontend')) || (defined('CMTX_BACKEND') && $cmtx_setting->get('error_reporting_backend'))) {
-		error_reporting(-1); // report every possible error
-	} else {
-		error_reporting(0); // turn off all error reporting
-	}
+    if ((defined('CMTX_FRONTEND') && $cmtx_setting->get('error_reporting_frontend')) || (defined('CMTX_BACKEND') && $cmtx_setting->get('error_reporting_backend'))) {
+        error_reporting(-1); // report every possible error
+    } else {
+        error_reporting(0); // turn off all error reporting
+    }
 
-	if ($cmtx_setting->get('error_reporting_method') == 'log') {
-		ini_set('log_errors', 1); // log errors
-		ini_set('display_errors', 0); // don't display errors
-	} else {
-		ini_set('log_errors', 0); // don't log errors
-		ini_set('display_errors', 1); // display errors
-	}
+    if ($cmtx_setting->get('error_reporting_method') == 'log') {
+        ini_set('log_errors', 1); // log errors
+        ini_set('display_errors', 0); // don't display errors
+    } else {
+        ini_set('log_errors', 0); // don't log errors
+        ini_set('display_errors', 1); // display errors
+    }
 }
-?>

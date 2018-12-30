@@ -1,13 +1,14 @@
 <?php
 namespace Commentics;
 
-class LoginLogoutModel extends Model {
-	public function logout() {
-		$this->session->regenerate();
+class LoginLogoutModel extends Model
+{
+    public function logout()
+    {
+        $this->session->regenerate();
 
-		$this->session->end();
+        $this->session->end();
 
-		$this->response->redirect('login/login');
-	}
+        $this->response->redirect('login/login');
+    }
 }
-?>

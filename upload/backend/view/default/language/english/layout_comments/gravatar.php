@@ -46,4 +46,3 @@ $_['lang_hint_first_poster']  = 'Show a badge for the user who posted first on t
 
 // Error
 $_['lang_error_url']          = 'The URL entered is invalid';
-?>

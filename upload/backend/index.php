@@ -44,56 +44,55 @@ define('CMTX_DIR_INSTALL', CMTX_DIR_ROOT . 'install/');
 define('CMTX_DIR_UPLOAD', CMTX_DIR_ROOT . 'upload/');
 
 if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'config.php')) {
-	require_once(CMTX_DIR_ROOT . 'config.php');
+    require_once CMTX_DIR_ROOT . 'config.php';
 } else {
-	die('<b>Error</b>: Commentics is not installed');
+    die('<b>Error</b>: Commentics is not installed');
 }
 
-require_once(CMTX_DIR_SYSTEM . 'startup.php');
+require_once CMTX_DIR_SYSTEM . 'startup.php';
 
 if (!$cmtx_db->isInstalled()) {
-	die('<b>Error</b>: There are no database tables');
+    die('<b>Error</b>: There are no database tables');
 }
 
 if (isset($cmtx_request->get['route']) && $cmtx_request->get['route'] == 'login/reset') {
-	require_once(cmtx_modification(CMTX_DIR_CONTROLLER . 'login/reset.php'));
+    require_once cmtx_modification(CMTX_DIR_CONTROLLER . 'login/reset.php');
 
-	$controller = new \Commentics\LoginResetController($cmtx_registry);
+    $controller = new \Commentics\LoginResetController($cmtx_registry);
 
-	$controller->index();
+    $controller->index();
 } else {
-	require_once(cmtx_modification(CMTX_DIR_CONTROLLER . 'login/login.php'));
+    require_once cmtx_modification(CMTX_DIR_CONTROLLER . 'login/login.php');
 
-	$controller = new \Commentics\LoginLoginController($cmtx_registry);
+    $controller = new \Commentics\LoginLoginController($cmtx_registry);
 
-	$controller->index();
+    $controller->index();
 }
 
 if (isset($cmtx_request->get['route']) && (preg_match('/^[a-z0-9_]+\/[a-z0-9_]+$/i', $cmtx_request->get['route']) || preg_match('/^[a-z0-9_]+\/[a-z0-9_]+\/[a-z0-9_]+$/i', $cmtx_request->get['route']))) {
-	$parts = explode('/', strtolower($cmtx_request->get['route']));
+    $parts = explode('/', strtolower($cmtx_request->get['route']));
 
-	if (file_exists(CMTX_DIR_CONTROLLER . $parts[0] . '/' . $parts[1] . '.php')) {
-		require_once(cmtx_modification(CMTX_DIR_CONTROLLER . $parts[0] . '/' . $parts[1] . '.php'));
+    if (file_exists(CMTX_DIR_CONTROLLER . $parts[0] . '/' . $parts[1] . '.php')) {
+        require_once cmtx_modification(CMTX_DIR_CONTROLLER . $parts[0] . '/' . $parts[1] . '.php');
 
-		$parts = str_replace('_', '', $parts);
+        $parts = str_replace('_', '', $parts);
 
-		$class = '\Commentics\\' . $parts[0] . $parts[1] . 'Controller';
+        $class = '\Commentics\\' . $parts[0] . $parts[1] . 'Controller';
 
-		$controller = new $class($cmtx_registry);
+        $controller = new $class($cmtx_registry);
 
-		if (isset($parts[2]) && substr($parts[2], 0, 2) != '__' && method_exists($controller, $parts[2]) && is_callable(array($controller, $parts[2]))) {
-			if ($parts[0] == 'module' && in_array($parts[2], array('install', 'uninstall'))) {
-				$cmtx_response->redirect('extension/modules');
-			} else {
-				$controller->{$parts[2]}();
-			}
-		} else {
-			$controller->index();
-		}
-	} else {
-		$cmtx_response->redirect('main/dashboard');
-	}
+        if (isset($parts[2]) && substr($parts[2], 0, 2) != '__' && method_exists($controller, $parts[2]) && is_callable(array($controller, $parts[2]))) {
+            if ($parts[0] == 'module' && in_array($parts[2], array('install', 'uninstall'))) {
+                $cmtx_response->redirect('extension/modules');
+            } else {
+                $controller->{$parts[2]}();
+            }
+        } else {
+            $controller->index();
+        }
+    } else {
+        $cmtx_response->redirect('main/dashboard');
+    }
 } else {
-	$cmtx_response->redirect('main/dashboard');
+    $cmtx_response->redirect('main/dashboard');
 }
-?>

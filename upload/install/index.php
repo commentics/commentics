@@ -1,7 +1,7 @@
 <?php
 /* Stop here if PHP less than 5.3 due to no namespaces */
 if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-	die('PHP 5.3.7+ required');
+    die('PHP 5.3.7+ required');
 }
 
 define('CMTX_INSTALL', true);
@@ -41,32 +41,31 @@ define('CMTX_DIR_CONTROLLER', CMTX_DIR_THIS . 'controller/');
 define('CMTX_DIR_3RDPARTY', CMTX_DIR_ROOT . '3rdparty/');
 
 if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'config.php')) {
-	require_once(CMTX_DIR_ROOT . 'config.php');
+    require_once CMTX_DIR_ROOT . 'config.php';
 }
 
-require_once(CMTX_DIR_SYSTEM . 'startup.php');
+require_once CMTX_DIR_SYSTEM . 'startup.php';
 
 if (isset($cmtx_request->get['route']) && preg_match('/^[a-z0-9_]+$/i', $cmtx_request->get['route'])) {
-	if (file_exists(CMTX_DIR_CONTROLLER . 'main/' . $cmtx_request->get['route'] . '.php')) {
-		require_once(CMTX_DIR_CONTROLLER . 'main/' . $cmtx_request->get['route'] . '.php');
+    if (file_exists(CMTX_DIR_CONTROLLER . 'main/' . $cmtx_request->get['route'] . '.php')) {
+        require_once CMTX_DIR_CONTROLLER . 'main/' . $cmtx_request->get['route'] . '.php';
 
-		$class = '\Commentics\\' . 'Main' . str_replace('_', '', $cmtx_request->get['route']) . 'Controller';
+        $class = '\Commentics\\' . 'Main' . str_replace('_', '', $cmtx_request->get['route']) . 'Controller';
 
-		$controller = new $class($cmtx_registry);
+        $controller = new $class($cmtx_registry);
 
-		$controller->index();
-	} else {
-		require_once(CMTX_DIR_CONTROLLER . 'main/start.php');
+        $controller->index();
+    } else {
+        require_once CMTX_DIR_CONTROLLER . 'main/start.php';
 
-		$controller = new \Commentics\MainStartController($cmtx_registry);
+        $controller = new \Commentics\MainStartController($cmtx_registry);
 
-		$controller->index();
-	}
+        $controller->index();
+    }
 } else {
-	require_once(CMTX_DIR_CONTROLLER . 'main/start.php');
+    require_once CMTX_DIR_CONTROLLER . 'main/start.php';
 
-	$controller = new \Commentics\MainStartController($cmtx_registry);
+    $controller = new \Commentics\MainStartController($cmtx_registry);
 
-	$controller->index();
+    $controller->index();
 }
-?>

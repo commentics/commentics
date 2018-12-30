@@ -1,47 +1,50 @@
 <?php
 namespace Commentics;
 
-class Encryption {
-	private $setting;
+class Encryption
+{
+    private $setting;
 
-	public function __construct($registry) {
-		$this->setting = $registry->get('setting');
-	}
+    public function __construct($registry)
+    {
+        $this->setting = $registry->get('setting');
+    }
 
-	public function encrypt($value) {
-		$key = hash('sha256', $this->setting->get('encryption_key'), true);
+    public function encrypt($value)
+    {
+        $key = hash('sha256', $this->setting->get('encryption_key'), true);
 
-		$iv = openssl_random_pseudo_bytes(16);
+        $iv = openssl_random_pseudo_bytes(16);
 
-		$cipher = openssl_encrypt($value, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+        $cipher = openssl_encrypt($value, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
 
-		$hash = hash_hmac('sha256', $cipher, $key, true);
+        $hash = hash_hmac('sha256', $cipher, $key, true);
 
-		$encrypted = $iv . $hash . $cipher;
+        $encrypted = $iv . $hash . $cipher;
 
-		$encrypted = base64_encode($encrypted);
+        $encrypted = base64_encode($encrypted);
 
-		return $encrypted;
-	}
+        return $encrypted;
+    }
 
-	public function decrypt($value) {
-		$value = base64_decode($value);
+    public function decrypt($value)
+    {
+        $value = base64_decode($value);
 
-		$iv = substr($value, 0, 16);
+        $iv = substr($value, 0, 16);
 
-		$hash = substr($value, 16, 32);
+        $hash = substr($value, 16, 32);
 
-		$cipher = substr($value, 48);
+        $cipher = substr($value, 48);
 
-		$key = hash('sha256', $this->setting->get('encryption_key'), true);
+        $key = hash('sha256', $this->setting->get('encryption_key'), true);
 
-		if (hash_hmac('sha256', $cipher, $key, true) !== $hash) {
-			return '';
-		}
+        if (hash_hmac('sha256', $cipher, $key, true) !== $hash) {
+            return '';
+        }
 
-		$decrypted = openssl_decrypt($cipher, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+        $decrypted = openssl_decrypt($cipher, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
 
-		return $decrypted;
-	}
+        return $decrypted;
+    }
 }
-?>

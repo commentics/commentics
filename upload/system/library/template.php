@@ -1,291 +1,283 @@
 <?php
 namespace Commentics;
 
-class Template {
-	private $code;
-	private $minify = false;
+class Template
+{
+    private $code;
+    private $minify = false;
 
-	public function getCode() {
-		return $this->code;
-	}
+    public function getCode()
+    {
+        return $this->code;
+    }
 
-	public function setCode($code) {
-		$this->code = $code;
-	}
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 
-	public function setMinify($minify) {
-		$this->minify = $minify;
-	}
+    public function setMinify($minify)
+    {
+        $this->minify = $minify;
+    }
 
-	public function parse() {
-		$this->removeComment();
+    public function parse()
+    {
+        $this->removeComment();
 
-		$this->echoVariableQuote();
+        $this->echoVariableQuote();
 
-		$this->echoVariable();
+        $this->echoVariable();
 
-		$this->setVariable();
+        $this->setVariable();
 
-		$this->parseIf();
-		$this->parseElseIf();
-		$this->parseElse();
-		$this->parseEndIf();
+        $this->parseIf();
+        $this->parseElseIf();
+        $this->parseElse();
+        $this->parseEndIf();
 
-		$this->parseForEach();
-		$this->parseEndForEach();
+        $this->parseForEach();
+        $this->parseEndForEach();
 
-		$this->startCount();
-		$this->increaseCount();
+        $this->startCount();
+        $this->increaseCount();
 
-		$this->loadTemplate();
+        $this->loadTemplate();
 
         if ($this->minify) {
-    		$this->minify();
+            $this->minify();
         }
 
-		$this->code = trim($this->code);
+        $this->code = trim($this->code);
 
-		return $this->code;
-	}
+        return $this->code;
+    }
 
-	/* Remove comment e.g. {# This is a comment #} */
-	private function removeComment() {
-		$this->code = preg_replace('/.*{#.*?#}([\r\n]){2}/', '', $this->code);
-	}
+    /* Remove comment e.g. {# This is a comment #} */
+    private function removeComment()
+    {
+        $this->code = preg_replace('/.*{#.*?#}([\r\n]){2}/', '', $this->code);
+    }
 
-	/* Echo variable surrounded by quotes e.g. title="{{ var }}" */
-	private function echoVariableQuote() {
-		if (preg_match_all('/"{{ (.*?) }}"/', $this->code, $matches)) {
-			foreach ($matches[0] as $index => $tag) {
-				$vars = explode('.', $matches[1][$index]);
+    /* Echo variable surrounded by quotes e.g. title="{{ var }}" */
+    private function echoVariableQuote()
+    {
+        if (preg_match_all('/"{{ (.*?) }}"/', $this->code, $matches)) {
+            foreach ($matches[0] as $index => $tag) {
+                $vars = explode('.', $matches[1][$index]);
 
-				if (count($vars) == 1) {
+                if (count($vars) == 1) {
                     /* Only encode double quotes for language strings */
                     if (substr($vars[0], 0, 5) == 'lang_') {
-    					$this->code = str_replace($tag, "\"<?php echo \$this->variable->encodeDouble(\$$vars[0]); ?>\"", $this->code);
+                        $this->code = str_replace($tag, "\"<?php echo \$this->variable->encodeDouble(\$$vars[0]); ?>\"", $this->code);
                     } else {
-    					$this->code = str_replace($tag, "\"<?php echo \$$vars[0]; ?>\"", $this->code);
+                        $this->code = str_replace($tag, "\"<?php echo \$$vars[0]; ?>\"", $this->code);
                     }
-				}
+                }
 
-				if (count($vars) == 2) {
+                if (count($vars) == 2) {
                     $this->code = str_replace($tag, "\"<?php echo \$$vars[0]['$vars[1]']; ?>\"", $this->code);
-				}
-			}
-		}
-	}
+                }
+            }
+        }
+    }
 
-	/* Echo variable e.g. {{ var }} */
-	private function echoVariable() {
-		if (preg_match_all('/{{ (.*?) }}/', $this->code, $matches)) {
-			foreach ($matches[0] as $index => $tag) {
-				$vars = explode('.', $matches[1][$index]);
+    /* Echo variable e.g. {{ var }} */
+    private function echoVariable()
+    {
+        if (preg_match_all('/{{ (.*?) }}/', $this->code, $matches)) {
+            foreach ($matches[0] as $index => $tag) {
+                $vars = explode('.', $matches[1][$index]);
 
-				if (count($vars) == 1) {
-					$this->code = str_replace($tag, "<?php echo \$$vars[0]; ?>", $this->code);
-				}
+                if (count($vars) == 1) {
+                    $this->code = str_replace($tag, "<?php echo \$$vars[0]; ?>", $this->code);
+                }
 
-				if (count($vars) == 2) {
-					$this->code = str_replace($tag, "<?php echo \$$vars[0]['$vars[1]']; ?>", $this->code);
-				}
-			}
-		}
-	}
+                if (count($vars) == 2) {
+                    $this->code = str_replace($tag, "<?php echo \$$vars[0]['$vars[1]']; ?>", $this->code);
+                }
+            }
+        }
+    }
 
-	/* Set variable e.g. @set reply_depth = 0  */
-	private function setVariable() {
-		if (preg_match_all('/@set ([\p{L}0-9_]+) = (.*)/', $this->code, $matches)) {
-			foreach ($matches[0] as $index => $tag) {
-				$variable = trim($matches[1][$index]);
+    /* Set variable e.g. @set reply_depth = 0  */
+    private function setVariable()
+    {
+        if (preg_match_all('/@set ([\p{L}0-9_]+) = (.*)/', $this->code, $matches)) {
+            foreach ($matches[0] as $index => $tag) {
+                $variable = trim($matches[1][$index]);
 
-				$value = trim($matches[2][$index]);
+                $value = trim($matches[2][$index]);
 
-				$this->code = str_replace($tag, "<?php \$$variable = $value; ?>", $this->code);
-			}
-		}
-	}
+                $this->code = str_replace($tag, "<?php \$$variable = $value; ?>", $this->code);
+            }
+        }
+    }
 
-	/* Parse if statement e.g. @if show_flag */
-	private function parseIf() {
-		if (preg_match_all('/@if (.*)[\r\n]/', $this->code, $matches)) {
-			$this->parseIfAndElseIf('if', $matches);
-		}
-	}
+    /* Parse if statement e.g. @if show_flag */
+    private function parseIf()
+    {
+        if (preg_match_all('/@if (.*)[\r\n]/', $this->code, $matches)) {
+            $this->parseIfAndElseIf('if', $matches);
+        }
+    }
 
-	/* Parse elseif statement e.g. @elseif show_flag */
-	private function parseElseIf() {
-		if (preg_match_all('/@elseif (.*)[\r\n]/', $this->code, $matches)) {
-			$this->parseIfAndElseIf('elseif', $matches);
-		}
-	}
+    /* Parse elseif statement e.g. @elseif show_flag */
+    private function parseElseIf()
+    {
+        if (preg_match_all('/@elseif (.*)[\r\n]/', $this->code, $matches)) {
+            $this->parseIfAndElseIf('elseif', $matches);
+        }
+    }
 
-	/* Carry out either the if or elseif parsing */
-	private function parseIfAndElseIf($type, $matches) {
-		foreach ($matches[0] as $index => $tag) {
-			$content = trim($matches[1][$index]);
+    /* Carry out either the if or elseif parsing */
+    private function parseIfAndElseIf($type, $matches)
+    {
+        foreach ($matches[0] as $index => $tag) {
+            $content = trim($matches[1][$index]);
 
-			$replacements = array(
-				' equals '       => ' == ',
-				' not equal to ' => ' != ',
-				' bigger than '  => ' > ',
-				' less than '    => ' < ',
-				' and '          => ' && ',
-				' or '           => ' || '
-			);
+            $replacements = array(
+                ' equals '       => ' == ',
+                ' not equal to ' => ' != ',
+                ' bigger than '  => ' > ',
+                ' less than '    => ' < ',
+                ' and '          => ' && ',
+                ' or '           => ' || '
+            );
 
-			$content = strtr($content, $replacements);
+            $content = strtr($content, $replacements);
 
-			$words = explode(' ', $content);
+            $words = explode(' ', $content);
 
-			$parsed = '';
+            $parsed = '';
 
-			$ignore = array('true', 'false', 'no');
+            $ignore = array('true', 'false', 'no');
 
-			foreach ($words as $word) {
-				if (in_array($word, $ignore)) {
-					// let it through
-				} else if (substr($word, 0, 1) == "'") {
-					// let it through
-				} else if (is_numeric($word)) {
-					// let it through
-				} else if (preg_match('/[\p{L}0-9_]+/', $word)) { // variable
-    				$vars = explode('.', $word);
+            foreach ($words as $word) {
+                if (in_array($word, $ignore)) {
+                    // let it through
+                } else if (substr($word, 0, 1) == "'") {
+                    // let it through
+                } else if (is_numeric($word)) {
+                    // let it through
+                } else if (preg_match('/[\p{L}0-9_]+/', $word)) { // variable
+                    $vars = explode('.', $word);
 
-    				if (count($vars) == 1) {
-    					$word = "\$$vars[0]";
-    				}
+                    if (count($vars) == 1) {
+                        $word = "\$$vars[0]";
+                    }
 
-    				if (count($vars) == 2) {
-    					$word = "\$$vars[0]['$vars[1]']";
-    				}
-				}
+                    if (count($vars) == 2) {
+                        $word = "\$$vars[0]['$vars[1]']";
+                    }
+                }
 
-				$parsed .= $word . ' ';
-			}
+                $parsed .= $word . ' ';
+            }
 
-			$parsed = str_replace(' no ', ' !', $parsed);
+            $parsed = str_replace(' no ', ' !', $parsed);
 
-			$parsed = trim($parsed);
+            $parsed = trim($parsed);
 
-			$this->code = str_replace($tag, "<?php $type ($parsed): ?>" . PHP_EOL, $this->code);
-		}
-	}
+            $this->code = str_replace($tag, "<?php $type ($parsed): ?>" . PHP_EOL, $this->code);
+        }
+    }
 
-	/* Parse else e.g. @else */
-	private function parseElse() {
-		$this->code = str_replace('@else', '<?php else: ?>', $this->code);
-	}
+    /* Parse else e.g. @else */
+    private function parseElse()
+    {
+        $this->code = str_replace('@else', '<?php else: ?>', $this->code);
+    }
 
-	/* Parse endif e.g. @endif */
-	private function parseEndIf() {
-		$this->code = str_replace('@endif', '<?php endif; ?>', $this->code);
-	}
+    /* Parse endif e.g. @endif */
+    private function parseEndIf()
+    {
+        $this->code = str_replace('@endif', '<?php endif; ?>', $this->code);
+    }
 
-	/* Parse foreach e.g. @foreach comments as comment */
-	private function parseForEach() {
-		if (preg_match_all('/@foreach (.*)[\r\n]/', $this->code, $matches)) {
-			foreach ($matches[0] as $index => $tag) {
-				$content = trim($matches[1][$index]);
+    /* Parse foreach e.g. @foreach comments as comment */
+    private function parseForEach()
+    {
+        if (preg_match_all('/@foreach (.*)[\r\n]/', $this->code, $matches)) {
+            foreach ($matches[0] as $index => $tag) {
+                $content = trim($matches[1][$index]);
 
-				$replacements = array(
-					'and' => '=>'
-				);
+                $replacements = array(
+                    'and' => '=>'
+                );
 
-				$content = strtr($content, $replacements);
+                $content = strtr($content, $replacements);
 
-				$words = explode(' ', $content);
+                $words = explode(' ', $content);
 
-				$parsed = '';
+                $parsed = '';
 
-				$ignore = array('as');
+                $ignore = array('as');
 
-				foreach ($words as $word) {
-					if (in_array($word, $ignore)) {
-						// let it through
-					} else if (preg_match('/[\p{L}0-9_]+/', $word)) {
-        				$vars = explode('.', $word);
+                foreach ($words as $word) {
+                    if (in_array($word, $ignore)) {
+                        // let it through
+                    } else if (preg_match('/[\p{L}0-9_]+/', $word)) {
+                        $vars = explode('.', $word);
 
-        				if (count($vars) == 1) {
-        					$word = "\$$vars[0]";
-        				}
+                        if (count($vars) == 1) {
+                            $word = "\$$vars[0]";
+                        }
 
-        				if (count($vars) == 2) {
-        					$word = "\$$vars[0]['$vars[1]']";
-        				}
-					}
+                        if (count($vars) == 2) {
+                            $word = "\$$vars[0]['$vars[1]']";
+                        }
+                    }
 
-					$parsed .= $word . ' ';
-				}
+                    $parsed .= $word . ' ';
+                }
 
-				$parsed = trim($parsed);
+                $parsed = trim($parsed);
 
-				$this->code = str_replace($tag, "<?php foreach ($parsed): ?>" . PHP_EOL, $this->code);
-			}
-		}
-	}
+                $this->code = str_replace($tag, "<?php foreach ($parsed): ?>" . PHP_EOL, $this->code);
+            }
+        }
+    }
 
-	/* Parse endforeach e.g. @endforeach */
-	private function parseEndForEach() {
-		$this->code = str_replace('@endforeach', '<?php endforeach; ?>', $this->code);
-	}
+    /* Parse endforeach e.g. @endforeach */
+    private function parseEndForEach()
+    {
+        $this->code = str_replace('@endforeach', '<?php endforeach; ?>', $this->code);
+    }
 
-	/* Parse start of count e.g. @start count at 1 */
-	private function startCount() {
-		if (preg_match_all('/@start count at ([0-9]+)[\r\n]/', $this->code, $matches)) {
-			foreach ($matches[0] as $index => $tag) {
-				$content = trim($matches[1][$index]);
+    /* Parse start of count e.g. @start count at 1 */
+    private function startCount()
+    {
+        if (preg_match_all('/@start count at ([0-9]+)[\r\n]/', $this->code, $matches)) {
+            foreach ($matches[0] as $index => $tag) {
+                $content = trim($matches[1][$index]);
 
-				$this->code = str_replace($tag, "<?php \$count = $content; ?>", $this->code);
-			}
-		}
-	}
+                $this->code = str_replace($tag, "<?php \$count = $content; ?>", $this->code);
+            }
+        }
+    }
 
-	/* Parse increase of count e.g. @increase count */
-	private function increaseCount() {
-		$this->code = str_replace('@increase count', '<?php $count++; ?>', $this->code);
-	}
+    /* Parse increase of count e.g. @increase count */
+    private function increaseCount()
+    {
+        $this->code = str_replace('@increase count', '<?php $count++; ?>', $this->code);
+    }
 
-	/* Parse loading of template e.g. @template main/comment */
-	private function loadTemplate() {
-		if (preg_match_all('/@template (.*)[\r\n]/', $this->code, $matches)) {
-			foreach ($matches[0] as $index => $tag) {
-				$template = trim($matches[1][$index]);
+    /* Parse loading of template e.g. @template main/comment */
+    private function loadTemplate()
+    {
+        if (preg_match_all('/@template (.*)[\r\n]/', $this->code, $matches)) {
+            foreach ($matches[0] as $index => $tag) {
+                $template = trim($matches[1][$index]);
 
-				$this->code = str_replace($tag, "<?php require(\$this->loadTemplate('$template')); ?>" . PHP_EOL, $this->code);
-			}
-		}
-	}
+                $this->code = str_replace($tag, "<?php require(\$this->loadTemplate('$template')); ?>" . PHP_EOL, $this->code);
+            }
+        }
+    }
 
-	/* Minify HTML */
-	private function minify() {
-        $replace = array(
-            // remove tabs before and after HTML tags
-            '/\>[^\S ]+/s' => '>',
-            '/[^\S ]+\</s' => '<',
-            // shorten multiple white space sequences; keep new line characters because they matter in JS.
-            '/([\t ])+/s' => ' ',
-            // remove leading and trailing spaces
-            '/^([\t ])+/m' => '',
-            '/([\t ])+$/m' => '',
-            // remove JS line comments (simple only); do NOT remove lines containing URL.
-            '~//[a-zA-Z0-9 ]+$~m' => '',
-            // remove empty lines (sequence of line-ends and white space characters)
-            '/[\r\n]+([\t ]?[\r\n]+)+/s' => "\n",
-            // remove empty lines (between HTML tags); cannot remove just any line-end characters because in inline JS they matter.
-            '/\>[\r\n\t ]+\</s' => '><',
-            // remove "empty" lines containing only JS's block end character; join with next line.
-            '/}[\r\n\t ]+/s' => '}',
-            '/}[\r\n\t ]+,[\r\n\t ]+/s' => '},',
-            // remove new line after JS's function or condition start; join with next line.
-            '/\)[\r\n\t ]?{[\r\n\t ]+/s' => '){',
-            '/,[\r\n\t ]?{[\r\n\t ]+/s' => ',{',
-            // remove new line after JS's line-end (only most obvious and safe cases)
-            '/\),[\r\n\t ]+/s' => '),',
-            // remove quotes from HTML attributes that do not contain spaces; keep quotes around URLs.
-            '~([\r\n\t ])?([a-zA-Z0-9]+)="([a-zA-Z0-9_/\\-]+)"([\r\n\t ])?~s' => '$1$2=$3$4'
-        );
-
-        $this->code = preg_replace(array_keys($replace), array_values($replace), $this->code);
-	}
+    /* Minify HTML */
+    private function minify()
+    {
+        $this->code = preg_replace('/(\s){2,}/s', '', $this->code);
+    }
 }
-?>
