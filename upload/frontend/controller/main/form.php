@@ -649,9 +649,7 @@ class MainFormController extends Controller
             $json = array();
 
             if (isset($this->request->post['country_id'])) {
-                $this->loadModel('main/form');
-
-                $states = $this->model_main_form->getStates($this->request->post['country_id']);
+                $states = $this->geo->getStatesByCountryId($this->request->post['country_id']);
 
                 foreach ($states as $state) {
                     $json[] = array(

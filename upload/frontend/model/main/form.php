@@ -327,22 +327,6 @@ class MainFormModel extends Model
         return $comment;
     }
 
-    /* Gets all of the states belonging to the country ID */
-    public function getStates($id)
-    {
-        $query = $this->db->query("SELECT `code` FROM `" . CMTX_DB_PREFIX . "countries` WHERE `id` = '" . (int) $id . "'");
-
-        $result = $this->db->row($query);
-
-        $code = $result['code'];
-
-        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "states` WHERE `country_code` = '" . $this->db->escape($code) . "' ORDER BY `name` ASC");
-
-        $results = $this->db->rows($query);
-
-        return $results;
-    }
-
     /* Gets a random question to verify the user is human */
     public function getQuestion()
     {
