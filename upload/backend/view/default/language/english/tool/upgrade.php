@@ -3,7 +3,7 @@
 $_['lang_heading']              = 'Upgrade';
 
 // Notice
-$_['lang_notice']               = 'Make sure to back up your <a href="%s">database</a> and files first. <a>x</a>';
+$_['lang_notice']               = 'Make sure to back up your <a href="%s">database</a> and files first <a>x</a>';
 
 // Text
 $_['lang_text_no_update']       = 'There is no upgrade package available.';

@@ -3,7 +3,7 @@
 $_['lang_heading']           = 'Admin Detection';
 
 // Notice
-$_['lang_notice']            = 'What <a href="%s" target="_blank">admin detection</a> means. <a>x</a>';
+$_['lang_notice']            = 'What <a href="%s" target="_blank">admin detection</a> means <a>x</a>';
 
 // Description
 $_['lang_description']       = '<p>This section allows for the detection of the administrator.</p>';

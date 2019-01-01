@@ -9,7 +9,7 @@ $_['lang_message_bulk_delete_invalid']   = '%d admin(s) could not be deleted';
 $_['lang_heading']                       = 'Admins';
 
 // Notice
-$_['lang_notice']                        = 'You can add other administrators to help moderate the comments. <a>x</a>';
+$_['lang_notice']                        = 'You can add other administrators to help moderate the comments <a>x</a>';
 
 // Description
 $_['lang_description']                   = '<p>Here you can <a href="%s">add</a>, edit and delete admins.</p>';

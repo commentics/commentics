@@ -6,7 +6,7 @@ $_['lang_message_success']     = 'Spam removed';
 $_['lang_heading']             = 'Spam';
 
 // Notice
-$_['lang_notice']              = 'Deleting a user deletes all of their comments. <a>x</a>';
+$_['lang_notice']              = 'Deleting a user deletes all of their comments <a>x</a>';
 
 // Description
 $_['lang_description']         = '<p>Here you can remove the spam comment.</p>';

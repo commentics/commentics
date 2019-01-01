@@ -9,7 +9,7 @@ $_['lang_message_bulk_delete_invalid']   = '%d subscription(s) could not be dele
 $_['lang_heading']                       = 'Subscriptions';
 
 // Notice
-$_['lang_notice']                        = 'Subscriptions appear here when users select the \'Notify me of new comments\' checkbox. <a>x</a>';
+$_['lang_notice']                        = 'Subscriptions appear here when users select the \'Notify me of new comments\' checkbox <a>x</a>';
 
 // Description
 $_['lang_description']                   = '<p>Here you can edit and delete subscriptions.</p>';

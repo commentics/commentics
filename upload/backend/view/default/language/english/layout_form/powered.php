@@ -3,7 +3,7 @@
 $_['lang_heading']       = 'Powered';
 
 // Notice
-$_['lang_notice']        = 'To disable the \'Powered By\' please <a href="%s" target="_blank">purchase a licence</a> here. <a>x</a>';
+$_['lang_notice']        = 'To disable the \'Powered By\' please <a href="%s" target="_blank">purchase a licence</a> here <a>x</a>';
 
 // Description
 $_['lang_description']   = '<p>These settings relate to the layout of the \'Powered by\' statement.</p>';

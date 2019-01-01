@@ -17,7 +17,7 @@ $_['lang_message_bulk_delete_invalid']    = '%d comment(s) could not be deleted'
 $_['lang_heading']                        = 'Comments';
 
 // Notice
-$_['lang_notice']                         = 'You can change the order by clicking on the column names. <a>x</a>';
+$_['lang_notice']                         = 'You can change the order by clicking on the column names <a>x</a>';
 
 // Description
 $_['lang_description']                    = '<p>Here you can edit and delete comments.</p>';

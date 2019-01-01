@@ -7,7 +7,7 @@ $_['lang_message_uninstalled']      = 'The module %s has been uninstalled';
 $_['lang_heading']                  = 'Modules';
 
 // Notice
-$_['lang_notice']                   = 'Get more <a href="%s" target="_blank">modules</a> here. <a>x</a>';
+$_['lang_notice']                   = 'Get more <a href="%s" target="_blank">modules</a> here <a>x</a>';
 
 // Description
 $_['lang_description']              = '<p>This section allows you to install and edit modules to extend the default features.</p>';

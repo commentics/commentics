@@ -4,7 +4,7 @@ $_['lang_heading']               = 'Themes';
 $_['lang_subheading']            = 'Theme Options';
 
 // Notice
-$_['lang_notice']                = 'Get more <a href="%s" target="_blank">themes</a> here. <a>x</a>';
+$_['lang_notice']                = 'Get more <a href="%s" target="_blank">themes</a> here <a>x</a>';
 
 // Description
 $_['lang_description']           = '<p>Select a theme to style the pages.</p>';

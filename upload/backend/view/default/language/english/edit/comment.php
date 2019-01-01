@@ -8,7 +8,7 @@ $_['lang_subheading_left']       = 'Comment';
 $_['lang_subheading_right']      = 'Details';
 
 // Notice
-$_['lang_notice']                = 'To edit the user\'s name or email go to \'Manage -> Users\'. <a>x</a>';
+$_['lang_notice']                = 'To edit the user\'s name or email go to \'Manage -> Users\' <a>x</a>';
 
 // Description
 $_['lang_description']           = '<p>Here you can edit or delete the comment.</p>';
