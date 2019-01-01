@@ -178,6 +178,11 @@ class MainDashboardModel extends Model
         }
     }
 
+    public function disableCheckReferrer()
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'check_referrer'");
+    }
+
     private function getCommentsByMonth($month)
     {
         return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "comments` WHERE `date_added` LIKE '" . $this->db->escape(date('Y') . '-' . $month . '-%') . "'"));

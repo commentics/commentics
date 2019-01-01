@@ -69,6 +69,12 @@ class SettingsSecurityController extends Controller
             $this->data['ban_cookie_days'] = $this->setting->get('ban_cookie_days');
         }
 
+        if (isset($this->error['check_referrer'])) {
+            $this->data['error_check_referrer'] = $this->error['check_referrer'];
+        } else {
+            $this->data['error_check_referrer'] = '';
+        }
+
         if (isset($this->error['ban_cookie_days'])) {
             $this->data['error_ban_cookie_days'] = $this->error['ban_cookie_days'];
         } else {
@@ -90,6 +96,16 @@ class SettingsSecurityController extends Controller
             $this->data['error'] = $unpostable;
 
             return false;
+        }
+
+        if (isset($this->request->post['check_referrer'])) {
+            $url = $this->url->decode($this->url->getPageUrl());
+
+            $domain = $this->url->decode($this->setting->get('site_domain'));
+
+            if (!$this->variable->stristr($url, $domain)) { // if URL does not contain domain
+                $this->error['check_referrer'] = $this->data['lang_error_check_referrer'];
+            }
         }
 
         if (!isset($this->request->post['ban_cookie_days']) || !$this->validation->isInt($this->request->post['ban_cookie_days']) || $this->request->post['ban_cookie_days'] < 1 || $this->request->post['ban_cookie_days'] > 1000) {

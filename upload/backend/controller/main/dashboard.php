@@ -147,6 +147,16 @@ class MainDashboardController extends Controller
             $this->data['error_notes'] = '';
         }
 
+        if ($this->setting->get('check_referrer')) {
+            $url = $this->url->decode($this->url->getPageUrl());
+
+            $domain = $this->url->decode($this->setting->get('site_domain'));
+
+            if (!$this->variable->stristr($url, $domain)) { // if URL does not contain domain
+                $this->model_main_dashboard->disableCheckReferrer();
+            }
+        }
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('main/dashboard');

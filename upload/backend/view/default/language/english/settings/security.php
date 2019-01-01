@@ -24,3 +24,6 @@ $_['lang_hint_check_ip_address']  = 'Whether to check that the admin\'s IP addre
 $_['lang_hint_ssl_certificate']   = 'Whether to force the backend to use dedicated SSL.';
 $_['lang_hint_delete_install']    = 'Delete the install folder (if you see a warning message at the top right corner of the page saying to).';
 $_['lang_hint_ban_cookie']        = 'The amount of days before the ban cookie expires.';
+
+// Error
+$_['lang_error_check_referrer']   = 'The domain setting in \'Settings -> System\' is incorrect';

@@ -31,6 +31,9 @@
             <label><?php echo $lang_entry_check_referrer; ?></label>
             <input type="checkbox" name="check_referrer" value="1" <?php if ($check_referrer) { echo 'checked'; } ?>>
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_referrer; ?>', this, event, '')">[?]</a>
+            <?php if ($error_check_referrer) { ?>
+                <span class="error"><?php echo $error_check_referrer; ?></span>
+            <?php } ?>
         </div>
 
         <div class="fieldset">
