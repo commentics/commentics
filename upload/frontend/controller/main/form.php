@@ -1491,6 +1491,8 @@ class MainFormController extends Controller
 
                     $location = rtrim($location, ', ');
 
+                    $ratings = array(0, 1, 2, 3, 4);
+
                     $comment_post = $this->request->post['cmtx_comment'];
 
                     if ($this->setting->get('enabled_smilies')) {
@@ -1521,7 +1523,8 @@ class MainFormController extends Controller
                         'date_added'       => $date_added,
                         'date_added_title' => $date_added_title,
                         'uploads'          => false,
-                        'reply'            => false
+                        'reply'            => false,
+                        'reply_id'         => array()
                     );
 
                     extract($this->data);
