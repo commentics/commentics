@@ -56,7 +56,7 @@ class Template
     /* Remove comment e.g. {# This is a comment #} */
     private function removeComment()
     {
-        $this->code = preg_replace('/.*{#.*?#}([\r\n]){2}/', '', $this->code);
+        $this->code = preg_replace('/.*{#.*?#}([\r\n])/', '', $this->code);
     }
 
     /* Echo variable surrounded by quotes e.g. title="{{ var }}" */
