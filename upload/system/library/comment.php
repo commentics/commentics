@@ -45,7 +45,7 @@ class Comment
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "countries` `countries` ON `c`.`country_id` = `countries`.`id`
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `countries`.`code`
                                     WHERE `c`.`id` = '" . (int) $id . "'
-                                    AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
+                                    AND (`g`.`language` IS NULL OR `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "')
                                     ");
 
         if ($this->db->numRows($query)) {
