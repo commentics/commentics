@@ -572,6 +572,10 @@
         text-align: center;
     }
 
+    .cmtx_comment_area ul, .cmtx_comment_area ol {
+        display: inline-block;
+    }
+
     .cmtx_sticky {
         padding-top: 10px;
         padding-bottom: 15px;
