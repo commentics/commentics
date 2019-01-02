@@ -109,13 +109,13 @@
             </div>
         @endif
 
-        <div class="cmtx_loading_icon" hidden></div>
+        <div class="cmtx_loading_icon"></div>
 
-        <div class="cmtx_action_message cmtx_action_message_success" hidden></div>
-        <div class="cmtx_action_message cmtx_action_message_error" hidden></div>
+        <div class="cmtx_action_message cmtx_action_message_success"></div>
+        <div class="cmtx_action_message cmtx_action_message_error"></div>
 
         @if show_share
-            <div class="cmtx_share_box" data-cmtx-reference="{{ page_reference }}" hidden role="dialog">
+            <div class="cmtx_share_box" data-cmtx-reference="{{ page_reference }}" role="dialog">
                 @if show_share_digg
                     <a href="#" {{ share_new_window }} title="{{ lang_title_digg }}"><span class="cmtx_share cmtx_share_digg"></span></a>
                 @endif
@@ -143,7 +143,7 @@
         @endif
 
         @if show_flag
-            <div id="cmtx_flag_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_flag_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_flag_heading }}</div>
@@ -159,7 +159,7 @@
         @endif
 
         @if show_permalink
-            <div class="cmtx_permalink_box" hidden role="dialog">
+            <div class="cmtx_permalink_box" role="dialog">
                 <div>{{ lang_text_permalink }}</div>
 
                 <input type="text" name="cmtx_permalink" id="cmtx_permalink" class="cmtx_permalink" value="">
@@ -172,8 +172,6 @@
 
         <div id="cmtx_loading_helper" data-cmtx-load="1" data-cmtx-total-comments="{{ total }}"></div>
 
-        <div id="cmtx_js_settings_comments" style="display:none" hidden>{{ cmtx_js_settings_comments }}</div>
-
         @if rich_snippets_enabled
             </div>
         @endif
@@ -184,4 +182,7 @@
     @else
         <div class="cmtx_no_comments">{{ lang_text_no_comments }}</div>
     @endif
+
+    {# These settings are passed to common.js #}
+    <div id="cmtx_js_settings_comments" style="display:none" hidden>{{ cmtx_js_settings_comments }}</div>
 </div>

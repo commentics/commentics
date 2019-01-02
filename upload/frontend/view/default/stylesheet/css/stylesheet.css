@@ -42,6 +42,11 @@
   text-decoration: underline;
 }
 
+.cmtx_container p {
+  margin-top: 16px !important;
+  margin-bottom: 16px !important;
+}
+
 .cmtx_container input, .cmtx_container select, .cmtx_container textarea, .cmtx_container label {
   margin: 0;
   height: auto;

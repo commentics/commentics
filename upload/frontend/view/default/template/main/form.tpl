@@ -417,7 +417,7 @@
         </form>
 
         @if enabled_bb_code_bullet
-            <div id="cmtx_bullet_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_bullet_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_bullet_heading }}</div>
@@ -438,7 +438,7 @@
         @endif
 
         @if enabled_bb_code_numeric
-            <div id="cmtx_numeric_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_numeric_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_numeric_heading }}</div>
@@ -459,7 +459,7 @@
         @endif
 
         @if enabled_bb_code_link
-            <div id="cmtx_link_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_link_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_link_heading }}</div>
@@ -478,7 +478,7 @@
         @endif
 
         @if enabled_bb_code_email
-            <div id="cmtx_email_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_email_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_email_heading }}</div>
@@ -497,7 +497,7 @@
         @endif
 
         @if enabled_bb_code_image
-            <div id="cmtx_image_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_image_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_image_heading }}</div>
@@ -514,7 +514,7 @@
         @endif
 
         @if enabled_bb_code_youtube
-            <div id="cmtx_youtube_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_youtube_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_youtube_heading }}</div>
@@ -531,7 +531,7 @@
         @endif
 
         @if enabled_privacy
-            <div id="cmtx_privacy_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_privacy_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_privacy_heading }}</div>
@@ -546,7 +546,7 @@
         @endif
 
         @if enabled_terms
-            <div id="cmtx_terms_modal" class="cmtx_modal_box" hidden role="dialog">
+            <div id="cmtx_terms_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
                     <div>{{ lang_modal_terms_heading }}</div>
@@ -560,6 +560,7 @@
             </div>
         @endif
 
+        {# These settings are passed to common.js #}
         <div id="cmtx_js_settings_form" style="display:none" hidden>{{ cmtx_js_settings_form }}</div>
     @else
         <div class="cmtx_form_disabled">{{ lang_error_form_disabled }}</div>
