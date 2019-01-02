@@ -18,7 +18,7 @@
             &nbsp;
         @endif
 
-        @if current_page bigger than total_pages
+        @if current_page less than total_pages
             <a href="{{ pagination_url_next }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ lang_title_next }}" data-cmtx-page="{{ next_page }}">{{ lang_link_next }}</span></a>
 
             <a href="{{ pagination_url_last }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ lang_title_last }}" data-cmtx-page="{{ total_pages }}">{{ lang_link_last }}</span></a>
