@@ -643,7 +643,7 @@ class MainFormModel extends Model
     /* Checks if the number of recent comments by the user exceeds the maximum amount */
     public function isFloodingMaximum($ip_address, $page_id)
     {
-        $earlier = date('Y-m-d H:is', time() - (3600 * $this->setting->get('flood_control_maximum_period')));
+        $earlier = date('Y-m-d H:i:s', time() - (3600 * $this->setting->get('flood_control_maximum_period')));
 
         /* Count the number of comments (if any) within past period by the current user */
         if ($this->setting->get('flood_control_maximum_all_pages')) { // for all the pages
