@@ -16,6 +16,10 @@
     transform: translate(-50%, -50%);
 }
 
+.cmtx_form_container .cmtx_modal_box {
+    min-width: 400px;
+}
+
 .cmtx_modal_box header {
     padding: 10px;
     border-bottom: 1px solid $grey-lighter;
@@ -65,6 +69,11 @@
     margin-bottom: 10px;
 }
 
+.cmtx_modal_body p {
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+}
+
 #cmtx_privacy_modal .cmtx_modal_body, #cmtx_terms_modal .cmtx_modal_body, #cmtx_autodetect_modal .cmtx_modal_body {
     margin-top: 0;
     margin-bottom: 5px;
@@ -93,8 +102,16 @@
     margin-bottom: 8px;
 }
 
-#cmtx_bullet_modal input, #cmtx_numeric_modal input {
-    width: auto;
+#cmtx_bullet_modal input[type="text"], #cmtx_numeric_modal input[type="text"] {
+    width: 100%;
+}
+
+#cmtx_bullet_modal span, #cmtx_numeric_modal span {
+    padding-right: 15px;
+}
+
+#cmtx_bullet_modal .cmtx_modal_body div:not(:first-of-type), #cmtx_numeric_modal .cmtx_modal_body div:not(:first-of-type) {
+    display: flex;
 }
 
 #cmtx_link_modal .cmtx_modal_body div:nth-of-type(3), #cmtx_email_modal .cmtx_modal_body div:nth-of-type(3) {
@@ -120,8 +137,18 @@
     z-index: $z-index-overlay;
 }
 
-@media all and (max-width: 300px) {
-    .cmtx_modal_box {
+@media all and (max-width: 500px) {
+    .cmtx_form_container .cmtx_modal_box {
+        min-width: 0;
+    }
+
+    .cmtx_form_container .cmtx_modal_box {
+        width: 80%;
+    }
+}
+
+@media all and (max-width: 400px) {
+    .cmtx_comment_container .cmtx_modal_box {
         width: 80%;
     }
 }

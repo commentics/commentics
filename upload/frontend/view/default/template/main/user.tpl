@@ -11,10 +11,10 @@
     @endif
     <script src="{{ common }}"></script>
 </head>
-<body>
+<body class="cmtx_user_body">
     <div id="cmtx_user_container" class="cmtx_user_container cmtx_clear">
         @if lang_heading
-            <h1 class="cmtx_user_heading">{{ lang_heading }}</h1>
+            <h1>{{ lang_heading }}</h1>
         @endif
 
         @if success
@@ -35,37 +35,40 @@
 
         @if user
             <form>
-                <div class="cmtx_user_options_area">
-                    <div class="cmtx_user_section_title">{{ lang_text_options_section }}</div>
+                <div class="cmtx_settings_container">
+                    <div class="cmtx_area cmtx_notifications_area">
+                        <div class="cmtx_area_heading cmtx_desktop">{{ lang_text_notifications_section }}</div>
+                        <div class="cmtx_area_heading cmtx_mobile">{{ lang_text_notifications }}</div>
 
-                    <div class="cmtx_user_section_body">
-                        <div><input type="radio" id="everything" name="to_all" value="1" {{ everything_checked }}> <label for="everything">{{ lang_text_everything }}</label></div>
-                        <div><input type="radio" id="custom" name="to_all" value="0" {{ custom_checked }}> <label for="custom">{{ lang_text_custom }}</label></div>
+                        <div class="cmtx_area_body">
+                            <div><input type="radio" id="everything" name="to_all" value="1" {{ everything_checked }}> <label for="everything">{{ lang_text_everything }}</label></div>
+                            <div><input type="radio" id="custom" name="to_all" value="0" {{ custom_checked }}> <label for="custom">{{ lang_text_custom }}</label></div>
+                        </div>
+
+                        <div class="cmtx_area_body cmtx_notifications_area_custom">
+                            <div class="cmtx_custom_text">{{ lang_text_custom_section }}</div>
+
+                            <div><input type="checkbox" id="to_admin" name="to_admin" value="1" {{ to_admin_checked }}> <label for="to_admin">{{ lang_text_admin_comments }}</label></div>
+                            <div><input type="checkbox" id="to_reply" name="to_reply" value="1" {{ to_reply_checked }}> <label for="to_reply">{{ lang_text_reply_comments }}</label></div>
+                            <div><input type="checkbox" id="to_approve" name="to_approve" value="1" {{ to_approve_checked }}> <label for="to_approve">{{ lang_text_approved_comments }}</label></div>
+                        </div>
                     </div>
 
-                    <div class="cmtx_user_section_body cmtx_user_section_custom">
-                        <div class="cmtx_user_custom_text">{{ lang_text_custom_section }}</div>
+                    <div class="cmtx_area cmtx_format_area">
+                        <div class="cmtx_area_heading">{{ lang_text_format_section }}</div>
 
-                        <div><input type="checkbox" id="to_admin" name="to_admin" value="1" {{ to_admin_checked }}> <label for="to_admin">{{ lang_text_admin_comments }}</label></div>
-                        <div><input type="checkbox" id="to_reply" name="to_reply" value="1" {{ to_reply_checked }}> <label for="to_reply">{{ lang_text_reply_comments }}</label></div>
-                        <div><input type="checkbox" id="to_approve" name="to_approve" value="1" {{ to_approve_checked }}> <label for="to_approve">{{ lang_text_approved_comments }}</label></div>
-                    </div>
-                </div>
-
-                <div class="cmtx_user_format_area">
-                    <div class="cmtx_user_section_title">{{ lang_text_format_section }}</div>
-
-                    <div class="cmtx_user_section_body">
-                        <div><input type="radio" id="html" name="format" value="html" {{ html_checked }}> <label for="html">{{ lang_text_html }}</label></div>
-                        <div><input type="radio" id="text" name="format" value="text" {{ text_checked }}> <label for="text">{{ lang_text_text }}</label></div>
+                        <div class="cmtx_area_body">
+                            <div><input type="radio" id="html" name="format" value="html" {{ html_checked }}> <label for="html">{{ lang_text_html }}</label></div>
+                            <div><input type="radio" id="text" name="format" value="text" {{ text_checked }}> <label for="text">{{ lang_text_text }}</label></div>
+                        </div>
                     </div>
                 </div>
             </form>
 
-            <div id="subscriptions" class="cmtx_user_subscriptions_area">
-                <div class="cmtx_user_section_title">{{ lang_text_subscriptions_section }}</div>
+            <div id="subscriptions" class="cmtx_area cmtx_subscriptions_area">
+                <div class="cmtx_area_heading">{{ lang_text_subscriptions_section }}</div>
 
-                <div class="cmtx_user_section_body">
+                <div class="cmtx_area_body">
                     <table class="cmtx_table">
                         <thead>
                             <tr>
@@ -97,13 +100,13 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
 
-            <div class="cmtx_user_delete_area">
-                <div class="cmtx_user_section_title">{{ lang_text_delete_section }}</div>
+                <div class="cmtx_subscriptions_area_delete">
+                    <div class="cmtx_area_heading">{{ lang_text_delete_section }}</div>
 
-                <div class="cmtx_user_section_body">
-                    <a href="#" class="cmtx_delete_all" title="{{ lang_title_delete_all }}">{{ lang_link_delete }}</a>
+                    <div class="cmtx_area_body">
+                        <a href="#" class="cmtx_delete_all" title="{{ lang_title_delete_all }}">{{ lang_link_delete }}</a>
+                    </div>
                 </div>
             </div>
 

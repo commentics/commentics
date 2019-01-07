@@ -1,35 +1,96 @@
 // _partial/_user.scss
 
+.cmtx_user_body {
+    background-color: #F5F5F5;
+}
+
 .cmtx_user_container {
-    .cmtx_user_heading {
+    width: 100%;
+    max-width: 1140px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+
+    * {
+        box-sizing: border-box;
+        line-height: normal;
+        font-weight: normal;
+    }
+
+    *:before {
+        box-sizing: border-box;
+    }
+
+    *:after {
+        box-sizing: border-box;
+    }
+
+    h1 {
         color: $grey-dark;
         font-size: 32px;
         font-weight: normal;
-        margin-bottom: 10px;
-        margin-top: 0;
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
 
     .cmtx_message {
         display: block;
+        margin-bottom: 20px;
+        padding: 8px 5px 8px 25px;
     }
 
-    .cmtx_user_section_title {
-        background: $grey;
-        color: $white;
+    .cmtx_settings_container {
+        display: flex;
+    }
+
+    .cmtx_area {
+        background-color: $white;
+        padding: 30px;
+        border: 1px solid $grey-light;
+    }
+
+    .cmtx_area_heading {
+        color: $black;
+        font-weight: bold;
+        font-size: 20px;
         height: 25px;
-        padding-left: 5px;
         padding-top: 5px;
     }
 
-    .cmtx_user_section_body {
-        margin-top: 10px;
-        margin-bottom: 10px;
+    .cmtx_area_body {
+        margin-top: 25px;
     }
 
-    .cmtx_user_custom_text {
+    .cmtx_notifications_area, .cmtx_format_area {
+        width: 50%;
+    }
+
+    .cmtx_notifications_area {
+        margin-right: 15px;
+    }
+
+    .cmtx_notifications_area .cmtx_mobile {
+        display: none;
+    }
+
+    .cmtx_notifications_area .cmtx_notifications_area_custom {
+        margin-top: 15px;
+    }
+
+    .cmtx_custom_text {
         color: $grey;
         font-size: 0.8em;
         margin-bottom: 8px;
+    }
+
+    .cmtx_format_area {
+        margin-left: 15px;
+    }
+
+    .cmtx_subscriptions_area {
+        width: 100%;
+        margin-top: 30px;
     }
 
     .cmtx_table {
@@ -48,8 +109,7 @@
     }
 
     .cmtx_table td, th {
-        padding: 3px;
-        padding-left: 5px;
+        padding: 8px;
         border: 1px solid $grey-lighter;
         text-align: left;
     }
@@ -79,20 +139,78 @@
         color: $red;
         cursor: pointer;
     }
-}
 
-@media all and (max-width: 750px) {
-    .cmtx_table, .cmtx_table thead, .cmtx_table tbody, .cmtx_table th, .cmtx_table td, .cmtx_table tr {
-        display: block;
+    .cmtx_subscriptions_area_delete {
+        margin-top: 35px;
+        margin-bottom: 5px;
     }
 
-    .cmtx_table tr {
-        border: 1px solid $grey-lighter;
+    .cmtx_subscriptions_area_delete .cmtx_area_heading {
+        font-size: 16px;
+    }
+
+    .cmtx_subscriptions_area_delete .cmtx_area_body {
+        margin-top: 10px;
+    }
+
+    input[type="radio"] {
+        margin-bottom: 15px;
+    }
+
+    input[type="checkbox"] {
         margin-bottom: 10px;
     }
 
-    .cmtx_table td {
-        border: none;
-        border-bottom: 1px solid $grey-lighter;
+    @media all and (max-width: 1300px) {
+        width: 90%;
+        max-width: none;
+    }
+
+    @media all and (max-width: 1000px) {
+        .cmtx_notifications_area .cmtx_desktop {
+            display: none;
+        }
+
+        .cmtx_notifications_area .cmtx_mobile {
+            display: block;
+        }
+    }
+
+    @media all and (max-width: 800px) {
+        .cmtx_settings_container {
+            display: block;
+        }
+
+        .cmtx_notifications_area, .cmtx_format_area {
+            width: 100%;
+        }
+
+        .cmtx_format_area {
+            margin-top: 30px;
+        }
+
+        .cmtx_notifications_area {
+            margin-right: 0;
+        }
+
+        .cmtx_format_area {
+            margin-left: 0;
+        }
+    }
+
+    @media all and (max-width: 750px) {
+        .cmtx_table, .cmtx_table thead, .cmtx_table tbody, .cmtx_table th, .cmtx_table td, .cmtx_table tr {
+            display: block;
+        }
+
+        .cmtx_table tr {
+            border: 1px solid $grey-lighter;
+            margin-bottom: 10px;
+        }
+
+        .cmtx_table td {
+            border: none;
+            border-bottom: 1px solid $grey-lighter;
+        }
     }
 }

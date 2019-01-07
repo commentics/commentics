@@ -1282,16 +1282,16 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
             if (typeof(cmtx_js_settings_user) != 'undefined') {
                 if (cmtx_js_settings_user.to_all) {
-                    $('#cmtx_user_container .cmtx_user_section_custom').hide();
+                    $('#cmtx_user_container .cmtx_notifications_area_custom').hide();
                 } else {
-                    $('#cmtx_user_container .cmtx_user_section_custom').show();
+                    $('#cmtx_user_container .cmtx_notifications_area_custom').show();
                 }
 
                 $('#cmtx_user_container input[name="to_all"]').on('change', function() {
                     if ($(this).val() == '1') {
-                        $('#cmtx_user_container .cmtx_user_section_custom').fadeOut(500);
+                        $('#cmtx_user_container .cmtx_notifications_area_custom').fadeOut(500);
                     } else {
-                        $('#cmtx_user_container .cmtx_user_section_custom').fadeIn(1000);
+                        $('#cmtx_user_container .cmtx_notifications_area_custom').fadeIn(1000);
                     }
                 });
 

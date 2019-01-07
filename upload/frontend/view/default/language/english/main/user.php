@@ -13,7 +13,7 @@ $_['lang_column_date']                = 'Date';
 $_['lang_column_action']              = 'Action';
 
 // Text
-$_['lang_text_options_section']       = 'What Would You Like To Be Notified Of?';
+$_['lang_text_notifications_section'] = 'What Would You Like To Be Notified Of?';
 $_['lang_text_custom_section']        = 'Notify me of only these specific types:';
 $_['lang_text_format_section']        = 'Format';
 $_['lang_text_subscriptions_section'] = 'Subscriptions (%s)';
@@ -28,6 +28,7 @@ $_['lang_text_text']                  = 'Text';
 $_['lang_text_no_results']            = 'You have no subscriptions';
 $_['lang_text_saving']                = 'Please wait..';
 $_['lang_text_saved']                 = 'Your settings are saved';
+$_['lang_text_notifications']         = 'Notifications';
 
 // Title
 $_['lang_title']                      = 'User';

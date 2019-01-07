@@ -61,7 +61,7 @@ $red-dark:   darken($red, 5%);
     cursor: not-allowed;
 }
 
-.cmtx_button_row input[type="button"] {
+.cmtx_button_row input[type="button"], .cmtx_more_button_row input[type="button"] {
     border-radius: 5px;
 }
 
