@@ -149,7 +149,7 @@
                     <div>{{ lang_modal_flag_heading }}</div>
                 </header>
                 <div class="cmtx_modal_body">
-                    <div><span class="cmtx_icon cmtx_alert_icon" aria-hidden></span> {{ lang_modal_flag_content }}</div>
+                    <div><span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> {{ lang_modal_flag_content }}</div>
                 </div>
                 <footer>
                     <input type="button" id="cmtx_flag_modal_yes" class="cmtx_button cmtx_button_primary" value="{{ lang_modal_yes }}">
