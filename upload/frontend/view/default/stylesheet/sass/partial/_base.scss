@@ -1,12 +1,12 @@
 // _partial/_base.scss
 
-$beige:  #FDFCDC;
-$black:  #000000;
-$blue:   #0000FF;
+$beige:  #fdfcdc;
+$black:  #000;
+$blue:   #00f;
 $green:  #008000;
-$orange: #E97013;
-$red:    #FF0000;
-$white:  #FFFFFF;
+$orange: #e97013;
+$red:    #f00;
+$white:  #fff;
 
 $grey-lightest: lighten($black, 99%);
 $grey-lighter:  lighten($black, 90%);
@@ -16,30 +16,30 @@ $grey-dark:     lighten($black, 30%);
 $grey-darker:   lighten($black, 20%);
 $grey-darkest:  lighten($black, 10%);
 
-$star-full:  #FFD700;
-$star-hover: #FFED85;
+$star-full:  #ffd700;
+$star-hover: #ffed85;
 $star-empty: $grey-lighter;
 
 $green-dark: darken($green, 5%);
 $red-dark:   darken($red, 5%);
 
 .cmtx_button {
-    font-size: 14px;
-    text-align: center;
-    padding: 10px;
-    border: none;
+    background-color: #e7e7e7;
+    border: 0;
+    color: $black;
     display: inline-block;
-    text-decoration: none;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    width: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
     height: auto;
     min-width: 50px;
-    background-color: #E7E7E7;
-    color: $black;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
     transition-duration: 0.4s;
+    width: 100%;
 
     &:hover {
-        background-color: darken(#E7E7E7, 5%);
+        background-color: darken(#e7e7e7, 5%);
     }
 
     &::-moz-focus-inner {
@@ -48,25 +48,25 @@ $red-dark:   darken($red, 5%);
 }
 
 .cmtx_button_primary {
-    background-color: #3F6F95;
+    background-color: #3f6f95;
     color: $white;
 
     &:hover {
-        background-color: darken(#3F6F95, 10%);
+        background-color: darken(#3f6f95, 10%);
     }
 }
 
 .cmtx_button_disabled {
-    opacity: 0.6;
     cursor: not-allowed;
+    opacity: 0.6;
 }
 
-.cmtx_button_row input[type="button"], .cmtx_more_button_row input[type="button"] {
+.cmtx_button_row input[type='button'], .cmtx_more_button_row input[type='button'] {
     border-radius: 5px;
 }
 
 .cmtx_clear::before, .cmtx_clear::after {
-    content: " ";
+    content: ' ';
     display: table;
 }
 

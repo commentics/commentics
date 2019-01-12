@@ -1,13 +1,51 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+
+var autoprefix = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var sass = require('gulp-sass');
+var stylelint = require('gulp-stylelint');
+var uglify = require('gulp-uglify');
+
+// Lint backend Sass
+gulp.task('lint-backend', function() {
+    return gulp.src('upload/backend/view/default/stylesheet/sass/stylesheet.scss')
+        .pipe(stylelint({
+            reporters: [
+                {formatter: 'string', console: true}
+            ]
+        }));
+});
+
+// Lint frontend Sass
+gulp.task('lint-frontend', function() {
+    return gulp.src('upload/frontend/view/default/stylesheet/sass/partial/*.scss')
+        .pipe(stylelint({
+            reporters: [
+                {formatter: 'string', console: true}
+            ]
+        }));
+});
+
+// Lint install Sass
+gulp.task('lint-install', function() {
+    return gulp.src('upload/install/view/default/stylesheet/sass/stylesheet.scss')
+        .pipe(stylelint({
+            reporters: [
+                {formatter: 'string', console: true}
+            ]
+        }));
+});
+
+var autoprefixOptions = {
+    browsers: ['last 2 versions']
+};
 
 /* Precompile and minify Sass for backend */
 gulp.task('sass-backend', function() {
     return gulp.src('upload/backend/view/default/stylesheet/sass/stylesheet.scss')
         .pipe(sass({outputStyle: 'expanded'}))
+        .pipe(autoprefix(autoprefixOptions))
         .pipe(gulp.dest('upload/backend/view/default/stylesheet/css'))
         .pipe(rename('stylesheet.min.css'))
         .pipe(sass({outputStyle: 'compressed'}))
@@ -18,6 +56,7 @@ gulp.task('sass-backend', function() {
 gulp.task('sass-frontend', function() {
     return gulp.src('upload/frontend/view/default/stylesheet/sass/stylesheet.scss')
         .pipe(sass({outputStyle: 'expanded'}))
+        .pipe(autoprefix(autoprefixOptions))
         .pipe(gulp.dest('upload/frontend/view/default/stylesheet/css'))
         .pipe(rename('stylesheet.min.css'))
         .pipe(sass({outputStyle: 'compressed'}))
@@ -28,6 +67,7 @@ gulp.task('sass-frontend', function() {
 gulp.task('sass-install', function() {
     return gulp.src('upload/install/view/default/stylesheet/sass/stylesheet.scss')
         .pipe(sass({outputStyle: 'expanded'}))
+        .pipe(autoprefix(autoprefixOptions))
         .pipe(gulp.dest('upload/install/view/default/stylesheet/css'))
         .pipe(rename('stylesheet.min.css'))
         .pipe(sass({outputStyle: 'compressed'}))
@@ -98,6 +138,8 @@ gulp.task('watch', function() {
     gulp.watch('upload/frontend/view/default/stylesheet/sass/**/*.scss', ['sass-frontend']);
     gulp.watch('upload/install/view/default/stylesheet/sass/**/*.scss', ['sass-install']);
 });
+
+gulp.task('lint', ['lint-backend', 'lint-frontend', 'lint-install']);
 
 gulp.task('sass', ['sass-backend', 'sass-frontend', 'sass-install']);
 

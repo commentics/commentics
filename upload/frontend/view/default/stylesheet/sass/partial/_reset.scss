@@ -5,15 +5,15 @@
 
     * {
         box-sizing: border-box;
-        line-height: normal;
         font-weight: normal;
+        line-height: normal;
     }
 
-    *:before {
+    *::before {
         box-sizing: border-box;
     }
 
-    *:after {
+    *::after {
         box-sizing: border-box;
     }
 
@@ -43,7 +43,7 @@
     }
 
     input, select, textarea, label {
-        margin: 0;
         height: auto;
+        margin: 0;
     }
 }

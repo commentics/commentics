@@ -10,19 +10,16 @@
 
 #cmtx_perm_0 {
     border: 1px dashed $grey;
-    margin-top: 10px;
     margin-bottom: 20px;
+    margin-top: 10px;
     padding-bottom: 5px;
 }
 
 .cmtx_preview_text {
     color: $grey;
     font-size: 0.8em;
-    margin-top: 9px;
     font-weight: normal;
-}
-
-.cmtx_maintenance_mode {
+    margin-top: 9px;
 }
 
 .cmtx_maintenance_mode_admin, .cmtx_javascript_disabled {
@@ -50,9 +47,6 @@
 
 .cmtx_honeypot {
     display: none !important;
-}
-
-.cmtx_row {
 }
 
 .cmtx_row [class*='cmtx_col_'] {
@@ -128,13 +122,13 @@
 }
 
 .cmtx_message {
-    border: 1px solid;
-    padding: 5px 5px 5px 25px;
-    background-repeat: no-repeat;
     background-position: 5px center;
-    position: relative;
-    margin-bottom: 12px;
+    background-repeat: no-repeat;
+    border: 1px solid;
     display: none;
+    margin-bottom: 12px;
+    padding: 5px 5px 5px 25px;
+    position: relative;
 }
 
 .cmtx_message span {
@@ -143,30 +137,27 @@
 }
 
 .cmtx_message_success {
-    color: #4F8A10;
-    background-color: #E8FCDC;
-    background-image: url("../../image/message/success.png");
+    background-color: #e8fcdc;
+    background-image: url('../../image/message/success.png');
+    color: #4f8a10;
 }
 
 .cmtx_message_error {
-    color: #D8000C;
-    background-color: #FFBABA;
-    background-image: url("../../image/message/error.png");
+    background-color: #ffbaba;
+    background-image: url('../../image/message/error.png');
+    color: #d8000c;
 }
 
 .cmtx_message_info {
-    color: #00529B;
-    background-color: #BDE5F8;
-    background-image: url("../../image/message/information.png");
+    background-color: #bde5f8;
+    background-image: url('../../image/message/information.png');
+    color: #00529b;
 }
 
 .cmtx_message_warning {
-    color: #00529B;
-    background-color: #BDE5F8;
-    background-image: url("../../image/message/warning.png");
-}
-
-.cmtx_message_reply {
+    background-color: #bde5f8;
+    background-image: url('../../image/message/warning.png');
+    color: #00529b;
 }
 
 .cmtx_message_reply a {
@@ -175,22 +166,22 @@
 }
 
 .cmtx_error {
-    margin-top: 2px;
     color: $red;
-    font-size: 0.9em;
     display: block;
+    font-size: 0.9em;
+    margin-top: 2px;
 }
 
 .cmtx_field {
+    background-color: $white;
     border: 1px solid $grey-lighter;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     font-weight: normal;
-    padding: 4px 6px;
-    vertical-align: middle;
-    text-align: center !important;
     height: 35px !important;
-    background-color: $white;
+    padding: 4px 6px;
+    text-align: center !important;
+    vertical-align: middle;
 }
 
 .cmtx_field_error {
@@ -198,8 +189,8 @@
 }
 
 .cmtx_field[disabled], .cmtx_field[readonly] {
-    cursor: not-allowed;
     background-color: $grey-lighter;
+    cursor: not-allowed;
     user-select: none;
 }
 
@@ -218,8 +209,8 @@
 
 .cmtx_required {
     background-image: url('../../image/misc/asterisk.png');
-    background-repeat: no-repeat;
     background-position: 5px 57%;
+    background-repeat: no-repeat;
 }
 
 .cmtx_wait_for_comment, .cmtx_wait_for_user {
@@ -231,11 +222,11 @@
 }
 
 .cmtx_icons_container {
-    background: rgba(0, 0, 0, 0) -moz-linear-gradient(center top , #FBFBFB, $white) repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) -moz-linear-gradient(center top , #fbfbfb, $white) repeat scroll 0 0;
     border: 1px solid $grey-lighter;
     border-radius: 3px;
-    padding: 3px;
     cursor: default;
+    padding: 3px;
 }
 
 .cmtx_bb_code_container, .cmtx_smilies_container {
@@ -243,12 +234,12 @@
 }
 
 .cmtx_bb_code {
-    background-image: url(../../image/bb_code/sprite.png);
+    background-image: url('../../image/bb_code/sprite.png');
     background-repeat: no-repeat;
     display: inline-block;
-    width: 16px;
     height: 16px;
     vertical-align: middle;
+    width: 16px;
 }
 
 .cmtx_bb_code:not(:first-child) {
@@ -328,12 +319,12 @@
 }
 
 .cmtx_smiley {
-    background-image: url(../../image/smilies/sprite.png);
+    background-image: url('../../image/smilies/sprite.png');
     background-repeat: no-repeat;
     display: inline-block;
-    width: 20px;
     height: 20px;
     vertical-align: middle;
+    width: 20px;
 }
 
 .cmtx_smiley:not(:first-child) {
@@ -400,9 +391,6 @@
     background-position: -35px -95px;
 }
 
-.cmtx_comment_container_active {
-}
-
 .cmtx_comment_field {
     font-size: 14px;
     line-height: 25px;
@@ -410,13 +398,13 @@
 }
 
 .cmtx_comment_field_active {
-    height: 125px !important;
-    transition: height 0.25s ease-in !important;
-    text-align: left !important;
     background-image: none;
-    line-height: normal;
     font-size: inherit;
+    height: 125px !important;
+    line-height: normal;
     padding: 5px;
+    text-align: left !important;
+    transition: height 0.25s ease-in !important;
 }
 
 .cmtx_counter {
@@ -448,11 +436,11 @@
 }
 
 .cmtx_rating {
-    text-align: center;
+    background-color: $white;
     border: 1px solid $grey-lighter;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-    background-color: $white;
+    text-align: center;
 }
 
 .cmtx_rating_block {
@@ -464,12 +452,12 @@
     display: none;
 }
 
-.cmtx_rating_block > label:before {
-    margin: 5px;
-    font-size: 1.25em;
-    font-family: FontAwesome;
+.cmtx_rating_block > label::before {
+    content: '\f005';
     display: inline-block;
-    content: "\f005";
+    font-family: FontAwesome;
+    font-size: 1.25em;
+    margin: 5px;
 }
 
 .cmtx_rating_block > label {
@@ -536,8 +524,8 @@ select.cmtx_required {
 }
 
 .cmtx_checkbox_container input {
-    margin-right: 2px !important;
     display: inline-block;
+    margin-right: 2px !important;
     vertical-align: baseline;
 }
 
@@ -551,16 +539,16 @@ select.cmtx_required {
 
 .cmtx_question_field {
     cursor: default;
-    padding: 6px;
     height: auto !important;
     line-height: 23px;
+    padding: 6px;
 }
 
 .cmtx_securimage_refresh {
-    vertical-align: top;
-    cursor: pointer;
     color: $grey;
+    cursor: pointer;
     font-size: 14px;
+    vertical-align: top;
 }
 
 .cmtx_securimage_field {
@@ -568,7 +556,7 @@ select.cmtx_required {
 }
 
 .cmtx_admin_button {
-    box-shadow: 0 0 8px #00CD00;
+    box-shadow: 0 0 8px #00cd00;
 }
 
 .cmtx_powered_by_container {
@@ -576,8 +564,8 @@ select.cmtx_required {
 }
 
 .cmtx_powered_by {
-    font-size: 10px;
     color: $grey;
+    font-size: 10px;
 }
 
 .cmtx_parsing_box {
@@ -586,7 +574,7 @@ select.cmtx_required {
     box-shadow: 3px 3px 5px $grey;
     color: #242424;
     float: left;
-    font-family: "Lucida Console";
+    font-family: 'Lucida Console';
     font-size: 11px;
     margin-top: 10px;
     padding: 5px;
@@ -639,7 +627,7 @@ select.cmtx_required {
         width: 50%;
     }
 
-    .cmtx_button_row [class*="cmtx_col_"]:not(:first-child):not(:last-child) {
+    .cmtx_button_row [class*='cmtx_col_']:not(:first-child):not(:last-child) {
         padding: 0 !important;
     }
 
@@ -654,7 +642,7 @@ select.cmtx_required {
         width: 100%;
     }
 
-    .cmtx_button_row [class*="cmtx_col_"] {
+    .cmtx_button_row [class*='cmtx_col_'] {
         padding: 0 !important;
     }
 

@@ -3,8 +3,8 @@
 #cmtx_container {
     .jFiler ul.list-inline li {
         display: inline-block;
-        padding-right: 5px;
         padding-left: 5px;
+        padding-right: 5px;
     }
 
     .jFiler .pull-left {
@@ -16,32 +16,32 @@
     }
 
     span.jFiler-icon-file {
-        position: relative;
-        width: 57px;
-        height: 70px;
-        display: inline-block;
-        line-height: 70px;
-        text-align: center;
         border-radius: 3px;
+        box-shadow: 42px -55px 0 0 #a4a7ac inset;
         color: #fff;
+        display: inline-block;
         font-size: 13px;
         font-weight: bold;
+        height: 70px;
+        line-height: 70px;
         overflow: hidden;
-        box-shadow: 42px -55px 0 0 #A4A7AC inset;
+        position: relative;
+        text-align: center;
+        width: 57px;
     }
 
-    span.jFiler-icon-file:after {
-        position: absolute;
-        top: -1px;
-        right: -1px;
-        display: inline-block;
-        content: '';
+    span.jFiler-icon-file::after {
+        border-color: transparent transparent transparent #dadde1;
         border-style: solid;
         border-width: 16px 0 0 16px;
-        border-color: transparent transparent transparent #DADDE1;
+        content: '';
+        display: inline-block;
+        position: absolute;
+        right: -1px;
+        top: -1px;
     }
 
-    span.jFiler-icon-file i[class*="icon-jfi-"] {
+    span.jFiler-icon-file i[class*='icon-jfi-'] {
         font-size: 24px;
     }
 
@@ -49,54 +49,47 @@
         box-shadow: 42px -55px 0 0 #e15955 inset;
     }
 
-    span.jFiler-icon-file.f-image:after {
-        border-left-color: #C6393F;
+    span.jFiler-icon-file.f-image::after {
+        border-left-color: #c6393f;
     }
 
     span.jFiler-icon-file.f-video {
-        box-shadow: 42px -55px 0 0 #4183D7 inset;
+        box-shadow: 42px -55px 0 0 #4183d7 inset;
     }
 
-    span.jFiler-icon-file.f-video:after {
-        border-left-color: #446CB3;
+    span.jFiler-icon-file.f-video::after {
+        border-left-color: #446cb3;
     }
 
     span.jFiler-icon-file.f-audio {
-        box-shadow: 42px -55px 0 0 #5BAB6E inset;
+        box-shadow: 42px -55px 0 0 #5bab6e inset;
     }
 
-    span.jFiler-icon-file.f-audio:after {
+    span.jFiler-icon-file.f-audio::after {
         border-left-color: #448353;
     }
 
     .jFiler-jProgressBar {
-        height: 8px;
-        background: #F1F1F1;
-        margin-top: 3px;
-        margin-bottom: 0;
-        overflow: hidden;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
+        background: #f1f1f1;
         border-radius: 4px;
+        height: 8px;
+        margin-bottom: 0;
+        margin-top: 3px;
+        overflow: hidden;
     }
 
     .jFiler-jProgressBar .bar {
-        float: left;
-        width: 0;
-        height: 100%;
-        font-size: 12px;
+        background-color: #50a1e9;
+        border-radius: 4px;
+        box-sizing: border-box;
         color: $white;
+        float: left;
+        font-size: 12px;
+        height: 100%;
         text-align: center;
         text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-        background-color: #50A1E9;
-        box-sizing: border-box;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-        -webkit-transition: width 0.3s ease;
-        -moz-transition: width 0.3s ease;
-        -o-transition: width 0.3s ease;
         transition: width 0.3s ease;
+        width: 0;
     }
 
     .jFiler-jProgressBar .bar.dark {
@@ -104,66 +97,62 @@
     }
 
     .jFiler-jProgressBar .bar.blue {
-        background-color: #428BCA;
+        background-color: #428bca;
     }
 
     .jFiler-jProgressBar .bar.green {
-        background-color: #5CB85C;
+        background-color: #5cb85c;
     }
 
     .jFiler-jProgressBar .bar.orange {
-        background-color: #F7A923;
+        background-color: #f7a923;
     }
 
     .jFiler-jProgressBar .bar.red {
-        background-color: #D9534F;
+        background-color: #d9534f;
     }
 
-    .jFiler-row:after, .jFiler-item:after {
+    .jFiler-row::after, .jFiler-item::after {
+        clear: both;
+        content: '';
         display: table;
         line-height: 0;
-        content: "";
-        clear: both;
     }
 
     .jFiler-items ul {
+        list-style: none;
         margin: 0;
         padding: 0;
-        list-style: none;
     }
 
     .jFiler-theme-default .jFiler-input {
-        position: relative;
-        display: block;
-        width: 400px;
-        height: 35px;
-        margin: 0 0 15px 0;
-        background: #FEFEFE;
-        border: 1px solid #CECECE;
-        font-size: 12px;
-        color: #888;
+        background: #fefefe;
+        border: 1px solid #cecece;
         border-radius: 4px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0 4px 5px -5px inset;
+        color: #888;
         cursor: pointer;
+        display: block;
+        font-size: 12px;
+        height: 35px;
+        margin: 0 0 15px;
         overflow: hidden;
-        -webkit-box-shadow: rgba(0,0,0,.25) 0 4px 5px -5px inset;
-        -moz-box-shadow: rgba(0,0,0,.25) 0 4px 5px -5px inset;
-        box-shadow: rgba(0,0,0,.25) 0 4px 5px -5px inset;
+        position: relative;
+        width: 400px;
     }
 
     .jFiler-theme-default .jFiler-input.focused {
+        box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
         outline: none;
-        -webkit-box-shadow: 0 0 7px rgba(0,0,0,0.1);
-        -moz-box-shadow: 0 0 7px rgba(0,0,0,0.1);
-        box-shadow: 0 0 7px rgba(0,0,0,0.1);
     }
 
     .jFiler-theme-default .jFiler.dragged .jFiler-input {
-        border: 1px dashed #AAAAAA;
-        background: #F9F9F9;
+        background: #f9f9f9;
+        border: 1px dashed #aaa;
     }
 
     .jFiler-theme-default .jFiler.dragged .jFiler-input:hover {
-        background: #FFF8D0;
+        background: #fff8d0;
     }
 
     .jFiler-theme-default .jFiler.dragged .jFiler-input * {
@@ -171,8 +160,8 @@
     }
 
     .jFiler-theme-default .jFiler.dragged .jFiler-input .jFiler-input-caption {
-        width: 100%;
         text-align: center;
+        width: 100%;
     }
 
     .jFiler-theme-default .jFiler.dragged .jFiler-input .jFiler-input-button {
@@ -183,62 +172,46 @@
         display: block;
         float: left;
         height: 100%;
-        padding-top: 8px;
-        padding-left: 10px;
-        text-overflow: ellipsis;
         overflow: hidden;
+        padding-left: 10px;
+        padding-top: 8px;
+        text-overflow: ellipsis;
     }
 
     .jFiler-theme-default .jFiler-input-button {
+        background-color: #fefefe;
+        background-image: linear-gradient(to bottom, #fefefe, #f1f1f1);
+        border-left: 1px solid #ccc;
+        color: #666;
         display: block;
         float: right;
         height: 100%;
-        padding-top: 8px;
         padding-left: 15px;
         padding-right: 15px;
-        border-left: 1px solid #CCC;
-        color: #666666;
+        padding-top: 8px;
         text-align: center;
-        background-color: #FEFEFE;
-        background-image: -webkit-gradient(linear,0 0,0 100%,from(#FEFEFE),to(#F1F1F1));
-        background-image: -webkit-linear-gradient(top,#FEFEFE,#F1F1F1);
-        background-image: -o-linear-gradient(top,#FEFEFE,#F1F1F1);
-        background-image: linear-gradient(to bottom,#FEFEFE,#F1F1F1);
-        background-image: -moz-linear-gradient(top,#FEFEFE,#F1F1F1);
-        -webkit-transition: all .1s ease-out;
-        -moz-transition: all .1s ease-out;
-        -o-transition: all .1s ease-out;
-        transition: all .1s ease-out;
+        transition: all 0.1s ease-out;
     }
 
     .jFiler-theme-default .jFiler-input-button:hover {
-        -moz-box-shadow: inset 0 0 10px rgba(0,0,0,0.07);
-        -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.07);
-        box-shadow: inset 0 0 10px rgba(0,0,0,0.07);
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.07);
     }
 
     .jFiler-theme-default .jFiler-input-button:active {
-        background-image: -webkit-gradient(linear,0 0,0 100%,from(#F1F1F1),to(#FEFEFE));
-        background-image: -webkit-linear-gradient(top,#F1F1F1,#FEFEFE);
-        background-image: -o-linear-gradient(top,#F1F1F1,#FEFEFE);
-        background-image: linear-gradient(to bottom,#F1F1F1,#FEFEFE);
-        background-image: -moz-linear-gradient(top,#F1F1F1,#FEFEFE);
-    }
-
-    .jFiler-items-default .jFiler-items {
+        background-image: linear-gradient(to bottom, #f1f1f1, #fefefe);
     }
 
     .jFiler-items-default .jFiler-item {
-        position: relative;
-        padding: 16px;
+        background: #f7f7f7;
+        color: #4d4d4c;
         margin-bottom: 16px;
-        background: #F7F7F7;
-        color: #4D4D4C;
+        padding: 16px;
+        position: relative;
     }
 
     .jFiler-items-default .jFiler-item .jFiler-item-icon {
+        color: #f5871f;
         font-size: 32px;
-        color: #F5871F;
         margin-right: 15px;
         margin-top: -3px;
     }
@@ -248,8 +221,8 @@
     }
 
     .jFiler-items-default .jFiler-item .jFiler-item-others {
-        font-size: 12px;
         color: #777;
+        font-size: 12px;
         margin-left: -5px;
         margin-right: -5px;
     }
@@ -260,20 +233,20 @@
     }
 
     .jFiler-items-default .jFiler-item-assets {
-        position: absolute;
         display: block;
+        margin-top: -10px;
+        position: absolute;
         right: 16px;
         top: 50%;
-        margin-top: -10px;
     }
 
     .jFiler-items-default .jFiler-item-assets a {
-        padding: 8px 9px 8px 12px;
-        cursor: pointer;
-        background: #FAFAFA;
-        color: #777;
+        background: #fafafa;
+        border: 1px solid #e3e3e3;
         border-radius: 4px;
-        border: 1px solid #E3E3E3;
+        color: #777;
+        cursor: pointer;
+        padding: 8px 9px 8px 12px;
     }
 
     .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:hover, .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:active {
@@ -289,34 +262,32 @@
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container {
-        position: relative;
-        padding: 10px;
-        border: 1px solid #E1E1E1;
+        background: #fff;
+        border: 1px solid #e1e1e1;
         border-radius: 3px;
-        background: #FFF;
-        -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.06);
-        -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.06);
-        box-shadow: 0px 0px 3px rgba(0,0,0,0.06);
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.06);
+        padding: 10px;
+        position: relative;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-thumb {
-        position: relative;
-        width: 160px;
+        border: 1px solid #e1e1e1;
         height: 115px;
         min-height: 115px;
-        border: 1px solid #E1E1E1;
         overflow: hidden;
+        position: relative;
+        width: 160px;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-thumb .jFiler-item-thumb-image {
-        width: 100%;
         height: 100%;
         text-align: center;
+        width: 100%;
     }
 
     .jFiler-item .jFiler-item-container .jFiler-item-thumb img {
-        max-width: none;
         max-height: 100%;
+        max-width: none;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-thumb span.jFiler-icon-file {
@@ -325,45 +296,39 @@
 
     .jFiler-items-grid .jFiler-item-thumb-image.fi-loading {
         background: url('data:image/gif;base64,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') no-repeat center;
-        width: 100%;
         height: 100%;
+        width: 100%;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-info {
-        position: absolute;
+        background: linear-gradient(to top, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0) 100%);
         bottom: -10%;
-        left: 0;
-        width: 100%;
-        color: #FFF;
-        padding: 6px 10px;
-        background: -moz-linear-gradient(bottom,rgba(0,0,0,1) 0,rgba(0,0,0,0) 100%);
-        background: -webkit-linear-gradient(bottom,rgba(0,0,0,1) 0,rgba(0,0,0,0) 100%);
-        background: -o-linear-gradient(bottom,rgba(0,0,0,1) 0,rgba(0,0,0,0) 100%);
-        background: -ms-linear-gradient(bottom,rgba(0,0,0,1) 0,rgba(0,0,0,0) 100%);
-        background: linear-gradient(to top,rgba(0,0,0,1) 0,rgba(0,0,0,0) 100%);
-        z-index: $z-index-jfiler;
-        opacity: 0;
+        color: #fff;
         filter: opacity(0);
-        -webkit-transition: all 0.12s;
-        -moz-transition: all 0.12s;
+        left: 0;
+        opacity: 0;
+        padding: 6px 10px;
+        position: absolute;
         transition: all 0.12s;
+        width: 100%;
+        z-index: $z-index-jfiler;
     }
 
     .jFiler-items-grid .jFiler-no-thumbnail.jFiler-item .jFiler-item-container .jFiler-item-info {
-        background: rgba(0,0,0,0.55);
+        background: rgba(0, 0, 0, 0.55);
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-thumb:hover .jFiler-item-info {
         bottom: 0;
-        opacity: 1;
         filter: opacity(100);
+        opacity: 1;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-info .jFiler-item-title {
         display: block;
         font-weight: bold;
-        word-break: break-all;
         line-height: 1;
+        word-break: break-all;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-info .jFiler-item-others {
@@ -372,21 +337,21 @@
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-assets {
-        margin-top: 10px;
         color: #999;
+        margin-top: 10px;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-assets .text-success {
-        color: #3C763D;
+        color: #3c763d;
     }
 
     .jFiler-items-grid .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-assets .text-error {
-        color: #A94442;
+        color: #a94442;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-assets .jFiler-jProgressBar {
-        width: 120px;
         margin-left: -5px;
+        width: 120px;
     }
 
     .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-assets .jFiler-item-others {
@@ -394,21 +359,19 @@
     }
 
     .jFiler-items-grid .jFiler-item-trash-action:hover {
+        color: #d9534f;
         cursor: pointer;
-        color: #D9534F;
     }
 
     .jFiler-input-dragDrop {
-        display: block;
-        width: 100%;
-        padding: 25px;
-        color: #97A1A8;
         background: $white;
         border: 3px dotted $grey-lighter;
+        color: #97a1a8;
+        display: block;
+        padding: 25px;
         text-align: center;
-        -webkit-transition: box-shadow 0.3s, border-color 0.3s;
-        -moz-transition: box-shadow 0.3s, border-color 0.3s;
         transition: box-shadow 0.3s, border-color 0.3s;
+        width: 100%;
     }
 
     .jFiler.dragged .jFiler-input-dragDrop {
