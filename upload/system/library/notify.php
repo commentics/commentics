@@ -49,16 +49,17 @@ class Notify
                 $body = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $body);
                 $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
                 $body = str_ireplace('[poster]', $comment['name'], $body);
-                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
                 $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
 
                 if ($admin['format'] == 'text') {
                     $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
                 } else {
-                    $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+                    $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
                 }
 
                 $body = $this->security->decode($body);
+
+                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
 
                 $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
             }
@@ -91,17 +92,18 @@ class Notify
                 $body = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $body);
                 $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
                 $body = str_ireplace('[poster]', $comment['name'], $body);
-                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
                 $body = str_ireplace('[reason]', $this->prepareReasons($comment['notes'], $admin['format']), $body);
                 $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
 
                 if ($admin['format'] == 'text') {
                     $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
                 } else {
-                    $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+                    $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
                 }
 
                 $body = $this->security->decode($body);
+
+                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
 
                 $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
             }
@@ -134,16 +136,17 @@ class Notify
                 $body = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $body);
                 $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
                 $body = str_ireplace('[poster]', $comment['name'], $body);
-                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
                 $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
 
                 if ($admin['format'] == 'text') {
                     $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
                 } else {
-                    $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+                    $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
                 }
 
                 $body = $this->security->decode($body);
+
+                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
 
                 $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
             }
@@ -178,7 +181,7 @@ class Notify
                 if ($admin['format'] == 'text') {
                     $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
                 } else {
-                    $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+                    $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
                 }
 
                 $body = $this->security->decode($body);
@@ -215,16 +218,17 @@ class Notify
         $body = str_ireplace('[page reference]', $comment['page_reference'], $body);
         $body = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $body);
         $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
-        $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $comment['format']), $body);
         $body = str_ireplace('[user url]', $this->prepareUrl($this->buildUserUrl($comment['token'])), $body);
 
         if ($comment['format'] == 'text') {
             $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
         } else {
-            $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+            $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
         }
 
         $body = $this->security->decode($body);
+
+        $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $comment['format']), $body);
 
         $this->email->send($comment['email'], $comment['name'], $subject, $body, $comment['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
     }
@@ -248,7 +252,7 @@ class Notify
         if ($format == 'text') {
             $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
         } else {
-            $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+            $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
         }
 
         $body = $this->security->decode($body);
@@ -342,16 +346,17 @@ class Notify
                     $body = str_ireplace('[page url]', $this->prepareUrl($user['page_url']), $body);
                     $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
                     $body = str_ireplace('[poster]', $comment['name'], $body);
-                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
                     $body = str_ireplace('[user url]', $this->prepareUrl($this->buildUserUrl($user['token'])), $body);
 
                     if ($user['format'] == 'text') {
                         $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
                     } else {
-                        $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+                        $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
                     }
 
                     $body = $this->security->decode($body);
+
+                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
 
                     $this->email->send($user['email'], $user['name'], $subject, $body, $user['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
 
@@ -394,16 +399,17 @@ class Notify
                     $body = str_ireplace('[page url]', $this->prepareUrl($user['page_url']), $body);
                     $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
                     $body = str_ireplace('[poster]', $comment['name'], $body);
-                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
                     $body = str_ireplace('[user url]', $this->prepareUrl($this->buildUserUrl($user['token'])), $body);
 
                     if ($user['format'] == 'text') {
                         $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
                     } else {
-                        $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+                        $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
                     }
 
                     $body = $this->security->decode($body);
+
+                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
 
                     $this->email->send($user['email'], $user['name'], $subject, $body, $user['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
 
@@ -446,16 +452,17 @@ class Notify
                     $body = str_ireplace('[page url]', $this->prepareUrl($user['page_url']), $body);
                     $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
                     $body = str_ireplace('[poster]', $comment['name'], $body);
-                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
                     $body = str_ireplace('[user url]', $this->prepareUrl($this->buildUserUrl($user['token'])), $body);
 
                     if ($user['format'] == 'text') {
                         $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
                     } else {
-                        $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+                        $body = str_ireplace('[signature]', $this->security->decode($this->email->getSignatureHtml()), $body);
                     }
 
                     $body = $this->security->decode($body);
+
+                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
 
                     $this->email->send($user['email'], $user['name'], $subject, $body, $user['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
 
@@ -482,7 +489,9 @@ class Notify
             $comment = strip_tags($comment);
         }
 
-        $comment = $this->security->decode($comment);
+        if ($format == 'text') {
+            $comment = $this->security->decode($comment);
+        }
 
         if ($format == 'text') {
             $comment = preg_replace('/(\r\n){3,}/', "\r\n\r\n", $comment);
