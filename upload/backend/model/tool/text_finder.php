@@ -14,9 +14,9 @@ class ToolTextFinderModel extends Model
         $text = str_replace("'", "\'", $text);
 
         if ($data['location'] == 'backend') {
-            $path = CMTX_DIR_VIEW . $this->setting->get('theme_backend') . '/language/' . $this->setting->get('language_backend') . '/';
+            $path = CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language_backend') . '/';
         } else {
-            $path = CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/';
+            $path = CMTX_DIR_ROOT . 'frontend/view/default/language/' . $this->setting->get('language_frontend') . '/';
         }
 
         $directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::UNIX_PATHS);
