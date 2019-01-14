@@ -467,6 +467,7 @@ img.loading {
 
 .main_dashboard_page .sponsors {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     list-style: none;
     margin: 0;
