@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <div class="block tips_block">
+        <div class="block tips_block dashboard_extra">
             <div class="title"><span class="fa fa-lightbulb-o"></span> <?php echo $lang_title_tip_of_the_day; ?></div>
             <div class="content">
                 <?php echo $tip_of_the_day; ?>

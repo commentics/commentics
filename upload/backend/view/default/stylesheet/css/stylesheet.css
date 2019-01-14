@@ -3811,7 +3811,7 @@ img.loading {
 }
 
 .main_dashboard_page .links_block {
-  min-height: 103px;
+  min-height: 95px;
 }
 
 .main_dashboard_page .title {
@@ -3885,6 +3885,12 @@ img.loading {
 
 .main_dashboard_page span.error {
   margin-top: 0;
+}
+
+@media all and (max-width: 500px) {
+  .main_dashboard_page .dashboard_extra {
+    display: none;
+  }
 }
 
 /* Manage */
@@ -4612,8 +4618,15 @@ div.info a:last-child, div.warning a:last-child {
 .menu-button {
   background-color: #545454 !important;
   color: #fff !important;
-  padding: 15px !important;
+  padding: 10px !important;
   text-decoration: none;
+}
+
+.menu-button .touch-button .navicon {
+  color: #666;
+  font-size: 26px;
+  position: relative;
+  top: 5px;
 }
 
 nav ul {

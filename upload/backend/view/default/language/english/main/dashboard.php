@@ -8,7 +8,7 @@ $_['lang_message_errors']            = 'There are errors that <a href="%s">need 
 $_['lang_heading']                   = 'Dashboard';
 
 // Notice
-$_['lang_notice']                    = 'Purchase a <a href="%s" target="_blank">licence</a> to remove the \'Powered By\' and keep the project going <a>x</a>';
+$_['lang_notice']                    = 'Purchase a <a href="%s" target="_blank">licence</a> to remove the \'Powered By\' <span class="dashboard_extra">and keep the project going</span> <a>x</a>';
 
 // Title
 $_['lang_title_version_check']       = 'Version Check';
@@ -29,9 +29,9 @@ $_['lang_text_upgrade']              = 'upgrade';
 $_['lang_text_unable']               = 'Your server is unable to check';
 $_['lang_text_site_issue']           = 'There is an issue with Commentics.org';
 $_['lang_text_last_login']           = 'The last login was at %s on %s';
-$_['lang_text_stats_action']         = 'You have %d comments that require approval. %d comments are flagged.';
-$_['lang_text_stats_today']          = 'Today you have %d new comments, %d new subscriptions and %d new bans.';
-$_['lang_text_stats_total']          = 'In total you have %d comments, %d subscriptions and %d bans.';
+$_['lang_text_stats_action']         = 'You have %d comments that require approval<span class="dashboard_extra">. %d comments are flagged.</span>';
+$_['lang_text_stats_today']          = 'Today you have %d new comments<span class="dashboard_extra">, %d new subscriptions and %d new bans.</span>';
+$_['lang_text_stats_total']          = 'In total you have %d comments<span class="dashboard_extra">, %d subscriptions and %d bans.</span>';
 $_['lang_text_no_news']              = 'No news found';
 $_['lang_text_no_links']             = 'Not enough data';
 $_['lang_text_no_licence']           = 'No licence';
