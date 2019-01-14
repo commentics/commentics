@@ -121,9 +121,9 @@ abstract class Controller extends Base
 
                 $template_file_time = filemtime($file);
 
-                /* if modification time of both files was determined */
+                /* If modification time of both files was determined */
                 if ($cached_file_time && $template_file_time) {
-                    /* if cached file is older than template file */
+                    /* If cached file is older than template file */
                     if ($cached_file_time < $template_file_time) {
                         $parse_template = true;
                     }
@@ -162,7 +162,7 @@ abstract class Controller extends Base
 
     public function loadLanguage($cmtx_language)
     {
-        /* Always load general.php */
+        /* Load general language file if it exists */
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php')) {
             require cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php');
         } else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/general.php')) {
@@ -171,7 +171,7 @@ abstract class Controller extends Base
             require cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/general.php');
         }
 
-        /* Load requested language file */
+        /* Always load requested language file */
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php')) {
             require_once cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php');
         } else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php')) {
