@@ -389,7 +389,7 @@ class MainCommentsController extends Controller
                 $comment['first_poster'] = false;
             }
 
-            $comment['bio_info_comments'] = $num_approved_comments;
+            $comment['bio_info_posts'] = $num_approved_comments;
 
             if ($this->setting->get('show_like')) {
                 $comment['bio_info_likes'] = $this->user->getNumLikedComments($comment['user_id']);

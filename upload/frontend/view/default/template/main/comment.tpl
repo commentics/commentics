@@ -21,7 +21,7 @@
                         <img src="{{ comment.gravatar_bio }}" class="cmtx_gravatar_bio" alt="Gravatar">
 
                         <div class="cmtx_bio_info">
-                            <div class="cmtx_bio_info_comments"><label>{{ lang_text_bio_info_comments }}</label> <span>{{ comment.bio_info_comments }}</span></div>
+                            <div class="cmtx_bio_info_comments"><label>{{ lang_text_bio_info_posts }}</label> <span>{{ comment.bio_info_posts }}</span></div>
 
                             @if show_like
                                 <div class="cmtx_bio_info_likes"><label>{{ lang_text_bio_info_likes }}</label> <span>{{ comment.bio_info_likes }}</span></div>
