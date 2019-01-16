@@ -4369,7 +4369,7 @@ select.cmtx_required {
 .cmtx_gravatar_area {
   display: inline-block;
   float: left;
-  margin-right: 12px;
+  margin-right: 10px;
   position: relative;
 }
 
@@ -4594,15 +4594,20 @@ select.cmtx_required {
   margin-left: 125px;
 }
 
+.cmtx_upload_area {
+  margin-bottom: 20px;
+}
+
 .cmtx_upload {
   display: inline-block;
   height: auto;
+  margin-top: 10px;
   max-width: 400px;
   width: auto;
 }
 
-.cmtx_upload_area a:not(:last-child) {
-  padding-right: 5px;
+.cmtx_upload_area img:not(:last-child) {
+  padding-right: 10px;
 }
 
 .cmtx_date_and_action_area {
@@ -4878,6 +4883,10 @@ select.cmtx_required {
   }
   .cmtx_reply_area .cmtx_admin_reply {
     float: none;
+  }
+  .cmtx_upload_area img:not(:last-child) {
+    padding-right: 0;
+    margin-bottom: 15px;
   }
   .cmtx_upload {
     max-width: 90%;
