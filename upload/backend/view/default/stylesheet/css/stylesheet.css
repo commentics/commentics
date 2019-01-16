@@ -4213,8 +4213,18 @@ img.loading {
   margin-bottom: 8px !important;
 }
 
-.report_phpinfo_page td {
+.report_phpinfo_page .phpinfodisplay td {
   white-space: normal;
+}
+
+.report_phpinfo_page .phpinfodisplay a {
+  color: initial;
+  cursor: initial;
+  text-decoration: none;
+}
+
+.report_phpinfo_page .phpinfodisplay a:hover {
+  text-decoration: none;
 }
 
 .report_viewers_page .viewer {
