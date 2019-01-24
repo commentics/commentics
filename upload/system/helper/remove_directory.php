@@ -8,7 +8,7 @@ namespace {
 
                 foreach ($i as $f) {
                     if ($f->isFile()) {
-                        unlink($f->getRealPath());
+                        @unlink($f->getRealPath());
                     } else if (!$f->isDot() && $f->isDir()) {
                         remove_directory($f->getRealPath());
                     }
