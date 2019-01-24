@@ -37,8 +37,9 @@ class ExtensionInstallerModel extends Model
             // We use the ZipArchive class
             $zip = new \ZipArchive();
 
-            // Extract the zip file
-            if ($zip->open($zip_file)) {
+            // Open the zip file
+            if ($zip->open($zip_file) === true) {
+                // Extract the zip file
                 if (!$zip->extractTo($temp_folder)) {
                     return $error['lang_error_zip_extract'];
                 }

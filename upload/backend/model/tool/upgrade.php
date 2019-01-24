@@ -128,15 +128,18 @@ class ToolUpgradeModel extends Model
             // We use the ZipArchive class
             $zip = new \ZipArchive();
 
-            // Extract the zip file
-            if ($zip->open($zip_file)) {
+            // Open the zip file
+            $res = $zip->open($zip_file);
+
+            if ($res === true) {
+                // Extract the zip file
                 if (!$zip->extractTo($temp_folder)) {
                     $error = $lang['lang_error_zip_extract'];
                 }
 
                 $zip->close();
             } else {
-                $error = $lang['lang_error_zip_open'];
+                $error = sprintf($lang['lang_error_zip_open'], $res);
             }
         } else {
             $error = $lang['lang_error_no_zip'];
