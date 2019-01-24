@@ -162,7 +162,7 @@
             <div class="cmtx_permalink_box" role="dialog">
                 <div>{{ lang_text_permalink }}</div>
 
-                <input type="text" name="cmtx_permalink" id="cmtx_permalink" class="cmtx_permalink" value="">
+                <input type="text" name="cmtx_permalink" id="cmtx_permalink" class="cmtx_permalink" value="" readonly>
 
                 <div><a href="#">{{ lang_link_close }}</a></div>
             </div>
