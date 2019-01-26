@@ -4167,6 +4167,7 @@ select.cmtx_required {
   display: inline-block;
   margin-right: 2px !important;
   vertical-align: baseline;
+  width: auto;
 }
 
 .cmtx_checkbox_container label {
@@ -4184,15 +4185,15 @@ select.cmtx_required {
   padding: 6px;
 }
 
+#cmtx_securimage_image, .cmtx_securimage_field {
+  width: 215px;
+}
+
 .cmtx_securimage_refresh {
   color: gray;
   cursor: pointer;
   font-size: 14px;
   vertical-align: top;
-}
-
-.cmtx_securimage_field {
-  width: 215px;
 }
 
 .cmtx_admin_button {
@@ -5480,10 +5481,10 @@ select.cmtx_required {
 
 .cmtx_modal_box input[type='text'], .cmtx_modal_box input[type='url'], .cmtx_modal_box input[type='email'] {
   background-color: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
   height: auto;
   margin: 0;
-  outline-color: #d3d3d3;
-  outline-style: auto;
   width: 100%;
 }
 

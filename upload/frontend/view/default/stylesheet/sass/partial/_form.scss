@@ -527,6 +527,7 @@ select.cmtx_required {
     display: inline-block;
     margin-right: 2px !important;
     vertical-align: baseline;
+    width: auto;
 }
 
 .cmtx_checkbox_container label {
@@ -544,15 +545,15 @@ select.cmtx_required {
     padding: 6px;
 }
 
+#cmtx_securimage_image, .cmtx_securimage_field {
+    width: 215px;
+}
+
 .cmtx_securimage_refresh {
     color: $grey;
     cursor: pointer;
     font-size: 14px;
     vertical-align: top;
-}
-
-.cmtx_securimage_field {
-    width: 215px;
 }
 
 .cmtx_admin_button {

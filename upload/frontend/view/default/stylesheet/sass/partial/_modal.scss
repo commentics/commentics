@@ -83,10 +83,10 @@
 
 .cmtx_modal_box input[type='text'], .cmtx_modal_box input[type='url'], .cmtx_modal_box input[type='email'] {
     background-color: $white;
+    border: 1px solid $grey-light;
+    border-radius: 4px;
     height: auto;
     margin: 0;
-    outline-color: #d3d3d3;
-    outline-style: auto;
     width: 100%;
 }
 
