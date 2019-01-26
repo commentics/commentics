@@ -4720,9 +4720,14 @@ select.cmtx_required {
   font-size: 0.8em;
   margin-left: 10px;
   margin-top: 10px;
-  padding: 3px;
+  padding: 4px;
   position: absolute;
   width: auto;
+}
+
+.cmtx_share_box {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .cmtx_share_box a {
@@ -4739,7 +4744,7 @@ select.cmtx_required {
 }
 
 .cmtx_share_box a:not(:first-child) {
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .cmtx_share_digg {
@@ -4831,9 +4836,15 @@ select.cmtx_required {
 }
 
 @media all and (max-width: 800px) {
+  .cmtx_comments_row_one, .cmtx_comments_row_two {
+    margin-bottom: 0;
+  }
+  .cmtx_comments_row_three, .cmtx_comments_row_four {
+    margin-top: 0;
+  }
   .cmtx_row_left, .cmtx_row_middle, .cmtx_row_right {
     float: none;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     text-align: center;
     width: 100%;
   }
@@ -4885,8 +4896,8 @@ select.cmtx_required {
     float: none;
   }
   .cmtx_upload_area img:not(:last-child) {
-    padding-right: 0;
     margin-bottom: 15px;
+    padding-right: 0;
   }
   .cmtx_upload {
     max-width: 90%;
