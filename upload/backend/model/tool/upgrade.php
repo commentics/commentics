@@ -239,7 +239,11 @@ class ToolUpgradeModel extends Model
             // If it's a directory then create it
             if (is_dir($file)) {
                 if (!file_exists($destination)) {
-                    if (!mkdir($destination)) {
+                    if (!@mkdir($destination, 0777, true)) {
+                        $this->log->setFilename('upgrade');
+                        $this->log->write('Could not mkdir: ' . $destination);
+                        $this->log->write(error_get_last());
+
                         return $lang['lang_error_create_dir'];
                     }
                 }
@@ -247,7 +251,11 @@ class ToolUpgradeModel extends Model
 
             // If it's a file then copy it there
             if (is_file($file)) {
-                if (!copy($file, $destination)) {
+                if (!@copy($file, $destination)) {
+                    $this->log->setFilename('upgrade');
+                    $this->log->write('Could not copy: ' . $destination);
+                    $this->log->write(error_get_last());
+
                     return $lang['lang_error_copy_file'];
                 }
             }

@@ -12,7 +12,7 @@ class ExtensionInstallerModel extends Model
         $temp_folder = CMTX_DIR_UPLOAD . 'temp-' . $this->variable->random();
 
         // Create the temp folder
-        mkdir($temp_folder, 0777);
+        @mkdir($temp_folder, 0777);
 
         // Check if the temp folder exists
         if (!is_dir($temp_folder)) {
@@ -52,7 +52,7 @@ class ExtensionInstallerModel extends Model
             }
 
             // Delete the zip file
-            unlink($zip_file);
+            @unlink($zip_file);
         } else {
             remove_directory($temp_folder);
 
@@ -133,8 +133,12 @@ class ExtensionInstallerModel extends Model
             // If it's a directory then create it
             if (is_dir($file)) {
                 if (!file_exists($destination)) {
-                    if (!mkdir($destination)) {
+                    if (!@mkdir($destination, 0777, true)) {
                         remove_directory($temp_folder);
+
+                        $this->log->setFilename('installer');
+                        $this->log->write('Could not mkdir: ' . $destination);
+                        $this->log->write(error_get_last());
 
                         return $error['lang_error_create_dir'];
                     }
@@ -143,8 +147,12 @@ class ExtensionInstallerModel extends Model
 
             // If it's a file then copy it there
             if (is_file($file)) {
-                if (!copy($file, $destination)) {
+                if (!@copy($file, $destination)) {
                     remove_directory($temp_folder);
+
+                    $this->log->setFilename('installer');
+                    $this->log->write('Could not copy: ' . $destination);
+                    $this->log->write(error_get_last());
 
                     return $error['lang_error_copy_file'];
                 }
