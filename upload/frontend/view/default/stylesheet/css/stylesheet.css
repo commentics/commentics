@@ -4344,6 +4344,10 @@ select.cmtx_required {
   text-align: right;
 }
 
+.cmtx_comment_section:first-of-type {
+  margin-top: 7px;
+}
+
 .cmtx_comment_section:not(:last-of-type) {
   border-bottom: 1px dotted #cccccc;
   margin-bottom: 20px;
@@ -4849,6 +4853,9 @@ select.cmtx_required {
     text-align: center;
     width: 100%;
   }
+  .cmtx_return {
+    margin-bottom: 12px;
+  }
   .cmtx_empty_position {
     display: none;
   }
@@ -5164,7 +5171,9 @@ select.cmtx_required {
 .cmtx_return {
   background-color: #fcfcfc;
   border: 1px dotted #e6e6e6;
+  height: 35px;
   line-height: 25px;
+  padding: 4px;
   text-align: center;
 }
 
