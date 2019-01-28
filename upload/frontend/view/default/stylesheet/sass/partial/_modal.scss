@@ -85,8 +85,9 @@
     background-color: $white;
     border: 1px solid $grey-light;
     border-radius: 4px;
-    height: auto;
+    height: 25px;
     margin: 0;
+    padding-left: 2px;
     width: 100%;
 }
 
@@ -98,11 +99,8 @@
     margin-bottom: 8px;
 }
 
-#cmtx_bullet_modal input[type='text'], #cmtx_numeric_modal input[type='text'] {
-    width: 100%;
-}
-
 #cmtx_bullet_modal span, #cmtx_numeric_modal span {
+    line-height: 22px;
     padding-right: 15px;
 }
 
