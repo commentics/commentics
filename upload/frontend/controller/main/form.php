@@ -15,6 +15,12 @@ class MainFormController extends Controller
 
         if ($this->setting->get('enabled_form') && $page['is_form_enabled']) {
             $this->data['display_form'] = true;
+
+            if (defined('CMTX_LOGGED_IN') && CMTX_LOGGED_IN === false) {
+                $this->data['display_form'] = false;
+
+                $this->data['lang_error_form_disabled'] = $this->data['lang_error_logged_in'];
+            }
         } else {
             $this->data['display_form'] = false;
         }

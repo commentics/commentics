@@ -91,8 +91,17 @@ if (isset($cmtx_state)) {
 }
 
 /*
- * The user's language can be passed to Commentics. Make sure it matches with its folder name. For
- * example $cmtx_language = 'german'; selects '/frontend/view/default/language/german/'.
+ * If the website has a login system and you only want logged in users to be able to post,
+ * set $cmtx_logged_in = false; and the user will see a message instead of the form.
+ */
+
+if (isset($cmtx_logged_in)) {
+    define('CMTX_LOGGED_IN', $cmtx_logged_in);
+}
+
+/*
+ * The user's language can be passed to Commentics. Make sure it matches with its folder name.
+ * For example $cmtx_language = 'german'; selects '/frontend/view/default/language/german/'.
  */
 
 if (isset($cmtx_language)) {
