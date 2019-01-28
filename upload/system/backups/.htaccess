@@ -3,5 +3,5 @@ Allow from all
 
 # Force downloading of SQL files
 <Files *.sql>
-ForceType application/octet-stream
+    ForceType application/octet-stream
 </Files>
