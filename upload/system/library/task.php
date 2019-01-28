@@ -19,7 +19,7 @@ class Task
         $this->setting    = $registry->get('setting');
         $this->validation = $registry->get('validation');
 
-        if (!$this->db->isConnected() || !$this->db->isInstalled()) {
+        if (defined('CMTX_INSTALL') || !$this->db->isConnected() || !$this->db->isInstalled()) {
             return;
         }
 
