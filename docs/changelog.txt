@@ -1,3 +1,41 @@
+Version: 3.4
+Date: 31st January 2019
+
+[Feature] One click upgrade
+[Feature] Export / Import tool
+[Feature] Infinite scroll
+[Improvement] Admin receives new version email
+[Improvement] Translatable countries
+[Improvement] Set language from integration code
+[Improvement] Disable form from integration code
+[Improvement] Template parsing
+[Improvement] Adds schema.org markup
+[Improvement] Accessibility improvements
+[Improvement] Moves all JavaScript to JS file
+[Improvement] Waits for jQuery to load
+[Improvement] Combine and minify CSS and JS
+[Improvement] Replaces Mcrypt with OpenSSL
+[Improvement] Email note on edit comment page
+[Improvement] Run task system only once a day
+[Improvement] User page styling
+[Improvement] PSR coding standard
+[Improvement] CSS linting
+[Improvement] Updates social links
+[Improvement] General styling changes
+[Improvement] Disables referrer if settings incorrect
+[Improvement] Upgrades chart script
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades ReadMore script
+[Improvement] Upgrades Securimage script
+[Improvement] Upgrades Timeago script
+[Improvement] Replaces TinyMCE with Summernote
+[Bug Fix] Styling fix for question captcha field
+[Bug Fix] Modification fix for handling glob error
+[Bug Fix] Gravatar hover fix for mobile
+[Bug Fix] Encoding of HTML email
+
+*************************************************************************
+
 Version: 3.3
 Date: 24th March 2018
 
