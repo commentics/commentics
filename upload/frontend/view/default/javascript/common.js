@@ -311,95 +311,159 @@ var cmtx_wait_for_jquery = setInterval(function() {
             /* Image uploads */
             if (typeof(cmtx_js_settings_form) != 'undefined') {
                 if (cmtx_js_settings_form.enabled_upload) {
-                    $('#filer_input').filer({
-                        limit: cmtx_js_settings_form.maximum_upload_amount,
-                        maxSize: cmtx_js_settings_form.maximum_upload_size,
-                        extensions: ['jpg', 'jpeg', 'png', 'gif'],
-                        changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-text" style="margin-top:-6px"><span>' + cmtx_js_settings_form.lang_text_drag_and_drop + '</span></div></div></div>',
-                        showThumbs: true,
-                        appendTo: '.cmtx_image_container',
-                        theme: 'dragdropbox',
-                        templates: {
-                            box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
-                            item:   '<li class="jFiler-item">\
-                                        <div class="jFiler-item-container">\
-                                            <div class="jFiler-item-inner">\
-                                                <div class="jFiler-item-thumb">\
-                                                    <div class="jFiler-item-status"></div>\
-                                                    <div class="jFiler-item-info">\
-                                                        <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
-                                                        <span class="jFiler-item-others">{{fi-size2}}</span>\
-                                                    </div>\
-                                                    {{fi-image}}\
-                                                </div>\
-                                                <div class="jFiler-item-assets jFiler-row">\
-                                                    <ul class="list-inline pull-left">\
-                                                        <li>{{fi-progressBar}}</li>\
-                                                    </ul>\
-                                                    <ul class="list-inline pull-right">\
-                                                        <li><a class="fa fa-trash-o jFiler-item-trash-action"></a></li>\
-                                                    </ul>\
-                                                </div>\
-                                            </div>\
-                                        </div>\
-                                    </li>',
-                            progressBar: '<div class="bar"></div>',
-                            itemAppendToEnd: false,
-                            removeConfirmation: false,
-                            _selectors: {
-                                list: '.jFiler-items-list',
-                                item: '.jFiler-item',
-                                progressBar: '.bar',
-                                remove: '.jFiler-item-trash-action'
-                            }
-                        },
-                        dragDrop: {
-                            dragEnter: null,
-                            dragLeave: null,
-                            drop: null
-                        },
-                        uploadFile: {
-                            url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/sendUpload',
-                            data: null,
-                            type: 'POST',
-                            enctype: 'multipart/form-data',
-                            beforeSend: function(){},
-                            success: function(data, el) {
-                                var parent = el.find(".jFiler-jProgressBar").parent();
-                                el.find(".jFiler-jProgressBar").fadeOut("slow", function() {
-                                    $('<div class="jFiler-item-others text-success"><i class="fa fa-check"></i> ' + cmtx_js_settings_form.lang_text_drop_success + '</div>').hide().appendTo(parent).fadeIn('slow');
-                                });
-                            },
-                            error: function(el) {
-                                var parent = el.find(".jFiler-jProgressBar").parent();
-                                el.find(".jFiler-jProgressBar").fadeOut("slow", function() {
-                                    $('<div class="jFiler-item-others text-error"><i class="fa fa-exclamation"></i> ' + cmtx_js_settings_form.lang_text_drop_error + '</div>').hide().appendTo(parent).fadeIn('slow');
-                                });
-                            },
-                            statusCode: null,
-                            onProgress: null,
-                            onComplete: null
-                        },
-                        addMore: true,
-                        beforeShow: function() {
-                            $('.cmtx_image_row').show();
+                    total_size = 0;
 
-                            return true;
-                        },
-                        onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl) {
-                            if ($('.jFiler-item').length == 1) {
-                                $('.cmtx_image_row').hide();
-                            }
-                        },
-                        captions: {
-                            errors: {
-                                filesLimit: cmtx_js_settings_form.lang_error_file_num,
-                                filesType: cmtx_js_settings_form.lang_error_file_type,
-                                filesSize: cmtx_js_settings_form.lang_error_file_size,
-                                filesSizeAll: cmtx_js_settings_form.lang_error_file_size_all
+                    $('#cmtx_upload').change(function(e) {
+                        e.preventDefault();
+
+                        e.stopPropagation();
+
+                        var image = $('#cmtx_upload')[0].files[0];
+
+                        cmtx_upload(image);
+                    });
+
+                    function cmtx_upload(image) {
+                        $('.cmtx_upload_container').removeClass('cmtx_dragging');
+
+                        if (image) {
+                            var size = parseFloat((image.size / 1024 / 1024).toFixed(2));
+                            var filename = image.name;
+                            var extension = filename.split('.').pop().toLowerCase();
+
+                            if (cmtx_validate_upload(size, extension)) {
+                                var reader = new FileReader();
+
+                                reader.onload = function(e) {
+                                    var src = e.target.result;
+
+                                    template = '';
+
+                                    template += '<div class="cmtx_image_upload">';
+                                    template += '    <div class="cmtx_image_section">';
+                                    template += '        <img src="' + src + '" draggable="false" data-cmtx-size="' + size + '">';
+                                    template += '        <span class="cmtx_image_overlay">' + size + ' MB</span>';
+                                    template += '    </div>';
+                                    template += '    <div class="cmtx_button_section">';
+                                    template += '        <button type="button" class="cmtx_button cmtx_button_remove" title="' + cmtx_js_settings_form.lang_button_remove + '">' + cmtx_js_settings_form.lang_button_remove + '</button>';
+                                    template += '    </div>';
+                                    template += '</div>';
+
+                                    $('.cmtx_image_container').append(template);
+                                    $('.cmtx_image_row').show();
+                                };
+
+                                reader.readAsDataURL(image);
                             }
                         }
+                    }
+
+                    $('.cmtx_upload_container').bind('dragenter', function(e) {
+                        e.preventDefault();
+
+                        e.stopPropagation();
                     });
+
+                    $('.cmtx_upload_container').bind('dragover', function(e) {
+                        e.preventDefault();
+
+                        e.stopPropagation();
+
+                        $('.cmtx_upload_container').addClass('cmtx_dragging');
+                    });
+
+                    $('.cmtx_upload_container').bind('dragleave', function(e) {
+                        e.preventDefault();
+
+                        e.stopPropagation();
+
+                        $('.cmtx_upload_container').removeClass('cmtx_dragging');
+                    });
+
+                    $('body').on('click', '.cmtx_button_remove', function(e) {
+                        e.preventDefault();
+
+                        $(this).closest('.cmtx_image_upload').remove();
+
+                        // Hide container if no images
+                        var num_images = $('.cmtx_image_upload').length;
+
+                        if (num_images == 0) {
+                            $('.cmtx_image_row').hide();
+                        }
+                    });
+
+                    $('body').on('drop', '#cmtx_upload', function(e) {
+                        e.preventDefault();
+
+                        e.stopPropagation();
+
+                        if (e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files.length) {
+                            cmtx_upload(e.originalEvent.dataTransfer.files[0]);
+                        }
+                    });
+
+                    function cmtx_validate_upload(size, extension) {
+                        var num_images = $('.cmtx_image_upload').length;
+
+                        var total_size = 0;
+
+                        $('.cmtx_image_upload').each(function() {
+                            total_size = Number(total_size) + Number($(this).find('img').attr('data-cmtx-size'));
+                        });
+
+                        total_size = Number(total_size) + Number(size);
+
+                        if (num_images >= cmtx_js_settings_form.maximum_upload_amount) {
+                            $('body').append('<div class="cmtx_overlay"></div>');
+
+                            $('.cmtx_overlay').fadeIn(200);
+
+                            $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_num.replace('%d', cmtx_js_settings_form.maximum_upload_amount));
+
+                            $('#cmtx_upload_modal').fadeIn(200);
+
+                            return false;
+                        }
+
+                        if (size > cmtx_js_settings_form.maximum_upload_size) {
+                            $('body').append('<div class="cmtx_overlay"></div>');
+
+                            $('.cmtx_overlay').fadeIn(200);
+
+                            $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_size.replace('%d', cmtx_js_settings_form.maximum_upload_size));
+
+                            $('#cmtx_upload_modal').fadeIn(200);
+
+                            return false;
+                        }
+
+                        if (total_size > cmtx_js_settings_form.maximum_upload_total) {
+                            $('body').append('<div class="cmtx_overlay"></div>');
+
+                            $('.cmtx_overlay').fadeIn(200);
+
+                            $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_total.replace('%d', cmtx_js_settings_form.maximum_upload_total));
+
+                            $('#cmtx_upload_modal').fadeIn(200);
+
+                            return false;
+                        }
+
+                        if ($.inArray(extension, ['gif', 'jpg', 'jpeg', 'png']) == -1) {
+                            $('body').append('<div class="cmtx_overlay"></div>');
+
+                            $('.cmtx_overlay').fadeIn(200);
+
+                            $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_type);
+
+                            $('#cmtx_upload_modal').fadeIn(200);
+
+                            return false;
+                        }
+
+                        return true;
+                    }
                 }
             }
 
@@ -474,7 +538,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('.cmtx_upload_field').remove();
 
-                $('.jFiler-item-thumb-image').each(function() {
+                $('.cmtx_image_upload').each(function() {
                     var image = $(this).find('img').attr('src');
 
                     $('#cmtx_form').append('<input type="hidden" name="cmtx_upload[]" class="cmtx_upload_field" value="' + image + '">');
@@ -536,11 +600,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     if (response['result']['success']) {
                         $('#cmtx_comment, #cmtx_answer, #cmtx_securimage').val('');
 
-                        var filerKit = $('#filer_input').prop('jFiler');
-
-                        if (typeof(filerKit) != 'undefined') {
-                            filerKit.reset();
-                        }
+                        $('.cmtx_image_upload').remove();
 
                         $('.cmtx_image_row').hide();
 

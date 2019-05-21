@@ -254,6 +254,10 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "countries` DROP `name`");
         }
+
+        if ($version == '3.4 -> 3.5') {
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'maximum_upload_total', `value` = '5'");
+        }
     }
 
     public function getInstalledVersion()

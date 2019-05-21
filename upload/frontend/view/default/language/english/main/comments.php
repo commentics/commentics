@@ -50,7 +50,7 @@ $_['lang_title_weibo']             = 'Weibo';
 $_['lang_title_view_replies']      = 'View Replies';
 $_['lang_title_more_comments']     = 'More Comments';
 
-// Dialog
+// Modal
 $_['lang_modal_flag_heading']      = 'Report Comment';
 $_['lang_modal_flag_content']      = 'Are you sure you want to report it?';
 $_['lang_modal_yes']               = 'Yes';

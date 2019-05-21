@@ -132,8 +132,6 @@ $_['lang_text_preview']                  = 'Preview';
 $_['lang_text_preview_only']             = 'Preview only';
 $_['lang_text_required']                 = '* Required information';
 $_['lang_text_drag_and_drop']            = 'Drag & drop images (max %d)';
-$_['lang_text_drop_success']             = 'Success';
-$_['lang_text_drop_error']               = 'Error';
 $_['lang_text_loading']                  = 'Loading ..';
 $_['lang_text_country_first']            = 'Please select a country first';
 $_['lang_text_powered_by']               = 'Powered by <a href="%s" title="Commentics" %s>Commentics</a>';
@@ -151,6 +149,7 @@ $_['lang_text_comment_success']          = 'Your comment has been added';
 $_['lang_text_comment_approve']          = 'Your comment is awaiting approval';
 
 // Modal
+$_['lang_modal_upload_heading']          = 'Image Upload';
 $_['lang_modal_privacy_heading']         = 'Privacy Policy';
 $_['lang_modal_privacy_content']         = '<p>This policy contains information about your privacy. By posting, you are declaring that you understand this policy:</p><ul><li>Your name, rating, website address, town, country, state and comment will be publicly displayed if entered.</li><li>Aside from the data entered into these form fields, other stored data about your comment will include:<ul><li>Your IP address (not displayed)</li><li>The time/date of your submission (displayed)</li></ul></li><li>Your email address will not be shared. It is collected for only two reasons:<ul><li>Administrative purposes, should a need to contact you arise.</li><li>To inform you of new comments, should you subscribe to receive notifications.</li></ul></li><li>A cookie may be set on your computer. This is used to remember your inputs. It will expire by itself.</li></ul><p>This policy is subject to change at any time and without notice.</p>';
 $_['lang_modal_terms_heading']           = 'Terms and Conditions';
@@ -196,10 +195,10 @@ $_['lang_error_comment_max_smilies']     = 'The comment contains too many smilie
 $_['lang_error_comment_invalid_link']    = 'The comment contains an invalid link';
 $_['lang_error_comment_min_length']      = 'The comment length is too short';
 $_['lang_error_comment_max_length']      = 'The comment length is too long';
-$_['lang_error_file_type']               = 'Only images are allowed to be uploaded.';
-$_['lang_error_file_num']                = 'Only {{fi-limit}} files are allowed to be uploaded.';
-$_['lang_error_file_size']               = '{{fi-name}} is too large! Please upload files up to {{fi-maxSize}} MB.';
-$_['lang_error_file_size_all']           = 'The files you\'ve chosen are too large! Please upload files up to {{fi-maxSize}} MB.';
+$_['lang_error_file_num']                = 'A maximum of %d files are allowed to be uploaded';
+$_['lang_error_file_size']               = 'Please upload files no bigger than %d MB in size';
+$_['lang_error_file_total']              = 'The total size of all files must be less than %d MB';
+$_['lang_error_file_type']               = 'Only image file types are allowed to be uploaded';
 $_['lang_error_name_empty']              = 'Please enter your name';
 $_['lang_error_name_invalid']            = 'The name can only contain letters, numbers and \' & . -';
 $_['lang_error_name_start']              = 'The name must start with a letter';
@@ -268,4 +267,5 @@ $_['lang_error_review']                  = 'Please review the errors below';
 // Button
 $_['lang_button_submit']                 = 'Add Comment';
 $_['lang_button_preview']                = 'Preview';
+$_['lang_button_remove']                 = 'Remove';
 $_['lang_button_processing']             = 'Please Wait..';

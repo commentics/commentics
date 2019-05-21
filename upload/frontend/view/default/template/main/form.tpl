@@ -78,7 +78,7 @@
                                     @endif
 
                                     @if enabled_bb_code_email
-                                        <span class="cmtx_bb_code cmtx_bb_code_email" data-cmtx-tag="{{ slang_tag_bb_code_email }}" title="{{ lang_title_bb_code_email }}" data-cmtx-target-modal="#cmtx_email_modal"></span>
+                                        <span class="cmtx_bb_code cmtx_bb_code_email" data-cmtx-tag="{{ lang_tag_bb_code_email }}" title="{{ lang_title_bb_code_email }}" data-cmtx-target-modal="#cmtx_email_modal"></span>
                                     @endif
 
                                     @if enabled_bb_code_image
@@ -185,7 +185,10 @@
                 <div class="cmtx_row cmtx_upload_row cmtx_clear {{ cmtx_wait_for_comment }}">
                     <div class="cmtx_col_12">
                         <div class="cmtx_container cmtx_upload_container">
-                            <input type="file" name="cmtx_files[]" id="filer_input" multiple="multiple" accept="image/*">
+                            <input type='file' name="cmtx_files[]" id="cmtx_upload" accept="image/*">
+                            <div class="cmtx_drag_text">
+                                <div>{{ lang_text_drag_and_drop }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -526,6 +529,19 @@
                 <footer>
                     <input type="button" id="cmtx_youtube_modal_insert" class="cmtx_button cmtx_button_primary" value="{{ lang_modal_insert }}">
                     <input type="button" class="cmtx_button cmtx_button_secondary" value="{{ lang_modal_cancel }}">
+                </footer>
+            </div>
+        @endif
+
+        @if enabled_upload
+            <div id="cmtx_upload_modal" class="cmtx_modal_box" role="dialog">
+                <header>
+                    <a href="#" class="cmtx_modal_close">x</a>
+                    <div>{{ lang_modal_upload_heading }}</div>
+                </header>
+                <div class="cmtx_modal_body"></div>
+                <footer>
+                    <input type="button" class="cmtx_button cmtx_button_secondary" value="{{ lang_modal_close }}">
                 </footer>
             </div>
         @endif

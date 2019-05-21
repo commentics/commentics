@@ -604,9 +604,11 @@ class MainFormController extends Controller
             $this->data['lang_tag_bb_code_bullet']      = $this->data['lang_tag_bb_code_bullet_1'] . '|' . $this->data['lang_tag_bb_code_bullet_2'] . '|' . $this->data['lang_tag_bb_code_bullet_3'] . '|' . $this->data['lang_tag_bb_code_bullet_4'];
             $this->data['lang_tag_bb_code_numeric']     = $this->data['lang_tag_bb_code_numeric_1'] . '|' . $this->data['lang_tag_bb_code_numeric_2'] . '|' . $this->data['lang_tag_bb_code_numeric_3'] . '|' . $this->data['lang_tag_bb_code_numeric_4'];
             $this->data['lang_tag_bb_code_link']        = $this->data['lang_tag_bb_code_link_1'] . '|' . $this->data['lang_tag_bb_code_link_2'] . '|' . $this->data['lang_tag_bb_code_link_3'] . '|' . $this->data['lang_tag_bb_code_link_4'];
-            $this->data['slang_tag_bb_code_email']      = $this->data['lang_tag_bb_code_email_1'] . '|' . $this->data['lang_tag_bb_code_email_2'] . '|' . $this->data['lang_tag_bb_code_email_3'] . '|' . $this->data['lang_tag_bb_code_email_4'];
+            $this->data['lang_tag_bb_code_email']       = $this->data['lang_tag_bb_code_email_1'] . '|' . $this->data['lang_tag_bb_code_email_2'] . '|' . $this->data['lang_tag_bb_code_email_3'] . '|' . $this->data['lang_tag_bb_code_email_4'];
             $this->data['lang_tag_bb_code_image']       = $this->data['lang_tag_bb_code_image_1'] . '|' . $this->data['lang_tag_bb_code_image_2'];
             $this->data['lang_tag_bb_code_youtube']     = $this->data['lang_tag_bb_code_youtube_1'] . '|' . $this->data['lang_tag_bb_code_youtube_2'];
+
+            $this->data['lang_text_drag_and_drop']      = sprintf($this->data['lang_text_drag_and_drop'], $this->setting->get('maximum_upload_amount'));
 
             $this->data['hidden_data'] = str_replace('&', '&amp;', $hidden_data);
 
@@ -620,31 +622,26 @@ class MainFormController extends Controller
                 'enabled_upload'           => (bool) $this->data['enabled_upload'],
                 'maximum_upload_amount'    => (int) $this->setting->get('maximum_upload_amount'),
                 'maximum_upload_size'      => (int) $this->setting->get('maximum_upload_size'),
+                'maximum_upload_total'     => (int) $this->setting->get('maximum_upload_total'),
                 'securimage'               => (bool) $this->data['securimage'],
                 'securimage_url'           => $this->data['securimage_url'],
-                'lang_text_drag_and_drop'  => sprintf($this->data['lang_text_drag_and_drop'], $this->setting->get('maximum_upload_amount')),
-                'lang_text_drop_success'   => $this->data['lang_text_drop_success'],
-                'lang_text_drop_error'     => $this->data['lang_text_drop_error'],
                 'lang_error_file_num'      => $this->data['lang_error_file_num'],
-                'lang_error_file_type'     => $this->data['lang_error_file_type'],
                 'lang_error_file_size'     => $this->data['lang_error_file_size'],
-                'lang_error_file_size_all' => $this->data['lang_error_file_size_all'],
+                'lang_error_file_total'    => $this->data['lang_error_file_total'],
+                'lang_error_file_type'     => $this->data['lang_error_file_type'],
                 'lang_text_loading'        => $this->data['lang_text_loading'],
                 'lang_placeholder_state'   => $this->data['lang_placeholder_state'],
                 'lang_text_country_first'  => $this->data['lang_text_country_first'],
-                'lang_button_processing'   => $this->data['lang_button_processing'],
                 'lang_button_submit'       => $this->data['lang_button_submit'],
-                'lang_button_preview'      => $this->data['lang_button_preview']
+                'lang_button_preview'      => $this->data['lang_button_preview'],
+                'lang_button_remove'       => $this->data['lang_button_remove'],
+                'lang_button_processing'   => $this->data['lang_button_processing']
             );
 
             $this->data['cmtx_js_settings_form'] = json_encode($this->data['cmtx_js_settings_form']);
         }
 
         return $this->data;
-    }
-
-    public function sendUpload()
-    {
     }
 
     public function getStates()

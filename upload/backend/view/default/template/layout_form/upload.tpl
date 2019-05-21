@@ -52,6 +52,16 @@
             <?php } ?>
         </div>
 
+        <div class="fieldset">
+            <label><?php echo $lang_entry_max_total; ?></label>
+            <input type="text" required name="maximum_upload_total" class="small" value="<?php echo $maximum_upload_total; ?>" maxlength="2">
+            <span class="note"><?php echo $lang_note_mb; ?></span>                
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_max_total; ?>', this, event, '')">[?]</a>
+            <?php if ($error_maximum_upload_total) { ?>
+                <span class="error"><?php echo $error_maximum_upload_total; ?></span>
+            <?php } ?>
+        </div>
+
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>

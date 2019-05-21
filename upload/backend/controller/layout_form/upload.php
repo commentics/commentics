@@ -35,6 +35,12 @@ class LayoutFormUploadController extends Controller
             $this->data['maximum_upload_amount'] = $this->setting->get('maximum_upload_amount');
         }
 
+        if (isset($this->request->post['maximum_upload_total'])) {
+            $this->data['maximum_upload_total'] = $this->request->post['maximum_upload_total'];
+        } else {
+            $this->data['maximum_upload_total'] = $this->setting->get('maximum_upload_total');
+        }
+
         if (isset($this->error['maximum_upload_size'])) {
             $this->data['error_maximum_upload_size'] = $this->error['maximum_upload_size'];
         } else {
@@ -45,6 +51,12 @@ class LayoutFormUploadController extends Controller
             $this->data['error_maximum_upload_amount'] = $this->error['maximum_upload_amount'];
         } else {
             $this->data['error_maximum_upload_amount'] = '';
+        }
+
+        if (isset($this->error['maximum_upload_total'])) {
+            $this->data['error_maximum_upload_total'] = $this->error['maximum_upload_total'];
+        } else {
+            $this->data['error_maximum_upload_total'] = '';
         }
 
         $this->data['link_back'] = $this->url->link('settings/layout_form');
@@ -72,6 +84,10 @@ class LayoutFormUploadController extends Controller
 
         if (!isset($this->request->post['maximum_upload_amount']) || !$this->validation->isInt($this->request->post['maximum_upload_amount']) || $this->request->post['maximum_upload_amount'] < 1 || $this->request->post['maximum_upload_amount'] > 10) {
             $this->error['maximum_upload_amount'] = sprintf($this->data['lang_error_range'], 1, 10);
+        }
+
+        if (!isset($this->request->post['maximum_upload_total']) || !$this->validation->isInt($this->request->post['maximum_upload_total']) || $this->request->post['maximum_upload_total'] < 1 || $this->request->post['maximum_upload_total'] > 99) {
+            $this->error['maximum_upload_total'] = sprintf($this->data['lang_error_range'], 1, 99);
         }
 
         if ($this->error) {
