@@ -30,10 +30,14 @@
             <div class="content">
                 <?php if ($version_check['type'] == 'positive') { ?>
                     <span class="positive"><?php echo $version_check['text']; ?></span>
-                <?php }    ?>
+                <?php } ?>
                 <?php if ($version_check['type'] == 'negative') { ?>
-                    <span class="negative"><?php echo $version_check['text']; ?></span> (<a href="<?php echo $upgrade_url; ?>"><?php echo $lang_text_upgrade; ?></a>)
-                <?php }    ?>
+                    <span class="negative"><?php echo $version_check['text']; ?></span>
+
+                    <?php if ($version_check['upgrade']) { ?>
+                        (<a href="<?php echo $upgrade_url; ?>"><?php echo $lang_text_upgrade; ?></a>)
+                    <?php } ?>
+                <?php } ?>
             </div>
         </div>
 
