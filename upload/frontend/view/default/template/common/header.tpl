@@ -2,16 +2,8 @@
     <script src="{{ jquery }}"></script>
 @endif
 
-@if jquery_ui
-    <script src="{{ jquery_ui }}" defer></script>
-@endif
-
 @if read_more
     <script src="{{ read_more }}" defer></script>
-@endif
-
-@if filer
-    <script src="{{ filer }}" defer></script>
 @endif
 
 @if timeago

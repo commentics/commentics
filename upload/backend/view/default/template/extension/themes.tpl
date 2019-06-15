@@ -83,20 +83,6 @@
             <?php } ?>
         </div>
 
-        <div class="fieldset">
-            <label><?php echo $lang_entry_jquery_ui; ?></label>
-            <select name="jquery_ui_source">
-                <option value="" <?php if ($jquery_ui_source == '') { echo 'selected'; } ?>><?php echo $lang_select_no; ?></option>
-                <option value="local" <?php if ($jquery_ui_source == 'local') { echo 'selected'; } ?>><?php echo $lang_select_local; ?></option>
-                <option value="google" <?php if ($jquery_ui_source == 'google') { echo 'selected'; } ?>><?php echo $lang_select_google; ?></option>
-                <option value="jquery" <?php if ($jquery_ui_source == 'jquery') { echo 'selected'; } ?>><?php echo $lang_select_jquery; ?></option>
-            </select>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_jquery_ui_source; ?>', this, event, '')">[?]</a>
-            <?php if ($error_jquery_ui_source) { ?>
-                <span class="error"><?php echo $error_jquery_ui_source; ?></span>
-            <?php } ?>
-        </div>
-
         <p><?php echo $lang_text_parts; ?></p>
 
         <div class="sortable">

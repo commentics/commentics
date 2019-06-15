@@ -21,20 +21,6 @@ class CommonHeaderController extends Controller
                 $this->data['jquery'] = '//code.jquery.com/jquery-1.12.4.min.js';
         }
 
-        switch ($this->setting->get('jquery_ui_source')) {
-            case '':
-                $this->data['jquery_ui'] = '';
-                break;
-            case 'local':
-                $this->data['jquery_ui'] = $this->loadJavascript('jquery/jquery-ui.min.js');
-                break;
-            case 'google':
-                $this->data['jquery_ui'] = '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js';
-                break;
-            default:
-                $this->data['jquery_ui'] = '//code.jquery.com/ui/1.12.1/jquery-ui.min.js';
-        }
-
         if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha') {
             $this->data['recaptcha_api'] = 'https://www.google.com/recaptcha/api.js' . (($this->setting->get('recaptcha_language') == 'auto') ? '' : '?hl=' . $this->setting->get('recaptcha_language'));
         } else {
@@ -42,20 +28,12 @@ class CommonHeaderController extends Controller
         }
 
         if ($this->setting->get('optimize')) {
-            $this->data['read_more'] = $this->data['filer'] = $this->data['timeago'] = $this->data['highlight'] = '';
+            $this->data['read_more'] = $this->data['timeago'] = $this->data['highlight'] = '';
 
-            if ($this->setting->get('jquery_source') == 'local' && $this->setting->get('jquery_ui_source') == 'local') {
-                $this->data['jquery'] = $this->data['jquery_ui'] = '';
-
-                $this->data['common'] = $this->loadJavascript('common-jq-jqui.min.js');
-            } else if ($this->setting->get('jquery_source') == 'local' && $this->setting->get('jquery_ui_source') != 'local') {
+            if ($this->setting->get('jquery_source') == 'local') {
                 $this->data['jquery'] = '';
 
                 $this->data['common'] = $this->loadJavascript('common-jq.min.js');
-            } else if ($this->setting->get('jquery_source') != 'local' && $this->setting->get('jquery_ui_source') == 'local') {
-                $this->data['jquery_ui'] = '';
-
-                $this->data['common'] = $this->loadJavascript('common-jqui.min.js');
             } else {
                 $this->data['common'] = $this->loadJavascript('common.min.js');
             }
@@ -66,12 +44,6 @@ class CommonHeaderController extends Controller
                 $this->data['read_more'] = $this->data['commentics_url'] . '3rdparty/read_more/read_more.js';
             } else {
                 $this->data['read_more'] = '';
-            }
-
-            if ($this->setting->get('enabled_upload')) {
-                $this->data['filer'] = $this->data['commentics_url'] . '3rdparty/filer/filer.js';
-            } else {
-                $this->data['filer'] = '';
             }
 
             if ($this->setting->get('date_auto')) {

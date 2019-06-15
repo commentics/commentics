@@ -257,6 +257,8 @@ class MainUpgrade2Model extends Model
 
         if ($version == '3.4 -> 3.5') {
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'maximum_upload_total', `value` = '5'");
+
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'jquery_ui_source'");
         }
     }
 

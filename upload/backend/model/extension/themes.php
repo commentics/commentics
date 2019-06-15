@@ -15,8 +15,6 @@ class ExtensionThemesModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['jquery_source']) . "' WHERE `title` = 'jquery_source'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['jquery_ui_source']) . "' WHERE `title` = 'jquery_ui_source'");
-
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['order_parts']) . "' WHERE `title` = 'order_parts'");
 
         /* If optimize setting has changed, clear template cache so HTML can be minified / unminified */

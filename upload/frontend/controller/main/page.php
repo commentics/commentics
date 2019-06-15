@@ -58,7 +58,7 @@ class MainPageController extends Controller
         if ($this->setting->get('auto_detect')) {
             $this->loadModel('main/page');
 
-            if (isset($this->request->get['jquery']) && isset($this->request->get['jquery_ui'])) {
+            if (isset($this->request->get['jquery'])) {
                 $this->model_main_page->autoDetect($this->request->get);
             }
         }

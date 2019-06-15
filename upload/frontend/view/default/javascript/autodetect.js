@@ -1,4 +1,4 @@
-/* Auto detect checks whether jQuery and jQuery UI are loaded and updates the theme settings accordingly. Must use plain JavaScript */
+/* Auto detect checks whether jQuery is loaded and updates the theme settings accordingly. Must use plain JavaScript */
 window.onload = function() {
     var cmtx_page_settings = document.getElementById('cmtx_js_settings_page');
 
@@ -17,19 +17,13 @@ window.onload = function() {
                     var jquery = 0;
                 }
 
-                if (window.jQuery && window.jQuery.ui) {
-                    var jquery_ui = 1;
-                } else {
-                    var jquery_ui = 0;
-                }
-
-                var cmtx_url = cmtx_page_settings.commentics_url + 'frontend/index.php?route=main/page/autodetect&jquery=' + jquery + '&jquery_ui=' + jquery_ui;
+                var cmtx_url = cmtx_page_settings.commentics_url + 'frontend/index.php?route=main/page/autodetect&jquery=' + jquery;
 
                 var xhttp = new XMLHttpRequest();
                 xhttp.open('GET', cmtx_url, true);
                 xhttp.send();
 
-                if (!jquery || !jquery_ui) {
+                if (!jquery) {
                     var body = document.getElementsByTagName('body')[0];
 
                     body.insertAdjacentHTML('afterbegin', '<div class="cmtx_overlay"></div>');

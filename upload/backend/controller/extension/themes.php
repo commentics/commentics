@@ -49,12 +49,6 @@ class ExtensionThemesController extends Controller
             $this->data['jquery_source'] = $this->setting->get('jquery_source');
         }
 
-        if (isset($this->request->post['jquery_ui_source'])) {
-            $this->data['jquery_ui_source'] = $this->request->post['jquery_ui_source'];
-        } else {
-            $this->data['jquery_ui_source'] = $this->setting->get('jquery_ui_source');
-        }
-
         if (isset($this->request->post['order_parts'])) {
             $this->data['order_parts'] = $this->request->post['order_parts'];
         } else {
@@ -77,12 +71,6 @@ class ExtensionThemesController extends Controller
             $this->data['error_jquery_source'] = $this->error['jquery_source'];
         } else {
             $this->data['error_jquery_source'] = '';
-        }
-
-        if (isset($this->error['jquery_ui_source'])) {
-            $this->data['error_jquery_ui_source'] = $this->error['jquery_ui_source'];
-        } else {
-            $this->data['error_jquery_ui_source'] = '';
         }
 
         if (isset($this->error['font_awesome_source'])) {
@@ -178,10 +166,6 @@ class ExtensionThemesController extends Controller
 
         if (!isset($this->request->post['jquery_source']) || !in_array($this->request->post['jquery_source'], array('', 'local', 'google', 'jquery'))) {
             $this->error['jquery_source'] = $this->data['lang_error_selection'];
-        }
-
-        if (!isset($this->request->post['jquery_ui_source']) || !in_array($this->request->post['jquery_ui_source'], array('', 'local', 'google', 'jquery'))) {
-            $this->error['jquery_ui_source'] = $this->data['lang_error_selection'];
         }
 
         if (!isset($this->request->post['order_parts']) || !in_array($this->request->post['order_parts'], array('1,2', '2,1'))) {

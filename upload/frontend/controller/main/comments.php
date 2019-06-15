@@ -190,12 +190,6 @@ class MainCommentsController extends Controller
             $this->data['show_reply'] = false;
         }
 
-        if (isset($this->request->get['cmtx_perm']) && $this->validation->isInt($this->request->get['cmtx_perm'])) {
-            $flash_id = (int) $this->request->get['cmtx_perm'];
-        } else {
-            $flash_id = 0;
-        }
-
         $outer_components = array();
 
         if ($this->setting->get('show_average_rating')) {
@@ -302,7 +296,6 @@ class MainCommentsController extends Controller
         $this->data['cmtx_js_settings_comments'] = array(
             'commentics_url'          => $this->url->getCommenticsUrl(),
             'page_id'                 => (int) $this->page->getId(),
-            'flash_id'                => (int) $flash_id,
             'scroll_reply'            => (bool) $this->setting->get('scroll_reply'),
             'scroll_speed'            => (int) $this->setting->get('scroll_speed'),
             'lang_text_view'          => $this->data['lang_text_view'],

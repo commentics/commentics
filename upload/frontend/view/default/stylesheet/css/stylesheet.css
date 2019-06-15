@@ -4297,20 +4297,19 @@ select.cmtx_required {
 }
 
 .cmtx_date_and_action_area {
+  margin-top: 16px;
   min-height: 16px;
 }
 
 .cmtx_date_area {
   color: gray;
+  float: left;
   font-size: 0.8em;
   font-weight: normal;
-  margin-top: 9px;
 }
 
 .cmtx_action_area {
-  bottom: 0;
-  position: absolute;
-  right: 0;
+  float: right;
 }
 
 .cmtx_action_area div {
@@ -4597,9 +4596,12 @@ select.cmtx_required {
   .cmtx_date_and_action_area {
     min-height: 0;
   }
+  .cmtx_date_area {
+    float: none;
+  }
   .cmtx_action_area {
-    margin-top: 15px;
-    position: static;
+    float: none;
+    margin-top: 18px;
   }
   .cmtx_view_replies_area {
     margin-top: 15px;
