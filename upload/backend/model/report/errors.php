@@ -3,6 +3,15 @@ namespace Commentics;
 
 class ReportErrorsModel extends Model
 {
+    public function isBig()
+    {
+        if (file_exists(CMTX_DIR_LOGS . 'errors.log') && filesize(CMTX_DIR_LOGS . 'errors.log') >= 5242880) { // larger than 5 MB
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getErrors()
     {
         if (file_exists(CMTX_DIR_LOGS . 'errors.log')) {

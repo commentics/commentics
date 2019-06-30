@@ -15,7 +15,13 @@ class ReportErrorsController extends Controller
             }
         }
 
-        $this->data['errors'] = $this->model_report_errors->getErrors();
+        if ($this->model_report_errors->isBig()) {
+            $this->data['errors'] = '';
+
+            $this->data['error'] = sprintf($this->data['lang_message_size'], CMTX_DIR_LOGS . 'errors.log');
+        } else {
+            $this->data['errors'] = $this->model_report_errors->getErrors();
+        }
 
         $this->data['link_back'] = 'index.php?route=settings/error_reporting';
 
