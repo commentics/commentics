@@ -393,8 +393,9 @@
 
 .cmtx_comment_field {
     font-size: 14px;
-    line-height: 25px;
+    line-height: initial !important;
     overflow: hidden;
+    padding: 8px 0 !important;
 }
 
 .cmtx_comment_field_active {
@@ -402,7 +403,7 @@
     font-size: inherit;
     height: 125px !important;
     line-height: normal;
-    padding: 5px;
+    padding: 5px !important;
     text-align: left !important;
     transition: height 0.25s ease-in !important;
 }
