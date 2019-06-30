@@ -19,7 +19,7 @@ class CommonPosterModel extends Model
             if (isset($this->request->server['HTTP_REFERER'])) {
                 $referrer = $this->url->decode($this->request->server['HTTP_REFERER']);
 
-                $domain = $this->url->decode($this->request->server['SERVER_NAME']);
+                $domain = $this->url->decode(preg_replace('/^www\./i', '', $this->request->server['SERVER_NAME']));
 
                 if (!stristr($referrer, $domain)) {
                     $error = $data['lang_error_referrer_external'];
