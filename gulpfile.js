@@ -104,33 +104,6 @@ gulp.task('common-jq', function() {
         .pipe(gulp.dest('upload/frontend/view/default/javascript'));
 });
 
-var jquery = [
-    'upload/frontend/view/default/javascript/jquery/jquery-ui.min.js'
-];
-
-/* Concatenate and minify JS (with jQuery UI) */
-gulp.task('common-jqui', function() {
-    return gulp.src(jquery.concat(js_files))
-        .pipe(concat('common-jqui.min.js'))
-        .pipe(gulp.dest('upload/frontend/view/default/javascript'))
-        .pipe(uglify())
-        .pipe(gulp.dest('upload/frontend/view/default/javascript'));
-});
-
-var jquery = [
-    'upload/frontend/view/default/javascript/jquery/jquery.min.js',
-    'upload/frontend/view/default/javascript/jquery/jquery-ui.min.js'
-];
-
-/* Concatenate and minify JS (with jQuery and jQuery UI) */
-gulp.task('common-jq-jqui', function() {
-    return gulp.src(jquery.concat(js_files))
-        .pipe(concat('common-jq-jqui.min.js'))
-        .pipe(gulp.dest('upload/frontend/view/default/javascript'))
-        .pipe(uglify())
-        .pipe(gulp.dest('upload/frontend/view/default/javascript'));
-});
-
 /* Auto precompile Sass on save */
 gulp.task('watch', function() {
     gulp.watch('upload/backend/view/default/stylesheet/sass/**/*.scss', ['sass-backend']);
@@ -142,7 +115,7 @@ gulp.task('lint', ['lint-backend', 'lint-frontend', 'lint-install']);
 
 gulp.task('sass', ['sass-backend', 'sass-frontend', 'sass-install']);
 
-gulp.task('js', ['common', 'common-jq', 'common-jqui', 'common-jq-jqui']);
+gulp.task('js', ['common', 'common-jq']);
 
 /* Default task when running gulp without a command */
 gulp.task('default', ['watch']);

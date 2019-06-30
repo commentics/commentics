@@ -36,6 +36,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('.cmtx_overlay').fadeIn(200);
 
+                $('body').append($(target));
+
                 $(target).fadeIn(200);
             });
 
@@ -48,6 +50,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 $('body').append('<div class="cmtx_overlay"></div>');
 
                 $('.cmtx_overlay').fadeIn(200);
+
+                $('body').append($(target));
 
                 $(target).fadeIn(200);
             });
@@ -64,11 +68,13 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('.cmtx_overlay').fadeIn(200);
 
+                $('body').append($('#cmtx_flag_modal'));
+
                 $('#cmtx_flag_modal').fadeIn(200);
             });
 
             /* Modal cancel button */
-            $('#cmtx_container').on('click', '.cmtx_modal_box .cmtx_button_secondary', function(e) {
+            $('body').on('click', '.cmtx_modal_box .cmtx_button_secondary', function(e) {
                 e.preventDefault();
 
                 $('.cmtx_modal_close').trigger('click');
@@ -421,6 +427,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                             $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_num.replace('%d', cmtx_js_settings_form.maximum_upload_amount));
 
+                            $('body').append($('#cmtx_upload_modal'));
+
                             $('#cmtx_upload_modal').fadeIn(200);
 
                             return false;
@@ -432,6 +440,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
                             $('.cmtx_overlay').fadeIn(200);
 
                             $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_size.replace('%d', cmtx_js_settings_form.maximum_upload_size));
+
+                            $('body').append($('#cmtx_upload_modal'));
 
                             $('#cmtx_upload_modal').fadeIn(200);
 
@@ -445,6 +455,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                             $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_total.replace('%d', cmtx_js_settings_form.maximum_upload_total));
 
+                            $('body').append($('#cmtx_upload_modal'));
+
                             $('#cmtx_upload_modal').fadeIn(200);
 
                             return false;
@@ -456,6 +468,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
                             $('.cmtx_overlay').fadeIn(200);
 
                             $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_type);
+
+                            $('body').append($('#cmtx_upload_modal'));
 
                             $('#cmtx_upload_modal').fadeIn(200);
 
