@@ -9,9 +9,11 @@ class PartAverageRatingController extends Controller
 
         $this->loadModel('part/average_rating');
 
-        $this->data['average_rating'] = $this->model_part_average_rating->getAverageRating($this->page->getId());
+        $average_rating = $this->model_part_average_rating->getAverageRating($this->page->getId());
 
-        $this->data['num_of_ratings'] = $this->model_part_average_rating->getNumOfRatings($this->page->getId());
+        $this->data['average_rating'] = $average_rating['average'];
+
+        $this->data['num_of_ratings'] = $average_rating['total'];
 
         $this->data['commentics_url'] = $this->url->getCommenticsUrl();
 
@@ -89,11 +91,15 @@ class PartAverageRatingController extends Controller
                 if (!$json) {
                     $this->model_part_average_rating->addRating($page_id, $rating, $ip_address);
 
+                    $this->cache->delete('getaveragerating_pageid' . $page_id);
+
                     $json['success'] = $this->data['lang_error_rated'];
 
-                    $json['average_rating'] = $this->model_part_average_rating->getAverageRating($page_id);
+                    $average_rating = $this->model_part_average_rating->getAverageRating($page_id);
 
-                    $json['num_of_ratings'] = $this->model_part_average_rating->getNumOfRatings($page_id);
+                    $json['average_rating'] = $average_rating['average'];
+
+                    $json['num_of_ratings'] = $average_rating['total'];
                 }
             }
 

@@ -3,11 +3,13 @@ namespace Commentics;
 
 class Geo
 {
+    private $cache;
     private $db;
     private $setting;
 
     public function __construct($registry)
     {
+        $this->cache   = $registry->get('cache');
         $this->db      = $registry->get('db');
         $this->setting = $registry->get('setting');
     }
@@ -55,6 +57,14 @@ class Geo
 
     public function getCountries($all = false)
     {
+        if (defined('CMTX_FRONTEND')) { // only cache frontend calls
+            $countries = $this->cache->get('getcountries_' . $this->setting->get('language'));
+
+            if ($countries !== false) {
+                return $countries;
+            }
+        }
+
         if ($all) {
             $status = '0,1';
         } else {
@@ -66,51 +76,46 @@ class Geo
         $query = $this->db->query(" SELECT `c`.*, `g`.`name`
                                     FROM `" . CMTX_DB_PREFIX . "countries` `c`
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
-                                    WHERE `c`.`top` = '1'
-                                    AND `c`.`enabled` IN (" . $status . ")
+                                    WHERE `c`.`enabled` IN (" . $status . ")
                                     AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
-                                    ORDER BY `g`.`name` ASC");
+                                    ORDER BY `c`.`top` DESC, `g`.`name` ASC");
 
         if ($this->db->numRows($query)) {
+            $is_top = false;
+
             $results = $this->db->rows($query);
 
-            $countries[] = array(
-                'id'   => '',
-                'name' => '---',
-                'code' => ''
-            );
+            foreach ($results as $key => $value) {
+                if ($key == 0 && $value['top'] == 1) {
+                    $is_top = true;
 
-            foreach ($results as $result) {
+                    $countries[] = array(
+                        'id'   => '',
+                        'name' => '---',
+                        'code' => ''
+                    );
+                }
+
+                if ($is_top && $value['top'] == 0) {
+                    $is_top = false;
+
+                    $countries[] = array(
+                        'id'   => '',
+                        'name' => '---',
+                        'code' => ''
+                    );
+                }
+
                 $countries[] = array(
-                    'id'   => $result['id'],
-                    'name' => $result['name'],
-                    'code' => $result['code']
+                    'id'   => $value['id'],
+                    'name' => $value['name'],
+                    'code' => $value['code']
                 );
             }
-
-            $countries[] = array(
-                'id'   => '',
-                'name' => '---',
-                'code' => ''
-            );
         }
 
-        $query = $this->db->query(" SELECT `c`.*, `g`.`name`
-                                    FROM `" . CMTX_DB_PREFIX . "countries` `c`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
-                                    WHERE `c`.`top` = '0'
-                                    AND `c`.`enabled` IN (" . $status . ")
-                                    AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
-                                    ORDER BY `g`.`name` ASC");
-
-        $results = $this->db->rows($query);
-
-        foreach ($results as $result) {
-            $countries[] = array(
-                'id'   => $result['id'],
-                'name' => $result['name'],
-                'code' => $result['code']
-            );
+        if (defined('CMTX_FRONTEND')) { // only cache frontend calls
+            $this->cache->set('getcountries_' . $this->setting->get('language'), $countries);
         }
 
         return $countries;
@@ -190,6 +195,14 @@ class Geo
 
     public function getStatesByCountryId($id)
     {
+        if (defined('CMTX_FRONTEND')) { // only cache frontend calls
+            $states = $this->cache->get('getstates_countryid' . $id);
+
+            if ($states !== false) {
+                return $states;
+            }
+        }
+
         $query = $this->db->query("SELECT `code` FROM `" . CMTX_DB_PREFIX . "countries` WHERE `id` = '" . (int) $id . "'");
 
         $result = $this->db->row($query);
@@ -199,6 +212,10 @@ class Geo
         $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "states` WHERE `country_code` = '" . $this->db->escape($code) . "' AND `enabled` = '1' ORDER BY `name` ASC");
 
         $results = $this->db->rows($query);
+
+        if (defined('CMTX_FRONTEND')) { // only cache frontend calls
+            $this->cache->set('getstates_countryid' . $id, $results);
+        }
 
         return $results;
     }

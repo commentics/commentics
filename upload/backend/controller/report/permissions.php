@@ -23,10 +23,22 @@ class ReportPermissionsController extends Controller
                 'text'        => ($this->model_report_permissions->isWritable(CMTX_DIR_BACKUPS)) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
             ),
             array(
-                'path'        => '/commentics/system/cache/',
-                'information' => $this->data['lang_text_cache'],
-                'positive'    => ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE)) ? true : false,
-                'text'        => ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE)) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
+                'path'        => '/commentics/system/cache/database/',
+                'information' => $this->data['lang_text_cache_database'],
+                'positive'    => ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE . 'database/')) ? true : false,
+                'text'        => ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE . 'database/')) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
+            ),
+            array(
+                'path'        => '/commentics/system/cache/modification/',
+                'information' => $this->data['lang_text_cache_modification'],
+                'positive'    => ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE . 'modification/')) ? true : false,
+                'text'        => ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE . 'modification/')) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
+            ),
+            array(
+                'path'        => '/commentics/system/cache/template/',
+                'information' => $this->data['lang_text_cache_template'],
+                'positive'    => ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE . 'template/')) ? true : false,
+                'text'        => ($this->model_report_permissions->isWritable(CMTX_DIR_CACHE . 'template/')) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
             ),
             array(
                 'path'        => '/commentics/system/logs/',
@@ -39,12 +51,6 @@ class ReportPermissionsController extends Controller
                 'information' => $this->data['lang_text_errors'],
                 'positive'    => ($this->model_report_permissions->isWritable(CMTX_DIR_LOGS . 'errors.log')) ? true : false,
                 'text'        => ($this->model_report_permissions->isWritable(CMTX_DIR_LOGS . 'errors.log')) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
-            ),
-            array(
-                'path'        => '/commentics/system/modification/cache/',
-                'information' => $this->data['lang_text_mod_cache'],
-                'positive'    => ($this->model_report_permissions->isWritable(CMTX_DIR_MOD_CACHE)) ? true : false,
-                'text'        => ($this->model_report_permissions->isWritable(CMTX_DIR_MOD_CACHE)) ? $this->data['lang_text_writable'] : $this->data['lang_text_not_writable']
             ),
             array(
                 'path'        => '/commentics/upload/',

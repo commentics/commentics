@@ -175,14 +175,14 @@
         @if rich_snippets_enabled
             </div>
         @endif
-    @elseif permalink_no_results
+
+        {# These settings are passed to common.js #}
+        <div id="cmtx_js_settings_comments" style="display:none" hidden>{{ cmtx_js_settings_comments }}</div>
+    @elseif is_permalink
         <div class="cmtx_no_permalink">{{ lang_text_no_permalink }}</div>
-    @elseif search_no_results
+    @elseif is_search
         <div class="cmtx_no_results">{{ lang_text_no_results }}</div>
     @else
         <div class="cmtx_no_comments">{{ lang_text_no_comments }}</div>
     @endif
-
-    {# These settings are passed to common.js #}
-    <div id="cmtx_js_settings_comments" style="display:none" hidden>{{ cmtx_js_settings_comments }}</div>
 </div>

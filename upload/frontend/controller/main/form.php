@@ -9,11 +9,7 @@ class MainFormController extends Controller
 
         $this->loadModel('main/form');
 
-        $page_id = $this->page->getId();
-
-        $page = $this->page->getPage($page_id);
-
-        if ($this->setting->get('enabled_form') && $page['is_form_enabled']) {
+        if ($this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
             $this->data['display_form'] = true;
 
             if (defined('CMTX_LOGGED_IN') && CMTX_LOGGED_IN === false) {
@@ -237,7 +233,7 @@ class MainFormController extends Controller
 
             /* Rating */
 
-            if ($this->setting->get('repeat_rating') == 'hide' && $this->model_main_form->hasUserRated($page_id, $ip_address)) {
+            if ($this->setting->get('repeat_rating') == 'hide' && $this->model_main_form->hasUserRated($this->page->getId(), $ip_address)) {
                 $this->data['enabled_rating'] = false;
             } else {
                 $this->data['enabled_rating'] = $this->setting->get('enabled_rating');
@@ -651,7 +647,7 @@ class MainFormController extends Controller
 
             $json = array();
 
-            if (isset($this->request->post['country_id'])) {
+            if (isset($this->request->post['country_id']) && $this->request->post['country_id']) {
                 $states = $this->geo->getStatesByCountryId($this->request->post['country_id']);
 
                 foreach ($states as $state) {
@@ -1591,6 +1587,13 @@ class MainFormController extends Controller
 
                     if ($approve) {
                         $notes = rtrim($approve, "\r\n");
+                    } else {
+                        $this->cache->delete('getcomments_pageid' . $page_id . '_count0');
+                        $this->cache->delete('getcomments_pageid' . $page_id . '_count1');
+
+                        if ($this->request->post['cmtx_rating']) {
+                            $this->cache->delete('getaveragerating_pageid' . $page_id);
+                        }
                     }
 
                     $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads);

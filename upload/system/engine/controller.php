@@ -110,7 +110,7 @@ abstract class Controller extends Base
     private function parse($name, $file)
     {
         if (defined('CMTX_FRONTEND')) {
-            $cached_file = CMTX_DIR_CACHE . str_replace('/', '_', strtolower($name)) . '.tpl';
+            $cached_file = CMTX_DIR_CACHE . 'template/' . str_replace('/', '_', strtolower($name)) . '.tpl';
 
             $parse_template = false;
 

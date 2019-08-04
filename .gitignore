@@ -10,10 +10,12 @@
 !/upload/system/logs/index.html
 
 # Modification files
-/upload/system/modification/cache/*
-!/upload/system/modification/cache/index.html
-/upload/system/modification/xml/*
-!/upload/system/modification/xml/index.html
+/upload/system/modification/*
+!/upload/system/modification/index.html
+
+# Cache files
+/upload/system/cache/database/*
+/upload/system/cache/modification/*
 
 # Upload files
 /upload/upload/*

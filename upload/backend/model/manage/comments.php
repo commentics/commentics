@@ -227,6 +227,13 @@ class ManageCommentsModel extends Model
 
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '1', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
 
+            if ($this->setting->get('cache_type')) {
+                $page_id = $this->comment->getPageIdByCommentId($id);
+
+                $this->cache->delete('getcomments_pageid' . $page_id . '_count0');
+                $this->cache->delete('getcomments_pageid' . $page_id . '_count1');
+            }
+
             return true;
         } else {
             return false;

@@ -91,24 +91,10 @@ class MainCommentsController extends Controller
 
         $this->data['comments'] = array();
 
-        if ($this->data['total']) {
-            $this->top_poster = $this->model_main_comments->getTopPoster();
-
-            $this->most_likes = $this->model_main_comments->getMostLikes();
-
-            $this->first_poster = $this->model_main_comments->getFirstPoster($this->page->getId());
-        }
-
         if ($filter_comment_id) { // if permalink
             $this->data['is_permalink'] = true;
         } else {
             $this->data['is_permalink'] = false;
-        }
-
-        if ($filter_comment_id && !$this->data['total']) { // if permalink returns no results
-            $this->data['permalink_no_results'] = true;
-        } else {
-            $this->data['permalink_no_results'] = false;
         }
 
         if ($filter_comment) { // if search
@@ -117,224 +103,240 @@ class MainCommentsController extends Controller
             $this->data['is_search'] = false;
         }
 
-        if ($filter_comment && !$this->data['total']) { // if search returns no results
-            $this->data['search_no_results'] = true;
-        } else {
-            $this->data['search_no_results'] = false;
-        }
+        if ($this->data['total']) {
+            if ($this->setting->get('show_bio')) {
+                if ($this->setting->get('show_badge_top_poster')) {
+                    $this->top_poster = $this->model_main_comments->getTopPoster();
+                }
 
-        foreach ($comments as $comment) {
-            $this->data['comments'][$comment['id']] = $this->getComment($comment['id']);
-        }
+                if ($this->setting->get('show_badge_most_likes')) {
+                    $this->most_likes = $this->model_main_comments->getMostLikes();
+                }
 
-        if ($this->setting->get('show_comment_count')) {
-            $this->data['lang_heading_comments'] .= ' (' . $this->data['total'] . ')';
-        }
+                if ($this->setting->get('show_badge_first_poster')) {
+                    $this->first_poster = $this->model_main_comments->getFirstPoster($this->page->getId());
+                }
+            }
 
-        if ($this->setting->get('website_new_window')) {
-            $this->data['website_new_window'] = 'target="_blank"';
-        } else {
-            $this->data['website_new_window'] = '';
-        }
+            foreach ($comments as $comment) {
+                $this->data['comments'][$comment['id']] = $this->getComment($comment['id']);
+            }
 
-        if ($this->setting->get('website_no_follow')) {
-            $this->data['website_no_follow'] = 'rel="nofollow"';
-        } else {
-            $this->data['website_no_follow'] = '';
-        }
+            if ($this->setting->get('show_comment_count')) {
+                $this->data['lang_heading_comments'] .= ' (' . $this->data['total'] . ')';
+            }
 
-        if ($this->setting->get('share_new_window')) {
-            $this->data['share_new_window'] = 'target="_blank"';
-        } else {
-            $this->data['share_new_window'] = '';
-        }
+            if ($this->setting->get('website_new_window')) {
+                $this->data['website_new_window'] = 'target="_blank"';
+            } else {
+                $this->data['website_new_window'] = '';
+            }
 
-        if ($this->setting->get('hide_replies')) {
-            $this->data['hide_replies'] = 'cmtx_hide';
-        } else {
-            $this->data['hide_replies'] = '';
-        }
+            if ($this->setting->get('website_no_follow')) {
+                $this->data['website_no_follow'] = 'rel="nofollow"';
+            } else {
+                $this->data['website_no_follow'] = '';
+            }
 
-        $this->data['show_gravatar']           = $this->setting->get('show_gravatar');
-        $this->data['show_level']              = $this->setting->get('show_level');
-        $this->data['show_bio']                = $this->setting->get('show_bio');
-        $this->data['show_badge_top_poster']   = $this->setting->get('show_badge_top_poster');
-        $this->data['show_badge_most_likes']   = $this->setting->get('show_badge_most_likes');
-        $this->data['show_badge_first_poster'] = $this->setting->get('show_badge_first_poster');
-        $this->data['show_website']            = $this->setting->get('show_website');
-        $this->data['show_says']               = $this->setting->get('show_says');
-        $this->data['show_rating']             = $this->setting->get('show_rating');
-        $this->data['show_date']               = $this->setting->get('show_date');
-        $this->data['date_auto']               = $this->setting->get('date_auto');
-        $this->data['show_like']               = $this->setting->get('show_like');
-        $this->data['show_dislike']            = $this->setting->get('show_dislike');
-        $this->data['show_share']              = $this->setting->get('show_share');
-        $this->data['show_share_digg']         = $this->setting->get('show_share_digg');
-        $this->data['show_share_facebook']     = $this->setting->get('show_share_facebook');
-        $this->data['show_share_linkedin']     = $this->setting->get('show_share_linkedin');
-        $this->data['show_share_reddit']       = $this->setting->get('show_share_reddit');
-        $this->data['show_share_twitter']      = $this->setting->get('show_share_twitter');
-        $this->data['show_share_weibo']        = $this->setting->get('show_share_weibo');
-        $this->data['show_flag']               = $this->setting->get('show_flag');
-        $this->data['show_permalink']          = $this->setting->get('show_permalink');
-        $this->data['show_pagination']         = $this->setting->get('show_pagination');
-        $this->data['pagination_type']         = $this->setting->get('pagination_type');
-        $this->data['pagination_amount']       = $this->setting->get('pagination_amount');
-        $this->data['reply_max_depth']         = $this->setting->get('reply_depth');
+            if ($this->setting->get('share_new_window')) {
+                $this->data['share_new_window'] = 'target="_blank"';
+            } else {
+                $this->data['share_new_window'] = '';
+            }
 
-        $this->data['is_preview'] = false;
+            if ($this->setting->get('hide_replies')) {
+                $this->data['hide_replies'] = 'cmtx_hide';
+            } else {
+                $this->data['hide_replies'] = '';
+            }
 
-        if ($this->setting->get('show_reply') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
-            $this->data['show_reply'] = true;
-        } else {
-            $this->data['show_reply'] = false;
-        }
+            $this->data['show_gravatar']           = $this->setting->get('show_gravatar');
+            $this->data['show_level']              = $this->setting->get('show_level');
+            $this->data['show_bio']                = $this->setting->get('show_bio');
+            $this->data['show_badge_top_poster']   = $this->setting->get('show_badge_top_poster');
+            $this->data['show_badge_most_likes']   = $this->setting->get('show_badge_most_likes');
+            $this->data['show_badge_first_poster'] = $this->setting->get('show_badge_first_poster');
+            $this->data['show_website']            = $this->setting->get('show_website');
+            $this->data['show_says']               = $this->setting->get('show_says');
+            $this->data['show_rating']             = $this->setting->get('show_rating');
+            $this->data['show_date']               = $this->setting->get('show_date');
+            $this->data['date_auto']               = $this->setting->get('date_auto');
+            $this->data['show_like']               = $this->setting->get('show_like');
+            $this->data['show_dislike']            = $this->setting->get('show_dislike');
+            $this->data['show_share']              = $this->setting->get('show_share');
+            $this->data['show_share_digg']         = $this->setting->get('show_share_digg');
+            $this->data['show_share_facebook']     = $this->setting->get('show_share_facebook');
+            $this->data['show_share_linkedin']     = $this->setting->get('show_share_linkedin');
+            $this->data['show_share_reddit']       = $this->setting->get('show_share_reddit');
+            $this->data['show_share_twitter']      = $this->setting->get('show_share_twitter');
+            $this->data['show_share_weibo']        = $this->setting->get('show_share_weibo');
+            $this->data['show_flag']               = $this->setting->get('show_flag');
+            $this->data['show_permalink']          = $this->setting->get('show_permalink');
+            $this->data['show_pagination']         = $this->setting->get('show_pagination');
+            $this->data['pagination_type']         = $this->setting->get('pagination_type');
+            $this->data['pagination_amount']       = $this->setting->get('pagination_amount');
+            $this->data['reply_max_depth']         = $this->setting->get('reply_depth');
 
-        $outer_components = array();
+            $this->data['is_preview'] = false;
 
-        if ($this->setting->get('show_average_rating')) {
-            $outer_components['average_rating'] = $this->getComponent('part/average_rating');
-        }
+            if ($this->setting->get('show_reply') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
+                $this->data['show_reply'] = true;
+            } else {
+                $this->data['show_reply'] = false;
+            }
 
-        if ($this->setting->get('show_notify') && $this->setting->get('enabled_email') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
-            $outer_components['notify'] = $this->getComponent('part/notify');
-        }
+            $outer_components = array();
 
-        if ($this->setting->get('show_page_number') && $this->setting->get('show_pagination') && $this->setting->get('pagination_type') == 'multiple') {
-            $outer_components['page_number'] = $this->getComponent('part/page_number', array('current_page' => $page, 'total_pages' => ceil($this->data['total'] / $this->setting->get('pagination_amount'))));
-        }
+            if ($this->setting->get('show_average_rating')) {
+                $outer_components['average_rating'] = $this->getComponent('part/average_rating');
+            }
 
-        if ($this->setting->get('show_pagination') && $this->setting->get('pagination_type') == 'multiple' && ceil($this->data['total'] / $this->setting->get('pagination_amount')) > 1) {
-            $outer_components['pagination'] = $this->getComponent('part/pagination', array('current_page' => $page, 'total_pages' => ceil($this->data['total'] / $this->setting->get('pagination_amount'))));
-        }
+            if ($this->setting->get('show_notify') && $this->setting->get('enabled_email') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
+                $outer_components['notify'] = $this->getComponent('part/notify');
+            }
 
-        if ($this->setting->get('show_rss')) {
-            $outer_components['rss'] = $this->getComponent('part/rss');
-        }
+            if ($this->setting->get('show_page_number') && $this->setting->get('show_pagination') && $this->setting->get('pagination_type') == 'multiple') {
+                $outer_components['page_number'] = $this->getComponent('part/page_number', array('current_page' => $page, 'total_pages' => ceil($this->data['total'] / $this->setting->get('pagination_amount'))));
+            }
 
-        if ($this->setting->get('show_search')) {
-            $outer_components['search'] = $this->getComponent('part/search');
-        }
+            if ($this->setting->get('show_pagination') && $this->setting->get('pagination_type') == 'multiple' && ceil($this->data['total'] / $this->setting->get('pagination_amount')) > 1) {
+                $outer_components['pagination'] = $this->getComponent('part/pagination', array('current_page' => $page, 'total_pages' => ceil($this->data['total'] / $this->setting->get('pagination_amount'))));
+            }
 
-        if ($this->setting->get('show_social')) {
-            $outer_components['social'] = $this->getComponent('part/social');
-        }
+            if ($this->setting->get('show_rss')) {
+                $outer_components['rss'] = $this->getComponent('part/rss');
+            }
 
-        if ($this->setting->get('show_sort_by')) {
-            $outer_components['sort_by'] = $this->getComponent('part/sort_by');
-        }
+            if ($this->setting->get('show_search')) {
+                $outer_components['search'] = $this->getComponent('part/search');
+            }
 
-        if ($this->setting->get('show_topic')) {
-            $outer_components['topic'] = $this->getComponent('part/topic');
-        }
+            if ($this->setting->get('show_social')) {
+                $outer_components['social'] = $this->getComponent('part/social');
+            }
 
-        for ($i = 1; $i <= 12; $i++) {
-            if ($this->setting->get('comments_position_' . $i) && array_key_exists($this->setting->get('comments_position_' . $i), $outer_components)) {
-                $this->data['comments_position_' . $i] = $outer_components[$this->setting->get('comments_position_' . $i)];
+            if ($this->setting->get('show_sort_by')) {
+                $outer_components['sort_by'] = $this->getComponent('part/sort_by');
+            }
 
-                $this->data['cmtx_empty_position_' . $i] = '';
+            if ($this->setting->get('show_topic')) {
+                $outer_components['topic'] = $this->getComponent('part/topic');
+            }
 
-                $trimmed = trim($this->data['comments_position_' . $i]);
+            for ($i = 1; $i <= 12; $i++) {
+                if ($this->setting->get('comments_position_' . $i) && array_key_exists($this->setting->get('comments_position_' . $i), $outer_components)) {
+                    $this->data['comments_position_' . $i] = $outer_components[$this->setting->get('comments_position_' . $i)];
 
-                if (empty($trimmed)) {
+                    $this->data['cmtx_empty_position_' . $i] = '';
+
+                    $trimmed = trim($this->data['comments_position_' . $i]);
+
+                    if (empty($trimmed)) {
+                        $this->data['comments_position_' . $i] = '&nbsp;';
+                        $this->data['cmtx_empty_position_' . $i] = 'cmtx_empty_position';
+                    }
+                } else {
                     $this->data['comments_position_' . $i] = '&nbsp;';
                     $this->data['cmtx_empty_position_' . $i] = 'cmtx_empty_position';
                 }
-            } else {
-                $this->data['comments_position_' . $i] = '&nbsp;';
-                $this->data['cmtx_empty_position_' . $i] = 'cmtx_empty_position';
             }
-        }
 
-        if ($this->data['comments_position_1'] != '&nbsp;' || $this->data['comments_position_2'] != '&nbsp;' || $this->data['comments_position_3'] != '&nbsp;') {
-            $this->data['row_one'] = true;
-        } else {
-            $this->data['row_one'] = false;
-        }
-
-        if ($this->data['comments_position_4'] != '&nbsp;' || $this->data['comments_position_5'] != '&nbsp;' || $this->data['comments_position_6'] != '&nbsp;') {
-            $this->data['row_two'] = true;
-        } else {
-            $this->data['row_two'] = false;
-        }
-
-        if ($this->data['comments_position_7'] != '&nbsp;' || $this->data['comments_position_8'] != '&nbsp;' || $this->data['comments_position_9'] != '&nbsp;') {
-            $this->data['row_three'] = true;
-        } else {
-            $this->data['row_three'] = false;
-        }
-
-        if ($this->data['comments_position_10'] != '&nbsp;' || $this->data['comments_position_11'] != '&nbsp;' || $this->data['comments_position_12'] != '&nbsp;') {
-            $this->data['row_four'] = true;
-        } else {
-            $this->data['row_four'] = false;
-        }
-
-        if ($this->setting->has('rich_snippets_enabled') && $this->setting->get('rich_snippets_enabled')) {
-            $this->data['rich_snippets_enabled'] = true;
-
-            if ($this->setting->get('rich_snippets_type') != 'other') {
-                $this->data['rich_snippets_type'] = $this->setting->get('rich_snippets_type');
+            if ($this->data['comments_position_1'] != '&nbsp;' || $this->data['comments_position_2'] != '&nbsp;' || $this->data['comments_position_3'] != '&nbsp;') {
+                $this->data['row_one'] = true;
             } else {
-                $this->data['rich_snippets_type'] = $this->setting->get('rich_snippets_other');
+                $this->data['row_one'] = false;
             }
-        } else {
-            $this->data['rich_snippets_enabled'] = false;
+
+            if ($this->data['comments_position_4'] != '&nbsp;' || $this->data['comments_position_5'] != '&nbsp;' || $this->data['comments_position_6'] != '&nbsp;') {
+                $this->data['row_two'] = true;
+            } else {
+                $this->data['row_two'] = false;
+            }
+
+            if ($this->data['comments_position_7'] != '&nbsp;' || $this->data['comments_position_8'] != '&nbsp;' || $this->data['comments_position_9'] != '&nbsp;') {
+                $this->data['row_three'] = true;
+            } else {
+                $this->data['row_three'] = false;
+            }
+
+            if ($this->data['comments_position_10'] != '&nbsp;' || $this->data['comments_position_11'] != '&nbsp;' || $this->data['comments_position_12'] != '&nbsp;') {
+                $this->data['row_four'] = true;
+            } else {
+                $this->data['row_four'] = false;
+            }
+
+            if ($this->setting->has('rich_snippets_enabled') && $this->setting->get('rich_snippets_enabled')) {
+                $this->data['rich_snippets_enabled'] = true;
+
+                if ($this->setting->get('rich_snippets_type') != 'other') {
+                    $this->data['rich_snippets_type'] = $this->setting->get('rich_snippets_type');
+                } else {
+                    $this->data['rich_snippets_type'] = $this->setting->get('rich_snippets_other');
+                }
+            } else {
+                $this->data['rich_snippets_enabled'] = false;
+            }
+
+            if ($this->setting->get('enabled_bb_code') && ($this->setting->get('enabled_bb_code_code') || ($this->setting->get('enabled_bb_code_php')))) {
+                $highlight = true;
+            } else {
+                $highlight = false;
+            }
+
+            $this->data['ratings'] = array(0, 1, 2, 3, 4);
+
+            $this->data['page_reference'] = $this->page->getReference();
+
+            /* These are passed to common.js via the template */
+            $this->data['cmtx_js_settings_comments'] = array(
+                'commentics_url'          => $this->url->getCommenticsUrl(),
+                'page_id'                 => (int) $this->page->getId(),
+                'scroll_reply'            => (bool) $this->setting->get('scroll_reply'),
+                'scroll_speed'            => (int) $this->setting->get('scroll_speed'),
+                'lang_text_view'          => $this->data['lang_text_view'],
+                'lang_text_reply'         => $this->data['lang_text_reply'],
+                'lang_text_replies'       => $this->data['lang_text_replies'],
+                'lang_text_replying_to'   => $this->data['lang_text_replying_to'],
+                'lang_title_cancel_reply' => $this->data['lang_title_cancel_reply'],
+                'lang_link_cancel'        => $this->data['lang_link_cancel'],
+                'lang_text_not_replying'  => $this->data['lang_text_not_replying'],
+                'lang_button_loading'     => $this->data['lang_button_loading'],
+                'lang_button_more'        => $this->data['lang_button_more'],
+                'show_read_more'          => (bool) $this->setting->get('show_read_more'),
+                'read_more_limit'         => (int) $this->setting->get('read_more_limit'),
+                'highlight'               => (bool) $highlight,
+                'date_auto'               => (bool) $this->setting->get('date_auto'),
+                'show_pagination'         => (bool) $this->setting->get('show_pagination'),
+                'pagination_type'         => $this->setting->get('pagination_type'),
+                'timeago_suffixAgo'       => $this->data['lang_text_timeago_ago'],
+                'timeago_inPast'          => $this->data['lang_text_timeago_second'],
+                'timeago_seconds'         => $this->data['lang_text_timeago_seconds'],
+                'timeago_minute'          => $this->data['lang_text_timeago_minute'],
+                'timeago_minutes'         => $this->data['lang_text_timeago_minutes'],
+                'timeago_hour'            => $this->data['lang_text_timeago_hour'],
+                'timeago_hours'           => $this->data['lang_text_timeago_hours'],
+                'timeago_day'             => $this->data['lang_text_timeago_day'],
+                'timeago_days'            => $this->data['lang_text_timeago_days'],
+                'timeago_month'           => $this->data['lang_text_timeago_month'],
+                'timeago_months'          => $this->data['lang_text_timeago_months'],
+                'timeago_year'            => $this->data['lang_text_timeago_year'],
+                'timeago_years'           => $this->data['lang_text_timeago_years']
+            );
+
+            $this->data['cmtx_js_settings_comments'] = json_encode($this->data['cmtx_js_settings_comments']);
         }
-
-        if ($this->setting->get('enabled_bb_code') && ($this->setting->get('enabled_bb_code_code') || ($this->setting->get('enabled_bb_code_php')))) {
-            $highlight = true;
-        } else {
-            $highlight = false;
-        }
-
-        $this->data['ratings'] = array(0, 1, 2, 3, 4);
-
-        $this->data['page_reference'] = $this->page->getReference();
-
-        /* These are passed to common.js via the template */
-        $this->data['cmtx_js_settings_comments'] = array(
-            'commentics_url'          => $this->url->getCommenticsUrl(),
-            'page_id'                 => (int) $this->page->getId(),
-            'scroll_reply'            => (bool) $this->setting->get('scroll_reply'),
-            'scroll_speed'            => (int) $this->setting->get('scroll_speed'),
-            'lang_text_view'          => $this->data['lang_text_view'],
-            'lang_text_reply'         => $this->data['lang_text_reply'],
-            'lang_text_replies'       => $this->data['lang_text_replies'],
-            'lang_text_replying_to'   => $this->data['lang_text_replying_to'],
-            'lang_title_cancel_reply' => $this->data['lang_title_cancel_reply'],
-            'lang_link_cancel'        => $this->data['lang_link_cancel'],
-            'lang_text_not_replying'  => $this->data['lang_text_not_replying'],
-            'lang_button_loading'     => $this->data['lang_button_loading'],
-            'lang_button_more'        => $this->data['lang_button_more'],
-            'show_read_more'          => (bool) $this->setting->get('show_read_more'),
-            'read_more_limit'         => (int) $this->setting->get('read_more_limit'),
-            'highlight'               => (bool) $highlight,
-            'date_auto'               => (bool) $this->setting->get('date_auto'),
-            'show_pagination'         => (bool) $this->setting->get('show_pagination'),
-            'pagination_type'         => $this->setting->get('pagination_type'),
-            'timeago_suffixAgo'       => $this->data['lang_text_timeago_ago'],
-            'timeago_inPast'          => $this->data['lang_text_timeago_second'],
-            'timeago_seconds'         => $this->data['lang_text_timeago_seconds'],
-            'timeago_minute'          => $this->data['lang_text_timeago_minute'],
-            'timeago_minutes'         => $this->data['lang_text_timeago_minutes'],
-            'timeago_hour'            => $this->data['lang_text_timeago_hour'],
-            'timeago_hours'           => $this->data['lang_text_timeago_hours'],
-            'timeago_day'             => $this->data['lang_text_timeago_day'],
-            'timeago_days'            => $this->data['lang_text_timeago_days'],
-            'timeago_month'           => $this->data['lang_text_timeago_month'],
-            'timeago_months'          => $this->data['lang_text_timeago_months'],
-            'timeago_year'            => $this->data['lang_text_timeago_year'],
-            'timeago_years'           => $this->data['lang_text_timeago_years']
-        );
-
-        $this->data['cmtx_js_settings_comments'] = json_encode($this->data['cmtx_js_settings_comments']);
 
         return $this->data;
     }
 
     private function getComment($id)
     {
+        $result = $this->cache->get('getcomment_commentid' . $id . '_' . $this->setting->get('language'));
+
+        if ($result !== false) {
+            return $result;
+        }
+
         $comment = $this->comment->getComment($id);
 
         if ($this->setting->get('show_gravatar')) {
@@ -455,6 +457,8 @@ class MainCommentsController extends Controller
             $comment['reply_id'][$reply['id']] = $this->getComment($reply['id']);
         }
 
+        $this->cache->set('getcomment_commentid' . $id . '_' . $this->setting->get('language'), $comment);
+
         return $comment;
     }
 
@@ -494,6 +498,8 @@ class MainCommentsController extends Controller
 
                 if (!$json) {
                     $this->model_main_comments->addVote($comment_id, $type, $ip_address);
+
+                    $this->cache->delete('getcomment_commentid' . $comment_id . '_' . $this->setting->get('language'));
 
                     $json['success'] = true;
                 }
@@ -547,6 +553,9 @@ class MainCommentsController extends Controller
                     if (($comment['reports'] + 1) == $this->setting->get('flag_min_per_comment')) { // comment should be flagged
                         if ($this->setting->get('flag_disapprove')) {
                             $this->comment->unapproveComment($comment_id);
+
+                            $this->cache->delete('getcomments_pageid' . $this->page->getId() . '_count0');
+                            $this->cache->delete('getcomments_pageid' . $this->page->getId() . '_count1');
                         }
 
                         $this->notify->adminNotifyCommentFlag($comment_id);

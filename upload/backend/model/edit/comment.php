@@ -10,6 +10,11 @@ class EditCommentModel extends Model
         if (isset($data['send'])) {
             $this->notify->subscriberNotification($id);
         }
+
+        $this->cache->delete('getcomment_commentid' . $id . '_' . $this->setting->get('language_frontend'));
+
+        $this->cache->delete('getcomments_pageid' . $data['page_id'] . '_count0');
+        $this->cache->delete('getcomments_pageid' . $data['page_id'] . '_count1');
     }
 
     public function getStates($id)

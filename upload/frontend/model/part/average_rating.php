@@ -5,7 +5,13 @@ class PartAverageRatingModel extends Model
 {
     public function getAverageRating($page_id)
     {
-        $query = $this->db->query(" SELECT AVG(`rating`)
+        $result = $this->cache->get('getaveragerating_pageid' . $page_id);
+
+        if ($result !== false) {
+            return $result;
+        }
+
+        $query = $this->db->query(" SELECT AVG(`rating`) AS `average`, COUNT(*) AS `count`
                                     FROM (
                                     SELECT `rating` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '1' AND `rating` != '0' AND `page_id` = '" . (int) $page_id . "'
                                     UNION ALL
@@ -16,20 +22,18 @@ class PartAverageRatingModel extends Model
 
         $result = $this->db->row($query);
 
-        $average = round($result['AVG(`rating`)'], 0, PHP_ROUND_HALF_UP);
+        $average = round($result['average'], 0, PHP_ROUND_HALF_UP);
 
-        return $average;
-    }
+        $total = $result['count'];
 
-    public function getNumOfRatings($page_id)
-    {
-        $total_1 = $this->db->numRows($this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '1' AND `rating` != '0' AND `page_id` = '" . (int) $page_id . "'"));
+        $result = array(
+            'average' => $average,
+            'total'   => $total
+        );
 
-        $total_2 = $this->db->numRows($this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "ratings` WHERE `page_id` = '" . (int) $page_id . "'"));
+        $this->cache->set('getaveragerating_pageid' . $page_id, $result);
 
-        $total = $total_1 + $total_2;
-
-        return $total;
+        return $result;
     }
 
     public function hasAlreadyRatedPage($page_id, $ip_address)

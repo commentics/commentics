@@ -34,15 +34,15 @@ if (!isset($_SERVER['REQUEST_URI'])) {
 function cmtx_modification($filename)
 {
     if (defined('CMTX_FRONTEND')) {
-        $file = CMTX_DIR_MOD_CACHE . substr($filename, strlen(CMTX_DIR_ROOT));
+        $file = CMTX_DIR_CACHE . 'modification/' . substr($filename, strlen(CMTX_DIR_ROOT));
     } else if (defined('CMTX_BACKEND')) {
-        $file = CMTX_DIR_MOD_CACHE . substr($filename, strlen(CMTX_DIR_ROOT));
+        $file = CMTX_DIR_CACHE . 'modification/' . substr($filename, strlen(CMTX_DIR_ROOT));
     } else {
         return $filename;
     }
 
     if (substr($filename, 0, strlen(CMTX_DIR_SYSTEM)) == CMTX_DIR_SYSTEM) {
-        $file = CMTX_DIR_MOD_CACHE . 'system/' . substr($filename, strlen(CMTX_DIR_SYSTEM));
+        $file = CMTX_DIR_CACHE . 'modification/' . 'system/' . substr($filename, strlen(CMTX_DIR_SYSTEM));
     }
 
     if (is_file($file)) {
@@ -63,9 +63,10 @@ require_once cmtx_modification(CMTX_DIR_ENGINE . 'registry.php');
 $cmtx_registry = new \Commentics\Registry();
 
 /* Load the library classes */
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'cache.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'comment.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'cookie.php');
-require_once cmtx_modification(CMTX_DIR_LIBRARY . 'db.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'database.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'email.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'encryption.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'geo.php');
@@ -129,6 +130,9 @@ $cmtx_registry->set('variable', $cmtx_variable);
 
 $cmtx_setting = new \Commentics\Setting($cmtx_registry);
 $cmtx_registry->set('setting', $cmtx_setting);
+
+$cmtx_cache = new \Commentics\Cache($cmtx_registry);
+$cmtx_registry->set('cache', $cmtx_cache);
 
 $cmtx_modification = new \Commentics\Modification($cmtx_registry);
 $cmtx_registry->set('modification', $cmtx_modification);

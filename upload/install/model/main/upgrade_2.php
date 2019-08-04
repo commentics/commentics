@@ -259,6 +259,27 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'maximum_upload_total', `value` = '5'");
 
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'jquery_ui_source'");
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_type', `value` = ''");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_time', `value` = '86400'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_host', `value` = '127.0.0.1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_port', `value` = '11211'");
+
+            /* Move any XML files from /system/modification/xml/ to /system/modification/ */
+            if (file_exists(CMTX_DIR_MODIFICATION . 'xml/')) {
+                $files = glob(CMTX_DIR_MODIFICATION . '*.xml');
+
+                if ($files) {
+                    foreach ($files as $file) {
+                        rename($file, CMTX_DIR_MODIFICATION . pathinfo($file, PATHINFO_BASENAME));
+                    }
+                }
+
+                /* Delete /system/modification/xml/ folder */
+                remove_directory(CMTX_DIR_MODIFICATION . 'xml/');
+            }
+
+            @unlink(CMTX_DIR_LIBRARY . 'db.php');
         }
     }
 

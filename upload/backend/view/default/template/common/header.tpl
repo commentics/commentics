@@ -91,6 +91,7 @@
                                 <?php if (!$has_restriction || ($has_restriction && in_array('settings/administrator', $viewable_pages))) { ?> <li><a href="index.php?route=settings/administrator"><?php echo $lang_menu_settings_administrator; ?></a></li> <?php } ?>
                                 <?php if (!$has_restriction || ($has_restriction && in_array('settings/admin_detection', $viewable_pages))) { ?> <li><a href="index.php?route=settings/admin_detection"><?php echo $lang_menu_settings_admin_detection; ?></a></li> <?php } ?>
                                 <?php if (!$has_restriction || ($has_restriction && in_array('settings/approval', $viewable_pages))) { ?> <li><a href="index.php?route=settings/approval"><?php echo $lang_menu_settings_approval; ?></a></li> <?php } ?>
+                                <?php if (!$has_restriction || ($has_restriction && in_array('settings/cache', $viewable_pages))) { ?> <li><a href="index.php?route=settings/cache"><?php echo $lang_menu_settings_cache; ?></a></li> <?php } ?>
                                 <?php if (!$has_restriction || ($has_restriction && in_array('settings/email', $viewable_pages))) { ?>
                                     <li><a><?php echo $lang_menu_settings_email; ?></a>
 

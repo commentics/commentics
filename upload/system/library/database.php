@@ -15,7 +15,7 @@ class Db
 
     public function connect($hostname, $username, $password, $database, $port, $prefix, $driver)
     {
-        $file = CMTX_DIR_DATABASE . $driver . '.php';
+        $file = CMTX_DIR_LIBRARY . 'database/' . $driver . '.php';
 
         if (file_exists($file)) {
             require_once cmtx_modification($file);

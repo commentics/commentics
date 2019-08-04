@@ -29,6 +29,7 @@ $_['lang_menu_settings']                  = 'Settings';
 $_['lang_menu_settings_administrator']    = 'Administrator';
 $_['lang_menu_settings_admin_detection']  = 'Admin Detection';
 $_['lang_menu_settings_approval']         = 'Approval';
+$_['lang_menu_settings_cache']            = 'Cache';
 $_['lang_menu_settings_email']            = 'Email';
 $_['lang_menu_settings_email_editor']     = 'Editor';
 $_['lang_menu_settings_email_setup']      = 'Setup';

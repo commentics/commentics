@@ -6,6 +6,16 @@ class MainCommentsModel extends Model
     /* Get the approved parent comments for the page */
     public function getComments($data, $count = false)
     {
+        if (!$data['filter_comment_id'] && !$data['filter_comment']) { // don't cache permalink and searches
+            if ($data['group_by'] == '' && $data['sort'] == 'date_added' && $data['order'] == 'desc' && $data['start'] == 0) { // only cache initial page
+                $result = $this->cache->get('getcomments_pageid' . $data['filter_page_id'] . '_count' . (int)$count);
+
+                if ($result !== false) { // check boolean as could be zero or an empty array if no comments
+                    return $result;
+                }
+            }
+        }
+
         $sql = "SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE";
 
         $sql .= " `page_id` = '" . (int) $data['filter_page_id'] . "'";
@@ -63,10 +73,18 @@ class MainCommentsModel extends Model
         $query = $this->db->query($sql);
 
         if ($count) {
-            return $this->db->numRows($query);
+            $result = $this->db->numRows($query);
         } else {
-            return $this->db->rows($query);
+            $result = $this->db->rows($query);
         }
+
+        if (!$data['filter_comment_id'] && !$data['filter_comment']) { // don't cache permalink and searches
+            if ($data['group_by'] == '' && $data['sort'] == 'date_added' && $data['order'] == 'desc' && $data['start'] == 0) { // only cache initial page
+                $this->cache->set('getcomments_pageid' . $data['filter_page_id'] . '_count' . (int)$count, $result);
+            }
+        }
+
+        return $result;
     }
 
     /* Calculate the difference in days between the current date and the comment date */
@@ -140,9 +158,17 @@ class MainCommentsModel extends Model
     /* Gets the user with the most comments for all pages */
     public function getTopPoster()
     {
+        $result = $this->cache->get('gettopposter');
+
+        if ($result !== false) {
+            return $result;
+        }
+
         $query = $this->db->query("SELECT `user_id`, COUNT(`user_id`) AS `count` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '1' GROUP BY `user_id` ORDER BY `count` DESC LIMIT 1");
 
         $result = $this->db->row($query);
+
+        $this->cache->set('gettopposter', $result['user_id']);
 
         return $result['user_id'];
     }
@@ -150,13 +176,23 @@ class MainCommentsModel extends Model
     /* Gets the user with the most likes for all pages */
     public function getMostLikes()
     {
+        $result = $this->cache->get('getmostlikes');
+
+        if ($result !== false) {
+            return $result;
+        }
+
         $query = $this->db->query("SELECT `user_id`, SUM(`likes`) AS `total` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '1' GROUP BY `user_id` ORDER BY `total` DESC LIMIT 1");
 
         $result = $this->db->row($query);
 
         if ($result['total']) {
+            $this->cache->set('getmostlikes', $result['user_id']);
+
             return $result['user_id'];
         } else {
+            $this->cache->set('getmostlikes', 0);
+
             return 0;
         }
     }
@@ -164,9 +200,17 @@ class MainCommentsModel extends Model
     /* Gets the user with the first comment for this page */
     public function getFirstPoster($page_id)
     {
+        $result = $this->cache->get('getfirstposter_pageid' . $page_id);
+
+        if ($result !== false) {
+            return $result;
+        }
+
         $query = $this->db->query("SELECT `user_id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '1' AND `page_id` = '" . (int) $page_id . "' ORDER BY `date_added` ASC LIMIT 1");
 
         $result = $this->db->row($query);
+
+        $this->cache->set('getfirstposter_pageid' . $page_id, $result['user_id']);
 
         return $result['user_id'];
     }

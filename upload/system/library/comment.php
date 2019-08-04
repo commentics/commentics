@@ -3,12 +3,14 @@ namespace Commentics;
 
 class Comment
 {
+    private $cache;
     private $db;
     private $setting;
     private $replies = array();
 
     public function __construct($registry)
     {
+        $this->cache   = $registry->get('cache');
         $this->db      = $registry->get('db');
         $this->setting = $registry->get('setting');
     }
@@ -96,6 +98,17 @@ class Comment
         }
     }
 
+    public function getPageIdByCommentId($id)
+    {
+        $query = $this->db->query("SELECT `page_id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `id` = '" . (int) $id . "'");
+
+        $result = $this->db->row($query);
+
+        $page_id = $result['page_id'];
+
+        return $page_id;
+    }
+
     public function getComments()
     {
         $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments`");
@@ -113,6 +126,13 @@ class Comment
 
     public function deleteComment($id)
     {
+        if ($this->setting->get('cache_type')) {
+            $page_id = $this->getPageIdByCommentId($id);
+
+            $this->cache->delete('getcomments_pageid' . $page_id . '_count0');
+            $this->cache->delete('getcomments_pageid' . $page_id . '_count1');
+        }
+
         $this->deleteReplies($id);
 
         $this->deleteUploads($id);

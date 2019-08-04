@@ -27,11 +27,11 @@ class Modification
         $log_data = array();
 
         // Clear modification cache
-        remove_directory(CMTX_DIR_MOD_CACHE, false);
+        remove_directory(CMTX_DIR_CACHE . 'modification/', false);
 
         $xmls = array();
 
-        $files = glob(CMTX_DIR_MOD_XML . '*.xml');
+        $files = glob(CMTX_DIR_MODIFICATION . '*.xml');
 
         if ($files) {
             foreach ($files as $file) {
@@ -321,8 +321,8 @@ class Modification
             }
         }
 
-        if (!is_dir(CMTX_DIR_MOD_CACHE)) {
-            @mkdir(CMTX_DIR_MOD_CACHE, 0777);
+        if (!is_dir(CMTX_DIR_CACHE . 'modification/')) {
+            @mkdir(CMTX_DIR_CACHE . 'modification/', 0777);
         }
 
         /* Write all modification files */
@@ -335,12 +335,12 @@ class Modification
                 foreach ($directories as $directory) {
                     $path = $path . '/' . $directory;
 
-                    if (!is_dir(CMTX_DIR_MOD_CACHE . $path)) {
-                        @mkdir(CMTX_DIR_MOD_CACHE . $path, 0777);
+                    if (!is_dir(CMTX_DIR_CACHE . 'modification/' . $path)) {
+                        @mkdir(CMTX_DIR_CACHE . 'modification/' . $path, 0777);
                     }
                 }
 
-                $handle = @fopen(CMTX_DIR_MOD_CACHE . $key, 'w');
+                $handle = @fopen(CMTX_DIR_CACHE . 'modification/' . $key, 'w');
 
                 if ($handle) {
                     fwrite($handle, $value);
