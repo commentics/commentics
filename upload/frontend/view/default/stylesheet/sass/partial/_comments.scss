@@ -395,6 +395,36 @@
     font-weight: bold;
 }
 
+@keyframes like_keyframe {
+    0% {
+        background: #529214;
+    }
+
+    100% {
+        background: none;
+    }
+}
+
+.like_animation {
+    animation-name: like_keyframe;
+    animation-duration: 2s;
+}
+
+@keyframes dislike_keyframe {
+    0% {
+        background: #D12F19;
+    }
+
+    100% {
+        background: none;
+    }
+}
+
+.dislike_animation {
+    animation-name: dislike_keyframe;
+    animation-duration: 2s;
+}
+
 .cmtx_action_message {
     background-color: $white;
     cursor: default;

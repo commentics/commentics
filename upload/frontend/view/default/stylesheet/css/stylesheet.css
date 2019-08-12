@@ -4373,6 +4373,56 @@ select.cmtx_required {
   font-weight: bold;
 }
 
+@-webkit-keyframes like_keyframe {
+  0% {
+    background: #529214;
+  }
+  100% {
+    background: none;
+  }
+}
+
+@keyframes like_keyframe {
+  0% {
+    background: #529214;
+  }
+  100% {
+    background: none;
+  }
+}
+
+.like_animation {
+  -webkit-animation-name: like_keyframe;
+          animation-name: like_keyframe;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+}
+
+@-webkit-keyframes dislike_keyframe {
+  0% {
+    background: #D12F19;
+  }
+  100% {
+    background: none;
+  }
+}
+
+@keyframes dislike_keyframe {
+  0% {
+    background: #D12F19;
+  }
+  100% {
+    background: none;
+  }
+}
+
+.dislike_animation {
+  -webkit-animation-name: dislike_keyframe;
+          animation-name: dislike_keyframe;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+}
+
 .cmtx_action_message {
   background-color: #fff;
   cursor: default;

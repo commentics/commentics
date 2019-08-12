@@ -1091,9 +1091,17 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         vote_link.find('.cmtx_vote_count').text(parseInt(vote_link.find('.cmtx_vote_count').text(), 10) + 1);
 
                         if (type == 'like') {
-                            vote_link.find('.cmtx_vote_count').effect('highlight', {color: '#529214'}, 2000);
+                            vote_link.find('.cmtx_vote_count').addClass('like_animation');
+
+                            setTimeout(function() {
+                                $('.cmtx_vote_count').removeClass('like_animation');
+                            }, 2000);
                         } else {
-                            vote_link.find('.cmtx_vote_count').effect('highlight', {color: '#D12F19'}, 2000);
+                            vote_link.find('.cmtx_vote_count').addClass('dislike_animation');
+
+                            setTimeout(function() {
+                                $('.cmtx_vote_count').removeClass('dislike_animation');
+                            }, 2000);
                         }
                     }
 
