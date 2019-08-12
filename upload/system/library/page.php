@@ -148,6 +148,8 @@ class Page
     {
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "comments` WHERE `page_id` = '" . (int) $id . "'");
 
+        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "ratings` WHERE `page_id` = '" . (int) $id . "'");
+
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "subscriptions` WHERE `page_id` = '" . (int) $id . "'");
 
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "pages` WHERE `id` = '" . (int) $id . "'");
