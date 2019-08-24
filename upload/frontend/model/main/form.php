@@ -330,19 +330,33 @@ class MainFormModel extends Model
     /* Gets a random question to verify the user is human */
     public function getQuestion()
     {
-        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "questions` WHERE `language` = '" . $this->db->escape($this->setting->get('language')) . "' ORDER BY RAND() LIMIT 1");
+        $questions = $this->getQuestions();
 
-        $result = $this->db->row($query);
+        if ($questions) {
+            $random_key = array_rand($questions, 1);
 
-        if ($result) {
-            return $result;
+            return $questions[$random_key];
+        } else {
+            return false;
+        }
+    }
+
+    /* Gets all questions */
+    private function getQuestions()
+    {
+        $questions = $this->cache->get('getquestions_' . $this->setting->get('language'));
+
+        if ($questions !== false) {
+            return $questions;
         }
 
-        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "questions` WHERE `language` = 'english' ORDER BY RAND() LIMIT 1");
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "questions` WHERE `language` = '" . $this->db->escape($this->setting->get('language')) . "'");
 
-        $result = $this->db->row($query);
+        $questions = $this->db->rows($query);
 
-        return $result;
+        $this->cache->set('getquestions_' . $this->setting->get('language'), $questions);
+
+        return $questions;
     }
 
     /*
