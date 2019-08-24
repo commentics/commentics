@@ -284,9 +284,9 @@
                                     <option value="" hidden>{{ lang_placeholder_state }}</option>
                                     @foreach states as state
                                         @if state.id and state.id equals state_id
-                                            <option value="{{ state.id }}" selected>{{ state.name }}></option>
+                                            <option value="{{ state.id }}" selected>{{ state.name }}</option>
                                         @else
-                                            <option value="{{ state.id }}">{{ state.name }}></option>
+                                            <option value="{{ state.id }}">{{ state.name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
