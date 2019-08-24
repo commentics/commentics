@@ -131,7 +131,6 @@ class CommonAdministratorModel extends Model
 
         $restrictions[] = $this->getRestriction('Settings', 'settings', 0, true, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Administrator', 'settings/administrator', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Admin Detection', 'settings/admin_detection', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Approval', 'settings/approval', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Cache', 'settings/cache', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Email', 'settings/email', 20, false, $viewable_pages, $modifiable_pages);

@@ -260,10 +260,15 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'jquery_ui_source'");
 
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'notice_settings_admin_detection'");
+
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_type', `value` = ''");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_time', `value` = '86400'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_host', `value` = '127.0.0.1'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_port', `value` = '11211'");
+
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` DROP `detect_admin`");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` DROP `detect_method`");
 
             /* Move any XML files from /system/modification/xml/ to /system/modification/ */
             if (file_exists(CMTX_DIR_MODIFICATION . 'xml/')) {

@@ -9,6 +9,7 @@ class User
     private $email;
     private $request;
     private $security;
+    private $session;
     private $setting;
     private $validation;
     private $variable;
@@ -23,6 +24,7 @@ class User
         $this->email      = $registry->get('email');
         $this->request    = $registry->get('request');
         $this->security   = $registry->get('security');
+        $this->session    = $registry->get('session');
         $this->setting    = $registry->get('setting');
         $this->validation = $registry->get('validation');
         $this->variable   = $registry->get('variable');
@@ -272,59 +274,11 @@ class User
     /* Checks if the user is the administrator */
     private function isAdministrator()
     {
-        $admin_found = false;
-        $ip_address_found = false;
-        $cookie_found = false;
-        $detect_admin = false;
-
-        /* Check IP address */
-        $ip_address = $this->getIpAddress();
-
-        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "admins` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `is_enabled` = '1' LIMIT 1");
-
-        $result = $this->db->row($query);
-
-        if ($result) {
-            $ip_address_found = true;
-
-            $detect_admin = $result['detect_admin'];
-
-            $detect_method = $result['detect_method'];
+        if (isset($this->session->data['cmtx_admin_id'])) {
+            return true;
+        } else {
+            return false;
         }
-
-        /* Check cookie */
-        if ($this->cookie->exists('Commentics-Admin')) {
-            $cookie = $this->cookie->get('Commentics-Admin');
-
-            if ($this->validation->isAlnum($cookie) && $this->validation->length($cookie) == 20) {
-                $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "admins` WHERE `cookie_key` = '" . $this->db->escape($cookie) . "' AND `is_enabled` = '1' LIMIT 1");
-
-                $result = $this->db->row($query);
-
-                if ($result) {
-                    $cookie_found = true;
-
-                    $detect_admin = $result['detect_admin'];
-
-                    $detect_method = $result['detect_method'];
-                }
-            }
-        }
-
-        /* If an admin was found and wants to be detected */
-        if ($detect_admin) {
-            if ($detect_method == 'ip_address' && $ip_address_found) {
-                $admin_found = true;
-            } else if ($detect_method == 'cookie' && $cookie_found) {
-                $admin_found = true;
-            } else if ($detect_method == 'either' && ($ip_address_found || $cookie_found)) {
-                $admin_found = true;
-            } else if ($detect_method == 'both' && ($ip_address_found && $cookie_found)) {
-                $admin_found = true;
-            }
-        }
-
-        return $admin_found;
     }
 
     public function getIpAddress()

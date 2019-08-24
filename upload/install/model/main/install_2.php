@@ -74,8 +74,6 @@ class MainInstall2Model extends Model
             `email` varchar(250) NOT NULL default '',
             `ip_address` varchar(250) NOT NULL default '',
             `cookie_key` varchar(250) NOT NULL default '',
-            `detect_admin` tinyint(1) unsigned NOT NULL default '1',
-            `detect_method` varchar(250) NOT NULL default 'both',
             `receive_email_ban` tinyint(1) unsigned NOT NULL default '1',
             `receive_email_comment_approve` tinyint(1) unsigned NOT NULL default '1',
             `receive_email_comment_success` tinyint(1) unsigned NOT NULL default '1',
@@ -962,7 +960,6 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_manage_subscriptions', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_edit_comment', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_edit_spam', `value` = '1'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_settings_admin_detection', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_settings_email_editor', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_tool_upgrade', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'one_name_enabled', `value` = '0'");
@@ -1102,7 +1099,7 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'optimize', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'jquery_source', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'order_parts', `value` = '1,2'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'viewers', `title` = 'viewers_enabled', `value` = '1'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'viewers', `title` = 'viewers_enabled', `value` = '0'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'viewers', `title` = 'viewers_timeout', `value` = '1200'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'viewers', `title` = 'viewers_refresh', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'viewers', `title` = 'viewers_interval', `value` = '60'");

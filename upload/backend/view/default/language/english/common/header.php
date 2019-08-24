@@ -27,7 +27,6 @@ $_['lang_menu_extension_themes']          = 'Themes';
 /* Settings */
 $_['lang_menu_settings']                  = 'Settings';
 $_['lang_menu_settings_administrator']    = 'Administrator';
-$_['lang_menu_settings_admin_detection']  = 'Admin Detection';
 $_['lang_menu_settings_approval']         = 'Approval';
 $_['lang_menu_settings_cache']            = 'Cache';
 $_['lang_menu_settings_email']            = 'Email';
