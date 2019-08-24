@@ -485,50 +485,58 @@ var cmtx_wait_for_jquery = setInterval(function() {
             if (typeof(cmtx_js_settings_form) != 'undefined') {
                 if (cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
                     $('#cmtx_country').bind('change', function() {
-                        var data = 'country_id=' + encodeURIComponent($('#cmtx_country').val());
+                        var country_id = encodeURIComponent($('#cmtx_country').val());
 
-                        var request = $.ajax({
-                            type: 'POST',
-                            cache: false,
-                            url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates',
-                            data: data,
-                            dataType: 'json',
-                            beforeSend: function() {
-                                $('#cmtx_state').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
-                            }
-                        });
-
-                        request.done(function(response) {
-                            setTimeout(function() {
-                                states = response;
-
-                                html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
-
-                                if (states.length) {
-                                    for (i = 0; i < states.length; i++) {
-                                        html += '<option value="' + states[i]['id'] + '"';
-
-                                        if (states[i]['id'] == cmtx_js_settings_form.state_id) {
-                                            html += ' selected';
-                                        }
-
-                                        html += '>' + states[i]['name'] + '</option>';
-                                    }
-                                } else {
-                                    html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
+                        if (country_id) {
+                            var request = $.ajax({
+                                type: 'POST',
+                                cache: false,
+                                url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates',
+                                data: 'country_id=' + country_id,
+                                dataType: 'json',
+                                beforeSend: function() {
+                                    $('#cmtx_state').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
                                 }
+                            });
 
-                                $('#cmtx_state').html(html);
+                            request.done(function(response) {
+                                setTimeout(function() {
+                                    states = response;
 
-                                $('#cmtx_state').trigger('change');
-                            }, 500);
-                        });
+                                    html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
 
-                        request.fail(function(jqXHR, textStatus, errorThrown) {
-                            if (console && console.log) {
-                                console.log(jqXHR.responseText);
-                            }
-                        });
+                                    if (states.length) {
+                                        for (i = 0; i < states.length; i++) {
+                                            html += '<option value="' + states[i]['id'] + '"';
+
+                                            if (states[i]['id'] == cmtx_js_settings_form.state_id) {
+                                                html += ' selected';
+                                            }
+
+                                            html += '>' + states[i]['name'] + '</option>';
+                                        }
+                                    } else {
+                                        html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
+                                    }
+
+                                    $('#cmtx_state').html(html);
+
+                                    $('#cmtx_state').trigger('change');
+                                }, 500);
+                            });
+
+                            request.fail(function(jqXHR, textStatus, errorThrown) {
+                                if (console && console.log) {
+                                    console.log(jqXHR.responseText);
+                                }
+                            });
+                        } else {
+                            html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
+
+                            html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
+
+                            $('#cmtx_state').html(html);
+                        }
                     });
 
                     $('#cmtx_country').trigger('change');
