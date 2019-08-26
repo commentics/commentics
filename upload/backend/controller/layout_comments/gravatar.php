@@ -202,7 +202,7 @@ class LayoutCommentsGravatarController extends Controller
             return false;
         }
 
-        if (!isset($this->request->post['gravatar_default']) || !in_array($this->request->post['gravatar_default'], array('', 'custom', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro'))) {
+        if (!isset($this->request->post['gravatar_default']) || !in_array($this->request->post['gravatar_default'], array('', 'custom', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro', 'robohash'))) {
             $this->error['gravatar_default'] = $this->data['lang_error_selection'];
         }
 

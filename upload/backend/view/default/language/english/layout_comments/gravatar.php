@@ -31,6 +31,7 @@ $_['lang_select_identicon']   = 'Identicon';
 $_['lang_select_monsterid']   = 'Monsterid';
 $_['lang_select_wavatar']     = 'Wavatar';
 $_['lang_select_retro']       = 'Retro';
+$_['lang_select_robohash']    = 'Robohash';
 
 // Hint
 $_['lang_hint_enabled']       = 'Whether to show the user\'s personal Gravatar image.';

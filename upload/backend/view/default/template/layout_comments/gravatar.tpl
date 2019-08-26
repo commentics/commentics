@@ -43,6 +43,7 @@
                 <option value="monsterid" <?php if ($gravatar_default == 'monsterid') { echo 'selected'; } ?>><?php echo $lang_select_monsterid; ?></option>
                 <option value="wavatar" <?php if ($gravatar_default == 'wavatar') { echo 'selected'; } ?>><?php echo $lang_select_wavatar; ?></option>
                 <option value="retro" <?php if ($gravatar_default == 'retro') { echo 'selected'; } ?>><?php echo $lang_select_retro; ?></option>
+                <option value="robohash" <?php if ($gravatar_default == 'robohash') { echo 'selected'; } ?>><?php echo $lang_select_robohash; ?></option>
             </select>
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_default; ?>', this, event, '')">[?]</a>
             <?php if ($error_gravatar_default) { ?>
