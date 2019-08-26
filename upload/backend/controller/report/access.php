@@ -91,11 +91,10 @@ class ReportAccessController extends Controller
         $total = $this->model_report_access->getViews($data, true);
 
         $this->data['views'] = array();
-
         foreach ($views as $view) {
             $this->data['views'][] = array(
                 'username'   => $view['username'],
-                'ip_address' => $view['ip_address'],
+                'ip_address' => ($this->setting->get('is_demo') ? '(Hidden in Demo)' : $view['ip_address']),
                 'page'       => $view['page'],
                 'date_added' => $this->variable->formatDate($view['date_added'], $this->data['lang_date_time_format'], $this->data)
             );
