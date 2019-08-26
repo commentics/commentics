@@ -934,9 +934,7 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'recaptcha_public_key', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'recaptcha_private_key', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'recaptcha_theme', `value` = 'light'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'recaptcha_type', `value` = 'image'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'recaptcha_size', `value` = 'normal'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'recaptcha_language', `value` = 'auto'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'securimage_width', `value` = '215'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'securimage_height', `value` = '80'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'securimage_length', `value` = '6'");

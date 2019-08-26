@@ -450,8 +450,6 @@ class MainFormController extends Controller
 
                 $this->data['recaptcha_theme'] = $this->setting->get('recaptcha_theme');
 
-                $this->data['recaptcha_type'] = $this->setting->get('recaptcha_type');
-
                 $this->data['recaptcha_size'] = $this->setting->get('recaptcha_size');
             }
 

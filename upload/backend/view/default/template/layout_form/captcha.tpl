@@ -75,80 +75,13 @@
         </div>
 
         <div class="fieldset recaptcha_section">
-            <label><?php echo $lang_entry_type; ?></label>
-            <select name="recaptcha_type">
-                <option value="audio" <?php if ($recaptcha_type == 'audio') { echo 'selected'; } ?>><?php echo $lang_select_audio; ?></option>
-                <option value="image" <?php if ($recaptcha_type == 'image') { echo 'selected'; } ?>><?php echo $lang_select_image; ?></option>
-            </select>
-            <?php if ($error_recaptcha_type) { ?>
-                <span class="error"><?php echo $error_recaptcha_type; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset recaptcha_section">
             <label><?php echo $lang_entry_size; ?></label>
             <select name="recaptcha_size">
                 <option value="compact" <?php if ($recaptcha_size == 'compact') { echo 'selected'; } ?>><?php echo $lang_select_compact; ?></option>
                 <option value="normal" <?php if ($recaptcha_size == 'normal') { echo 'selected'; } ?>><?php echo $lang_select_normal; ?></option>
             </select>
-            <?php if ($error_recaptcha_type) { ?>
-                <span class="error"><?php echo $error_recaptcha_type; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset recaptcha_section">
-            <label><?php echo $lang_entry_language; ?></label>
-            <select name="recaptcha_language">
-                <option value="auto" <?php if ($recaptcha_language == 'auto') { echo 'selected'; } ?>><?php echo $lang_select_auto; ?></option>
-                <option value="ar" <?php if ($recaptcha_language == 'ar') { echo 'selected'; } ?>>Arabic</option>
-                <option value="bg" <?php if ($recaptcha_language == 'bg') { echo 'selected'; } ?>>Bulgarian</option>
-                <option value="ca" <?php if ($recaptcha_language == 'ca') { echo 'selected'; } ?>>Catalan</option>
-                <option value="zh-CN" <?php if ($recaptcha_language == 'zh-CN') { echo 'selected'; } ?>>Chinese (Simplified)</option>
-                <option value="zh-TW" <?php if ($recaptcha_language == 'zh-TW') { echo 'selected'; } ?>>Chinese (Traditional)</option>
-                <option value="hr" <?php if ($recaptcha_language == 'hr') { echo 'selected'; } ?>>Croatian</option>
-                <option value="cs" <?php if ($recaptcha_language == 'cs') { echo 'selected'; } ?>>Czech</option>
-                <option value="da" <?php if ($recaptcha_language == 'da') { echo 'selected'; } ?>>Danish</option>
-                <option value="nl" <?php if ($recaptcha_language == 'nl') { echo 'selected'; } ?>>Dutch</option>
-                <option value="en-GB" <?php if ($recaptcha_language == 'en-GB') { echo 'selected'; } ?>>English (UK)</option>
-                <option value="en" <?php if ($recaptcha_language == 'en') { echo 'selected'; } ?>>English (US)</option>
-                <option value="fil" <?php if ($recaptcha_language == 'fil') { echo 'selected'; } ?>>Filipino</option>
-                <option value="fi" <?php if ($recaptcha_language == 'fi') { echo 'selected'; } ?>>Finnish</option>
-                <option value="fr" <?php if ($recaptcha_language == 'fr') { echo 'selected'; } ?>>French</option>
-                <option value="fr-CA" <?php if ($recaptcha_language == 'fr-CA') { echo 'selected'; } ?>>French (Canadian)</option>
-                <option value="de" <?php if ($recaptcha_language == 'de') { echo 'selected'; } ?>>German</option>
-                <option value="de-AT" <?php if ($recaptcha_language == 'de-AT') { echo 'selected'; } ?>>German (Austria)</option>
-                <option value="de-CH" <?php if ($recaptcha_language == 'de-CH') { echo 'selected'; } ?>>German (Switzerland)</option>
-                <option value="el" <?php if ($recaptcha_language == 'el') { echo 'selected'; } ?>>Greek</option>
-                <option value="iw" <?php if ($recaptcha_language == 'iw') { echo 'selected'; } ?>>Hebrew</option>
-                <option value="hi" <?php if ($recaptcha_language == 'hi') { echo 'selected'; } ?>>Hindi</option>
-                <option value="hu" <?php if ($recaptcha_language == 'hu') { echo 'selected'; } ?>>Hungarian</option>
-                <option value="id" <?php if ($recaptcha_language == 'id') { echo 'selected'; } ?>>Indonesian</option>
-                <option value="it" <?php if ($recaptcha_language == 'it') { echo 'selected'; } ?>>Italian</option>
-                <option value="ja" <?php if ($recaptcha_language == 'ja') { echo 'selected'; } ?>>Japanese</option>
-                <option value="ko" <?php if ($recaptcha_language == 'ko') { echo 'selected'; } ?>>Korean</option>
-                <option value="lv" <?php if ($recaptcha_language == 'lv') { echo 'selected'; } ?>>Latvian</option>
-                <option value="lt" <?php if ($recaptcha_language == 'lt') { echo 'selected'; } ?>>Lithuanian</option>
-                <option value="no" <?php if ($recaptcha_language == 'no') { echo 'selected'; } ?>>Norwegian</option>
-                <option value="fa" <?php if ($recaptcha_language == 'fa') { echo 'selected'; } ?>>Persian</option>
-                <option value="pl" <?php if ($recaptcha_language == 'pl') { echo 'selected'; } ?>>Polish</option>
-                <option value="pt" <?php if ($recaptcha_language == 'pt') { echo 'selected'; } ?>>Portuguese</option>
-                <option value="pt-BR" <?php if ($recaptcha_language == 'pt-BR') { echo 'selected'; } ?>>Portuguese (Brazil)</option>
-                <option value="pt-PT" <?php if ($recaptcha_language == 'pt-PT') { echo 'selected'; } ?>>Portuguese (Portugal)</option>
-                <option value="ro" <?php if ($recaptcha_language == 'ro') { echo 'selected'; } ?>>Romanian</option>
-                <option value="ru" <?php if ($recaptcha_language == 'ru') { echo 'selected'; } ?>>Russian</option>
-                <option value="sr" <?php if ($recaptcha_language == 'sr') { echo 'selected'; } ?>>Serbian</option>
-                <option value="sk" <?php if ($recaptcha_language == 'sk') { echo 'selected'; } ?>>Slovak</option>
-                <option value="sl" <?php if ($recaptcha_language == 'sl') { echo 'selected'; } ?>>Slovenian</option>
-                <option value="es" <?php if ($recaptcha_language == 'es') { echo 'selected'; } ?>>Spanish</option>
-                <option value="es-419" <?php if ($recaptcha_language == 'es-419') { echo 'selected'; } ?>>Spanish (Latin America)</option>
-                <option value="sv" <?php if ($recaptcha_language == 'sv') { echo 'selected'; } ?>>Swedish</option>
-                <option value="th" <?php if ($recaptcha_language == 'th') { echo 'selected'; } ?>>Thai</option>
-                <option value="tr" <?php if ($recaptcha_language == 'tr') { echo 'selected'; } ?>>Turkish</option>
-                <option value="uk" <?php if ($recaptcha_language == 'uk') { echo 'selected'; } ?>>Ukrainian</option>
-                <option value="vi" <?php if ($recaptcha_language == 'vi') { echo 'selected'; } ?>>Vietnamese</option>
-            </select>
-            <?php if ($error_recaptcha_language) { ?>
-                <span class="error"><?php echo $error_recaptcha_language; ?></span>
+            <?php if ($error_recaptcha_size) { ?>
+                <span class="error"><?php echo $error_recaptcha_size; ?></span>
             <?php } ?>
         </div>
 

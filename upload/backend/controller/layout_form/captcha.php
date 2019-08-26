@@ -47,22 +47,10 @@ class LayoutFormCaptchaController extends Controller
             $this->data['recaptcha_theme'] = $this->setting->get('recaptcha_theme');
         }
 
-        if (isset($this->request->post['recaptcha_type'])) {
-            $this->data['recaptcha_type'] = $this->request->post['recaptcha_type'];
-        } else {
-            $this->data['recaptcha_type'] = $this->setting->get('recaptcha_type');
-        }
-
         if (isset($this->request->post['recaptcha_size'])) {
             $this->data['recaptcha_size'] = $this->request->post['recaptcha_size'];
         } else {
             $this->data['recaptcha_size'] = $this->setting->get('recaptcha_size');
-        }
-
-        if (isset($this->request->post['recaptcha_language'])) {
-            $this->data['recaptcha_language'] = $this->request->post['recaptcha_language'];
-        } else {
-            $this->data['recaptcha_language'] = $this->setting->get('recaptcha_language');
         }
 
         if (isset($this->request->post['securimage_width'])) {
@@ -149,22 +137,10 @@ class LayoutFormCaptchaController extends Controller
             $this->data['error_recaptcha_theme'] = '';
         }
 
-        if (isset($this->error['recaptcha_type'])) {
-            $this->data['error_recaptcha_type'] = $this->error['recaptcha_type'];
-        } else {
-            $this->data['error_recaptcha_type'] = '';
-        }
-
         if (isset($this->error['recaptcha_size'])) {
             $this->data['error_recaptcha_size'] = $this->error['recaptcha_size'];
         } else {
             $this->data['error_recaptcha_size'] = '';
-        }
-
-        if (isset($this->error['recaptcha_language'])) {
-            $this->data['error_recaptcha_language'] = $this->error['recaptcha_language'];
-        } else {
-            $this->data['error_recaptcha_language'] = '';
         }
 
         if (isset($this->error['securimage_width'])) {
@@ -268,16 +244,8 @@ class LayoutFormCaptchaController extends Controller
             $this->error['recaptcha_theme'] = $this->data['lang_error_selection'];
         }
 
-        if (!isset($this->request->post['recaptcha_type']) || !in_array($this->request->post['recaptcha_type'], array('audio', 'image'))) {
-            $this->error['recaptcha_type'] = $this->data['lang_error_selection'];
-        }
-
         if (!isset($this->request->post['recaptcha_size']) || !in_array($this->request->post['recaptcha_size'], array('compact', 'normal'))) {
             $this->error['recaptcha_size'] = $this->data['lang_error_selection'];
-        }
-
-        if (!isset($this->request->post['recaptcha_language']) || !in_array($this->request->post['recaptcha_language'], array('auto', 'ar', 'bg', 'ca', 'cs', 'da', 'de', 'de-AT', 'de-CH', 'el', 'en', 'en-GB', 'es', 'es-419', 'fa', 'fi', 'fil', 'fr', 'fr-CA', 'hi', 'hr', 'hu', 'id', 'it', 'iw', 'ja', 'ko', 'lt', 'lv', 'nl', 'no', 'pl', 'pt', 'pt-BR', 'pt-PT', 'ro', 'ru', 'sk', 'sl', 'sr', 'sv', 'th', 'tr', 'uk', 'vi', 'zh-CN', 'zh-TW'))) {
-            $this->error['recaptcha_language'] = $this->data['lang_error_selection'];
         }
 
         if (!isset($this->request->post['securimage_width']) || !$this->validation->isInt($this->request->post['securimage_width']) || $this->request->post['securimage_width'] < 1 || $this->request->post['securimage_width'] > 500) {

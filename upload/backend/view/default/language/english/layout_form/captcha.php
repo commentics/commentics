@@ -13,7 +13,6 @@ $_['lang_entry_public_key']   = 'Public Key:';
 $_['lang_entry_private_key']  = 'Private Key:';
 $_['lang_entry_theme']        = 'Theme:';
 $_['lang_entry_size']         = 'Size:';
-$_['lang_entry_language']     = 'Language:';
 $_['lang_entry_width']        = 'Width:';
 $_['lang_entry_height']       = 'Height:';
 $_['lang_entry_length']       = 'Code Length:';
@@ -26,11 +25,8 @@ $_['lang_entry_back_color']   = 'Back Color:';
 $_['lang_entry_noise_color']  = 'Noise Color:';
 
 // Selection
-$_['lang_select_audio']       = 'Audio';
-$_['lang_select_image']       = 'Image';
 $_['lang_select_compact']     = 'Compact';
 $_['lang_select_normal']      = 'Normal';
-$_['lang_select_auto']        = 'Auto-detect';
 
 // Hint
 $_['lang_hint_enabled']       = 'Whether the captcha field should appear on the form.';

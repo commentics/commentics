@@ -262,6 +262,9 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'notice_settings_admin_detection'");
 
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'recaptcha_type'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'recaptcha_language'");
+
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_type', `value` = ''");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_time', `value` = '86400'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'cache', `title` = 'cache_host', `value` = '127.0.0.1'");

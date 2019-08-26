@@ -316,7 +316,7 @@
                 <div class="cmtx_row cmtx_recaptcha_row cmtx_clear {{ cmtx_wait_for_user }}">
                     <div class="cmtx_col_12">
                         <div class="cmtx_container cmtx_recaptcha_container">
-                            <div id="g-recaptcha" class="g-recaptcha" data-sitekey="{{ recaptcha_public_key }}" data-theme="{{ recaptcha_theme }}" data-type="{{ recaptcha_type }}" data-size="{{ recaptcha_size }}"></div>
+                            <div id="g-recaptcha" class="g-recaptcha" data-sitekey="{{ recaptcha_public_key }}" data-theme="{{ recaptcha_theme }}" data-size="{{ recaptcha_size }}"></div>
                         </div>
                     </div>
                 </div>

@@ -15,11 +15,7 @@ class LayoutFormCaptchaModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['recaptcha_theme']) . "' WHERE `title` = 'recaptcha_theme'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['recaptcha_type']) . "' WHERE `title` = 'recaptcha_type'");
-
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['recaptcha_size']) . "' WHERE `title` = 'recaptcha_size'");
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['recaptcha_language']) . "' WHERE `title` = 'recaptcha_language'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['securimage_width'] . "' WHERE `title` = 'securimage_width'");
 
