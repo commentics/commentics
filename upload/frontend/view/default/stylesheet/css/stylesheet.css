@@ -4730,6 +4730,17 @@ select.cmtx_required {
   text-decoration: none;
 }
 
+/* Online */
+.cmtx_online_icon::before {
+  color: #4d4d4d;
+  content: '\f0c0';
+  font-size: medium;
+}
+
+.cmtx_online_icon {
+  padding-right: 2px;
+}
+
 /* Page Number */
 .cmtx_page_number {
   font-weight: normal;

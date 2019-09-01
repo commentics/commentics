@@ -21,6 +21,11 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 cmtx_js_settings_notify = JSON.parse($('#cmtx_js_settings_notify').text());
             }
 
+            /* Online settings may not exist (if the online feature is disabled) */
+            if ($('#cmtx_js_settings_online').length) {
+                cmtx_js_settings_online = JSON.parse($('#cmtx_js_settings_online').text());
+            }
+
             /* User settings may not exist (if not on user page) */
             if ($('#cmtx_js_settings_user').length) {
                 cmtx_js_settings_user = JSON.parse($('#cmtx_js_settings_user').text());
@@ -827,9 +832,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     cache: false,
                     url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=part/average_rating/rate',
                     data: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id) + '&cmtx_rating=' + encodeURIComponent(rating),
-                    dataType: 'json',
-                    beforeSend: function() {
-                    }
+                    dataType: 'json'
                 });
 
                 request.done(function(response) {
@@ -1089,9 +1092,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     cache: false,
                     url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/vote',
                     data: 'cmtx_comment_id=' + encodeURIComponent($(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id')) + '&cmtx_type=' + encodeURIComponent(type),
-                    dataType: 'json',
-                    beforeSend: function() {
-                    }
+                    dataType: 'json'
                 });
 
                 request.done(function(response) {
@@ -1179,9 +1180,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     cache: false,
                     url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/flag',
                     data: 'cmtx_comment_id=' + encodeURIComponent(comment_id),
-                    dataType: 'json',
-                    beforeSend: function() {
-                    }
+                    dataType: 'json'
                 });
 
                 request.done(function(response) {
@@ -1344,6 +1343,38 @@ var cmtx_wait_for_jquery = setInterval(function() {
             if (typeof(cmtx_js_settings_comments) != 'undefined') {
                 if (cmtx_js_settings_comments.show_pagination && cmtx_js_settings_comments.pagination_type == 'infinite') {
                     $(window).off('scroll', cmtxInfiniteScroll).on('scroll', cmtxInfiniteScroll);
+                }
+            }
+
+            /* Viewers online */
+
+            if (typeof(cmtx_js_settings_online) != 'undefined') {
+                if (cmtx_js_settings_online.online_refresh_enabled) {
+                    setInterval(function() {
+                        var request = $.ajax({
+                            type: 'POST',
+                            cache: false,
+                            url: cmtx_js_settings_online.commentics_url + 'frontend/index.php?route=part/online/refresh',
+                            data: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_online.page_id),
+                            dataType: 'json'
+                        });
+
+                        request.done(function(response) {
+                            if (response['online'] != 'undefined') { // may be zero
+                                if ($('.cmtx_online_num').first().text() != response['online']) { // only update if different
+                                    $('.cmtx_online_num').fadeOut(function() {
+                                        $('.cmtx_online_num').text(response['online']).fadeIn();
+                                    });
+                                }
+                            }
+                        });
+
+                        request.fail(function(jqXHR, textStatus, errorThrown) {
+                            if (console && console.log) {
+                                console.log(jqXHR.responseText);
+                            }
+                        });
+                    }, cmtx_js_settings_online.online_refresh_interval);
                 }
             }
 

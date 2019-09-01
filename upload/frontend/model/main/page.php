@@ -7,6 +7,7 @@ class MainPageModel extends Model
     {
         $viewer         = $this->identifyViewer();
         $ip_address     = $this->user->getIpAddress();
+        $page_id        = $this->page->getId();
         $page_reference = $this->page->getReference();
         $page_url       = $this->url->getPageUrl();
         $timestamp      = time();
@@ -15,7 +16,7 @@ class MainPageModel extends Model
 
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "viewers` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' OR `time_added` < '" . (int) $timeout . "'");
 
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "viewers` SET `viewer` = '" . $this->db->escape($viewer['viewer']) . "', `type` = '" . $this->db->escape($viewer['type']) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `page_reference` = '" . $this->db->escape($page_reference) . "', `page_url` = '" . $this->db->escape($page_url) . "', `time_added` = '" . (int) $timestamp . "'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "viewers` SET `viewer` = '" . $this->db->escape($viewer['viewer']) . "', `type` = '" . $this->db->escape($viewer['type']) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `page_id` = '" . (int) $page_id . "', `page_reference` = '" . $this->db->escape($page_reference) . "', `page_url` = '" . $this->db->escape($page_url) . "', `time_added` = '" . (int) $timestamp . "'");
     }
 
     private function identifyViewer()

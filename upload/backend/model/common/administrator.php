@@ -155,6 +155,7 @@ class CommonAdministratorModel extends Model
         $restrictions[] = $this->getRestriction('Reply', 'layout_comments/reply', 60, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Average Rating', 'layout_comments/average_rating', 60, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Notify', 'layout_comments/notify', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('Online', 'layout_comments/online', 60, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Page Number', 'layout_comments/page_number', 60, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Pagination', 'layout_comments/pagination', 60, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('RSS', 'layout_comments/rss', 60, false, $viewable_pages, $modifiable_pages);

@@ -31,6 +31,7 @@ $_['lang_text_state']          = 'State';
 $_['lang_text_town']           = 'Town';
 $_['lang_text_average_rating'] = 'Average Rating';
 $_['lang_text_notify']         = 'Notify';
+$_['lang_text_online']         = 'Online';
 $_['lang_text_page_number']    = 'Page Number';
 $_['lang_text_pagination']     = 'Pagination';
 $_['lang_text_rss']            = 'RSS';

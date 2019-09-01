@@ -1,0 +1,1 @@
+<div class="cmtx_online_block"><span class="cmtx_online"><span class="cmtx_icon cmtx_online_icon" aria-hidden="true"></span> <span class="cmtx_online_num"><?php echo $online; ?></span> <?php echo $lang_text_online; ?></span></div><div id="cmtx_js_settings_online" style="display:none" hidden><?php echo $cmtx_js_settings_online; ?></div>

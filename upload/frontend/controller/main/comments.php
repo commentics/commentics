@@ -195,6 +195,10 @@ class MainCommentsController extends Controller
                 $outer_components['notify'] = $this->getComponent('part/notify');
             }
 
+            if ($this->setting->get('show_online') && $this->setting->get('viewers_enabled')) {
+                $outer_components['online'] = $this->getComponent('part/online');
+            }
+
             if ($this->setting->get('show_page_number') && $this->setting->get('show_pagination') && $this->setting->get('pagination_type') == 'multiple') {
                 $outer_components['page_number'] = $this->getComponent('part/page_number', array('current_page' => $page, 'total_pages' => ceil($this->data['total'] / $this->setting->get('pagination_amount'))));
             }

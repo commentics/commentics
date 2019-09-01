@@ -91,6 +91,7 @@ class ReportAccessController extends Controller
         $total = $this->model_report_access->getViews($data, true);
 
         $this->data['views'] = array();
+
         foreach ($views as $view) {
             $this->data['views'][] = array(
                 'username'   => $view['username'],

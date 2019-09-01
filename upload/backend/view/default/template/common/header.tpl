@@ -31,10 +31,6 @@
     <script src="../3rdparty/hint_script/tooltip.js"></script>
 
     <script src="<?php echo $common; ?>"></script>
-
-    <?php if ($meta_refresh) { ?>
-        <meta http-equiv="refresh" content="<?php echo $meta_refresh; ?>">
-    <?php } ?>
 <?php } ?>
 
     <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">

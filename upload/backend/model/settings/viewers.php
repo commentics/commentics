@@ -9,12 +9,13 @@ class SettingsViewersModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['viewers_timeout'] . "' WHERE `title` = 'viewers_timeout'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['viewers_refresh']) ? 1 : 0) . "' WHERE `title` = 'viewers_refresh'");
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['viewers_interval'] . "' WHERE `title` = 'viewers_interval'");
-
         if (!isset($data['viewers_enabled'])) {
             $this->db->query("TRUNCATE TABLE `" . CMTX_DB_PREFIX . "viewers`");
         }
+    }
+
+    public function dismiss()
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'notice_settings_viewers'");
     }
 }

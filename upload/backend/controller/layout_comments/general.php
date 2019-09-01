@@ -191,6 +191,7 @@ class LayoutCommentsGeneralController extends Controller
             $this->data['lang_select_none']           => '',
             $this->data['lang_select_average_rating'] => 'average_rating',
             $this->data['lang_select_notify']         => 'notify',
+            $this->data['lang_select_online']         => 'online',
             $this->data['lang_select_page_number']    => 'page_number',
             $this->data['lang_select_pagination']     => 'pagination',
             $this->data['lang_select_rss']            => 'rss',
@@ -223,7 +224,7 @@ class LayoutCommentsGeneralController extends Controller
             $this->error['comments_order'] = $this->data['lang_error_selection'];
         }
 
-        $elements = array('', 'average_rating', 'notify', 'page_number', 'pagination', 'rss', 'search', 'social', 'sort_by', 'topic');
+        $elements = array('', 'average_rating', 'notify', 'online', 'page_number', 'pagination', 'rss', 'search', 'social', 'sort_by', 'topic');
 
         if (!isset($this->request->post['comments_position_1']) || !in_array($this->request->post['comments_position_1'], $elements)) {
             $this->error['comments_position_1'] = $this->data['lang_error_selection'];

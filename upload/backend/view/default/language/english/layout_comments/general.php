@@ -21,6 +21,7 @@ $_['lang_select_critical']       = 'Critical';
 $_['lang_select_none']           = '';
 $_['lang_select_average_rating'] = 'Average Rating';
 $_['lang_select_notify']         = 'Notify';
+$_['lang_select_online']         = 'Online';
 $_['lang_select_page_number']    = 'Page Number';
 $_['lang_select_pagination']     = 'Pagination';
 $_['lang_select_rss']            = 'RSS';

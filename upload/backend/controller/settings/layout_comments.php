@@ -92,6 +92,11 @@ class SettingsLayoutCommentsController extends Controller
                 'action'  => $this->url->link('layout_comments/notify')
             ),
             array(
+                'element' => $this->data['lang_text_online'],
+                'status'  => ($this->setting->get('show_online')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
+                'action'  => $this->url->link('layout_comments/online')
+            ),
+            array(
                 'element' => $this->data['lang_text_page_number'],
                 'status'  => ($this->setting->get('show_page_number')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
                 'action'  => $this->url->link('layout_comments/page_number')

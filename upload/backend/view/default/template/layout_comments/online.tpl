@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_viewers_page">
+<div class="layout_comments_online_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -26,26 +26,33 @@
 
     <div class="description"><?php echo $lang_description; ?></div>
 
-    <form action="index.php?route=settings/viewers" class="controls" method="post">
+    <form action="index.php?route=layout_comments/online" class="controls" method="post">
         <div class="fieldset">
             <label><?php echo $lang_entry_enabled; ?></label>
-            <input type="checkbox" name="viewers_enabled" value="1" <?php if ($viewers_enabled) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_enabled; ?>', this, event, '')">[?]</a>
+            <input type="checkbox" name="show_online" value="1" <?php if ($show_online) { echo 'checked'; } ?>>
         </div>
 
         <div class="fieldset">
-            <label><?php echo $lang_entry_timeout; ?></label>
-            <input type="text" required name="viewers_timeout" class="small_plus" value="<?php echo $viewers_timeout; ?>" maxlength="5">
+            <label><?php echo $lang_entry_refresh; ?></label>
+            <input type="checkbox" name="online_refresh_enabled" value="1" <?php if ($online_refresh_enabled) { echo 'checked'; } ?>>
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_refresh; ?>', this, event, '')">[?]</a>
+        </div>
+
+        <div class="fieldset">
+            <label><?php echo $lang_entry_interval; ?></label>
+            <input type="text" required name="online_refresh_interval" class="small" value="<?php echo $online_refresh_interval; ?>" maxlength="3">
             <span class="note"><?php echo $lang_note_seconds; ?></span>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_timeout; ?>', this, event, '')">[?]</a>
-            <?php if ($error_viewers_timeout) { ?>
-                <span class="error"><?php echo $error_viewers_timeout; ?></span>
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_interval; ?>', this, event, '')">[?]</a>
+            <?php if ($error_online_refresh_interval) { ?>
+                <span class="error"><?php echo $error_online_refresh_interval; ?></span>
             <?php } ?>
         </div>
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>
+
+        <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
     </form>
 
     <script>
@@ -55,7 +62,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: 'index.php?route=settings/viewers/dismiss',
+                url: 'index.php?route=layout_comments/online/dismiss',
             })
 
             $('div.info').fadeOut(2000);

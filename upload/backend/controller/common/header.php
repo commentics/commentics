@@ -24,8 +24,6 @@ class CommonHeaderController extends Controller
 
             $this->data['common'] = $this->loadJavascript('common.js');
 
-            $this->data['meta_refresh'] = '';
-
             $this->data['has_restriction'] = $this->model_common_header->hasRestriction();
 
             $this->data['viewable_pages'] = $this->model_common_header->getViewablePages();
@@ -52,10 +50,6 @@ class CommonHeaderController extends Controller
 
             if (!$this->model_common_header->isPageViewable($this->data['has_restriction'], $this->data['viewable_pages'])) {
                 $this->data['error_view'] = $this->data['lang_error_page_viewable'];
-            }
-
-            if ($this->request->get['route'] == 'report/viewers' && $this->setting->get('viewers_enabled') && $this->setting->get('viewers_refresh')) {
-                $this->data['meta_refresh'] = $this->setting->get('viewers_interval');
             }
 
             $this->data['route'] = $this->request->get['route'];
