@@ -15,7 +15,9 @@
 
 # Cache files
 /upload/system/cache/database/*
+!/upload/system/cache/database/index.html
 /upload/system/cache/modification/*
+!/upload/system/cache/modification/index.html
 
 # Upload files
 /upload/upload/*

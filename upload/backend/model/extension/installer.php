@@ -162,6 +162,9 @@ class ExtensionInstallerModel extends Model
         // Delete the temp folder
         remove_directory($temp_folder);
 
+        // Clear modification cache
+        remove_directory(CMTX_DIR_CACHE . 'modification/', false);
+
         return false;
     }
 }
