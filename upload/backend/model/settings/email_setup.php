@@ -19,17 +19,11 @@ class SettingsEmailSetupModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['sendmail_path']) . "' WHERE `title` = 'sendmail_path'");
 
-        if (!empty($data['from_name'])) {
-            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "emails` SET `from_name` = '" . $this->db->escape($data['from_name']) . "'");
-        }
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['from_name']) . "' WHERE `title` = 'from_name'");
 
-        if (!empty($data['from_email'])) {
-            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "emails` SET `from_email` = '" . $this->db->escape($data['from_email']) . "'");
-        }
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['from_email']) . "' WHERE `title` = 'from_email'");
 
-        if (!empty($data['reply_to'])) {
-            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "emails` SET `reply_to` = '" . $this->db->escape($data['reply_to']) . "'");
-        }
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['reply_email']) . "' WHERE `title` = 'reply_email'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "data` SET `text` = '" . $this->db->escape($data['signature_text']) . "', `modified_by` = '" . $this->db->escape($username) . "', `date_modified` = NOW() WHERE `type` = 'signature_text'");
 
@@ -38,6 +32,24 @@ class SettingsEmailSetupModel extends Model
         if (isset($data['send'])) {
             $this->send($admin_id);
         }
+    }
+
+    public function getSignatureText()
+    {
+        $query = $this->db->query("SELECT `text` FROM `" . CMTX_DB_PREFIX . "data` WHERE `type` = 'signature_text'");
+
+        $result = $this->db->row($query);
+
+        return $result['text'];
+    }
+
+    public function getSignatureHtml()
+    {
+        $query = $this->db->query("SELECT `text` FROM `" . CMTX_DB_PREFIX . "data` WHERE `type` = 'signature_html'");
+
+        $result = $this->db->row($query);
+
+        return $result['text'];
     }
 
     private function send($admin_id)
@@ -71,6 +83,6 @@ class SettingsEmailSetupModel extends Model
 
         $body = $this->security->decode($body);
 
-        $this->email->send($to_email, null, $subject, $body, $format, $email['from_email'], $email['from_name'], $email['reply_to']);
+        $this->email->send($to_email, null, $subject, $body, $format);
     }
 }

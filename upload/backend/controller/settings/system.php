@@ -21,12 +21,6 @@ class SettingsSystemController extends Controller
             $this->data['site_name'] = $this->setting->get('site_name');
         }
 
-        if (isset($this->request->post['time_zone'])) {
-            $this->data['time_zone'] = $this->request->post['time_zone'];
-        } else {
-            $this->data['time_zone'] = $this->setting->get('time_zone');
-        }
-
         if (isset($this->request->post['site_domain'])) {
             $this->data['site_domain'] = $this->request->post['site_domain'];
         } else {
@@ -37,6 +31,12 @@ class SettingsSystemController extends Controller
             $this->data['site_url'] = $this->request->post['site_url'];
         } else {
             $this->data['site_url'] = $this->setting->get('site_url');
+        }
+
+        if (isset($this->request->post['time_zone'])) {
+            $this->data['time_zone'] = $this->request->post['time_zone'];
+        } else {
+            $this->data['time_zone'] = $this->setting->get('time_zone');
         }
 
         if (isset($this->request->post['commentics_folder'])) {
@@ -91,12 +91,6 @@ class SettingsSystemController extends Controller
             $this->data['error_site_name'] = '';
         }
 
-        if (isset($this->error['time_zone'])) {
-            $this->data['error_time_zone'] = $this->error['time_zone'];
-        } else {
-            $this->data['error_time_zone'] = '';
-        }
-
         if (isset($this->error['site_domain'])) {
             $this->data['error_site_domain'] = $this->error['site_domain'];
         } else {
@@ -107,6 +101,12 @@ class SettingsSystemController extends Controller
             $this->data['error_site_url'] = $this->error['site_url'];
         } else {
             $this->data['error_site_url'] = '';
+        }
+
+        if (isset($this->error['time_zone'])) {
+            $this->data['error_time_zone'] = $this->error['time_zone'];
+        } else {
+            $this->data['error_time_zone'] = '';
         }
 
         if (isset($this->error['commentics_folder'])) {
@@ -164,10 +164,6 @@ class SettingsSystemController extends Controller
             $this->error['site_name'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
 
-        if (!isset($this->request->post['time_zone']) || !in_array($this->request->post['time_zone'], $this->model_settings_system->get_time_zones())) {
-            $this->error['time_zone'] = $this->data['lang_error_zone'];
-        }
-
         if (!isset($this->request->post['site_domain']) || $this->validation->length($this->request->post['site_domain']) < 1 || $this->validation->length($this->request->post['site_domain']) > 250) {
             $this->error['site_domain'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
@@ -178,6 +174,10 @@ class SettingsSystemController extends Controller
 
         if (!isset($this->request->post['site_url']) || $this->validation->length($this->request->post['site_url']) < 1 || $this->validation->length($this->request->post['site_url']) > 250) {
             $this->error['site_url'] = sprintf($this->data['lang_error_length'], 1, 250);
+        }
+
+        if (!isset($this->request->post['time_zone']) || !in_array($this->request->post['time_zone'], $this->model_settings_system->get_time_zones())) {
+            $this->error['time_zone'] = $this->data['lang_error_zone'];
         }
 
         if (!isset($this->request->post['commentics_folder']) || !$this->validation->isFolder($this->request->post['commentics_folder'])) {

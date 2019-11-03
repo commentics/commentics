@@ -52,12 +52,6 @@ $_['lang_select_user_comment_approved']              = 'User Comment Approved';
 
 // Entry
 $_['lang_entry_subject']                             = 'Subject:';
-$_['lang_entry_from_name']                           = 'From Name:';
-$_['lang_entry_from_email']                          = 'From Email:';
-$_['lang_entry_reply_to']                            = 'Reply To:';
 $_['lang_entry_keywords']                            = 'Keywords:';
 $_['lang_entry_text']                                = 'Text:';
 $_['lang_entry_html']                                = 'HTML:';
-
-// Error
-$_['lang_error_email_invalid']                       = 'Must be a valid email address';

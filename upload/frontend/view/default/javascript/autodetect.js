@@ -21,6 +21,7 @@ window.onload = function() {
 
                 var xhttp = new XMLHttpRequest();
                 xhttp.open('GET', cmtx_url, true);
+                xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhttp.send();
 
                 if (!jquery) {

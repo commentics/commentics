@@ -28,6 +28,10 @@ class PartRssController extends Controller
 
                 $this->loadModel('part/rss');
 
+                $page = $this->page->getPage($this->request->get['id']);
+
+                $site = $this->site->getSite($page['site_id']);
+
                 if ($this->setting->get('rss_limit_enabled')) {
                     $limit = $this->setting->get('rss_limit_amount');
                 } else {
@@ -43,20 +47,10 @@ class PartRssController extends Controller
                 $output .= '<rss version="2.0">' . PHP_EOL;
 
                 $output .= '<channel>' . PHP_EOL;
-                $output .= '<title><![CDATA[' . $this->setting->get('rss_title') . ']]></title>' . PHP_EOL;
-                $output .= '<link><![CDATA[' . $this->setting->get('rss_link') . ']]></link>' . PHP_EOL;
+                $output .= '<title><![CDATA[' . $site['name'] . ']]></title>' . PHP_EOL;
+                $output .= '<link><![CDATA[' . $site['url'] . ']]></link>' . PHP_EOL;
                 $output .= '<description><![CDATA[' . $this->data['lang_text_description'] . ']]></description>' . PHP_EOL;
                 $output .= '<generator>Commentics</generator>' . PHP_EOL;
-
-                if ($this->setting->get('rss_image_enabled')) {
-                    $output .= '<image>' . PHP_EOL;
-                    $output .= '<url><![CDATA[' . $this->setting->get('rss_image_url') . ']]></url>' . PHP_EOL;
-                    $output .= '<title><![CDATA[' . $this->setting->get('rss_title') . ']]></title>' . PHP_EOL;
-                    $output .= '<link><![CDATA[' . $this->setting->get('rss_link') . ']]></link>' . PHP_EOL;
-                    $output .= '<width>' . $this->setting->get('rss_image_width') . '</width>' . PHP_EOL;
-                    $output .= '<height>' . $this->setting->get('rss_image_height') . '</height>' . PHP_EOL;
-                    $output .= '</image>' . PHP_EOL;
-                }
 
                 foreach ($comments as $comment) {
                     foreach ($comment['uploads'] as $upload) {

@@ -63,34 +63,34 @@ class SettingsEmailSetupController extends Controller
             $this->data['sendmail_path'] = $this->setting->get('sendmail_path');
         }
 
-        if (isset($this->request->post['from_name']) && isset($this->error['from_name'])) {
+        if (isset($this->request->post['from_name'])) {
             $this->data['from_name'] = $this->request->post['from_name'];
         } else {
-            $this->data['from_name'] = '';
+            $this->data['from_name'] = $this->setting->get('from_name');
         }
 
-        if (isset($this->request->post['from_email']) && isset($this->error['from_email'])) {
+        if (isset($this->request->post['from_email'])) {
             $this->data['from_email'] = $this->request->post['from_email'];
         } else {
-            $this->data['from_email'] = '';
+            $this->data['from_email'] = $this->setting->get('from_email');
         }
 
-        if (isset($this->request->post['reply_to']) && isset($this->error['reply_to'])) {
-            $this->data['reply_to'] = $this->request->post['reply_to'];
+        if (isset($this->request->post['reply_email'])) {
+            $this->data['reply_email'] = $this->request->post['reply_email'];
         } else {
-            $this->data['reply_to'] = '';
+            $this->data['reply_email'] = $this->setting->get('reply_email');
         }
 
         if (isset($this->request->post['signature_text'])) {
             $this->data['signature_text'] = $this->request->post['signature_text'];
         } else {
-            $this->data['signature_text'] = $this->email->getSignatureText();
+            $this->data['signature_text'] = $this->model_settings_email_setup->getSignatureText();
         }
 
         if (isset($this->request->post['signature_html'])) {
             $this->data['signature_html'] = $this->request->post['signature_html'];
         } else {
-            $this->data['signature_html'] = $this->email->getSignatureHtml();
+            $this->data['signature_html'] = $this->model_settings_email_setup->getSignatureHtml();
         }
 
         if (isset($this->error['transport_method'])) {
@@ -147,10 +147,10 @@ class SettingsEmailSetupController extends Controller
             $this->data['error_from_email'] = '';
         }
 
-        if (isset($this->error['reply_to'])) {
-            $this->data['error_reply_to'] = $this->error['reply_to'];
+        if (isset($this->error['reply_email'])) {
+            $this->data['error_reply_email'] = $this->error['reply_email'];
         } else {
-            $this->data['error_reply_to'] = '';
+            $this->data['error_reply_email'] = '';
         }
 
         if (isset($this->error['signature_text'])) {
@@ -214,24 +214,24 @@ class SettingsEmailSetupController extends Controller
             $this->error['sendmail_path'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
 
-        if (!isset($this->request->post['from_name']) || $this->validation->length($this->request->post['from_name']) > 250) {
-            $this->error['from_name'] = sprintf($this->data['lang_error_length'], 0, 250);
+        if (!isset($this->request->post['from_name']) || $this->validation->length($this->request->post['from_name']) < 1 || $this->validation->length($this->request->post['from_name']) > 250) {
+            $this->error['from_name'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
 
         if (isset($this->request->post['from_email']) && !empty($this->request->post['from_email']) && !$this->validation->isEmail($this->request->post['from_email'])) {
             $this->error['from_email'] = $this->data['lang_error_email_invalid'];
         }
 
-        if (!isset($this->request->post['from_email']) || $this->validation->length($this->request->post['from_email']) > 250) {
-            $this->error['from_email'] = sprintf($this->data['lang_error_length'], 0, 250);
+        if (!isset($this->request->post['from_email']) || $this->validation->length($this->request->post['from_email']) < 1 || $this->validation->length($this->request->post['from_email']) > 250) {
+            $this->error['from_email'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
 
-        if (isset($this->request->post['reply_to']) && !empty($this->request->post['reply_to']) && !$this->validation->isEmail($this->request->post['reply_to'])) {
-            $this->error['reply_to'] = $this->data['lang_error_email_invalid'];
+        if (isset($this->request->post['reply_email']) && !empty($this->request->post['reply_email']) && !$this->validation->isEmail($this->request->post['reply_email'])) {
+            $this->error['reply_email'] = $this->data['lang_error_email_invalid'];
         }
 
-        if (!isset($this->request->post['reply_to']) || $this->validation->length($this->request->post['reply_to']) > 250) {
-            $this->error['reply_to'] = sprintf($this->data['lang_error_length'], 0, 250);
+        if (!isset($this->request->post['reply_email']) || $this->validation->length($this->request->post['reply_email']) < 1 || $this->validation->length($this->request->post['reply_email']) > 250) {
+            $this->error['reply_email'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
 
         if (!isset($this->request->post['signature_text']) || $this->validation->length($this->request->post['signature_text']) > 1000) {

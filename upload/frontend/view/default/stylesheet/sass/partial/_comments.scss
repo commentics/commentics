@@ -104,12 +104,12 @@
 .cmtx_bio {
     background-color: $white;
     border: 1px solid $grey-light;
+    bottom: -130px;
     display: none;
     left: 20%;
     padding: 10px;
     padding-top: 3px;
     position: absolute;
-    top: 25%;
     width: 180px;
     z-index: $z-index-bio;
 }

@@ -54,30 +54,6 @@
                         <?php } ?>
                     </div>
 
-                    <div class="fieldset">
-                        <label><?php echo $lang_entry_from_name; ?></label>
-                        <input type="text" required name="field[<?php echo $value; ?>][from_name]" class="large" value="<?php echo isset($field[$value]) ? $field[$value]['from_name'] : ''; ?>" maxlength="250">
-                        <?php if (isset($error_from_name[$value])) { ?>
-                            <span class="error"><?php echo $error_from_name[$value]; ?></span>
-                        <?php } ?>
-                    </div>
-
-                    <div class="fieldset">
-                        <label><?php echo $lang_entry_from_email; ?></label>
-                        <input type="email" required name="field[<?php echo $value; ?>][from_email]" class="large" value="<?php echo isset($field[$value]) ? $field[$value]['from_email'] : ''; ?>" maxlength="250">
-                        <?php if (isset($error_from_email[$value])) { ?>
-                            <span class="error"><?php echo $error_from_email[$value]; ?></span>
-                        <?php } ?>
-                    </div>
-
-                    <div class="fieldset">
-                        <label><?php echo $lang_entry_reply_to; ?></label>
-                        <input type="email" required name="field[<?php echo $value; ?>][reply_to]" class="large" value="<?php echo isset($field[$value]) ? $field[$value]['reply_to'] : ''; ?>" maxlength="250">
-                        <?php if (isset($error_reply_to[$value])) { ?>
-                            <span class="error"><?php echo $error_reply_to[$value]; ?></span>
-                        <?php } ?>
-                    </div>
-
                     <div class="section_keywords">
                         <div><?php echo $lang_entry_keywords; ?></div>
                         <div class="keywords"><?php echo $keywords; ?></div>

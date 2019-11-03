@@ -223,6 +223,12 @@ class ManageCommentsModel extends Model
     public function singleApprove($id)
     {
         if ($this->db->numRows($this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '0' AND `id` = '" . (int) $id . "'"))) {
+            $site_id = $this->site->getSiteIdByCommentId($id);
+
+            if ($site_id) {
+                $this->page->setSiteId($site_id); // ensure relevant site's email sender details are used
+            }
+
             $this->notify->approvalNotification($id);
 
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '1', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
@@ -261,6 +267,12 @@ class ManageCommentsModel extends Model
     public function singleSend($id)
     {
         if ($this->db->numRows($this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_sent` = '0' AND `id` = '" . (int) $id . "'"))) {
+            $site_id = $this->site->getSiteIdByCommentId($id);
+
+            if ($site_id) {
+                $this->page->setSiteId($site_id); // ensure relevant site's email sender details are used
+            }
+
             if ($this->db->numRows($this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '0' AND `id` = '" . (int) $id . "'"))) {
                 $this->singleApprove($id); // if the comment is not approved then approve it first
             }

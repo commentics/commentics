@@ -295,8 +295,7 @@ class MainCommentsController extends Controller
             $this->data['cmtx_js_settings_comments'] = array(
                 'commentics_url'          => $this->url->getCommenticsUrl(),
                 'page_id'                 => (int) $this->page->getId(),
-                'scroll_reply'            => (bool) $this->setting->get('scroll_reply'),
-                'scroll_speed'            => (int) $this->setting->get('scroll_speed'),
+                'is_permalink'            => (bool) $this->data['is_permalink'],
                 'lang_text_view'          => $this->data['lang_text_view'],
                 'lang_text_reply'         => $this->data['lang_text_reply'],
                 'lang_text_replies'       => $this->data['lang_text_replies'],

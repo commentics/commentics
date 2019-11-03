@@ -37,36 +37,10 @@ class LayoutCommentsReplyController extends Controller
             $this->data['reply_depth'] = $this->setting->get('reply_depth');
         }
 
-        if (isset($this->request->post['scroll_reply'])) {
-            $this->data['scroll_reply'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['scroll_reply'])) {
-            $this->data['scroll_reply'] = false;
-        } else {
-            $this->data['scroll_reply'] = $this->setting->get('scroll_reply');
-        }
-
-        if (isset($this->request->post['scroll_speed'])) {
-            $this->data['scroll_speed'] = $this->request->post['scroll_speed'];
-        } else {
-            $this->data['scroll_speed'] = $this->setting->get('scroll_speed');
-        }
-
-        if (isset($this->error['reply_indent'])) {
-            $this->data['error_reply_indent'] = $this->error['reply_indent'];
-        } else {
-            $this->data['error_reply_indent'] = '';
-        }
-
         if (isset($this->error['reply_depth'])) {
             $this->data['error_reply_depth'] = $this->error['reply_depth'];
         } else {
             $this->data['error_reply_depth'] = '';
-        }
-
-        if (isset($this->error['scroll_speed'])) {
-            $this->data['error_scroll_speed'] = $this->error['scroll_speed'];
-        } else {
-            $this->data['error_scroll_speed'] = '';
         }
 
         $this->data['link_back'] = $this->url->link('settings/layout_comments');
@@ -90,10 +64,6 @@ class LayoutCommentsReplyController extends Controller
 
         if (!isset($this->request->post['reply_depth']) || !$this->validation->isInt($this->request->post['reply_depth']) || $this->request->post['reply_depth'] < 1 || $this->request->post['reply_depth'] > 5) {
             $this->error['reply_depth'] = sprintf($this->data['lang_error_range'], 1, 5);
-        }
-
-        if (!isset($this->request->post['scroll_speed']) || !$this->validation->isInt($this->request->post['scroll_speed']) || $this->request->post['scroll_speed'] < 1 || $this->request->post['scroll_speed'] > 10000) {
-            $this->error['scroll_speed'] = sprintf($this->data['lang_error_range'], 1, 10000);
         }
 
         if ($this->error) {

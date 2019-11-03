@@ -40,57 +40,6 @@
         </div>
 
         <div class="fieldset">
-            <label><?php echo $lang_entry_title; ?></label>
-            <input type="text" required name="rss_title" class="large" value="<?php echo $rss_title; ?>" maxlength="250">
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_title; ?>', this, event, '')">[?]</a>
-            <?php if ($error_rss_title) { ?>
-                <span class="error"><?php echo $error_rss_title; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset divide_after">
-            <label><?php echo $lang_entry_link; ?></label>
-            <input type="text" required name="rss_link" class="large" value="<?php echo $rss_link; ?>" maxlength="250">
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_link; ?>', this, event, '')">[?]</a>
-            <?php if ($error_rss_link) { ?>
-                <span class="error"><?php echo $error_rss_link; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset">
-            <label><?php echo $lang_entry_image; ?></label>
-            <input type="checkbox" name="rss_image_enabled" value="1" <?php if ($rss_image_enabled) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_image; ?>', this, event, '')">[?]</a>
-        </div>
-
-        <div class="fieldset">
-            <label><?php echo $lang_entry_image_url; ?></label>
-            <input type="text" required name="rss_image_url" class="large" value="<?php echo $rss_image_url; ?>" maxlength="250">
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_image_url; ?>', this, event, '')">[?]</a>
-            <?php if ($error_rss_image_url) { ?>
-                <span class="error"><?php echo $error_rss_image_url; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset">
-            <label><?php echo $lang_entry_image_width; ?></label>
-            <input type="text" required name="rss_image_width" class="small" value="<?php echo $rss_image_width; ?>" maxlength="3">
-            <span class="note"><?php echo $lang_note_pixels; ?></span>
-            <?php if ($error_rss_image_width) { ?>
-                <span class="error"><?php echo $error_rss_image_width; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset divide_after">
-            <label><?php echo $lang_entry_image_height; ?></label>
-            <input type="text" required name="rss_image_height" class="small" value="<?php echo $rss_image_height; ?>" maxlength="3">
-            <span class="note"><?php echo $lang_note_pixels; ?></span>
-            <?php if ($error_rss_image_height) { ?>
-                <span class="error"><?php echo $error_rss_image_height; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset">
             <label><?php echo $lang_entry_limit_items; ?></label>
             <input type="checkbox" name="rss_limit_enabled" value="1" <?php if ($rss_limit_enabled) { echo 'checked'; } ?>>
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_limit_items; ?>', this, event, '')">[?]</a>

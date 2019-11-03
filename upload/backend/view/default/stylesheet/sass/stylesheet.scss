@@ -646,16 +646,16 @@ img.loading {
     margin-top: 0;
 }
 
-.settings_email_editor_page .section_keywords {
+.settings_email_editor_page .section_keywords, .settings_email_setup_page .section_keywords {
     margin-top: 5px;
 }
 
-.settings_email_editor_page .keywords {
+.settings_email_editor_page .keywords, .settings_email_setup_page .keywords {
     margin-bottom: 20px;
     margin-top: 10px;
 }
 
-.settings_email_editor_page .keywords span {
+.settings_email_editor_page .keywords span, .settings_email_setup_page .keywords span {
     background-color: #f5f5f5;
     border: 1px solid #a4a4a4;
     cursor: default;

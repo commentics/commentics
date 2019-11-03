@@ -6,18 +6,22 @@ class Page
     private $db;
     private $request;
     private $security;
+    private $session;
     private $url;
     private $id = 0;
     private $identifier = '';
     private $reference = '';
     private $page_url = '';
     private $form_enabled = true;
+    private $iframe = false;
+    private $site_id = 0;
 
     public function __construct($registry)
     {
         $this->db       = $registry->get('db');
         $this->request  = $registry->get('request');
         $this->security = $registry->get('security');
+        $this->session  = $registry->get('session');
         $this->url      = $registry->get('url');
 
         if (defined('CMTX_IDENTIFIER')) {
@@ -28,8 +32,46 @@ class Page
             $this->reference = $this->security->encode(CMTX_REFERENCE);
         }
 
+        if (defined('CMTX_PAGE_URL')) { // only set for iFrame
+            $this->page_url = $this->security->encode(CMTX_PAGE_URL);
+
+            $this->iframe = true;
+        } else {
+            $this->page_url = $this->url->getPageUrl();
+        }
+
         if ($this->identifier) {
-            $page = $this->getPageByIdentifier($this->identifier);
+            $domain = str_ireplace('www.', '', parse_url($this->url->decode($this->page_url), PHP_URL_HOST));
+
+            if ($this->iframe && isset($this->request->server['HTTP_REFERER']) && $this->request->server['HTTP_REFERER']) {
+                $referrer = str_ireplace('www.', '', parse_url($this->url->decode($this->request->server['HTTP_REFERER']), PHP_URL_HOST));
+
+                if ($referrer) {
+                    if ($domain != $referrer) {
+                        die('<b>Error:</b> Could not be loaded from the domain ' . $this->security->encode($referrer));
+                    }
+                }
+            }
+
+            if ($domain) {
+                $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "sites` WHERE `domain` = '" . $this->db->escape($domain) . "'");
+
+                $site = $this->db->row($query);
+
+                if ($site) {
+                    if ($this->iframe && !$site['iframe_enabled']) {
+                        die('<b>Error:</b> iFrame usage is disabled for this site');
+                    } else {
+                        $this->site_id = $site['id'];
+                    }
+                } else {
+                    die('<b>Error:</b> No site found with the domain ' . $this->security->encode($domain));
+                }
+            } else {
+                die('<b>Error:</b> No domain provided');
+            }
+
+            $page = $this->getPageByIdentifier($this->identifier, $this->site_id);
 
             if ($page) {
                 $this->id = $page['id'];
@@ -38,7 +80,15 @@ class Page
 
                 $this->form_enabled = $page['is_form_enabled'];
             } else {
-                $this->id = $this->createPage();
+                if ($site['new_pages']) {
+                    if (isset($this->session->data['cmtx_block'])) {
+                        die('<b>Error:</b> Commentics could not be loaded');
+                    } else {
+                        $this->id = $this->createPage();
+                    }
+                } else {
+                    die('<b>Error:</b> New page creation is disabled for this site');
+                }
             }
         } else if ($this->request->isAjax() && isset($this->request->post['cmtx_page_id']) && $this->pageExists($this->request->post['cmtx_page_id'])) {
             $this->id = $this->request->post['cmtx_page_id'];
@@ -48,6 +98,8 @@ class Page
             $this->reference = $page['reference'];
 
             $this->page_url = $page['url'];
+
+            $this->site_id = $page['site_id'];
         }
     }
 
@@ -76,6 +128,21 @@ class Page
         return $this->form_enabled;
     }
 
+    public function isIFrame()
+    {
+        return $this->iframe;
+    }
+
+    public function getSiteId()
+    {
+        return $this->site_id;
+    }
+
+    public function setSiteId($site_id)
+    {
+        $this->site_id = $site_id;
+    }
+
     public function pageExists($id)
     {
         if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "pages` WHERE `id` = '" . (int) $id . "'"))) {
@@ -85,9 +152,9 @@ class Page
         }
     }
 
-    public function getPageByIdentifier($identifier)
+    public function getPageByIdentifier($identifier, $site_id)
     {
-        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "pages` WHERE `identifier` = '" . $this->db->escape($identifier) . "'");
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "pages` WHERE `identifier` = '" . $this->db->escape($identifier) . "' AND `site_id` = '" . (int) $site_id . "'");
 
         $result = $this->db->row($query);
 
@@ -96,7 +163,7 @@ class Page
 
     public function createPage()
     {
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "pages` SET `identifier` = '" . $this->db->escape($this->identifier) . "', `reference` = '" . $this->db->escape($this->reference) . "', `url` = '" . $this->db->escape($this->url->getPageUrl()) . "', `moderate` = 'default', `is_form_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "pages` SET `site_id` = '" . (int) $this->site_id . "', `identifier` = '" . $this->db->escape($this->identifier) . "', `reference` = '" . $this->db->escape($this->reference) . "', `url` = '" . $this->db->escape($this->page_url) . "', `moderate` = 'default', `is_form_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         return $this->db->insertId();
     }
@@ -114,6 +181,7 @@ class Page
 
             return array(
                 'id'              => $page['id'],
+                'site_id'         => $page['site_id'],
                 'identifier'      => $page['identifier'],
                 'reference'       => $page['reference'],
                 'url'             => $page['url'],

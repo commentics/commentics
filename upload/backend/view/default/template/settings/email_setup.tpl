@@ -109,7 +109,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_from_name; ?></label>
-                    <input type="text" name="from_name" class="large" value="<?php echo $from_name; ?>" maxlength="250">
+                    <input type="text" required name="from_name" class="large" value="<?php echo $from_name; ?>" maxlength="250">
                     <?php if ($error_from_name) { ?>
                         <span class="error"><?php echo $error_from_name; ?></span>
                     <?php } ?>
@@ -117,23 +117,28 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_from_email; ?></label>
-                    <input type="text" name="from_email" class="large" value="<?php echo $from_email; ?>" maxlength="250">
+                    <input type="text" required name="from_email" class="large" value="<?php echo $from_email; ?>" maxlength="250">
                     <?php if ($error_from_email) { ?>
                         <span class="error"><?php echo $error_from_email; ?></span>
                     <?php } ?>
                 </div>
 
                 <div class="fieldset">
-                    <label><?php echo $lang_entry_reply_to; ?></label>
-                    <input type="text" name="reply_to" class="large" value="<?php echo $reply_to; ?>" maxlength="250">
-                    <?php if ($error_reply_to) { ?>
-                        <span class="error"><?php echo $error_reply_to; ?></span>
+                    <label><?php echo $lang_entry_reply_email; ?></label>
+                    <input type="text" required name="reply_email" class="large" value="<?php echo $reply_email; ?>" maxlength="250">
+                    <?php if ($error_reply_email) { ?>
+                        <span class="error"><?php echo $error_reply_email; ?></span>
                     <?php } ?>
                 </div>
             </div>
 
             <div id="tab-signature">
                 <div class="description"><?php echo $lang_description_signature; ?></div>
+
+                <div class="section_keywords">
+                    <div><?php echo $lang_entry_keywords; ?></div>
+                    <div class="keywords"><span>site name</span> <span>site domain</span> <span>site url</span></div>
+                </div>
 
                 <div class="section_text">
                     <div><?php echo $lang_entry_text; ?></div>

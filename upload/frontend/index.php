@@ -42,6 +42,44 @@ if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'confi
 }
 
 /*
+ * iFrame integration
+ */
+
+if (isset($cmtx_page_url)) { // if this is set, it's an iFrame integration
+    if (isset($_GET['block'])) { // helps prevent manipulation of the iFrame parameters
+        $_SESSION['cmtx_block'] = '1';
+        return;
+    }
+
+    define('CMTX_PAGE_URL', $cmtx_page_url);
+
+    /* If no identifier is passed, use the page URL */
+    if (!$cmtx_identifier) {
+        /* Tidy up the page URL first */
+        $cmtx_page_url = preg_replace('#^(https?://)?(www.)?#', '', $cmtx_page_url); // Remove http and www from URL
+        $cmtx_page_url = explode('cmtx', $cmtx_page_url); // Remove any cmtx parameters e.g. if permalink
+        $cmtx_page_url = $cmtx_page_url[0];
+        $cmtx_page_url = rtrim($cmtx_page_url, '&?'); // Remove ampersand and question mark from end
+
+        $cmtx_identifier = $cmtx_page_url;
+    }
+
+    /* If no reference is passed, set as 'Untitled' */
+    if (!$cmtx_reference) {
+        $cmtx_reference = 'Untitled';
+    }
+
+    /* Set these extra config vaules if provided */
+    $extra_configs = array('logged_in', 'name', 'email', 'website', 'town', 'country', 'state', 'language');
+
+    foreach($extra_configs as $extra_config) {
+        if (isset($_GET[$extra_config])) {
+            ${'cmtx_' . $extra_config} = $_GET[$extra_config];
+        }
+    }
+}
+
+/*
  * When the page that Commentics is integrated into is viewed, these variables are (or at least should
  * be) set. They are not set however for ajax requests (e.g. when submitting a comment). In these cases,
  * the page ID should be in the ajax $_POST data. In the worst scenario the page ID will remain as its

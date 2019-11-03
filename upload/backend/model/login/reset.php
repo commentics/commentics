@@ -27,7 +27,7 @@ class LoginResetModel extends Model
 
         $body = $this->security->decode($body);
 
-        $this->email->send($to_email, null, $subject, $body, $format, $email['from_email'], $email['from_name'], $email['reply_to']);
+        $this->email->send($to_email, null, $subject, $body, $format);
     }
 
     public function updatePassword($password, $email)

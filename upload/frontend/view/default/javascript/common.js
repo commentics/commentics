@@ -31,17 +31,36 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 cmtx_js_settings_user = JSON.parse($('#cmtx_js_settings_user').text());
             }
 
+            /* Is Commentics loaded using the iFrame integration method */
+            isInIframe = (window.location != window.parent.location) ? true : false;
+
             /* Show a BB Code modal */
             $('#cmtx_container span[data-cmtx-target-modal]').click(function(e) {
                 e.preventDefault();
 
                 var target = $(this).attr('data-cmtx-target-modal');
 
+                $('body').append($(target));
+
                 $('body').append('<div class="cmtx_overlay"></div>');
 
-                $('.cmtx_overlay').fadeIn(200);
+                /*
+                 * The following stops the modal from showing in the vertical centre of the iFrame
+                 * Instead we position the modal relative to an element on the page
+                 */
+                if (isInIframe) {
+                    var destination = $('.cmtx_bb_code_container').offset();
 
-                $('body').append($(target));
+                    $($(target)).css({top: destination.top + 150});
+
+                    /*
+                     * The overlay is set to transparent as otherwise it would only cover the iFrame
+                     * It's still useful to show it so that clicking on the overlay closes the modal
+                     */
+                    $('.cmtx_overlay').css('background-color', 'transparent');
+                }
+
+                $('.cmtx_overlay').fadeIn(200);
 
                 $(target).fadeIn(200);
             });
@@ -52,11 +71,19 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 var target = $(this).parent().parent().attr('data-cmtx-target-modal');
 
+                $('body').append($(target));
+
                 $('body').append('<div class="cmtx_overlay"></div>');
 
-                $('.cmtx_overlay').fadeIn(200);
+                if (isInIframe) {
+                    var destination = $('.cmtx_checkbox_container').offset();
 
-                $('body').append($(target));
+                    $($(target)).css({top: destination.top - 150});
+
+                    $('.cmtx_overlay').css('background-color', 'transparent');
+                }
+
+                $('.cmtx_overlay').fadeIn(200);
 
                 $(target).fadeIn(200);
             });
@@ -69,11 +96,21 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('#cmtx_flag_modal_yes').attr('data-cmtx-comment-id', comment_id);
 
+                if ($('body > #cmtx_flag_modal').length === 0) {
+                    $('body').append($('#cmtx_flag_modal'));
+                }
+
                 $('body').append('<div class="cmtx_overlay"></div>');
 
-                $('.cmtx_overlay').fadeIn(200);
+                if (isInIframe) {
+                    var destination = $(this).offset();
 
-                $('body').append($('#cmtx_flag_modal'));
+                    $('#cmtx_flag_modal').css({top: destination.top - 150});
+
+                    $('.cmtx_overlay').css('background-color', 'transparent');
+                }
+
+                $('.cmtx_overlay').fadeIn(200);
 
                 $('#cmtx_flag_modal').fadeIn(200);
             });
@@ -426,13 +463,21 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         total_size = Number(total_size) + Number(size);
 
                         if (num_images >= cmtx_js_settings_form.maximum_upload_amount) {
-                            $('body').append('<div class="cmtx_overlay"></div>');
-
-                            $('.cmtx_overlay').fadeIn(200);
-
                             $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_num.replace('%d', cmtx_js_settings_form.maximum_upload_amount));
 
                             $('body').append($('#cmtx_upload_modal'));
+
+                            $('body').append('<div class="cmtx_overlay"></div>');
+
+                            if (isInIframe) {
+                                var destination = $('.cmtx_upload_container').offset();
+
+                                $('#cmtx_upload_modal').css({top: destination.top + 50});
+
+                                $('.cmtx_overlay').css('background-color', 'transparent');
+                            }
+
+                            $('.cmtx_overlay').fadeIn(200);
 
                             $('#cmtx_upload_modal').fadeIn(200);
 
@@ -440,13 +485,21 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if (size > cmtx_js_settings_form.maximum_upload_size) {
-                            $('body').append('<div class="cmtx_overlay"></div>');
-
-                            $('.cmtx_overlay').fadeIn(200);
-
                             $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_size.replace('%d', cmtx_js_settings_form.maximum_upload_size));
 
                             $('body').append($('#cmtx_upload_modal'));
+
+                            $('body').append('<div class="cmtx_overlay"></div>');
+
+                            if (isInIframe) {
+                                var destination = $('.cmtx_upload_container').offset();
+
+                                $('#cmtx_upload_modal').css({top: destination.top + 50});
+
+                                $('.cmtx_overlay').css('background-color', 'transparent');
+                            }
+
+                            $('.cmtx_overlay').fadeIn(200);
 
                             $('#cmtx_upload_modal').fadeIn(200);
 
@@ -454,13 +507,21 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if (total_size > cmtx_js_settings_form.maximum_upload_total) {
-                            $('body').append('<div class="cmtx_overlay"></div>');
-
-                            $('.cmtx_overlay').fadeIn(200);
-
                             $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_total.replace('%d', cmtx_js_settings_form.maximum_upload_total));
 
                             $('body').append($('#cmtx_upload_modal'));
+
+                            $('body').append('<div class="cmtx_overlay"></div>');
+
+                            if (isInIframe) {
+                                var destination = $('.cmtx_upload_container').offset();
+
+                                $('#cmtx_upload_modal').css({top: destination.top + 50});
+
+                                $('.cmtx_overlay').css('background-color', 'transparent');
+                            }
+
+                            $('.cmtx_overlay').fadeIn(200);
 
                             $('#cmtx_upload_modal').fadeIn(200);
 
@@ -468,13 +529,21 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if ($.inArray(extension, ['gif', 'jpg', 'jpeg', 'png']) == -1) {
-                            $('body').append('<div class="cmtx_overlay"></div>');
-
-                            $('.cmtx_overlay').fadeIn(200);
-
                             $('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_type);
 
                             $('body').append($('#cmtx_upload_modal'));
+
+                            $('body').append('<div class="cmtx_overlay"></div>');
+
+                            if (isInIframe) {
+                                var destination = $('.cmtx_upload_container').offset();
+
+                                $('#cmtx_upload_modal').css({top: destination.top + 50});
+
+                                $('.cmtx_overlay').css('background-color', 'transparent');
+                            }
+
+                            $('.cmtx_overlay').fadeIn(200);
 
                             $('#cmtx_upload_modal').fadeIn(200);
 
@@ -741,9 +810,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         $('#cmtx_question').text(response['question']);
                     }
 
-                    $('html, body').animate({
-                        scrollTop: $('#cmtx_form_container').offset().top
-                    }, 1000);
+                    cmtxAutoScroll($("#cmtx_form_container"));
                 });
 
                 request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -938,20 +1005,18 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_notify">' + cmtx_js_settings_notify.lang_text_notify_info + ' ' + '<a href="#" title="' + cmtx_js_settings_notify.lang_title_cancel_notify + '">' + cmtx_js_settings_notify.lang_link_cancel + '</a></div>');
 
-                $('html, body').animate({
-                    scrollTop: $('#cmtx_form_container').offset().top
-                }, 1000);
+                cmtxAutoScroll($("#cmtx_form_container"));
 
                 $('.cmtx_message_notify').fadeIn(1000);
             });
 
-            $('html, body').on('click', '.cmtx_message_notify a', function(e) {
+            $('body').on('click', '.cmtx_message_notify a', function(e) {
                 e.preventDefault();
 
                 cmtx_cancel_notify();
             });
 
-            $('html, body').on('click', '#cmtx_notify_button', function(e) {
+            $('body').on('click', '#cmtx_notify_button', function(e) {
                 e.preventDefault();
 
                 // Find any disabled inputs and remove the "disabled" attribute
@@ -1051,9 +1116,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         $('#cmtx_question').text(response['question']);
                     }
 
-                    $('html, body').animate({
-                        scrollTop: $('#cmtx_form_container').offset().top
-                    }, 1000);
+                    cmtxAutoScroll($("#cmtx_form_container"));
                 });
             });
 
@@ -1168,7 +1231,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
             });
 
             /* Flag modal */
-            $('#cmtx_container').on('click', '#cmtx_flag_modal_yes', function(e) {
+            $('body').on('click', '#cmtx_flag_modal_yes', function(e) {
                 e.preventDefault();
 
                 var comment_id = $(this).attr('data-cmtx-comment-id');
@@ -1179,7 +1242,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     type: 'POST',
                     cache: false,
                     url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/flag',
-                    data: 'cmtx_comment_id=' + encodeURIComponent(comment_id),
+                    data: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id),
                     dataType: 'json'
                 });
 
@@ -1274,11 +1337,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_reply">' + cmtx_js_settings_comments.lang_text_replying_to + ' ' + name + ' <a href="#" title="' + cmtx_js_settings_comments.lang_title_cancel_reply + '">' + cmtx_js_settings_comments.lang_link_cancel + '</a></div>');
 
-                if (cmtx_js_settings_comments.scroll_reply) {
-                    $('html, body').animate({
-                        scrollTop: $('#cmtx_form_container').offset().top
-                    }, cmtx_js_settings_comments.scroll_speed);
-                }
+                cmtxAutoScroll($("#cmtx_form_container"));
 
                 $('.cmtx_message_reply').fadeIn(2000);
             });
@@ -1324,6 +1383,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('#cmtx_search').val('');
 
+                cmtx_js_settings_comments.is_permalink = false;
+
                 var options = {
                     'commentics_url': cmtx_js_settings_comments.commentics_url,
                     'page_id'       : cmtx_js_settings_comments.page_id,
@@ -1336,17 +1397,28 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 cmtxRefreshComments(options);
             });
 
+            /* Infinite scroll */
+            if (typeof(cmtx_js_settings_comments) != 'undefined') {
+                if (cmtx_js_settings_comments.show_pagination && cmtx_js_settings_comments.pagination_type == 'infinite') {
+                    if (isInIframe) {
+                        if (window.addEventListener) {
+                            window.addEventListener('message', function (e) {
+                                if (e.data && e.data == 'infinite_scroll' && !cmtx_js_settings_comments.is_permalink) {
+                                    cmtxInfiniteScrollIframe();
+                                }
+                            }, false);
+                        }
+                    } else {
+                        $(window).off('scroll', cmtxInfiniteScroll).on('scroll', cmtxInfiniteScroll);
+                    }
+                }
+            }
+
             cmtxViewReplies();
             cmtxTimeago();
             cmtxHighlightCode();
 
-            if (typeof(cmtx_js_settings_comments) != 'undefined') {
-                if (cmtx_js_settings_comments.show_pagination && cmtx_js_settings_comments.pagination_type == 'infinite') {
-                    $(window).off('scroll', cmtxInfiniteScroll).on('scroll', cmtxInfiniteScroll);
-                }
-            }
-
-            /* Viewers online */
+            /* Viewers Online */
 
             if (typeof(cmtx_js_settings_online) != 'undefined') {
                 if (cmtx_js_settings_online.online_refresh_enabled) {
@@ -1414,9 +1486,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     });
 
                     request.done(function(response) {
-                        $('html, body').animate({
-                            scrollTop: $('.cmtx_user_container').offset().top
-                        }, 1000);
+                        cmtxAutoScroll($(".cmtx_user_container"));
 
                         setTimeout(function() {
                             $('.cmtx_message').remove();
@@ -1469,9 +1539,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if (response['error']) {
-                            $('html, body').animate({
-                                scrollTop: $('.cmtx_user_container').offset().top
-                            }, 1000);
+                            cmtxAutoScroll($(".cmtx_user_container"));
 
                             $('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
 
@@ -1501,9 +1569,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if (response['error']) {
-                            $('html, body').animate({
-                                scrollTop: $('.cmtx_user_container').offset().top
-                            }, 1000);
+                            cmtxAutoScroll($(".cmtx_user_container"));
 
                             $('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
 
@@ -1512,7 +1578,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     });
                 });
             }
-
         });
     }
 }, 100);
@@ -1596,6 +1661,35 @@ function cmtxInfiniteScroll() {
     }
 }
 
+function cmtxInfiniteScrollIframe(e) {
+    if ($('#cmtx_loading_helper').attr('data-cmtx-load') == '1') {
+        var next_page = parseInt($('#cmtx_next_page').val());
+
+        $('#cmtx_next_page').val(next_page + 1);
+
+        var options = {
+            'commentics_url': cmtx_js_settings_comments.commentics_url,
+            'page_id'       : cmtx_js_settings_comments.page_id,
+            'page_number'   : next_page,
+            'sort_by'       : cmtxGetSortByValue(),
+            'search'        : cmtxGetSearchValue(),
+            'pagination'    : 'infinite',
+            'effect'        : false
+        }
+
+        cmtxRefreshComments(options);
+    }
+}
+
+if (typeof window.iFrameResizer != 'undefined' && window.iFrameResizer != null) {
+    window.iFrameResizer = {
+        messageCallback: function (message) {
+            console.log('test');
+            console.log(message);
+        }
+    };
+}
+
 /* Auto update the time with e.g. '2 minutes ago' */
 function cmtxTimeago() {
     if (typeof(cmtx_js_settings_comments) != 'undefined') {
@@ -1668,6 +1762,16 @@ function cmtxViewReplies() {
                 $(this).closest('.cmtx_comment_section').find('.cmtx_view_replies_link').html('<i class="fa fa-commenting-o" aria-hidden="true"></i> ' + view_replies);
             }
         });
+    }
+}
+
+/* Auto scroll to element */
+function cmtxAutoScroll(element) {
+    try {
+       element[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (error) {
+       // fallback for browsers like Edge that don't yet support the options parameter
+       element[0].scrollIntoView(true);
     }
 }
 

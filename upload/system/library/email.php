@@ -34,22 +34,57 @@ class Email
         }
     }
 
-    public function getSignatureText()
+    public function getSignatureText($site_id = '')
     {
         $query = $this->db->query("SELECT `text` FROM `" . CMTX_DB_PREFIX . "data` WHERE `type` = 'signature_text'");
 
         $result = $this->db->row($query);
 
-        return $result['text'];
+        $signature = $result['text'];
+
+        $signature = $this->convertSignatureKeywords($signature, $site_id);
+
+        return $signature;
     }
 
-    public function getSignatureHtml()
+    public function getSignatureHtml($site_id = '')
     {
         $query = $this->db->query("SELECT `text` FROM `" . CMTX_DB_PREFIX . "data` WHERE `type` = 'signature_html'");
 
         $result = $this->db->row($query);
 
-        return $result['text'];
+        $signature = $result['text'];
+
+        $signature = $this->convertSignatureKeywords($signature, $site_id);
+
+        return $signature;
+    }
+
+    private function convertSignatureKeywords($signature, $site_id)
+    {
+        $site_name = $this->setting->get('site_name');
+        $site_domain = $this->setting->get('site_domain');
+        $site_url = $this->setting->get('site_url');
+
+        if ($site_id) {
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "sites` WHERE `id` = '" . (int) $site_id . "'");
+
+            $result = $this->db->row($query);
+
+            if ($result) {
+                $site_name = $result['name'];
+
+                $site_domain = $result['domain'];
+
+                $site_url = $result['url'];
+            }
+        }
+
+        $signature = str_ireplace('[site name]', $site_name, $signature);
+        $signature = str_ireplace('[site domain]', $site_domain, $signature);
+        $signature = str_ireplace('[site url]', $site_url, $signature);
+
+        return $signature;
     }
 
     public function getAdminLink()
@@ -57,8 +92,32 @@ class Email
         return $this->setting->get('commentics_url') . $this->setting->get('backend_folder') . '/';
     }
 
-    public function send($to_email, $to_name, $subject, $body, $format, $from_email, $from_name, $reply_email)
+    public function send($to_email, $to_name, $subject, $body, $format, $site_id = '')
     {
+        $from_name = $this->setting->get('from_name');
+        $from_email = $this->setting->get('from_email');
+        $reply_email = $this->setting->get('reply_email');
+
+        if ($site_id) {
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "sites` WHERE `id` = '" . (int) $site_id . "'");
+
+            $result = $this->db->row($query);
+
+            if ($result) {
+                if ($result['from_name']) {
+                    $from_name = $result['from_name'];
+                }
+
+                if ($result['from_email']) {
+                    $from_email = $result['from_email'];
+                }
+
+                if ($result['reply_email']) {
+                    $reply_email = $result['reply_email'];
+                }
+            }
+        }
+
         if ($this->setting->get('transport_method') == 'php-basic') {
             if (!empty($to_name)) {
                 $to_email = $to_name . ' <' . $to_email . '>';

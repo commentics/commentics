@@ -48,21 +48,6 @@
             <?php } ?>
         </div>
 
-        <div class="fieldset">
-            <label><?php echo $lang_entry_scroll; ?></label>
-            <input type="checkbox" name="scroll_reply" value="1" <?php if ($scroll_reply) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_scroll_reply; ?>', this, event, '')">[?]</a>
-        </div>
-
-        <div class="fieldset">
-            <label><?php echo $lang_entry_speed; ?></label>
-            <input type="text" required name="scroll_speed" class="small_plus" value="<?php echo $scroll_speed; ?>" maxlength="5">
-            <span class="note"><?php echo $lang_note_milliseconds; ?></span>
-            <?php if ($error_scroll_speed) { ?>
-                <span class="error"><?php echo $error_scroll_speed; ?></span>
-            <?php } ?>
-        </div>
-
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>

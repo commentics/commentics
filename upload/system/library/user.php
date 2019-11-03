@@ -7,6 +7,7 @@ class User
     private $cookie;
     private $db;
     private $email;
+    private $page;
     private $request;
     private $security;
     private $session;
@@ -22,6 +23,7 @@ class User
         $this->cookie     = $registry->get('cookie');
         $this->db         = $registry->get('db');
         $this->email      = $registry->get('email');
+        $this->page       = $registry->get('page');
         $this->request    = $registry->get('request');
         $this->security   = $registry->get('security');
         $this->session    = $registry->get('session');
@@ -249,14 +251,14 @@ class User
                 $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
 
                 if ($admin['format'] == 'text') {
-                    $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
+                    $body = str_ireplace('[signature]', $this->email->getSignatureText($this->page->getSiteId()), $body);
                 } else {
-                    $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
+                    $body = str_ireplace('[signature]', $this->email->getSignatureHtml($this->page->getSiteId()), $body);
                 }
 
                 $body = $this->security->decode($body);
 
-                $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $email['from_email'], $email['from_name'], $email['reply_to']);
+                $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $this->page->getSiteId());
             }
         }
     }

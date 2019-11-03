@@ -36,14 +36,24 @@ class MainPageController extends Controller
         /* Display order */
         $this->data['order_parts'] = $this->setting->get('order_parts');
 
-        $this->data['auto_detect'] = $this->setting->get('auto_detect');
+        if ($this->setting->get('auto_detect')) {
+            if ($this->page->isIFrame()) { // if this is an iFrame integration, we don't need AutoDetect as we'll always load jQuery
+                $this->data['auto_detect'] = 0;
+
+                $this->model_main_page->autoDetect(array('jquery' => '1')); // turn the AutoDetect setting off
+            } else {
+                $this->data['auto_detect'] = 1;
+            }
+        } else {
+            $this->data['auto_detect'] = 0;
+        }
 
         $this->data['lang_modal_autodetect_content'] = sprintf($this->data['lang_modal_autodetect_content'], 'https://www.commentics.org/autodetect');
 
         /* These are passed to autodetect.js via the template */
         $this->data['cmtx_js_settings_page'] = array(
             'commentics_url' => $this->url->getCommenticsUrl(),
-            'auto_detect'    => $this->setting->get('auto_detect')
+            'auto_detect'    => (bool) $this->data['auto_detect']
         );
 
         $this->data['cmtx_js_settings_page'] = json_encode($this->data['cmtx_js_settings_page']);
@@ -55,11 +65,13 @@ class MainPageController extends Controller
 
     public function autoDetect()
     {
-        if ($this->setting->get('auto_detect')) {
-            $this->loadModel('main/page');
+        if ($this->request->isAjax()) {
+            if ($this->setting->get('auto_detect')) {
+                $this->loadModel('main/page');
 
-            if (isset($this->request->get['jquery'])) {
-                $this->model_main_page->autoDetect($this->request->get);
+                if (isset($this->request->get['jquery'])) {
+                    $this->model_main_page->autoDetect($this->request->get);
+                }
             }
         }
     }

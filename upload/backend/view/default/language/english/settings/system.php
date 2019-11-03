@@ -7,9 +7,9 @@ $_['lang_description']             = '<p>These settings relate to the system. Be
 
 // Entry
 $_['lang_entry_site_name']         = 'Site Name:';
-$_['lang_entry_time_zone']         = 'Time Zone:';
 $_['lang_entry_site_domain']       = 'Site Domain:';
 $_['lang_entry_site_url']          = 'Site URL:';
+$_['lang_entry_time_zone']         = 'Time Zone:';
 $_['lang_entry_commentics_folder'] = 'Commentics Folder:';
 $_['lang_entry_commentics_url']    = 'Commentics URL:';
 $_['lang_entry_backend_folder']    = 'Backend Folder:';
@@ -20,9 +20,9 @@ $_['lang_entry_admin_cookie']      = 'Admin Cookie:';
 
 // Hint
 $_['lang_hint_site_name']          = 'The name of your website.<br>For example: <i>My Site</i>';
-$_['lang_hint_time_zone']          = 'The time zone of your location.';
 $_['lang_hint_site_domain']        = 'The domain of your website.<br>For example: <i>site.com</i>';
 $_['lang_hint_site_url']           = 'The URL of your website. For<br>example: <i>http://www.site.com</i>';
+$_['lang_hint_time_zone']          = 'The time zone of your location.';
 $_['lang_hint_commentics_folder']  = 'The name of the Commentics folder. Example: <i>commentics</i>';
 $_['lang_hint_commentics_url']     = 'The URL to the Commentics folder.<br>http://www.site.com/commentics/';
 $_['lang_hint_backend_folder']     = 'The name of the backend folder. For example: <i>secret</i>';
@@ -33,5 +33,5 @@ $_['lang_hint_admin_cookie']       = 'The amount of days before the admin cookie
 
 // Error
 $_['lang_error_url']               = 'The URL entered is invalid';
-$_['lang_error_folder']            = 'The folder entered is invalid';
 $_['lang_error_zone']              = 'The zone selected is invalid';
+$_['lang_error_folder']            = 'The folder entered is invalid';

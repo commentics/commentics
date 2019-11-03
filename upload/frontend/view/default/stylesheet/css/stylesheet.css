@@ -1,4 +1,8 @@
 /* Reset */
+.cmtx_iframe_body {
+  margin: 0;
+}
+
 .cmtx_container {
   text-align: left;
 }
@@ -4082,12 +4086,12 @@ select.cmtx_required {
 .cmtx_bio {
   background-color: #fff;
   border: 1px solid #cccccc;
+  bottom: -130px;
   display: none;
   left: 20%;
   padding: 10px;
   padding-top: 3px;
   position: absolute;
-  top: 25%;
   width: 180px;
   z-index: 7000;
 }

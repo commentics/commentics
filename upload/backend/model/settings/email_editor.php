@@ -13,12 +13,9 @@ class SettingsEmailEditorModel extends Model
 
         foreach ($results as $result) {
             $email[$result['language']] = array(
-                'subject'    => $result['subject'],
-                'from_name'  => $result['from_name'],
-                'from_email' => $result['from_email'],
-                'reply_to'   => $result['reply_to'],
-                'text'       => $result['text'],
-                'html'       => $result['html']
+                'subject' => $result['subject'],
+                'text'    => $result['text'],
+                'html'    => $result['html']
             );
         }
 
@@ -30,7 +27,7 @@ class SettingsEmailEditorModel extends Model
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "emails` WHERE `type` = '" . $this->db->escape($type) . "'");
 
         foreach ($data['field'] as $key => $value) {
-            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = '" . $this->db->escape($type) . "', `subject` = '" . $this->db->escape($value['subject']) . "', `from_name` = '" . $this->db->escape($value['from_name']) . "', `from_email` = '" . $this->db->escape($value['from_email']) . "', `reply_to` = '" . $this->db->escape($value['reply_to']) . "', `text` = '" . $this->db->escape($value['text']) . "', `html` = '" . $this->db->escape($value['html']) . "', `language` = '" . $this->db->escape($key) . "', `date_modified` = NOW()");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = '" . $this->db->escape($type) . "', `subject` = '" . $this->db->escape($value['subject']) . "', `text` = '" . $this->db->escape($value['text']) . "', `html` = '" . $this->db->escape($value['html']) . "', `language` = '" . $this->db->escape($key) . "', `date_modified` = NOW()");
         }
     }
 

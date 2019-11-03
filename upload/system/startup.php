@@ -80,6 +80,7 @@ require_once cmtx_modification(CMTX_DIR_LIBRARY . 'response.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'security.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'session.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'setting.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'site.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'task.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'template.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'url.php');
@@ -152,17 +153,20 @@ $cmtx_registry->set('comment', $cmtx_comment);
 $cmtx_geo = new \Commentics\Geo($cmtx_registry);
 $cmtx_registry->set('geo', $cmtx_geo);
 
-$cmtx_notify = new \Commentics\Notify($cmtx_registry);
-$cmtx_registry->set('notify', $cmtx_notify);
-
 $cmtx_page = new \Commentics\Page($cmtx_registry);
 $cmtx_registry->set('page', $cmtx_page);
+
+$cmtx_notify = new \Commentics\Notify($cmtx_registry);
+$cmtx_registry->set('notify', $cmtx_notify);
 
 $cmtx_user = new \Commentics\User($cmtx_registry);
 $cmtx_registry->set('user', $cmtx_user);
 
 $cmtx_home = new \Commentics\Home($cmtx_registry);
 $cmtx_registry->set('home', $cmtx_home);
+
+$cmtx_site = new \Commentics\Site($cmtx_registry);
+$cmtx_registry->set('site', $cmtx_site);
 
 $cmtx_task = new \Commentics\Task($cmtx_registry);
 $cmtx_registry->set('task', $cmtx_task);

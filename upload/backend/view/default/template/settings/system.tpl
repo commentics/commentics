@@ -37,19 +37,6 @@
         </div>
 
         <div class="fieldset">
-            <label><?php echo $lang_entry_time_zone; ?></label>
-            <select name="time_zone" class="large">
-            <?php foreach ($zones as $zone) { ?>
-                <option value="<?php echo $zone; ?>" <?php if ($zone == $time_zone) { echo 'selected'; } ?>><?php echo $zone; ?></option>
-            <?php } ?>
-            </select>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_time_zone; ?>', this, event, '')">[?]</a>
-            <?php if ($error_time_zone) { ?>
-                <span class="error"><?php echo $error_time_zone; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset">
             <label><?php echo $lang_entry_site_domain; ?></label>
             <input type="text" required name="site_domain" class="large" value="<?php echo $site_domain; ?>" maxlength="250">
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_site_domain; ?>', this, event, '')">[?]</a>
@@ -64,6 +51,19 @@
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_site_url; ?>', this, event, '')">[?]</a>
             <?php if ($error_site_url) { ?>
                 <span class="error"><?php echo $error_site_url; ?></span>
+            <?php } ?>
+        </div>
+
+        <div class="fieldset">
+            <label><?php echo $lang_entry_time_zone; ?></label>
+            <select name="time_zone" class="large">
+            <?php foreach ($zones as $zone) { ?>
+                <option value="<?php echo $zone; ?>" <?php if ($zone == $time_zone) { echo 'selected'; } ?>><?php echo $zone; ?></option>
+            <?php } ?>
+            </select>
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_time_zone; ?>', this, event, '')">[?]</a>
+            <?php if ($error_time_zone) { ?>
+                <span class="error"><?php echo $error_time_zone; ?></span>
             <?php } ?>
         </div>
 

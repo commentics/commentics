@@ -136,24 +136,6 @@ class SettingsEmailEditorController extends Controller
             $this->data['error_subject'] = '';
         }
 
-        if (isset($this->error['from_name'])) {
-            $this->data['error_from_name'] = $this->error['from_name'];
-        } else {
-            $this->data['error_from_name'] = '';
-        }
-
-        if (isset($this->error['from_email'])) {
-            $this->data['error_from_email'] = $this->error['from_email'];
-        } else {
-            $this->data['error_from_email'] = '';
-        }
-
-        if (isset($this->error['reply_to'])) {
-            $this->data['error_reply_to'] = $this->error['reply_to'];
-        } else {
-            $this->data['error_reply_to'] = '';
-        }
-
         if (isset($this->error['text'])) {
             $this->data['error_text'] = $this->error['text'];
         } else {
@@ -197,26 +179,6 @@ class SettingsEmailEditorController extends Controller
         foreach ($this->request->post['field'] as $key => $value) {
             if (!isset($value['subject']) || $this->validation->length($value['subject']) < 1 || $this->validation->length($value['subject']) > 250) {
                 $this->error['subject'][$key] = sprintf($this->data['lang_error_length'], 1, 250);
-            }
-
-            if (!isset($value['from_name']) || $this->validation->length($value['from_name']) < 1 || $this->validation->length($value['from_name']) > 250) {
-                $this->error['from_name'][$key] = sprintf($this->data['lang_error_length'], 1, 250);
-            }
-
-            if (isset($value['from_email']) && !empty($value['from_email']) && !$this->validation->isEmail($value['from_email'])) {
-                $this->error['from_email'][$key] = $this->data['lang_error_email_invalid'];
-            }
-
-            if (!isset($value['from_email']) || $this->validation->length($value['from_email']) < 1 || $this->validation->length($value['from_email']) > 250) {
-                $this->error['from_email'][$key] = sprintf($this->data['lang_error_length'], 1, 250);
-            }
-
-            if (isset($value['reply_to']) && !empty($value['reply_to']) && !$this->validation->isEmail($value['reply_to'])) {
-                $this->error['reply_to'][$key] = $this->data['lang_error_email_invalid'];
-            }
-
-            if (!isset($value['reply_to']) || $this->validation->length($value['reply_to']) < 1 || $this->validation->length($value['reply_to']) > 250) {
-                $this->error['reply_to'][$key] = sprintf($this->data['lang_error_length'], 1, 250);
             }
 
             if (!isset($value['text']) || $this->validation->length($value['text']) < 1 || $this->validation->length($value['text']) > 5000) {

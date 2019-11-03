@@ -284,6 +284,61 @@ class MainUpgrade2Model extends Model
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'viewers_refresh'");
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'viewers_interval'");
 
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD `site_id` int(10) unsigned NOT NULL default '1'");
+
+            $query = $this->db->query("SELECT `value` FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'site_name'");
+            $result = $this->db->row($query);
+            $site_name = $result['value'];
+
+            $query = $this->db->query("SELECT `value` FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'site_domain'");
+            $result = $this->db->row($query);
+            $site_domain = $result['value'];
+
+            $query = $this->db->query("SELECT `value` FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'site_url'");
+            $result = $this->db->row($query);
+            $site_url = $result['value'];
+
+            $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "sites` (
+                `id` int(10) unsigned NOT NULL auto_increment,
+                `name` varchar(250) NOT NULL default '',
+                `domain` varchar(250) NOT NULL default '',
+                `url` varchar(250) NOT NULL default '',
+                `iframe_enabled` tinyint(1) unsigned NOT NULL default '1',
+                `new_pages` tinyint(1) unsigned NOT NULL default '1',
+                `from_name` varchar(250) NOT NULL default '',
+                `from_email` varchar(250) NOT NULL default '',
+                `reply_email` varchar(250) NOT NULL default '',
+                `date_modified` datetime NOT NULL,
+                `date_added` datetime NOT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "sites` SET `id` = '1', `name` = '" . $this->db->escape($site_name) . "', `domain` = '" . $this->db->escape($site_domain) . "', `url` = '" . $this->db->escape($site_url) . "', `iframe_enabled` = '0', `new_pages` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rss_title'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rss_link'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rss_image_enabled'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rss_image_url'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rss_image_width'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rss_image_height'");
+
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'scroll_reply'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'scroll_speed'");
+
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "emails` WHERE `type` = 'comment_success'");
+            $result = $this->db->row($query);
+            $from_name = $result['from_name'];
+            $from_email = $result['from_email'];
+            $reply_to = $result['reply_to'];
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'email', `title` = 'from_name', `value` = '" . $this->db->escape($from_name) . "'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'email', `title` = 'from_email', `value` = '" . $this->db->escape($from_email) . "'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'email', `title` = 'reply_email', `value` = '" . $this->db->escape($reply_to) . "'");
+
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "emails` DROP `from_name`");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "emails` DROP `from_email`");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "emails` DROP `reply_to`");
+
             /* Move any XML files from /system/modification/xml/ to /system/modification/ */
             if (file_exists(CMTX_DIR_MODIFICATION . 'xml/')) {
                 $files = glob(CMTX_DIR_MODIFICATION . '*.xml');

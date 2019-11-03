@@ -7,11 +7,11 @@ class SettingsSystemModel extends Model
     {
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['site_name']) . "' WHERE `title` = 'site_name'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['time_zone']) . "' WHERE `title` = 'time_zone'");
-
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['site_domain']) . "' WHERE `title` = 'site_domain'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['site_url']) . "' WHERE `title` = 'site_url'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['time_zone']) . "' WHERE `title` = 'time_zone'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['commentics_folder']) . "' WHERE `title` = 'commentics_folder'");
 

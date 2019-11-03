@@ -7,6 +7,11 @@ class CommonHeaderController extends Controller
     {
         $this->data['commentics_url'] = $this->url->getCommenticsUrl();
 
+        /* If this is an iFrame integration, force jQuery to be loaded. */
+        if ($this->page->isIFrame() && $this->setting->get('jquery_source') == '') {
+            $this->setting->set('jquery_source', 'local');
+        }
+
         switch ($this->setting->get('jquery_source')) {
             case '':
                 $this->data['jquery'] = '';

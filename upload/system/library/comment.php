@@ -217,7 +217,7 @@ class Comment
             $location = CMTX_DIR_UPLOAD . $result['folder'] . '/' . $result['filename'] . '.' . $result['extension'];
 
             if (file_exists($location)) {
-                unlink($location);
+                @unlink($location);
             }
         }
 
