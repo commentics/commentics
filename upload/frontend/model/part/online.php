@@ -8,6 +8,7 @@ class PartOnlineModel extends Model
         $query = $this->db->query(" SELECT COUNT(*) AS `count`
                                     FROM `" . CMTX_DB_PREFIX . "viewers`
                                     WHERE `page_id` = '" . (int) $page_id . "'
+                                    AND `type` = 'Person'
                                  ");
 
         $result = $this->db->row($query);
