@@ -53,15 +53,15 @@ class ManagePagesModel extends Model
             $sql .= " GROUP BY `p`.`id`";
         }
 
-        $sql .= " ORDER BY " . $this->db->backticks($data['sort']);
-
-        if ($data['order'] == 'asc') {
-            $sql .= " ASC";
-        } else {
-            $sql .= " DESC";
-        }
-
         if (!$count) {
+            $sql .= " ORDER BY " . $this->db->backticks($data['sort']);
+
+            if ($data['order'] == 'asc') {
+                $sql .= " ASC";
+            } else {
+                $sql .= " DESC";
+            }
+
             $sql .= " LIMIT " . (int) $data['start'] . ", " . (int) $data['limit'];
         }
 
