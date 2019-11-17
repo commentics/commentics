@@ -9,7 +9,7 @@ class MainPageModel extends Model
         $ip_address     = $this->user->getIpAddress();
         $page_id        = $this->page->getId();
         $page_reference = $this->page->getReference();
-        $page_url       = $this->url->getPageUrl();
+        $page_url       = $this->page->getUrl();
         $timestamp      = time();
 
         $timeout = $timestamp - $this->setting->get('viewers_timeout');

@@ -11,10 +11,9 @@ $_['lang_menu_dashboard']                 = 'Dashboard';
 /* Manage */
 $_['lang_menu_manage']                    = 'Manage';
 $_['lang_menu_manage_admins']             = 'Admins';
-$_['lang_menu_manage_bans']               = 'Bans';
 $_['lang_menu_manage_comments']           = 'Comments';
 $_['lang_menu_manage_pages']              = 'Pages';
-$_['lang_menu_manage_subscriptions']      = 'Subscriptions';
+$_['lang_menu_manage_sites']              = 'Sites';
 $_['lang_menu_manage_users']              = 'Users';
 
 /* Extension */

@@ -339,6 +339,8 @@ class MainUpgrade2Model extends Model
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "emails` DROP `from_email`");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "emails` DROP `reply_to`");
 
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` DROP `detect_admin`");
+
             /* Move any XML files from /system/modification/xml/ to /system/modification/ */
             if (file_exists(CMTX_DIR_MODIFICATION . 'xml/')) {
                 $files = glob(CMTX_DIR_MODIFICATION . '*.xml');

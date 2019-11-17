@@ -7,6 +7,7 @@ class Task
     private $db;
     private $home;
     private $notify;
+    private $page;
     private $setting;
     private $validation;
 
@@ -16,6 +17,7 @@ class Task
         $this->db         = $registry->get('db');
         $this->home       = $registry->get('home');
         $this->notify     = $registry->get('notify');
+        $this->page       = $registry->get('page');
         $this->setting    = $registry->get('setting');
         $this->validation = $registry->get('validation');
 
@@ -30,6 +32,8 @@ class Task
         /* Only run the tasks once a day */
         if ($last_task != $date) {
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($date) . "' WHERE `title` = 'last_task'");
+
+            $this->deletePages();
 
             if ($this->setting->get('task_enabled_delete_bans')) {
                 $this->deleteBans();
@@ -57,6 +61,19 @@ class Task
         }
     }
 
+    private function deletePages()
+    {
+        $pages = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "pages` `p`
+                                   WHERE `p`.`date_added` < DATE_SUB(NOW(), INTERVAL 30 DAY)
+                                   AND (SELECT COUNT(`c`.`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c`
+                                        WHERE `c`.`page_id` = `p`.`id`
+                                        ) = 0");
+
+        foreach ($pages as $page) {
+            $this->page->deletePage($page['id']);
+        }
+    }
+
     private function deleteBans()
     {
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "bans` WHERE `date_added` < DATE_SUB(NOW(), INTERVAL " . (int) $this->setting->get('days_to_delete_bans') . " DAY)");
@@ -64,7 +81,7 @@ class Task
 
     private function deleteComments()
     {
-        $comments = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "comments` WHERE `date_added` < DATE_SUB(NOW(), INTERVAL " . (int) $this->setting->get('days_to_delete_comments') . " DAY)");
+        $comments = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `date_added` < DATE_SUB(NOW(), INTERVAL " . (int) $this->setting->get('days_to_delete_comments') . " DAY)");
 
         foreach ($comments as $comment) {
             $this->comment->deleteComment($comment['id']);

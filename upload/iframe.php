@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="frontend/view/default/javascript/iframe.js"></script>
 </head>
-<body class="cmtx_iframe_body">
+<body class="cmtx_iframe_body" style="margin:0">
 <?php
 if (isset($_GET['identifier']) && isset($_GET['reference']) && isset($_GET['url'])) {
     $cmtx_identifier = $_GET['identifier'];

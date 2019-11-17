@@ -59,10 +59,9 @@
 
                             <ul>
                                 <?php if (!$has_restriction || ($has_restriction && in_array('manage/admins', $viewable_pages))) { ?> <li><a href="index.php?route=manage/admins"><?php echo $lang_menu_manage_admins; ?></a></li> <?php } ?>
-                                <?php if (!$has_restriction || ($has_restriction && in_array('manage/bans', $viewable_pages))) { ?> <li><a href="index.php?route=manage/bans"><?php echo $lang_menu_manage_bans; ?></a></li> <?php } ?>
                                 <?php if (!$has_restriction || ($has_restriction && in_array('manage/comments', $viewable_pages))) { ?> <li><a href="index.php?route=manage/comments"><?php echo $lang_menu_manage_comments; ?></a></li> <?php } ?>
                                 <?php if (!$has_restriction || ($has_restriction && in_array('manage/pages', $viewable_pages))) { ?> <li><a href="index.php?route=manage/pages"><?php echo $lang_menu_manage_pages; ?></a></li> <?php } ?>
-                                <?php if (!$has_restriction || ($has_restriction && in_array('manage/subscriptions', $viewable_pages))) { ?> <li><a href="index.php?route=manage/subscriptions"><?php echo $lang_menu_manage_subscriptions; ?></a></li> <?php } ?>
+                                <?php if (!$has_restriction || ($has_restriction && in_array('manage/sites', $viewable_pages))) { ?> <li><a href="index.php?route=manage/sites"><?php echo $lang_menu_manage_sites; ?></a></li> <?php } ?>
                                 <?php if (!$has_restriction || ($has_restriction && in_array('manage/users', $viewable_pages))) { ?> <li><a href="index.php?route=manage/users"><?php echo $lang_menu_manage_users; ?></a></li> <?php } ?>
                             </ul>
                         </li>

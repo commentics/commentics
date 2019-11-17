@@ -114,6 +114,9 @@ class CommonAdministratorModel extends Model
         $restrictions[] = $this->getRestriction('Questions', 'manage/questions', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Add', 'add/question', 40, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Edit', 'edit/question', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('Sites', 'manage/sites', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('Add', 'add/site', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('Edit', 'edit/site', 40, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('States', 'manage/states', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Add', 'add/state', 40, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Edit', 'edit/state', 40, false, $viewable_pages, $modifiable_pages);

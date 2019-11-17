@@ -48,7 +48,7 @@ class Page
 
                 if ($referrer) {
                     if ($domain != $referrer) {
-                        die('<b>Error:</b> Could not be loaded from the domain ' . $this->security->encode($referrer));
+                        die('<b>Error:</b> Could not be loaded from the domain \'' . $this->security->encode($referrer) . '\'');
                     }
                 }
             }
@@ -65,7 +65,7 @@ class Page
                         $this->site_id = $site['id'];
                     }
                 } else {
-                    die('<b>Error:</b> No site found with the domain ' . $this->security->encode($domain));
+                    die('<b>Error:</b> No site found with the domain \'' . $this->security->encode($domain) . '\'');
                 }
             } else {
                 die('<b>Error:</b> No domain provided');

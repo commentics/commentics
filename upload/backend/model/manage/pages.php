@@ -47,6 +47,8 @@ class ManagePagesModel extends Model
             $sql .= " AND `p`.`date_added` LIKE '%" . $this->db->escape($data['filter_date']) . "%'";
         }
 
+        $sql .= " AND (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`page_id` = `p`.`id`) > 0";
+
         if ($data['group_by']) {
             $sql .= " GROUP BY " . $this->db->backticks($data['group_by']);
         } else {

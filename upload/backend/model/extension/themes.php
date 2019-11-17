@@ -19,7 +19,7 @@ class ExtensionThemesModel extends Model
 
         /* If optimize setting has changed, clear template cache so HTML can be minified / unminified */
         if ((isset($data['optimize']) && !$this->setting->get('optimize')) || (!isset($data['optimize']) && $this->setting->get('optimize'))) {
-            remove_directory(CMTX_DIR_CACHE, false);
+            remove_directory(CMTX_DIR_CACHE . 'template/', false);
         }
     }
 

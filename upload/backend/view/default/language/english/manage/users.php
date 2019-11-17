@@ -9,7 +9,7 @@ $_['lang_message_bulk_delete_invalid']   = '%d user(s) could not be deleted';
 $_['lang_heading']                       = 'Users';
 
 // Description
-$_['lang_description']                   = '<p>Here you can edit and delete users.</p>';
+$_['lang_description']                   = '<p>Here you can edit and delete users, manage their <a href="%s">bans</a> and <a href="%s">subscriptions</a>.</p>';
 
 // Filter
 $_['lang_filter_name']                   = 'Name';

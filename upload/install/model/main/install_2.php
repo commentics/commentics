@@ -93,7 +93,7 @@ class MainInstall2Model extends Model
             PRIMARY KEY (`id`)
         ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "admins` SET `username` = '" . $this->db->escape($username) . "', `password` = '" . $this->db->escape($password) . "', `email` = '" . $this->db->escape($email) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `cookie_key` = '" . $this->db->escape($cookie_key) . "', `detect_admin` = '1', `receive_email_ban` = '1', `receive_email_comment_approve` = '1', `receive_email_comment_success` = '1', `receive_email_flag` = '1', `login_attempts` = '0', `resets` = '0', `last_login` = NOW(), `restrict_pages` = '0', `viewable_pages` = '', `modifiable_pages` = '', `format` = 'html', `is_super` = '1', `is_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "admins` SET `username` = '" . $this->db->escape($username) . "', `password` = '" . $this->db->escape($password) . "', `email` = '" . $this->db->escape($email) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `cookie_key` = '" . $this->db->escape($cookie_key) . "', `receive_email_ban` = '1', `receive_email_comment_approve` = '1', `receive_email_comment_success` = '1', `receive_email_flag` = '1', `login_attempts` = '0', `resets` = '0', `last_login` = NOW(), `restrict_pages` = '0', `viewable_pages` = '', `modifiable_pages` = '', `format` = 'html', `is_super` = '1', `is_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         /*****************************************************************************************************************/
     }
 
