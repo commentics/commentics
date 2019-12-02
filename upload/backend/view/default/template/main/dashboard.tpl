@@ -34,8 +34,8 @@
                 <?php if ($version_check['type'] == 'negative') { ?>
                     <span class="negative"><?php echo $version_check['text']; ?></span>
 
-                    <?php if ($version_check['upgrade']) { ?>
-                        (<a href="<?php echo $upgrade_url; ?>"><?php echo $lang_text_upgrade; ?></a>)
+                    <?php if ($version_check['link']) { ?>
+                        (<a href="<?php echo $version_check['link_href']; ?>"><?php echo $version_check['link_text']; ?></a>)
                     <?php } ?>
                 <?php } ?>
             </div>

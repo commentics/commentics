@@ -25,7 +25,6 @@ $_['lang_title_administrator_notes'] = 'Administrator Notes';
 // Text
 $_['lang_text_version_latest']       = 'You are using the latest version';
 $_['lang_text_version_newer']        = 'A newer version is available';
-$_['lang_text_upgrade']              = 'upgrade';
 $_['lang_text_unable']               = 'Your server is unable to check';
 $_['lang_text_site_issue']           = 'There is an issue with Commentics.org';
 $_['lang_text_last_login']           = 'The last login was at %s on %s';
@@ -39,3 +38,7 @@ $_['lang_text_licence_invalid']      = 'Invalid licence';
 $_['lang_text_purchase']             = 'purchase';
 $_['lang_text_comments']             = 'Comments';
 $_['lang_text_subscriptions']        = 'Subscriptions';
+
+// Link
+$_['lang_link_upgrade']              = 'upgrade';
+$_['lang_link_log']                  = 'log';

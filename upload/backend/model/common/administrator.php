@@ -207,6 +207,7 @@ class CommonAdministratorModel extends Model
         $restrictions[] = $this->getRestriction('Permissions', 'report/permissions', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('PHP Info', 'report/phpinfo', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('Version', 'report/version', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('Version Check', 'report/version_check', 20, false, $viewable_pages, $modifiable_pages);        
         $restrictions[] = $this->getRestriction('Viewers', 'report/viewers', 20, false, $viewable_pages, $modifiable_pages);
 
         $restrictions[] = $this->getRestriction('Tools', 'tools', 0, true, $viewable_pages, $modifiable_pages);

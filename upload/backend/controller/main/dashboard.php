@@ -34,19 +34,37 @@ class MainDashboardController extends Controller
 
             if ($this->validation->isFloat($latest_version)) {
                 if (version_compare($this->model_main_dashboard->getCurrentVersion(), $latest_version, '<')) {
-                    $this->data['version_check'] = array('type' => 'negative', 'text' => $this->data['lang_text_version_newer'], 'upgrade' => true);
-
-                    $this->data['upgrade_url'] = $this->url->link('tool/upgrade');
+                    $this->data['version_check'] = array(
+                                                        'type'      => 'negative',
+                                                        'text'      => $this->data['lang_text_version_newer'],
+                                                        'link'      => true,
+                                                        'link_href' => $this->url->link('tool/upgrade'),
+                                                        'link_text' => $this->data['lang_link_upgrade']
+                                                        );
                 } else {
-                    $this->data['version_check'] = array('type' => 'positive', 'text' => $this->data['lang_text_version_latest'], 'upgrade' => false);
+                    $this->data['version_check'] = array(
+                                                        'type' => 'positive',
+                                                        'text' => $this->data['lang_text_version_latest'],
+                                                        'link' => false
+                                                        );
                 }
             } else {
                 $site_issue = true;
 
-                $this->data['version_check'] = array('type' => 'negative', 'text' => $this->data['lang_text_site_issue'], 'upgrade' => false);
+                $this->data['version_check'] = array(
+                                                    'type'      => 'negative',
+                                                    'text'      => $this->data['lang_text_site_issue'],
+                                                    'link'      => true,
+                                                    'link_href' => $this->url->link('report/version_check'),
+                                                    'link_text' => $this->data['lang_link_log']
+                                                    );
             }
         } else {
-            $this->data['version_check'] = array('type' => 'negative', 'text' => $this->data['lang_text_unable'], 'upgrade' => false);
+            $this->data['version_check'] = array(
+                                                'type' => 'negative',
+                                                'text' => $this->data['lang_text_unable'],
+                                                'link' => false
+                                                );
         }
 
         $this->data['lang_text_last_login'] = sprintf($this->data['lang_text_last_login'], $this->variable->formatDate($this->model_main_dashboard->getLastLogin(), $this->data['lang_time_format'], $this->data), $this->variable->formatDate($this->model_main_dashboard->getLastLogin(), $this->data['lang_date_format'], $this->data));

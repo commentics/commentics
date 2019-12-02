@@ -5,6 +5,7 @@ class Home
 {
     private $db;
     private $email;
+    private $log;
     private $setting;
     private $user;
 
@@ -12,13 +13,16 @@ class Home
     {
         $this->db      = $registry->get('db');
         $this->email   = $registry->get('email');
+        $this->log     = $registry->get('log');
         $this->setting = $registry->get('setting');
         $this->user    = $registry->get('user');
     }
 
-    public function getLatestVersion()
+    public function getLatestVersion($debug = false)
     {
         $url = 'https://www.commentics.org/version.txt';
+
+        startRequest:
 
         ini_set('user_agent', 'Commentics');
 
@@ -36,11 +40,100 @@ class Home
             curl_setopt($ch, CURLOPT_USERAGENT, 'Commentics');
             curl_setopt($ch, CURLOPT_URL, $url);
 
+            if ($debug) {
+                curl_setopt($ch, CURLOPT_VERBOSE, true);
+                $verbose = fopen('php://temp', 'w+');
+                curl_setopt($ch, CURLOPT_STDERR, $verbose);
+            }
+
             $latest_version = curl_exec($ch);
+
+            if ($debug) {
+                if (curl_errno($ch)) {
+                    $curl_errno = curl_errno($ch);
+                    $curl_error = curl_error($ch);
+                }
+
+                $curl_info = curl_getinfo($ch);
+            }
 
             curl_close($ch);
         } else if ((bool) ini_get('allow_url_fopen')) {
-            $latest_version = file_get_contents($url);
+            $latest_version = @file_get_contents($url);
+
+            if ($debug) {
+                $fopen_error = error_get_last();
+
+                if (isset($http_response_header)) {
+                    $fopen_http_response_header = $http_response_header;
+                }
+            }
+        }
+
+        if ($debug) {
+            $this->log->setFilename('version_check');
+
+            $this->log->write('Calling: ' . $url);
+
+            $this->log->write('Outbound IP: ' . file_get_contents('http://ipecho.net/plain'));
+
+            if (extension_loaded('curl')) {
+                $this->log->write('Connection Method: cURL');
+
+                $this->log->write('cURL Version:');
+
+                $this->log->write(curl_version());
+            } else if ((bool) ini_get('allow_url_fopen')) {
+                $this->log->write('Connection Method: url_fopen');
+            }
+
+            if (isset($fopen_error)) {
+                $this->log->write('Error: ' . trim($fopen_error['message']));
+            }
+
+            if (isset($fopen_http_response_header)) {
+                $this->log->write('HTTP Response Header:');
+                $this->log->write($fopen_http_response_header);
+            }
+
+            if (isset($curl_errno)) {
+                $this->log->write('cURL Errno: ' . $curl_errno);
+                $this->log->write('cURL Error: ' . $curl_error);
+            }
+
+            if (isset($curl_info)) {
+                $this->log->write('cURL Info:');
+                $this->log->write($curl_info);
+            }
+
+            $this->log->write('Type:');
+            $this->log->write(gettype($latest_version));
+
+            if (gettype($latest_version) != 'string') {
+                $this->log->write('Export:');
+                $this->log->write(var_export($latest_version, true));
+            }
+
+            $this->log->write('Response:');
+            $this->log->write($latest_version);
+
+            if (isset($verbose)) {
+                rewind($verbose);
+                $verbose = stream_get_contents($verbose);
+
+                $this->log->write('Verbose:');
+                $this->log->write($verbose);
+            }
+
+            if ($url != 'https://www.example.com') {
+                $url = 'https://www.example.com';
+
+                unset($curl_errno, $curl_error, $fopen_http_response_header);
+
+                $this->log->write('Comparing with example.com');
+
+                goto startRequest;
+            }
         }
 
         return $latest_version;

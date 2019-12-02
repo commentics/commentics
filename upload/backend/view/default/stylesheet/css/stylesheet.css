@@ -4227,6 +4227,11 @@ img.loading {
   text-decoration: none;
 }
 
+.report_version_check_page textarea {
+  height: 300px;
+  width: 100%;
+}
+
 .report_viewers_page .viewer {
   height: 16px;
   width: 16px;
