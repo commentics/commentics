@@ -20,10 +20,10 @@ class CommonHeaderController extends Controller
                 $this->data['jquery'] = $this->loadJavascript('jquery/jquery.min.js');
                 break;
             case 'google':
-                $this->data['jquery'] = '//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js';
+                $this->data['jquery'] = '//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
                 break;
             default:
-                $this->data['jquery'] = '//code.jquery.com/jquery-1.12.4.min.js';
+                $this->data['jquery'] = '//code.jquery.com/jquery-3.4.1.min.js';
         }
 
         if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha') {
