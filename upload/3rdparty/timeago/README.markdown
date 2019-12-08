@@ -7,24 +7,6 @@ Timeago is a jQuery plugin that makes it easy to support automatically updating
 fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago") from ISO 8601
 formatted dates and times embedded in your HTML (à la microformats).
 
----
-
-**How You Can Help**
-
-[![Square Cash](http://img.shields.io/badge/square%20cash-$rmm5t-brightgreen.svg)][square]
-[![PayPal](http://img.shields.io/badge/paypal-rmm5t-blue.svg)][paypal]
-[![Book a Codementor session](http://img.shields.io/badge/codementor-book%20a%20session-orange.svg)][codementor]
-
-If you like this project, [buy me a coffee][paypal], or [book a session with me][codementor], or donate bitcoin: `1rmm5tv6f997JK5bLcGbRCZyVjZUPkQ2m`
-
-[square]: https://cash.me/$rmm5t/5 "Donate to rmm5t for open source!"
-[paypal]: https://www.paypal.me/rmm5t/5 "Donate to rmm5t for open source!"
-[bitcoin]: bitcoin:1rmm5tv6f997JK5bLcGbRCZyVjZUPkQ2m?amount=0.01&label=Coffee%20to%20rmm5t%20for%20Open%20Source "Buy rmm5t a coffee for open source!"
-[codementor]: https://www.codementor.io/rmm5t?utm_campaign=profile&utm_source=button-rmm5t&utm_medium=shields "Book a session with rmm5t on Codementor!"
-
-[![Twitter](https://img.shields.io/twitter/follow/rmm5t.svg?style=social)](https://twitter.com/rmm5t)
-[![Stack Overflow](https://img.shields.io/stackexchange/stackoverflow/r/8985.svg?style=social)](http://stackoverflow.com/users/8985/ryan-mcgeary)
-
 ## Usage
 
 First, load jQuery and the plugin:
@@ -59,7 +41,7 @@ into something like this:
 <time class="timeago" datetime="2011-12-17T09:24:17Z" title="December 17, 2011">about 1 day ago</time>
 ```
 
-`<abbr>` elements are also supported (this is for
+`<abbr>` elements (or any other HTML elements) are also supported (this is for
 [legacy microformat support](http://microformats.org/wiki/datetime-design-pattern)
 and was originally supported by the library before the `time` element was
 introduced to HTML5):
@@ -110,7 +92,7 @@ jQuery.timeago.settings.cutoff = 1000*60*60*24;
 |   0.7.x | ([compare][compare-0.7]) locale function overrides; unit tests                  |
 |     ... | ...                                                                             |
 
-[compare-1.6]: https://github.com/rmm5t/jquery-timeago/compare/v1.5.4...v1.6.3
+[compare-1.6]: https://github.com/rmm5t/jquery-timeago/compare/v1.5.4...v1.6.7
 [compare-1.5]: https://github.com/rmm5t/jquery-timeago/compare/v1.4.3...v1.5.4
 [compare-1.4]: https://github.com/rmm5t/jquery-timeago/compare/v1.3.2...v1.4.3
 [compare-1.3]: https://github.com/rmm5t/jquery-timeago/compare/v1.2.0...v1.3.2
