@@ -4,10 +4,7 @@ Super simple WYSIWYG Editor.
 
 [![Build Status](https://travis-ci.org/summernote/summernote.svg?branch=develop)](http://travis-ci.org/summernote/summernote)
 [![npm version](https://badge.fury.io/js/summernote.svg)](http://badge.fury.io/js/summernote)
-[![Dependency Status](https://gemnasium.com/summernote/summernote.svg)](https://gemnasium.com/summernote/summernote)
 [![Coverage Status](https://coveralls.io/repos/summernote/summernote/badge.svg?branch=develop&service=github)](https://coveralls.io/github/summernote/summernote?branch=develop)
-
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/summernoteis.svg)](https://saucelabs.com/u/summernoteis)
 
 ### Summernote
 Summernote is a JavaScript library that helps you create WYSIWYG editors online.
@@ -36,7 +33,7 @@ Include the following code in the `<head>` tag of your HTML:
 
 ```html
 <!-- include libraries(jQuery, bootstrap) -->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
@@ -59,7 +56,7 @@ Finally, run this script after the DOM is ready:
 
 ```javascript
 $(document).ready(function() {
-  $('#summernote').summernote();
+    $('#summernote').summernote();
 });
 ```
 
@@ -80,7 +77,7 @@ For more detail about API, please refer to [document](http://summernote.org/gett
 The code view allows the user to enter script contents. Make sure to filter/[sanitize the HTML on the server](https://github.com/search?l=JavaScript&q=sanitize+html). Otherwise, an attacker can inject arbitrary JavaScript code into clients.
 
 ### For contributing
-https://github.com/summernote/summernote/blob/develop/CONTRIBUTING.md
+https://github.com/summernote/summernote/blob/develop/.github/CONTRIBUTING.md
 
 ### Contacts
 * Facebook user group: https://www.facebook.com/groups/summernote
