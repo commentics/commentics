@@ -1600,8 +1600,8 @@ function cmtxReadMore() {
             $('.cmtx_comment_area').readmore({
                 collapsedHeight: cmtx_js_settings_comments.read_more_limit,
                 speed: 750,
-                moreLink: '<a class="cmtx_read_more"><span class="cmtx_down_icon"></span></a>',
-                lessLink: '<a class="cmtx_read_less"><span class="cmtx_up_icon"></span></a>'
+                moreLink: '<div class="cmtx_read_more"><a href="#"><span class="cmtx_down_icon"></span></a></div>',
+                lessLink: '<div class="cmtx_read_less"><a href="#"><span class="cmtx_up_icon"></span></a></div>'
             });
         }
     }

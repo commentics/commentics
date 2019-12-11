@@ -234,6 +234,8 @@
 .cmtx_comment_area {
     margin-bottom: 11px;
     margin-top: 11px;
+    overflow: hidden;
+    transition: height 750ms;
 }
 
 .cmtx_comment_area p {

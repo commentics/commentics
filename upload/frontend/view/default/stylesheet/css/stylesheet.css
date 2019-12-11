@@ -4216,6 +4216,9 @@ select.cmtx_required {
 .cmtx_comment_area {
   margin-bottom: 11px;
   margin-top: 11px;
+  overflow: hidden;
+  -webkit-transition: height 750ms;
+  transition: height 750ms;
 }
 
 .cmtx_comment_area p {
