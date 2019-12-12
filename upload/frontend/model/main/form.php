@@ -150,7 +150,7 @@ class MainFormModel extends Model
         if ($this->setting->get('enabled_bb_code_code')) {
             $comment = preg_replace('/' . preg_quote($tags['lang_tag_bb_code_code_start'], '/') . '\s*' . preg_quote($tags['lang_tag_bb_code_code_end'], '/') . '/is', '', $comment);
 
-            $comment = preg_replace('/' . preg_quote($tags['lang_tag_bb_code_code_start'], '/') . '(.*?)' . preg_quote($tags['lang_tag_bb_code_code_end'], '/') . '/is', '<div class="cmtx_code_box">$1</div>', $comment);
+            $comment = preg_replace_callback('/' . preg_quote($tags['lang_tag_bb_code_code_start'], '/') . '(.*?)' . preg_quote($tags['lang_tag_bb_code_code_end'], '/') . '/is', array($this, 'callbackCode'), $comment);
         }
 
         if ($this->setting->get('enabled_bb_code_php')) {
@@ -222,6 +222,19 @@ class MainFormModel extends Model
         return $link_attributes;
     }
 
+    public function callbackCode(array $matches)
+    {
+        $code = $matches[1];
+
+        $code = preg_replace("/(\r\n){2,}/", '<br><br>', $code); // replace instances of 2 or more \r\n with <br>s
+
+        $code = str_ireplace("\r\n", '<br>', $code); // replace remaining line breaks with <br>s
+
+        $code = '<div class="cmtx_code_box">' . $code . '</div>';
+
+        return $code;
+    }
+
     public function callbackPhp(array $matches)
     {
         $php = $matches[1];
@@ -230,7 +243,7 @@ class MainFormModel extends Model
 
         $php = str_ireplace("\r\n", '<br>', $php); // replace remaining line breaks with <br>s
 
-        $php = '<div class="cmtx_php_box">' . $php . '</div>';
+        $php = '<div class="cmtx_php_box lang-php">' . $php . '</div>';
 
         return $php;
     }
