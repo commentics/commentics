@@ -1,5 +1,5 @@
 /* Auto detect checks whether jQuery is loaded and updates the theme settings accordingly. Must use plain JavaScript */
-window.onload = function() {
+window.addEventListener('load', function(e) {
     var cmtx_page_settings = document.getElementById('cmtx_js_settings_page');
 
     if (cmtx_page_settings) {
@@ -40,4 +40,4 @@ window.onload = function() {
             }, 5000);
         }
     }
-}
+});

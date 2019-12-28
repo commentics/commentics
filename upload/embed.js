@@ -3,7 +3,7 @@ var scripts = document.getElementsByTagName('script');
 var src = scripts[scripts.length-1].src;
 var commentics_url = src.slice(0, -8); // remove 'embed.js' from the end
 
-window.onload = function() {
+window.addEventListener('load', function(e) {
 
     /* If an element exists with the Commentics ID */
     if (document.getElementById('commentics')) {
@@ -117,4 +117,4 @@ window.onload = function() {
     } else {
         console.log('No element found with the ID commentics');
     }
-}
+});
