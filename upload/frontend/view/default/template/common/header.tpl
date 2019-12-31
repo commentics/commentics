@@ -2,10 +2,6 @@
     <script src="{{ jquery }}"></script>
 @endif
 
-@if read_more
-    <script src="{{ read_more }}" defer></script>
-@endif
-
 @if timeago
     <script src="{{ timeago }}" defer></script>
 @endif

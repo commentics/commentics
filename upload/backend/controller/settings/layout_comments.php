@@ -9,11 +9,6 @@ class SettingsLayoutCommentsController extends Controller
 
         $this->data['inner_elements'] = array(
             array(
-                'element' => $this->data['lang_text_comment'],
-                'status'  => $this->data['lang_text_enabled'] . $this->data['lang_text_mandatory'],
-                'action'  => $this->url->link('layout_comments/comment')
-            ),
-            array(
                 'element' => $this->data['lang_text_country'],
                 'status'  => ($this->setting->get('show_country')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
                 'action'  => $this->url->link('layout_comments/country')

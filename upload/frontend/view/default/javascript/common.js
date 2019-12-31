@@ -1582,31 +1582,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
     }
 }, 100);
 
-var cmtx_wait_for_window = setInterval(function() {
-    if (document.readyState === 'complete') {
-        clearInterval(cmtx_wait_for_window);
-
-        /* The window (including images) has finished loading */
-        if (document.readyState === 'complete') {
-            cmtxReadMore();
-        };
-    }
-}, 100);
-
-/* Hide the last part of long comments */
-function cmtxReadMore() {
-    if (typeof(cmtx_js_settings_comments) != 'undefined') {
-        if (cmtx_js_settings_comments.show_read_more) {
-            $('.cmtx_comment_area').readmore({
-                collapsedHeight: cmtx_js_settings_comments.read_more_limit,
-                speed: 750,
-                moreLink: '<div class="cmtx_read_more"><a href="#"><span class="cmtx_down_icon"></span></a></div>',
-                lessLink: '<div class="cmtx_read_less"><a href="#"><span class="cmtx_up_icon"></span></a></div>'
-            });
-        }
-    }
-}
-
 /* Get the value from the sort by field */
 function cmtxGetSortByValue() {
     var sort_by = $('select[name="cmtx_sort_by"]').val();
@@ -1858,7 +1833,6 @@ function cmtxRefreshComments(options) {
             };
 
             cmtxHighlightCode();
-            cmtxReadMore();
             cmtxTimeago();
             cmtxViewReplies();
         }

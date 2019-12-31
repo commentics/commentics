@@ -325,6 +325,9 @@ class MainUpgrade2Model extends Model
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'scroll_reply'");
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'scroll_speed'");
 
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_read_more'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'read_more_limit'");
+
             $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "emails` WHERE `type` = 'comment_success'");
             $result = $this->db->row($query);
             $from_name = $result['from_name'];
@@ -347,7 +350,7 @@ class MainUpgrade2Model extends Model
 
                 if ($files) {
                     foreach ($files as $file) {
-                        rename($file, CMTX_DIR_MODIFICATION . pathinfo($file, PATHINFO_BASENAME));
+                        @rename($file, CMTX_DIR_MODIFICATION . pathinfo($file, PATHINFO_BASENAME));
                     }
                 }
 

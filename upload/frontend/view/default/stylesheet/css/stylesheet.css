@@ -4216,9 +4216,6 @@ select.cmtx_required {
 .cmtx_comment_area {
   margin-bottom: 11px;
   margin-top: 11px;
-  overflow: hidden;
-  -webkit-transition: height 750ms;
-  transition: height 750ms;
 }
 
 .cmtx_comment_area p {
@@ -4233,28 +4230,6 @@ select.cmtx_required {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-}
-
-.cmtx_read_more, .cmtx_read_less {
-  text-align: center;
-}
-
-.cmtx_down_icon::before {
-  color: gray;
-  content: '\f103';
-  cursor: pointer;
-  display: inline-block;
-  font-family: FontAwesome;
-  font-size: 0.9em;
-}
-
-.cmtx_up_icon::before {
-  color: gray;
-  content: '\f102';
-  cursor: pointer;
-  display: inline-block;
-  font-family: FontAwesome;
-  font-size: 0.9em;
 }
 
 .cmtx_reply_area .cmtx_admin_reply {

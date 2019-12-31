@@ -15,7 +15,6 @@ $_['lang_column_status']       = 'Status';
 $_['lang_column_action']       = 'Action';
 
 // Text
-$_['lang_text_comment']        = 'Comment';
 $_['lang_text_country']        = 'Country';
 $_['lang_text_date']           = 'Date';
 $_['lang_text_dislike']        = 'Dislike';

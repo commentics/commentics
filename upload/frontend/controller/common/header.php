@@ -45,12 +45,6 @@ class CommonHeaderController extends Controller
 
             $this->data['stylesheet'] = $this->loadStylesheet('stylesheet.min.css');
         } else {
-            if ($this->setting->get('show_read_more')) {
-                $this->data['read_more'] = $this->data['commentics_url'] . '3rdparty/read_more/read_more.js';
-            } else {
-                $this->data['read_more'] = '';
-            }
-
             if ($this->setting->get('date_auto')) {
                 $this->data['timeago'] = $this->data['commentics_url'] . '3rdparty/timeago/timeago.js';
             } else {

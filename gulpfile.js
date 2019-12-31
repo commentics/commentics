@@ -78,7 +78,6 @@ var js_files = [
     'upload/frontend/view/default/javascript/autodetect.js',
     'upload/3rdparty/highlight/highlight.js',
     'upload/3rdparty/timeago/timeago.js',
-    'upload/3rdparty/read_more/read_more.js',
     'upload/frontend/view/default/javascript/common.js'
 ];
 

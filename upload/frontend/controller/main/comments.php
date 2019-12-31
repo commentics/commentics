@@ -305,8 +305,6 @@ class MainCommentsController extends Controller
                 'lang_text_not_replying'  => $this->data['lang_text_not_replying'],
                 'lang_button_loading'     => $this->data['lang_button_loading'],
                 'lang_button_more'        => $this->data['lang_button_more'],
-                'show_read_more'          => (bool) $this->setting->get('show_read_more'),
-                'read_more_limit'         => (int) $this->setting->get('read_more_limit'),
                 'highlight'               => (bool) $highlight,
                 'date_auto'               => (bool) $this->setting->get('date_auto'),
                 'show_pagination'         => (bool) $this->setting->get('show_pagination'),
