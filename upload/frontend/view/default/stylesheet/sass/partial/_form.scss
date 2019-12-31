@@ -575,7 +575,7 @@ select.cmtx_required {
     border: 1px solid $grey-lighter;
     box-shadow: 3px 3px 5px $grey;
     color: #242424;
-    float: left;
+    display: inline-block;
     font-family: 'Lucida Console';
     font-size: 11px;
     margin-top: 10px;
@@ -583,7 +583,7 @@ select.cmtx_required {
     width: auto;
 }
 
-@media all and (max-width: 1200px) {
+@media all and (max-width: 1100px) {
     .cmtx_icons_separator {
         display: none;
     }
@@ -648,8 +648,8 @@ select.cmtx_required {
         padding: 0 !important;
     }
 
-    .cmtx_submit_button_container {
-        margin-bottom: 15px;
+    .cmtx_preview_button_container {
+        margin-top: 15px;
     }
 
     .cmtx_parsing_box {
@@ -662,8 +662,12 @@ select.cmtx_required {
     }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 450px) {
     .cmtx_checkbox_extra {
+        display: none;
+    }
+
+    .cmtx_info_extra {
         display: none;
     }
 }

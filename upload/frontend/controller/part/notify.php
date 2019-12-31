@@ -17,7 +17,7 @@ class PartNotifyController extends Controller
             'lang_link_cancel'         => $this->data['lang_link_cancel']
         );
 
-        $this->data['cmtx_js_settings_notify'] = json_encode($this->data['cmtx_js_settings_notify']);
+        $this->data['cmtx_js_settings_notify'] = json_encode($this->data['cmtx_js_settings_notify'], JSON_HEX_TAG);
 
         return $this->data;
     }

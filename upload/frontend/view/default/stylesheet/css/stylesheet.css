@@ -3902,7 +3902,7 @@ select.cmtx_required {
   -webkit-box-shadow: 3px 3px 5px gray;
           box-shadow: 3px 3px 5px gray;
   color: #242424;
-  float: left;
+  display: inline-block;
   font-family: 'Lucida Console';
   font-size: 11px;
   margin-top: 10px;
@@ -3910,7 +3910,7 @@ select.cmtx_required {
   width: auto;
 }
 
-@media all and (max-width: 1200px) {
+@media all and (max-width: 1100px) {
   .cmtx_icons_separator {
     display: none;
   }
@@ -3963,8 +3963,8 @@ select.cmtx_required {
   .cmtx_button_row [class*='cmtx_col_'] {
     padding: 0 !important;
   }
-  .cmtx_submit_button_container {
-    margin-bottom: 15px;
+  .cmtx_preview_button_container {
+    margin-top: 15px;
   }
   .cmtx_parsing_box {
     float: none;
@@ -3975,8 +3975,11 @@ select.cmtx_required {
   }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 450px) {
   .cmtx_checkbox_extra {
+    display: none;
+  }
+  .cmtx_info_extra {
     display: none;
   }
 }
@@ -4041,7 +4044,7 @@ select.cmtx_required {
 
 .cmtx_comment_box {
   line-height: 1;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   padding: 5px;
   position: relative;
 }
@@ -4214,8 +4217,8 @@ select.cmtx_required {
 }
 
 .cmtx_comment_area {
-  margin-bottom: 11px;
-  margin-top: 11px;
+  margin-bottom: 13px;
+  margin-top: 10px;
 }
 
 .cmtx_comment_area p {
@@ -4280,7 +4283,6 @@ select.cmtx_required {
 }
 
 .cmtx_date_and_action_area {
-  margin-top: 16px;
   min-height: 16px;
 }
 
@@ -4634,7 +4636,7 @@ select.cmtx_required {
   }
   .cmtx_action_area {
     float: none;
-    margin-top: 18px;
+    margin-top: 14px;
   }
   .cmtx_view_replies_area {
     margin-top: 15px;
