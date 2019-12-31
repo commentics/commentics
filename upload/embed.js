@@ -8,6 +8,12 @@ window.addEventListener('load', function(e) {
     /* If an element exists with the Commentics ID */
     if (document.getElementById('commentics')) {
 
+        /* Display spinner */
+        var spinner = document.createElement('img');
+        spinner.setAttribute('src', commentics_url + 'frontend/view/default/image/misc/spinner.gif');
+        spinner.setAttribute('id', 'cmtx_spinner');
+        document.getElementById('commentics').appendChild(spinner);
+
         var identifier = reference = '';
 
         /* Get identifier */
@@ -87,6 +93,10 @@ window.addEventListener('load', function(e) {
             iFrameResize({
                 inPageLinks: true,
                 onInit: function(iframe) {
+                    /* Remove spinner */
+                    var spinner = document.getElementById('cmtx_spinner');
+                    spinner.parentNode.removeChild(spinner);
+
                     iframe.style.visibility = 'visible'; // show the iframe now that it's fully loaded and re-sized
 
                     if (typeof anchor !== 'undefined') {
