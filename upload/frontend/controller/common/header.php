@@ -27,7 +27,7 @@ class CommonHeaderController extends Controller
         }
 
         if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha') {
-            $this->data['recaptcha_api'] = 'https://www.google.com/recaptcha/api.js' . (($this->setting->get('recaptcha_language') == 'auto') ? '' : '?hl=' . $this->setting->get('recaptcha_language'));
+            $this->data['recaptcha_api'] = 'https://www.google.com/recaptcha/api.js';
         } else {
             $this->data['recaptcha_api'] = '';
         }
