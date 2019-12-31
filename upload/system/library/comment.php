@@ -6,6 +6,7 @@ class Comment
     private $cache;
     private $db;
     private $setting;
+    private $parents = array();
     private $replies = array();
 
     public function __construct($registry)
@@ -157,6 +158,21 @@ class Comment
         // TODO: unapprove replies
     }
 
+    public function getParents($id)
+    {
+        $query = $this->db->query("SELECT `reply_to` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `id` = '" . (int) $id . "'");
+
+        $result = $this->db->row($query);
+
+        if ($result['reply_to']) {
+            $this->parents[] = $result['reply_to'];
+
+            $this->getParents($result['reply_to']);
+        }
+
+        return $this->parents;
+    }
+
     public function getReplies($id)
     {
         $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `reply_to` = '" . (int) $id . "'");
@@ -170,6 +186,19 @@ class Comment
         }
 
         return $this->replies;
+    }
+
+    public function getTopParent($id)
+    {
+        $query = $this->db->query("SELECT `reply_to` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `id` = '" . (int) $id . "'");
+
+        $result = $this->db->row($query);
+
+        if ($result['reply_to']) {
+            $this->getTopParent($result['reply_to']);
+        } else {
+            return $id;
+        }
     }
 
     public function buildCommentUrl($id, $url)

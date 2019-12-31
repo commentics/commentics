@@ -238,6 +238,13 @@ class ManageCommentsModel extends Model
 
                 $this->cache->delete('getcomments_pageid' . $page_id . '_count0');
                 $this->cache->delete('getcomments_pageid' . $page_id . '_count1');
+
+                /* If the comment is a reply, we need to clear the cache of the parent comments */
+                $parent_ids = $this->comment->getParents($id);
+
+                foreach ($parent_ids as $parent_id) {
+                    $this->cache->delete('getcomment_commentid' . $parent_id . '_' . $this->setting->get('language'));
+                }
             }
 
             return true;

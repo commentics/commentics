@@ -1585,16 +1585,27 @@ class MainFormController extends Controller
 
                     if ($approve) {
                         $notes = rtrim($approve, "\r\n");
-                    } else {
+                    }
+
+                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads);
+
+                    if ($this->setting->get('cache_type')) {
                         $this->cache->delete('getcomments_pageid' . $page_id . '_count0');
                         $this->cache->delete('getcomments_pageid' . $page_id . '_count1');
+
+                        /* If the comment is a reply, we need to clear the cache of the parent comments */
+                        if ($this->request->post['cmtx_reply_to']) {
+                            $parent_ids = $this->comment->getParents($comment_id);
+
+                            foreach ($parent_ids as $parent_id) {
+                                $this->cache->delete('getcomment_commentid' . $parent_id . '_' . $this->setting->get('language'));
+                            }
+                        }
 
                         if ($this->request->post['cmtx_rating']) {
                             $this->cache->delete('getaveragerating_pageid' . $page_id);
                         }
                     }
-
-                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads);
 
                     if ($this->setting->get('enabled_question')) {
                         $question = $this->model_main_form->getQuestion();
