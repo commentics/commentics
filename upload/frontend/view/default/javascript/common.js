@@ -700,6 +700,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                         $('.cmtx_image_row').hide();
 
+                        $('input[name="cmtx_rating"]').prop('checked', false).removeClass('cmtx_rating_active');
+
                         if (response['hide_rating']) {
                             $('.cmtx_rating_row').remove();
                         }

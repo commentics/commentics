@@ -1112,7 +1112,7 @@ class MainFormController extends Controller
 
                                             if (!$this->model_main_form->isRatingValid($rating)) {
                                                 $json['error']['rating'] = $this->data['lang_error_rating_invalid'];
-                                            } else {
+                                            } else if ($this->setting->get('repeat_rating') == 'hide') {
                                                 $json['hide_rating'] = true;
                                             }
                                         } else if ($this->setting->get('required_rating')) {
