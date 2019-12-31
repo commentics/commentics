@@ -1,6 +1,6 @@
 <?php
 // Message
-$_['lang_message_disabled'] = 'This feature is disabled in \'Settings -> Viewers\'.';
+$_['lang_message_disabled'] = 'This feature is disabled in \'Settings -> Viewers\'';
 
 // Heading
 $_['lang_heading']          = 'Online';
