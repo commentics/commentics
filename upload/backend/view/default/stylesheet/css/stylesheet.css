@@ -3082,8 +3082,7 @@ h1 {
  * 2. Show the overflow in Edge and IE.
  */
 hr {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   /* 1 */
   height: 0;
   /* 1 */
@@ -3268,8 +3267,7 @@ fieldset {
  *    `fieldset` elements in all browsers.
  */
 legend {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* 1 */
   color: inherit;
   /* 2 */
@@ -3303,8 +3301,7 @@ textarea {
  */
 [type="checkbox"],
 [type="radio"] {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */
@@ -3491,8 +3488,7 @@ h3 {
 }
 
 input[type='text'], input[type='email'], input[type='password'], select, textarea {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .controls {
@@ -3704,8 +3700,7 @@ span.error {
 }
 
 .filter .column {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   float: left;
   padding-left: 15px;
   padding-right: 15px;
@@ -3723,8 +3718,7 @@ span.error {
 }
 
 .filter input[type='text'], .filter select {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -3816,8 +3810,7 @@ img.loading {
 
 .main_dashboard_page .title {
   background-color: #7c7c7c;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   color: #fff;
   margin-bottom: 5px;
   padding-bottom: 1px;
@@ -3845,12 +3838,9 @@ img.loading {
 
 .main_dashboard_page .sponsors {
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
           justify-content: space-between;
   list-style: none;
   margin: 0;
@@ -4144,8 +4134,7 @@ img.loading {
 .data_list_page .guide {
   background-color: #fef6e0;
   border: 1px solid #efe1b9;
-  -webkit-box-shadow: 3px 3px 5px #888;
-          box-shadow: 3px 3px 5px #888;
+  box-shadow: 3px 3px 5px #888;
   margin-bottom: 15px;
   padding: 3px;
 }
@@ -4469,11 +4458,9 @@ img.loading {
   }
   .pagination_links {
     display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     float: none;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
             justify-content: space-between;
     margin-top: 18px;
   }
@@ -4800,8 +4787,7 @@ nav ul {
 
 /*********************** Dialog **********************/
 .ui-dialog {
-  -webkit-box-shadow: 1px 1px 5px #333;
-          box-shadow: 1px 1px 5px #333;
+  box-shadow: 1px 1px 5px #333;
   font-family: arial !important;
   font-size: 13px !important;
 }
@@ -4955,10 +4941,8 @@ table.table {
   }
   .table td.actions {
     display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
             justify-content: space-between;
   }
   .extension_modules_page .table th:last-of-type, .extension_modules_page .table td:last-of-type:not(.no_results) {

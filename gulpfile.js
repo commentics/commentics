@@ -38,7 +38,7 @@ gulp.task('lint-install', function() {
 });
 
 var autoprefixOptions = {
-    browsers: ['last 2 versions']
+    Browserslist: ['last 2 versions']
 };
 
 /* Precompile and minify Sass for backend */

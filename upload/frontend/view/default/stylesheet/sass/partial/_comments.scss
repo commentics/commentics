@@ -383,13 +383,13 @@
 }
 
 .like_animation {
-    animation-name: like_keyframe;
     animation-duration: 2s;
+    animation-name: like_keyframe;
 }
 
 @keyframes dislike_keyframe {
     0% {
-        background: #D12F19;
+        background: #d12f19;
     }
 
     100% {
@@ -398,8 +398,8 @@
 }
 
 .dislike_animation {
-    animation-name: dislike_keyframe;
     animation-duration: 2s;
+    animation-name: dislike_keyframe;
 }
 
 .cmtx_action_message {

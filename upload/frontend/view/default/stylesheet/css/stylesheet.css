@@ -8,20 +8,17 @@
 }
 
 .cmtx_container * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-weight: normal;
   line-height: normal;
 }
 
 .cmtx_container *::before {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .cmtx_container *::after {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .cmtx_container h3, .cmtx_container b {
@@ -3494,8 +3491,7 @@
   background-color: #fff;
   border: 1px solid #e6e6e6;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   font-weight: normal;
   height: 35px !important;
   padding: 4px 6px;
@@ -3743,8 +3739,7 @@
 .cmtx_image_container {
   border: 1px solid #e6e6e6;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   padding: 5px;
 }
 
@@ -3764,8 +3759,7 @@
   background-color: #fff;
   border: 1px solid #e6e6e6;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   text-align: center;
 }
 
@@ -3883,8 +3877,7 @@ select.cmtx_required {
 }
 
 .cmtx_admin_button {
-  -webkit-box-shadow: 0 0 8px #00cd00;
-          box-shadow: 0 0 8px #00cd00;
+  box-shadow: 0 0 8px #00cd00;
 }
 
 .cmtx_powered_by_container {
@@ -3899,8 +3892,7 @@ select.cmtx_required {
 .cmtx_parsing_box {
   background-color: #fcfcfc;
   border: 1px solid #e6e6e6;
-  -webkit-box-shadow: 3px 3px 5px gray;
-          box-shadow: 3px 3px 5px gray;
+  box-shadow: 3px 3px 5px gray;
   color: #242424;
   display: inline-block;
   font-family: 'Lucida Console';
@@ -4376,15 +4368,15 @@ select.cmtx_required {
 }
 
 .like_animation {
-  -webkit-animation-name: like_keyframe;
-          animation-name: like_keyframe;
   -webkit-animation-duration: 2s;
           animation-duration: 2s;
+  -webkit-animation-name: like_keyframe;
+          animation-name: like_keyframe;
 }
 
 @-webkit-keyframes dislike_keyframe {
   0% {
-    background: #D12F19;
+    background: #d12f19;
   }
   100% {
     background: none;
@@ -4393,7 +4385,7 @@ select.cmtx_required {
 
 @keyframes dislike_keyframe {
   0% {
-    background: #D12F19;
+    background: #d12f19;
   }
   100% {
     background: none;
@@ -4401,10 +4393,10 @@ select.cmtx_required {
 }
 
 .dislike_animation {
-  -webkit-animation-name: dislike_keyframe;
-          animation-name: dislike_keyframe;
   -webkit-animation-duration: 2s;
           animation-duration: 2s;
+  -webkit-animation-name: dislike_keyframe;
+          animation-name: dislike_keyframe;
 }
 
 .cmtx_action_message {
@@ -4931,20 +4923,17 @@ select.cmtx_required {
 }
 
 .cmtx_user_container * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-weight: normal;
   line-height: normal;
 }
 
 .cmtx_user_container *::before {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .cmtx_user_container *::after {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .cmtx_user_container h1 {
@@ -4963,7 +4952,6 @@ select.cmtx_required {
 
 .cmtx_user_container .cmtx_settings_container {
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -5139,8 +5127,7 @@ select.cmtx_required {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid gray;
   border-radius: 4px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   display: none;
   left: 50%;
   position: fixed;
@@ -5242,7 +5229,6 @@ select.cmtx_required {
 
 #cmtx_bullet_modal .cmtx_modal_body div:not(:first-of-type), #cmtx_numeric_modal .cmtx_modal_body div:not(:first-of-type) {
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
