@@ -6,7 +6,7 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
 
 define('CMTX_INSTALL', true);
 
-define('CMTX_VERSION', '3.4');
+define('CMTX_VERSION', '4.0');
 
 header('Content-Type: text/html; charset=utf-8');
 
