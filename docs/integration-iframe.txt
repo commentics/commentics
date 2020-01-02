@@ -1,0 +1,20 @@
+IFRAME INTEGRATION (detailed guide at commentics.org/docs)
+
+1. Make sure you have added your site in 'Manage -> Sites'.
+
+2. Add the following inside the <head> tag of your page:
+
+<script src="http://your-domain.com/commentics/embed.js"></script>
+
+3. Add the following inside the <body> tag of your page:
+
+<div id="commentics"></div>
+
+4. Optionally add the following inside the <body> tag of your page:
+
+<script>
+var commentics_config = {
+'identifier': '1',
+'reference': 'Page One'
+};
+</script>

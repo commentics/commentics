@@ -1,17 +1,17 @@
-INTEGRATION (detailed guide at commentics.org/docs)
+PHP INTEGRATION (detailed guide at commentics.org/docs)
 
-Add the following to the very top of your page (if not there already):
+1. Add the following to the very top of your page (if not there already):
 
 <?php
 session_start();
 ?>
 
-Add the following inside the <head> tag of your page (if not there already):
+2. Add the following inside the <head> tag of your page (if not there already):
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-Add the following inside the <body> tag of your page:
+3. Add the following inside the <body> tag of your page:
 
 <?php
 $cmtx_identifier = '1';
