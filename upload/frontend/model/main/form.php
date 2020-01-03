@@ -456,7 +456,7 @@ class MainFormModel extends Model
 
             curl_close($ch);
 
-            if ($http_code < 200 || $http_code >= 300) {
+            if (!in_array($http_code, array(200, 301, 302))) {
                 return false;
             }
         }
