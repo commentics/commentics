@@ -1380,7 +1380,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
             });
 
             /* Return to comments link */
-            $('#cmtx_container').on('click', '.cmtx_no_permalink a, .cmtx_no_results a, .cmtx_return a', function(e) {
+            $('#cmtx_container').on('click', '.cmtx_no_results a, .cmtx_return a', function(e) {
                 e.preventDefault();
 
                 $('#cmtx_search').val('');
