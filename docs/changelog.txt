@@ -1,3 +1,46 @@
+Version: 4.0
+Date: 25th January 2020
+
+[Feature] Multisite
+[Feature] Database caching
+[Feature] Online viewers
+[Improvement] PHP 7.3 compatibility
+[Improvement] Replaces jQuery.filer with custom solution
+[Improvement] Removes jQuery UI
+[Improvement] Detect admin by backend session
+[Improvement] Only generate modification cache once
+[Improvement] Upgrades jQuery from v1.12.4 to v3.4.1
+[Improvement] Logs any issues with version check
+[Improvement] Use labels on admin spam page
+[Improvement] Don't get states if no country selected
+[Improvement] Allow redirects for website exists check
+[Improvement] General performance improvements
+[Improvement] Updates ReCaptcha options
+[Improvement] Updates Gravatar options
+[Improvement] Upgrades chart script
+[Improvement] Upgrades highlight script
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades Summernote script
+[Improvement] Upgrades Timeago script
+[Bug Fix] Display of upgrade link on dashboard
+[Bug Fix] Styling fix for comment field
+[Bug Fix] Slow loading of large error log
+[Bug Fix] Modal appearing behind overlay
+[Bug Fix] Admin referrer check
+[Bug Fix] Deleting a page should delete ratings
+[Bug Fix] Fix for HTML if default states are loaded
+[Bug Fix] Admin pagination when sorting certain columns
+[Bug Fix] Infinite scroll on permalink
+[Bug Fix] Fix for ReCaptcha IP address parameter
+[Bug Fix] Fix for rating field after posting
+[Other] Allow repeat ratings by default
+[Other] Viewers feature disabled by default
+[Other] Image captcha easier by default
+[Other] Removes read more feature
+[Other] Removes RSS logo setting
+
+*************************************************************************
+
 Version: 3.4
 Date: 31st January 2019
 
