@@ -42,7 +42,6 @@ class MySqli
 
     public function query($sql)
     {
-//        var_dump($sql);
         $this->query_count++;
 
         $this->query_last = $sql;
