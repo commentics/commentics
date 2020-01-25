@@ -342,23 +342,58 @@ class MainUpgrade2Model extends Model
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "emails` DROP `from_email`");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "emails` DROP `reply_to`");
 
-            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` DROP `detect_admin`");
-
             /* Move any XML files from /system/modification/xml/ to /system/modification/ */
             if (file_exists(CMTX_DIR_MODIFICATION . 'xml/')) {
-                $files = glob(CMTX_DIR_MODIFICATION . '*.xml');
+                $files = glob(CMTX_DIR_MODIFICATION . 'xml/*.xml');
 
                 if ($files) {
                     foreach ($files as $file) {
                         @rename($file, CMTX_DIR_MODIFICATION . pathinfo($file, PATHINFO_BASENAME));
                     }
                 }
-
-                /* Delete /system/modification/xml/ folder */
-                remove_directory(CMTX_DIR_MODIFICATION . 'xml/');
             }
 
+            /* Delete /system/modification/ folders */
+            remove_directory(CMTX_DIR_MODIFICATION . 'cache/');
+            remove_directory(CMTX_DIR_MODIFICATION . 'xml/');
+
+            remove_directory(CMTX_DIR_3RDPARTY . 'filer/');
+            remove_directory(CMTX_DIR_3RDPARTY . 'read_more/');
+
+            remove_directory(CMTX_DIR_SYSTEM . 'database/');
+
+            @unlink(CMTX_DIR_ROOT . 'frontend/view/default/javascript/common-jqui.min.js');
+            @unlink(CMTX_DIR_ROOT . 'frontend/view/default/javascript/common-jq-jqui.min.js');
+            @unlink(CMTX_DIR_ROOT . 'frontend/view/default/javascript/jquery/jquery-ui.min.js');
+            @unlink(CMTX_DIR_ROOT . 'frontend/view/default/stylesheet/sass/partial/_jfiler.scss');
+
+            $backend_folder = $this->getBackendFolder();
+            @unlink(CMTX_DIR_ROOT . $backend_folder . '/controller/layout_comments/comment.php');
+            @unlink(CMTX_DIR_ROOT . $backend_folder . '/controller/settings/admin_detection.php');
+            @unlink(CMTX_DIR_ROOT . $backend_folder . '/model/layout_comments/comment.php');
+            @unlink(CMTX_DIR_ROOT . $backend_folder . '/model/settings/admin_detection.php');
+            @unlink(CMTX_DIR_ROOT . $backend_folder . '/view/default/language/english/layout_comments/comment.php');
+            @unlink(CMTX_DIR_ROOT . $backend_folder . '/view/default/language/english/settings/admin_detection.php');
+            @unlink(CMTX_DIR_ROOT . $backend_folder . '/view/default/template/layout_comments/comment.tpl');
+            @unlink(CMTX_DIR_ROOT . $backend_folder . '/view/default/template/settings/admin_detection.tpl');
+
             @unlink(CMTX_DIR_LIBRARY . 'db.php');
+            @unlink(CMTX_DIR_CACHE . 'common_footer.tpl');
+            @unlink(CMTX_DIR_CACHE . 'common_header.tpl');
+            @unlink(CMTX_DIR_CACHE . 'main_comment.tpl');
+            @unlink(CMTX_DIR_CACHE . 'main_comments.tpl');
+            @unlink(CMTX_DIR_CACHE . 'main_form.tpl');
+            @unlink(CMTX_DIR_CACHE . 'main_page.tpl');
+            @unlink(CMTX_DIR_CACHE . 'main_user.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_average_rating.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_notify.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_page_number.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_pagination.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_rss.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_search.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_social.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_sort_by.tpl');
+            @unlink(CMTX_DIR_CACHE . 'part_topic.tpl');
         }
     }
 
