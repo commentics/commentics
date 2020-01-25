@@ -285,7 +285,7 @@ class PartNotifyController extends Controller
                                             $captcha = $this->request->post['g-recaptcha-response'];
 
                                             if ($captcha) {
-                                                $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $this->setting->get('recaptcha_private_key') . '&response=' . $captcha . '&remoteip=' . $ip_address);
+                                                $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $this->setting->get('recaptcha_private_key') . '&response=' . $captcha . '&remoteip=' . str_replace(' ', '%20', $ip_address));
 
                                                 $response = json_decode($response);
 
