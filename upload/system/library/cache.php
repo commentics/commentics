@@ -16,7 +16,7 @@ class Cache
             return;
         }
 
-        if ($this->setting->get('cache_type')) {
+        if ($this->setting->has('cache_type') && $this->setting->get('cache_type')) {
             $driver = $this->setting->get('cache_type');
 
             $file = CMTX_DIR_LIBRARY . 'cache/' . $driver . '.php';
