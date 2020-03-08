@@ -394,6 +394,8 @@ class ToolUpgradeController extends Controller
 
         remove_directory($temp_folder);
 
+        remove_directory(CMTX_DIR_INSTALL);
+
         unset($this->session->data['cmtx_upgrade_info']);
     }
 
