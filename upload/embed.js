@@ -12,6 +12,7 @@ window.addEventListener('load', function(e) {
         var spinner = document.createElement('img');
         spinner.setAttribute('src', commentics_url + 'frontend/view/default/image/misc/spinner.gif');
         spinner.setAttribute('id', 'cmtx_spinner');
+        spinner.setAttribute('style', 'margin-top: 18px');
         document.getElementById('commentics').appendChild(spinner);
 
         var identifier = reference = '';
