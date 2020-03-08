@@ -207,7 +207,7 @@ class ToolExportImportModel extends Model
                 $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "emails` SET `subject` = '" . $this->db->escape($subject) . "', `text` = '" . $this->db->escape($text) . "', `html` = '" . $this->db->escape($html) . "', `date_modified` = NOW() WHERE `type` = '" . $this->db->escape($type) . "' AND `language` = '" . $this->db->escape($language) . "'");
             } else {
                 // otherwise create email
-                $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = '" . $this->db->escape($type) . "', `subject` = '" . $this->db->escape($subject) . "', `from_name` = '" . $this->db->escape($this->setting->get('site_name')) . "', `from_email` = 'comments@" . $this->db->escape($this->setting->get('site_domain')) . "', `reply_to` = 'no-reply@" . $this->db->escape($this->setting->get('site_domain')) . "', `text` = '" . $this->db->escape($text) . "', `html` = '" . $this->db->escape($html) . "', `language` = '" . $this->db->escape($language) . "', `date_modified` = NOW()");
+                $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = '" . $this->db->escape($type) . "', `subject` = '" . $this->db->escape($subject) . "', `text` = '" . $this->db->escape($text) . "', `html` = '" . $this->db->escape($html) . "', `language` = '" . $this->db->escape($language) . "', `date_modified` = NOW()");
             }
         }
     }
