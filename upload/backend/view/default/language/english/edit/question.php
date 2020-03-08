@@ -5,6 +5,9 @@ $_['lang_message_success']       = 'Question updated';
 // Heading
 $_['lang_heading']               = 'Edit Question';
 
+// Notice
+$_['lang_notice']                = 'Answers are case-insensitive. Separate multiple answers with the | character <a>x</a>';
+
 // Description
 $_['lang_description']           = '<p>Here you can edit or delete the question.</p>';
 

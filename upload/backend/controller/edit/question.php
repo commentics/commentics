@@ -77,9 +77,20 @@ class EditQuestionController extends Controller
 
         $this->data['link_back'] = $this->url->link('manage/questions');
 
+        if ($this->setting->get('notice_edit_question')) {
+            $this->data['info'] = sprintf($this->data['lang_notice'], $this->url->link('tool/export_import'));
+        }
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('edit/question');
+    }
+
+    public function dismiss()
+    {
+        $this->loadModel('edit/question');
+
+        $this->model_edit_question->dismiss();
     }
 
     private function validate()

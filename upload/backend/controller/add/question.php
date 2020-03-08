@@ -61,9 +61,20 @@ class AddQuestionController extends Controller
 
         $this->data['link_back'] = $this->url->link('manage/questions');
 
+        if ($this->setting->get('notice_add_question')) {
+            $this->data['info'] = sprintf($this->data['lang_notice'], $this->url->link('tool/export_import'));
+        }
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('add/question');
+    }
+
+    public function dismiss()
+    {
+        $this->loadModel('add/question');
+
+        $this->model_add_question->dismiss();
     }
 
     private function validate()

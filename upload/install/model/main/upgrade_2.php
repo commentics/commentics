@@ -395,6 +395,12 @@ class MainUpgrade2Model extends Model
             @unlink(CMTX_DIR_CACHE . 'part_sort_by.tpl');
             @unlink(CMTX_DIR_CACHE . 'part_topic.tpl');
         }
+
+        if ($version == '4.0 -> 4.1') {
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_manage_countries', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_add_question', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_edit_question', `value` = '1'");
+        }
     }
 
     public function getInstalledVersion()

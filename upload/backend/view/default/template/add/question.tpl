@@ -62,6 +62,22 @@
         <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
     </form>
 
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        $('div.info a:last-child').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: 'index.php?route=add/question/dismiss',
+            })
+
+            $('div.info').fadeOut(2000);
+        });
+    });
+    // ]]>
+    </script>
+
 </div>
 
 <?php echo $footer; ?>

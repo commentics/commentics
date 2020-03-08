@@ -78,6 +78,22 @@
     <script>
     // <![CDATA[
     $(document).ready(function() {
+        $('div.info a:last-child').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: 'index.php?route=edit/question/dismiss',
+            })
+
+            $('div.info').fadeOut(2000);
+        });
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
         $('input[name="delete"]').click(function(e) {
             e.preventDefault();
 

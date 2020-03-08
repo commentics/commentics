@@ -5,6 +5,9 @@ $_['lang_message_success'] = 'Question added';
 // Heading
 $_['lang_heading']         = 'Add Question';
 
+// Notice
+$_['lang_notice']          = 'Answers are case-insensitive. Separate multiple answers with the | character <a>x</a>';
+
 // Description
 $_['lang_description']     = '<p>Here you can add a question.</p>';
 

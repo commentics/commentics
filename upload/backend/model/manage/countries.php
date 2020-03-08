@@ -161,6 +161,11 @@ class ManageCountriesModel extends Model
         );
     }
 
+    public function dismiss()
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'notice_manage_countries'");
+    }
+
     public function getPageCookie()
     {
         $sort = $order = '';

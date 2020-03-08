@@ -9,7 +9,7 @@ $_['lang_message_bulk_delete_invalid']   = '%d question(s) could not be deleted'
 $_['lang_heading']                       = 'Questions';
 
 // Notice
-$_['lang_notice']                        = 'Answers are case-insensitive. Separate multiple answers with the | character <a>x</a>';
+$_['lang_notice']                        = 'You can use the <a href="%s">export / import</a> tool for faster editing <a>x</a>';
 
 // Description
 $_['lang_description']                   = '<p>Here you can <a href="%s">add</a>, edit and delete questions.</p>';

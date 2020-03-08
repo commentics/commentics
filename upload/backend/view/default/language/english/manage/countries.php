@@ -8,6 +8,9 @@ $_['lang_message_bulk_delete_invalid']   = '%d country(s) could not be deleted';
 // Heading
 $_['lang_heading']                       = 'Countries';
 
+// Notice
+$_['lang_notice']                         = 'You can use the <a href="%s">export / import</a> tool for faster editing <a>x</a>';
+
 // Description
 $_['lang_description']                   = '<p>Here you can <a href="%s">add</a>, edit and delete countries.</p>';
 

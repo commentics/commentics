@@ -196,9 +196,20 @@ class ManageCountriesController extends Controller
 
         $this->data['lang_description'] = sprintf($this->data['lang_description'], $this->url->link('add/country'));
 
+        if ($this->setting->get('notice_manage_countries')) {
+            $this->data['info'] = sprintf($this->data['lang_notice'], $this->url->link('tool/export_import'));
+        }
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('manage/countries');
+    }
+
+    public function dismiss()
+    {
+        $this->loadModel('manage/countries');
+
+        $this->model_manage_countries->dismiss();
     }
 
     private function checkParameters()
