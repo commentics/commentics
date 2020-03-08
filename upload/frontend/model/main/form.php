@@ -367,6 +367,12 @@ class MainFormModel extends Model
 
         $questions = $this->db->rows($query);
 
+        if (!$questions) {
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "questions` WHERE `language` = 'english'");
+
+            $questions = $this->db->rows($query);
+        }
+
         $this->cache->set('getquestions_' . $this->setting->get('language'), $questions);
 
         return $questions;
