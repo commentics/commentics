@@ -812,7 +812,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         $('#cmtx_question').text(response['question']);
                     }
 
-                    cmtxAutoScroll($("#cmtx_form_container"));
+                    cmtxAutoScroll($('#cmtx_form_container'));
                 });
 
                 request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -1007,7 +1007,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_notify">' + cmtx_js_settings_notify.lang_text_notify_info + ' ' + '<a href="#" title="' + cmtx_js_settings_notify.lang_title_cancel_notify + '">' + cmtx_js_settings_notify.lang_link_cancel + '</a></div>');
 
-                cmtxAutoScroll($("#cmtx_form_container"));
+                cmtxAutoScroll($('#cmtx_form_container'));
 
                 $('.cmtx_message_notify').fadeIn(1000);
             });
@@ -1118,7 +1118,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         $('#cmtx_question').text(response['question']);
                     }
 
-                    cmtxAutoScroll($("#cmtx_form_container"));
+                    cmtxAutoScroll($('#cmtx_form_container'));
                 });
             });
 
@@ -1335,7 +1335,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_reply">' + cmtx_js_settings_comments.lang_text_replying_to + ' ' + name + ' <a href="#" title="' + cmtx_js_settings_comments.lang_title_cancel_reply + '">' + cmtx_js_settings_comments.lang_link_cancel + '</a></div>');
 
-                cmtxAutoScroll($("#cmtx_form_container"));
+                cmtxAutoScroll($('#cmtx_form_container'));
 
                 $('.cmtx_message_reply').fadeIn(2000);
             });
@@ -1484,7 +1484,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     });
 
                     request.done(function(response) {
-                        cmtxAutoScroll($(".cmtx_user_container"));
+                        cmtxAutoScroll($('.cmtx_user_container'));
 
                         setTimeout(function() {
                             $('.cmtx_message').remove();
@@ -1537,7 +1537,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if (response['error']) {
-                            cmtxAutoScroll($(".cmtx_user_container"));
+                            cmtxAutoScroll($('.cmtx_user_container'));
 
                             $('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
 
@@ -1567,7 +1567,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if (response['error']) {
-                            cmtxAutoScroll($(".cmtx_user_container"));
+                            cmtxAutoScroll($('.cmtx_user_container'));
 
                             $('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
 
