@@ -922,7 +922,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                         var destination = element.offset();
 
-                        $('.cmtx_action_message_success').css({top: destination.top - 20, left: destination.left - 30});
+                        $('.cmtx_action_message_success').offset({ top: destination.top - 25 , left: destination.left + 5 });
                     }
 
                     if (response['error']) {
@@ -932,7 +932,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                         var destination = element.offset();
 
-                        $('.cmtx_action_message_error').css({top: destination.top - 20, left: destination.left - 30});
+                        $('.cmtx_action_message_error').offset({ top: destination.top - 25 , left: destination.left + 5 });
                     }
                 });
 
@@ -1186,7 +1186,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                         var destination = vote_link.offset();
 
-                        $('.cmtx_action_message_error').css({top: destination.top - 25, left: destination.left - 45});
+                        $('.cmtx_action_message_error').offset({ top: destination.top - 25 , left: destination.left - 45 });
                     }
                 });
 
@@ -1221,7 +1221,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 var destination = share_link.offset();
 
-                $('.cmtx_share_box').css({top: destination.top - 38, left: destination.left - 55});
+                $('.cmtx_share_box').offset({ top: destination.top - 30 , left: destination.left - 55 });
             });
 
             $(document).mouseup(function(e) {
@@ -1256,7 +1256,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                         var destination = flag_link.offset();
 
-                        $('.cmtx_action_message_success').css({top: destination.top - 20, left: destination.left - 100});
+                        $('.cmtx_action_message_success').offset({ top: destination.top - 25 , left: destination.left - 100 });
                     }
 
                     if (response['error']) {
@@ -1266,7 +1266,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                         var destination = flag_link.offset();
 
-                        $('.cmtx_action_message_error').css({top: destination.top - 25, left: destination.left - 100});
+                        $('.cmtx_action_message_error').offset({top: destination.top - 25, left: destination.left - 100});
                     }
                 });
 
@@ -1296,13 +1296,9 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 var box_width = $('.cmtx_permalink_box').width();
 
-                var box_height = $('.cmtx_permalink_box').height();
-
-                var link_height = permalink_link.height();
-
                 var destination = permalink_link.offset();
 
-                $('.cmtx_permalink_box').css({top: destination.top - box_height - link_height - 5, left: destination.left - box_width});
+                $('.cmtx_permalink_box').offset({ top: destination.top - 70 , left: destination.left - box_width });
 
                 $('#cmtx_permalink').select();
             });
