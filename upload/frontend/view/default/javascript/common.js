@@ -1830,6 +1830,11 @@ function cmtxRefreshComments(options) {
                 $('#cmtx_search').addClass('cmtx_search_focus');
             };
 
+            /* Load the comment settings in case they weren't already loaded (if there were no comments) */
+            if ($('#cmtx_js_settings_comments').length) {
+                cmtx_js_settings_comments = JSON.parse($('#cmtx_js_settings_comments').text());
+            }
+
             cmtxHighlightCode();
             cmtxTimeago();
             cmtxViewReplies();
