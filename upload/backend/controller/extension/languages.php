@@ -48,7 +48,9 @@ class ExtensionLanguagesController extends Controller
         if ($this->data['language_frontend'] == 'english') {
             $this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/getlanguages');
         } else {
-            $this->data['info'] = sprintf($this->data['lang_others'], $this->url->link('settings/email_editor') . '&type=ban', $this->url->link('manage/countries'), $this->url->link('manage/questions'));
+            $this->data['info'] = sprintf($this->data['lang_submit'], 'https://www.commentics.org/addlanguages');
+
+            $this->data['warning'] = sprintf($this->data['lang_others'], $this->url->link('settings/email_editor') . '&type=ban', $this->url->link('manage/countries'), $this->url->link('manage/questions'));
         }
 
         $this->components = array('common/header', 'common/footer');
