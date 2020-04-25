@@ -105,6 +105,20 @@ if (defined('CMTX_DB_HOSTNAME')) {
 
 $cmtx_registry->set('db', $cmtx_db);
 
+$cmtx_setting = new \Commentics\Setting($cmtx_registry);
+$cmtx_registry->set('setting', $cmtx_setting);
+
+/* Time zone */
+if ($cmtx_setting->has('time_zone')) {
+    date_default_timezone_set($cmtx_setting->get('time_zone')); // set time zone PHP
+} else {
+    date_default_timezone_set('UTC'); // set time zone PHP
+}
+
+if ($cmtx_db->isConnected()) {
+    $cmtx_db->query("SET time_zone = '" . $cmtx_db->escape(date('P')) . "'"); // set time zone DB
+}
+
 $cmtx_cookie = new \Commentics\Cookie();
 $cmtx_registry->set('cookie', $cmtx_cookie);
 
@@ -128,9 +142,6 @@ $cmtx_registry->set('validation', $cmtx_validation);
 
 $cmtx_variable = new \Commentics\Variable();
 $cmtx_registry->set('variable', $cmtx_variable);
-
-$cmtx_setting = new \Commentics\Setting($cmtx_registry);
-$cmtx_registry->set('setting', $cmtx_setting);
 
 $cmtx_cache = new \Commentics\Cache($cmtx_registry);
 $cmtx_registry->set('cache', $cmtx_cache);
@@ -173,17 +184,6 @@ $cmtx_registry->set('task', $cmtx_task);
 
 $cmtx_template = new \Commentics\Template($cmtx_registry);
 $cmtx_registry->set('template', $cmtx_template);
-
-/* Time zone */
-if ($cmtx_setting->has('time_zone')) {
-    date_default_timezone_set($cmtx_setting->get('time_zone')); // set time zone PHP
-} else {
-    date_default_timezone_set('UTC'); // set time zone PHP
-}
-
-if ($cmtx_db->isConnected()) {
-    $cmtx_db->query("SET time_zone = '" . $cmtx_db->escape(date('P')) . "'"); // set time zone DB
-}
 
 /* Load the engine classes */
 require_once cmtx_modification(CMTX_DIR_ENGINE . 'base.php');
