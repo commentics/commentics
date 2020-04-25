@@ -555,7 +555,56 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 }
             }
 
-            /* Populate states field */
+            /* Populate countries field */
+            if (typeof(cmtx_js_settings_form) != 'undefined') {
+                if (cmtx_js_settings_form.enabled_country) {
+                    var request = $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getCountries',
+                        dataType: 'json',
+                        beforeSend: function() {
+                            $('#cmtx_country').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
+                        }
+                    });
+
+                    request.done(function(response) {
+                        setTimeout(function() {
+                            countries = response;
+
+                            html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_country + '</option>';
+
+                            if (countries.length) {
+                                for (i = 0; i < countries.length; i++) {
+                                    html += '<option value="' + countries[i]['id'] + '"';
+
+                                    if (countries[i]['name'] == '---') {
+                                        html += ' disabled';
+                                    } else if (countries[i]['id'] == cmtx_js_settings_form.country_id) {
+                                        html += ' selected';
+                                    }
+
+                                    html += '>' + countries[i]['name'] + '</option>';
+                                }
+                            }
+
+                            $('#cmtx_country').html(html);
+
+                            if (cmtx_js_settings_form.enabled_state) {
+                                $('#cmtx_country').trigger('change');
+                            }
+                        }, 500);
+                    });
+
+                    request.fail(function(jqXHR, textStatus, errorThrown) {
+                        if (console && console.log) {
+                            console.log(jqXHR.responseText);
+                        }
+                    });
+                }
+            }
+
+            /* Populate states field (when country field is enabled) */
             if (typeof(cmtx_js_settings_form) != 'undefined') {
                 if (cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
                     $('#cmtx_country').bind('change', function() {
@@ -614,6 +663,52 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     });
 
                     $('#cmtx_country').trigger('change');
+                }
+            }
+
+            /* Populate states field (when country field is disabled) */
+            if (typeof(cmtx_js_settings_form) != 'undefined') {
+                if (!cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
+                    var request = $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates',
+                        data: 'country_id=0',
+                        dataType: 'json',
+                        beforeSend: function() {
+                            $('#cmtx_state').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
+                        }
+                    });
+
+                    request.done(function(response) {
+                        setTimeout(function() {
+                            states = response;
+
+                            html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
+
+                            if (states.length) {
+                                for (i = 0; i < states.length; i++) {
+                                    html += '<option value="' + states[i]['id'] + '"';
+
+                                    if (states[i]['id'] == cmtx_js_settings_form.state_id) {
+                                        html += ' selected';
+                                    }
+
+                                    html += '>' + states[i]['name'] + '</option>';
+                                }
+                            }
+
+                            $('#cmtx_state').html(html);
+
+                            $('#cmtx_state').trigger('change');
+                        }, 500);
+                    });
+
+                    request.fail(function(jqXHR, textStatus, errorThrown) {
+                        if (console && console.log) {
+                            console.log(jqXHR.responseText);
+                        }
+                    });
                 }
             }
 

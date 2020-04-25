@@ -261,17 +261,6 @@
                             <div class="cmtx_container cmtx_country_container">
                                 <select name="cmtx_country" id="cmtx_country" class="cmtx_field cmtx_select_field cmtx_country_field {{ country_symbol }}" title="{{ lang_title_country }}" {{ country_disabled }}>
                                     <option value="" hidden>{{ lang_placeholder_country }}</option>
-                                    @foreach countries as country
-                                        @if country.id and country.id equals country_id
-                                            <option value="{{ country.id }}" selected>{{ country.name }}</option>
-                                        @else
-                                            @if country.name equals '---'
-                                                <option value="{{ country.id }}" disabled>{{ country.name }}</option>
-                                            @else
-                                                <option value="{{ country.id }}">{{ country.name }}</option>
-                                            @endif
-                                        @endif
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -282,13 +271,6 @@
                             <div class="cmtx_container cmtx_state_container">
                                 <select name="cmtx_state" id="cmtx_state" class="cmtx_field cmtx_select_field cmtx_state_field {{ state_symbol }}" title="{{ lang_title_state }}" {{ state_disabled }}>
                                     <option value="" hidden>{{ lang_placeholder_state }}</option>
-                                    @foreach states as state
-                                        @if state.id and state.id equals state_id
-                                            <option value="{{ state.id }}" selected>{{ state.name }}</option>
-                                        @else
-                                            <option value="{{ state.id }}">{{ state.name }}</option>
-                                        @endif
-                                    @endforeach
                                 </select>
                             </div>
                         </div>

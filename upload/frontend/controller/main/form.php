@@ -353,7 +353,7 @@ class MainFormController extends Controller
 
             $this->data['country_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_country') ? 'cmtx_required' : '');
 
-            $this->data['countries'] = $this->geo->getCountries();
+            $this->data['countries'] = array();
 
             $this->data['country_is_filled'] = false;
 
@@ -388,14 +388,6 @@ class MainFormController extends Controller
             $this->data['state_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_state') ? 'cmtx_required' : '');
 
             $this->data['states'] = array();
-
-            if (!$this->setting->get('enabled_country')) {
-                if ($this->setting->get('default_country')) {
-                    $this->data['states'] = $this->geo->getStatesByCountryId($this->setting->get('default_country'));
-                } else {
-                    $this->data['states'] = $this->geo->getStatesByCountryId('164'); // United States
-                }
-            }
 
             $this->data['state_is_filled'] = false;
 
@@ -611,6 +603,7 @@ class MainFormController extends Controller
                 'commentics_url'           => $this->url->getCommenticsUrl(),
                 'page_id'                  => (int) $this->page->getId(),
                 'enabled_country'          => (bool) $this->data['enabled_country'],
+                'country_id'               => (int) $this->data['country_id'],
                 'enabled_state'            => (bool) $this->data['enabled_state'],
                 'state_id'                 => (int) $this->data['state_id'],
                 'enabled_upload'           => (bool) $this->data['enabled_upload'],
@@ -624,6 +617,7 @@ class MainFormController extends Controller
                 'lang_error_file_total'    => $this->data['lang_error_file_total'],
                 'lang_error_file_type'     => $this->data['lang_error_file_type'],
                 'lang_text_loading'        => $this->data['lang_text_loading'],
+                'lang_placeholder_country' => $this->data['lang_placeholder_country'],
                 'lang_placeholder_state'   => $this->data['lang_placeholder_state'],
                 'lang_text_country_first'  => $this->data['lang_text_country_first'],
                 'lang_button_submit'       => $this->data['lang_button_submit'],
@@ -638,6 +632,26 @@ class MainFormController extends Controller
         return $this->data;
     }
 
+    public function getCountries()
+    {
+        if ($this->request->isAjax()) {
+            $this->response->addHeader('Content-Type: application/json');
+
+            $json = array();
+
+            $countries = $this->geo->getCountries();
+
+            foreach ($countries as $country) {
+                $json[] = array(
+                    'id'   => $country['id'],
+                    'name' => $country['name']
+                );
+            }
+
+            echo json_encode($json);
+        }
+    }
+
     public function getStates()
     {
         if ($this->request->isAjax()) {
@@ -646,14 +660,20 @@ class MainFormController extends Controller
             $json = array();
 
             if (isset($this->request->post['country_id']) && $this->request->post['country_id']) {
-                $states = $this->geo->getStatesByCountryId($this->request->post['country_id']);
+                $country_id = $this->request->post['country_id'];
+            } else if ($this->setting->get('default_country')) {
+                $country_id = $this->setting->get('default_country');
+            } else {
+                $country_id = '164'; // United States
+            }
 
-                foreach ($states as $state) {
-                    $json[] = array(
-                        'id' => $state['id'],
-                        'name' => $state['name']
-                    );
-                }
+            $states = $this->geo->getStatesByCountryId($country_id);
+
+            foreach ($states as $state) {
+                $json[] = array(
+                    'id'   => $state['id'],
+                    'name' => $state['name']
+                );
             }
 
             echo json_encode($json);
