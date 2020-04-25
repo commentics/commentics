@@ -257,7 +257,6 @@ $_['lang_error_upload_writable']         = 'The upload folder is not writable. P
 $_['lang_error_folder_create']           = 'The image folder was not created. Please contact the administrator.';
 $_['lang_error_image_amount']            = 'Only %d files are allowed to be uploaded.';
 $_['lang_error_image_data']              = 'The image data is malformed. Please try uploading the image again.';
-$_['lang_error_image_info']              = 'The image info is corrupted. Please try uploading the image again.';
 $_['lang_error_image_type']              = 'Only image file types jpg, png and gif are allowed.';
 $_['lang_error_image_create']            = 'The image was not created. Please try uploading the image again.';
 $_['lang_error_image_size']              = 'The image size is too big. Please try uploading a smaller image.';

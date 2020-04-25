@@ -811,11 +811,7 @@ class MainFormModel extends Model
             return $responses['lang_error_image_data'];
         }
 
-        $image_info = getimagesizefromstring($image_data);
-
-        if (!$image_info) {
-            return $responses['lang_error_image_info'];
-        }
+        $mime_type = $this->estimateMimeTypeFromBase64($base64);
 
         $allowed_mime_types = array(
             'image/jpeg',
@@ -823,13 +819,13 @@ class MainFormModel extends Model
             'image/gif'
         );
 
-        if (!in_array($image_info['mime'], $allowed_mime_types)) {
+        if (!in_array($mime_type, $allowed_mime_types)) {
             return $responses['lang_error_image_type'];
         }
 
         $filename = $this->variable->random();
 
-        switch ($image_info['mime']) {
+        switch ($mime_type) {
             case 'image/jpeg':
                 $extension = 'jpg';
                 break;
@@ -847,7 +843,7 @@ class MainFormModel extends Model
 
         if (file_put_contents($location, $image_data)) {
             if (filesize($location) > ($this->setting->get('maximum_upload_size') * pow(1024, 2))) {
-                unlink($location);
+                @unlink($location);
 
                 return $responses['lang_error_image_size'];
             } else {
@@ -855,7 +851,7 @@ class MainFormModel extends Model
                     'folder'    => $folder,
                     'filename'  => $filename,
                     'extension' => $extension,
-                    'mime_type' => $image_info['mime'],
+                    'mime_type' => $mime_type,
                     'file_size' => filesize($location)
                 );
             }
@@ -864,7 +860,38 @@ class MainFormModel extends Model
         }
     }
 
-    public function estimateSizeFromBase64($base64)
+    private function estimateMimeTypeFromBase64($base64)
+    {
+        if (function_exists('getimagesizefromstring') && is_callable('getimagesizefromstring')) {
+            $image_data = base64_decode(preg_replace('/^data:image\/[^;]+;base64,/', '', $base64));
+
+            $image_size = @getimagesizefromstring($image_data);
+
+            if (is_array($image_size) && isset($image_size['mime'])) {
+                return $image_size['mime'];
+            }
+        } else if (class_exists('finfo')) {
+            $image_data = base64_decode(preg_replace('/^data:image\/[^;]+;base64,/', '', $base64));
+
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
+
+            $mime_type = $finfo->buffer($image_data);
+
+            if ($mime_type) {
+                return $mime_type;
+            }
+        } else {
+            $image_data = explode(':', substr($base64, 0, strpos($base64, ';')));
+
+            if (is_array($image_data) && isset($image_data[1])) {
+                return $image_data[1];
+            }
+        }
+
+        return false;
+    }
+
+    private function estimateSizeFromBase64($base64)
     {
         return (int) (strlen(rtrim($base64, '=')) * 3 / 4);
     }
