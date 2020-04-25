@@ -23,4 +23,32 @@ class ReportVersionCheckController extends Controller
 
         $this->loadView('report/version_check');
     }
+
+    public function download()
+    {
+        $this->loadLanguage('report/version_check');
+
+        $this->loadModel('report/version_check');
+
+        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+            if ($this->validate()) {
+                $this->model_report_version_check->downloadLog();
+            }
+        }
+    }
+
+    private function validate()
+    {
+        $this->loadModel('common/poster');
+
+        $unpostable = $this->model_common_poster->unpostable($this->data);
+
+        if ($unpostable) {
+            $this->data['error'] = $unpostable;
+
+            return false;
+        }
+
+        return true;
+    }
 }

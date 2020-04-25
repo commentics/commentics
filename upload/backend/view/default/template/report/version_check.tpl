@@ -26,11 +26,15 @@
 
     <div class="description"><?php echo $lang_description; ?></div>
 
-    <div class="controls">
+    <form action="index.php?route=report/version_check/download" class="controls" method="post">
         <textarea name="log" readonly><?php echo $log; ?></textarea>
-    </div>
 
-    <p><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></p>
+        <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
+
+        <p><input type="submit" class="button" value="<?php echo $lang_button_download; ?>" title="<?php echo $lang_button_download; ?>"></p>
+
+        <p><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></p>
+    </form>
 
 </div>
 
