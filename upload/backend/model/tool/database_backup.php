@@ -200,7 +200,7 @@ class ToolDatabaseBackupModel extends Model
     public function singleDelete($id)
     {
         if ($this->validation->isAlnum($id) && $this->validation->length($id) == 50 && file_exists(CMTX_DIR_BACKUPS . $id . '.sql') && is_writable(CMTX_DIR_BACKUPS . $id . '.sql')) {
-            if (unlink(CMTX_DIR_BACKUPS . $id . '.sql')) {
+            if (@unlink(CMTX_DIR_BACKUPS . $id . '.sql')) {
                 $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "backups` WHERE `filename` = '" . $this->db->escape($id . '.sql') . "'");
 
                 return true;
