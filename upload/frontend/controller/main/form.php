@@ -212,12 +212,15 @@ class MainFormController extends Controller
                 $this->data['user_row_visible'] = 'cmtx_hide';
             }
 
-            if ($user_row_visible && $this->setting->get('hide_form')) {
+            $this->data['cmtx_wait_for_comment'] = '';
+            $this->data['cmtx_wait_for_user'] = '';
+
+            if ($this->setting->get('hide_form')) {
                 $this->data['cmtx_wait_for_comment'] = 'cmtx_wait_for_comment';
-                $this->data['cmtx_wait_for_user'] = 'cmtx_wait_for_user';
-            } else {
-                $this->data['cmtx_wait_for_comment'] = '';
-                $this->data['cmtx_wait_for_user'] = '';
+
+                if ($user_row_visible) {
+                    $this->data['cmtx_wait_for_user'] = 'cmtx_wait_for_user';
+                }
             }
 
             switch ($user_columns) {
@@ -612,6 +615,7 @@ class MainFormController extends Controller
                 'maximum_upload_total'     => (int) $this->setting->get('maximum_upload_total'),
                 'securimage'               => (bool) $this->data['securimage'],
                 'securimage_url'           => $this->data['securimage_url'],
+                'cmtx_wait_for_comment'    => $this->data['cmtx_wait_for_comment'],
                 'lang_error_file_num'      => $this->data['lang_error_file_num'],
                 'lang_error_file_size'     => $this->data['lang_error_file_size'],
                 'lang_error_file_total'    => $this->data['lang_error_file_total'],

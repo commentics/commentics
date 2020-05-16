@@ -321,7 +321,7 @@
             @endif
 
             <div class="cmtx_checkbox_container {{ cmtx_wait_for_user }}">
-                @if enabled_notify and enabled_email
+                @if enabled_notify and ( enabled_email or email_is_filled )
                     <div class="cmtx_row cmtx_notify_row cmtx_clear">
                         <div class="cmtx_col_12">
                             <div class="cmtx_container cmtx_notify_container">

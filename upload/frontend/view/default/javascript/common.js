@@ -158,6 +158,12 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 $('.cmtx_wait_for_comment').fadeIn('slow');
             });
 
+            if (typeof(cmtx_js_settings_form) != 'undefined') {
+                if (!cmtx_js_settings_form.cmtx_wait_for_comment) {
+                    $('#cmtx_comment').focus();
+                }
+            }
+
             /* When the name or email field gets focus, show some other fields */
             $('#cmtx_name, #cmtx_email').focus(function() {
                 if ($('input[name="cmtx_subscribe"]').val() == '') {
