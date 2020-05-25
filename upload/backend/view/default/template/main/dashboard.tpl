@@ -78,7 +78,7 @@
             <div class="content">
                 <?php if ($quick_links) { ?>
                     <?php foreach ($quick_links as $key => $value) { ?>
-                        <div class="quick_link"><?php echo $key + 1; ?>. <a href="index.php?route=<?php echo $value['page']; ?>"><?php echo $value['page']; ?></a></div>
+                        <div class="quick_link"><?php echo $key + 1; ?>. <a href="index.php?route=<?php echo $value['page']; ?>"><?php echo $value['text']; ?></a></div>
                     <?php } ?>
                 <?php } else { ?>
                     <?php echo $lang_text_no_links; ?>

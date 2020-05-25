@@ -96,138 +96,140 @@ class CommonAdministratorModel extends Model
 
         $restrictions = array();
 
-        $restrictions[] = $this->getRestriction('Manage', 'manage', 0, true, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Admins', 'manage/admins', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Add', 'add/admin', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/admin', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Bans', 'manage/bans', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Add', 'add/ban', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/ban', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Comments', 'manage/comments', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/comment', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Spam', 'edit/spam', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Countries', 'manage/countries', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Add', 'add/country', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/country', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Pages', 'manage/pages', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/page', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Questions', 'manage/questions', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Add', 'add/question', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/question', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Sites', 'manage/sites', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Add', 'add/site', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/site', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('States', 'manage/states', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Add', 'add/state', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/state', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Subscriptions', 'manage/subscriptions', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/subscription', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Users', 'manage/users', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'edit/user', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage', 0, true, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/admins', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('add/admin', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/admin', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/bans', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('add/ban', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/ban', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/comments', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/comment', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/spam', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/countries', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('add/country', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/country', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/pages', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/page', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/questions', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('add/question', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/question', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/sites', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('add/site', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/site', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/states', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('add/state', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/state', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/subscriptions', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/subscription', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('manage/users', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('edit/user', 40, false, $viewable_pages, $modifiable_pages);
 
-        $restrictions[] = $this->getRestriction('Extensions', 'extensions', 0, true, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Installer', 'extension/installer', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Languages', 'extension/languages', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Modules', 'extension/modules', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Edit', 'module/', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Themes', 'extension/themes', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('extensions', 0, true, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('extension/installer', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('extension/languages', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('extension/modules', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('module/', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('extension/themes', 20, false, $viewable_pages, $modifiable_pages);
 
-        $restrictions[] = $this->getRestriction('Settings', 'settings', 0, true, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Administrator', 'settings/administrator', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Approval', 'settings/approval', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Cache', 'settings/cache', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Email', 'settings/email', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Editor', 'settings/email_editor', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Setup', 'settings/email_setup', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Error Reporting', 'settings/error_reporting', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Flooding', 'settings/flooding', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Layout', 'settings/layout', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Comments', 'settings/layout_comments', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Gravatar', 'layout_comments/gravatar', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Name', 'layout_comments/name', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Town', 'layout_comments/town', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Country', 'layout_comments/country', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Rating', 'layout_comments/rating', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Comment', 'layout_comments/comment', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Date', 'layout_comments/date', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Like', 'layout_comments/like', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Dislike', 'layout_comments/dislike', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Share', 'layout_comments/share', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Flag', 'layout_comments/flag', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Permalink', 'layout_comments/permalink', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Reply', 'layout_comments/reply', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Average Rating', 'layout_comments/average_rating', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Notify', 'layout_comments/notify', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Online', 'layout_comments/online', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Page Number', 'layout_comments/page_number', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Pagination', 'layout_comments/pagination', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('RSS', 'layout_comments/rss', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Search', 'layout_comments/search', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Social', 'layout_comments/social', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Sort By', 'layout_comments/sort_by', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Topic', 'layout_comments/topic', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('General', 'layout_comments/general', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Form', 'settings/layout_form', 40, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Name', 'layout_form/name', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Email', 'layout_form/email', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Website', 'layout_form/website', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Town', 'layout_form/town', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Country', 'layout_form/country', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Rating', 'layout_form/rating', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('BB Code', 'layout_form/bb_code', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Smilies', 'layout_form/smilies', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Comment', 'layout_form/comment', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Question', 'layout_form/question', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Captcha', 'layout_form/captcha', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Notify', 'layout_form/notify', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Cookie', 'layout_form/cookie', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Privacy', 'layout_form/privacy', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Terms', 'layout_form/terms', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Preview', 'layout_form/preview', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Powered', 'layout_form/powered', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('General', 'layout_form/general', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Licence', 'settings/licence', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Maintenance', 'settings/maintenance', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Processor', 'settings/processor', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('List', 'data/list', 60, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Security', 'settings/security', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('System', 'settings/system', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Viewers', 'settings/viewers', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings', 0, true, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/administrator', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/approval', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/cache', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/email', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/email_editor', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/email_setup', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/error_reporting', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/flooding', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/layout', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/layout_comments', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/gravatar', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/name', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/town', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/country', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/rating', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/comment', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/date', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/like', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/dislike', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/share', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/flag', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/permalink', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/reply', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/average_rating', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/notify', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/online', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/page_number', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/pagination', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/rss', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/search', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/social', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/sort_by', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/topic', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_comments/general', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/layout_form', 40, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/name', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/email', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/website', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/town', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/country', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/rating', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/bb_code', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/smilies', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/comment', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/question', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/captcha', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/notify', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/cookie', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/privacy', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/terms', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/preview', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/powered', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('layout_form/general', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/licence', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/maintenance', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/processor', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('data/list', 60, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/security', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/system', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('settings/viewers', 20, false, $viewable_pages, $modifiable_pages);
 
-        $restrictions[] = $this->getRestriction('Tasks', 'tasks', 0, true, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Delete Bans', 'task/delete_bans', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Delete Comments', 'task/delete_comments', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Delete Reporters', 'task/delete_reporters', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Delete Subscriptions', 'task/delete_subscriptions', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Delete Voters', 'task/delete_voters', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('tasks', 0, true, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('task/delete_bans', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('task/delete_comments', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('task/delete_reporters', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('task/delete_subscriptions', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('task/delete_voters', 20, false, $viewable_pages, $modifiable_pages);
 
-        $restrictions[] = $this->getRestriction('Reports', 'reports', 0, true, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Access', 'report/access', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Errors', 'report/errors', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Permissions', 'report/permissions', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('PHP Info', 'report/phpinfo', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Version', 'report/version', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Version Check', 'report/version_check', 20, false, $viewable_pages, $modifiable_pages);        
-        $restrictions[] = $this->getRestriction('Viewers', 'report/viewers', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('reports', 0, true, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('report/access', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('report/errors', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('report/permissions', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('report/phpinfo', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('report/version', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('report/version_check', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('report/viewers', 20, false, $viewable_pages, $modifiable_pages);
 
-        $restrictions[] = $this->getRestriction('Tools', 'tools', 0, true, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Database Backup', 'tool/database_backup', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Export / Import', 'tool/export_import', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Optimize Tables', 'tool/optimize_tables', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Text Finder', 'tool/text_finder', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Upgrade', 'tool/upgrade', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('tools', 0, true, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('tool/database_backup', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('tool/export_import', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('tool/optimize_tables', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('tool/text_finder', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('tool/upgrade', 20, false, $viewable_pages, $modifiable_pages);
 
-        $restrictions[] = $this->getRestriction('Help', 'help', 0, true, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Donate', 'help/donate', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('FAQ', 'help/faq', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('Forum', 'help/forum', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('License', 'help/license', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('help', 0, true, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('help/donate', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('help/faq', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('help/forum', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('help/license', 20, false, $viewable_pages, $modifiable_pages);
 
         return $restrictions;
     }
 
-    private function getRestriction($title, $page, $indent, $is_top, $viewable_pages, $modifiable_pages)
+    private function getRestriction($page, $indent, $is_top, $viewable_pages, $modifiable_pages)
     {
+        $lang = $this->loadWord('common/administrator');
+
         if (in_array($page, $viewable_pages)) {
             $is_viewable = true;
         } else {
@@ -238,6 +240,12 @@ class CommonAdministratorModel extends Model
             $is_modifiable = true;
         } else {
             $is_modifiable = false;
+        }
+
+        if (array_key_exists('lang_' . $page, $lang)) {
+            $title = $lang['lang_' . $page];
+        } else {
+            $title = 'Undefined';
         }
 
         $restriction = array(

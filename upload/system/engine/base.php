@@ -43,6 +43,10 @@ abstract class Base
         if (defined('CMTX_FRONTEND') && $this->setting->has('theme_frontend')) {
             $this->setting->set('theme', $this->setting->get('theme_frontend'));
         }
+
+        if (!$this->setting->has('purpose')) {
+            $this->setting->set('purpose', 'comment');
+        }
     }
 
     public function __get($key)
@@ -124,6 +128,10 @@ abstract class Base
             die('<b>Error</b>: Could not load language ' . strtolower($cmtx_route) . '!');
         }
 
+        if ($this->setting->get('purpose') != 'comment') {
+            $_ = $this->changePurpose($_);
+        }
+
         if ($cmtx_word) {
             if (isset($_[$cmtx_word])) {
                 return $_[$cmtx_word];
@@ -133,5 +141,44 @@ abstract class Base
         } else {
             return $_;
         }
+    }
+
+    public function changePurpose($cmtx_wording)
+    {
+        /* Load general language file if it exists */
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php')) {
+            require cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/general.php')) {
+            require cmtx_modification(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/general.php');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/english/general.php')) {
+            require cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/general.php');
+        }
+
+        /* If comment type wording is defined in selected language */
+        if (isset($_['lang_type_comment'])) {
+            foreach ($cmtx_wording as $key => &$value) {
+                if ($this->variable->substr($key, 0, 10) != 'lang_type_') {
+                    $value = str_replace(array('Commentics', 'commentics'), array('C-o-m-m-e-n-t-i-c-s', 'c-o-m-m-e-n-t-i-c-s'), $value);
+
+                    if ($this->setting->get('purpose') == 'review') {
+                        $value = str_replace($_['lang_type_comments'], $_['lang_type_reviews'], $value);
+                        $value = str_replace($_['lang_type_comment'], $_['lang_type_review'], $value);
+
+                        $value = str_replace($this->variable->fixCase($_['lang_type_comments']), $this->variable->fixCase($_['lang_type_reviews']), $value);
+                        $value = str_replace($this->variable->fixCase($_['lang_type_comment']), $this->variable->fixCase($_['lang_type_review']), $value);
+                    } else if ($this->setting->get('purpose') == 'testimonial') {
+                        $value = str_replace($_['lang_type_comments'], $_['lang_type_testimonials'], $value);
+                        $value = str_replace($_['lang_type_comment'], $_['lang_type_testimonial'], $value);
+
+                        $value = str_replace($this->variable->fixCase($_['lang_type_comments']), $this->variable->fixCase($_['lang_type_testimonials']), $value);
+                        $value = str_replace($this->variable->fixCase($_['lang_type_comment']), $this->variable->fixCase($_['lang_type_testimonial']), $value);
+                    }
+
+                    $value = str_replace(array('C-o-m-m-e-n-t-i-c-s', 'c-o-m-m-e-n-t-i-c-s'), array('Commentics', 'commentics'), $value);
+                }
+            }
+        }
+
+        return $cmtx_wording;
     }
 }

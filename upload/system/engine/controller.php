@@ -191,6 +191,11 @@ abstract class Controller extends Base
             require cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/custom.php');
         }
 
+        /* Change the comment type wording if configured */
+        if ($this->setting->get('purpose') != 'comment') {
+            $_ = $this->changePurpose($_);
+        }
+
         /* Combine language files together */
         $this->data = array_merge($this->data, $_);
     }

@@ -91,3 +91,11 @@ $_['lang_thursday_short']          = 'Thu';
 $_['lang_friday_short']            = 'Fri';
 $_['lang_saturday_short']          = 'Sat';
 $_['lang_sunday_short']            = 'Sun';
+
+// Types
+$_['lang_type_comment']            = 'comment';
+$_['lang_type_comments']           = 'comments';
+$_['lang_type_review']             = 'review';
+$_['lang_type_reviews']            = 'reviews';
+$_['lang_type_testimonial']        = 'testimonial';
+$_['lang_type_testimonials']       = 'testimonials';

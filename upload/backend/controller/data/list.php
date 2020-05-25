@@ -126,10 +126,10 @@ class DataListController extends Controller
                     $this->data['lang_text_lines']    = $this->data['lang_text_lines'];
                     break;
                 default:
-                    $this->response->redirect('main/dashboard');
+                    $this->response->redirect('data/list&type=banned_emails');
             }
         } else {
-            $this->response->redirect('main/dashboard');
+            $this->response->redirect('data/list&type=banned_emails');
         }
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {

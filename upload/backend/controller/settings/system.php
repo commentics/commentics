@@ -57,6 +57,12 @@ class SettingsSystemController extends Controller
             $this->data['backend_folder'] = $this->setting->get('backend_folder');
         }
 
+        if (isset($this->request->post['purpose'])) {
+            $this->data['purpose'] = $this->request->post['purpose'];
+        } else {
+            $this->data['purpose'] = $this->setting->get('purpose');
+        }
+
         if (isset($this->request->post['use_wysiwyg'])) {
             $this->data['use_wysiwyg'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['use_wysiwyg'])) {
@@ -127,6 +133,12 @@ class SettingsSystemController extends Controller
             $this->data['error_backend_folder'] = '';
         }
 
+        if (isset($this->error['purpose'])) {
+            $this->data['error_purpose'] = $this->error['purpose'];
+        } else {
+            $this->data['error_purpose'] = '';
+        }
+
         if (isset($this->error['limit_results'])) {
             $this->data['error_limit_results'] = $this->error['limit_results'];
         } else {
@@ -138,6 +150,10 @@ class SettingsSystemController extends Controller
         } else {
             $this->data['error_admin_cookie_days'] = '';
         }
+
+        $this->data['lang_text_comments'] = $this->variable->fixCase($this->data['lang_type_comments']);
+        $this->data['lang_text_reviews'] = $this->variable->fixCase($this->data['lang_type_reviews']);
+        $this->data['lang_text_testimonials'] = $this->variable->fixCase($this->data['lang_type_testimonials']);
 
         $this->data['zones'] = $this->model_settings_system->get_time_zones();
 
@@ -202,6 +218,10 @@ class SettingsSystemController extends Controller
 
         if (!isset($this->request->post['backend_folder']) || $this->validation->length($this->request->post['backend_folder']) < 1 || $this->validation->length($this->request->post['backend_folder']) > 250) {
             $this->error['backend_folder'] = sprintf($this->data['lang_error_length'], 1, 250);
+        }
+
+        if (!isset($this->request->post['purpose']) || !in_array($this->request->post['purpose'], array('comment', 'review', 'testimonial'))) {
+            $this->error['purpose'] = $this->data['lang_error_purpose'];
         }
 
         if (!isset($this->request->post['limit_results']) || !$this->validation->isInt($this->request->post['limit_results']) || $this->request->post['limit_results'] < 5 || $this->request->post['limit_results'] > 1000) {

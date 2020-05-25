@@ -196,4 +196,12 @@ class Email
             $result = $mailer->send($message);
         }
     }
+
+    public function changePurpose($from, $to)
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "emails` SET `subject` = REPLACE(`subject`,'Commentics','C-o-m-m-e-n-t-i-c-s'), `text` = REPLACE(`text`,'Commentics','C-o-m-m-e-n-t-i-c-s'), `html` = REPLACE(`html`,'Commentics','C-o-m-m-e-n-t-i-c-s') WHERE `language` = 'english'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "emails` SET `subject` = REPLACE(`subject`,'" . $this->db->escape($from) . "','" . $this->db->escape($to) . "'), `text` = REPLACE(`text`,'" . $this->db->escape($from) . "','" . $this->db->escape($to) . "'), `html` = REPLACE(`html`,'" . $this->db->escape($from) . "','" . $this->db->escape($to) . "') WHERE `language` = 'english'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "emails` SET `subject` = REPLACE(`subject`,'" . $this->db->escape(ucwords($from)) . "','" . $this->db->escape(ucwords($to)) . "'), `text` = REPLACE(`text`,'" . $this->db->escape(ucwords($from)) . "','" . $this->db->escape(ucwords($to)) . "'), `html` = REPLACE(`html`,'" . $this->db->escape(ucwords($from)) . "','" . $this->db->escape(ucwords($to)) . "') WHERE `language` = 'english'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "emails` SET `subject` = REPLACE(`subject`,'C-o-m-m-e-n-t-i-c-s','Commentics'), `text` = REPLACE(`text`,'C-o-m-m-e-n-t-i-c-s','Commentics'), `html` = REPLACE(`html`,'C-o-m-m-e-n-t-i-c-s','Commentics') WHERE `language` = 'english'");        
+    }
 }

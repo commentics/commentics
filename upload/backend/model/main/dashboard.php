@@ -78,33 +78,53 @@ class MainDashboardModel extends Model
 
     public function getTipOfTheDay()
     {
-        $query = $this->db->query("SELECT `text` FROM `" . CMTX_DB_PREFIX . "data` WHERE `type` = 'admin_tips'");
+        $lang = $this->loadWord('main/dashboard');
 
-        $result = $this->db->row($query);
+        $tips = array();
 
-        $tips = $result['text'];
+        $counter = 0;
 
-        $tips = explode("\r\n", $tips);
+        foreach ($lang as $key => $value) {
+            if ($this->variable->strpos($key, 'lang_tip_') === 0) {
+                $tips[$counter] = $value;
+
+                $counter++;
+            }
+        }
 
         $amount = count($tips);
 
-        $day = date('z');
+        if ($amount) {
+            $day = date('z');
 
-        $position = (int) $day % $amount;
+            $position = (int) $day % $amount;
 
-        $tip = $tips[$position];
+            $tip = $tips[$position];
+        } else {
+            $tip = $lang['lang_text_no_tips'];
+        }
 
         return $tip;
     }
 
     public function getQuickLinks()
     {
-        $query = $this->db->query("SELECT `page`, COUNT(*) AS `frequency` FROM `" . CMTX_DB_PREFIX . "access` WHERE `page` NOT IN ('main/dashboard', 'extension/modules/install', 'extension/modules/uninstall', 'settings/email_editor', 'data/list', 'spam') AND `page` NOT LIKE 'edit%' GROUP BY `page` ORDER BY `frequency` DESC LIMIT 5");
+        $lang = $this->loadWord('main/dashboard');
+
+        $query = $this->db->query("SELECT `page`, COUNT(*) AS `frequency` FROM `" . CMTX_DB_PREFIX . "access` WHERE `page` NOT IN ('main/checklist', 'main/dashboard', 'extension/modules/install', 'extension/modules/uninstall') AND `page` NOT LIKE 'edit%' GROUP BY `page` ORDER BY `frequency` DESC LIMIT 5");
 
         if ($this->db->numRows($query) == 5) {
-            $result = $this->db->rows($query);
+            $results = $this->db->rows($query);
 
-            return $result;
+            foreach ($results as &$result) {
+                if (array_key_exists('lang_' . $result['page'], $lang)) {
+                    $result['text'] = $lang['lang_' . $result['page']];
+                } else {
+                    $result['text'] = $result['page'];
+                }
+            }
+
+            return $results;
         } else {
             return array();
         }

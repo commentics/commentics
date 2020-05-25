@@ -49,7 +49,7 @@ class Notify
                 $body = str_ireplace('[username]', $admin['username'], $body);
                 $body = str_ireplace('[page reference]', $comment['page_reference'], $body);
                 $body = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $body);
-                $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
+                $body = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
                 $body = str_ireplace('[poster]', $comment['name'], $body);
                 $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
 
@@ -61,7 +61,7 @@ class Notify
 
                 $body = $this->security->decode($body);
 
-                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
+                $body = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], $admin['format']), $body);
 
                 $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $this->page->getSiteId());
             }
@@ -92,7 +92,7 @@ class Notify
                 $body = str_ireplace('[username]', $admin['username'], $body);
                 $body = str_ireplace('[page reference]', $comment['page_reference'], $body);
                 $body = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $body);
-                $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
+                $body = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
                 $body = str_ireplace('[poster]', $comment['name'], $body);
                 $body = str_ireplace('[reason]', $this->prepareReasons($comment['notes'], $admin['format']), $body);
                 $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
@@ -105,7 +105,7 @@ class Notify
 
                 $body = $this->security->decode($body);
 
-                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
+                $body = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], $admin['format']), $body);
 
                 $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $this->page->getSiteId());
             }
@@ -136,7 +136,7 @@ class Notify
                 $body = str_ireplace('[username]', $admin['username'], $body);
                 $body = str_ireplace('[page reference]', $comment['page_reference'], $body);
                 $body = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $body);
-                $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
+                $body = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
                 $body = str_ireplace('[poster]', $comment['name'], $body);
                 $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
 
@@ -148,7 +148,7 @@ class Notify
 
                 $body = $this->security->decode($body);
 
-                $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $admin['format']), $body);
+                $body = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], $admin['format']), $body);
 
                 $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $this->page->getSiteId());
             }
@@ -219,7 +219,7 @@ class Notify
         $body = str_ireplace('[name]', $comment['name'], $body);
         $body = str_ireplace('[page reference]', $comment['page_reference'], $body);
         $body = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $body);
-        $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
+        $body = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $body);
         $body = str_ireplace('[user url]', $this->prepareUrl($this->buildUserUrl($comment['token'])), $body);
 
         if ($comment['format'] == 'text') {
@@ -230,7 +230,7 @@ class Notify
 
         $body = $this->security->decode($body);
 
-        $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $comment['format']), $body);
+        $body = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], $comment['format']), $body);
 
         $this->email->send($comment['email'], $comment['name'], $subject, $body, $comment['format'], $this->page->getSiteId());
     }
@@ -346,7 +346,7 @@ class Notify
                     $body = str_ireplace('[name]', $user['name'], $body);
                     $body = str_ireplace('[page reference]', $user['page_reference'], $body);
                     $body = str_ireplace('[page url]', $this->prepareUrl($user['page_url']), $body);
-                    $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
+                    $body = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
                     $body = str_ireplace('[poster]', $comment['name'], $body);
                     $body = str_ireplace('[user url]', $this->prepareUrl($this->buildUserUrl($user['token'])), $body);
 
@@ -358,7 +358,7 @@ class Notify
 
                     $body = $this->security->decode($body);
 
-                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
+                    $body = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], $user['format']), $body);
 
                     $this->email->send($user['email'], $user['name'], $subject, $body, $user['format'], $this->page->getSiteId());
 
@@ -399,7 +399,7 @@ class Notify
                     $body = str_ireplace('[name]', $user['name'], $body);
                     $body = str_ireplace('[page reference]', $user['page_reference'], $body);
                     $body = str_ireplace('[page url]', $this->prepareUrl($user['page_url']), $body);
-                    $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
+                    $body = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
                     $body = str_ireplace('[poster]', $comment['name'], $body);
                     $body = str_ireplace('[user url]', $this->prepareUrl($this->buildUserUrl($user['token'])), $body);
 
@@ -411,7 +411,7 @@ class Notify
 
                     $body = $this->security->decode($body);
 
-                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
+                    $body = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], $user['format']), $body);
 
                     $this->email->send($user['email'], $user['name'], $subject, $body, $user['format'], $this->page->getSiteId());
 
@@ -452,7 +452,7 @@ class Notify
                     $body = str_ireplace('[name]', $user['name'], $body);
                     $body = str_ireplace('[page reference]', $user['page_reference'], $body);
                     $body = str_ireplace('[page url]', $this->prepareUrl($user['page_url']), $body);
-                    $body = str_ireplace('[comment url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
+                    $body = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $user['page_url'])), $body);
                     $body = str_ireplace('[poster]', $comment['name'], $body);
                     $body = str_ireplace('[user url]', $this->prepareUrl($this->buildUserUrl($user['token'])), $body);
 
@@ -464,7 +464,7 @@ class Notify
 
                     $body = $this->security->decode($body);
 
-                    $body = str_ireplace('[comment]', $this->prepareComment($comment['comment'], $user['format']), $body);
+                    $body = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], $user['format']), $body);
 
                     $this->email->send($user['email'], $user['name'], $subject, $body, $user['format'], $this->page->getSiteId());
 

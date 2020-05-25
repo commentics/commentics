@@ -95,6 +95,19 @@
         </div>
 
         <div class="fieldset">
+            <label><?php echo $lang_entry_purpose; ?></label>
+            <select name="purpose" class="large">
+                <option value="comment" <?php if ($purpose == 'comment') { echo 'selected'; } ?>><?php echo $lang_text_comments; ?></option>
+                <option value="review" <?php if ($purpose == 'review') { echo 'selected'; } ?>><?php echo $lang_text_reviews; ?></option>
+                <option value="testimonial" <?php if ($purpose == 'testimonial') { echo 'selected'; } ?>><?php echo $lang_text_testimonials; ?></option>
+            </select>
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_purpose; ?>', this, event, '')">[?]</a>
+            <?php if ($error_purpose) { ?>
+                <span class="error"><?php echo $error_purpose; ?></span>
+            <?php } ?>
+        </div>
+
+        <div class="fieldset">
             <label><?php echo $lang_entry_use_wysiwyg; ?></label>
             <input type="checkbox" name="use_wysiwyg" value="1" <?php if ($use_wysiwyg) { echo 'checked'; } ?>>
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_use_wysiwyg; ?>', this, event, '')">[?]</a>

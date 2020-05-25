@@ -19,6 +19,8 @@ class SettingsSystemModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['backend_folder']) . "' WHERE `title` = 'backend_folder'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['purpose']) . "' WHERE `title` = 'purpose'");
+
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['use_wysiwyg']) ? 1 : 0) . "' WHERE `title` = 'use_wysiwyg'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['display_parsing']) ? 1 : 0) . "' WHERE `title` = 'display_parsing'");
@@ -26,6 +28,10 @@ class SettingsSystemModel extends Model
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['limit_results'] . "' WHERE `title` = 'limit_results'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['admin_cookie_days'] . "' WHERE `title` = 'admin_cookie_days'");
+
+        if ($this->setting->get('purpose') != $data['purpose']) {
+            $this->email->changePurpose($this->setting->get('purpose'), $data['purpose']);
+        }
     }
 
     public function get_time_zones()

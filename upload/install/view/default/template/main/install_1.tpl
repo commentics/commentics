@@ -59,6 +59,16 @@
                     </select>
                     <span class="note"><?php echo $lang_note_ssl_certificate; ?></span>
                 </div>
+
+                <div>
+                    <span class="field_heading"><?php echo $lang_entry_purpose; ?></span> <span class="required_symbol">*</span><br>
+                    <select name="purpose" class="purpose">
+                        <option value="comment"><?php echo $lang_text_comments; ?></option>
+                        <option value="review"><?php echo $lang_text_reviews; ?></option>
+                        <option value="testimonial"><?php echo $lang_text_testimonials; ?></option>
+                    </select>
+                    <span class="note"><?php echo $lang_note_purpose; ?></span>
+                </div>
             </div>
 
             <div class="right">

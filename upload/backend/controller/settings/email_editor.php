@@ -29,19 +29,19 @@ class SettingsEmailEditorController extends Controller
                     $this->data['lang_heading']     = $this->data['lang_heading_comment_approve'];
                     $this->data['lang_description'] = $this->data['lang_description_comment_approve'];
                     $this->data['languages']        = $backend_languages;
-                    $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>comment url</span> <span>poster</span> <span>comment</span> <span>reason</span> <span>admin link</span> <span>signature</span>';
+                    $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>reason</span> <span>admin link</span> <span>signature</span>';
                     break;
                 case 'comment_success':
                     $this->data['lang_heading']     = $this->data['lang_heading_comment_success'];
                     $this->data['lang_description'] = $this->data['lang_description_comment_success'];
                     $this->data['languages']        = $backend_languages;
-                    $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>comment url</span> <span>poster</span> <span>comment</span> <span>admin link</span> <span>signature</span>';
+                    $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>admin link</span> <span>signature</span>';
                     break;
                 case 'flag':
                     $this->data['lang_heading']     = $this->data['lang_heading_flag'];
                     $this->data['lang_description'] = $this->data['lang_description_flag'];
                     $this->data['languages']        = $backend_languages;
-                    $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>comment url</span> <span>poster</span> <span>comment</span> <span>admin link</span> <span>signature</span>';
+                    $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>admin link</span> <span>signature</span>';
                     break;
                 case 'new_version':
                     $this->data['lang_heading']     = $this->data['lang_heading_new_version'];
@@ -71,31 +71,31 @@ class SettingsEmailEditorController extends Controller
                     $this->data['lang_heading']     = $this->data['lang_heading_subscriber_notification_admin'];
                     $this->data['lang_description'] = $this->data['lang_description_subscriber_notification_admin'];
                     $this->data['languages']        = $frontend_languages;
-                    $this->data['keywords']         = '<span>name</span> <span>page reference</span> <span>page url</span> <span>comment url</span> <span>poster</span> <span>comment</span> <span>signature</span> <span>user url</span>';
+                    $this->data['keywords']         = '<span>name</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>signature</span> <span>user url</span>';
                     break;
                 case 'subscriber_notification_basic':
                     $this->data['lang_heading']     = $this->data['lang_heading_subscriber_notification_basic'];
                     $this->data['lang_description'] = $this->data['lang_description_subscriber_notification_basic'];
                     $this->data['languages']        = $frontend_languages;
-                    $this->data['keywords']         = '<span>name</span> <span>page reference</span> <span>page url</span> <span>comment url</span> <span>poster</span> <span>comment</span> <span>signature</span> <span>user url</span>';
+                    $this->data['keywords']         = '<span>name</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>signature</span> <span>user url</span>';
                     break;
                 case 'subscriber_notification_reply':
                     $this->data['lang_heading']     = $this->data['lang_heading_subscriber_notification_reply'];
                     $this->data['lang_description'] = $this->data['lang_description_subscriber_notification_reply'];
                     $this->data['languages']        = $frontend_languages;
-                    $this->data['keywords']         = '<span>name</span> <span>page reference</span> <span>page url</span> <span>comment url</span> <span>poster</span> <span>comment</span> <span>signature</span> <span>user url</span>';
+                    $this->data['keywords']         = '<span>name</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>signature</span> <span>user url</span>';
                     break;
                 case 'user_comment_approved':
                     $this->data['lang_heading']     = $this->data['lang_heading_user_comment_approved'];
                     $this->data['lang_description'] = $this->data['lang_description_user_comment_approved'];
                     $this->data['languages']        = $frontend_languages;
-                    $this->data['keywords']         = '<span>name</span> <span>page reference</span> <span>page url</span> <span>comment url</span> <span>comment</span> <span>signature</span> <span>user url</span>';
+                    $this->data['keywords']         = '<span>name</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>' . $this->setting->get('purpose') . '</span> <span>signature</span> <span>user url</span>';
                     break;
                 default:
-                    $this->response->redirect('main/dashboard');
+                    $this->response->redirect('settings/email_editor&type=ban');
             }
         } else {
-            $this->response->redirect('main/dashboard');
+            $this->response->redirect('settings/email_editor&type=ban');
         }
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {

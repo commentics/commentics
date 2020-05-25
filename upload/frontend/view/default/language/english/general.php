@@ -64,3 +64,11 @@ $_['lang_text_timeago_month']   = 'a month';
 $_['lang_text_timeago_months']  = '%d months';
 $_['lang_text_timeago_year']    = 'a year';
 $_['lang_text_timeago_years']   = '%d years';
+
+// Types
+$_['lang_type_comment']         = 'comment';
+$_['lang_type_comments']        = 'comments';
+$_['lang_type_review']          = 'review';
+$_['lang_type_reviews']         = 'reviews';
+$_['lang_type_testimonial']     = 'testimonial';
+$_['lang_type_testimonials']    = 'testimonials';
