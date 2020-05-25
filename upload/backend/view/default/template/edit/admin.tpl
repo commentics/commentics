@@ -83,13 +83,13 @@
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_restrict; ?>', this, event, '')">[?]</a>
         </div>
 
-        <div class="fieldset restriction_fieldset">
+        <div class="fieldset restriction_fieldset" style="display:none">
             <label></label>
             <span class="note"><?php echo $lang_text_allowed_pages; ?></span>
         </div>
 
         <?php foreach ($restrictions as $restriction) { ?>
-            <div class="fieldset restriction_fieldset <?php if ($restriction['is_top']) { echo 'restriction_fieldset_top'; } ?>">
+            <div class="fieldset restriction_fieldset <?php if ($restriction['is_top']) { echo 'restriction_fieldset_top'; } ?>" style="display:none">
                 <label></label>
 
                 <input type="checkbox" name="viewable_pages[]" style="margin-left: <?php echo $restriction['indent']; ?>" value="<?php echo $restriction['page']; ?>" <?php if ($restriction['is_viewable']) { echo 'checked'; } ?>>
@@ -136,8 +136,6 @@
     $(document).ready(function() {
         <?php if ($restrict_pages) { ?>
             $('.restriction_fieldset').show();
-        <?php } else { ?>
-            $('.restriction_fieldset').hide();
         <?php } ?>
     });
     // ]]>
