@@ -29,42 +29,58 @@ class MainDashboardController extends Controller
 
         $site_issue = false;
 
+        $current_version = $this->model_main_dashboard->getCurrentVersion();
+
         if (extension_loaded('curl') || (bool) ini_get('allow_url_fopen')) {
             $latest_version = $this->home->getLatestVersion();
 
             if ($this->validation->isFloat($latest_version)) {
-                if (version_compare($this->model_main_dashboard->getCurrentVersion(), $latest_version, '<')) {
+                if (version_compare($current_version, $latest_version, '<')) {
                     $this->data['version_check'] = array(
-                                                        'type'      => 'negative',
-                                                        'text'      => $this->data['lang_text_version_newer'],
-                                                        'link'      => true,
-                                                        'link_href' => $this->url->link('tool/upgrade'),
-                                                        'link_text' => $this->data['lang_link_upgrade']
-                                                        );
+                        'type'        => 'negative',
+                        'text'        => $this->data['lang_text_version_newer'],
+                        'link_href'   => $this->url->link('tool/upgrade'),
+                        'link_text'   => $this->data['lang_link_upgrade'],
+                        'link_target' => '_self'
+                    );
                 } else {
                     $this->data['version_check'] = array(
-                                                        'type' => 'positive',
-                                                        'text' => $this->data['lang_text_version_latest'],
-                                                        'link' => false
-                                                        );
+                        'type'        => 'positive',
+                        'text'        => $this->data['lang_text_version_latest'],
+                        'link_href'   => '',
+                        'link_text'   => '',
+                        'link_target' => ''
+                    );
                 }
             } else {
                 $site_issue = true;
 
-                $this->data['version_check'] = array(
-                                                    'type'      => 'negative',
-                                                    'text'      => $this->data['lang_text_site_issue'],
-                                                    'link'      => true,
-                                                    'link_href' => $this->url->link('report/version_check'),
-                                                    'link_text' => $this->data['lang_link_log']
-                                                    );
+                if (is_string($latest_version) && $this->variable->stripos($latest_version, 'bitninja') !== false) {
+                    $this->data['version_check'] = array(
+                        'type'        => 'negative',
+                        'text'        => $this->data['lang_text_denied'],
+                        'link_href'   => 'https://www.commentics.org/help/main_dashboard',
+                        'link_text'   => $this->data['lang_link_learn_more'],
+                        'link_target' => '_blank'
+                    );
+                } else {
+                    $this->data['version_check'] = array(
+                        'type'        => 'negative',
+                        'text'        => $this->data['lang_text_site_issue'],
+                        'link_href'   => $this->url->link('report/version_check'),
+                        'link_text'   => $this->data['lang_link_log'],
+                        'link_target' => '_self'
+                    );
+                }
             }
         } else {
             $this->data['version_check'] = array(
-                                                'type' => 'negative',
-                                                'text' => $this->data['lang_text_unable'],
-                                                'link' => false
-                                                );
+                'type'        => 'negative',
+                'text'        => $this->data['lang_text_unable'],
+                'link_href'   => '',
+                'link_text'   => '',
+                'link_target' => ''
+            );
         }
 
         $this->data['lang_text_last_login'] = sprintf($this->data['lang_text_last_login'], $this->variable->formatDate($this->model_main_dashboard->getLastLogin(), $this->data['lang_time_format'], $this->data), $this->variable->formatDate($this->model_main_dashboard->getLastLogin(), $this->data['lang_date_format'], $this->data));
@@ -97,24 +113,20 @@ class MainDashboardController extends Controller
 
         $this->data['licence'] = $this->setting->get('licence');
 
-        $this->data['is_licence_valid'] = false;
-
-        $this->data['licence_result'] = '';
-
         if ($this->setting->get('licence')) {
-            if ((extension_loaded('curl') || (bool) ini_get('allow_url_fopen'))) {
-                if ($site_issue && $this->setting->get('licence')) {
-                    $this->data['is_licence_valid'] = true;
+            if (extension_loaded('curl') || (bool) ini_get('allow_url_fopen')) {
+                if ($site_issue) {
+                    $this->data['licence_result'] = 'valid';
                 } else {
                     $check = $this->home->checkLicence($this->setting->get('licence'), $this->setting->get('forum_user'));
 
                     $check = json_decode($check, true);
 
                     if (isset($check['result']) && $check['result'] == 'valid') {
-                        $this->data['is_licence_valid'] = true;
+                        $this->data['licence_result'] = 'valid';
+                    } else {
+                        $this->data['licence_result'] = 'invalid';
                     }
-
-                    $this->data['licence_result'] = 'invalid';
                 }
             } else {
                 $this->data['licence_result'] = 'unable';
@@ -127,7 +139,7 @@ class MainDashboardController extends Controller
             }
         }
 
-        if (!$this->data['is_licence_valid']) {
+        if ($this->data['licence_result'] != 'valid') {
             $this->model_main_dashboard->enabledPoweredBy();
         }
 
@@ -174,6 +186,8 @@ class MainDashboardController extends Controller
                 $this->model_main_dashboard->disableCheckReferrer();
             }
         }
+
+        $this->data['lang_title_version_check'] = sprintf($this->data['lang_title_version_check'], $current_version);
 
         $this->components = array('common/header', 'common/footer');
 

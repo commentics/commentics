@@ -249,6 +249,7 @@ class Home
                 'bans'             => $this->getNumBansTotal(),
                 'comments'         => $this->getNumCommentsTotal(),
                 'pages'            => $this->getNumPagesTotal(),
+                'sites'            => $this->getNumSitesTotal(),
                 'subscriptions'    => $this->getNumSubscriptionsTotal(),
                 'users'            => $this->getNumUsersTotal(),
                 'akismet_enabled'  => ($this->setting->has('akismet_enabled') && $this->setting->get('akismet_enabled') ? 1 : 0),
@@ -342,6 +343,11 @@ class Home
     private function getNumPagesTotal()
     {
         return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "pages`"));
+    }
+
+    private function getNumSitesTotal()
+    {
+        return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "sites`"));
     }
 
     private function getNumSubscriptionsTotal()

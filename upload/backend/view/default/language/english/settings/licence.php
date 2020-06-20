@@ -14,4 +14,6 @@ $_['lang_hint_forum_user']  = 'If you have a forum account, enter your forum use
 
 // Error
 $_['lang_error_unable']     = 'Your server is unable to check';
+$_['lang_error_denied']     = 'Your server is denying access';
+$_['lang_error_site_issue'] = 'There is an issue with Commentics.org';
 $_['lang_error_no_licence'] = 'You must have a valid licence';
