@@ -23,6 +23,14 @@ class LayoutCommentsAverageRatingController extends Controller
             $this->data['show_average_rating'] = $this->setting->get('show_average_rating');
         }
 
+        if (isset($this->request->post['average_rating_guest'])) {
+            $this->data['average_rating_guest'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['average_rating_guest'])) {
+            $this->data['average_rating_guest'] = false;
+        } else {
+            $this->data['average_rating_guest'] = $this->setting->get('average_rating_guest');
+        }
+
         $this->data['link_back'] = $this->url->link('settings/layout_comments');
 
         $this->components = array('common/header', 'common/footer');

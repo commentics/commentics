@@ -19,6 +19,12 @@ class PartAverageRatingController extends Controller
 
         $this->data['page_id'] = $this->page->getId();
 
+        if ($this->setting->get('average_rating_guest')) {
+            $this->data['average_rating_guest'] = 'cmtx_average_rating_can_rate';
+        } else {
+            $this->data['average_rating_guest'] = 'cmtx_average_rating_cannot_rate';
+        }
+
         if ($this->setting->has('rich_snippets_enabled') && $this->setting->get('rich_snippets_enabled')) {
             $this->data['rich_snippets_enabled'] = true;
         } else {
@@ -80,6 +86,8 @@ class PartAverageRatingController extends Controller
                     $json['error'] = $this->data['lang_error_maintenance'];
                 } else if (!$this->setting->get('show_average_rating')) { // check if feature enabled
                     $json['error'] = $this->data['lang_error_disabled'];
+                } else if (!$this->setting->get('average_rating_guest')) { // check if guest rating enabled
+                    $json['error'] = $this->data['lang_error_guest'];
                 } else if (!$this->page->pageExists($page_id)) { // check if page exists
                     $json['error'] = $this->data['lang_error_no_page'];
                 } else if ($this->model_part_average_rating->hasAlreadyRatedPage($page_id, $ip_address)) { // check if user has already rated this page

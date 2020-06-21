@@ -403,6 +403,8 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "data` WHERE `type` = 'admin_tips'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'purpose', `value` = 'comment'");
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'average_rating_guest', `value` = '1'");            
         }
     }
 

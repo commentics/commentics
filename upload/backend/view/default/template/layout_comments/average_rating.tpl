@@ -33,6 +33,12 @@
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_enabled; ?>', this, event, '')">[?]</a>
         </div>
 
+        <div class="fieldset">
+            <label><?php echo $lang_entry_guest; ?></label>
+            <input type="checkbox" name="average_rating_guest" value="1" <?php if ($average_rating_guest) { echo 'checked'; } ?>>
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_guest; ?>', this, event, '')">[?]</a>
+        </div>
+
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>

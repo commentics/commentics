@@ -990,7 +990,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
             });
 
             /* Average rating */
-            $('#cmtx_container').on('click', '.cmtx_average_rating label', function(e) {
+            $('#cmtx_container').on('click', '.cmtx_average_rating_can_rate label', function(e) {
                 e.preventDefault();
 
                 var element = $(this);
@@ -1042,6 +1042,11 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         console.log(jqXHR.responseText);
                     }
                 });
+            });
+
+            /* Prevent users from clicking the stars if guest rating is disabled */
+            $('#cmtx_container').on('click', '.cmtx_average_rating_cannot_rate label', function(e) {
+                e.preventDefault();
             });
 
             /* Pagination */

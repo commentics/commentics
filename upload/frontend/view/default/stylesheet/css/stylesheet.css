@@ -4678,11 +4678,19 @@ select.cmtx_required {
   float: right;
 }
 
-.cmtx_average_rating > input:checked ~ label, .cmtx_average_rating:not(:checked) > label:hover, .cmtx_average_rating:not(:checked) > label:hover ~ label {
+.cmtx_average_rating > input:checked ~ label {
   color: #ffd700;
 }
 
-.cmtx_average_rating > input:checked + label:hover, .cmtx_average_rating > input:checked ~ label:hover, .cmtx_average_rating > label:hover ~ input:checked ~ label, .cmtx_average_rating > input:checked ~ label:hover ~ label {
+.cmtx_average_rating_can_rate:not(:checked) > label:hover {
+  color: #ffd700;
+}
+
+.cmtx_average_rating_can_rate:not(:checked) > label:hover ~ label {
+  color: #ffd700;
+}
+
+.cmtx_average_rating_can_rate > input:checked + label:hover, .cmtx_average_rating_can_rate > input:checked ~ label:hover, .cmtx_average_rating_can_rate > label:hover ~ input:checked ~ label, .cmtx_average_rating_can_rate > input:checked ~ label:hover ~ label {
   color: #ffed85;
 }
 

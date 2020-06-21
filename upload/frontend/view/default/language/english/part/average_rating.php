@@ -10,6 +10,7 @@ $_['lang_title_avg_rating_5'] = '5 - Excellent';
 $_['lang_error_no_page']      = 'This page no longer exists';
 $_['lang_error_maintenance']  = 'The script is in maintenance mode';
 $_['lang_error_disabled']     = 'This feature is disabled';
+$_['lang_error_guest']        = 'Guest rating is disabled';
 $_['lang_error_rate_already'] = 'You\'ve already rated';
 $_['lang_error_rated']        = 'Thanks for the rating';
 $_['lang_error_banned']       = 'You\'ve been banned';

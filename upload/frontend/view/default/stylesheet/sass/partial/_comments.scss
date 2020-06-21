@@ -689,11 +689,19 @@
     float: right;
 }
 
-.cmtx_average_rating > input:checked ~ label, .cmtx_average_rating:not(:checked) > label:hover, .cmtx_average_rating:not(:checked) > label:hover ~ label {
+.cmtx_average_rating > input:checked ~ label { // the rating
     color: $star-full;
 }
 
-.cmtx_average_rating > input:checked + label:hover, .cmtx_average_rating > input:checked ~ label:hover, .cmtx_average_rating > label:hover ~ input:checked ~ label, .cmtx_average_rating > input:checked ~ label:hover ~ label {
+.cmtx_average_rating_can_rate:not(:checked) > label:hover { // currently hovered star
+    color: $star-full;
+}
+
+.cmtx_average_rating_can_rate:not(:checked) > label:hover ~ label { // stars before the currently hovered star
+    color: $star-full;
+}
+
+.cmtx_average_rating_can_rate > input:checked + label:hover, .cmtx_average_rating_can_rate > input:checked ~ label:hover, .cmtx_average_rating_can_rate > label:hover ~ input:checked ~ label, .cmtx_average_rating_can_rate > input:checked ~ label:hover ~ label {
     color: $star-hover;
 }
 

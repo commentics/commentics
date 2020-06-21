@@ -1,5 +1,5 @@
 <div class="cmtx_average_rating_block">
-    <div class="cmtx_average_rating">
+    <div class="cmtx_average_rating {{ average_rating_guest }}">
         <input type="radio" id="cmtx_avg_star_5" name="cmtx_rating" value="5" {{ rating_5_checked }}><label for="cmtx_avg_star_5" title="{{ lang_title_avg_rating_5 }}"></label>
         <input type="radio" id="cmtx_avg_star_4" name="cmtx_rating" value="4" {{ rating_4_checked }}><label for="cmtx_avg_star_4" title="{{ lang_title_avg_rating_4 }}"></label>
         <input type="radio" id="cmtx_avg_star_3" name="cmtx_rating" value="3" {{ rating_3_checked }}><label for="cmtx_avg_star_3" title="{{ lang_title_avg_rating_3 }}"></label>
