@@ -21,6 +21,11 @@ class ExtensionThemesModel extends Model
         if ((isset($data['optimize']) && !$this->setting->get('optimize')) || (!isset($data['optimize']) && $this->setting->get('optimize'))) {
             remove_directory(CMTX_DIR_CACHE . 'template/', false);
         }
+
+        /* If frontend theme setting has changed, clear template cache so the new theme's template files are used */
+        if ($data['theme_frontend'] != $this->setting->get('theme_frontend')) {
+            remove_directory(CMTX_DIR_CACHE . 'template/', false);
+        }
     }
 
     public function getFrontendThemes()
