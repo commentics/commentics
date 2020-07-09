@@ -778,7 +778,11 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                     $('.cmtx_comment_container').addClass('cmtx_comment_container_active');
 
-                    $('.cmtx_wait_for_user, .cmtx_wait_for_comment').not('.cmtx_captcha_complete').fadeIn('slow');
+                    $('.cmtx_wait_for_user, .cmtx_wait_for_comment').not('.cmtx_rating_row').fadeIn('slow');
+
+                    if ($('input[name="cmtx_reply_to"]').val() == '') {
+                        $('.cmtx_rating_row').fadeIn('slow');
+                    }
                 });
 
                 request.done(function(response) {
@@ -1081,6 +1085,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_image_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row').hide();
 
+                $('.cmtx_question_row, .cmtx_securimage_row').show();
+
                 if ($('input[name="cmtx_subscribe"]').val() == '') {
                     cmtx_heading_text = $('.cmtx_form_heading').text();
                 }
@@ -1233,9 +1239,11 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
 
-                $('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row').show();
+                $('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_securimage_row, .cmtx_checkbox_container, .cmtx_button_row').show();
 
                 $('#cmtx_comment').addClass('cmtx_comment_field_active');
+
+                $('.cmtx_comment_container').addClass('cmtx_comment_container_active');
 
                 $('.cmtx_form_heading').fadeOut(250, function() {
                     $('.cmtx_form_heading').text(cmtx_heading_text).fadeIn(500);
@@ -1433,6 +1441,14 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('.cmtx_message_info').remove();
 
+                $('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_securimage_row, .cmtx_checkbox_container, .cmtx_button_row').show();
+
+                $('.cmtx_rating_row').hide();
+
+                $('#cmtx_comment').addClass('cmtx_comment_field_active');
+
+                $('.cmtx_comment_container').addClass('cmtx_comment_container_active');
+
                 var comment_id = $(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
 
                 var name = $(this).closest('.cmtx_comment_box').find('.cmtx_name_text').text();
@@ -1448,6 +1464,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
             $('body').on('click', '.cmtx_message_reply a', function(e) {
                 e.preventDefault();
+
+                $(".cmtx_rating_row").show();
 
                 $('input[name="cmtx_reply_to"]').val('');
 

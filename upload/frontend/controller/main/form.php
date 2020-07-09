@@ -1125,7 +1125,7 @@ class MainFormController extends Controller
                                 }
 
                                 /* Rating */
-                                if ($this->setting->get('enabled_rating')) {
+                                if ($this->setting->get('enabled_rating') && empty($this->request->post['cmtx_reply_to'])) {
                                     if ($this->setting->get('repeat_rating') == 'hide' && $this->model_main_form->hasUserRated($page_id, $ip_address)) {
                                         $this->request->post['cmtx_rating'] = 0;
 
