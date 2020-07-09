@@ -287,7 +287,7 @@ class EditCommentController extends Controller
 
             $json = array();
 
-            if (isset($this->request->post['country_id'])) {
+            if (isset($this->request->post['country_id']) && $this->request->post['country_id']) {
                 $this->loadModel('edit/comment');
 
                 $states = $this->model_edit_comment->getStates($this->request->post['country_id']);
