@@ -20,6 +20,8 @@ class MainUpgrade1Controller extends Controller
                 $this->data['error'] = $this->data['lang_error_latest'];
             } else if (version_compare($installed_version, CMTX_VERSION, '>')) {
                 $this->data['error'] = $this->data['lang_error_older'];
+            } else if (version_compare($installed_version, 2.5, '<')) {
+                $this->data['error'] = $this->data['lang_error_2_5'];
             } else {
                 $this->data['installed_version'] = $installed_version;
 
