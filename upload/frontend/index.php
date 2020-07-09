@@ -69,7 +69,7 @@ if (isset($cmtx_page_url)) { // if this is set, it's an iFrame integration
         $cmtx_reference = 'Untitled';
     }
 
-    /* Set these extra config vaules if provided */
+    /* Set these extra config values if provided */
     $extra_configs = array('logged_in', 'name', 'email', 'website', 'town', 'country', 'state', 'language');
 
     foreach($extra_configs as $extra_config) {
