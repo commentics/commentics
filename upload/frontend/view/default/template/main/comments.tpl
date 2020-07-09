@@ -6,19 +6,23 @@
             <div itemscope itemtype="http://schema.org/{{ rich_snippets_type }}">
         @endif
 
-        @if row_one
-            <div class="cmtx_comments_row_one cmtx_clear" role="toolbar">
-                <div class="cmtx_row_left {{ cmtx_empty_position_1 }}">{{ comments_position_1 }}</div>
-                <div class="cmtx_row_middle {{ cmtx_empty_position_2 }}">{{ comments_position_2 }}</div>
-                <div class="cmtx_row_right {{ cmtx_empty_position_3 }}">{{ comments_position_3 }}</div>
-            </div>
-        @endif
+        @if row_one or row_two
+            <div class="cmtx_comments_top_row" role="toolbar">
+                @if row_one
+                    <div class="cmtx_comments_row_one cmtx_clear">
+                        <div class="cmtx_row_left {{ cmtx_empty_position_1 }}">{{ comments_position_1 }}</div>
+                        <div class="cmtx_row_middle {{ cmtx_empty_position_2 }}">{{ comments_position_2 }}</div>
+                        <div class="cmtx_row_right {{ cmtx_empty_position_3 }}">{{ comments_position_3 }}</div>
+                    </div>
+                @endif
 
-        @if row_two
-            <div class="cmtx_comments_row_two cmtx_clear" role="toolbar">
-                <div class="cmtx_row_left {{ cmtx_empty_position_4 }}">{{ comments_position_4 }}</div>
-                <div class="cmtx_row_middle {{ cmtx_empty_position_5 }}">{{ comments_position_5 }}</div>
-                <div class="cmtx_row_right {{ cmtx_empty_position_6 }}">{{ comments_position_6 }}</div>
+                @if row_two
+                    <div class="cmtx_comments_row_two cmtx_clear">
+                        <div class="cmtx_row_left {{ cmtx_empty_position_4 }}">{{ comments_position_4 }}</div>
+                        <div class="cmtx_row_middle {{ cmtx_empty_position_5 }}">{{ comments_position_5 }}</div>
+                        <div class="cmtx_row_right {{ cmtx_empty_position_6 }}">{{ comments_position_6 }}</div>
+                    </div>
+                @endif
             </div>
         @endif
 
@@ -93,19 +97,23 @@
             <div class="cmtx_return">{{ lang_text_return }}</div>
         @endif
 
-        @if row_three
-            <div class="cmtx_comments_row_three cmtx_clear" role="toolbar">
-                <div class="cmtx_row_left {{ cmtx_empty_position_7 }}">{{ comments_position_7 }}</div>
-                <div class="cmtx_row_middle {{ cmtx_empty_position_8 }}">{{ comments_position_8 }}</div>
-                <div class="cmtx_row_right {{ cmtx_empty_position_9 }}">{{ comments_position_9 }}</div>
-            </div>
-        @endif
+        @if row_three or row_four
+            <div class="cmtx_comments_bottom_row" role="toolbar">
+                @if row_three
+                    <div class="cmtx_comments_row_three cmtx_clear">
+                        <div class="cmtx_row_left {{ cmtx_empty_position_7 }}">{{ comments_position_7 }}</div>
+                        <div class="cmtx_row_middle {{ cmtx_empty_position_8 }}">{{ comments_position_8 }}</div>
+                        <div class="cmtx_row_right {{ cmtx_empty_position_9 }}">{{ comments_position_9 }}</div>
+                    </div>
+                @endif
 
-        @if row_four
-            <div class="cmtx_comments_row_four cmtx_clear" role="toolbar">
-                <div class="cmtx_row_left {{ cmtx_empty_position_10 }}">{{ comments_position_10 }}</div>
-                <div class="cmtx_row_middle {{ cmtx_empty_position_11 }}">{{ comments_position_11 }}</div>
-                <div class="cmtx_row_right {{ cmtx_empty_position_12 }}">{{ comments_position_12 }}</div>
+                @if row_four
+                    <div class="cmtx_comments_row_four cmtx_clear">
+                        <div class="cmtx_row_left {{ cmtx_empty_position_10 }}">{{ comments_position_10 }}</div>
+                        <div class="cmtx_row_middle {{ cmtx_empty_position_11 }}">{{ comments_position_11 }}</div>
+                        <div class="cmtx_row_right {{ cmtx_empty_position_12 }}">{{ comments_position_12 }}</div>
+                    </div>
+                @endif
             </div>
         @endif
 
