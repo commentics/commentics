@@ -61,6 +61,7 @@ $_['lang_menu_report_viewers']            = 'Viewers';
 
 /* Tools */
 $_['lang_menu_tools']                     = 'Tools';
+$_['lang_menu_tool_clear_cache']          = 'Clear Cache';
 $_['lang_menu_tool_database_backup']      = 'Database Backup';
 $_['lang_menu_tool_export_import']        = 'Export / Import';
 $_['lang_menu_tool_optimize_tables']      = 'Optimize Tables';
