@@ -39,7 +39,7 @@ $_['lang_entry_locked']          = 'Locked:';
 $_['lang_entry_ip_address']      = 'IP Address:';
 $_['lang_entry_date']            = 'Date:';
 
-// Select
+// Selection
 $_['lang_select_rating_1']       = '1 - Dreadful';
 $_['lang_select_rating_2']       = '2 - Poor';
 $_['lang_select_rating_3']       = '3 - Fair';

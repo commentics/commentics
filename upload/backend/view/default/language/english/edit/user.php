@@ -16,7 +16,7 @@ $_['lang_entry_subscriptions']       = 'Subscriptions:';
 $_['lang_entry_moderate']            = 'Moderate:';
 $_['lang_entry_date']                = 'Date:';
 
-// Select
+// Selection
 $_['lang_select_default']            = 'Default';
 $_['lang_select_never']              = 'Never';
 $_['lang_select_always']             = 'Always';
