@@ -12,6 +12,8 @@ class SettingsSystemController extends Controller
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
             if ($this->validate()) {
                 $this->model_settings_system->update($this->request->post);
+
+                $this->setting->set('purpose', $this->request->post['purpose']);
             }
         }
 
