@@ -7,110 +7,1383 @@ class SettingsLayoutFormController extends Controller
     {
         $this->loadLanguage('settings/layout_form');
 
-        $this->data['elements'] = array(
-            array(
-                'element' => $this->data['lang_text_bb_code'],
-                'status'  => ($this->setting->get('enabled_bb_code')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/bb_code')
-            ),
-            array(
-                'element' => $this->data['lang_text_captcha'],
-                'status'  => ($this->setting->get('enabled_captcha')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/captcha')
-            ),
-            array(
-                'element' => $this->data['lang_text_comment'],
-                'status'  => $this->data['lang_text_enabled'] . $this->data['lang_text_mandatory'],
-                'action'  => $this->url->link('layout_form/comment')
-            ),
-            array(
-                'element' => $this->data['lang_text_cookie'],
-                'status'  => ($this->setting->get('enabled_cookie')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/cookie')
-            ),
-            array(
-                'element' => $this->data['lang_text_country'],
-                'status'  => ($this->setting->get('enabled_country')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/country')
-            ),
-            array(
-                'element' => $this->data['lang_text_email'],
-                'status'  => ($this->setting->get('enabled_email')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/email')
-            ),
-            array(
-                'element' => $this->data['lang_text_name'],
-                'status'  => $this->data['lang_text_enabled'] . $this->data['lang_text_mandatory'],
-                'action'  => $this->url->link('layout_form/name')
-            ),
-            array(
-                'element' => $this->data['lang_text_notify'],
-                'status'  => ($this->setting->get('enabled_notify')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/notify')
-            ),
-            array(
-                'element' => $this->data['lang_text_powered'],
-                'status'  => ($this->setting->get('enabled_powered_by')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/powered')
-            ),
-            array(
-                'element' => $this->data['lang_text_preview'],
-                'status'  => ($this->setting->get('enabled_preview')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/preview')
-            ),
-            array(
-                'element' => $this->data['lang_text_privacy'],
-                'status'  => ($this->setting->get('enabled_privacy')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/privacy')
-            ),
-            array(
-                'element' => $this->data['lang_text_question'],
-                'status'  => ($this->setting->get('enabled_question')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/question')
-            ),
-            array(
-                'element' => $this->data['lang_text_rating'],
-                'status'  => ($this->setting->get('enabled_rating')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/rating')
-            ),
-            array(
-                'element' => $this->data['lang_text_smilies'],
-                'status'  => ($this->setting->get('enabled_smilies')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/smilies')
-            ),
-            array(
-                'element' => $this->data['lang_text_state'],
-                'status'  => ($this->setting->get('enabled_state')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/state')
-            ),
-            array(
-                'element' => $this->data['lang_text_terms'],
-                'status'  => ($this->setting->get('enabled_terms')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/terms')
-            ),
-            array(
-                'element' => $this->data['lang_text_town'],
-                'status'  => ($this->setting->get('enabled_town')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/town')
-            ),
-            array(
-                'element' => $this->data['lang_text_upload'],
-                'status'  => ($this->setting->get('enabled_upload')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/upload')
-            ),
-            array(
-                'element' => $this->data['lang_text_website'],
-                'status'  => ($this->setting->get('enabled_website')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_form/website')
-            )
-        );
+        $this->loadModel('settings/layout_form');
 
-        $this->data['lang_description'] = sprintf($this->data['lang_description'], $this->url->link('layout_form/general'));
+        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+            if ($this->validate()) {
+                $this->model_settings_layout_form->update($this->request->post);
+            }
+        }
 
-        $this->data['button_edit'] = $this->loadImage('button/edit.png');
+        /* General */
+
+        if (isset($this->request->post['enabled_form'])) {
+            $this->data['enabled_form'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_form'])) {
+            $this->data['enabled_form'] = false;
+        } else {
+            $this->data['enabled_form'] = $this->setting->get('enabled_form');
+        }
+
+        if (isset($this->request->post['hide_form'])) {
+            $this->data['hide_form'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['hide_form'])) {
+            $this->data['hide_form'] = false;
+        } else {
+            $this->data['hide_form'] = $this->setting->get('hide_form');
+        }
+
+        if (isset($this->request->post['display_javascript_disabled'])) {
+            $this->data['display_javascript_disabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['display_javascript_disabled'])) {
+            $this->data['display_javascript_disabled'] = false;
+        } else {
+            $this->data['display_javascript_disabled'] = $this->setting->get('display_javascript_disabled');
+        }
+
+        if (isset($this->request->post['display_required_symbol'])) {
+            $this->data['display_required_symbol'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['display_required_symbol'])) {
+            $this->data['display_required_symbol'] = false;
+        } else {
+            $this->data['display_required_symbol'] = $this->setting->get('display_required_symbol');
+        }
+
+        if (isset($this->request->post['display_required_text'])) {
+            $this->data['display_required_text'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['display_required_text'])) {
+            $this->data['display_required_text'] = false;
+        } else {
+            $this->data['display_required_text'] = $this->setting->get('display_required_text');
+        }
+
+        /* BB Code */
+
+        if (isset($this->request->post['enabled_bb_code'])) {
+            $this->data['enabled_bb_code'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code'])) {
+            $this->data['enabled_bb_code'] = false;
+        } else {
+            $this->data['enabled_bb_code'] = $this->setting->get('enabled_bb_code');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_bold'])) {
+            $this->data['enabled_bb_code_bold'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_bold'])) {
+            $this->data['enabled_bb_code_bold'] = false;
+        } else {
+            $this->data['enabled_bb_code_bold'] = $this->setting->get('enabled_bb_code_bold');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_italic'])) {
+            $this->data['enabled_bb_code_italic'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_italic'])) {
+            $this->data['enabled_bb_code_italic'] = false;
+        } else {
+            $this->data['enabled_bb_code_italic'] = $this->setting->get('enabled_bb_code_italic');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_underline'])) {
+            $this->data['enabled_bb_code_underline'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_underline'])) {
+            $this->data['enabled_bb_code_underline'] = false;
+        } else {
+            $this->data['enabled_bb_code_underline'] = $this->setting->get('enabled_bb_code_underline');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_strike'])) {
+            $this->data['enabled_bb_code_strike'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_strike'])) {
+            $this->data['enabled_bb_code_strike'] = false;
+        } else {
+            $this->data['enabled_bb_code_strike'] = $this->setting->get('enabled_bb_code_strike');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_superscript'])) {
+            $this->data['enabled_bb_code_superscript'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_superscript'])) {
+            $this->data['enabled_bb_code_superscript'] = false;
+        } else {
+            $this->data['enabled_bb_code_superscript'] = $this->setting->get('enabled_bb_code_superscript');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_subscript'])) {
+            $this->data['enabled_bb_code_subscript'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_subscript'])) {
+            $this->data['enabled_bb_code_subscript'] = false;
+        } else {
+            $this->data['enabled_bb_code_subscript'] = $this->setting->get('enabled_bb_code_subscript');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_code'])) {
+            $this->data['enabled_bb_code_code'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_code'])) {
+            $this->data['enabled_bb_code_code'] = false;
+        } else {
+            $this->data['enabled_bb_code_code'] = $this->setting->get('enabled_bb_code_code');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_php'])) {
+            $this->data['enabled_bb_code_php'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_php'])) {
+            $this->data['enabled_bb_code_php'] = false;
+        } else {
+            $this->data['enabled_bb_code_php'] = $this->setting->get('enabled_bb_code_php');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_quote'])) {
+            $this->data['enabled_bb_code_quote'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_quote'])) {
+            $this->data['enabled_bb_code_quote'] = false;
+        } else {
+            $this->data['enabled_bb_code_quote'] = $this->setting->get('enabled_bb_code_quote');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_line'])) {
+            $this->data['enabled_bb_code_line'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_line'])) {
+            $this->data['enabled_bb_code_line'] = false;
+        } else {
+            $this->data['enabled_bb_code_line'] = $this->setting->get('enabled_bb_code_line');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_bullet'])) {
+            $this->data['enabled_bb_code_bullet'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_bullet'])) {
+            $this->data['enabled_bb_code_bullet'] = false;
+        } else {
+            $this->data['enabled_bb_code_bullet'] = $this->setting->get('enabled_bb_code_bullet');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_numeric'])) {
+            $this->data['enabled_bb_code_numeric'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_numeric'])) {
+            $this->data['enabled_bb_code_numeric'] = false;
+        } else {
+            $this->data['enabled_bb_code_numeric'] = $this->setting->get('enabled_bb_code_numeric');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_link'])) {
+            $this->data['enabled_bb_code_link'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_link'])) {
+            $this->data['enabled_bb_code_link'] = false;
+        } else {
+            $this->data['enabled_bb_code_link'] = $this->setting->get('enabled_bb_code_link');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_email'])) {
+            $this->data['enabled_bb_code_email'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_email'])) {
+            $this->data['enabled_bb_code_email'] = false;
+        } else {
+            $this->data['enabled_bb_code_email'] = $this->setting->get('enabled_bb_code_email');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_image'])) {
+            $this->data['enabled_bb_code_image'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_image'])) {
+            $this->data['enabled_bb_code_image'] = false;
+        } else {
+            $this->data['enabled_bb_code_image'] = $this->setting->get('enabled_bb_code_image');
+        }
+
+        if (isset($this->request->post['enabled_bb_code_youtube'])) {
+            $this->data['enabled_bb_code_youtube'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_bb_code_youtube'])) {
+            $this->data['enabled_bb_code_youtube'] = false;
+        } else {
+            $this->data['enabled_bb_code_youtube'] = $this->setting->get('enabled_bb_code_youtube');
+        }
+
+        $this->data['bb_code'] = $this->model_settings_layout_form->getBbCode();
+
+        /* Smilies */
+
+        if (isset($this->request->post['enabled_smilies'])) {
+            $this->data['enabled_smilies'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies'])) {
+            $this->data['enabled_smilies'] = false;
+        } else {
+            $this->data['enabled_smilies'] = $this->setting->get('enabled_smilies');
+        }
+
+        if (isset($this->request->post['enabled_smilies_smile'])) {
+            $this->data['enabled_smilies_smile'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_smile'])) {
+            $this->data['enabled_smilies_smile'] = false;
+        } else {
+            $this->data['enabled_smilies_smile'] = $this->setting->get('enabled_smilies_smile');
+        }
+
+        if (isset($this->request->post['enabled_smilies_sad'])) {
+            $this->data['enabled_smilies_sad'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_sad'])) {
+            $this->data['enabled_smilies_sad'] = false;
+        } else {
+            $this->data['enabled_smilies_sad'] = $this->setting->get('enabled_smilies_sad');
+        }
+
+        if (isset($this->request->post['enabled_smilies_huh'])) {
+            $this->data['enabled_smilies_huh'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_huh'])) {
+            $this->data['enabled_smilies_huh'] = false;
+        } else {
+            $this->data['enabled_smilies_huh'] = $this->setting->get('enabled_smilies_huh');
+        }
+
+        if (isset($this->request->post['enabled_smilies_laugh'])) {
+            $this->data['enabled_smilies_laugh'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_laugh'])) {
+            $this->data['enabled_smilies_laugh'] = false;
+        } else {
+            $this->data['enabled_smilies_laugh'] = $this->setting->get('enabled_smilies_laugh');
+        }
+
+        if (isset($this->request->post['enabled_smilies_mad'])) {
+            $this->data['enabled_smilies_mad'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_mad'])) {
+            $this->data['enabled_smilies_mad'] = false;
+        } else {
+            $this->data['enabled_smilies_mad'] = $this->setting->get('enabled_smilies_mad');
+        }
+
+        if (isset($this->request->post['enabled_smilies_tongue'])) {
+            $this->data['enabled_smilies_tongue'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_tongue'])) {
+            $this->data['enabled_smilies_tongue'] = false;
+        } else {
+            $this->data['enabled_smilies_tongue'] = $this->setting->get('enabled_smilies_tongue');
+        }
+
+        if (isset($this->request->post['enabled_smilies_cry'])) {
+            $this->data['enabled_smilies_cry'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_cry'])) {
+            $this->data['enabled_smilies_cry'] = false;
+        } else {
+            $this->data['enabled_smilies_cry'] = $this->setting->get('enabled_smilies_cry');
+        }
+
+        if (isset($this->request->post['enabled_smilies_grin'])) {
+            $this->data['enabled_smilies_grin'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_grin'])) {
+            $this->data['enabled_smilies_grin'] = false;
+        } else {
+            $this->data['enabled_smilies_grin'] = $this->setting->get('enabled_smilies_grin');
+        }
+
+        if (isset($this->request->post['enabled_smilies_wink'])) {
+            $this->data['enabled_smilies_wink'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_wink'])) {
+            $this->data['enabled_smilies_wink'] = false;
+        } else {
+            $this->data['enabled_smilies_wink'] = $this->setting->get('enabled_smilies_wink');
+        }
+
+        if (isset($this->request->post['enabled_smilies_scared'])) {
+            $this->data['enabled_smilies_scared'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_scared'])) {
+            $this->data['enabled_smilies_scared'] = false;
+        } else {
+            $this->data['enabled_smilies_scared'] = $this->setting->get('enabled_smilies_scared');
+        }
+
+        if (isset($this->request->post['enabled_smilies_cool'])) {
+            $this->data['enabled_smilies_cool'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_cool'])) {
+            $this->data['enabled_smilies_cool'] = false;
+        } else {
+            $this->data['enabled_smilies_cool'] = $this->setting->get('enabled_smilies_cool');
+        }
+
+        if (isset($this->request->post['enabled_smilies_sleep'])) {
+            $this->data['enabled_smilies_sleep'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_sleep'])) {
+            $this->data['enabled_smilies_sleep'] = false;
+        } else {
+            $this->data['enabled_smilies_sleep'] = $this->setting->get('enabled_smilies_sleep');
+        }
+
+        if (isset($this->request->post['enabled_smilies_blush'])) {
+            $this->data['enabled_smilies_blush'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_blush'])) {
+            $this->data['enabled_smilies_blush'] = false;
+        } else {
+            $this->data['enabled_smilies_blush'] = $this->setting->get('enabled_smilies_blush');
+        }
+
+        if (isset($this->request->post['enabled_smilies_confused'])) {
+            $this->data['enabled_smilies_confused'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_confused'])) {
+            $this->data['enabled_smilies_confused'] = false;
+        } else {
+            $this->data['enabled_smilies_confused'] = $this->setting->get('enabled_smilies_confused');
+        }
+
+        if (isset($this->request->post['enabled_smilies_shocked'])) {
+            $this->data['enabled_smilies_shocked'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_smilies_shocked'])) {
+            $this->data['enabled_smilies_shocked'] = false;
+        } else {
+            $this->data['enabled_smilies_shocked'] = $this->setting->get('enabled_smilies_shocked');
+        }
+
+        $this->data['smilies'] = $this->model_settings_layout_form->getSmilies();
+
+        /* Comment */
+
+        if (isset($this->request->post['default_comment'])) {
+            $this->data['default_comment'] = $this->request->post['default_comment'];
+        } else {
+            $this->data['default_comment'] = $this->setting->get('default_comment');
+        }
+
+        if (isset($this->request->post['comment_maximum_characters'])) {
+            $this->data['comment_maximum_characters'] = $this->request->post['comment_maximum_characters'];
+        } else {
+            $this->data['comment_maximum_characters'] = $this->setting->get('comment_maximum_characters');
+        }
+
+        if (isset($this->request->post['enabled_counter'])) {
+            $this->data['enabled_counter'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_counter'])) {
+            $this->data['enabled_counter'] = false;
+        } else {
+            $this->data['enabled_counter'] = $this->setting->get('enabled_counter');
+        }
+
+        if (isset($this->error['default_comment'])) {
+            $this->data['error_default_comment'] = $this->error['default_comment'];
+        } else {
+            $this->data['error_default_comment'] = '';
+        }
+
+        if (isset($this->error['comment_maximum_characters'])) {
+            $this->data['error_comment_maximum_characters'] = $this->error['comment_maximum_characters'];
+        } else {
+            $this->data['error_comment_maximum_characters'] = '';
+        }
+
+        /* Upload */
+
+        if (isset($this->request->post['enabled_upload'])) {
+            $this->data['enabled_upload'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_upload'])) {
+            $this->data['enabled_upload'] = false;
+        } else {
+            $this->data['enabled_upload'] = $this->setting->get('enabled_upload');
+        }
+
+        if (isset($this->request->post['maximum_upload_size'])) {
+            $this->data['maximum_upload_size'] = $this->request->post['maximum_upload_size'];
+        } else {
+            $this->data['maximum_upload_size'] = $this->setting->get('maximum_upload_size');
+        }
+
+        if (isset($this->request->post['maximum_upload_amount'])) {
+            $this->data['maximum_upload_amount'] = $this->request->post['maximum_upload_amount'];
+        } else {
+            $this->data['maximum_upload_amount'] = $this->setting->get('maximum_upload_amount');
+        }
+
+        if (isset($this->request->post['maximum_upload_total'])) {
+            $this->data['maximum_upload_total'] = $this->request->post['maximum_upload_total'];
+        } else {
+            $this->data['maximum_upload_total'] = $this->setting->get('maximum_upload_total');
+        }
+
+        if (isset($this->error['maximum_upload_size'])) {
+            $this->data['error_maximum_upload_size'] = $this->error['maximum_upload_size'];
+        } else {
+            $this->data['error_maximum_upload_size'] = '';
+        }
+
+        if (isset($this->error['maximum_upload_amount'])) {
+            $this->data['error_maximum_upload_amount'] = $this->error['maximum_upload_amount'];
+        } else {
+            $this->data['error_maximum_upload_amount'] = '';
+        }
+
+        if (isset($this->error['maximum_upload_total'])) {
+            $this->data['error_maximum_upload_total'] = $this->error['maximum_upload_total'];
+        } else {
+            $this->data['error_maximum_upload_total'] = '';
+        }
+
+        /* Name */
+
+        if (isset($this->request->post['default_name'])) {
+            $this->data['default_name'] = $this->request->post['default_name'];
+        } else {
+            $this->data['default_name'] = $this->setting->get('default_name');
+        }
+
+        if (isset($this->request->post['maximum_name'])) {
+            $this->data['maximum_name'] = $this->request->post['maximum_name'];
+        } else {
+            $this->data['maximum_name'] = $this->setting->get('maximum_name');
+        }
+
+        if (isset($this->request->post['filled_name_cookie_action'])) {
+            $this->data['filled_name_cookie_action'] = $this->request->post['filled_name_cookie_action'];
+        } else {
+            $this->data['filled_name_cookie_action'] = $this->setting->get('filled_name_cookie_action');
+        }
+
+        if (isset($this->request->post['filled_name_login_action'])) {
+            $this->data['filled_name_login_action'] = $this->request->post['filled_name_login_action'];
+        } else {
+            $this->data['filled_name_login_action'] = $this->setting->get('filled_name_login_action');
+        }
+
+        if (isset($this->error['default_name'])) {
+            $this->data['error_default_name'] = $this->error['default_name'];
+        } else {
+            $this->data['error_default_name'] = '';
+        }
+
+        if (isset($this->error['maximum_name'])) {
+            $this->data['error_maximum_name'] = $this->error['maximum_name'];
+        } else {
+            $this->data['error_maximum_name'] = '';
+        }
+
+        if (isset($this->error['filled_name_cookie_action'])) {
+            $this->data['error_filled_name_cookie_action'] = $this->error['filled_name_cookie_action'];
+        } else {
+            $this->data['error_filled_name_cookie_action'] = '';
+        }
+
+        if (isset($this->error['filled_name_login_action'])) {
+            $this->data['error_filled_name_login_action'] = $this->error['filled_name_login_action'];
+        } else {
+            $this->data['error_filled_name_login_action'] = '';
+        }
+
+        /* Email */
+
+        if (isset($this->request->post['enabled_email'])) {
+            $this->data['enabled_email'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_email'])) {
+            $this->data['enabled_email'] = false;
+        } else {
+            $this->data['enabled_email'] = $this->setting->get('enabled_email');
+        }
+
+        if (isset($this->request->post['required_email'])) {
+            $this->data['required_email'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_email'])) {
+            $this->data['required_email'] = false;
+        } else {
+            $this->data['required_email'] = $this->setting->get('required_email');
+        }
+
+        if (isset($this->request->post['default_email'])) {
+            $this->data['default_email'] = $this->request->post['default_email'];
+        } else {
+            $this->data['default_email'] = $this->setting->get('default_email');
+        }
+
+        if (isset($this->request->post['maximum_email'])) {
+            $this->data['maximum_email'] = $this->request->post['maximum_email'];
+        } else {
+            $this->data['maximum_email'] = $this->setting->get('maximum_email');
+        }
+
+        if (isset($this->request->post['filled_email_cookie_action'])) {
+            $this->data['filled_email_cookie_action'] = $this->request->post['filled_email_cookie_action'];
+        } else {
+            $this->data['filled_email_cookie_action'] = $this->setting->get('filled_email_cookie_action');
+        }
+
+        if (isset($this->request->post['filled_email_login_action'])) {
+            $this->data['filled_email_login_action'] = $this->request->post['filled_email_login_action'];
+        } else {
+            $this->data['filled_email_login_action'] = $this->setting->get('filled_email_login_action');
+        }
+
+        if (isset($this->error['default_email'])) {
+            $this->data['error_default_email'] = $this->error['default_email'];
+        } else {
+            $this->data['error_default_email'] = '';
+        }
+
+        if (isset($this->error['maximum_email'])) {
+            $this->data['error_maximum_email'] = $this->error['maximum_email'];
+        } else {
+            $this->data['error_maximum_email'] = '';
+        }
+
+        if (isset($this->error['filled_email_cookie_action'])) {
+            $this->data['error_filled_email_cookie_action'] = $this->error['filled_email_cookie_action'];
+        } else {
+            $this->data['error_filled_email_cookie_action'] = '';
+        }
+
+        if (isset($this->error['filled_email_login_action'])) {
+            $this->data['error_filled_email_login_action'] = $this->error['filled_email_login_action'];
+        } else {
+            $this->data['error_filled_email_login_action'] = '';
+        }
+
+        /* Rating */
+
+        if (isset($this->request->post['enabled_rating'])) {
+            $this->data['enabled_rating'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_rating'])) {
+            $this->data['enabled_rating'] = false;
+        } else {
+            $this->data['enabled_rating'] = $this->setting->get('enabled_rating');
+        }
+
+        if (isset($this->request->post['required_rating'])) {
+            $this->data['required_rating'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_rating'])) {
+            $this->data['required_rating'] = false;
+        } else {
+            $this->data['required_rating'] = $this->setting->get('required_rating');
+        }
+
+        if (isset($this->request->post['default_rating'])) {
+            $this->data['default_rating'] = $this->request->post['default_rating'];
+        } else {
+            $this->data['default_rating'] = $this->setting->get('default_rating');
+        }
+
+        if (isset($this->request->post['repeat_rating'])) {
+            $this->data['repeat_rating'] = $this->request->post['repeat_rating'];
+        } else {
+            $this->data['repeat_rating'] = $this->setting->get('repeat_rating');
+        }
+
+        if (isset($this->error['default_rating'])) {
+            $this->data['error_default_rating'] = $this->error['default_rating'];
+        } else {
+            $this->data['error_default_rating'] = '';
+        }
+
+        if (isset($this->error['repeat_rating'])) {
+            $this->data['error_repeat_rating'] = $this->error['repeat_rating'];
+        } else {
+            $this->data['error_repeat_rating'] = '';
+        }
+
+        /* Website */
+
+        if (isset($this->request->post['enabled_website'])) {
+            $this->data['enabled_website'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_website'])) {
+            $this->data['enabled_website'] = false;
+        } else {
+            $this->data['enabled_website'] = $this->setting->get('enabled_website');
+        }
+
+        if (isset($this->request->post['required_website'])) {
+            $this->data['required_website'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_website'])) {
+            $this->data['required_website'] = false;
+        } else {
+            $this->data['required_website'] = $this->setting->get('required_website');
+        }
+
+        if (isset($this->request->post['default_website'])) {
+            $this->data['default_website'] = $this->request->post['default_website'];
+        } else {
+            $this->data['default_website'] = $this->setting->get('default_website');
+        }
+
+        if (isset($this->request->post['maximum_website'])) {
+            $this->data['maximum_website'] = $this->request->post['maximum_website'];
+        } else {
+            $this->data['maximum_website'] = $this->setting->get('maximum_website');
+        }
+
+        if (isset($this->request->post['filled_website_cookie_action'])) {
+            $this->data['filled_website_cookie_action'] = $this->request->post['filled_website_cookie_action'];
+        } else {
+            $this->data['filled_website_cookie_action'] = $this->setting->get('filled_website_cookie_action');
+        }
+
+        if (isset($this->request->post['filled_website_login_action'])) {
+            $this->data['filled_website_login_action'] = $this->request->post['filled_website_login_action'];
+        } else {
+            $this->data['filled_website_login_action'] = $this->setting->get('filled_website_login_action');
+        }
+
+        if (isset($this->error['default_website'])) {
+            $this->data['error_default_website'] = $this->error['default_website'];
+        } else {
+            $this->data['error_default_website'] = '';
+        }
+
+        if (isset($this->error['maximum_website'])) {
+            $this->data['error_maximum_website'] = $this->error['maximum_website'];
+        } else {
+            $this->data['error_maximum_website'] = '';
+        }
+
+        if (isset($this->error['filled_website_cookie_action'])) {
+            $this->data['error_filled_website_cookie_action'] = $this->error['filled_website_cookie_action'];
+        } else {
+            $this->data['error_filled_website_cookie_action'] = '';
+        }
+
+        if (isset($this->error['filled_website_login_action'])) {
+            $this->data['error_filled_website_login_action'] = $this->error['filled_website_login_action'];
+        } else {
+            $this->data['error_filled_website_login_action'] = '';
+        }
+
+        /* Town */
+
+        if (isset($this->request->post['enabled_town'])) {
+            $this->data['enabled_town'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_town'])) {
+            $this->data['enabled_town'] = false;
+        } else {
+            $this->data['enabled_town'] = $this->setting->get('enabled_town');
+        }
+
+        if (isset($this->request->post['required_town'])) {
+            $this->data['required_town'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_town'])) {
+            $this->data['required_town'] = false;
+        } else {
+            $this->data['required_town'] = $this->setting->get('required_town');
+        }
+
+        if (isset($this->request->post['default_town'])) {
+            $this->data['default_town'] = $this->request->post['default_town'];
+        } else {
+            $this->data['default_town'] = $this->setting->get('default_town');
+        }
+
+        if (isset($this->request->post['maximum_town'])) {
+            $this->data['maximum_town'] = $this->request->post['maximum_town'];
+        } else {
+            $this->data['maximum_town'] = $this->setting->get('maximum_town');
+        }
+
+        if (isset($this->request->post['filled_town_cookie_action'])) {
+            $this->data['filled_town_cookie_action'] = $this->request->post['filled_town_cookie_action'];
+        } else {
+            $this->data['filled_town_cookie_action'] = $this->setting->get('filled_town_cookie_action');
+        }
+
+        if (isset($this->request->post['filled_town_login_action'])) {
+            $this->data['filled_town_login_action'] = $this->request->post['filled_town_login_action'];
+        } else {
+            $this->data['filled_town_login_action'] = $this->setting->get('filled_town_login_action');
+        }
+
+        if (isset($this->error['default_town'])) {
+            $this->data['error_default_town'] = $this->error['default_town'];
+        } else {
+            $this->data['error_default_town'] = '';
+        }
+
+        if (isset($this->error['maximum_town'])) {
+            $this->data['error_maximum_town'] = $this->error['maximum_town'];
+        } else {
+            $this->data['error_maximum_town'] = '';
+        }
+
+        if (isset($this->error['filled_town_cookie_action'])) {
+            $this->data['error_filled_town_cookie_action'] = $this->error['filled_town_cookie_action'];
+        } else {
+            $this->data['error_filled_town_cookie_action'] = '';
+        }
+
+        if (isset($this->error['filled_town_login_action'])) {
+            $this->data['error_filled_town_login_action'] = $this->error['filled_town_login_action'];
+        } else {
+            $this->data['error_filled_town_login_action'] = '';
+        }
+
+        /* State */
+
+        if (isset($this->request->post['enabled_state'])) {
+            $this->data['enabled_state'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_state'])) {
+            $this->data['enabled_state'] = false;
+        } else {
+            $this->data['enabled_state'] = $this->setting->get('enabled_state');
+        }
+
+        if (isset($this->request->post['required_state'])) {
+            $this->data['required_state'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_state'])) {
+            $this->data['required_state'] = false;
+        } else {
+            $this->data['required_state'] = $this->setting->get('required_state');
+        }
+
+        if (isset($this->request->post['default_state'])) {
+            $this->data['default_state'] = $this->request->post['default_state'];
+        } else {
+            $this->data['default_state'] = $this->setting->get('default_state');
+        }
+
+        if (isset($this->request->post['filled_state_cookie_action'])) {
+            $this->data['filled_state_cookie_action'] = $this->request->post['filled_state_cookie_action'];
+        } else {
+            $this->data['filled_state_cookie_action'] = $this->setting->get('filled_state_cookie_action');
+        }
+
+        if (isset($this->request->post['filled_state_login_action'])) {
+            $this->data['filled_state_login_action'] = $this->request->post['filled_state_login_action'];
+        } else {
+            $this->data['filled_state_login_action'] = $this->setting->get('filled_state_login_action');
+        }
+
+        if (isset($this->error['default_state'])) {
+            $this->data['error_default_state'] = $this->error['default_state'];
+        } else {
+            $this->data['error_default_state'] = '';
+        }
+
+        if (isset($this->error['filled_state_cookie_action'])) {
+            $this->data['error_filled_state_cookie_action'] = $this->error['filled_state_cookie_action'];
+        } else {
+            $this->data['error_filled_state_cookie_action'] = '';
+        }
+
+        if (isset($this->error['filled_state_login_action'])) {
+            $this->data['error_filled_state_login_action'] = $this->error['filled_state_login_action'];
+        } else {
+            $this->data['error_filled_state_login_action'] = '';
+        }
+
+        $this->data['states'] = $this->geo->getStatesByCountryId($this->setting->get('default_country'));
+
+        $this->data['link_states'] = 'index.php?route=manage/states';
+
+        /* Country */
+
+        if (isset($this->request->post['enabled_country'])) {
+            $this->data['enabled_country'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_country'])) {
+            $this->data['enabled_country'] = false;
+        } else {
+            $this->data['enabled_country'] = $this->setting->get('enabled_country');
+        }
+
+        if (isset($this->request->post['required_country'])) {
+            $this->data['required_country'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_country'])) {
+            $this->data['required_country'] = false;
+        } else {
+            $this->data['required_country'] = $this->setting->get('required_country');
+        }
+
+        if (isset($this->request->post['default_country'])) {
+            $this->data['default_country'] = $this->request->post['default_country'];
+        } else {
+            $this->data['default_country'] = $this->setting->get('default_country');
+        }
+
+        if (isset($this->request->post['filled_country_cookie_action'])) {
+            $this->data['filled_country_cookie_action'] = $this->request->post['filled_country_cookie_action'];
+        } else {
+            $this->data['filled_country_cookie_action'] = $this->setting->get('filled_country_cookie_action');
+        }
+
+        if (isset($this->request->post['filled_country_login_action'])) {
+            $this->data['filled_country_login_action'] = $this->request->post['filled_country_login_action'];
+        } else {
+            $this->data['filled_country_login_action'] = $this->setting->get('filled_country_login_action');
+        }
+
+        if (isset($this->error['default_country'])) {
+            $this->data['error_default_country'] = $this->error['default_country'];
+        } else {
+            $this->data['error_default_country'] = '';
+        }
+
+        if (isset($this->error['filled_country_cookie_action'])) {
+            $this->data['error_filled_country_cookie_action'] = $this->error['filled_country_cookie_action'];
+        } else {
+            $this->data['error_filled_country_cookie_action'] = '';
+        }
+
+        if (isset($this->error['filled_country_login_action'])) {
+            $this->data['error_filled_country_login_action'] = $this->error['filled_country_login_action'];
+        } else {
+            $this->data['error_filled_country_login_action'] = '';
+        }
+
+        $this->data['loading'] = $this->loadImage('misc/loading.gif');
+
+        $this->data['countries'] = $this->geo->getCountries();
+
+        $this->data['link_countries'] = 'index.php?route=manage/countries';
+
+        /* Question */
+
+        if (isset($this->request->post['enabled_question'])) {
+            $this->data['enabled_question'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_question'])) {
+            $this->data['enabled_question'] = false;
+        } else {
+            $this->data['enabled_question'] = $this->setting->get('enabled_question');
+        }
+
+        $this->data['link_questions'] = 'index.php?route=manage/questions';
+
+        /* Captcha */
+
+        if (isset($this->request->post['enabled_captcha'])) {
+            $this->data['enabled_captcha'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_captcha'])) {
+            $this->data['enabled_captcha'] = false;
+        } else {
+            $this->data['enabled_captcha'] = $this->setting->get('enabled_captcha');
+        }
+
+        if (isset($this->request->post['captcha_type'])) {
+            $this->data['captcha_type'] = $this->request->post['captcha_type'];
+        } else {
+            $this->data['captcha_type'] = $this->setting->get('captcha_type');
+        }
+
+        if (isset($this->request->post['recaptcha_public_key'])) {
+            $this->data['recaptcha_public_key'] = $this->request->post['recaptcha_public_key'];
+        } else {
+            $this->data['recaptcha_public_key'] = $this->setting->get('recaptcha_public_key');
+        }
+
+        if (isset($this->request->post['recaptcha_private_key'])) {
+            $this->data['recaptcha_private_key'] = $this->request->post['recaptcha_private_key'];
+        } else {
+            $this->data['recaptcha_private_key'] = $this->setting->get('recaptcha_private_key');
+        }
+
+        if (isset($this->request->post['recaptcha_theme'])) {
+            $this->data['recaptcha_theme'] = $this->request->post['recaptcha_theme'];
+        } else {
+            $this->data['recaptcha_theme'] = $this->setting->get('recaptcha_theme');
+        }
+
+        if (isset($this->request->post['recaptcha_size'])) {
+            $this->data['recaptcha_size'] = $this->request->post['recaptcha_size'];
+        } else {
+            $this->data['recaptcha_size'] = $this->setting->get('recaptcha_size');
+        }
+
+        if (isset($this->request->post['securimage_width'])) {
+            $this->data['securimage_width'] = $this->request->post['securimage_width'];
+        } else {
+            $this->data['securimage_width'] = $this->setting->get('securimage_width');
+        }
+
+        if (isset($this->request->post['securimage_height'])) {
+            $this->data['securimage_height'] = $this->request->post['securimage_height'];
+        } else {
+            $this->data['securimage_height'] = $this->setting->get('securimage_height');
+        }
+
+        if (isset($this->request->post['securimage_length'])) {
+            $this->data['securimage_length'] = $this->request->post['securimage_length'];
+        } else {
+            $this->data['securimage_length'] = $this->setting->get('securimage_length');
+        }
+
+        if (isset($this->request->post['securimage_perturbation'])) {
+            $this->data['securimage_perturbation'] = $this->request->post['securimage_perturbation'];
+        } else {
+            $this->data['securimage_perturbation'] = $this->setting->get('securimage_perturbation');
+        }
+
+        if (isset($this->request->post['securimage_lines'])) {
+            $this->data['securimage_lines'] = $this->request->post['securimage_lines'];
+        } else {
+            $this->data['securimage_lines'] = $this->setting->get('securimage_lines');
+        }
+
+        if (isset($this->request->post['securimage_noise'])) {
+            $this->data['securimage_noise'] = $this->request->post['securimage_noise'];
+        } else {
+            $this->data['securimage_noise'] = $this->setting->get('securimage_noise');
+        }
+
+        if (isset($this->request->post['securimage_text_color'])) {
+            $this->data['securimage_text_color'] = $this->request->post['securimage_text_color'];
+        } else {
+            $this->data['securimage_text_color'] = $this->setting->get('securimage_text_color');
+        }
+
+        if (isset($this->request->post['securimage_line_color'])) {
+            $this->data['securimage_line_color'] = $this->request->post['securimage_line_color'];
+        } else {
+            $this->data['securimage_line_color'] = $this->setting->get('securimage_line_color');
+        }
+
+        if (isset($this->request->post['securimage_back_color'])) {
+            $this->data['securimage_back_color'] = $this->request->post['securimage_back_color'];
+        } else {
+            $this->data['securimage_back_color'] = $this->setting->get('securimage_back_color');
+        }
+
+        if (isset($this->request->post['securimage_noise_color'])) {
+            $this->data['securimage_noise_color'] = $this->request->post['securimage_noise_color'];
+        } else {
+            $this->data['securimage_noise_color'] = $this->setting->get('securimage_noise_color');
+        }
+
+        if (isset($this->error['captcha_type'])) {
+            $this->data['error_captcha_type'] = $this->error['captcha_type'];
+        } else {
+            $this->data['error_captcha_type'] = '';
+        }
+
+        if (isset($this->error['recaptcha_public_key'])) {
+            $this->data['error_recaptcha_public_key'] = $this->error['recaptcha_public_key'];
+        } else {
+            $this->data['error_recaptcha_public_key'] = '';
+        }
+
+        if (isset($this->error['recaptcha_private_key'])) {
+            $this->data['error_recaptcha_private_key'] = $this->error['recaptcha_private_key'];
+        } else {
+            $this->data['error_recaptcha_private_key'] = '';
+        }
+
+        if (isset($this->error['recaptcha_theme'])) {
+            $this->data['error_recaptcha_theme'] = $this->error['recaptcha_theme'];
+        } else {
+            $this->data['error_recaptcha_theme'] = '';
+        }
+
+        if (isset($this->error['recaptcha_size'])) {
+            $this->data['error_recaptcha_size'] = $this->error['recaptcha_size'];
+        } else {
+            $this->data['error_recaptcha_size'] = '';
+        }
+
+        if (isset($this->error['securimage_width'])) {
+            $this->data['error_securimage_width'] = $this->error['securimage_width'];
+        } else {
+            $this->data['error_securimage_width'] = '';
+        }
+
+        if (isset($this->error['securimage_height'])) {
+            $this->data['error_securimage_height'] = $this->error['securimage_height'];
+        } else {
+            $this->data['error_securimage_height'] = '';
+        }
+
+        if (isset($this->error['securimage_length'])) {
+            $this->data['error_securimage_length'] = $this->error['securimage_length'];
+        } else {
+            $this->data['error_securimage_length'] = '';
+        }
+
+        if (isset($this->error['securimage_perturbation'])) {
+            $this->data['error_securimage_perturbation'] = $this->error['securimage_perturbation'];
+        } else {
+            $this->data['error_securimage_perturbation'] = '';
+        }
+
+        if (isset($this->error['securimage_lines'])) {
+            $this->data['error_securimage_lines'] = $this->error['securimage_lines'];
+        } else {
+            $this->data['error_securimage_lines'] = '';
+        }
+
+        if (isset($this->error['securimage_noise'])) {
+            $this->data['error_securimage_noise'] = $this->error['securimage_noise'];
+        } else {
+            $this->data['error_securimage_noise'] = '';
+        }
+
+        if (isset($this->error['securimage_text_color'])) {
+            $this->data['error_securimage_text_color'] = $this->error['securimage_text_color'];
+        } else {
+            $this->data['error_securimage_text_color'] = '';
+        }
+
+        if (isset($this->error['securimage_line_color'])) {
+            $this->data['error_securimage_line_color'] = $this->error['securimage_line_color'];
+        } else {
+            $this->data['error_securimage_line_color'] = '';
+        }
+
+        if (isset($this->error['securimage_back_color'])) {
+            $this->data['error_securimage_back_color'] = $this->error['securimage_back_color'];
+        } else {
+            $this->data['error_securimage_back_color'] = '';
+        }
+
+        if (isset($this->error['securimage_noise_color'])) {
+            $this->data['error_securimage_noise_color'] = $this->error['securimage_noise_color'];
+        } else {
+            $this->data['error_securimage_noise_color'] = '';
+        }
+
+        /* Notify */
+
+        if (isset($this->request->post['enabled_notify'])) {
+            $this->data['enabled_notify'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_notify'])) {
+            $this->data['enabled_notify'] = false;
+        } else {
+            $this->data['enabled_notify'] = $this->setting->get('enabled_notify');
+        }
+
+        if (isset($this->request->post['default_notify'])) {
+            $this->data['default_notify'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['default_notify'])) {
+            $this->data['default_notify'] = false;
+        } else {
+            $this->data['default_notify'] = $this->setting->get('default_notify');
+        }
+
+        /* Cookie */
+
+        if (isset($this->request->post['enabled_cookie'])) {
+            $this->data['enabled_cookie'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_cookie'])) {
+            $this->data['enabled_cookie'] = false;
+        } else {
+            $this->data['enabled_cookie'] = $this->setting->get('enabled_cookie');
+        }
+
+        if (isset($this->request->post['default_cookie'])) {
+            $this->data['default_cookie'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['default_cookie'])) {
+            $this->data['default_cookie'] = false;
+        } else {
+            $this->data['default_cookie'] = $this->setting->get('default_cookie');
+        }
+
+        /* Privacy */
+
+        if (isset($this->request->post['enabled_privacy'])) {
+            $this->data['enabled_privacy'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_privacy'])) {
+            $this->data['enabled_privacy'] = false;
+        } else {
+            $this->data['enabled_privacy'] = $this->setting->get('enabled_privacy');
+        }
+
+        /* Terms */
+
+        if (isset($this->request->post['enabled_terms'])) {
+            $this->data['enabled_terms'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_terms'])) {
+            $this->data['enabled_terms'] = false;
+        } else {
+            $this->data['enabled_terms'] = $this->setting->get('enabled_terms');
+        }
+
+        /* Preview */
+
+        if (isset($this->request->post['enabled_preview'])) {
+            $this->data['enabled_preview'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_preview'])) {
+            $this->data['enabled_preview'] = false;
+        } else {
+            $this->data['enabled_preview'] = $this->setting->get('enabled_preview');
+        }
+
+        if (isset($this->request->post['agree_to_preview'])) {
+            $this->data['agree_to_preview'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['agree_to_preview'])) {
+            $this->data['agree_to_preview'] = false;
+        } else {
+            $this->data['agree_to_preview'] = $this->setting->get('agree_to_preview');
+        }
+
+        /* Powered By */
+
+        if (isset($this->request->post['enabled_powered_by'])) {
+            $this->data['enabled_powered_by'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_powered_by'])) {
+            $this->data['enabled_powered_by'] = false;
+        } else {
+            $this->data['enabled_powered_by'] = $this->setting->get('enabled_powered_by');
+        }
+
+        if (isset($this->request->post['powered_by_type'])) {
+            $this->data['powered_by_type'] = $this->request->post['powered_by_type'];
+        } else {
+            $this->data['powered_by_type'] = $this->setting->get('powered_by_type');
+        }
+
+        if (isset($this->request->post['powered_by_new_window'])) {
+            $this->data['powered_by_new_window'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['powered_by_new_window'])) {
+            $this->data['powered_by_new_window'] = false;
+        } else {
+            $this->data['powered_by_new_window'] = $this->setting->get('powered_by_new_window');
+        }
+
+        if (isset($this->error['enabled_powered_by'])) {
+            $this->data['error_enabled_powered_by'] = $this->error['enabled_powered_by'];
+        } else {
+            $this->data['error_enabled_powered_by'] = '';
+        }
+
+        if (isset($this->error['powered_by_type'])) {
+            $this->data['error_powered_by_type'] = $this->error['powered_by_type'];
+        } else {
+            $this->data['error_powered_by_type'] = '';
+        }
+
+        if (!$this->setting->get('licence')) {
+            $this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/pricing');
+        }
 
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/layout_form');
+    }
+
+    private function validate()
+    {
+        $this->loadModel('common/poster');
+
+        $unpostable = $this->model_common_poster->unpostable($this->data);
+
+        if ($unpostable) {
+            $this->data['error'] = $unpostable;
+
+            return false;
+        }
+
+        /* Comment */
+
+        if (!isset($this->request->post['default_comment']) || $this->validation->length($this->request->post['default_comment']) > 250) {
+            $this->error['default_comment'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['comment_maximum_characters']) || !$this->validation->isInt($this->request->post['comment_maximum_characters']) || $this->request->post['comment_maximum_characters'] < 1 || $this->request->post['comment_maximum_characters'] > 99999) {
+            $this->error['comment_maximum_characters'] = sprintf($this->data['lang_error_range'], 1, 99999);
+        }
+
+        /* Upload */
+
+        if (!isset($this->request->post['maximum_upload_size']) || !$this->validation->isInt($this->request->post['maximum_upload_size']) || $this->request->post['maximum_upload_size'] < 1 || $this->request->post['maximum_upload_size'] > 99) {
+            $this->error['maximum_upload_size'] = sprintf($this->data['lang_error_range'], 1, 99);
+        }
+
+        if (!isset($this->request->post['maximum_upload_amount']) || !$this->validation->isInt($this->request->post['maximum_upload_amount']) || $this->request->post['maximum_upload_amount'] < 1 || $this->request->post['maximum_upload_amount'] > 10) {
+            $this->error['maximum_upload_amount'] = sprintf($this->data['lang_error_range'], 1, 10);
+        }
+
+        if (!isset($this->request->post['maximum_upload_total']) || !$this->validation->isInt($this->request->post['maximum_upload_total']) || $this->request->post['maximum_upload_total'] < 1 || $this->request->post['maximum_upload_total'] > 99) {
+            $this->error['maximum_upload_total'] = sprintf($this->data['lang_error_range'], 1, 99);
+        }
+
+        /* Name */
+
+        if (!isset($this->request->post['default_name']) || $this->validation->length($this->request->post['default_name']) > 250) {
+            $this->error['default_name'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['maximum_name']) || !$this->validation->isInt($this->request->post['maximum_name']) || $this->request->post['maximum_name'] < 1 || $this->request->post['maximum_name'] > 250) {
+            $this->error['maximum_name'] = sprintf($this->data['lang_error_range'], 1, 250);
+        }
+
+        if (!isset($this->request->post['filled_name_cookie_action']) || !in_array($this->request->post['filled_name_cookie_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_name_cookie_action'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['filled_name_login_action']) || !in_array($this->request->post['filled_name_login_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_name_login_action'] = $this->data['lang_error_selection'];
+        }
+
+        /* Email */
+
+        if (!isset($this->request->post['default_email']) || $this->validation->length($this->request->post['default_email']) > 250) {
+            $this->error['default_email'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['maximum_email']) || !$this->validation->isInt($this->request->post['maximum_email']) || $this->request->post['maximum_email'] < 1 || $this->request->post['maximum_email'] > 250) {
+            $this->error['maximum_email'] = sprintf($this->data['lang_error_range'], 1, 250);
+        }
+
+        if (!isset($this->request->post['filled_email_cookie_action']) || !in_array($this->request->post['filled_email_cookie_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_email_cookie_action'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['filled_email_login_action']) || !in_array($this->request->post['filled_email_login_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_email_login_action'] = $this->data['lang_error_selection'];
+        }
+
+        /* Rating */
+
+        if (!isset($this->request->post['default_rating']) || !in_array($this->request->post['default_rating'], array('', '1', '2', '3', '4', '5'))) {
+            $this->error['default_rating'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['repeat_rating']) || !in_array($this->request->post['repeat_rating'], array('normal', 'hide'))) {
+            $this->error['repeat_rating'] = $this->data['lang_error_selection'];
+        }
+
+        /* Website */
+
+        if (!isset($this->request->post['default_website']) || $this->validation->length($this->request->post['default_website']) > 250) {
+            $this->error['default_website'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['maximum_website']) || !$this->validation->isInt($this->request->post['maximum_website']) || $this->request->post['maximum_website'] < 1 || $this->request->post['maximum_website'] > 250) {
+            $this->error['maximum_website'] = sprintf($this->data['lang_error_range'], 1, 250);
+        }
+
+        if (!isset($this->request->post['filled_website_cookie_action']) || !in_array($this->request->post['filled_website_cookie_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_website_cookie_action'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['filled_website_login_action']) || !in_array($this->request->post['filled_website_login_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_website_login_action'] = $this->data['lang_error_selection'];
+        }
+
+        /* Town */
+
+        if (!isset($this->request->post['default_town']) || $this->validation->length($this->request->post['default_town']) > 250) {
+            $this->error['default_town'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['maximum_town']) || !$this->validation->isInt($this->request->post['maximum_town']) || $this->request->post['maximum_town'] < 1 || $this->request->post['maximum_town'] > 250) {
+            $this->error['maximum_town'] = sprintf($this->data['lang_error_range'], 1, 250);
+        }
+
+        if (!isset($this->request->post['filled_town_cookie_action']) || !in_array($this->request->post['filled_town_cookie_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_town_cookie_action'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['filled_town_login_action']) || !in_array($this->request->post['filled_town_login_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_town_login_action'] = $this->data['lang_error_selection'];
+        }
+
+        /* State */
+
+        if (!isset($this->request->post['default_state']) || ($this->request->post['default_state'] && !$this->geo->stateExists($this->request->post['default_state']))) {
+            $this->error['default_state'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['filled_state_cookie_action']) || !in_array($this->request->post['filled_state_cookie_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_state_cookie_action'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['filled_state_login_action']) || !in_array($this->request->post['filled_state_login_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_state_login_action'] = $this->data['lang_error_selection'];
+        }
+
+        /* Country */
+
+        if (!isset($this->request->post['default_country']) || ($this->request->post['default_country'] && !$this->geo->countryExists($this->request->post['default_country']))) {
+            $this->error['default_country'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['filled_country_cookie_action']) || !in_array($this->request->post['filled_country_cookie_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_country_cookie_action'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['filled_country_login_action']) || !in_array($this->request->post['filled_country_login_action'], array('normal', 'disable', 'hide'))) {
+            $this->error['filled_country_login_action'] = $this->data['lang_error_selection'];
+        }
+
+        /* Captcha */
+
+        if (isset($this->request->post['enabled_captcha']) && isset($this->request->post['captcha_type']) && $this->request->post['captcha_type'] == 'recaptcha' && !(bool) ini_get('allow_url_fopen')) {
+            $this->error['captcha_type'] = $this->data['lang_error_fopen'];
+        }
+
+        if (!isset($this->request->post['captcha_type']) || !in_array($this->request->post['captcha_type'], array('recaptcha', 'securimage'))) {
+            $this->error['captcha_type'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['recaptcha_public_key']) || $this->validation->length($this->request->post['recaptcha_public_key']) > 250) {
+            $this->error['recaptcha_public_key'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['recaptcha_private_key']) || $this->validation->length($this->request->post['recaptcha_private_key']) > 250) {
+            $this->error['recaptcha_private_key'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['recaptcha_theme']) || !in_array($this->request->post['recaptcha_theme'], array('dark', 'light'))) {
+            $this->error['recaptcha_theme'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['recaptcha_size']) || !in_array($this->request->post['recaptcha_size'], array('compact', 'normal'))) {
+            $this->error['recaptcha_size'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['securimage_width']) || !$this->validation->isInt($this->request->post['securimage_width']) || $this->request->post['securimage_width'] < 1 || $this->request->post['securimage_width'] > 500) {
+            $this->error['securimage_width'] = sprintf($this->data['lang_error_range'], 1, 500);
+        }
+
+        if (!isset($this->request->post['securimage_height']) || !$this->validation->isInt($this->request->post['securimage_height']) || $this->request->post['securimage_height'] < 1 || $this->request->post['securimage_height'] > 500) {
+            $this->error['securimage_height'] = sprintf($this->data['lang_error_range'], 1, 500);
+        }
+
+        if (!isset($this->request->post['securimage_length']) || !$this->validation->isInt($this->request->post['securimage_length']) || $this->request->post['securimage_length'] < 1 || $this->request->post['securimage_length'] > 10) {
+            $this->error['securimage_length'] = sprintf($this->data['lang_error_range'], 1, 10);
+        }
+
+        if (!isset($this->request->post['securimage_perturbation']) || !preg_match('/^[0|1]{1}\.[0-9]{1,2}$/i', $this->request->post['securimage_perturbation']) || $this->request->post['securimage_perturbation'] < 0 || $this->request->post['securimage_perturbation'] > 1) {
+            $this->error['securimage_perturbation'] = sprintf($this->data['lang_error_perturbation'], 0.00, 1.00);
+        }
+
+        if (!isset($this->request->post['securimage_lines']) || !$this->validation->isInt($this->request->post['securimage_lines']) || $this->request->post['securimage_lines'] < 0 || $this->request->post['securimage_lines'] > 10) {
+            $this->error['securimage_lines'] = sprintf($this->data['lang_error_range'], 0, 10);
+        }
+
+        if (!isset($this->request->post['securimage_noise']) || !$this->validation->isInt($this->request->post['securimage_noise']) || $this->request->post['securimage_noise'] < 0 || $this->request->post['securimage_noise'] > 10) {
+            $this->error['securimage_noise'] = sprintf($this->data['lang_error_range'], 0, 10);
+        }
+
+        if (!isset($this->request->post['securimage_text_color']) || substr($this->request->post['securimage_text_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['securimage_text_color'], '#'))) {
+            $this->error['securimage_text_color'] = $this->data['lang_error_hex_format'];
+        }
+
+        if (!isset($this->request->post['securimage_text_color']) || $this->validation->length($this->request->post['securimage_text_color']) != 7) {
+            $this->error['securimage_text_color'] = $this->data['lang_error_hex_length'];
+        }
+
+        if (!isset($this->request->post['securimage_line_color']) || substr($this->request->post['securimage_line_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['securimage_line_color'], '#'))) {
+            $this->error['securimage_line_color'] = $this->data['lang_error_hex_format'];
+        }
+
+        if (!isset($this->request->post['securimage_line_color']) || $this->validation->length($this->request->post['securimage_line_color']) != 7) {
+            $this->error['securimage_line_color'] = $this->data['lang_error_hex_length'];
+        }
+
+        if (!isset($this->request->post['securimage_back_color']) || substr($this->request->post['securimage_back_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['securimage_back_color'], '#'))) {
+            $this->error['securimage_back_color'] = $this->data['lang_error_hex_format'];
+        }
+
+        if (!isset($this->request->post['securimage_back_color']) || $this->validation->length($this->request->post['securimage_back_color']) != 7) {
+            $this->error['securimage_back_color'] = $this->data['lang_error_hex_length'];
+        }
+
+        if (!isset($this->request->post['securimage_noise_color']) || substr($this->request->post['securimage_noise_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['securimage_noise_color'], '#'))) {
+            $this->error['securimage_noise_color'] = $this->data['lang_error_hex_format'];
+        }
+
+        if (!isset($this->request->post['securimage_noise_color']) || $this->validation->length($this->request->post['securimage_noise_color']) != 7) {
+            $this->error['securimage_noise_color'] = $this->data['lang_error_hex_length'];
+        }
+
+        /* Powered By */
+
+        if (!isset($this->request->post['enabled_powered_by']) && !$this->setting->get('licence')) {
+            $this->error['enabled_powered_by'] = $this->data['lang_error_licence'];
+        }
+
+        if (!isset($this->request->post['powered_by_type']) || !in_array($this->request->post['powered_by_type'], array('text', 'image'))) {
+            $this->error['powered_by_type'] = $this->data['lang_error_selection'];
+        }
+
+        if ($this->error) {
+            $this->data['error'] = $this->data['lang_message_error'];
+
+            return false;
+        } else {
+            $this->data['success'] = $this->data['lang_message_success'];
+
+            return true;
+        }
     }
 }

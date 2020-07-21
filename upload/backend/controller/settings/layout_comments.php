@@ -7,133 +7,1115 @@ class SettingsLayoutCommentsController extends Controller
     {
         $this->loadLanguage('settings/layout_comments');
 
-        $this->data['inner_elements'] = array(
-            array(
-                'element' => $this->data['lang_text_country'],
-                'status'  => ($this->setting->get('show_country')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/country')
-            ),
-            array(
-                'element' => $this->data['lang_text_date'],
-                'status'  => ($this->setting->get('show_date')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/date')
-            ),
-            array(
-                'element' => $this->data['lang_text_dislike'],
-                'status'  => ($this->setting->get('show_dislike')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/dislike')
-            ),
-            array(
-                'element' => $this->data['lang_text_flag'],
-                'status'  => ($this->setting->get('show_flag')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/flag')
-            ),
-            array(
-                'element' => $this->data['lang_text_gravatar'],
-                'status'  => ($this->setting->get('show_gravatar')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/gravatar')
-            ),
-            array(
-                'element' => $this->data['lang_text_like'],
-                'status'  => ($this->setting->get('show_like')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/like')
-            ),
-            array(
-                'element' => $this->data['lang_text_name'],
-                'status'  => $this->data['lang_text_enabled'] . $this->data['lang_text_mandatory'],
-                'action'  => $this->url->link('layout_comments/name')
-            ),
-            array(
-                'element' => $this->data['lang_text_permalink'],
-                'status'  => ($this->setting->get('show_permalink')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/permalink')
-            ),
-            array(
-                'element' => $this->data['lang_text_rating'],
-                'status'  => ($this->setting->get('show_rating')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/rating')
-            ),
-            array(
-                'element' => $this->data['lang_text_reply'],
-                'status'  => ($this->setting->get('show_reply')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/reply')
-            ),
-            array(
-                'element' => $this->data['lang_text_share'],
-                'status'  => ($this->setting->get('show_share')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/share')
-            ),
-            array(
-                'element' => $this->data['lang_text_state'],
-                'status'  => ($this->setting->get('show_state')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/state')
-            ),
-            array(
-                'element' => $this->data['lang_text_town'],
-                'status'  => ($this->setting->get('show_town')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/town')
-            )
+        $this->loadModel('settings/layout_comments');
+
+        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+            if ($this->validate()) {
+                $this->model_settings_layout_comments->update($this->request->post);
+            }
+        }
+
+        /* General */
+
+        if (isset($this->request->post['show_comment_count'])) {
+            $this->data['show_comment_count'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_comment_count'])) {
+            $this->data['show_comment_count'] = false;
+        } else {
+            $this->data['show_comment_count'] = $this->setting->get('show_comment_count');
+        }
+
+        if (isset($this->request->post['comments_order'])) {
+            $this->data['comments_order'] = $this->request->post['comments_order'];
+        } else {
+            $this->data['comments_order'] = $this->setting->get('comments_order');
+        }
+
+        if (isset($this->request->post['comments_position_1'])) {
+            $this->data['comments_position_1'] = $this->request->post['comments_position_1'];
+        } else {
+            $this->data['comments_position_1'] = $this->setting->get('comments_position_1');
+        }
+
+        if (isset($this->request->post['comments_position_2'])) {
+            $this->data['comments_position_2'] = $this->request->post['comments_position_2'];
+        } else {
+            $this->data['comments_position_2'] = $this->setting->get('comments_position_2');
+        }
+
+        if (isset($this->request->post['comments_position_3'])) {
+            $this->data['comments_position_3'] = $this->request->post['comments_position_3'];
+        } else {
+            $this->data['comments_position_3'] = $this->setting->get('comments_position_3');
+        }
+
+        if (isset($this->request->post['comments_position_4'])) {
+            $this->data['comments_position_4'] = $this->request->post['comments_position_4'];
+        } else {
+            $this->data['comments_position_4'] = $this->setting->get('comments_position_4');
+        }
+
+        if (isset($this->request->post['comments_position_5'])) {
+            $this->data['comments_position_5'] = $this->request->post['comments_position_5'];
+        } else {
+            $this->data['comments_position_5'] = $this->setting->get('comments_position_5');
+        }
+
+        if (isset($this->request->post['comments_position_6'])) {
+            $this->data['comments_position_6'] = $this->request->post['comments_position_6'];
+        } else {
+            $this->data['comments_position_6'] = $this->setting->get('comments_position_6');
+        }
+
+        if (isset($this->request->post['comments_position_7'])) {
+            $this->data['comments_position_7'] = $this->request->post['comments_position_7'];
+        } else {
+            $this->data['comments_position_7'] = $this->setting->get('comments_position_7');
+        }
+
+        if (isset($this->request->post['comments_position_8'])) {
+            $this->data['comments_position_8'] = $this->request->post['comments_position_8'];
+        } else {
+            $this->data['comments_position_8'] = $this->setting->get('comments_position_8');
+        }
+
+        if (isset($this->request->post['comments_position_9'])) {
+            $this->data['comments_position_9'] = $this->request->post['comments_position_9'];
+        } else {
+            $this->data['comments_position_9'] = $this->setting->get('comments_position_9');
+        }
+
+        if (isset($this->request->post['comments_position_10'])) {
+            $this->data['comments_position_10'] = $this->request->post['comments_position_10'];
+        } else {
+            $this->data['comments_position_10'] = $this->setting->get('comments_position_10');
+        }
+
+        if (isset($this->request->post['comments_position_11'])) {
+            $this->data['comments_position_11'] = $this->request->post['comments_position_11'];
+        } else {
+            $this->data['comments_position_11'] = $this->setting->get('comments_position_11');
+        }
+
+        if (isset($this->request->post['comments_position_12'])) {
+            $this->data['comments_position_12'] = $this->request->post['comments_position_12'];
+        } else {
+            $this->data['comments_position_12'] = $this->setting->get('comments_position_12');
+        }
+
+        if (isset($this->error['comments_order'])) {
+            $this->data['error_comments_order'] = $this->error['comments_order'];
+        } else {
+            $this->data['error_comments_order'] = '';
+        }
+
+        if (isset($this->error['comments_position_1'])) {
+            $this->data['error_comments_position_1'] = $this->error['comments_position_1'];
+        } else {
+            $this->data['error_comments_position_1'] = '';
+        }
+
+        if (isset($this->error['comments_position_2'])) {
+            $this->data['error_comments_position_2'] = $this->error['comments_position_2'];
+        } else {
+            $this->data['error_comments_position_2'] = '';
+        }
+
+        if (isset($this->error['comments_position_3'])) {
+            $this->data['error_comments_position_3'] = $this->error['comments_position_3'];
+        } else {
+            $this->data['error_comments_position_3'] = '';
+        }
+
+        if (isset($this->error['comments_position_4'])) {
+            $this->data['error_comments_position_4'] = $this->error['comments_position_4'];
+        } else {
+            $this->data['error_comments_position_4'] = '';
+        }
+
+        if (isset($this->error['comments_position_5'])) {
+            $this->data['error_comments_position_5'] = $this->error['comments_position_5'];
+        } else {
+            $this->data['error_comments_position_5'] = '';
+        }
+
+        if (isset($this->error['comments_position_6'])) {
+            $this->data['error_comments_position_6'] = $this->error['comments_position_6'];
+        } else {
+            $this->data['error_comments_position_6'] = '';
+        }
+
+        if (isset($this->error['comments_position_7'])) {
+            $this->data['error_comments_position_7'] = $this->error['comments_position_7'];
+        } else {
+            $this->data['error_comments_position_7'] = '';
+        }
+
+        if (isset($this->error['comments_position_8'])) {
+            $this->data['error_comments_position_8'] = $this->error['comments_position_8'];
+        } else {
+            $this->data['error_comments_position_8'] = '';
+        }
+
+        if (isset($this->error['comments_position_9'])) {
+            $this->data['error_comments_position_9'] = $this->error['comments_position_9'];
+        } else {
+            $this->data['error_comments_position_9'] = '';
+        }
+
+        if (isset($this->error['comments_position_10'])) {
+            $this->data['error_comments_position_10'] = $this->error['comments_position_10'];
+        } else {
+            $this->data['error_comments_position_10'] = '';
+        }
+
+        if (isset($this->error['comments_position_11'])) {
+            $this->data['error_comments_position_11'] = $this->error['comments_position_11'];
+        } else {
+            $this->data['error_comments_position_11'] = '';
+        }
+
+        if (isset($this->error['comments_position_12'])) {
+            $this->data['error_comments_position_12'] = $this->error['comments_position_12'];
+        } else {
+            $this->data['error_comments_position_12'] = '';
+        }
+
+        $this->data['elements'] = array(
+            $this->data['lang_select_none']           => '',
+            $this->data['lang_select_average_rating'] => 'average_rating',
+            $this->data['lang_select_notify']         => 'notify',
+            $this->data['lang_select_online']         => 'online',
+            $this->data['lang_select_page_number']    => 'page_number',
+            $this->data['lang_select_pagination']     => 'pagination',
+            $this->data['lang_select_rss']            => 'rss',
+            $this->data['lang_select_search']         => 'search',
+            $this->data['lang_select_social']         => 'social',
+            $this->data['lang_select_sort_by']        => 'sort_by',
+            $this->data['lang_select_topic']          => 'topic'
         );
 
-        $this->data['outer_elements'] = array(
-            array(
-                'element' => $this->data['lang_text_average_rating'],
-                'status'  => ($this->setting->get('show_average_rating')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/average_rating')
-            ),
-            array(
-                'element' => $this->data['lang_text_notify'],
-                'status'  => ($this->setting->get('show_notify')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/notify')
-            ),
-            array(
-                'element' => $this->data['lang_text_online'],
-                'status'  => ($this->setting->get('show_online')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/online')
-            ),
-            array(
-                'element' => $this->data['lang_text_page_number'],
-                'status'  => ($this->setting->get('show_page_number')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/page_number')
-            ),
-            array(
-                'element' => $this->data['lang_text_pagination'],
-                'status'  => ($this->setting->get('show_pagination')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/pagination')
-            ),
-            array(
-                'element' => $this->data['lang_text_rss'],
-                'status'  => ($this->setting->get('show_rss')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/rss')
-            ),
-            array(
-                'element' => $this->data['lang_text_search'],
-                'status'  => ($this->setting->get('show_search')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/search')
-            ),
-            array(
-                'element' => $this->data['lang_text_social'],
-                'status'  => ($this->setting->get('show_social')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/social')
-            ),
-            array(
-                'element' => $this->data['lang_text_sort_by'],
-                'status'  => ($this->setting->get('show_sort_by')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/sort_by')
-            ),
-            array(
-                'element' => $this->data['lang_text_topic'],
-                'status'  => ($this->setting->get('show_topic')) ? $this->data['lang_text_enabled'] : $this->data['lang_text_disabled'],
-                'action'  => $this->url->link('layout_comments/topic')
-            )
-        );
+        /* Gravatar */
 
-        $this->data['lang_description'] = sprintf($this->data['lang_description'], $this->url->link('layout_comments/general'));
+        if (isset($this->request->post['show_gravatar'])) {
+            $this->data['show_gravatar'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_gravatar'])) {
+            $this->data['show_gravatar'] = false;
+        } else {
+            $this->data['show_gravatar'] = $this->setting->get('show_gravatar');
+        }
 
-        $this->data['button_edit'] = $this->loadImage('button/edit.png');
+        if (isset($this->request->post['gravatar_default'])) {
+            $this->data['gravatar_default'] = $this->request->post['gravatar_default'];
+        } else {
+            $this->data['gravatar_default'] = $this->setting->get('gravatar_default');
+        }
+
+        if (isset($this->request->post['gravatar_custom'])) {
+            $this->data['gravatar_custom'] = $this->request->post['gravatar_custom'];
+        } else {
+            $this->data['gravatar_custom'] = $this->setting->get('gravatar_custom');
+        }
+
+        if (isset($this->request->post['gravatar_size'])) {
+            $this->data['gravatar_size'] = $this->request->post['gravatar_size'];
+        } else {
+            $this->data['gravatar_size'] = $this->setting->get('gravatar_size');
+        }
+
+        if (isset($this->request->post['gravatar_rating'])) {
+            $this->data['gravatar_rating'] = $this->request->post['gravatar_rating'];
+        } else {
+            $this->data['gravatar_rating'] = $this->setting->get('gravatar_rating');
+        }
+
+        if (isset($this->request->post['show_level'])) {
+            $this->data['show_level'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_level'])) {
+            $this->data['show_level'] = false;
+        } else {
+            $this->data['show_level'] = $this->setting->get('show_level');
+        }
+
+        if (isset($this->request->post['level_5'])) {
+            $this->data['level_5'] = $this->request->post['level_5'];
+        } else {
+            $this->data['level_5'] = $this->setting->get('level_5');
+        }
+
+        if (isset($this->request->post['level_4'])) {
+            $this->data['level_4'] = $this->request->post['level_4'];
+        } else {
+            $this->data['level_4'] = $this->setting->get('level_4');
+        }
+
+        if (isset($this->request->post['level_3'])) {
+            $this->data['level_3'] = $this->request->post['level_3'];
+        } else {
+            $this->data['level_3'] = $this->setting->get('level_3');
+        }
+
+        if (isset($this->request->post['level_2'])) {
+            $this->data['level_2'] = $this->request->post['level_2'];
+        } else {
+            $this->data['level_2'] = $this->setting->get('level_2');
+        }
+
+        if (isset($this->request->post['level_1'])) {
+            $this->data['level_1'] = $this->request->post['level_1'];
+        } else {
+            $this->data['level_1'] = $this->setting->get('level_1');
+        }
+
+        if (isset($this->request->post['level_0'])) {
+            $this->data['level_0'] = $this->request->post['level_0'];
+        } else {
+            $this->data['level_0'] = $this->setting->get('level_0');
+        }
+
+        if (isset($this->request->post['show_bio'])) {
+            $this->data['show_bio'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_bio'])) {
+            $this->data['show_bio'] = false;
+        } else {
+            $this->data['show_bio'] = $this->setting->get('show_bio');
+        }
+
+        if (isset($this->request->post['show_badge_top_poster'])) {
+            $this->data['show_badge_top_poster'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_badge_top_poster'])) {
+            $this->data['show_badge_top_poster'] = false;
+        } else {
+            $this->data['show_badge_top_poster'] = $this->setting->get('show_badge_top_poster');
+        }
+
+        if (isset($this->request->post['show_badge_most_likes'])) {
+            $this->data['show_badge_most_likes'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_badge_most_likes'])) {
+            $this->data['show_badge_most_likes'] = false;
+        } else {
+            $this->data['show_badge_most_likes'] = $this->setting->get('show_badge_most_likes');
+        }
+
+        if (isset($this->request->post['show_badge_first_poster'])) {
+            $this->data['show_badge_first_poster'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_badge_first_poster'])) {
+            $this->data['show_badge_first_poster'] = false;
+        } else {
+            $this->data['show_badge_first_poster'] = $this->setting->get('show_badge_first_poster');
+        }
+
+        if (isset($this->error['gravatar_default'])) {
+            $this->data['error_gravatar_default'] = $this->error['gravatar_default'];
+        } else {
+            $this->data['error_gravatar_default'] = '';
+        }
+
+        if (isset($this->error['gravatar_custom'])) {
+            $this->data['error_gravatar_custom'] = $this->error['gravatar_custom'];
+        } else {
+            $this->data['error_gravatar_custom'] = '';
+        }
+
+        if (isset($this->error['gravatar_size'])) {
+            $this->data['error_gravatar_size'] = $this->error['gravatar_size'];
+        } else {
+            $this->data['error_gravatar_size'] = '';
+        }
+
+        if (isset($this->error['gravatar_rating'])) {
+            $this->data['error_gravatar_rating'] = $this->error['gravatar_rating'];
+        } else {
+            $this->data['error_gravatar_rating'] = '';
+        }
+
+        if (isset($this->error['level_5'])) {
+            $this->data['error_level_5'] = $this->error['level_5'];
+        } else {
+            $this->data['error_level_5'] = '';
+        }
+
+        if (isset($this->error['level_4'])) {
+            $this->data['error_level_4'] = $this->error['level_4'];
+        } else {
+            $this->data['error_level_4'] = '';
+        }
+
+        if (isset($this->error['level_3'])) {
+            $this->data['error_level_3'] = $this->error['level_3'];
+        } else {
+            $this->data['error_level_3'] = '';
+        }
+
+        if (isset($this->error['level_2'])) {
+            $this->data['error_level_2'] = $this->error['level_2'];
+        } else {
+            $this->data['error_level_2'] = '';
+        }
+
+        if (isset($this->error['level_1'])) {
+            $this->data['error_level_1'] = $this->error['level_1'];
+        } else {
+            $this->data['error_level_1'] = '';
+        }
+
+        if (isset($this->error['level_0'])) {
+            $this->data['error_level_0'] = $this->error['level_0'];
+        } else {
+            $this->data['error_level_0'] = '';
+        }
+
+        /* Name */
+
+        if (isset($this->request->post['show_says'])) {
+            $this->data['show_says'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_says'])) {
+            $this->data['show_says'] = false;
+        } else {
+            $this->data['show_says'] = $this->setting->get('show_says');
+        }
+
+        if (isset($this->request->post['show_website'])) {
+            $this->data['show_website'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_website'])) {
+            $this->data['show_website'] = false;
+        } else {
+            $this->data['show_website'] = $this->setting->get('show_website');
+        }
+
+        if (isset($this->request->post['website_new_window'])) {
+            $this->data['website_new_window'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['website_new_window'])) {
+            $this->data['website_new_window'] = false;
+        } else {
+            $this->data['website_new_window'] = $this->setting->get('website_new_window');
+        }
+
+        if (isset($this->request->post['website_no_follow'])) {
+            $this->data['website_no_follow'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['website_no_follow'])) {
+            $this->data['website_no_follow'] = false;
+        } else {
+            $this->data['website_no_follow'] = $this->setting->get('website_no_follow');
+        }
+
+        /* Town */
+
+        if (isset($this->request->post['show_town'])) {
+            $this->data['show_town'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_town'])) {
+            $this->data['show_town'] = false;
+        } else {
+            $this->data['show_town'] = $this->setting->get('show_town');
+        }
+
+        /* State */
+
+        if (isset($this->request->post['show_state'])) {
+            $this->data['show_state'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_state'])) {
+            $this->data['show_state'] = false;
+        } else {
+            $this->data['show_state'] = $this->setting->get('show_state');
+        }
+
+        /* Country */
+
+        if (isset($this->request->post['show_country'])) {
+            $this->data['show_country'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_country'])) {
+            $this->data['show_country'] = false;
+        } else {
+            $this->data['show_country'] = $this->setting->get('show_country');
+        }
+
+        /* Rating */
+
+        if (isset($this->request->post['show_rating'])) {
+            $this->data['show_rating'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_rating'])) {
+            $this->data['show_rating'] = false;
+        } else {
+            $this->data['show_rating'] = $this->setting->get('show_rating');
+        }
+
+        /* Date */
+
+        if (isset($this->request->post['show_date'])) {
+            $this->data['show_date'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_date'])) {
+            $this->data['show_date'] = false;
+        } else {
+            $this->data['show_date'] = $this->setting->get('show_date');
+        }
+
+        if (isset($this->request->post['date_auto'])) {
+            $this->data['date_auto'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['date_auto'])) {
+            $this->data['date_auto'] = false;
+        } else {
+            $this->data['date_auto'] = $this->setting->get('date_auto');
+        }
+
+        /* Like */
+
+        if (isset($this->request->post['show_like'])) {
+            $this->data['show_like'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_like'])) {
+            $this->data['show_like'] = false;
+        } else {
+            $this->data['show_like'] = $this->setting->get('show_like');
+        }
+
+        /* Dislike */
+
+        if (isset($this->request->post['show_dislike'])) {
+            $this->data['show_dislike'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_dislike'])) {
+            $this->data['show_dislike'] = false;
+        } else {
+            $this->data['show_dislike'] = $this->setting->get('show_dislike');
+        }
+
+        /* Share */
+
+        if (isset($this->request->post['show_share'])) {
+            $this->data['show_share'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share'])) {
+            $this->data['show_share'] = false;
+        } else {
+            $this->data['show_share'] = $this->setting->get('show_share');
+        }
+
+        if (isset($this->request->post['share_new_window'])) {
+            $this->data['share_new_window'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['share_new_window'])) {
+            $this->data['share_new_window'] = false;
+        } else {
+            $this->data['share_new_window'] = $this->setting->get('share_new_window');
+        }
+
+        if (isset($this->request->post['show_share_digg'])) {
+            $this->data['show_share_digg'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_digg'])) {
+            $this->data['show_share_digg'] = false;
+        } else {
+            $this->data['show_share_digg'] = $this->setting->get('show_share_digg');
+        }
+
+        if (isset($this->request->post['show_share_facebook'])) {
+            $this->data['show_share_facebook'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_facebook'])) {
+            $this->data['show_share_facebook'] = false;
+        } else {
+            $this->data['show_share_facebook'] = $this->setting->get('show_share_facebook');
+        }
+
+        if (isset($this->request->post['show_share_linkedin'])) {
+            $this->data['show_share_linkedin'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_linkedin'])) {
+            $this->data['show_share_linkedin'] = false;
+        } else {
+            $this->data['show_share_linkedin'] = $this->setting->get('show_share_linkedin');
+        }
+
+        if (isset($this->request->post['show_share_reddit'])) {
+            $this->data['show_share_reddit'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_reddit'])) {
+            $this->data['show_share_reddit'] = false;
+        } else {
+            $this->data['show_share_reddit'] = $this->setting->get('show_share_reddit');
+        }
+
+        if (isset($this->request->post['show_share_twitter'])) {
+            $this->data['show_share_twitter'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_twitter'])) {
+            $this->data['show_share_twitter'] = false;
+        } else {
+            $this->data['show_share_twitter'] = $this->setting->get('show_share_twitter');
+        }
+
+        if (isset($this->request->post['show_share_weibo'])) {
+            $this->data['show_share_weibo'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_weibo'])) {
+            $this->data['show_share_weibo'] = false;
+        } else {
+            $this->data['show_share_weibo'] = $this->setting->get('show_share_weibo');
+        }
+
+        $this->data['shares'] = $this->model_settings_layout_comments->getShares();
+
+        /* Flag */
+
+        if (isset($this->request->post['show_flag'])) {
+            $this->data['show_flag'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_flag'])) {
+            $this->data['show_flag'] = false;
+        } else {
+            $this->data['show_flag'] = $this->setting->get('show_flag');
+        }
+
+        if (isset($this->request->post['flag_max_per_user'])) {
+            $this->data['flag_max_per_user'] = $this->request->post['flag_max_per_user'];
+        } else {
+            $this->data['flag_max_per_user'] = $this->setting->get('flag_max_per_user');
+        }
+
+        if (isset($this->request->post['flag_min_per_comment'])) {
+            $this->data['flag_min_per_comment'] = $this->request->post['flag_min_per_comment'];
+        } else {
+            $this->data['flag_min_per_comment'] = $this->setting->get('flag_min_per_comment');
+        }
+
+        if (isset($this->request->post['flag_disapprove'])) {
+            $this->data['flag_disapprove'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['flag_disapprove'])) {
+            $this->data['flag_disapprove'] = false;
+        } else {
+            $this->data['flag_disapprove'] = $this->setting->get('flag_disapprove');
+        }
+
+        if (isset($this->error['flag_max_per_user'])) {
+            $this->data['error_flag_max_per_user'] = $this->error['flag_max_per_user'];
+        } else {
+            $this->data['error_flag_max_per_user'] = '';
+        }
+
+        if (isset($this->error['flag_min_per_comment'])) {
+            $this->data['error_flag_min_per_comment'] = $this->error['flag_min_per_comment'];
+        } else {
+            $this->data['error_flag_min_per_comment'] = '';
+        }
+
+        /* Permalink */
+
+        if (isset($this->request->post['show_permalink'])) {
+            $this->data['show_permalink'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_permalink'])) {
+            $this->data['show_permalink'] = false;
+        } else {
+            $this->data['show_permalink'] = $this->setting->get('show_permalink');
+        }
+
+        /* Reply */
+
+        if (isset($this->request->post['show_reply'])) {
+            $this->data['show_reply'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_reply'])) {
+            $this->data['show_reply'] = false;
+        } else {
+            $this->data['show_reply'] = $this->setting->get('show_reply');
+        }
+
+        if (isset($this->request->post['hide_replies'])) {
+            $this->data['hide_replies'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['hide_replies'])) {
+            $this->data['hide_replies'] = false;
+        } else {
+            $this->data['hide_replies'] = $this->setting->get('hide_replies');
+        }
+
+        if (isset($this->request->post['reply_depth'])) {
+            $this->data['reply_depth'] = $this->request->post['reply_depth'];
+        } else {
+            $this->data['reply_depth'] = $this->setting->get('reply_depth');
+        }
+
+        if (isset($this->error['reply_depth'])) {
+            $this->data['error_reply_depth'] = $this->error['reply_depth'];
+        } else {
+            $this->data['error_reply_depth'] = '';
+        }
+
+        /* Average Rating */
+
+        if (isset($this->request->post['show_average_rating'])) {
+            $this->data['show_average_rating'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_average_rating'])) {
+            $this->data['show_average_rating'] = false;
+        } else {
+            $this->data['show_average_rating'] = $this->setting->get('show_average_rating');
+        }
+
+        if (isset($this->request->post['average_rating_guest'])) {
+            $this->data['average_rating_guest'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['average_rating_guest'])) {
+            $this->data['average_rating_guest'] = false;
+        } else {
+            $this->data['average_rating_guest'] = $this->setting->get('average_rating_guest');
+        }
+
+        /* Notify */
+
+        if (isset($this->request->post['show_notify'])) {
+            $this->data['show_notify'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_notify'])) {
+            $this->data['show_notify'] = false;
+        } else {
+            $this->data['show_notify'] = $this->setting->get('show_notify');
+        }
+
+        /* Online */
+
+        if (isset($this->request->post['show_online'])) {
+            $this->data['show_online'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_online'])) {
+            $this->data['show_online'] = false;
+        } else {
+            $this->data['show_online'] = $this->setting->get('show_online');
+        }
+
+        if (isset($this->request->post['online_refresh_enabled'])) {
+            $this->data['online_refresh_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['online_refresh_enabled'])) {
+            $this->data['online_refresh_enabled'] = false;
+        } else {
+            $this->data['online_refresh_enabled'] = $this->setting->get('online_refresh_enabled');
+        }
+
+        if (isset($this->request->post['online_refresh_interval'])) {
+            $this->data['online_refresh_interval'] = $this->request->post['online_refresh_interval'];
+        } else {
+            $this->data['online_refresh_interval'] = $this->setting->get('online_refresh_interval');
+        }
+
+        if (isset($this->error['online_refresh_interval'])) {
+            $this->data['error_online_refresh_interval'] = $this->error['online_refresh_interval'];
+        } else {
+            $this->data['error_online_refresh_interval'] = '';
+        }
+
+        /* Page Number */
+
+        if (isset($this->request->post['show_page_number'])) {
+            $this->data['show_page_number'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_page_number'])) {
+            $this->data['show_page_number'] = false;
+        } else {
+            $this->data['show_page_number'] = $this->setting->get('show_page_number');
+        }
+
+        if (isset($this->request->post['page_number_format'])) {
+            $this->data['page_number_format'] = $this->request->post['page_number_format'];
+        } else {
+            $this->data['page_number_format'] = $this->setting->get('page_number_format');
+        }
+
+        if (isset($this->error['page_number_format'])) {
+            $this->data['error_page_number_format'] = $this->error['page_number_format'];
+        } else {
+            $this->data['error_page_number_format'] = '';
+        }
+
+        /* Pagination */
+
+        if (isset($this->request->post['show_pagination'])) {
+            $this->data['show_pagination'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_pagination'])) {
+            $this->data['show_pagination'] = false;
+        } else {
+            $this->data['show_pagination'] = $this->setting->get('show_pagination');
+        }
+
+        if (isset($this->request->post['pagination_type'])) {
+            $this->data['pagination_type'] = $this->request->post['pagination_type'];
+        } else {
+            $this->data['pagination_type'] = $this->setting->get('pagination_type');
+        }
+
+        if (isset($this->request->post['pagination_amount'])) {
+            $this->data['pagination_amount'] = $this->request->post['pagination_amount'];
+        } else {
+            $this->data['pagination_amount'] = $this->setting->get('pagination_amount');
+        }
+
+        if (isset($this->request->post['pagination_range'])) {
+            $this->data['pagination_range'] = $this->request->post['pagination_range'];
+        } else {
+            $this->data['pagination_range'] = $this->setting->get('pagination_range');
+        }
+
+        if (isset($this->error['pagination_type'])) {
+            $this->data['error_pagination_type'] = $this->error['pagination_type'];
+        } else {
+            $this->data['error_pagination_type'] = '';
+        }
+
+        if (isset($this->error['pagination_amount'])) {
+            $this->data['error_pagination_amount'] = $this->error['pagination_amount'];
+        } else {
+            $this->data['error_pagination_amount'] = '';
+        }
+
+        if (isset($this->error['pagination_range'])) {
+            $this->data['error_pagination_range'] = $this->error['pagination_range'];
+        } else {
+            $this->data['error_pagination_range'] = '';
+        }
+
+        /* RSS */
+
+        if (isset($this->request->post['show_rss'])) {
+            $this->data['show_rss'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_rss'])) {
+            $this->data['show_rss'] = false;
+        } else {
+            $this->data['show_rss'] = $this->setting->get('show_rss');
+        }
+
+        if (isset($this->request->post['rss_new_window'])) {
+            $this->data['rss_new_window'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['rss_new_window'])) {
+            $this->data['rss_new_window'] = false;
+        } else {
+            $this->data['rss_new_window'] = $this->setting->get('rss_new_window');
+        }
+
+        if (isset($this->request->post['rss_limit_enabled'])) {
+            $this->data['rss_limit_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['rss_limit_enabled'])) {
+            $this->data['rss_limit_enabled'] = false;
+        } else {
+            $this->data['rss_limit_enabled'] = $this->setting->get('rss_limit_enabled');
+        }
+
+        if (isset($this->request->post['rss_limit_amount'])) {
+            $this->data['rss_limit_amount'] = $this->request->post['rss_limit_amount'];
+        } else {
+            $this->data['rss_limit_amount'] = $this->setting->get('rss_limit_amount');
+        }
+
+        if (isset($this->error['rss_limit_amount'])) {
+            $this->data['error_rss_limit_amount'] = $this->error['rss_limit_amount'];
+        } else {
+            $this->data['error_rss_limit_amount'] = '';
+        }
+
+        /* Search */
+
+        if (isset($this->request->post['show_search'])) {
+            $this->data['show_search'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_search'])) {
+            $this->data['show_search'] = false;
+        } else {
+            $this->data['show_search'] = $this->setting->get('show_search');
+        }
+
+        /* Social */
+
+        if (isset($this->request->post['show_social'])) {
+            $this->data['show_social'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social'])) {
+            $this->data['show_social'] = false;
+        } else {
+            $this->data['show_social'] = $this->setting->get('show_social');
+        }
+
+        if (isset($this->request->post['social_new_window'])) {
+            $this->data['social_new_window'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['social_new_window'])) {
+            $this->data['social_new_window'] = false;
+        } else {
+            $this->data['social_new_window'] = $this->setting->get('social_new_window');
+        }
+
+        if (isset($this->request->post['show_social_digg'])) {
+            $this->data['show_social_digg'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_digg'])) {
+            $this->data['show_social_digg'] = false;
+        } else {
+            $this->data['show_social_digg'] = $this->setting->get('show_social_digg');
+        }
+
+        if (isset($this->request->post['show_social_facebook'])) {
+            $this->data['show_social_facebook'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_facebook'])) {
+            $this->data['show_social_facebook'] = false;
+        } else {
+            $this->data['show_social_facebook'] = $this->setting->get('show_social_facebook');
+        }
+
+        if (isset($this->request->post['show_social_linkedin'])) {
+            $this->data['show_social_linkedin'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_linkedin'])) {
+            $this->data['show_social_linkedin'] = false;
+        } else {
+            $this->data['show_social_linkedin'] = $this->setting->get('show_social_linkedin');
+        }
+
+        if (isset($this->request->post['show_social_reddit'])) {
+            $this->data['show_social_reddit'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_reddit'])) {
+            $this->data['show_social_reddit'] = false;
+        } else {
+            $this->data['show_social_reddit'] = $this->setting->get('show_social_reddit');
+        }
+
+        if (isset($this->request->post['show_social_twitter'])) {
+            $this->data['show_social_twitter'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_twitter'])) {
+            $this->data['show_social_twitter'] = false;
+        } else {
+            $this->data['show_social_twitter'] = $this->setting->get('show_social_twitter');
+        }
+
+        if (isset($this->request->post['show_social_weibo'])) {
+            $this->data['show_social_weibo'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_weibo'])) {
+            $this->data['show_social_weibo'] = false;
+        } else {
+            $this->data['show_social_weibo'] = $this->setting->get('show_social_weibo');
+        }
+
+        $this->data['socials'] = $this->model_settings_layout_comments->getSocials();
+
+        /* Sort By */
+
+        if (isset($this->request->post['show_sort_by'])) {
+            $this->data['show_sort_by'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_sort_by'])) {
+            $this->data['show_sort_by'] = false;
+        } else {
+            $this->data['show_sort_by'] = $this->setting->get('show_sort_by');
+        }
+
+        if (isset($this->request->post['show_sort_by_1'])) {
+            $this->data['show_sort_by_1'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_sort_by_1'])) {
+            $this->data['show_sort_by_1'] = false;
+        } else {
+            $this->data['show_sort_by_1'] = $this->setting->get('show_sort_by_1');
+        }
+
+        if (isset($this->request->post['show_sort_by_2'])) {
+            $this->data['show_sort_by_2'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_sort_by_2'])) {
+            $this->data['show_sort_by_2'] = false;
+        } else {
+            $this->data['show_sort_by_2'] = $this->setting->get('show_sort_by_2');
+        }
+
+        if (isset($this->request->post['show_sort_by_3'])) {
+            $this->data['show_sort_by_3'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_sort_by_3'])) {
+            $this->data['show_sort_by_3'] = false;
+        } else {
+            $this->data['show_sort_by_3'] = $this->setting->get('show_sort_by_3');
+        }
+
+        if (isset($this->request->post['show_sort_by_4'])) {
+            $this->data['show_sort_by_4'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_sort_by_4'])) {
+            $this->data['show_sort_by_4'] = false;
+        } else {
+            $this->data['show_sort_by_4'] = $this->setting->get('show_sort_by_4');
+        }
+
+        if (isset($this->request->post['show_sort_by_5'])) {
+            $this->data['show_sort_by_5'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_sort_by_5'])) {
+            $this->data['show_sort_by_5'] = false;
+        } else {
+            $this->data['show_sort_by_5'] = $this->setting->get('show_sort_by_5');
+        }
+
+        if (isset($this->request->post['show_sort_by_6'])) {
+            $this->data['show_sort_by_6'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_sort_by_6'])) {
+            $this->data['show_sort_by_6'] = false;
+        } else {
+            $this->data['show_sort_by_6'] = $this->setting->get('show_sort_by_6');
+        }
+
+        /* Topic */
+
+        if (isset($this->request->post['show_topic'])) {
+            $this->data['show_topic'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_topic'])) {
+            $this->data['show_topic'] = false;
+        } else {
+            $this->data['show_topic'] = $this->setting->get('show_topic');
+        }
 
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/layout_comments');
+    }
+
+    private function validate()
+    {
+        $this->loadModel('common/poster');
+
+        $unpostable = $this->model_common_poster->unpostable($this->data);
+
+        if ($unpostable) {
+            $this->data['error'] = $unpostable;
+
+            return false;
+        }
+
+        /* General */
+
+        if (!isset($this->request->post['comments_order']) || !in_array($this->request->post['comments_order'], array('1', '2', '3', '4', '5', '6'))) {
+            $this->error['comments_order'] = $this->data['lang_error_selection'];
+        }
+
+        $elements = array('', 'average_rating', 'notify', 'online', 'page_number', 'pagination', 'rss', 'search', 'social', 'sort_by', 'topic');
+
+        if (!isset($this->request->post['comments_position_1']) || !in_array($this->request->post['comments_position_1'], $elements)) {
+            $this->error['comments_position_1'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_2']) || !in_array($this->request->post['comments_position_2'], $elements)) {
+            $this->error['comments_position_2'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_3']) || !in_array($this->request->post['comments_position_3'], $elements)) {
+            $this->error['comments_position_3'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_4']) || !in_array($this->request->post['comments_position_4'], $elements)) {
+            $this->error['comments_position_4'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_5']) || !in_array($this->request->post['comments_position_5'], $elements)) {
+            $this->error['comments_position_5'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_6']) || !in_array($this->request->post['comments_position_6'], $elements)) {
+            $this->error['comments_position_6'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_7']) || !in_array($this->request->post['comments_position_7'], $elements)) {
+            $this->error['comments_position_7'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_8']) || !in_array($this->request->post['comments_position_8'], $elements)) {
+            $this->error['comments_position_8'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_9']) || !in_array($this->request->post['comments_position_9'], $elements)) {
+            $this->error['comments_position_9'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_10']) || !in_array($this->request->post['comments_position_10'], $elements)) {
+            $this->error['comments_position_10'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_11']) || !in_array($this->request->post['comments_position_11'], $elements)) {
+            $this->error['comments_position_11'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comments_position_12']) || !in_array($this->request->post['comments_position_12'], $elements)) {
+            $this->error['comments_position_12'] = $this->data['lang_error_selection'];
+        }
+
+        /* Gravatar */
+
+        if (!isset($this->request->post['gravatar_default']) || !in_array($this->request->post['gravatar_default'], array('', 'custom', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro', 'robohash'))) {
+            $this->error['gravatar_default'] = $this->data['lang_error_selection'];
+        }
+
+        if (isset($this->request->post['gravatar_default']) && $this->request->post['gravatar_default'] == 'custom' && isset($this->request->post['gravatar_custom']) && !$this->validation->isUrl($this->request->post['gravatar_custom'])) {
+            $this->error['gravatar_custom'] = $this->data['lang_error_url'];
+        }
+
+        if (isset($this->request->post['gravatar_custom']) && !empty($this->request->post['gravatar_custom']) && !$this->validation->isUrl($this->request->post['gravatar_custom'])) {
+            $this->error['gravatar_custom'] = $this->data['lang_error_url'];
+        }
+
+        if (!isset($this->request->post['gravatar_custom']) || $this->validation->length($this->request->post['gravatar_custom']) > 250) {
+            $this->error['gravatar_custom'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['gravatar_size']) || !$this->validation->isInt($this->request->post['gravatar_size']) || $this->request->post['gravatar_size'] < 1 || $this->request->post['gravatar_size'] > 2048) {
+            $this->error['gravatar_size'] = sprintf($this->data['lang_error_range'], 1, 2048);
+        }
+
+        if (!isset($this->request->post['gravatar_rating']) || !in_array($this->request->post['gravatar_rating'], array('g', 'pg', 'r', 'x'))) {
+            $this->error['gravatar_rating'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['level_5']) || !$this->validation->isInt($this->request->post['level_5']) || $this->request->post['level_5'] < 0 || $this->request->post['level_5'] > 99999) {
+            $this->error['level_5'] = sprintf($this->data['lang_error_range'], 0, 99999);
+        }
+
+        if (!isset($this->request->post['level_4']) || !$this->validation->isInt($this->request->post['level_4']) || $this->request->post['level_4'] < 0 || $this->request->post['level_4'] > 99999) {
+            $this->error['level_4'] = sprintf($this->data['lang_error_range'], 0, 99999);
+        }
+
+        if (!isset($this->request->post['level_3']) || !$this->validation->isInt($this->request->post['level_3']) || $this->request->post['level_3'] < 0 || $this->request->post['level_3'] > 99999) {
+            $this->error['level_3'] = sprintf($this->data['lang_error_range'], 0, 99999);
+        }
+
+        if (!isset($this->request->post['level_2']) || !$this->validation->isInt($this->request->post['level_2']) || $this->request->post['level_2'] < 0 || $this->request->post['level_2'] > 99999) {
+            $this->error['level_2'] = sprintf($this->data['lang_error_range'], 0, 99999);
+        }
+
+        if (!isset($this->request->post['level_1']) || !$this->validation->isInt($this->request->post['level_1']) || $this->request->post['level_1'] < 0 || $this->request->post['level_1'] > 99999) {
+            $this->error['level_1'] = sprintf($this->data['lang_error_range'], 0, 99999);
+        }
+
+        if (!isset($this->request->post['level_0']) || !$this->validation->isInt($this->request->post['level_0']) || $this->request->post['level_0'] < 0 || $this->request->post['level_0'] > 99999) {
+            $this->error['level_0'] = sprintf($this->data['lang_error_range'], 0, 99999);
+        }
+
+        /* Flag */
+
+        if (!isset($this->request->post['flag_max_per_user']) || !$this->validation->isInt($this->request->post['flag_max_per_user']) || $this->request->post['flag_max_per_user'] < 1 || $this->request->post['flag_max_per_user'] > 1000) {
+            $this->error['flag_max_per_user'] = sprintf($this->data['lang_error_range'], 1, 1000);
+        }
+
+        if (!isset($this->request->post['flag_min_per_comment']) || !$this->validation->isInt($this->request->post['flag_min_per_comment']) || $this->request->post['flag_min_per_comment'] < 1 || $this->request->post['flag_min_per_comment'] > 1000) {
+            $this->error['flag_min_per_comment'] = sprintf($this->data['lang_error_range'], 1, 1000);
+        }
+
+        /* Reply */
+
+        if (!isset($this->request->post['reply_depth']) || !$this->validation->isInt($this->request->post['reply_depth']) || $this->request->post['reply_depth'] < 1 || $this->request->post['reply_depth'] > 5) {
+            $this->error['reply_depth'] = sprintf($this->data['lang_error_range'], 1, 5);
+        }
+
+        /* Online */
+
+        if (!isset($this->request->post['online_refresh_interval']) || !$this->validation->isInt($this->request->post['online_refresh_interval']) || $this->request->post['online_refresh_interval'] < 10 || $this->request->post['online_refresh_interval'] > 999) {
+            $this->error['online_refresh_interval'] = sprintf($this->data['lang_error_range'], 10, 999);
+        }
+
+        /* Page Number */
+
+        if (!isset($this->request->post['page_number_format']) || !in_array($this->request->post['page_number_format'], array('Page X', 'Page X of Y'))) {
+            $this->error['page_number_format'] = $this->data['lang_error_selection'];
+        }
+
+        /* Pagination */
+
+        if (!isset($this->request->post['pagination_type']) || !in_array($this->request->post['pagination_type'], array('multiple', 'button', 'infinite'))) {
+            $this->error['pagination_type'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['pagination_amount']) || !$this->validation->isInt($this->request->post['pagination_amount']) || $this->request->post['pagination_amount'] < 1 || $this->request->post['pagination_amount'] > 100) {
+            $this->error['pagination_amount'] = sprintf($this->data['lang_error_range'], 1, 100);
+        }
+
+        if (!isset($this->request->post['pagination_range']) || !$this->validation->isInt($this->request->post['pagination_range']) || $this->request->post['pagination_range'] < 1 || $this->request->post['pagination_range'] > 10) {
+            $this->error['pagination_range'] = sprintf($this->data['lang_error_range'], 1, 10);
+        }
+
+        /* RSS */
+
+        if (!isset($this->request->post['rss_limit_amount']) || !$this->validation->isInt($this->request->post['rss_limit_amount']) || $this->request->post['rss_limit_amount'] < 1 || $this->request->post['rss_limit_amount'] > 100) {
+            $this->error['rss_limit_amount'] = sprintf($this->data['lang_error_range'], 1, 100);
+        }
+
+        if ($this->error) {
+            $this->data['error'] = $this->data['lang_message_error'];
+
+            return false;
+        } else {
+            $this->data['success'] = $this->data['lang_message_success'];
+
+            return true;
+        }
     }
 }

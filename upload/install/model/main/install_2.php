@@ -965,7 +965,6 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_manage_subscriptions', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_edit_comment', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_edit_spam', `value` = '1'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_layout_comments_online', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_settings_email_editor', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_settings_viewers', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_tool_upgrade', `value` = '1'");

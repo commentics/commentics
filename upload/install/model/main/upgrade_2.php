@@ -633,14 +633,18 @@ class MainUpgrade2Model extends Model
         }
 
         if ($version == '4.0 -> 4.1') {
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'notice_layout_comments_online'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_manage_countries', `value` = '1'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_add_question', `value` = '1'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_edit_question', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'purpose', `value` = 'comment'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'average_rating_guest', `value` = '1'");
 
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "data` WHERE `type` = 'admin_tips'");
-            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'system', `title` = 'purpose', `value` = 'comment'");
 
-            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'average_rating_guest', `value` = '1'");
+            $backend_folder = $this->getBackendFolder();
+            remove_directory(CMTX_DIR_ROOT . $backend_folder . '/controller/layout_comments/');
+            remove_directory(CMTX_DIR_ROOT . $backend_folder . '/controller/layout_form/');
         }
     }
 
