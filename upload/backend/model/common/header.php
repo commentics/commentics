@@ -5,7 +5,7 @@ class CommonHeaderModel extends Model
 {
     public function backendFolderExists()
     {
-        if (file_exists('../backend/') || file_exists('../admin/')) {
+        if (file_exists('../backend/')) {
             return true;
         } else {
             return false;
