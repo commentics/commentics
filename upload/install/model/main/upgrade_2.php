@@ -645,6 +645,12 @@ class MainUpgrade2Model extends Model
             $backend_folder = $this->getBackendFolder();
             remove_directory(CMTX_DIR_ROOT . $backend_folder . '/controller/layout_comments/');
             remove_directory(CMTX_DIR_ROOT . $backend_folder . '/controller/layout_form/');
+            remove_directory(CMTX_DIR_ROOT . $backend_folder . '/model/layout_comments/');
+            remove_directory(CMTX_DIR_ROOT . $backend_folder . '/model/layout_form/');
+            remove_directory(CMTX_DIR_ROOT . $backend_folder . '/view/default/language/english/layout_comments/');
+            remove_directory(CMTX_DIR_ROOT . $backend_folder . '/view/default/language/english/layout_form/');
+            remove_directory(CMTX_DIR_ROOT . $backend_folder . '/view/default/template/layout_comments/');
+            remove_directory(CMTX_DIR_ROOT . $backend_folder . '/view/default/template/layout_form/');
         }
     }
 
