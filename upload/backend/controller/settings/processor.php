@@ -15,6 +15,8 @@ class SettingsProcessorController extends Controller
             }
         }
 
+        /* Name */
+
         if (isset($this->request->post['one_name_enabled'])) {
             $this->data['one_name_enabled'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['one_name_enabled'])) {
@@ -95,6 +97,32 @@ class SettingsProcessorController extends Controller
             $this->data['banned_names_action'] = $this->setting->get('banned_names_action');
         }
 
+        if (isset($this->error['link_in_name_action'])) {
+            $this->data['error_link_in_name_action'] = $this->error['link_in_name_action'];
+        } else {
+            $this->data['error_link_in_name_action'] = '';
+        }
+
+        if (isset($this->error['reserved_names_action'])) {
+            $this->data['error_reserved_names_action'] = $this->error['reserved_names_action'];
+        } else {
+            $this->data['error_reserved_names_action'] = '';
+        }
+
+        if (isset($this->error['dummy_names_action'])) {
+            $this->data['error_dummy_names_action'] = $this->error['dummy_names_action'];
+        } else {
+            $this->data['error_dummy_names_action'] = '';
+        }
+
+        if (isset($this->error['banned_names_action'])) {
+            $this->data['error_banned_names_action'] = $this->error['banned_names_action'];
+        } else {
+            $this->data['error_banned_names_action'] = '';
+        }
+
+        /* Email */
+
         if (isset($this->request->post['reserved_emails_enabled'])) {
             $this->data['reserved_emails_enabled'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['reserved_emails_enabled'])) {
@@ -136,6 +164,26 @@ class SettingsProcessorController extends Controller
         } else {
             $this->data['banned_emails_action'] = $this->setting->get('banned_emails_action');
         }
+
+        if (isset($this->error['reserved_emails_action'])) {
+            $this->data['error_reserved_emails_action'] = $this->error['reserved_emails_action'];
+        } else {
+            $this->data['error_reserved_emails_action'] = '';
+        }
+
+        if (isset($this->error['dummy_emails_action'])) {
+            $this->data['error_dummy_emails_action'] = $this->error['dummy_emails_action'];
+        } else {
+            $this->data['error_dummy_emails_action'] = '';
+        }
+
+        if (isset($this->error['banned_emails_action'])) {
+            $this->data['error_banned_emails_action'] = $this->error['banned_emails_action'];
+        } else {
+            $this->data['error_banned_emails_action'] = '';
+        }
+
+        /* Town */
 
         if (isset($this->request->post['fix_town_enabled'])) {
             $this->data['fix_town_enabled'] = true;
@@ -201,6 +249,32 @@ class SettingsProcessorController extends Controller
             $this->data['banned_towns_action'] = $this->setting->get('banned_towns_action');
         }
 
+        if (isset($this->error['link_in_town_action'])) {
+            $this->data['error_link_in_town_action'] = $this->error['link_in_town_action'];
+        } else {
+            $this->data['error_link_in_town_action'] = '';
+        }
+
+        if (isset($this->error['reserved_towns_action'])) {
+            $this->data['error_reserved_towns_action'] = $this->error['reserved_towns_action'];
+        } else {
+            $this->data['error_reserved_towns_action'] = '';
+        }
+
+        if (isset($this->error['dummy_towns_action'])) {
+            $this->data['error_dummy_towns_action'] = $this->error['dummy_towns_action'];
+        } else {
+            $this->data['error_dummy_towns_action'] = '';
+        }
+
+        if (isset($this->error['banned_towns_action'])) {
+            $this->data['error_banned_towns_action'] = $this->error['banned_towns_action'];
+        } else {
+            $this->data['error_banned_towns_action'] = '';
+        }
+
+        /* Website */
+
         if (isset($this->request->post['approve_websites'])) {
             $this->data['approve_websites'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['approve_websites'])) {
@@ -252,6 +326,32 @@ class SettingsProcessorController extends Controller
         } else {
             $this->data['banned_websites_as_website_enabled'] = $this->setting->get('banned_websites_as_website_enabled');
         }
+
+        if (isset($this->request->post['banned_websites_as_website_action'])) {
+            $this->data['banned_websites_as_website_action'] = $this->request->post['banned_websites_as_website_action'];
+        } else {
+            $this->data['banned_websites_as_website_action'] = $this->setting->get('banned_websites_as_website_action');
+        }
+
+        if (isset($this->error['reserved_websites_action'])) {
+            $this->data['error_reserved_websites_action'] = $this->error['reserved_websites_action'];
+        } else {
+            $this->data['error_reserved_websites_action'] = '';
+        }
+
+        if (isset($this->error['dummy_websites_action'])) {
+            $this->data['error_dummy_websites_action'] = $this->error['dummy_websites_action'];
+        } else {
+            $this->data['error_dummy_websites_action'] = '';
+        }
+
+        if (isset($this->error['banned_websites_as_website_action'])) {
+            $this->data['error_banned_websites_as_website_action'] = $this->error['banned_websites_as_website_action'];
+        } else {
+            $this->data['error_banned_websites_as_website_action'] = '';
+        }
+
+        /* Comment */
 
         if (isset($this->request->post['approve_images'])) {
             $this->data['approve_images'] = true;
@@ -353,18 +453,6 @@ class SettingsProcessorController extends Controller
             $this->data['comment_line_breaks'] = $this->setting->get('comment_line_breaks');
         }
 
-        if (isset($this->request->post['swear_word_masking'])) {
-            $this->data['swear_word_masking'] = $this->request->post['swear_word_masking'];
-        } else {
-            $this->data['swear_word_masking'] = $this->setting->get('swear_word_masking');
-        }
-
-        if (isset($this->request->post['banned_websites_as_website_action'])) {
-            $this->data['banned_websites_as_website_action'] = $this->request->post['banned_websites_as_website_action'];
-        } else {
-            $this->data['banned_websites_as_website_action'] = $this->setting->get('banned_websites_as_website_action');
-        }
-
         if (isset($this->request->post['detect_link_in_comment_enabled'])) {
             $this->data['detect_link_in_comment_enabled'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['detect_link_in_comment_enabled'])) {
@@ -378,6 +466,204 @@ class SettingsProcessorController extends Controller
         } else {
             $this->data['link_in_comment_action'] = $this->setting->get('link_in_comment_action');
         }
+
+        if (isset($this->request->post['banned_websites_as_comment_enabled'])) {
+            $this->data['banned_websites_as_comment_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['banned_websites_as_comment_enabled'])) {
+            $this->data['banned_websites_as_comment_enabled'] = false;
+        } else {
+            $this->data['banned_websites_as_comment_enabled'] = $this->setting->get('banned_websites_as_comment_enabled');
+        }
+
+        if (isset($this->request->post['banned_websites_as_comment_action'])) {
+            $this->data['banned_websites_as_comment_action'] = $this->request->post['banned_websites_as_comment_action'];
+        } else {
+            $this->data['banned_websites_as_comment_action'] = $this->setting->get('banned_websites_as_comment_action');
+        }
+
+        if (isset($this->error['comment_minimum_characters'])) {
+            $this->data['error_comment_minimum_characters'] = $this->error['comment_minimum_characters'];
+        } else {
+            $this->data['error_comment_minimum_characters'] = '';
+        }
+
+        if (isset($this->error['comment_minimum_words'])) {
+            $this->data['error_comment_minimum_words'] = $this->error['comment_minimum_words'];
+        } else {
+            $this->data['error_comment_minimum_words'] = '';
+        }
+
+        if (isset($this->error['comment_maximum_characters'])) {
+            $this->data['error_comment_maximum_characters'] = $this->error['comment_maximum_characters'];
+        } else {
+            $this->data['error_comment_maximum_characters'] = '';
+        }
+
+        if (isset($this->error['comment_maximum_lines'])) {
+            $this->data['error_comment_maximum_lines'] = $this->error['comment_maximum_lines'];
+        } else {
+            $this->data['error_comment_maximum_lines'] = '';
+        }
+
+        if (isset($this->error['comment_maximum_smilies'])) {
+            $this->data['error_comment_maximum_smilies'] = $this->error['comment_maximum_smilies'];
+        } else {
+            $this->data['error_comment_maximum_smilies'] = '';
+        }
+
+        if (isset($this->error['comment_long_word'])) {
+            $this->data['error_comment_long_word'] = $this->error['comment_long_word'];
+        } else {
+            $this->data['error_comment_long_word'] = '';
+        }
+
+        if (isset($this->error['link_in_comment_action'])) {
+            $this->data['error_link_in_comment_action'] = $this->error['link_in_comment_action'];
+        } else {
+            $this->data['error_link_in_comment_action'] = '';
+        }
+
+        if (isset($this->error['banned_websites_as_comment_action'])) {
+            $this->data['error_banned_websites_as_comment_action'] = $this->error['banned_websites_as_comment_action'];
+        } else {
+            $this->data['error_banned_websites_as_comment_action'] = '';
+        }
+
+        /* Headline */
+
+        if (isset($this->request->post['headline_minimum_characters'])) {
+            $this->data['headline_minimum_characters'] = $this->request->post['headline_minimum_characters'];
+        } else {
+            $this->data['headline_minimum_characters'] = $this->setting->get('headline_minimum_characters');
+        }
+
+        if (isset($this->request->post['headline_minimum_words'])) {
+            $this->data['headline_minimum_words'] = $this->request->post['headline_minimum_words'];
+        } else {
+            $this->data['headline_minimum_words'] = $this->setting->get('headline_minimum_words');
+        }
+
+        if (isset($this->request->post['headline_maximum_characters'])) {
+            $this->data['headline_maximum_characters'] = $this->request->post['headline_maximum_characters'];
+        } else {
+            $this->data['headline_maximum_characters'] = $this->setting->get('headline_maximum_characters');
+        }
+
+        if (isset($this->request->post['detect_link_in_headline_enabled'])) {
+            $this->data['detect_link_in_headline_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['detect_link_in_headline_enabled'])) {
+            $this->data['detect_link_in_headline_enabled'] = false;
+        } else {
+            $this->data['detect_link_in_headline_enabled'] = $this->setting->get('detect_link_in_headline_enabled');
+        }
+
+        if (isset($this->request->post['link_in_headline_action'])) {
+            $this->data['link_in_headline_action'] = $this->request->post['link_in_headline_action'];
+        } else {
+            $this->data['link_in_headline_action'] = $this->setting->get('link_in_headline_action');
+        }
+
+        if (isset($this->request->post['banned_websites_as_headline_enabled'])) {
+            $this->data['banned_websites_as_headline_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['banned_websites_as_headline_enabled'])) {
+            $this->data['banned_websites_as_headline_enabled'] = false;
+        } else {
+            $this->data['banned_websites_as_headline_enabled'] = $this->setting->get('banned_websites_as_headline_enabled');
+        }
+
+        if (isset($this->request->post['banned_websites_as_headline_action'])) {
+            $this->data['banned_websites_as_headline_action'] = $this->request->post['banned_websites_as_headline_action'];
+        } else {
+            $this->data['banned_websites_as_headline_action'] = $this->setting->get('banned_websites_as_headline_action');
+        }
+
+        if (isset($this->error['headline_minimum_characters'])) {
+            $this->data['error_headline_minimum_characters'] = $this->error['headline_minimum_characters'];
+        } else {
+            $this->data['error_headline_minimum_characters'] = '';
+        }
+
+        if (isset($this->error['headline_minimum_words'])) {
+            $this->data['error_headline_minimum_words'] = $this->error['headline_minimum_words'];
+        } else {
+            $this->data['error_headline_minimum_words'] = '';
+        }
+
+        if (isset($this->error['headline_maximum_characters'])) {
+            $this->data['error_headline_maximum_characters'] = $this->error['headline_maximum_characters'];
+        } else {
+            $this->data['error_headline_maximum_characters'] = '';
+        }
+
+        if (isset($this->error['link_in_headline_action'])) {
+            $this->data['error_link_in_headline_action'] = $this->error['link_in_headline_action'];
+        } else {
+            $this->data['error_link_in_headline_action'] = '';
+        }
+
+        if (isset($this->error['banned_websites_as_headline_action'])) {
+            $this->data['error_banned_websites_as_headline_action'] = $this->error['banned_websites_as_headline_action'];
+        } else {
+            $this->data['error_banned_websites_as_headline_action'] = '';
+        }
+
+        /* Notify */
+
+        if (isset($this->request->post['notify_type'])) {
+            $this->data['notify_type'] = $this->request->post['notify_type'];
+        } else {
+            $this->data['notify_type'] = $this->setting->get('notify_type');
+        }
+
+        if (isset($this->request->post['notify_format'])) {
+            $this->data['notify_format'] = $this->request->post['notify_format'];
+        } else {
+            $this->data['notify_format'] = $this->setting->get('notify_format');
+        }
+
+        if (isset($this->request->post['notify_approve'])) {
+            $this->data['notify_approve'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['notify_approve'])) {
+            $this->data['notify_approve'] = false;
+        } else {
+            $this->data['notify_approve'] = $this->setting->get('notify_approve');
+        }
+
+        if (isset($this->error['notify_type'])) {
+            $this->data['error_notify_type'] = $this->error['notify_type'];
+        } else {
+            $this->data['error_notify_type'] = '';
+        }
+
+        if (isset($this->error['notify_format'])) {
+            $this->data['error_notify_format'] = $this->error['notify_format'];
+        } else {
+            $this->data['error_notify_format'] = '';
+        }
+
+        /* Cookie */
+
+        if (isset($this->request->post['form_cookie'])) {
+            $this->data['form_cookie'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['form_cookie'])) {
+            $this->data['form_cookie'] = false;
+        } else {
+            $this->data['form_cookie'] = $this->setting->get('form_cookie');
+        }
+
+        if (isset($this->request->post['form_cookie_days'])) {
+            $this->data['form_cookie_days'] = $this->request->post['form_cookie_days'];
+        } else {
+            $this->data['form_cookie_days'] = $this->setting->get('form_cookie_days');
+        }
+
+        if (isset($this->error['form_cookie_days'])) {
+            $this->data['error_form_cookie_days'] = $this->error['form_cookie_days'];
+        } else {
+            $this->data['error_form_cookie_days'] = '';
+        }
+
+        /* Other */
 
         if (isset($this->request->post['check_capitals_enabled'])) {
             $this->data['check_capitals_enabled'] = true;
@@ -461,184 +747,10 @@ class SettingsProcessorController extends Controller
             $this->data['strong_swear_words_action'] = $this->setting->get('strong_swear_words_action');
         }
 
-        if (isset($this->request->post['banned_websites_as_comment_enabled'])) {
-            $this->data['banned_websites_as_comment_enabled'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['banned_websites_as_comment_enabled'])) {
-            $this->data['banned_websites_as_comment_enabled'] = false;
+        if (isset($this->request->post['swear_word_masking'])) {
+            $this->data['swear_word_masking'] = $this->request->post['swear_word_masking'];
         } else {
-            $this->data['banned_websites_as_comment_enabled'] = $this->setting->get('banned_websites_as_comment_enabled');
-        }
-
-        if (isset($this->request->post['banned_websites_as_comment_action'])) {
-            $this->data['banned_websites_as_comment_action'] = $this->request->post['banned_websites_as_comment_action'];
-        } else {
-            $this->data['banned_websites_as_comment_action'] = $this->setting->get('banned_websites_as_comment_action');
-        }
-
-        if (isset($this->request->post['notify_type'])) {
-            $this->data['notify_type'] = $this->request->post['notify_type'];
-        } else {
-            $this->data['notify_type'] = $this->setting->get('notify_type');
-        }
-
-        if (isset($this->request->post['notify_format'])) {
-            $this->data['notify_format'] = $this->request->post['notify_format'];
-        } else {
-            $this->data['notify_format'] = $this->setting->get('notify_format');
-        }
-
-        if (isset($this->request->post['notify_approve'])) {
-            $this->data['notify_approve'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['notify_approve'])) {
-            $this->data['notify_approve'] = false;
-        } else {
-            $this->data['notify_approve'] = $this->setting->get('notify_approve');
-        }
-
-        if (isset($this->request->post['form_cookie'])) {
-            $this->data['form_cookie'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['form_cookie'])) {
-            $this->data['form_cookie'] = false;
-        } else {
-            $this->data['form_cookie'] = $this->setting->get('form_cookie');
-        }
-
-        if (isset($this->request->post['form_cookie_days'])) {
-            $this->data['form_cookie_days'] = $this->request->post['form_cookie_days'];
-        } else {
-            $this->data['form_cookie_days'] = $this->setting->get('form_cookie_days');
-        }
-
-        if (isset($this->error['link_in_name_action'])) {
-            $this->data['error_link_in_name_action'] = $this->error['link_in_name_action'];
-        } else {
-            $this->data['error_link_in_name_action'] = '';
-        }
-
-        if (isset($this->error['reserved_names_action'])) {
-            $this->data['error_reserved_names_action'] = $this->error['reserved_names_action'];
-        } else {
-            $this->data['error_reserved_names_action'] = '';
-        }
-
-        if (isset($this->error['dummy_names_action'])) {
-            $this->data['error_dummy_names_action'] = $this->error['dummy_names_action'];
-        } else {
-            $this->data['error_dummy_names_action'] = '';
-        }
-
-        if (isset($this->error['banned_names_action'])) {
-            $this->data['error_banned_names_action'] = $this->error['banned_names_action'];
-        } else {
-            $this->data['error_banned_names_action'] = '';
-        }
-
-        if (isset($this->error['reserved_emails_action'])) {
-            $this->data['error_reserved_emails_action'] = $this->error['reserved_emails_action'];
-        } else {
-            $this->data['error_reserved_emails_action'] = '';
-        }
-
-        if (isset($this->error['dummy_emails_action'])) {
-            $this->data['error_dummy_emails_action'] = $this->error['dummy_emails_action'];
-        } else {
-            $this->data['error_dummy_emails_action'] = '';
-        }
-
-        if (isset($this->error['banned_emails_action'])) {
-            $this->data['error_banned_emails_action'] = $this->error['banned_emails_action'];
-        } else {
-            $this->data['error_banned_emails_action'] = '';
-        }
-
-        if (isset($this->error['link_in_town_action'])) {
-            $this->data['error_link_in_town_action'] = $this->error['link_in_town_action'];
-        } else {
-            $this->data['error_link_in_town_action'] = '';
-        }
-
-        if (isset($this->error['reserved_towns_action'])) {
-            $this->data['error_reserved_towns_action'] = $this->error['reserved_towns_action'];
-        } else {
-            $this->data['error_reserved_towns_action'] = '';
-        }
-
-        if (isset($this->error['dummy_towns_action'])) {
-            $this->data['error_dummy_towns_action'] = $this->error['dummy_towns_action'];
-        } else {
-            $this->data['error_dummy_towns_action'] = '';
-        }
-
-        if (isset($this->error['banned_towns_action'])) {
-            $this->data['error_banned_towns_action'] = $this->error['banned_towns_action'];
-        } else {
-            $this->data['error_banned_towns_action'] = '';
-        }
-
-        if (isset($this->error['reserved_websites_action'])) {
-            $this->data['error_reserved_websites_action'] = $this->error['reserved_websites_action'];
-        } else {
-            $this->data['error_reserved_websites_action'] = '';
-        }
-
-        if (isset($this->error['dummy_websites_action'])) {
-            $this->data['error_dummy_websites_action'] = $this->error['dummy_websites_action'];
-        } else {
-            $this->data['error_dummy_websites_action'] = '';
-        }
-
-        if (isset($this->error['banned_websites_as_website_action'])) {
-            $this->data['error_banned_websites_as_website_action'] = $this->error['banned_websites_as_website_action'];
-        } else {
-            $this->data['error_banned_websites_as_website_action'] = '';
-        }
-
-        if (isset($this->error['comment_minimum_characters'])) {
-            $this->data['error_comment_minimum_characters'] = $this->error['comment_minimum_characters'];
-        } else {
-            $this->data['error_comment_minimum_characters'] = '';
-        }
-
-        if (isset($this->error['comment_minimum_words'])) {
-            $this->data['error_comment_minimum_words'] = $this->error['comment_minimum_words'];
-        } else {
-            $this->data['error_comment_minimum_words'] = '';
-        }
-
-        if (isset($this->error['comment_maximum_characters'])) {
-            $this->data['error_comment_maximum_characters'] = $this->error['comment_maximum_characters'];
-        } else {
-            $this->data['error_comment_maximum_characters'] = '';
-        }
-
-        if (isset($this->error['comment_maximum_lines'])) {
-            $this->data['error_comment_maximum_lines'] = $this->error['comment_maximum_lines'];
-        } else {
-            $this->data['error_comment_maximum_lines'] = '';
-        }
-
-        if (isset($this->error['comment_maximum_smilies'])) {
-            $this->data['error_comment_maximum_smilies'] = $this->error['comment_maximum_smilies'];
-        } else {
-            $this->data['error_comment_maximum_smilies'] = '';
-        }
-
-        if (isset($this->error['comment_long_word'])) {
-            $this->data['error_comment_long_word'] = $this->error['comment_long_word'];
-        } else {
-            $this->data['error_comment_long_word'] = '';
-        }
-
-        if (isset($this->error['swear_word_masking'])) {
-            $this->data['error_swear_word_masking'] = $this->error['swear_word_masking'];
-        } else {
-            $this->data['error_swear_word_masking'] = '';
-        }
-
-        if (isset($this->error['link_in_comment_action'])) {
-            $this->data['error_link_in_comment_action'] = $this->error['link_in_comment_action'];
-        } else {
-            $this->data['error_link_in_comment_action'] = '';
+            $this->data['swear_word_masking'] = $this->setting->get('swear_word_masking');
         }
 
         if (isset($this->error['check_capitals_percentage'])) {
@@ -683,28 +795,10 @@ class SettingsProcessorController extends Controller
             $this->data['error_strong_swear_words_action'] = '';
         }
 
-        if (isset($this->error['banned_websites_as_comment_action'])) {
-            $this->data['error_banned_websites_as_comment_action'] = $this->error['banned_websites_as_comment_action'];
+        if (isset($this->error['swear_word_masking'])) {
+            $this->data['error_swear_word_masking'] = $this->error['swear_word_masking'];
         } else {
-            $this->data['error_banned_websites_as_comment_action'] = '';
-        }
-
-        if (isset($this->error['notify_type'])) {
-            $this->data['error_notify_type'] = $this->error['notify_type'];
-        } else {
-            $this->data['error_notify_type'] = '';
-        }
-
-        if (isset($this->error['notify_format'])) {
-            $this->data['error_notify_format'] = $this->error['notify_format'];
-        } else {
-            $this->data['error_notify_format'] = '';
-        }
-
-        if (isset($this->error['form_cookie_days'])) {
-            $this->data['error_form_cookie_days'] = $this->error['form_cookie_days'];
-        } else {
-            $this->data['error_form_cookie_days'] = '';
+            $this->data['error_swear_word_masking'] = '';
         }
 
         $this->data['link_detect_links'] = $this->url->link('data/list', '&type=detect_links');
@@ -756,6 +850,8 @@ class SettingsProcessorController extends Controller
             return false;
         }
 
+        /* Name */
+
         if (!isset($this->request->post['link_in_name_action']) || !in_array($this->request->post['link_in_name_action'], array('error', 'approve', 'ban'))) {
             $this->error['link_in_name_action'] = $this->data['lang_error_selection'];
         }
@@ -772,6 +868,8 @@ class SettingsProcessorController extends Controller
             $this->error['banned_names_action'] = $this->data['lang_error_selection'];
         }
 
+        /* Email */
+
         if (!isset($this->request->post['reserved_emails_action']) || !in_array($this->request->post['reserved_emails_action'], array('error', 'approve', 'ban'))) {
             $this->error['reserved_emails_action'] = $this->data['lang_error_selection'];
         }
@@ -783,6 +881,8 @@ class SettingsProcessorController extends Controller
         if (!isset($this->request->post['banned_emails_action']) || !in_array($this->request->post['banned_emails_action'], array('error', 'approve', 'ban'))) {
             $this->error['banned_emails_action'] = $this->data['lang_error_selection'];
         }
+
+        /* Town */
 
         if (!isset($this->request->post['reserved_towns_action']) || !in_array($this->request->post['reserved_towns_action'], array('error', 'approve', 'ban'))) {
             $this->error['reserved_towns_action'] = $this->data['lang_error_selection'];
@@ -796,6 +896,8 @@ class SettingsProcessorController extends Controller
             $this->error['banned_towns_action'] = $this->data['lang_error_selection'];
         }
 
+        /* Website */
+
         if (!isset($this->request->post['reserved_websites_action']) || !in_array($this->request->post['reserved_websites_action'], array('error', 'approve', 'ban'))) {
             $this->error['reserved_websites_action'] = $this->data['lang_error_selection'];
         }
@@ -807,6 +909,8 @@ class SettingsProcessorController extends Controller
         if (!isset($this->request->post['banned_websites_as_website_action']) || !in_array($this->request->post['banned_websites_as_website_action'], array('error', 'approve', 'ban'))) {
             $this->error['banned_websites_as_website_action'] = $this->data['lang_error_selection'];
         }
+
+        /* Comment */
 
         if (!isset($this->request->post['comment_minimum_characters']) || !$this->validation->isInt($this->request->post['comment_minimum_characters']) || $this->request->post['comment_minimum_characters'] < 1 || $this->request->post['comment_minimum_characters'] > 999) {
             $this->error['comment_minimum_characters'] = sprintf($this->data['lang_error_range'], 1, 999);
@@ -832,13 +936,53 @@ class SettingsProcessorController extends Controller
             $this->error['comment_long_word'] = sprintf($this->data['lang_error_range'], 1, 999);
         }
 
-        if (!isset($this->request->post['swear_word_masking']) || $this->validation->length($this->request->post['swear_word_masking']) < 1 || $this->validation->length($this->request->post['swear_word_masking']) > 10) {
-            $this->error['swear_word_masking'] = sprintf($this->data['lang_error_length'], 1, 10);
-        }
-
         if (!isset($this->request->post['link_in_comment_action']) || !in_array($this->request->post['link_in_comment_action'], array('error', 'approve', 'ban'))) {
             $this->error['link_in_comment_action'] = $this->data['lang_error_selection'];
         }
+
+        if (!isset($this->request->post['banned_websites_as_comment_action']) || !in_array($this->request->post['banned_websites_as_comment_action'], array('error', 'approve', 'ban'))) {
+            $this->error['banned_websites_as_comment_action'] = $this->data['lang_error_selection'];
+        }
+
+        /* Headline */
+
+        if (!isset($this->request->post['headline_minimum_characters']) || !$this->validation->isInt($this->request->post['headline_minimum_characters']) || $this->request->post['headline_minimum_characters'] < 1 || $this->request->post['headline_minimum_characters'] > 250) {
+            $this->error['headline_minimum_characters'] = sprintf($this->data['lang_error_range'], 1, 250);
+        }
+
+        if (!isset($this->request->post['headline_minimum_words']) || !$this->validation->isInt($this->request->post['headline_minimum_words']) || $this->request->post['headline_minimum_words'] < 1 || $this->request->post['headline_minimum_words'] > 250) {
+            $this->error['headline_minimum_words'] = sprintf($this->data['lang_error_range'], 1, 250);
+        }
+
+        if (!isset($this->request->post['headline_maximum_characters']) || !$this->validation->isInt($this->request->post['headline_maximum_characters']) || $this->request->post['headline_maximum_characters'] < 1 || $this->request->post['headline_maximum_characters'] > 250) {
+            $this->error['headline_maximum_characters'] = sprintf($this->data['lang_error_range'], 1, 250);
+        }
+
+        if (!isset($this->request->post['link_in_headline_action']) || !in_array($this->request->post['link_in_headline_action'], array('error', 'approve', 'ban'))) {
+            $this->error['link_in_headline_action'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['banned_websites_as_headline_action']) || !in_array($this->request->post['banned_websites_as_headline_action'], array('error', 'approve', 'ban'))) {
+            $this->error['banned_websites_as_headline_action'] = $this->data['lang_error_selection'];
+        }
+
+        /* Notify */
+
+        if (!isset($this->request->post['notify_type']) || !in_array($this->request->post['notify_type'], array('all', 'custom'))) {
+            $this->error['notify_type'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['notify_format']) || !in_array($this->request->post['notify_format'], array('html', 'text'))) {
+            $this->error['notify_format'] = $this->data['lang_error_selection'];
+        }
+
+        /* Cookie */
+
+        if (!isset($this->request->post['form_cookie_days']) || !$this->validation->isInt($this->request->post['form_cookie_days']) || $this->request->post['form_cookie_days'] < 1 || $this->request->post['form_cookie_days'] > 1000) {
+            $this->error['form_cookie_days'] = sprintf($this->data['lang_error_range'], 1, 1000);
+        }
+
+        /* Other */
 
         if (!isset($this->request->post['check_capitals_percentage']) || !$this->validation->isInt($this->request->post['check_capitals_percentage']) || $this->request->post['check_capitals_percentage'] < 1 || $this->request->post['check_capitals_percentage'] > 100) {
             $this->error['check_capitals_percentage'] = sprintf($this->data['lang_error_range'], 1, 100);
@@ -868,20 +1012,8 @@ class SettingsProcessorController extends Controller
             $this->error['strong_swear_words_action'] = $this->data['lang_error_selection'];
         }
 
-        if (!isset($this->request->post['banned_websites_as_comment_action']) || !in_array($this->request->post['banned_websites_as_comment_action'], array('error', 'approve', 'ban'))) {
-            $this->error['banned_websites_as_comment_action'] = $this->data['lang_error_selection'];
-        }
-
-        if (!isset($this->request->post['notify_type']) || !in_array($this->request->post['notify_type'], array('all', 'custom'))) {
-            $this->error['notify_type'] = $this->data['lang_error_selection'];
-        }
-
-        if (!isset($this->request->post['notify_format']) || !in_array($this->request->post['notify_format'], array('html', 'text'))) {
-            $this->error['notify_format'] = $this->data['lang_error_selection'];
-        }
-
-        if (!isset($this->request->post['form_cookie_days']) || !$this->validation->isInt($this->request->post['form_cookie_days']) || $this->request->post['form_cookie_days'] < 1 || $this->request->post['form_cookie_days'] > 1000) {
-            $this->error['form_cookie_days'] = sprintf($this->data['lang_error_range'], 1, 1000);
+        if (!isset($this->request->post['swear_word_masking']) || $this->validation->length($this->request->post['swear_word_masking']) < 1 || $this->validation->length($this->request->post['swear_word_masking']) > 10) {
+            $this->error['swear_word_masking'] = sprintf($this->data['lang_error_length'], 1, 10);
         }
 
         if ($this->error) {

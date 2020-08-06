@@ -266,9 +266,40 @@
                     <input type="checkbox" name="enabled_counter" value="1" <?php if ($enabled_counter) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_counter; ?>', this, event, '')">[?]</a>
                 </div>
-            </div>
 
-            <div>
+                <h2><?php echo $lang_subheading_headline; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="enabled_headline" value="1" <?php if ($enabled_headline) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_headline; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_required; ?></label>
+                    <input type="checkbox" name="required_headline" value="1" <?php if ($required_headline) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_required; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_default; ?></label>
+                    <input type="text" name="default_headline" class="medium" value="<?php echo $default_headline; ?>" maxlength="250">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_default; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_default_headline) { ?>
+                        <span class="error"><?php echo $error_default_headline; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_maximum; ?></label>
+                    <input type="text" required name="headline_maximum_characters" class="small" value="<?php echo $headline_maximum_characters; ?>" maxlength="3">
+                    <span class="note"><?php echo $lang_note_characters; ?></span>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_maximum; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_headline_maximum_characters) { ?>
+                        <span class="error"><?php echo $error_headline_maximum_characters; ?></span>
+                    <?php } ?>
+                </div>
+
                 <h2><?php echo $lang_subheading_upload; ?></h2>
 
                 <div class="fieldset">
@@ -715,9 +746,7 @@
                     <label><?php echo $lang_entry_list; ?></label>
                     <a href="<?php echo $link_questions; ?>"><?php echo $lang_entry_edit; ?></a>
                 </div>
-            </div>
 
-            <div>
                 <h2><?php echo $lang_subheading_captcha; ?></h2>
 
                 <div class="fieldset">

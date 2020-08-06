@@ -642,6 +642,22 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "data` WHERE `type` = 'admin_tips'");
 
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `headline` varchar(250) NOT NULL default ''");
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'enabled_headline', `value` = '0'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'default_headline', `value` = ''");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'required_headline', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_headline', `value` = '0'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'headline_minimum_characters', `value` = '2'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'headline_minimum_words', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'headline_maximum_characters', `value` = '50'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'detect_link_in_headline_enabled', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'link_in_headline_action', `value` = 'approve'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'banned_websites_as_headline_enabled', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'banned_websites_as_headline_action', `value` = 'approve'");
+
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `title` = 'gravatar_audience' WHERE `title` = 'gravatar_rating'");
+
             $backend_folder = $this->getBackendFolder();
             remove_directory(CMTX_DIR_ROOT . $backend_folder . '/controller/layout_comments/');
             remove_directory(CMTX_DIR_ROOT . $backend_folder . '/controller/layout_form/');

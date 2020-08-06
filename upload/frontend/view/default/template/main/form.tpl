@@ -181,6 +181,16 @@
                 </div>
             @endif
 
+            @if enabled_headline
+                <div class="cmtx_row cmtx_headline_row cmtx_clear {{ cmtx_wait_for_comment }}">
+                    <div class="cmtx_col_12">
+                        <div class="cmtx_container cmtx_headline_container">
+                            <input type="text" name="cmtx_headline" id="cmtx_headline" class="cmtx_field cmtx_text_field cmtx_headline_field {{ headline_symbol }}" value="{{ headline }}" placeholder="{{ lang_placeholder_headline }}" title="{{ lang_title_headline }}" maxlength="{{ headline_maximum_characters }}">
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             @if enabled_upload
                 <div class="cmtx_row cmtx_upload_row cmtx_clear {{ cmtx_wait_for_comment }}">
                     <div class="cmtx_col_12">
@@ -196,6 +206,24 @@
                 <div class="cmtx_row cmtx_image_row cmtx_clear" style="display:none">
                     <div class="cmtx_col_12">
                         <div class="cmtx_container cmtx_image_container"></div>
+                    </div>
+                </div>
+            @endif
+
+            @if enabled_rating
+                <div class="cmtx_row cmtx_rating_row cmtx_clear {{ cmtx_wait_for_comment }}">
+                    <div class="cmtx_col_12">
+                        <div class="cmtx_container cmtx_rating_container">
+                            <div id="cmtx_rating" class="cmtx_rating {{ rating_symbol }}">
+                                <div class="cmtx_rating_block">
+                                    <input type="radio" id="cmtx_star_5" name="cmtx_rating" value="5" {{ rating_5_checked }}><label for="cmtx_star_5" title="{{ lang_title_rating_5 }}"></label>
+                                    <input type="radio" id="cmtx_star_4" name="cmtx_rating" value="4" {{ rating_4_checked }}><label for="cmtx_star_4" title="{{ lang_title_rating_4 }}"></label>
+                                    <input type="radio" id="cmtx_star_3" name="cmtx_rating" value="3" {{ rating_3_checked }}><label for="cmtx_star_3" title="{{ lang_title_rating_3 }}"></label>
+                                    <input type="radio" id="cmtx_star_2" name="cmtx_rating" value="2" {{ rating_2_checked }}><label for="cmtx_star_2" title="{{ lang_title_rating_2 }}"></label>
+                                    <input type="radio" id="cmtx_star_1" name="cmtx_rating" value="1" {{ rating_1_checked }}><label for="cmtx_star_1" title="{{ lang_title_rating_1 }}"></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endif
@@ -217,24 +245,6 @@
                     </div>
                 @endif
             </div>
-
-            @if enabled_rating
-                <div class="cmtx_row cmtx_rating_row cmtx_clear {{ cmtx_wait_for_user }}">
-                    <div class="cmtx_col_12">
-                        <div class="cmtx_container cmtx_rating_container">
-                            <div id="cmtx_rating" class="cmtx_rating {{ rating_symbol }}">
-                                <div class="cmtx_rating_block">
-                                    <input type="radio" id="cmtx_star_5" name="cmtx_rating" value="5" {{ rating_5_checked }}><label for="cmtx_star_5" title="{{ lang_title_rating_5 }}"></label>
-                                    <input type="radio" id="cmtx_star_4" name="cmtx_rating" value="4" {{ rating_4_checked }}><label for="cmtx_star_4" title="{{ lang_title_rating_4 }}"></label>
-                                    <input type="radio" id="cmtx_star_3" name="cmtx_rating" value="3" {{ rating_3_checked }}><label for="cmtx_star_3" title="{{ lang_title_rating_3 }}"></label>
-                                    <input type="radio" id="cmtx_star_2" name="cmtx_rating" value="2" {{ rating_2_checked }}><label for="cmtx_star_2" title="{{ lang_title_rating_2 }}"></label>
-                                    <input type="radio" id="cmtx_star_1" name="cmtx_rating" value="1" {{ rating_1_checked }}><label for="cmtx_star_1" title="{{ lang_title_rating_1 }}"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
 
             @if enabled_website
                 <div class="cmtx_row cmtx_website_row cmtx_clear {{ cmtx_wait_for_user }}">

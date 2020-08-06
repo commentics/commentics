@@ -4067,11 +4067,11 @@ img.loading {
           justify-content: space-between;
 }
 
-.settings_layout_comments_page .elements > div {
-  padding-right: 30px;
+.settings_layout_comments_page .elements h2 {
+  margin-top: 25px;
 }
 
-.settings_layout_comments_page .elements h2 {
+.settings_layout_comments_page .elements h2:first-of-type {
   margin-top: 10px;
 }
 
@@ -4132,6 +4132,10 @@ img.loading {
 }
 
 .settings_layout_form_page .elements h2 {
+  margin-top: 25px;
+}
+
+.settings_layout_form_page .elements h2:first-of-type {
   margin-top: 10px;
 }
 
@@ -4429,7 +4433,7 @@ img.loading {
   }
   .controls input[type='text'], .controls input[type='password'], .controls input[type='email'] {
     padding: 5px;
-    width: 100%;
+    width: 100% !important;
   }
   .controls select {
     padding: 5px;
@@ -4979,12 +4983,6 @@ table.table {
             justify-content: space-between;
   }
   .extension_modules_page .table th:last-of-type, .extension_modules_page .table td:last-of-type:not(.no_results) {
-    text-align: left;
-  }
-  .settings_layout_comments_page .table th:last-of-type, .settings_layout_comments_page .table td:last-of-type:not(.no_results) {
-    text-align: left;
-  }
-  .settings_layout_form_page .table th:last-of-type, .settings_layout_form_page .table td:last-of-type:not(.no_results) {
     text-align: left;
   }
   .tool_database_backup_page .table th:last-of-type, .tool_database_backup_page .table td:last-of-type:not(.no_results) {

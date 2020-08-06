@@ -47,7 +47,7 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['gravatar_size'] . "' WHERE `title` = 'gravatar_size'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['gravatar_rating']) . "' WHERE `title` = 'gravatar_rating'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['gravatar_audience']) . "' WHERE `title` = 'gravatar_audience'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_level']) ? 1 : 0) . "' WHERE `title` = 'show_level'");
 
@@ -90,6 +90,10 @@ class SettingsLayoutCommentsModel extends Model
         /* Country */
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_country']) ? 1 : 0) . "' WHERE `title` = 'show_country'");
+
+        /* Headline */
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_headline']) ? 1 : 0) . "' WHERE `title` = 'show_headline'");
 
         /* Rating */
 
@@ -167,12 +171,6 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['online_refresh_interval'] . "' WHERE `title` = 'online_refresh_interval'");
 
-        /* Page Number */
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_page_number']) ? 1 : 0) . "' WHERE `title` = 'show_page_number'");
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['page_number_format']) . "' WHERE `title` = 'page_number_format'");
-
         /* Pagination */
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_pagination']) ? 1 : 0) . "' WHERE `title` = 'show_pagination'");
@@ -182,6 +180,12 @@ class SettingsLayoutCommentsModel extends Model
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['pagination_amount'] . "' WHERE `title` = 'pagination_amount'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['pagination_range'] . "' WHERE `title` = 'pagination_range'");
+
+        /* Page Number */
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_page_number']) ? 1 : 0) . "' WHERE `title` = 'show_page_number'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['page_number_format']) . "' WHERE `title` = 'page_number_format'");
 
         /* RSS */
 

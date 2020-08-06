@@ -253,16 +253,16 @@
                 </div>
 
                 <div class="fieldset divide_after">
-                    <label><?php echo $lang_entry_rating; ?></label>
-                    <select name="gravatar_rating">
-                        <option value="g" <?php if ($gravatar_default == 'g') { echo 'selected'; } ?>>G</option>
-                        <option value="pg" <?php if ($gravatar_default == 'pg') { echo 'selected'; } ?>>PG</option>
-                        <option value="r" <?php if ($gravatar_default == 'r') { echo 'selected'; } ?>>R</option>
-                        <option value="x" <?php if ($gravatar_default == 'x') { echo 'selected'; } ?>>X</option>
+                    <label><?php echo $lang_entry_audience; ?></label>
+                    <select name="gravatar_audience">
+                        <option value="g" <?php if ($gravatar_audience == 'g') { echo 'selected'; } ?>>G</option>
+                        <option value="pg" <?php if ($gravatar_audience == 'pg') { echo 'selected'; } ?>>PG</option>
+                        <option value="r" <?php if ($gravatar_audience == 'r') { echo 'selected'; } ?>>R</option>
+                        <option value="x" <?php if ($gravatar_audience == 'x') { echo 'selected'; } ?>>X</option>
                     </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_rating; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_gravatar_rating) { ?>
-                        <span class="error"><?php echo $error_gravatar_rating; ?></span>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_audience; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_gravatar_audience) { ?>
+                        <span class="error"><?php echo $error_gravatar_audience; ?></span>
                     <?php } ?>
                 </div>
 
@@ -400,6 +400,14 @@
             </div>
 
             <div>
+                <h2><?php echo $lang_subheading_headline; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_headline" value="1" <?php if ($show_headline) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_headline; ?>', this, event, '')">[?]</a>
+                </div>
+
                 <h2><?php echo $lang_subheading_rating; ?></h2>
 
                 <div class="fieldset">
@@ -594,6 +602,7 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_enabled; ?></label>
                     <input type="checkbox" name="show_online" value="1" <?php if ($show_online) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_online; ?>', this, event, '')">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -609,28 +618,6 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_interval; ?>', this, event, '')">[?]</a>
                     <?php if ($error_online_refresh_interval) { ?>
                         <span class="error"><?php echo $error_online_refresh_interval; ?></span>
-                    <?php } ?>
-                </div>
-            </div>
-
-            <div>
-                <h2><?php echo $lang_subheading_page_number; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_page_number" value="1" <?php if ($show_page_number) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_page_number; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_format; ?></label>
-                    <select name="page_number_format">
-                        <option value="Page X" <?php if ($page_number_format == 'Page X') { echo 'selected'; } ?>><?php echo $lang_select_page_x; ?></option>
-                        <option value="Page X of Y" <?php if ($page_number_format == 'Page X of Y') { echo 'selected'; } ?>><?php echo $lang_select_page_x_of_y; ?></option>
-                    </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_format; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_page_number_format) { ?>
-                        <span class="error"><?php echo $error_page_number_format; ?></span>
                     <?php } ?>
                 </div>
             </div>
@@ -672,6 +659,26 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_range; ?>', this, event, '')">[?]</a>
                     <?php if ($error_pagination_range) { ?>
                         <span class="error"><?php echo $error_pagination_range; ?></span>
+                    <?php } ?>
+                </div>
+
+                <h2><?php echo $lang_subheading_page_number; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_page_number" value="1" <?php if ($show_page_number) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_page_number; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_format; ?></label>
+                    <select name="page_number_format">
+                        <option value="Page X" <?php if ($page_number_format == 'Page X') { echo 'selected'; } ?>><?php echo $lang_select_page_x; ?></option>
+                        <option value="Page X of Y" <?php if ($page_number_format == 'Page X of Y') { echo 'selected'; } ?>><?php echo $lang_select_page_x_of_y; ?></option>
+                    </select>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_format; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_page_number_format) { ?>
+                        <span class="error"><?php echo $error_page_number_format; ?></span>
                     <?php } ?>
                 </div>
             </div>

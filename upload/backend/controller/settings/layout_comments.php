@@ -223,10 +223,10 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['gravatar_size'] = $this->setting->get('gravatar_size');
         }
 
-        if (isset($this->request->post['gravatar_rating'])) {
-            $this->data['gravatar_rating'] = $this->request->post['gravatar_rating'];
+        if (isset($this->request->post['gravatar_audience'])) {
+            $this->data['gravatar_audience'] = $this->request->post['gravatar_audience'];
         } else {
-            $this->data['gravatar_rating'] = $this->setting->get('gravatar_rating');
+            $this->data['gravatar_audience'] = $this->setting->get('gravatar_audience');
         }
 
         if (isset($this->request->post['show_level'])) {
@@ -323,10 +323,10 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_gravatar_size'] = '';
         }
 
-        if (isset($this->error['gravatar_rating'])) {
-            $this->data['error_gravatar_rating'] = $this->error['gravatar_rating'];
+        if (isset($this->error['gravatar_audience'])) {
+            $this->data['error_gravatar_audience'] = $this->error['gravatar_audience'];
         } else {
-            $this->data['error_gravatar_rating'] = '';
+            $this->data['error_gravatar_audience'] = '';
         }
 
         if (isset($this->error['level_5'])) {
@@ -427,6 +427,16 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['show_country'] = false;
         } else {
             $this->data['show_country'] = $this->setting->get('show_country');
+        }
+
+        /* Headline */
+
+        if (isset($this->request->post['show_headline'])) {
+            $this->data['show_headline'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_headline'])) {
+            $this->data['show_headline'] = false;
+        } else {
+            $this->data['show_headline'] = $this->setting->get('show_headline');
         }
 
         /* Rating */
@@ -685,28 +695,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_online_refresh_interval'] = '';
         }
 
-        /* Page Number */
-
-        if (isset($this->request->post['show_page_number'])) {
-            $this->data['show_page_number'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_page_number'])) {
-            $this->data['show_page_number'] = false;
-        } else {
-            $this->data['show_page_number'] = $this->setting->get('show_page_number');
-        }
-
-        if (isset($this->request->post['page_number_format'])) {
-            $this->data['page_number_format'] = $this->request->post['page_number_format'];
-        } else {
-            $this->data['page_number_format'] = $this->setting->get('page_number_format');
-        }
-
-        if (isset($this->error['page_number_format'])) {
-            $this->data['error_page_number_format'] = $this->error['page_number_format'];
-        } else {
-            $this->data['error_page_number_format'] = '';
-        }
-
         /* Pagination */
 
         if (isset($this->request->post['show_pagination'])) {
@@ -751,6 +739,28 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_pagination_range'] = $this->error['pagination_range'];
         } else {
             $this->data['error_pagination_range'] = '';
+        }
+
+        /* Page Number */
+
+        if (isset($this->request->post['show_page_number'])) {
+            $this->data['show_page_number'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_page_number'])) {
+            $this->data['show_page_number'] = false;
+        } else {
+            $this->data['show_page_number'] = $this->setting->get('show_page_number');
+        }
+
+        if (isset($this->request->post['page_number_format'])) {
+            $this->data['page_number_format'] = $this->request->post['page_number_format'];
+        } else {
+            $this->data['page_number_format'] = $this->setting->get('page_number_format');
+        }
+
+        if (isset($this->error['page_number_format'])) {
+            $this->data['error_page_number_format'] = $this->error['page_number_format'];
+        } else {
+            $this->data['error_page_number_format'] = '';
         }
 
         /* RSS */
@@ -1032,8 +1042,8 @@ class SettingsLayoutCommentsController extends Controller
             $this->error['gravatar_size'] = sprintf($this->data['lang_error_range'], 1, 2048);
         }
 
-        if (!isset($this->request->post['gravatar_rating']) || !in_array($this->request->post['gravatar_rating'], array('g', 'pg', 'r', 'x'))) {
-            $this->error['gravatar_rating'] = $this->data['lang_error_selection'];
+        if (!isset($this->request->post['gravatar_audience']) || !in_array($this->request->post['gravatar_audience'], array('g', 'pg', 'r', 'x'))) {
+            $this->error['gravatar_audience'] = $this->data['lang_error_selection'];
         }
 
         if (!isset($this->request->post['level_5']) || !$this->validation->isInt($this->request->post['level_5']) || $this->request->post['level_5'] < 0 || $this->request->post['level_5'] > 99999) {
@@ -1082,12 +1092,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->error['online_refresh_interval'] = sprintf($this->data['lang_error_range'], 10, 999);
         }
 
-        /* Page Number */
-
-        if (!isset($this->request->post['page_number_format']) || !in_array($this->request->post['page_number_format'], array('Page X', 'Page X of Y'))) {
-            $this->error['page_number_format'] = $this->data['lang_error_selection'];
-        }
-
         /* Pagination */
 
         if (!isset($this->request->post['pagination_type']) || !in_array($this->request->post['pagination_type'], array('multiple', 'button', 'infinite'))) {
@@ -1100,6 +1104,12 @@ class SettingsLayoutCommentsController extends Controller
 
         if (!isset($this->request->post['pagination_range']) || !$this->validation->isInt($this->request->post['pagination_range']) || $this->request->post['pagination_range'] < 1 || $this->request->post['pagination_range'] > 10) {
             $this->error['pagination_range'] = sprintf($this->data['lang_error_range'], 1, 10);
+        }
+
+        /* Page Number */
+
+        if (!isset($this->request->post['page_number_format']) || !in_array($this->request->post['page_number_format'], array('Page X', 'Page X of Y'))) {
+            $this->error['page_number_format'] = $this->data['lang_error_selection'];
         }
 
         /* RSS */

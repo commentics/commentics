@@ -59,6 +59,12 @@ class EditCommentController extends Controller
             $this->data['rating'] = $comment['rating'];
         }
 
+        if (isset($this->request->post['headline'])) {
+            $this->data['headline'] = $this->request->post['headline'];
+        } else {
+            $this->data['headline'] = $comment['headline'];
+        }
+
         if (isset($this->request->post['comment'])) {
             $this->data['comment'] = $this->request->post['comment'];
         } else {
@@ -195,6 +201,12 @@ class EditCommentController extends Controller
             $this->data['error_rating'] = $this->error['rating'];
         } else {
             $this->data['error_rating'] = '';
+        }
+
+        if (isset($this->error['headline'])) {
+            $this->data['error_headline'] = $this->error['headline'];
+        } else {
+            $this->data['error_headline'] = '';
         }
 
         if (isset($this->error['comment'])) {
@@ -380,8 +392,8 @@ class EditCommentController extends Controller
             $this->error['rating'] = $this->data['lang_error_selection'];
         }
 
-        if (!isset($this->request->post['comment']) || $this->validation->length($this->request->post['comment']) > $this->setting->get('comment_maximum_characters')) {
-            //$this->error['comment'] = sprintf($this->data['lang_error_length'], 0, $this->setting->get('comment_maximum_characters')); // TODO: Validate same as frontend
+        if (!isset($this->request->post['headline']) || $this->validation->length($this->request->post['headline']) > 250) {
+            $this->error['headline'] = sprintf($this->data['lang_error_length'], 0, 250);
         }
 
         if (!isset($this->request->post['reply']) || $this->validation->length($this->request->post['reply']) > $this->setting->get('comment_maximum_characters')) {

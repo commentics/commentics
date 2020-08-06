@@ -363,6 +363,48 @@ class SettingsLayoutFormController extends Controller
             $this->data['error_comment_maximum_characters'] = '';
         }
 
+        /* Headline */
+
+        if (isset($this->request->post['enabled_headline'])) {
+            $this->data['enabled_headline'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_headline'])) {
+            $this->data['enabled_headline'] = false;
+        } else {
+            $this->data['enabled_headline'] = $this->setting->get('enabled_headline');
+        }
+
+        if (isset($this->request->post['required_headline'])) {
+            $this->data['required_headline'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_headline'])) {
+            $this->data['required_headline'] = false;
+        } else {
+            $this->data['required_headline'] = $this->setting->get('required_headline');
+        }
+
+        if (isset($this->request->post['default_headline'])) {
+            $this->data['default_headline'] = $this->request->post['default_headline'];
+        } else {
+            $this->data['default_headline'] = $this->setting->get('default_headline');
+        }
+
+        if (isset($this->request->post['headline_maximum_characters'])) {
+            $this->data['headline_maximum_characters'] = $this->request->post['headline_maximum_characters'];
+        } else {
+            $this->data['headline_maximum_characters'] = $this->setting->get('headline_maximum_characters');
+        }
+
+        if (isset($this->error['default_headline'])) {
+            $this->data['error_default_headline'] = $this->error['default_headline'];
+        } else {
+            $this->data['error_default_headline'] = '';
+        }
+
+        if (isset($this->error['headline_maximum_characters'])) {
+            $this->data['error_headline_maximum_characters'] = $this->error['headline_maximum_characters'];
+        } else {
+            $this->data['error_headline_maximum_characters'] = '';
+        }
+
         /* Upload */
 
         if (isset($this->request->post['enabled_upload'])) {
@@ -1158,6 +1200,16 @@ class SettingsLayoutFormController extends Controller
 
         if (!isset($this->request->post['comment_maximum_characters']) || !$this->validation->isInt($this->request->post['comment_maximum_characters']) || $this->request->post['comment_maximum_characters'] < 1 || $this->request->post['comment_maximum_characters'] > 99999) {
             $this->error['comment_maximum_characters'] = sprintf($this->data['lang_error_range'], 1, 99999);
+        }
+
+        /* Headline */
+
+        if (!isset($this->request->post['default_headline']) || $this->validation->length($this->request->post['default_headline']) > 250) {
+            $this->error['default_headline'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['headline_maximum_characters']) || !$this->validation->isInt($this->request->post['headline_maximum_characters']) || $this->request->post['headline_maximum_characters'] < 1 || $this->request->post['headline_maximum_characters'] > 250) {
+            $this->error['headline_maximum_characters'] = sprintf($this->data['lang_error_range'], 1, 250);
         }
 
         /* Upload */

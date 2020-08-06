@@ -155,7 +155,9 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('.cmtx_comment_container').addClass('cmtx_comment_container_active');
 
-                $('.cmtx_wait_for_comment').fadeIn('slow');
+                if ($('input[name="cmtx_reply_to"]').val() == '' ) {
+                    $('.cmtx_wait_for_comment').fadeIn('slow');
+                }
             });
 
             if (typeof(cmtx_js_settings_form) != 'undefined') {
@@ -778,9 +780,11 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                     $('.cmtx_comment_container').addClass('cmtx_comment_container_active');
 
-                    $('.cmtx_wait_for_user, .cmtx_wait_for_comment').not('.cmtx_rating_row').fadeIn('slow');
+                    $('.cmtx_wait_for_user, .cmtx_wait_for_comment').not('.cmtx_headline_row, .cmtx_rating_row').fadeIn('slow');
 
                     if ($('input[name="cmtx_reply_to"]').val() == '') {
+                        $('.cmtx_headline_row').fadeIn('slow');
+
                         $('.cmtx_rating_row').fadeIn('slow');
                     }
                 });
@@ -842,6 +846,12 @@ var cmtx_wait_for_jquery = setInterval(function() {
                             $('#cmtx_comment').addClass('cmtx_field_error');
 
                             $('#cmtx_comment').after('<span class="cmtx_error">' + response['error']['comment'] + '</span>');
+                        }
+
+                        if (response['error']['headline']) {
+                            $('#cmtx_headline').addClass('cmtx_field_error');
+
+                            $('#cmtx_headline').after('<span class="cmtx_error">' + response['error']['headline'] + '</span>');
                         }
 
                         if (response['error']['name']) {
@@ -1443,7 +1453,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 $('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_securimage_row, .cmtx_checkbox_container, .cmtx_button_row').show();
 
-                $('.cmtx_rating_row').hide();
+                $('.cmtx_headline_row, .cmtx_rating_row').hide();
 
                 $('#cmtx_comment').addClass('cmtx_comment_field_active');
 
@@ -1465,7 +1475,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
             $('body').on('click', '.cmtx_message_reply a', function(e) {
                 e.preventDefault();
 
-                $(".cmtx_rating_row").show();
+                $(".cmtx_headline_row, .cmtx_rating_row").show();
 
                 $('input[name="cmtx_reply_to"]').val('');
 

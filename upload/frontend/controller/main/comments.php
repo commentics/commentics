@@ -159,6 +159,7 @@ class MainCommentsController extends Controller
             $this->data['show_website']            = $this->setting->get('show_website');
             $this->data['show_says']               = $this->setting->get('show_says');
             $this->data['show_rating']             = $this->setting->get('show_rating');
+            $this->data['show_headline']           = $this->setting->get('show_headline');
             $this->data['show_date']               = $this->setting->get('show_date');
             $this->data['date_auto']               = $this->setting->get('date_auto');
             $this->data['show_like']               = $this->setting->get('show_like');
@@ -341,9 +342,9 @@ class MainCommentsController extends Controller
         $comment = $this->comment->getComment($id);
 
         if ($this->setting->get('show_gravatar')) {
-            $comment['gravatar'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_rating') . '&amp;s=' . $this->setting->get('gravatar_size');
+            $comment['gravatar'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=' . $this->setting->get('gravatar_size');
 
-            $comment['gravatar_bio'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_rating') . '&amp;s=190';
+            $comment['gravatar_bio'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=190';
 
             $num_approved_comments = $this->user->getNumApprovedComments($comment['user_id']);
 

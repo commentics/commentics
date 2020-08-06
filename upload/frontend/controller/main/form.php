@@ -115,9 +115,61 @@ class MainFormController extends Controller
 
             $this->data['enabled_counter'] = $this->setting->get('enabled_counter');
 
+            /* Headline */
+
+            $this->data['enabled_headline'] = $this->setting->get('enabled_headline');
+
+            $this->data['headline'] = $this->setting->get('default_headline');
+
+            $this->data['headline_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_headline') ? 'cmtx_required' : '');
+
+            $this->data['headline_maximum_characters'] = $this->setting->get('headline_maximum_characters');
+
             /* Upload */
 
             $this->data['enabled_upload'] = $this->setting->get('enabled_upload');
+
+            /* Rating */
+
+            if ($this->setting->get('repeat_rating') == 'hide' && $this->model_main_form->hasUserRated($this->page->getId(), $ip_address)) {
+                $this->data['enabled_rating'] = false;
+            } else {
+                $this->data['enabled_rating'] = $this->setting->get('enabled_rating');
+            }
+
+            $this->data['rating_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_rating') ? 'cmtx_required' : '');
+
+            $default_rating = $this->setting->get('default_rating');
+
+            if ($default_rating == '1') {
+                $this->data['rating_1_checked'] = 'checked';
+            } else {
+                $this->data['rating_1_checked'] = '';
+            }
+
+            if ($default_rating == '2') {
+                $this->data['rating_2_checked'] = 'checked';
+            } else {
+                $this->data['rating_2_checked'] = '';
+            }
+
+            if ($default_rating == '3') {
+                $this->data['rating_3_checked'] = 'checked';
+            } else {
+                $this->data['rating_3_checked'] = '';
+            }
+
+            if ($default_rating == '4') {
+                $this->data['rating_4_checked'] = 'checked';
+            } else {
+                $this->data['rating_4_checked'] = '';
+            }
+
+            if ($default_rating == '5') {
+                $this->data['rating_5_checked'] = 'checked';
+            } else {
+                $this->data['rating_5_checked'] = '';
+            }
 
             /* Name */
 
@@ -232,48 +284,6 @@ class MainFormController extends Controller
                     break;
                 default:
                     $this->data['user_column_size'] = '6';
-            }
-
-            /* Rating */
-
-            if ($this->setting->get('repeat_rating') == 'hide' && $this->model_main_form->hasUserRated($this->page->getId(), $ip_address)) {
-                $this->data['enabled_rating'] = false;
-            } else {
-                $this->data['enabled_rating'] = $this->setting->get('enabled_rating');
-            }
-
-            $this->data['rating_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_rating') ? 'cmtx_required' : '');
-
-            $default_rating = $this->setting->get('default_rating');
-
-            if ($default_rating == '1') {
-                $this->data['rating_1_checked'] = 'checked';
-            } else {
-                $this->data['rating_1_checked'] = '';
-            }
-
-            if ($default_rating == '2') {
-                $this->data['rating_2_checked'] = 'checked';
-            } else {
-                $this->data['rating_2_checked'] = '';
-            }
-
-            if ($default_rating == '3') {
-                $this->data['rating_3_checked'] = 'checked';
-            } else {
-                $this->data['rating_3_checked'] = '';
-            }
-
-            if ($default_rating == '4') {
-                $this->data['rating_4_checked'] = 'checked';
-            } else {
-                $this->data['rating_4_checked'] = '';
-            }
-
-            if ($default_rating == '5') {
-                $this->data['rating_5_checked'] = 'checked';
-            } else {
-                $this->data['rating_5_checked'] = '';
             }
 
             /* Website */
@@ -963,6 +973,151 @@ class MainFormController extends Controller
                                     $json['error']['comment'] = $this->data['lang_error_comment_empty'];
                                 }
 
+                                /* Headline */
+                                if ($this->setting->get('enabled_headline')) {
+                                    if (isset($this->request->post['cmtx_headline']) && $this->request->post['cmtx_headline'] != '') {
+                                        $headline = $this->security->decode($this->request->post['cmtx_headline']);
+
+                                        /* Check minimum length */
+                                        if ($this->validation->length($headline) < $this->setting->get('headline_minimum_characters')) {
+                                            $json['error']['headline'] = $this->data['lang_error_headline_min_length'];
+                                        }
+
+                                        /* Check minimum words */
+                                        if ($this->model_main_form->countWords($headline) < $this->setting->get('headline_minimum_words')) {
+                                            $json['error']['headline'] = $this->data['lang_error_headline_min_words'];
+                                        }
+
+                                        /* Check maximum length */
+                                        if ($this->validation->length($headline) > $this->setting->get('headline_maximum_characters')) {
+                                            $json['error']['headline'] = $this->data['lang_error_headline_max_length'];
+                                        }
+
+                                        /* Check capitals */
+                                        if ($this->setting->get('check_capitals_enabled') && $this->model_main_form->hasCapitals($headline)) {
+                                            if ($this->setting->get('check_capitals_action') == 'error') {
+                                                $json['error']['headline'] = $this->data['lang_error_headline_has_capitals'];
+                                            } else if ($this->setting->get('check_capitals_action') == 'approve') {
+                                                $approve .= $this->data['lang_error_headline_has_capitals'] . "\r\n";
+                                            } else {
+                                                $json['result']['error'] = $this->data['lang_error_ban'];
+
+                                                $this->user->ban($ip_address, $this->data['lang_error_headline_has_capitals']);
+                                            }
+                                        }
+
+                                        /* Check repeats */
+                                        if ($this->setting->get('check_repeats_enabled') && $this->model_main_form->hasRepeats($headline)) {
+                                            if ($this->setting->get('check_repeats_action') == 'error') {
+                                                $json['error']['headline'] = $this->data['lang_error_headline_has_repeats'];
+                                            } else if ($this->setting->get('check_repeats_action') == 'approve') {
+                                                $approve .= $this->data['lang_error_headline_has_repeats'] . "\r\n";
+                                            } else {
+                                                $json['result']['error'] = $this->data['lang_error_ban'];
+
+                                                $this->user->ban($ip_address, $this->data['lang_error_headline_has_repeats']);
+                                            }
+                                        }
+
+                                        /* Check for mild swear words */
+                                        if ($this->setting->get('mild_swear_words_enabled')) {
+                                            if ($this->model_main_form->hasWord($headline, 'mild_swear_words')) {
+                                                if ($this->setting->get('mild_swear_words_action') == 'mask') {
+                                                    if (!$is_preview) {
+                                                        $this->request->post['cmtx_headline'] = $this->model_main_form->maskWord($headline, 'mild_swear_words');
+                                                    }
+                                                } else if ($this->setting->get('mild_swear_words_action') == 'mask_approve') {
+                                                    if (!$is_preview) {
+                                                        $this->request->post['cmtx_headline'] = $this->model_main_form->maskWord($headline, 'mild_swear_words');
+
+                                                        $approve .= $this->data['lang_error_headline_mild_swearing'] . "\r\n";
+                                                    }
+                                                } else if ($this->setting->get('mild_swear_words_action') == 'error') {
+                                                    $json['error']['headline'] = $this->data['lang_error_headline_mild_swearing'];
+                                                } else if ($this->setting->get('mild_swear_words_action') == 'approve') {
+                                                    $approve .= $this->data['lang_error_headline_mild_swearing'] . "\r\n";
+                                                } else {
+                                                    $json['result']['error'] = $this->data['lang_error_ban'];
+
+                                                    $this->user->ban($ip_address, $this->data['lang_error_headline_mild_swearing']);
+                                                }
+                                            }
+                                        }
+
+                                        /* Check for strong swear words */
+                                        if ($this->setting->get('strong_swear_words_enabled')) {
+                                            if ($this->model_main_form->hasWord($headline, 'strong_swear_words')) {
+                                                if ($this->setting->get('strong_swear_words_action') == 'mask') {
+                                                    if (!$is_preview) {
+                                                        $this->request->post['cmtx_headline'] = $this->model_main_form->maskWord($headline, 'strong_swear_words');
+                                                    }
+                                                } else if ($this->setting->get('strong_swear_words_action') == 'mask_approve') {
+                                                    if (!$is_preview) {
+                                                        $this->request->post['cmtx_headline'] = $this->model_main_form->maskWord($headline, 'strong_swear_words');
+
+                                                        $approve .= $this->data['lang_error_headline_strong_swearing'] . "\r\n";
+                                                    }
+                                                } else if ($this->setting->get('strong_swear_words_action') == 'error') {
+                                                    $json['error']['headline'] = $this->data['lang_error_headline_strong_swearing'];
+                                                } else if ($this->setting->get('strong_swear_words_action') == 'approve') {
+                                                    $approve .= $this->data['lang_error_headline_strong_swearing'] . "\r\n";
+                                                } else {
+                                                    $json['result']['error'] = $this->data['lang_error_ban'];
+
+                                                    $this->user->ban($ip_address, $this->data['lang_error_headline_strong_swearing']);
+                                                }
+                                            }
+                                        }
+
+                                        /* Check for spam words */
+                                        if ($this->setting->get('spam_words_enabled')) {
+                                            if ($this->model_main_form->hasWord($headline, 'spam_words')) {
+                                                if ($this->setting->get('spam_words_action') == 'error') {
+                                                    $json['error']['headline'] = $this->data['lang_error_headline_spam'];
+                                                } else if ($this->setting->get('spam_words_action') == 'approve') {
+                                                    $approve .= $this->data['lang_error_headline_spam'] . "\r\n";
+                                                } else {
+                                                    $json['result']['error'] = $this->data['lang_error_ban'];
+
+                                                    $this->user->ban($ip_address, $this->data['lang_error_headline_spam']);
+                                                }
+                                            }
+                                        }
+
+                                        /* Check for link */
+                                        if ($this->setting->get('detect_link_in_headline_enabled') && $this->model_main_form->hasLink($headline)) {
+                                            if ($this->setting->get('link_in_headline_action') == 'error') {
+                                                $json['error']['headline'] = $this->data['lang_error_headline_has_link'];
+                                            } else if ($this->setting->get('link_in_headline_action') == 'approve') {
+                                                $approve .= $this->data['lang_error_headline_has_link'] . "\r\n";
+                                            } else {
+                                                $json['result']['error'] = $this->data['lang_error_ban'];
+
+                                                $this->user->ban($ip_address, $this->data['lang_error_headline_has_link']);
+                                            }
+                                        }
+
+                                        /* Check for banned website */
+                                        if ($this->setting->get('banned_websites_as_headline_enabled') && $this->model_main_form->hasWord($headline, 'banned_websites', false)) {
+                                            if ($this->setting->get('banned_websites_as_headline_action') == 'error') {
+                                                $json['error']['headline'] = $this->data['lang_error_website_banned'];
+                                            } else if ($this->setting->get('banned_websites_as_headline_action') == 'approve') {
+                                                $approve .= $this->data['lang_error_website_banned'] . "\r\n";
+                                            } else {
+                                                $json['result']['error'] = $this->data['lang_error_ban'];
+
+                                                $this->user->ban($ip_address, $this->data['lang_error_website_banned']);
+                                            }
+                                        }
+                                    } else if ($this->setting->get('required_headline')) {
+                                        $json['error']['headline'] = $this->data['lang_error_headline_empty'];
+                                    } else {
+                                        $this->request->post['cmtx_headline'] = '';
+                                    }
+                                } else {
+                                    $this->request->post['cmtx_headline'] = '';
+                                }
+
                                 /* Name */
                                 if (isset($this->request->post['cmtx_name']) && $this->request->post['cmtx_name'] != '') {
                                     $name = $this->security->decode($this->request->post['cmtx_name']);
@@ -1489,6 +1644,7 @@ class MainFormController extends Controller
                     $website_new_window = $this->setting->get('website_new_window');
                     $website_no_follow  = $this->setting->get('website_no_follow');
                     $show_says          = $this->setting->get('show_says');
+                    $show_headline      = $this->setting->get('show_headline');
                     $show_date          = $this->setting->get('show_date');
                     $date_auto          = $this->setting->get('date_auto');
 
@@ -1532,7 +1688,7 @@ class MainFormController extends Controller
 
                     $comment = array(
                         'id'               => 0,
-                        'gravatar'         => '//www.gravatar.com/avatar/' . md5(strtolower(trim($this->request->post['cmtx_email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_rating') . '&amp;s=' . $this->setting->get('gravatar_size'),
+                        'gravatar'         => '//www.gravatar.com/avatar/' . md5(strtolower(trim($this->request->post['cmtx_email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=' . $this->setting->get('gravatar_size'),
                         'level'            => $this->data['lang_text_preview'],
                         'name'             => $this->request->post['cmtx_name'],
                         'website'          => $this->request->post['cmtx_website'],
@@ -1540,6 +1696,7 @@ class MainFormController extends Controller
                         'is_sticky'        => false,
                         'rating'           => $this->request->post['cmtx_rating'],
                         'comment'          => $comment_post,
+                        'headline'         => $this->request->post['cmtx_headline'],
                         'is_admin'         => $is_admin,
                         'date_added'       => $date_added,
                         'date_added_title' => $date_added_title,
@@ -1611,7 +1768,7 @@ class MainFormController extends Controller
                         $notes = rtrim($approve, "\r\n");
                     }
 
-                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads);
+                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads);
 
                     if ($this->setting->get('cache_type')) {
                         $this->cache->delete('getcomments_pageid' . $page_id . '_count0');

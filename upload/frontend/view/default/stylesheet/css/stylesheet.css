@@ -3742,6 +3742,10 @@
   font-size: 13px;
 }
 
+.cmtx_headline_row {
+  margin-top: 20px;
+}
+
 .cmtx_upload_row {
   margin-top: 20px;
 }
@@ -4178,10 +4182,6 @@ select.cmtx_required {
   min-height: 16px;
 }
 
-.cmtx_user_area {
-  margin-top: -2px;
-}
-
 .cmtx_name_text, .cmtx_name_text span {
   font-weight: bold;
 }
@@ -4216,6 +4216,21 @@ select.cmtx_required {
 
 .cmtx_star_full {
   color: #ffd700;
+}
+
+.cmtx_headline_area {
+  margin-top: 10px;
+}
+
+.cmtx_headline_area .fa-quote-left, .cmtx_headline_area .fa-quote-right {
+  color: #333333;
+  font-size: 12px !important;
+}
+
+.cmtx_headline_text {
+  font-style: italic;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .cmtx_comment_area {
@@ -4610,6 +4625,9 @@ select.cmtx_required {
     min-height: 0;
   }
   .cmtx_user_area {
+    margin-top: 15px;
+  }
+  .cmtx_headline_area {
     margin-top: 15px;
   }
   .cmtx_rating_area {

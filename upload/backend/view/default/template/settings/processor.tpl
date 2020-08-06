@@ -34,8 +34,10 @@
                 <li><a href="#tab-town"><?php echo $lang_tab_town; ?></a></li>
                 <li><a href="#tab-website"><?php echo $lang_tab_website; ?></a></li>
                 <li><a href="#tab-comment"><?php echo $lang_tab_comment; ?></a></li>
+                <li><a href="#tab-headline"><?php echo $lang_tab_headline; ?></a></li>
                 <li><a href="#tab-notify"><?php echo $lang_tab_notify; ?></a></li>
                 <li><a href="#tab-cookie"><?php echo $lang_tab_cookie; ?></a></li>
+                <li><a href="#tab-other"><?php echo $lang_tab_other; ?></a></li>
             </ul>
 
             <div id="tab-name">
@@ -482,19 +484,10 @@
                     <?php } ?>
                 </div>
 
-                <div class="fieldset">
+                <div class="fieldset divide_after">
                     <label><?php echo $lang_entry_line_breaks; ?></label>
                     <input type="checkbox" name="comment_line_breaks" value="1" <?php if ($comment_line_breaks) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_line_breaks; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset divide_after">
-                    <label><?php echo $lang_entry_mask; ?></label>
-                    <input type="text" required name="swear_word_masking" class="medium" value="<?php echo $swear_word_masking; ?>" maxlength="10">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_mask; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_swear_word_masking) { ?>
-                        <span class="error"><?php echo $error_swear_word_masking; ?></span>
-                    <?php } ?>
                 </div>
 
                 <div class="fieldset">
@@ -519,6 +512,149 @@
                     <?php } ?>
                 </div>
 
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_banned_website; ?></label>
+                    <input type="checkbox" name="banned_websites_as_comment_enabled" value="1" <?php if ($banned_websites_as_comment_enabled) { echo 'checked'; } ?>>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_list; ?></label>
+                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_entry_edit; ?></a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_action; ?></label>
+                    <select name="banned_websites_as_comment_action">
+                        <option value="error" <?php if ($banned_websites_as_comment_action == 'error') { echo 'selected'; } ?>><?php echo $lang_select_error; ?></option>
+                        <option value="approve" <?php if ($banned_websites_as_comment_action == 'approve') { echo 'selected'; } ?>><?php echo $lang_select_approve; ?></option>
+                        <option value="ban" <?php if ($banned_websites_as_comment_action == 'ban') { echo 'selected'; } ?>><?php echo $lang_select_ban; ?></option>
+                    </select>
+                    <?php if ($error_banned_websites_as_comment_action) { ?>
+                        <span class="error"><?php echo $error_banned_websites_as_comment_action; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div id="tab-headline">
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_minimum_characters; ?></label>
+                    <input type="text" required name="headline_minimum_characters" class="small" value="<?php echo $headline_minimum_characters; ?>" maxlength="3">
+                    <?php if ($error_headline_minimum_characters) { ?>
+                        <span class="error"><?php echo $error_headline_minimum_characters; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_minimum_words; ?></label>
+                    <input type="text" required name="headline_minimum_words" class="small" value="<?php echo $headline_minimum_words; ?>" maxlength="3">
+                    <?php if ($error_headline_minimum_words) { ?>
+                        <span class="error"><?php echo $error_headline_minimum_words; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset divide_after">
+                    <label><?php echo $lang_entry_maximum_characters; ?></label>
+                    <input type="text" required name="headline_maximum_characters" class="small" value="<?php echo $headline_maximum_characters; ?>" maxlength="3">
+                    <?php if ($error_headline_maximum_characters) { ?>
+                        <span class="error"><?php echo $error_headline_maximum_characters; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_detect_links; ?></label>
+                    <input type="checkbox" name="detect_link_in_headline_enabled" value="1" <?php if ($detect_link_in_headline_enabled) { echo 'checked'; } ?>>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_list; ?></label>
+                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_entry_edit; ?></a>
+                </div>
+
+                <div class="fieldset divide_after">
+                    <label><?php echo $lang_entry_action; ?></label>
+                    <select name="link_in_headline_action">
+                        <option value="error" <?php if ($link_in_headline_action == 'error') { echo 'selected'; } ?>><?php echo $lang_select_error; ?></option>
+                        <option value="approve" <?php if ($link_in_headline_action == 'approve') { echo 'selected'; } ?>><?php echo $lang_select_approve; ?></option>
+                        <option value="ban" <?php if ($link_in_headline_action == 'ban') { echo 'selected'; } ?>><?php echo $lang_select_ban; ?></option>
+                    </select>
+                    <?php if ($error_link_in_headline_action) { ?>
+                        <span class="error"><?php echo $error_link_in_headline_action; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_banned_website; ?></label>
+                    <input type="checkbox" name="banned_websites_as_headline_enabled" value="1" <?php if ($banned_websites_as_headline_enabled) { echo 'checked'; } ?>>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_list; ?></label>
+                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_entry_edit; ?></a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_action; ?></label>
+                    <select name="banned_websites_as_headline_action">
+                        <option value="error" <?php if ($banned_websites_as_headline_action == 'error') { echo 'selected'; } ?>><?php echo $lang_select_error; ?></option>
+                        <option value="approve" <?php if ($banned_websites_as_headline_action == 'approve') { echo 'selected'; } ?>><?php echo $lang_select_approve; ?></option>
+                        <option value="ban" <?php if ($banned_websites_as_headline_action == 'ban') { echo 'selected'; } ?>><?php echo $lang_select_ban; ?></option>
+                    </select>
+                    <?php if ($error_banned_websites_as_headline_action) { ?>
+                        <span class="error"><?php echo $error_banned_websites_as_headline_action; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div id="tab-notify">
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_default_type; ?></label>
+                    <select name="notify_type">
+                        <option value="all" <?php if ($notify_type == 'all') { echo 'selected'; } ?>><?php echo $lang_select_all; ?></option>
+                        <option value="custom" <?php if ($notify_type == 'custom') { echo 'selected'; } ?>><?php echo $lang_select_custom; ?></option>
+                    </select>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_type; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_notify_type) { ?>
+                        <span class="error"><?php echo $error_notify_type; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_default_format; ?></label>
+                    <select name="notify_format">
+                        <option value="html" <?php if ($notify_format == 'html') { echo 'selected'; } ?>><?php echo $lang_select_html; ?></option>
+                        <option value="text" <?php if ($notify_format == 'text') { echo 'selected'; } ?>><?php echo $lang_select_text; ?></option>
+                    </select>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_format; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_notify_format) { ?>
+                        <span class="error"><?php echo $error_notify_format; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_default_approve; ?></label>
+                    <input type="checkbox" name="notify_approve" value="1" <?php if ($notify_approve) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_approve; ?>', this, event, '')">[?]</a>
+                </div>
+            </div>
+
+            <div id="tab-cookie">
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_form_cookie; ?></label>
+                    <input type="checkbox" name="form_cookie" value="1" <?php if ($form_cookie) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_form_cookie; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_days; ?></label>
+                    <input type="text" required name="form_cookie_days" class="small" value="<?php echo $form_cookie_days; ?>" maxlength="4">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_cookie_days; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_form_cookie_days) { ?>
+                        <span class="error"><?php echo $error_form_cookie_days; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div id="tab-other">
                 <div class="fieldset">
                     <label><?php echo $lang_entry_max_capitals; ?></label>
                     <input type="checkbox" name="check_capitals_enabled" value="1" <?php if ($check_capitals_enabled) { echo 'checked'; } ?>>
@@ -644,73 +780,11 @@
                 </div>
 
                 <div class="fieldset">
-                    <label><?php echo $lang_entry_banned_website; ?></label>
-                    <input type="checkbox" name="banned_websites_as_comment_enabled" value="1" <?php if ($banned_websites_as_comment_enabled) { echo 'checked'; } ?>>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_entry_edit; ?></a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_action; ?></label>
-                    <select name="banned_websites_as_comment_action">
-                        <option value="error" <?php if ($banned_websites_as_comment_action == 'error') { echo 'selected'; } ?>><?php echo $lang_select_error; ?></option>
-                        <option value="approve" <?php if ($banned_websites_as_comment_action == 'approve') { echo 'selected'; } ?>><?php echo $lang_select_approve; ?></option>
-                        <option value="ban" <?php if ($banned_websites_as_comment_action == 'ban') { echo 'selected'; } ?>><?php echo $lang_select_ban; ?></option>
-                    </select>
-                    <?php if ($error_banned_websites_as_comment_action) { ?>
-                        <span class="error"><?php echo $error_banned_websites_as_comment_action; ?></span>
-                    <?php } ?>
-                </div>
-            </div>
-
-            <div id="tab-notify">
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_default_type; ?></label>
-                    <select name="notify_type">
-                        <option value="all" <?php if ($notify_type == 'all') { echo 'selected'; } ?>><?php echo $lang_select_all; ?></option>
-                        <option value="custom" <?php if ($notify_type == 'custom') { echo 'selected'; } ?>><?php echo $lang_select_custom; ?></option>
-                    </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_type; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_notify_type) { ?>
-                        <span class="error"><?php echo $error_notify_type; ?></span>
-                    <?php } ?>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_default_format; ?></label>
-                    <select name="notify_format">
-                        <option value="html" <?php if ($notify_format == 'html') { echo 'selected'; } ?>><?php echo $lang_select_html; ?></option>
-                        <option value="text" <?php if ($notify_format == 'text') { echo 'selected'; } ?>><?php echo $lang_select_text; ?></option>
-                    </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_format; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_notify_format) { ?>
-                        <span class="error"><?php echo $error_notify_format; ?></span>
-                    <?php } ?>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_default_approve; ?></label>
-                    <input type="checkbox" name="notify_approve" value="1" <?php if ($notify_approve) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_approve; ?>', this, event, '')">[?]</a>
-                </div>
-            </div>
-
-            <div id="tab-cookie">
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_form_cookie; ?></label>
-                    <input type="checkbox" name="form_cookie" value="1" <?php if ($form_cookie) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_form_cookie; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_days; ?></label>
-                    <input type="text" required name="form_cookie_days" class="small" value="<?php echo $form_cookie_days; ?>" maxlength="4">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_cookie_days; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_form_cookie_days) { ?>
-                        <span class="error"><?php echo $error_form_cookie_days; ?></span>
+                    <label><?php echo $lang_entry_mask; ?></label>
+                    <input type="text" required name="swear_word_masking" class="medium" value="<?php echo $swear_word_masking; ?>" maxlength="10">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_mask; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_swear_word_masking) { ?>
+                        <span class="error"><?php echo $error_swear_word_masking; ?></span>
                     <?php } ?>
                 </div>
             </div>

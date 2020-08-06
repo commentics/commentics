@@ -16,9 +16,9 @@ class Comment
         $this->setting = $registry->get('setting');
     }
 
-    public function createComment($user_id, $page_id, $website, $town, $state_id, $country_id, $rating, $reply_to, $comment, $ip_address, $approve, $notes, $is_admin, $uploads)
+    public function createComment($user_id, $page_id, $website, $town, $state_id, $country_id, $rating, $reply_to, $headline, $comment, $ip_address, $approve, $notes, $is_admin, $uploads)
     {
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int) $user_id . "', `page_id` = '" . (int) $page_id . "', `website` = '" . $this->db->escape($website) . "', `town` = '" . $this->db->escape($town) . "', `state_id` = '" . (int) $state_id . "', `country_id` = '" . (int) $country_id . "', `rating` = '" . (int) $rating . "', `reply_to` = '" . (int) $reply_to . "', `comment` = '" . $this->db->escape($comment) . "', `reply` = '', `ip_address` = '" . $this->db->escape($ip_address) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `is_admin` = '" . (int) $is_admin . "', `is_sent` = '0', `sent_to` = '0', `likes` = '0', `dislikes` = '0', `reports` = '0', `is_sticky` = '0', `is_locked` = '0', `is_verified` = '0', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int) $user_id . "', `page_id` = '" . (int) $page_id . "', `website` = '" . $this->db->escape($website) . "', `town` = '" . $this->db->escape($town) . "', `state_id` = '" . (int) $state_id . "', `country_id` = '" . (int) $country_id . "', `rating` = '" . (int) $rating . "', `reply_to` = '" . (int) $reply_to . "', `headline` = '" . $this->db->escape($headline) . "', `comment` = '" . $this->db->escape($comment) . "', `reply` = '', `ip_address` = '" . $this->db->escape($ip_address) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `is_admin` = '" . (int) $is_admin . "', `is_sent` = '0', `sent_to` = '0', `likes` = '0', `dislikes` = '0', `reports` = '0', `is_sticky` = '0', `is_locked` = '0', `is_verified` = '0', `date_modified` = NOW(), `date_added` = NOW()");
 
         $comment_id = $this->db->insertId();
 
@@ -72,6 +72,7 @@ class Comment
                 'country'         => $comment['country_name'],
                 'rating'          => $comment['rating'],
                 'reply_to'        => $comment['reply_to'],
+                'headline'        => $comment['headline'],
                 'comment'         => $comment['comment'],
                 'reply'           => $comment['reply'],
                 'ip_address'      => $comment['ip_address'],

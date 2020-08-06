@@ -11,8 +11,10 @@ $_['lang_tab_email']                  = 'Email';
 $_['lang_tab_town']                   = 'Town';
 $_['lang_tab_website']                = 'Website';
 $_['lang_tab_comment']                = 'Comment';
+$_['lang_tab_headline']               = 'Headline';
 $_['lang_tab_notify']                 = 'Notify';
 $_['lang_tab_cookie']                 = 'Cookie';
+$_['lang_tab_other']                  = 'Other';
 
 // Entry
 $_['lang_entry_one_name']             = 'One Name:';
@@ -48,14 +50,6 @@ $_['lang_entry_maximum_lines']        = 'Max Lines:';
 $_['lang_entry_maximum_smilies']      = 'Max Smilies:';
 $_['lang_entry_long_word']            = 'Long Word:';
 $_['lang_entry_line_breaks']          = 'Line Breaks:';
-$_['lang_entry_mask']                 = 'Mask:';
-$_['lang_entry_max_capitals']         = 'Max Capitals:';
-$_['lang_entry_percentage']           = 'Percentage:';
-$_['lang_entry_detect_repeats']       = 'Detect Repeats:';
-$_['lang_entry_amount']               = 'Amount:';
-$_['lang_entry_spam_words']           = 'Spam Words:';
-$_['lang_entry_mild_swear_words']     = 'Mild Swear Words:';
-$_['lang_entry_strong_swear_words']   = 'Strong Swear Words:';
 $_['lang_entry_list']                 = 'List:';
 $_['lang_entry_edit']                 = 'Edit';
 $_['lang_entry_action']               = 'Action:';
@@ -64,6 +58,14 @@ $_['lang_entry_default_format']       = 'Default Format:';
 $_['lang_entry_default_approve']      = 'Default Approve:';
 $_['lang_entry_form_cookie']          = 'Store Cookie:';
 $_['lang_entry_days']                 = 'Days:';
+$_['lang_entry_max_capitals']         = 'Max Capitals:';
+$_['lang_entry_percentage']           = 'Percentage:';
+$_['lang_entry_detect_repeats']       = 'Detect Repeats:';
+$_['lang_entry_amount']               = 'Amount:';
+$_['lang_entry_spam_words']           = 'Spam Words:';
+$_['lang_entry_mild_swear_words']     = 'Mild Swear Words:';
+$_['lang_entry_strong_swear_words']   = 'Strong Swear Words:';
+$_['lang_entry_mask']                 = 'Mask:';
 
 // Selection
 $_['lang_select_mask']                = 'Mask';
@@ -94,12 +96,12 @@ $_['lang_hint_convert_emails']        = 'Make any email links that are entered c
 $_['lang_hint_new_window']            = 'Open link in new window (tab).';
 $_['lang_hint_no_follow']             = 'Add <i>rel=nofollow</i> tag to links to stop search engines from following them. This is good for SEO.';
 $_['lang_hint_line_breaks']           = 'Respect when the user presses the enter key to start a new line.';
-$_['lang_hint_mask']                  = 'Replace any swear words found with this piece of text.';
-$_['lang_hint_check_capitals']        = 'Detect when a user enters a high percentage of capital letters.';
-$_['lang_hint_check_repeats']         = 'Detect when a user enters any repeating characters.';
-$_['lang_hint_repeats_amount']        = 'The amount of the repeating characters to detect.';
 $_['lang_hint_notify_type']           = 'This is the type of emails that subscribers initially receive.';
 $_['lang_hint_notify_format']         = 'This is the format of emails that subscribers initially receive.';
 $_['lang_hint_notify_approve']        = 'If the user should initially receive an email when their comment is approved by the administrator.';
 $_['lang_hint_form_cookie']           = 'Store a form cookie with user\'s details. This setting only works if you do not give the user the option to choose.';
 $_['lang_hint_cookie_days']           = 'The amount of days before the form cookie expires.';
+$_['lang_hint_check_capitals']        = 'Detect when a user enters a high percentage of capital letters.';
+$_['lang_hint_check_repeats']         = 'Detect when a user enters any repeating characters.';
+$_['lang_hint_repeats_amount']        = 'The amount of the repeating characters to detect.';
+$_['lang_hint_mask']                  = 'Replace any swear words found with this piece of text.';

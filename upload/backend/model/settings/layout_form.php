@@ -95,6 +95,16 @@ class SettingsLayoutFormModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['enabled_counter']) ? 1 : 0) . "' WHERE `title` = 'enabled_counter'");
 
+        /* Headline */
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['enabled_headline']) ? 1 : 0) . "' WHERE `title` = 'enabled_headline'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['required_headline']) ? 1 : 0) . "' WHERE `title` = 'required_headline'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['default_headline']) . "' WHERE `title` = 'default_headline'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['headline_maximum_characters'] . "' WHERE `title` = 'headline_maximum_characters'");
+
         /* Upload */
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['enabled_upload']) ? 1 : 0) . "' WHERE `title` = 'enabled_upload'");

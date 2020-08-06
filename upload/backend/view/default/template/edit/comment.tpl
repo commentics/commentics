@@ -97,6 +97,14 @@
             </div>
 
             <div class="fieldset">
+                <label><?php echo $lang_entry_headline; ?></label>
+                <input type="text" name="headline" class="large_plus" value="<?php echo $headline; ?>" maxlength="250">
+                <?php if ($error_headline) { ?>
+                    <span class="error"><?php echo $error_headline; ?></span>
+                <?php } ?>
+            </div>
+
+            <div class="fieldset">
                 <label><?php echo $lang_entry_comment; ?></label>
                 <textarea name="comment"><?php echo $comment; ?></textarea>
                 <?php if ($error_comment) { ?>
@@ -342,7 +350,7 @@
         // <![CDATA[
         $(document).ready(function() {
             $('.left textarea').summernote({
-                height: 175,
+                height: 155,
                 disableDragAndDrop: true,
                 shortcuts: false,
                 toolbar: [
@@ -438,6 +446,26 @@
             maxHeight: '50%',
             rel: 'gallery'
         })
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        $('select[name="is_approved"]').bind('change', function() {
+            var is_approved = $(this).val();
+
+            if (is_approved == '1') {
+                $('input[name="send"]').prop('checked', true);
+
+                $('input[name="verify"]').prop('checked', true);
+            } else {
+                $('input[name="send"]').prop('checked', false);
+
+                $('input[name="verify"]').prop('checked', false);
+            }
+        });
     });
     // ]]>
     </script>

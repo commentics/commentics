@@ -114,6 +114,12 @@
                 </div>
             </div>
 
+            @if show_headline and comment.headline
+                <div class="cmtx_headline_area">
+                    <span class="fa fa-quote-left"></span><span class="cmtx_headline_text">{{ comment.headline }}</span><span class="fa fa-quote-right"></span>
+                </div>
+            @endif
+
             <div class="cmtx_comment_area" itemprop="text">
                 {{ comment.comment }}
             </div>
