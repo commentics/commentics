@@ -656,6 +656,8 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'banned_websites_as_headline_enabled', `value` = '1'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'banned_websites_as_headline_action', `value` = 'approve'");
 
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'admin_detect', `value` = '0'");
+
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `title` = 'gravatar_audience' WHERE `title` = 'gravatar_rating'");
 
             $backend_folder = $this->getBackendFolder();

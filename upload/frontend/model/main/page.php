@@ -68,4 +68,9 @@ class MainPageModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'auto_detect'");
     }
+
+    public function adminDetect()
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'admin_detect'");
+    }
 }
