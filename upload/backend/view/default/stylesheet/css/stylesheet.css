@@ -3877,6 +3877,14 @@ img.loading {
   margin-top: 0;
 }
 
+#system_settings_dialog {
+  margin-top: 5px;
+}
+
+#system_settings_dialog ul {
+  margin-bottom: 1px;
+}
+
 @media all and (max-width: 500px) {
   .main_dashboard_page .dashboard_extra {
     display: none;
@@ -4835,6 +4843,7 @@ nav ul {
 
 .ui-dialog .ui-icon-alert {
   float: left;
+  margin-bottom: 10px;
   margin-right: 7px;
   margin-top: 0;
 }

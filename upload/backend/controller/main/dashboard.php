@@ -189,6 +189,17 @@ class MainDashboardController extends Controller
 
         $this->data['lang_title_version_check'] = sprintf($this->data['lang_title_version_check'], $current_version);
 
+        $this->data['system_detect'] = $this->setting->get('system_detect');
+
+        if ($this->data['system_detect']) {
+            $this->data['system_settings'] = $this->model_main_dashboard->checkSystemSettings();
+
+            $this->data['lang_dialog_title'] = $this->variable->encodeDouble($this->data['lang_dialog_title']);
+            $this->data['lang_dialog_content'] = sprintf($this->data['lang_dialog_content'], $this->url->link('settings/system'));
+            $this->data['lang_dialog_stop'] = $this->variable->escapeSingle($this->data['lang_dialog_stop']);
+            $this->data['lang_dialog_close'] = $this->variable->escapeSingle($this->data['lang_dialog_close']);
+        }
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('main/dashboard');
@@ -197,6 +208,13 @@ class MainDashboardController extends Controller
     public function dismiss()
     {
         $this->session->data['cmtx_hide_dashboard_notice'] = true;
+    }
+
+    public function stopSystemDetect()
+    {
+        $this->loadModel('main/dashboard');
+
+        $this->model_main_dashboard->stopSystemDetect();
     }
 
     private function validate()

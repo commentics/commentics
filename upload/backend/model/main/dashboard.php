@@ -212,4 +212,57 @@ class MainDashboardModel extends Model
     {
         return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "subscriptions` WHERE `date_added` LIKE '" . $this->db->escape(date('Y') . '-' . $month . '-%') . "'"));
     }
+
+    public function checkSystemSettings()
+    {
+        $site_domain = str_ireplace('www.', '', parse_url($this->url->decode($this->url->getPageUrl()), PHP_URL_HOST));
+
+        $site_url = 'http' . ($this->url->isHttps() ? 's' : '') . '://' . parse_url($this->url->decode($this->url->getPageUrl()), PHP_URL_HOST);
+
+        $parts = explode('/', $this->url->decode($this->url->getPageUrl()));
+
+        $commentics_folder = $parts[sizeof($parts) - 4];
+
+        $backend_folder = $parts[sizeof($parts) - 3];
+
+        $commentics_url = str_ireplace($backend_folder . '/index.php?route=main/dashboard', '', $this->url->decode($this->url->getPageUrl()));
+
+        $system_settings = array();
+
+        if ($site_domain != $this->setting->get('site_domain')) {
+            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_site_domain');
+        }
+
+        if ($this->cleanSystemSettingUrl($site_url) != $this->cleanSystemSettingUrl($this->setting->get('site_url'))) {
+            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_site_url');
+        }
+
+        if ($commentics_folder != $this->setting->get('commentics_folder')) {
+            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_commentics_folder');
+        }
+
+        if ($this->cleanSystemSettingUrl($commentics_url) != $this->cleanSystemSettingUrl($this->setting->get('commentics_url'))) {
+            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_commentics_url');
+        }
+
+        if ($backend_folder != $this->setting->get('backend_folder')) {
+            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_backend_folder');
+        }
+
+        return $system_settings;
+    }
+
+    private function cleanSystemSettingUrl($url)
+    {
+        $parts = array('https://', 'http://', 'www.');
+
+        $url = str_ireplace($parts, '', $url);
+
+        return $url;
+    }
+
+    public function stopSystemDetect()
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'system_detect'");
+    }
 }
