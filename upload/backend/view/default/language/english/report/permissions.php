@@ -1,4 +1,8 @@
 <?php
+// Message
+$_['lang_message_success']         = 'All permissions are correct';
+$_['lang_message_error']           = 'Not all permissions are correct';
+
 // Heading
 $_['lang_heading']                 = 'Permissions';
 

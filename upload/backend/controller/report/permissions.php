@@ -64,6 +64,20 @@ class ReportPermissionsController extends Controller
             array_shift($this->data['files']);
         }
 
+        $permissions_ok = true;
+
+        foreach ($this->data['files'] as $files) {
+            if (!$files['positive']) {
+                $permissions_ok = false;
+            }
+        }
+
+        if ($permissions_ok) {
+            $this->data['success'] = $this->data['lang_message_success'];
+        } else {
+            $this->data['error'] = $this->data['lang_message_error'];
+        }
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('report/permissions');
