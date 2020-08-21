@@ -43,7 +43,7 @@ class SettingsErrorReportingController extends Controller
             $this->data['error_error_reporting_method'] = '';
         }
 
-        $this->data['link_log'] = 'index.php?route=report/errors';
+        $this->data['link_log'] = $this->url->link('report/errors');
 
         $this->components = array('common/header', 'common/footer');
 
