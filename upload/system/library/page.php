@@ -65,7 +65,7 @@ class Page
                         $this->site_id = $site['id'];
                     }
                 } else {
-                    die('<b>Error:</b> No site found with the domain \'' . $this->security->encode($domain) . '\'');
+                    die('<b>Error:</b> No site found with the domain \'' . $this->security->encode($domain) . '\' (<a href="https://www.commentics.org/faq/iframe-integration/no-site-found" target="_blank">Learn more</a>)');
                 }
             } else {
                 die('<b>Error:</b> No domain provided');
