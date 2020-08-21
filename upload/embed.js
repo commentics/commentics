@@ -18,12 +18,12 @@ window.addEventListener('load', function(e) {
         var identifier = reference = '';
 
         /* Get identifier */
-        if (typeof commentics_config !== 'undefined' && typeof commentics_config.identifier !== 'undefined') {
+        if (typeof commentics_config !== 'undefined' && typeof commentics_config.identifier !== 'undefined' && commentics_config.identifier !== '') {
             identifier = commentics_config.identifier;
         }
 
         /* Get reference */
-        if (typeof commentics_config !== 'undefined' && typeof commentics_config.reference !== 'undefined') {
+        if (typeof commentics_config !== 'undefined' && typeof commentics_config.reference !== 'undefined' && commentics_config.reference !== '') {
             reference = commentics_config.reference;
         } else if (typeof document.title !== 'undefined') {
             reference = document.title;
