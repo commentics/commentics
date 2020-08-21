@@ -78,7 +78,7 @@
                     @endforeach
 
                     {# If the comment had any replies close the div #}
-                    @if count bigger than 0
+                    @if count more than 0
                         </div>
                     @endif
 
@@ -87,7 +87,7 @@
             @endforeach
         </div>
 
-        @if show_pagination and pagination_type equals 'button' and total bigger than pagination_amount
+        @if show_pagination and pagination_type equals 'button' and total more than pagination_amount
             <div class="cmtx_more_button_row">
                 <input type="button" id="cmtx_more_button" class="cmtx_button cmtx_button_primary" value="{{ lang_button_more }}" title="{{ lang_title_more_comments }}">
             </div>

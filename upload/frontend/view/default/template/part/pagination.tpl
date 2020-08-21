@@ -1,12 +1,12 @@
 <div class="cmtx_pagination_block" role="navigation">
     <div class="cmtx_pagination_container">
-        @if current_page bigger than 1
+        @if current_page more than 1
             <a href="{{ pagination_url_first }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ lang_title_first }}" data-cmtx-page="1">{{ lang_link_first }}</span></a>
 
             <a href="{{ pagination_url_previous }}" class="cmtx_pagination_url"><span class="cmtx_pagination_box" title="{{ lang_title_previous }}" data-cmtx-page="{{ previous_page }}">{{ lang_link_previous }}</span></a>
         @endif
 
-        @if total_pages bigger than 1
+        @if total_pages more than 1
             @foreach pages as page
                 @if current_page equals page.number
                     <span class="cmtx_pagination_box cmtx_pagination_box_active" title="{{ page.number }}" data-cmtx-page="{{ page.number }}">{{ page.number }}</span>

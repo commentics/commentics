@@ -41,6 +41,7 @@ class Template
 
         $this->startCount();
         $this->increaseCount();
+        $this->decreaseCount();
 
         $this->loadTemplate();
 
@@ -139,7 +140,7 @@ class Template
             $replacements = array(
                 ' equals '       => ' == ',
                 ' not equal to ' => ' != ',
-                ' bigger than '  => ' > ',
+                ' more than '  => ' > ',
                 ' less than '    => ' < ',
                 ' and '          => ' && ',
                 ' or '           => ' || '
@@ -261,6 +262,12 @@ class Template
     private function increaseCount()
     {
         $this->code = str_replace('@increase count', '<?php $count++; ?>', $this->code);
+    }
+
+    /* Parse decrease of count e.g. @decrease count */
+    private function decreaseCount()
+    {
+        $this->code = str_replace('@decrease count', '<?php $count--; ?>', $this->code);
     }
 
     /* Parse loading of template e.g. @template main/comment */
