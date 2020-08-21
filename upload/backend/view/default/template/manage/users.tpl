@@ -114,12 +114,6 @@
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_bulk_delete_content; ?>
     </div>
 
-    <style>
-    .ui-dialog .ui-icon-alert {
-        margin-bottom: 10px;
-    }
-    </style>
-
     <script>
     // <![CDATA[
     $(document).ready(function() {
