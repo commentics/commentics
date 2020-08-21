@@ -312,6 +312,10 @@ class ManageCommentsController extends Controller
             $this->data['info'] = $this->data['lang_notice'];
         }
 
+        $this->data['approve_notifications'] = $this->setting->get('approve_notifications');
+
+        $this->data['show_flag'] = $this->setting->get('show_flag');
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('manage/comments');

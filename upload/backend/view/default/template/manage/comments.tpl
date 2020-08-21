@@ -95,9 +95,13 @@
                         <th><a href="<?php echo $sort_rating; ?>" <?php if ($sort == 'c.rating') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_rating; ?></a></th>
                         <th><a href="<?php echo $sort_page; ?>" <?php if ($sort == 'p.reference') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_page; ?></a></th>
                         <th><a href="<?php echo $sort_approved; ?>" <?php if ($sort == 'c.is_approved') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_approved; ?></a></th>
-                        <th><a href="<?php echo $sort_sent; ?>" <?php if ($sort == 'c.is_sent') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_sent; ?></a></th>
-                        <th><a href="<?php echo $sort_reports; ?>" <?php if ($sort == 'c.reports') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_reports; ?></a></th>
-                        <th><a href="<?php echo $sort_flagged; ?>" <?php if ($sort == 'c.flagged') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_flagged; ?></a></th>
+                        <?php if ($approve_notifications) { ?>
+                            <th><a href="<?php echo $sort_sent; ?>" <?php if ($sort == 'c.is_sent') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_sent; ?></a></th>
+                        <?php } ?>
+                        <?php if ($show_flag) { ?>
+                            <th><a href="<?php echo $sort_reports; ?>" <?php if ($sort == 'c.reports') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_reports; ?></a></th>
+                            <th><a href="<?php echo $sort_flagged; ?>" <?php if ($sort == 'c.flagged') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_flagged; ?></a></th>
+                        <?php } ?>
                         <th><a href="<?php echo $sort_ip_address; ?>" <?php if ($sort == 'c.ip_address') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_ip_address; ?></a></th>
                         <th><a href="<?php echo $sort_date; ?>" <?php if ($sort == 'c.date_added') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_date; ?></a></th>
                         <th><?php echo $lang_column_action; ?></th>
@@ -125,15 +129,21 @@
                                 </td>
                                 <td data-th="<?php echo $lang_column_page; ?>:"><a href="<?php echo $comment['page_url']; ?>"><?php echo $comment['page']; ?></a></td>
                                 <td data-th="<?php echo $lang_column_approved; ?>:"><?php echo $comment['approved']; ?></td>
-                                <td data-th="<?php echo $lang_column_sent; ?>:"><?php echo $comment['sent']; ?></td>
-                                <td data-th="<?php echo $lang_column_reports; ?>:"><?php echo $comment['reports']; ?></td>
-                                <td data-th="<?php echo $lang_column_flagged; ?>:"><?php echo $comment['flagged']; ?></td>
+                                <?php if ($approve_notifications) { ?>
+                                    <td data-th="<?php echo $lang_column_sent; ?>:"><?php echo $comment['sent']; ?></td>
+                                <?php } ?>
+                                <?php if ($show_flag) { ?>
+                                    <td data-th="<?php echo $lang_column_reports; ?>:"><?php echo $comment['reports']; ?></td>
+                                    <td data-th="<?php echo $lang_column_flagged; ?>:"><?php echo $comment['flagged']; ?></td>
+                                <?php } ?>
                                 <td data-th="<?php echo $lang_column_ip_address; ?>:"><?php echo $comment['ip_address']; ?></td>
                                 <td data-th="<?php echo $lang_column_date; ?>:"><?php echo $comment['date_added']; ?></td>
                                 <td class="actions">
                                     <a href="<?php echo $comment['action_view']; ?>" target="_blank"><img src="<?php echo $button_view; ?>" class="button_view" title="<?php echo $lang_button_view; ?>"></a>
                                     <a data-id="<?php echo $comment['id']; ?>" class="single_approve"><img src="<?php echo $button_approve; ?>" class="button_approve" title="<?php echo $lang_button_approve; ?>"></a>
-                                    <a data-id="<?php echo $comment['id']; ?>" class="single_send"><img src="<?php echo $button_send; ?>" class="button_send" title="<?php echo $lang_button_send; ?>"></a>
+                                    <?php if ($approve_notifications) { ?>
+                                        <a data-id="<?php echo $comment['id']; ?>" class="single_send"><img src="<?php echo $button_send; ?>" class="button_send" title="<?php echo $lang_button_send; ?>"></a>
+                                    <?php } ?>
                                     <a href="<?php echo $comment['action_edit']; ?>"><img src="<?php echo $button_edit; ?>" class="button_edit" title="<?php echo $lang_button_edit; ?>"></a>
                                     <a data-id="<?php echo $comment['id']; ?>" class="single_delete"><img src="<?php echo $button_delete; ?>" class="button_delete" title="<?php echo $lang_button_delete; ?>"></a>
                                     <a href="<?php echo $comment['action_spam']; ?>"><img src="<?php echo $button_spam; ?>" class="button_spam" title="<?php echo $lang_button_spam; ?>"></a>
@@ -154,7 +164,9 @@
         <div class="buttons">
             <input type="submit" name="bulk_approve" class="button" value="<?php echo $lang_button_approve; ?>" title="<?php echo $lang_button_approve; ?>">
 
-            <input type="submit" name="bulk_send" class="button" value="<?php echo $lang_button_send; ?>" title="<?php echo $lang_button_send; ?>">
+            <?php if ($approve_notifications) { ?>
+                <input type="submit" name="bulk_send" class="button" value="<?php echo $lang_button_send; ?>" title="<?php echo $lang_button_send; ?>">
+            <?php } ?>
 
             <input type="submit" name="bulk_delete" class="button" value="<?php echo $lang_button_delete; ?>" title="<?php echo $lang_button_delete; ?>">
         </div>
@@ -171,12 +183,6 @@
     <div id="bulk_delete_dialog" title="<?php echo $lang_dialog_bulk_delete_title; ?>" style="display:none">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_bulk_delete_content; ?>
     </div>
-
-    <style>
-    .ui-dialog .ui-icon-alert {
-        margin-bottom: 10px;
-    }
-    </style>
 
     <script>
     // <![CDATA[

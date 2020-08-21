@@ -229,7 +229,13 @@ class ManageCommentsModel extends Model
                 $this->page->setSiteId($site_id); // ensure relevant site's email sender details are used
             }
 
+            /* Notify the user that their comment is approved */
             $this->notify->approvalNotification($id);
+
+            /* Notify other users about the new comment only if granular notification control is disabled */
+            if (!$this->setting->get('approve_notifications')) {
+                $this->singleSend($id);
+            }
 
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '1', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
 
@@ -278,10 +284,6 @@ class ManageCommentsModel extends Model
 
             if ($site_id) {
                 $this->page->setSiteId($site_id); // ensure relevant site's email sender details are used
-            }
-
-            if ($this->db->numRows($this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '0' AND `id` = '" . (int) $id . "'"))) {
-                $this->singleApprove($id); // if the comment is not approved then approve it first
             }
 
             $this->notify->subscriberNotification($id);
