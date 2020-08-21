@@ -227,7 +227,7 @@ class ManagePagesController extends Controller
         $this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_text_no']);
 
         if ($this->setting->get('notice_manage_pages')) {
-            $this->data['info'] = $this->data['lang_notice'];
+            $this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/integration');
         }
 
         $this->components = array('common/header', 'common/footer');

@@ -9,7 +9,7 @@ $_['lang_message_bulk_delete_invalid']   = '%d page(s) could not be deleted';
 $_['lang_heading']                       = 'Pages';
 
 // Notice
-$_['lang_notice']                        = 'You can edit each page to moderate the comments differently <a>x</a>';
+$_['lang_notice']                        = 'Follow <a href="%s" target="_blank">this guide</a> if you haven\'t yet integrated your pages <a>x</a>';
 
 // Description
 $_['lang_description']                   = '<p>Here you can edit and delete pages.</p>';
