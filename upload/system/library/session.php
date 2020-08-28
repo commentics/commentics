@@ -20,6 +20,11 @@ class Session
         return session_id();
     }
 
+    public function getName()
+    {
+        return session_name();
+    }
+
     public function regenerate()
     {
         session_regenerate_id(true);
