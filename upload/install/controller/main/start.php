@@ -7,7 +7,7 @@ class MainStartController extends Controller
     {
         $this->loadLanguage('main/start');
 
-        if ($this->session->id() != '') {
+        if ($this->session->getId() != '') {
             $this->session->data['cmtx_session_test'] = true;
         }
 

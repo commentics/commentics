@@ -25,7 +25,7 @@ class MainSystemModel extends Model
             $check['continue'] = false;
         }
 
-        if ($this->session->id() != '' && isset($this->session->data['cmtx_session_test']) && $this->session->data['cmtx_session_test']) {
+        if ($this->session->getId() != '' && isset($this->session->data['cmtx_session_test']) && $this->session->data['cmtx_session_test']) {
             $check['php_session'] = true;
         } else {
             $check['php_session'] = false;

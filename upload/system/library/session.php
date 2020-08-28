@@ -15,7 +15,7 @@ class Session
         session_start();
     }
 
-    public function id()
+    public function getId()
     {
         return session_id();
     }
