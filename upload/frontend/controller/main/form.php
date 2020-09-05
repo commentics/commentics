@@ -1651,8 +1651,8 @@ class MainFormController extends Controller
                     $show_level         = $this->setting->get('show_level');
                     $show_rating        = $this->setting->get('show_rating');
                     $show_website       = $this->setting->get('show_website');
-                    $website_new_window = $this->setting->get('website_new_window');
-                    $website_no_follow  = $this->setting->get('website_no_follow');
+                    $website_new_window = 'target="_blank"';
+                    $website_no_follow  = '';
                     $show_says          = $this->setting->get('show_says');
                     $show_headline      = $this->setting->get('show_headline');
                     $show_date          = $this->setting->get('show_date');
