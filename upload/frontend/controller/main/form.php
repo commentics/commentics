@@ -1594,19 +1594,27 @@ class MainFormController extends Controller
                                     if (!$json || ($json && (!isset($json['result']['error']) && !isset($json['error'])))) {
                                         if (count($this->request->post['cmtx_upload']) > $this->setting->get('maximum_upload_amount')) {
                                             $json['result']['error'] = sprintf($this->data['lang_error_image_amount'], $this->setting->get('maximum_upload_amount'));
-                                        } else if (!$is_preview) { // don't upload if only a preview
-                                            foreach ($this->request->post['cmtx_upload'] as $base64) {
-                                                $result = $this->model_main_form->createImageFromBase64($base64);
-
-                                                if (is_array($result)) {
-                                                    $uploads[] = $result;
-                                                } else {
-                                                    $json['result']['error'] = $result;
+                                        } else {
+                                            if ($is_preview) { // don't upload if only a preview
+                                                foreach ($this->request->post['cmtx_upload'] as $base64) {
+                                                    $uploads[] = array(
+                                                        'image' => $base64
+                                                    );
                                                 }
-                                            }
+                                            } else {
+                                                foreach ($this->request->post['cmtx_upload'] as $base64) {
+                                                    $result = $this->model_main_form->createImageFromBase64($base64);
 
-                                            if ($this->setting->get('approve_uploads') && $uploads) {
-                                                $approve .= $this->data['lang_error_comment_has_upload'] . "\r\n";
+                                                    if (is_array($result)) {
+                                                        $uploads[] = $result;
+                                                    } else {
+                                                        $json['result']['error'] = $result;
+                                                    }
+                                                }
+
+                                                if ($this->setting->get('approve_uploads') && $uploads) {
+                                                    $approve .= $this->data['lang_error_comment_has_upload'] . "\r\n";
+                                                }
                                             }
                                         }
                                     }
@@ -1702,7 +1710,7 @@ class MainFormController extends Controller
                         'is_admin'         => $is_admin,
                         'date_added'       => $date_added,
                         'date_added_title' => $date_added_title,
-                        'uploads'          => false,
+                        'uploads'          => $uploads,
                         'reply'            => false,
                         'reply_id'         => array()
                     );
