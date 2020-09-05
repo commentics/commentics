@@ -17,7 +17,6 @@ $_['lang_text_no_results']         = 'There are no results';
 // Note
 $_['lang_note_characters']         = 'characters';
 $_['lang_note_pixels']             = 'pixels';
-$_['lang_note_milliseconds']       = 'milliseconds';
 $_['lang_note_seconds']            = 'seconds';
 $_['lang_note_hours']              = 'hours';
 $_['lang_note_days']               = 'days';
