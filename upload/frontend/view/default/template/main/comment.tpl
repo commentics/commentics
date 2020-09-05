@@ -3,10 +3,18 @@
         @if show_gravatar
             <div class="cmtx_gravatar_area">
                 <div>
+                    @if is_preview
+                        <a href="https://gravatar.com" target="_blank" title="Gravatar">
+                    @endif
+
                     <img src="{{ comment.gravatar }}" class="cmtx_gravatar" alt="Gravatar">
 
                     @if show_level and comment.level
                         <div class="cmtx_level">{{ comment.level }}</div>
+                    @endif
+
+                    @if is_preview
+                        </a>
                     @endif
                 </div>
 
