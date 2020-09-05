@@ -34,10 +34,12 @@ class Page
 
         if (defined('CMTX_PAGE_URL')) { // only set for iFrame
             $this->page_url = $this->security->encode(CMTX_PAGE_URL);
-
-            $this->iframe = true;
         } else {
             $this->page_url = $this->url->getPageUrl();
+        }
+
+        if (defined('CMTX_PAGE_URL') || $this->session->getName() == 'commentics-iframe-session' || !empty($this->request->post['cmtx_iframe'])) {
+            $this->iframe = true;
         }
 
         if ($this->identifier) {

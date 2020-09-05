@@ -1151,7 +1151,35 @@ class Securimage
                 if (!is_null($this->session_name) && trim($this->session_name) != '') {
                     session_name(trim($this->session_name)); // set session name if provided
                 }
-                session_start();
+
+                // Default session parameters
+                $session_parameters = [
+                    'cookie_httponly'  => 1,
+                    'use_only_cookies' => 1,
+                    'use_trans_sid'    => 0,
+                    'gc_maxlifetime'   => 1440,
+                    'cookie_lifetime'  => 0,
+                    'cookie_path'      => '/',
+                    'cookie_secure'    => 0
+                ];
+
+                /*
+                 * If there's an iFrame session, start a session with
+                 * the same parameters so they can access each other
+                 */
+                if (isset($_COOKIE['commentics-iframe-session'])) {
+                    session_name('commentics-iframe-session');
+
+                    $session_parameters['cookie_secure'] = 1;
+
+                    if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+                        $session_parameters['cookie_samesite'] = 'None';
+                    } else {
+                        $session_parameters['cookie_path'] = '/; SameSite=None';
+                    }
+                }
+
+                session_start($session_parameters);
             }
         }
     }

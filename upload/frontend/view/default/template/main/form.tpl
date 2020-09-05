@@ -404,6 +404,8 @@
 
             <input type="hidden" id="cmtx_hidden_data" value="{{ hidden_data }}">
 
+            <input type="hidden" name="cmtx_iframe" value="{{ iframe }}">
+
             <input type="hidden" name="cmtx_subscribe" value="">
 
             <input type="hidden" name="cmtx_time" value="{{ time }}">

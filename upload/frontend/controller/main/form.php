@@ -538,6 +538,8 @@ class MainFormController extends Controller
 
             $this->data['page_id'] = $this->page->getId();
 
+            $this->data['iframe'] = (int) $this->page->isIFrame();
+
             $this->data['time'] = time();
 
             /* Unset that the Captcha is complete */

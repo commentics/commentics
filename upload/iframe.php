@@ -1,4 +1,29 @@
-<?php session_start(); ?>
+<?php
+session_name('commentics-iframe-session');
+
+// Default session parameters
+$session_parameters = [
+    'cookie_httponly'  => 1,
+    'use_only_cookies' => 1,
+    'use_trans_sid'    => 0,
+    'gc_maxlifetime'   => 1440,
+    'cookie_lifetime'  => 0,
+    'cookie_path'      => '/',
+    'cookie_secure'    => 1
+];
+
+/*
+ * Set session cookie as SameSite = None to allow
+ * cross-domain for the iFrame integration method
+ */
+if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+    $session_parameters['cookie_samesite'] = 'None';
+} else {
+    $session_parameters['cookie_path'] = '/; SameSite=None';
+}
+
+session_start($session_parameters);
+?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -5,15 +5,34 @@ define('CMTX_VERSION', '4.0');
 
 header('Content-Type: text/html; charset=utf-8');
 
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_only_cookies', 1);
-ini_set('session.use_trans_sid', 0);
-ini_set('session.gc_maxlifetime', 1440);
-ini_set('session.cookie_lifetime', 0);
-ini_set('session.auto_start', 0);
-ini_set('session.cookie_secure', 0);
+// Default session parameters
+$session_parameters = [
+    'cookie_httponly'  => 1,
+    'use_only_cookies' => 1,
+    'use_trans_sid'    => 0,
+    'gc_maxlifetime'   => 1440,
+    'cookie_lifetime'  => 0,
+    'cookie_path'      => '/',
+    'cookie_secure'    => 0
+];
 
-session_start();
+/*
+ * If there's an iFrame session, start a session with
+ * the same parameters so they can access each other
+ */
+if (isset($_COOKIE['commentics-iframe-session'])) {
+    session_name('commentics-iframe-session');
+
+    $session_parameters['cookie_secure'] = 1;
+
+    if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+        $session_parameters['cookie_samesite'] = 'None';
+    } else {
+        $session_parameters['cookie_path'] = '/; SameSite=None';
+    }
+}
+
+session_start($session_parameters);
 
 define('CMTX_HTTP_THIS', '');
 define('CMTX_HTTP_ROOT', '../');

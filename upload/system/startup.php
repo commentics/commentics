@@ -119,9 +119,6 @@ if ($cmtx_db->isConnected()) {
     $cmtx_db->query("SET time_zone = '" . $cmtx_db->escape(date('P')) . "'"); // set time zone DB
 }
 
-$cmtx_cookie = new \Commentics\Cookie();
-$cmtx_registry->set('cookie', $cmtx_cookie);
-
 $cmtx_log = new \Commentics\Log();
 $cmtx_registry->set('log', $cmtx_log);
 
@@ -166,6 +163,9 @@ $cmtx_registry->set('geo', $cmtx_geo);
 
 $cmtx_page = new \Commentics\Page($cmtx_registry);
 $cmtx_registry->set('page', $cmtx_page);
+
+$cmtx_cookie = new \Commentics\Cookie($cmtx_registry);
+$cmtx_registry->set('cookie', $cmtx_cookie);
 
 $cmtx_notify = new \Commentics\Notify($cmtx_registry);
 $cmtx_registry->set('notify', $cmtx_notify);
