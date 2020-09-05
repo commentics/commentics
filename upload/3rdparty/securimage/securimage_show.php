@@ -70,6 +70,10 @@ if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'confi
 
 			while ($result = mysqli_fetch_assoc($query)) {
 				$settings[$result['title']] = $result['value'];
+
+                if (defined('CMTX_' . strtoupper($result['title']))) {
+                    $settings[$result['title']] = constant('CMTX_' . strtoupper($result['title']));
+                }
 			}
 
 			$img->image_width = $settings['securimage_width'];
