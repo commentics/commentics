@@ -27,7 +27,7 @@
     <div class="description"><?php echo $lang_description; ?></div>
 
     <form action="index.php?route=settings/layout_comments" class="controls" method="post">
-        <div class="elements">
+        <div class="general_element">
             <div>
                 <h2><?php echo $lang_subheading_general; ?></h2>
 
@@ -207,7 +207,7 @@
         <div class="element_heading"><?php echo $lang_subheading_inside; ?></div>
 
         <div class="elements">
-            <div>
+            <div class="<?php echo ($show_gravatar ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_gravatar; ?></h2>
 
                 <div class="fieldset">
@@ -346,7 +346,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="element_enabled">
                 <h2><?php echo $lang_subheading_name; ?></h2>
                 <div class="fieldset">
                     <label><?php echo $lang_entry_show_says; ?></label>
@@ -373,7 +373,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_town || $show_state || $show_country ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_town; ?></h2>
 
                 <div class="fieldset">
@@ -399,7 +399,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_headline || $show_rating ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_headline; ?></h2>
 
                 <div class="fieldset">
@@ -417,7 +417,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_date ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_date; ?></h2>
 
                 <div class="fieldset">
@@ -433,7 +433,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_like || $show_dislike ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_like; ?></h2>
 
                 <div class="fieldset">
@@ -451,7 +451,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_share ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_share; ?></h2>
 
                 <div class="fieldset">
@@ -460,44 +460,44 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_share; ?>', this, event, '')">[?]</a>
                 </div>
 
-                <div class="fieldset share">
+                <div class="fieldset">
                     <label><?php echo $lang_entry_new_window; ?></label>
                     <input type="checkbox" name="share_new_window" value="1" <?php if ($share_new_window) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_new_window; ?>', this, event, '')">[?]</a>
                 </div>
 
-                <div class="fieldset share">
+                <div class="fieldset">
                     <label><img src="<?php echo $shares['digg']; ?>" title="<?php echo $lang_title_digg; ?>"></label>
                     <input type="checkbox" name="show_share_digg" value="1" <?php if ($show_share_digg) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset share">
+                <div class="fieldset">
                     <label><img src="<?php echo $shares['facebook']; ?>" title="<?php echo $lang_title_facebook; ?>"></label>
                     <input type="checkbox" name="show_share_facebook" value="1" <?php if ($show_share_facebook) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset share">
+                <div class="fieldset">
                     <label><img src="<?php echo $shares['linkedin']; ?>" title="<?php echo $lang_title_linkedin; ?>"></label>
                     <input type="checkbox" name="show_share_linkedin" value="1" <?php if ($show_share_linkedin) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset share">
+                <div class="fieldset">
                     <label><img src="<?php echo $shares['reddit']; ?>" title="<?php echo $lang_title_reddit; ?>"></label>
                     <input type="checkbox" name="show_share_reddit" value="1" <?php if ($show_share_reddit) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset share">
+                <div class="fieldset">
                     <label><img src="<?php echo $shares['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
                     <input type="checkbox" name="show_share_twitter" value="1" <?php if ($show_share_twitter) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset share">
+                <div class="fieldset">
                     <label><img src="<?php echo $shares['weibo']; ?>" title="<?php echo $lang_title_weibo; ?>"></label>
                     <input type="checkbox" name="show_share_weibo" value="1" <?php if ($show_share_weibo) { echo 'checked'; } ?>>
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_flag ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_flag; ?></h2>
 
                 <div class="fieldset">
@@ -531,7 +531,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_permalink ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_permalink; ?></h2>
 
                 <div class="fieldset">
@@ -541,7 +541,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_reply ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_reply; ?></h2>
 
                 <div class="fieldset">
@@ -570,7 +570,7 @@
         <div class="element_heading"><?php echo $lang_subheading_outside; ?></div>
 
         <div class="elements">
-            <div>
+            <div class="<?php echo ($show_average_rating ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_average_rating; ?></h2>
 
                 <div class="fieldset">
@@ -586,7 +586,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_notify ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_notify; ?></h2>
 
                 <div class="fieldset">
@@ -596,7 +596,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_online ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_online; ?></h2>
 
                 <div class="fieldset">
@@ -622,7 +622,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_pagination || $show_page_number ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_pagination; ?></h2>
 
                 <div class="fieldset">
@@ -683,7 +683,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_rss ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_rss; ?></h2>
 
                 <div class="fieldset">
@@ -714,7 +714,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_search ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_search; ?></h2>
 
                 <div class="fieldset">
@@ -724,7 +724,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_social ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_social; ?></h2>
 
                 <div class="fieldset">
@@ -733,44 +733,44 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_social; ?>', this, event, '')">[?]</a>
                 </div>
 
-                <div class="fieldset social">
+                <div class="fieldset">
                     <label><?php echo $lang_entry_new_window; ?></label>
                     <input type="checkbox" name="social_new_window" value="1" <?php if ($social_new_window) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_new_window; ?>', this, event, '')">[?]</a>
                 </div>
 
-                <div class="fieldset social">
+                <div class="fieldset">
                     <label><img src="<?php echo $socials['digg']; ?>" title="<?php echo $lang_title_digg; ?>"></label>
                     <input type="checkbox" name="show_social_digg" value="1" <?php if ($show_social_digg) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset social">
+                <div class="fieldset">
                     <label><img src="<?php echo $socials['facebook']; ?>" title="<?php echo $lang_title_facebook; ?>"></label>
                     <input type="checkbox" name="show_social_facebook" value="1" <?php if ($show_social_facebook) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset social">
+                <div class="fieldset">
                     <label><img src="<?php echo $socials['linkedin']; ?>" title="<?php echo $lang_title_linkedin; ?>"></label>
                     <input type="checkbox" name="show_social_linkedin" value="1" <?php if ($show_social_linkedin) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset social">
+                <div class="fieldset">
                     <label><img src="<?php echo $socials['reddit']; ?>" title="<?php echo $lang_title_reddit; ?>"></label>
                     <input type="checkbox" name="show_social_reddit" value="1" <?php if ($show_social_reddit) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset social">
+                <div class="fieldset">
                     <label><img src="<?php echo $socials['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
                     <input type="checkbox" name="show_social_twitter" value="1" <?php if ($show_social_twitter) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset social">
+                <div class="fieldset">
                     <label><img src="<?php echo $socials['weibo']; ?>" title="<?php echo $lang_title_weibo; ?>"></label>
                     <input type="checkbox" name="show_social_weibo" value="1" <?php if ($show_social_weibo) { echo 'checked'; } ?>>
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_sort_by ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_sort_by; ?></h2>
 
                 <div class="fieldset">
@@ -816,7 +816,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($show_topic ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_topic; ?></h2>
 
                 <div class="fieldset">
@@ -863,32 +863,6 @@
     <script>
     // <![CDATA[
     $(document).ready(function() {
-        <?php if ($show_share) { ?>
-            $('.share').show();
-        <?php } else { ?>
-            $('.share').hide();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[type="checkbox"][name="show_share"]').on('click', function() {
-            if ($(this).is(":checked")) {
-                $('.share').show();
-            } else {
-                $('.share').hide();
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
         <?php if ($pagination_type == 'multiple' || $error_pagination_range) { ?>
             $('.range_section').show();
         <?php } else { ?>
@@ -908,32 +882,6 @@
                 $('.range_section').show();
             } else {
                 $('.range_section').hide();
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        <?php if ($show_social) { ?>
-            $('.social').show();
-        <?php } else { ?>
-            $('.social').hide();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[type="checkbox"][name="show_social"]').on('click', function() {
-            if ($(this).is(":checked")) {
-                $('.social').show();
-            } else {
-                $('.social').hide();
             }
         });
     });

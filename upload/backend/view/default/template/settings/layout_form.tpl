@@ -27,7 +27,7 @@
     <div class="description"><?php echo $lang_description; ?></div>
 
     <form action="index.php?route=settings/layout_form" class="controls" method="post">
-        <div class="elements">
+        <div class="general_element">
             <div>
                 <h2><?php echo $lang_subheading_general; ?></h2>
 
@@ -64,7 +64,7 @@
         </div>
 
         <div class="elements">
-            <div>
+            <div class="<?php echo ($enabled_bb_code ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_bb_code; ?></h2>
 
                 <div class="fieldset">
@@ -73,88 +73,88 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_bb_code; ?>', this, event, '')">[?]</a>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['bold']; ?>" title="<?php echo $lang_title_bold; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_bold" value="1" <?php if ($enabled_bb_code_bold) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['italic']; ?>" title="<?php echo $lang_title_italic; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_italic" value="1" <?php if ($enabled_bb_code_italic) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['underline']; ?>" title="<?php echo $lang_title_underline; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_underline" value="1" <?php if ($enabled_bb_code_underline) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['strike']; ?>" title="<?php echo $lang_title_strike; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_strike" value="1" <?php if ($enabled_bb_code_strike) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['superscript']; ?>" title="<?php echo $lang_title_superscript; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_superscript" value="1" <?php if ($enabled_bb_code_superscript) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['subscript']; ?>" title="<?php echo $lang_title_subscript; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_subscript" value="1" <?php if ($enabled_bb_code_subscript) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['code']; ?>" title="<?php echo $lang_title_code; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_code" value="1" <?php if ($enabled_bb_code_code) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['php']; ?>" title="<?php echo $lang_title_php; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_php" value="1" <?php if ($enabled_bb_code_php) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['quote']; ?>" title="<?php echo $lang_title_quote; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_quote" value="1" <?php if ($enabled_bb_code_quote) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['line']; ?>" title="<?php echo $lang_title_line; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_line" value="1" <?php if ($enabled_bb_code_line) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['bullet']; ?>" title="<?php echo $lang_title_bullet; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_bullet" value="1" <?php if ($enabled_bb_code_bullet) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['numeric']; ?>" title="<?php echo $lang_title_numeric; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_numeric" value="1" <?php if ($enabled_bb_code_numeric) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['link']; ?>" title="<?php echo $lang_title_link; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_link" value="1" <?php if ($enabled_bb_code_link) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['email']; ?>" title="<?php echo $lang_title_email; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_email" value="1" <?php if ($enabled_bb_code_email) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['image']; ?>" title="<?php echo $lang_title_image; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_image" value="1" <?php if ($enabled_bb_code_image) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset bb_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $bb_code['youtube']; ?>" title="<?php echo $lang_title_youtube; ?>"></label>
                     <input type="checkbox" name="enabled_bb_code_youtube" value="1" <?php if ($enabled_bb_code_youtube) { echo 'checked'; } ?>>
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_smilies ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_smilies; ?></h2>
 
                 <div class="fieldset">
@@ -163,83 +163,83 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_smilies; ?>', this, event, '')">[?]</a>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['smile']; ?>" title="<?php echo $lang_title_smile; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_smile" value="1" <?php if ($enabled_smilies_smile) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['sad']; ?>" title="<?php echo $lang_title_sad; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_sad" value="1" <?php if ($enabled_smilies_sad) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['huh']; ?>" title="<?php echo $lang_title_huh; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_huh" value="1" <?php if ($enabled_smilies_huh) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['laugh']; ?>" title="<?php echo $lang_title_laugh; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_laugh" value="1" <?php if ($enabled_smilies_laugh) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['mad']; ?>" title="<?php echo $lang_title_mad; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_mad" value="1" <?php if ($enabled_smilies_mad) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['tongue']; ?>" title="<?php echo $lang_title_tongue; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_tongue" value="1" <?php if ($enabled_smilies_tongue) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['cry']; ?>" title="<?php echo $lang_title_cry; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_cry" value="1" <?php if ($enabled_smilies_cry) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['grin']; ?>" title="<?php echo $lang_title_grin; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_grin" value="1" <?php if ($enabled_smilies_grin) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['wink']; ?>" title="<?php echo $lang_title_wink; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_wink" value="1" <?php if ($enabled_smilies_wink) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['scared']; ?>" title="<?php echo $lang_title_scared; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_scared" value="1" <?php if ($enabled_smilies_scared) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['cool']; ?>" title="<?php echo $lang_title_cool; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_cool" value="1" <?php if ($enabled_smilies_cool) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['sleep']; ?>" title="<?php echo $lang_title_sleep; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_sleep" value="1" <?php if ($enabled_smilies_sleep) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['blush']; ?>" title="<?php echo $lang_title_blush; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_blush" value="1" <?php if ($enabled_smilies_blush) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['confused']; ?>" title="<?php echo $lang_title_confused; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_confused" value="1" <?php if ($enabled_smilies_confused) { echo 'checked'; } ?>>
                 </div>
 
-                <div class="fieldset smiley_image">
+                <div class="fieldset">
                     <label><img src="<?php echo $smilies['shocked']; ?>" title="<?php echo $lang_title_shocked; ?>"></label>
                     <input type="checkbox" name="enabled_smilies_shocked" value="1" <?php if ($enabled_smilies_shocked) { echo 'checked'; } ?>>
                 </div>
             </div>
 
-            <div>
+            <div class="element_enabled">
                 <h2><?php echo $lang_subheading_comment; ?></h2>
 
                 <div class="fieldset">
@@ -338,7 +338,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="element_enabled">
                 <h2><?php echo $lang_subheading_name; ?></h2>
 
                 <div class="fieldset">
@@ -387,7 +387,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_email ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_email; ?></h2>
 
                 <div class="fieldset">
@@ -448,7 +448,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_rating ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_rating; ?></h2>
 
                 <div class="fieldset">
@@ -492,7 +492,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_website ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_website; ?></h2>
 
                 <div class="fieldset">
@@ -553,7 +553,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_town || $enabled_state || $enabled_country ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_town; ?></h2>
 
                 <div class="fieldset">
@@ -733,7 +733,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_question || $enabled_captcha ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_question; ?></h2>
 
                 <div class="fieldset">
@@ -894,7 +894,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_notify ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_notify; ?></h2>
 
                 <div class="fieldset">
@@ -910,7 +910,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_cookie ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_cookie; ?></h2>
 
                 <div class="fieldset">
@@ -926,7 +926,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_privacy ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_privacy; ?></h2>
 
                 <div class="fieldset">
@@ -936,7 +936,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_terms ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_terms; ?></h2>
 
                 <div class="fieldset">
@@ -946,7 +946,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_preview ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_preview; ?></h2>
 
                 <div class="fieldset">
@@ -962,7 +962,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="<?php echo ($enabled_powered_by ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_powered; ?></h2>
 
                 <div class="fieldset">
@@ -1006,58 +1006,6 @@
             e.preventDefault();
 
             $('div.info').fadeOut(2000);
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        <?php if ($enabled_bb_code) { ?>
-            $('.bb_image').show();
-        <?php } else { ?>
-            $('.bb_image').hide();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[type="checkbox"][name="enabled_bb_code"]').on('click', function() {
-            if ($(this).is(":checked")) {
-                $('.bb_image').show();
-            } else {
-                $('.bb_image').hide();
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        <?php if ($enabled_smilies) { ?>
-            $('.smiley_image').show();
-        <?php } else { ?>
-            $('.smiley_image').hide();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[type="checkbox"][name="enabled_smilies"]').on('click', function() {
-            if ($(this).is(":checked")) {
-                $('.smiley_image').show();
-            } else {
-                $('.smiley_image').hide();
-            }
         });
     });
     // ]]>
