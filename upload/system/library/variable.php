@@ -7,10 +7,26 @@ class Variable
     public function fixCase($value)
     {
         if (function_exists('mb_convert_case') && is_callable('mb_convert_case')) {
-            return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
+            if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+                $value = mb_convert_case($value, MB_CASE_TITLE_SIMPLE, 'UTF-8');
+            } else {
+                $value = mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
+            }
         } else {
-            return ucwords($this->strtolower($value));
+            $value = ucwords($this->strtolower($value));
         }
+
+        $replacements = array(
+            '&Amp;'   => '&amp;',
+            ' And '   => ' and ',
+            ' Of '    => ' of ',
+            '&#039;S' => '&#039;s',
+            '\'S'     => '\'s',
+        );
+
+        $value = str_replace(array_keys($replacements), $replacements, $value);
+
+        return $value;
     }
 
     /* Lowercases every letter in the string */
