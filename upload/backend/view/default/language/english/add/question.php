@@ -15,6 +15,3 @@ $_['lang_description']     = '<p>Here you can add a question.</p>';
 $_['lang_entry_question']  = 'Question:';
 $_['lang_entry_answer']    = 'Answer:';
 $_['lang_entry_language']  = 'Language:';
-
-// Button
-$_['lang_button_add']      = 'Add';

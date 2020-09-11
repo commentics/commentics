@@ -3,7 +3,12 @@
 $_['lang_message_success']         = 'Settings saved';
 $_['lang_message_error']           = 'Please review the errors below';
 
+// Entry
+$_['lang_entry_enabled']           = 'Enabled:';
+
 // Text
+$_['lang_text_enabled']            = 'Enabled';
+$_['lang_text_disabled']           = 'Disabled';
 $_['lang_text_yes']                = 'Yes';
 $_['lang_text_no']                 = 'No';
 $_['lang_text_help']               = 'Get help for this page';
@@ -25,11 +30,8 @@ $_['lang_note_mb']                 = 'MB';
 // Selection
 $_['lang_select_select']           = 'Select';
 
-// Button
-$_['lang_button_update']           = 'Update';
-$_['lang_button_filter']           = 'Filter';
-
 // Link
+$_['lang_link_edit']               = 'Edit';
 $_['lang_link_back']               = 'back';
 
 // Error
@@ -98,3 +100,11 @@ $_['lang_type_review']             = 'review';
 $_['lang_type_reviews']            = 'reviews';
 $_['lang_type_testimonial']        = 'testimonial';
 $_['lang_type_testimonials']       = 'testimonials';
+
+// Button
+$_['lang_button_filter']           = 'Filter';
+$_['lang_button_update']           = 'Update';
+$_['lang_button_view']             = 'View';
+$_['lang_button_add']              = 'Add';
+$_['lang_button_edit']             = 'Edit';
+$_['lang_button_delete']           = 'Delete';

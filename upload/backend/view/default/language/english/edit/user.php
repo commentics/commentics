@@ -34,9 +34,6 @@ $_['lang_text_subscriptions_plural'] = 'This user has <a href="%s">%d</a> subscr
 $_['lang_dialog_delete_title']       = 'Delete User';
 $_['lang_dialog_delete_content']     = 'The user\'s comments and subscriptions will be deleted.<br>Are you sure you want to delete this?';
 
-// Button
-$_['lang_button_delete']             = 'Delete';
-
 // Error
 $_['lang_error_name_exists']         = 'This name already exists';
 $_['lang_error_email_exists']        = 'This email already exists';

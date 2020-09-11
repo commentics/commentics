@@ -18,7 +18,6 @@ $_['lang_column_action']            = 'Action';
 
 // Link
 $_['lang_link_install']             = 'Install';
-$_['lang_link_edit']                = 'Edit';
 $_['lang_link_uninstall']           = 'Uninstall';
 
 // Dialog

@@ -35,7 +35,6 @@ $_['lang_subheading_topic']          = 'Topic';
 $_['lang_description']               = '<p>These settings control the display of the comments section.</p>';
 
 // Entry
-$_['lang_entry_enabled']             = 'Enabled:';
 $_['lang_entry_display_count']       = 'Display Count:';
 $_['lang_entry_default_order']       = 'Default Order:';
 $_['lang_entry_positions']           = 'Positions:';
@@ -182,9 +181,7 @@ $_['lang_title_twitter']             = 'Twitter';
 $_['lang_title_weibo']               = 'Weibo';
 
 // Text
-$_['lang_text_enabled']              = 'Enabled';
 $_['lang_text_comments']             = 'Comments';
-$_['lang_text_disabled']             = 'Disabled';
 
 // Error
 $_['lang_error_url']                 = 'The URL entered is invalid';

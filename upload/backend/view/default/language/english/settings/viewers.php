@@ -9,7 +9,6 @@ $_['lang_notice']         = 'If enabled it may be a requirement to mention this 
 $_['lang_description']    = '<p>These settings relate to the Reports -> Viewers feature.</p>';
 
 // Entry
-$_['lang_entry_enabled']  = 'Enabled:';
 $_['lang_entry_timeout']  = 'Timeout:';
 
 // Hint

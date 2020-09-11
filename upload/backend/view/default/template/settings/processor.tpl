@@ -66,7 +66,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -88,7 +88,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_reserved_names; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_reserved_names; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -110,7 +110,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_dummy_names; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_dummy_names; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -132,7 +132,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_banned_names; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_banned_names; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset">
@@ -156,7 +156,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_reserved_emails; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_reserved_emails; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -178,7 +178,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_dummy_emails; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_dummy_emails; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -200,7 +200,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_banned_emails; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_banned_emails; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset">
@@ -230,7 +230,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -252,7 +252,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_reserved_towns; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_reserved_towns; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -274,7 +274,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_dummy_towns; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_dummy_towns; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -296,7 +296,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_banned_towns; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_banned_towns; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset">
@@ -332,7 +332,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_reserved_websites; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_reserved_websites; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -354,7 +354,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_dummy_websites; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_dummy_websites; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -376,7 +376,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset">
@@ -497,7 +497,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -519,7 +519,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset">
@@ -567,7 +567,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_detect_links; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -589,7 +589,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_banned_websites; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset">
@@ -664,7 +664,7 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_percentage; ?></label>
                     <input type="text" required name="check_capitals_percentage" class="small" value="<?php echo $check_capitals_percentage; ?>" maxlength="3">
-                    <span class="note"><?php echo $lang_note_percent; ?></span>
+                    <span class="note">%</span>
                     <?php if ($error_check_capitals_percentage) { ?>
                         <span class="error"><?php echo $error_check_capitals_percentage; ?></span>
                     <?php } ?>
@@ -716,7 +716,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_spam_words; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_spam_words; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -738,7 +738,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_mild_swear_words; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_mild_swear_words; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">
@@ -762,7 +762,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_strong_swear_words; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_strong_swear_words; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <div class="fieldset divide_after">

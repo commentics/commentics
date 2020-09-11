@@ -12,10 +12,6 @@ $_['lang_description']        = '<p>Here you can add a country.</p>';
 $_['lang_entry_name']         = 'Name:';
 $_['lang_entry_code']         = 'Code:';
 $_['lang_entry_top']          = 'Top:';
-$_['lang_entry_enabled']      = 'Enabled:';
-
-// Button
-$_['lang_button_add']         = 'Add';
 
 // Hint
 $_['lang_hint_code']          = 'This is the country\'s official 3 letter ISO code. For example \'GBR\'.';

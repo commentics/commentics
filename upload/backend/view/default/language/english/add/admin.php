@@ -14,7 +14,6 @@ $_['lang_entry_password_1']        = 'Password:';
 $_['lang_entry_password_2']        = 'Repeat Password:';
 $_['lang_entry_strength']          = 'Strength:';
 $_['lang_entry_email']             = 'Email Address:';
-$_['lang_entry_enabled']           = 'Enabled:';
 $_['lang_entry_super']             = 'Super:';
 $_['lang_entry_restrict']          = 'Restrict Pages:';
 
@@ -25,9 +24,6 @@ $_['lang_hint_restrict']           = 'Set the allowed pages. The left checkbox i
 
 // Text
 $_['lang_text_allowed_pages']      = 'Allow only these pages:';
-
-// Button
-$_['lang_button_add']              = 'Add';
 
 // Error
 $_['lang_error_username_exists']   = 'This username already exists';

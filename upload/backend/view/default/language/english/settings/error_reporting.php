@@ -11,7 +11,6 @@ $_['lang_entry_backend']  = 'Backend:';
 $_['lang_entry_method']   = 'Method:';
 $_['lang_entry_file']     = 'Log File:';
 $_['lang_entry_view']     = 'View';
-$_['lang_entry_edit']     = 'Edit';
 
 // Selection
 $_['lang_select_log']     = 'Log errors to file';

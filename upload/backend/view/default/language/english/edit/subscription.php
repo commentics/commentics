@@ -22,6 +22,3 @@ $_['lang_hint_confirmed']        = 'If the user is having any trouble confirming
 // Dialog
 $_['lang_dialog_delete_title']   = 'Delete Subscription';
 $_['lang_dialog_delete_content'] = 'Are you sure you want to delete this?';
-
-// Button
-$_['lang_button_delete']         = 'Delete';

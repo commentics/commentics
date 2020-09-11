@@ -36,7 +36,6 @@ $_['lang_dialog_bulk_delete_content']    = 'Are you sure you want to delete thes
 
 // Button
 $_['lang_button_create']                 = 'Create Backup';
-$_['lang_button_delete']                 = 'Delete';
 
 // Error
 $_['lang_error_description']             = 'Description must be between %d and %d characters';

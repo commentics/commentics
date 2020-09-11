@@ -9,7 +9,6 @@ $_['lang_heading']        = 'Akismet';
 $_['lang_description']    = '<p>Akismet is an external, free, automated service used to identify comments as spam. Get your API key <a href="https://akismet.com" target="_blank">here</a>.</p><p class="extra">Identified comments will require approval. The word \'Akismet\' will appear in the comment\'s <b>Notes</b> section.</p>';
 
 // Entry
-$_['lang_entry_enabled']  = 'Enabled:';
 $_['lang_entry_api_key']  = 'API Key:';
 $_['lang_entry_logging']  = 'Logging:';
 

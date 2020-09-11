@@ -74,7 +74,6 @@ $_['lang_dialog_delete_title']   = 'Delete Comment';
 $_['lang_dialog_delete_content'] = 'Any replies of the comment will be deleted.<br>Are you sure you want to delete this?';
 
 // Button
-$_['lang_button_delete']         = 'Delete';
 $_['lang_button_spam']           = 'Spam..';
 
 // Error

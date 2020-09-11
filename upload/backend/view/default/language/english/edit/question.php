@@ -20,6 +20,3 @@ $_['lang_entry_date']            = 'Date:';
 // Dialog
 $_['lang_dialog_delete_title']   = 'Delete Question';
 $_['lang_dialog_delete_content'] = 'Are you sure you want to delete this?';
-
-// Button
-$_['lang_button_delete']         = 'Delete';

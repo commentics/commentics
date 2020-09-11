@@ -33,9 +33,6 @@ $_['lang_hint_reply_email']          = 'Set the email\'s <b>Reply Email</b> or u
 $_['lang_dialog_delete_title']       = 'Delete Site';
 $_['lang_dialog_delete_content']     = 'The site\'s pages, comments and subscriptions will be deleted.<br>Are you sure you want to delete this?';
 
-// Button
-$_['lang_button_delete']             = 'Delete';
-
 // Error
 $_['lang_error_url']                 = 'The URL entered is invalid';
 $_['lang_error_email_invalid']       = 'Must be a valid email address';

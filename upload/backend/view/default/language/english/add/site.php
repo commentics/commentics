@@ -29,9 +29,6 @@ $_['lang_hint_from_name']            = 'Set the email\'s <b>From Name</b> or use
 $_['lang_hint_from_email']           = 'Set the email\'s <b>From Email</b> or use the default setting in \'Settings -> Email -> Setup\'.';
 $_['lang_hint_reply_email']          = 'Set the email\'s <b>Reply Email</b> or use the default setting in \'Settings -> Email -> Setup\'.';
 
-// Button
-$_['lang_button_add']                = 'Add';
-
 // Error
 $_['lang_error_url']                 = 'The URL entered is invalid';
 $_['lang_error_email_invalid']       = 'Must be a valid email address';

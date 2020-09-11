@@ -36,7 +36,3 @@ $_['lang_dialog_single_delete_title']    = 'Delete Admin';
 $_['lang_dialog_single_delete_content']  = 'Are you sure you want to delete this?';
 $_['lang_dialog_bulk_delete_title']      = 'Delete Admins';
 $_['lang_dialog_bulk_delete_content']    = 'Are you sure you want to delete these?';
-
-// Button
-$_['lang_button_edit']                   = 'Edit';
-$_['lang_button_delete']                 = 'Delete';

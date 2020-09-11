@@ -670,7 +670,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_states; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_states; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <h2><?php echo $lang_subheading_country; ?></h2>
@@ -729,7 +729,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_countries; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_countries; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
             </div>
 
@@ -744,7 +744,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_list; ?></label>
-                    <a href="<?php echo $link_questions; ?>"><?php echo $lang_entry_edit; ?></a>
+                    <a href="<?php echo $link_questions; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
 
                 <h2><?php echo $lang_subheading_captcha; ?></h2>

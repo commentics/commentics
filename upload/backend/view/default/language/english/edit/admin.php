@@ -14,7 +14,6 @@ $_['lang_entry_password_1']        = 'New Password:';
 $_['lang_entry_password_2']        = 'Repeat Password:';
 $_['lang_entry_strength']          = 'Strength:';
 $_['lang_entry_email']             = 'Email Address:';
-$_['lang_entry_enabled']           = 'Enabled:';
 $_['lang_entry_super']             = 'Super:';
 $_['lang_entry_restrict']          = 'Restrict Pages:';
 $_['lang_entry_last_login']        = 'Last Login:';
@@ -31,9 +30,6 @@ $_['lang_text_allowed_pages']      = 'Allow only these pages:';
 // Dialog
 $_['lang_dialog_delete_title']     = 'Delete Admin';
 $_['lang_dialog_delete_content']   = 'Are you sure you want to delete this?';
-
-// Button
-$_['lang_button_delete']           = 'Delete';
 
 // Error
 $_['lang_error_username_exists']   = 'This username already exists';

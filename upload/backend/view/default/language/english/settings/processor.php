@@ -51,7 +51,6 @@ $_['lang_entry_maximum_smilies']      = 'Max Smilies:';
 $_['lang_entry_long_word']            = 'Long Word:';
 $_['lang_entry_line_breaks']          = 'Line Breaks:';
 $_['lang_entry_list']                 = 'List:';
-$_['lang_entry_edit']                 = 'Edit';
 $_['lang_entry_action']               = 'Action:';
 $_['lang_entry_default_type']         = 'Default Type:';
 $_['lang_entry_default_format']       = 'Default Format:';
@@ -77,9 +76,6 @@ $_['lang_select_all']                 = 'All';
 $_['lang_select_custom']              = 'Custom';
 $_['lang_select_html']                = 'HTML';
 $_['lang_select_text']                = 'Text';
-
-// Note
-$_['lang_note_percent']               = '%';
 
 // Hint
 $_['lang_hint_one_name']              = 'Show an error if more than one word is entered.';

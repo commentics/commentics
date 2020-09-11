@@ -32,7 +32,6 @@ $_['lang_subheading_powered']    = 'Powered By';
 $_['lang_description']           = '<p>These settings control the display of the form section.</p>';
 
 // Entry
-$_['lang_entry_enabled']         = 'Enabled:';
 $_['lang_entry_hide_form']       = 'Hide:';
 $_['lang_entry_js_disabled']     = 'Display JS Message:';
 $_['lang_entry_required_symbol'] = 'Display * Symbol:';
@@ -49,7 +48,6 @@ $_['lang_entry_required']        = 'Required:';
 $_['lang_entry_note']            = 'Note:';
 $_['lang_entry_repeat']          = 'Repeat:';
 $_['lang_entry_list']            = 'List:';
-$_['lang_entry_edit']            = 'Edit';
 $_['lang_entry_type']            = 'Type:';
 $_['lang_entry_public_key']      = 'Public Key:';
 $_['lang_entry_private_key']     = 'Private Key:';

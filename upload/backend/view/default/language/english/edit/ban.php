@@ -17,8 +17,5 @@ $_['lang_entry_date']            = 'Date:';
 $_['lang_dialog_delete_title']   = 'Delete Ban';
 $_['lang_dialog_delete_content'] = 'Are you sure you want to delete this?';
 
-// Button
-$_['lang_button_delete']         = 'Delete';
-
 // Error
 $_['lang_error_already_banned']  = 'The IP address is already banned';

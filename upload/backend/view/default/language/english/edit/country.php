@@ -12,15 +12,11 @@ $_['lang_description']           = '<p>Here you can edit or delete the country.<
 $_['lang_entry_name']            = 'Name:';
 $_['lang_entry_code']            = 'Code:';
 $_['lang_entry_top']             = 'Top:';
-$_['lang_entry_enabled']         = 'Enabled:';
 $_['lang_entry_date']            = 'Date:';
 
 // Dialog
 $_['lang_dialog_delete_title']   = 'Delete Country';
 $_['lang_dialog_delete_content'] = 'Are you sure you want to delete this?';
-
-// Button
-$_['lang_button_delete']         = 'Delete';
 
 // Hint
 $_['lang_hint_code']             = 'This is the country\'s official 3 letter ISO code. For example \'GBR\'.';
