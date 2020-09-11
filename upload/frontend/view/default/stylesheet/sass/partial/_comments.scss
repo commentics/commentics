@@ -252,6 +252,8 @@
     line-height: 26px;
     margin-bottom: 7px;
     margin-top: 7px;
+    padding-bottom: 0;
+    padding-top: 0;
 }
 
 .cmtx_code_box, .cmtx_php_box, .cmtx_quote_box {
@@ -702,6 +704,8 @@
 .cmtx_average_rating > label {
     color: $star-empty;
     float: right;
+    padding: 0;
+    width: auto;
 }
 
 .cmtx_average_rating > input:checked ~ label { // the rating
@@ -834,6 +838,7 @@
     line-height: 25px;
     margin: 0 !important;
     padding: 0 0 0 5px !important;
+    position: static;    
     transition: width 500ms !important;
     width: 125px !important;
 }
@@ -915,10 +920,12 @@
 .cmtx_sort_by_field {
     font-family: inherit;
     font-size: inherit;
+    display: inline-block !important;
     height: auto !important;
     height: 25px !important;
     line-height: 25px;
     padding: 0 !important;
+    position: static;
     width: auto !important;
 }
 

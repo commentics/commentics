@@ -538,6 +538,8 @@ select.cmtx_required {
 
 .cmtx_checkbox_container label {
     display: inline-block;
+    float: none;
+    width: auto;
 }
 
 .cmtx_button_row {

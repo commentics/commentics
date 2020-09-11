@@ -3866,6 +3866,8 @@ select.cmtx_required {
 
 .cmtx_checkbox_container label {
   display: inline-block;
+  float: none;
+  width: auto;
 }
 
 .cmtx_button_row {
@@ -4243,6 +4245,8 @@ select.cmtx_required {
   line-height: 26px;
   margin-bottom: 7px;
   margin-top: 7px;
+  padding-bottom: 0;
+  padding-top: 0;
 }
 
 .cmtx_code_box, .cmtx_php_box, .cmtx_quote_box {
@@ -4694,6 +4698,8 @@ select.cmtx_required {
 .cmtx_average_rating > label {
   color: #e6e6e6;
   float: right;
+  padding: 0;
+  width: auto;
 }
 
 .cmtx_average_rating > input:checked ~ label {
@@ -4820,6 +4826,7 @@ select.cmtx_required {
   line-height: 25px;
   margin: 0 !important;
   padding: 0 0 0 5px !important;
+  position: static;
   -webkit-transition: width 500ms !important;
   transition: width 500ms !important;
   width: 125px !important;
@@ -4901,10 +4908,12 @@ select.cmtx_required {
 .cmtx_sort_by_field {
   font-family: inherit;
   font-size: inherit;
+  display: inline-block !important;
   height: auto !important;
   height: 25px !important;
   line-height: 25px;
   padding: 0 !important;
+  position: static;
   width: auto !important;
 }
 
@@ -5180,7 +5189,9 @@ select.cmtx_required {
 
 .cmtx_modal_box header {
   border-bottom: 1px solid #e6e6e6;
+  height: auto !important;
   padding: 10px;
+  width: auto !important;
 }
 
 .cmtx_modal_box header div {
