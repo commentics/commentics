@@ -86,6 +86,7 @@ if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'confi
 			$img->line_color = new Securimage_Color($settings['securimage_line_color']);
 			$img->image_bg_color = new Securimage_Color($settings['securimage_back_color']);
 			$img->noise_color = new Securimage_Color($settings['securimage_noise_color']);
+            $img->charset = 'abcdefghkmnprstuvwyz23456789';
 		}
 	}
 }
