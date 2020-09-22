@@ -39,7 +39,7 @@
             <?php } ?>
         </div>
 
-        <img id="theme-preview-frontend" class="theme_preview" src="" alt="">
+        <a href="#" class="gallery"><img id="theme-preview-frontend" class="theme_preview" src="" alt=""></a>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_backend; ?></label>
@@ -53,7 +53,7 @@
             <?php } ?>
         </div>
 
-        <img id="theme-preview-backend" class="theme_preview" src="" alt="">
+        <a href="#" class="gallery"><img id="theme-preview-backend" class="theme_preview" src="" alt=""></a>
 
         <h2><?php echo $lang_subheading; ?></h2>
 
@@ -142,6 +142,8 @@
 
             request.done(function(response) {
                 $('#theme-preview-frontend').attr('src', response['preview']);
+
+                $('#theme-preview-frontend').parent().attr('href', response['preview']);
             });
 
             request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -179,6 +181,8 @@
 
             request.done(function(response) {
                 $('#theme-preview-backend').attr('src', response['preview']);
+
+                $('#theme-preview-backend').parent().attr('href', response['preview']);
             });
 
             request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -189,6 +193,16 @@
         });
 
         $('select[name="theme_backend"]').trigger('change');
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        $('a.gallery').colorbox({
+            maxHeight: '70%',
+        })
     });
     // ]]>
     </script>
