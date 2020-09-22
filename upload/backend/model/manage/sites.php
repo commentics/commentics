@@ -14,9 +14,10 @@ class ManageSitesModel extends Model
                        LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `p`.`id` = `c`.`page_id`
                        WHERE `p`.`site_id` = `s`.`id`) AS `comments`,";
 
-            $sql .= " (SELECT COUNT(`p`.`id`) FROM `" . CMTX_DB_PREFIX . "pages` `p`
+            $sql .= " (SELECT COUNT(DISTINCT `p`.`id`) FROM `" . CMTX_DB_PREFIX . "pages` `p`
+                       LEFT JOIN `" . CMTX_DB_PREFIX . "comments` `c` ON `c`.`page_id` = `p`.`id`
                        WHERE `p`.`site_id` = `s`.`id`
-                       AND `comments` > 0
+                       AND `c`.`page_id` = `p`.`id`
                        ) AS `pages`";
         }
 
