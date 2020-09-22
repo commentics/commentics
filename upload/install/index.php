@@ -21,6 +21,12 @@ $session_parameters = [
     'cookie_secure'    => 0
 ];
 
+if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+    $session_parameters['cookie_samesite'] = 'Lax';
+} else {
+    $session_parameters['cookie_path'] = '/; SameSite=Lax';
+}
+
 session_start($session_parameters);
 
 define('CMTX_HTTP_VIEW', 'view/');

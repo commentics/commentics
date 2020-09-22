@@ -34,6 +34,8 @@ class Cookie
             if ($this->page->isIFrame()) {
                 $secure = true;
                 $samesite = 'None';
+            } else {
+                $samesite = 'Lax';
             }
 
             setcookie($name, $value, [
@@ -48,6 +50,8 @@ class Cookie
             if ($this->page->isIFrame()) {
                 $secure = true;
                 $path .= '; samesite=None';
+            } else {
+                $path .= '; samesite=Lax';            
             }
 
             setcookie($name, $value, $expires, $path, $domain, $secure, $httponly);

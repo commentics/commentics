@@ -30,6 +30,12 @@ if (isset($_COOKIE['commentics-iframe-session'])) {
     } else {
         $session_parameters['cookie_path'] = '/; SameSite=None';
     }
+} else {
+    if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+        $session_parameters['cookie_samesite'] = 'Lax';
+    } else {
+        $session_parameters['cookie_path'] = '/; SameSite=Lax';
+    }
 }
 
 session_start($session_parameters);
