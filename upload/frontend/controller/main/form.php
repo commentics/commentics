@@ -44,12 +44,12 @@ class MainFormController extends Controller
                 $values = explode('|', $values);
 
                 if (count($values) == 6) {
-                    $cookie['name']    = $this->security->encode($values[0]);
-                    $cookie['email']   = $this->security->encode($values[1]);
-                    $cookie['website'] = $this->security->encode($values[2]);
-                    $cookie['town']    = $this->security->encode($values[3]);
-                    $cookie['country'] = $this->security->encode($values[4]);
-                    $cookie['state']   = $this->security->encode($values[5]);
+                    $cookie['name']    = $values[0];
+                    $cookie['email']   = $values[1];
+                    $cookie['website'] = $values[2];
+                    $cookie['town']    = $values[3];
+                    $cookie['country'] = $values[4];
+                    $cookie['state']   = $values[5];
                 }
             }
 
@@ -273,6 +273,16 @@ class MainFormController extends Controller
                 if ($user_row_visible) {
                     $this->data['cmtx_wait_for_user'] = 'cmtx_wait_for_user';
                 }
+            }
+
+            /* We don't want the user to have to click into the name/email fields if they're already filled */
+
+            if (($this->data['enabled_name'] && $this->data['name_is_filled']) && (!$this->data['enabled_email'] || $this->data['enabled_email'] && $this->data['email_is_filled'])) {
+                $this->data['cmtx_wait_for_user'] = '';
+            }
+
+            if ((!$this->data['enabled_name']) && (!$this->data['enabled_email'] || $this->data['enabled_email'] && $this->data['email_is_filled'])) {
+                $this->data['cmtx_wait_for_user'] = '';
             }
 
             switch ($user_columns) {
@@ -573,7 +583,7 @@ class MainFormController extends Controller
 
             if (!$geo_row_visible) {
                 $this->data['geo_row_visible'] = 'cmtx_hide';
-            } else if ($this->setting->get('hide_form')) {
+            } else if ($this->setting->get('hide_form') && $user_row_visible) {
                 $this->data['geo_row_visible'] = 'cmtx_wait_for_user';
             } else {
                 $this->data['geo_row_visible'] = '';
