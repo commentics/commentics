@@ -282,12 +282,6 @@ class MainCommentsController extends Controller
                 $this->data['rich_snippets_enabled'] = false;
             }
 
-            if ($this->setting->get('enabled_bb_code') && ($this->setting->get('enabled_bb_code_code') || ($this->setting->get('enabled_bb_code_php')))) {
-                $highlight = true;
-            } else {
-                $highlight = false;
-            }
-
             $this->data['ratings'] = array(0, 1, 2, 3, 4);
 
             $this->data['page_reference'] = $this->page->getReference();
@@ -306,7 +300,6 @@ class MainCommentsController extends Controller
                 'lang_text_not_replying'  => $this->data['lang_text_not_replying'],
                 'lang_button_loading'     => $this->data['lang_button_loading'],
                 'lang_button_more'        => $this->data['lang_button_more'],
-                'highlight'               => (bool) $highlight,
                 'date_auto'               => (bool) $this->setting->get('date_auto'),
                 'show_pagination'         => (bool) $this->setting->get('show_pagination'),
                 'pagination_type'         => $this->setting->get('pagination_type'),
