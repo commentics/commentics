@@ -33,7 +33,7 @@ class CommonHeaderController extends Controller
         }
 
         if ($this->setting->get('optimize')) {
-            $this->data['read_more'] = $this->data['timeago'] = $this->data['highlight'] = '';
+            $this->data['autodetect'] = $this->data['timeago'] = $this->data['highlight'] = '';
 
             if ($this->setting->get('jquery_source') == 'local') {
                 $this->data['jquery'] = '';
@@ -45,6 +45,12 @@ class CommonHeaderController extends Controller
 
             $this->data['stylesheet'] = $this->loadStylesheet('stylesheet.min.css');
         } else {
+            if ($this->setting->get('auto_detect')) {
+                $this->data['autodetect'] = $this->loadJavascript('autodetect.js');
+            } else {
+                $this->data['autodetect'] = '';
+            }
+
             if ($this->setting->get('date_auto')) {
                 $this->data['timeago'] = $this->data['commentics_url'] . '3rdparty/timeago/timeago.js';
             } else {

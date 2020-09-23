@@ -1,3 +1,7 @@
+@if autodetect
+    <script src="{{ autodetect }}" defer></script>
+@endif
+
 @if jquery
     <script src="{{ jquery }}"></script>
 @endif
