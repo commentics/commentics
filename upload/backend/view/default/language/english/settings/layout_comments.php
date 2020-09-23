@@ -2,6 +2,9 @@
 // Heading
 $_['lang_heading']                   = 'Comments';
 
+// Notice
+$_['lang_notice']                    = 'To assign the Online feature you must also enable it in <a href="%s">Settings -> Viewers</a> <a>x</a>';
+
 // Subheading
 $_['lang_subheading_general']        = 'General';
 $_['lang_subheading_inside']         = 'Inside the comments';
@@ -20,6 +23,7 @@ $_['lang_subheading_flag']           = 'Flag';
 $_['lang_subheading_permalink']      = 'Permalink';
 $_['lang_subheading_reply']          = 'Reply';
 $_['lang_subheading_outside']        = 'Outside the comments';
+$_['lang_subheading_positions']      = '(Once enabled, use the "Positions" setting above to assign these)';
 $_['lang_subheading_average_rating'] = 'Average Rating';
 $_['lang_subheading_notify']         = 'Notify';
 $_['lang_subheading_online']         = 'Online';
@@ -149,7 +153,7 @@ $_['lang_hint_reply_depth']          = 'How many levels of replies before the re
 $_['lang_hint_average_rating']       = 'Whether to show the average rating of the page.';
 $_['lang_hint_guest']                = 'Whether to allow users to rate without leaving a comment.';
 $_['lang_hint_notify']               = 'Whether users can subscribe to email notifications without having to post a comment.';
-$_['lang_hint_online']               = 'Whether to show how many viewers are on the page.';
+$_['lang_hint_online']               = 'Whether to display how many viewers are online. This must also be enabled in Settings -> Viewers.';
 $_['lang_hint_refresh']              = 'Whether to auto refresh the number of viewers.';
 $_['lang_hint_interval']             = 'The number of seconds between each refresh.';
 $_['lang_hint_format']               = 'Choose the number format. The default is Page X of Y.';

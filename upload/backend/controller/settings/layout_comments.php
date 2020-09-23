@@ -181,20 +181,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_comments_position_12'] = '';
         }
 
-        $this->data['elements'] = array(
-            $this->data['lang_select_none']           => '',
-            $this->data['lang_select_average_rating'] => 'average_rating',
-            $this->data['lang_select_notify']         => 'notify',
-            $this->data['lang_select_online']         => 'online',
-            $this->data['lang_select_page_number']    => 'page_number',
-            $this->data['lang_select_pagination']     => 'pagination',
-            $this->data['lang_select_rss']            => 'rss',
-            $this->data['lang_select_search']         => 'search',
-            $this->data['lang_select_social']         => 'social',
-            $this->data['lang_select_sort_by']        => 'sort_by',
-            $this->data['lang_select_topic']          => 'topic'
-        );
-
         /* Gravatar */
 
         if (isset($this->request->post['show_gravatar'])) {
@@ -945,6 +931,68 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['show_topic'] = false;
         } else {
             $this->data['show_topic'] = $this->setting->get('show_topic');
+        }
+
+        $this->data['elements'] = array(
+            array(
+                'name'    => $this->data['lang_select_none'],
+                'value'   => '',
+                'enabled' => true
+            ),
+            array(
+                'name'    => $this->data['lang_select_average_rating'],
+                'value'   => 'average_rating',
+                'enabled' => ($this->data['show_average_rating'] ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_notify'],
+                'value'   => 'notify',
+                'enabled' => ($this->data['show_notify'] ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_online'],
+                'value'   => 'online',
+                'enabled' => ($this->data['show_online'] && $this->setting->get('viewers_enabled') ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_page_number'],
+                'value'   => 'page_number',
+                'enabled' => ($this->data['show_page_number'] && $this->data['show_pagination'] && $this->data['pagination_type'] == 'multiple' ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_pagination'],
+                'value'   => 'pagination',
+                'enabled' => ($this->data['show_pagination'] && $this->data['pagination_type'] == 'multiple' ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_rss'],
+                'value'   => 'rss',
+                'enabled' => ($this->data['show_rss'] ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_search'],
+                'value'   => 'search',
+                'enabled' => ($this->data['show_search'] ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_social'],
+                'value'   => 'social',
+                'enabled' => ($this->data['show_social'] ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_sort_by'],
+                'value'   => 'sort_by',
+                'enabled' => ($this->data['show_sort_by'] ? true : false)
+            ),
+            array(
+                'name'    => $this->data['lang_select_topic'],
+                'value'   => 'topic',
+                'enabled' => ($this->data['show_topic'] ? true : false)
+            )
+        );
+
+        if ($this->data['show_online'] && !$this->setting->get('viewers_enabled')) {
+            $this->data['info'] = sprintf($this->data['lang_notice'], $this->url->link('settings/viewers'));
         }
 
         $this->components = array('common/header', 'common/footer');

@@ -59,8 +59,8 @@
                         <div class="row row_1">
                             <div class="left">
                                 <select name="comments_position_1">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_1 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_1 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_1) { ?>
@@ -70,8 +70,8 @@
 
                             <div class="center">
                                 <select name="comments_position_2">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_2 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_2 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_2) { ?>
@@ -81,8 +81,8 @@
 
                             <div class="right">
                                 <select name="comments_position_3">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_3 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_3 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_3) { ?>
@@ -94,8 +94,8 @@
                         <div class="row row_2">
                             <div class="left">
                                 <select name="comments_position_4">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_4 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_4 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_4) { ?>
@@ -105,8 +105,8 @@
 
                             <div class="center">
                                 <select name="comments_position_5">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_5 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_5 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_5) { ?>
@@ -116,8 +116,8 @@
 
                             <div class="right">
                                 <select name="comments_position_6">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_6 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_6 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_6) { ?>
@@ -133,8 +133,8 @@
                         <div class="row row_3">
                             <div class="left">
                                 <select name="comments_position_7">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_7 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_7 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_7) { ?>
@@ -144,8 +144,8 @@
 
                             <div class="center">
                                 <select name="comments_position_8">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_8 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_8 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_8) { ?>
@@ -155,8 +155,8 @@
 
                             <div class="right">
                                 <select name="comments_position_9">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_9 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_9 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_9) { ?>
@@ -168,8 +168,8 @@
                         <div class="row row_4">
                             <div class="left">
                                 <select name="comments_position_10">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_10 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_10 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_10) { ?>
@@ -179,8 +179,8 @@
 
                             <div class="center">
                                 <select name="comments_position_11">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_11 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_11 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_11) { ?>
@@ -190,8 +190,8 @@
 
                             <div class="right">
                                 <select name="comments_position_12">
-                                    <?php foreach ($elements as $selection => $value) { ?>
-                                        <option value="<?php echo $value; ?>" <?php if ($comments_position_12 == $value) { echo 'selected'; } ?>><?php echo $selection; ?></option>
+                                    <?php foreach ($elements as $element) { ?>
+                                        <option value="<?php echo $element['value']; ?>" <?php if (!$element['enabled']) { echo 'disabled'; } else if ($comments_position_12 == $element['value']) { echo 'selected'; } ?>><?php echo $element['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <?php if ($error_comments_position_12) { ?>
@@ -200,6 +200,266 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="element_heading"><?php echo $lang_subheading_outside; ?> <span class="element_heading_extra"><?php echo $lang_subheading_positions; ?></span></div>
+
+        <div class="elements">
+            <div class="<?php echo ($show_average_rating ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_average_rating; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_average_rating" value="1" <?php if ($show_average_rating) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_average_rating; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_guest; ?></label>
+                    <input type="checkbox" name="average_rating_guest" value="1" <?php if ($average_rating_guest) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_guest; ?>', this, event, '')">[?]</a>
+                </div>
+            </div>
+
+            <div class="<?php echo ($show_notify ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_notify; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_notify" value="1" <?php if ($show_notify) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify; ?>', this, event, '')">[?]</a>
+                </div>
+            </div>
+
+            <div class="<?php echo ($show_online ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_online; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_online" value="1" <?php if ($show_online) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_online; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_refresh; ?></label>
+                    <input type="checkbox" name="online_refresh_enabled" value="1" <?php if ($online_refresh_enabled) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_refresh; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_interval; ?></label>
+                    <input type="text" required name="online_refresh_interval" class="small" value="<?php echo $online_refresh_interval; ?>" maxlength="3">
+                    <span class="note"><?php echo $lang_note_seconds; ?></span>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_interval; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_online_refresh_interval) { ?>
+                        <span class="error"><?php echo $error_online_refresh_interval; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div class="<?php echo ($show_pagination || $show_page_number ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_pagination; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_pagination" value="1" <?php if ($show_pagination) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_pagination; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_type; ?></label>
+                    <select name="pagination_type">
+                        <option value="multiple" <?php if ($pagination_type == 'multiple') { echo 'selected'; } ?>><?php echo $lang_select_multiple; ?></option>
+                        <option value="button" <?php if ($pagination_type == 'button') { echo 'selected'; } ?>><?php echo $lang_select_button; ?></option>
+                        <option value="infinite" <?php if ($pagination_type == 'infinite') { echo 'selected'; } ?>><?php echo $lang_select_infinite; ?></option>
+                    </select>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_type; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_pagination_type) { ?>
+                        <span class="error"><?php echo $error_pagination_type; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_amount; ?></label>
+                    <input type="text" required name="pagination_amount" class="small" value="<?php echo $pagination_amount; ?>" maxlength="3">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_amount; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_pagination_amount) { ?>
+                        <span class="error"><?php echo $error_pagination_amount; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset range_section">
+                    <label><?php echo $lang_entry_range; ?></label>
+                    <input type="text" required name="pagination_range" class="small" value="<?php echo $pagination_range; ?>" maxlength="2">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_range; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_pagination_range) { ?>
+                        <span class="error"><?php echo $error_pagination_range; ?></span>
+                    <?php } ?>
+                </div>
+
+                <h2><?php echo $lang_subheading_page_number; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_page_number" value="1" <?php if ($show_page_number) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_page_number; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_format; ?></label>
+                    <select name="page_number_format">
+                        <option value="Page X" <?php if ($page_number_format == 'Page X') { echo 'selected'; } ?>><?php echo $lang_select_page_x; ?></option>
+                        <option value="Page X of Y" <?php if ($page_number_format == 'Page X of Y') { echo 'selected'; } ?>><?php echo $lang_select_page_x_of_y; ?></option>
+                    </select>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_format; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_page_number_format) { ?>
+                        <span class="error"><?php echo $error_page_number_format; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div class="<?php echo ($show_rss ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_rss; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_rss" value="1" <?php if ($show_rss) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_rss; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_new_window; ?></label>
+                    <input type="checkbox" name="rss_new_window" value="1" <?php if ($rss_new_window) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_new_window; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_limit_items; ?></label>
+                    <input type="checkbox" name="rss_limit_enabled" value="1" <?php if ($rss_limit_enabled) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_limit_items; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_limit_amount; ?></label>
+                    <input type="text" required name="rss_limit_amount" class="small" value="<?php echo $rss_limit_amount; ?>" maxlength="3">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_limit_amount; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_rss_limit_amount) { ?>
+                        <span class="error"><?php echo $error_rss_limit_amount; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div class="<?php echo ($show_search ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_search; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_search" value="1" <?php if ($show_search) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_search; ?>', this, event, '')">[?]</a>
+                </div>
+            </div>
+
+            <div class="<?php echo ($show_social ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_social; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_social" value="1" <?php if ($show_social) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_social; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_new_window; ?></label>
+                    <input type="checkbox" name="social_new_window" value="1" <?php if ($social_new_window) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_new_window; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><img src="<?php echo $socials['digg']; ?>" title="<?php echo $lang_title_digg; ?>"></label>
+                    <input type="checkbox" name="show_social_digg" value="1" <?php if ($show_social_digg) { echo 'checked'; } ?>>
+                </div>
+
+                <div class="fieldset">
+                    <label><img src="<?php echo $socials['facebook']; ?>" title="<?php echo $lang_title_facebook; ?>"></label>
+                    <input type="checkbox" name="show_social_facebook" value="1" <?php if ($show_social_facebook) { echo 'checked'; } ?>>
+                </div>
+
+                <div class="fieldset">
+                    <label><img src="<?php echo $socials['linkedin']; ?>" title="<?php echo $lang_title_linkedin; ?>"></label>
+                    <input type="checkbox" name="show_social_linkedin" value="1" <?php if ($show_social_linkedin) { echo 'checked'; } ?>>
+                </div>
+
+                <div class="fieldset">
+                    <label><img src="<?php echo $socials['reddit']; ?>" title="<?php echo $lang_title_reddit; ?>"></label>
+                    <input type="checkbox" name="show_social_reddit" value="1" <?php if ($show_social_reddit) { echo 'checked'; } ?>>
+                </div>
+
+                <div class="fieldset">
+                    <label><img src="<?php echo $socials['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
+                    <input type="checkbox" name="show_social_twitter" value="1" <?php if ($show_social_twitter) { echo 'checked'; } ?>>
+                </div>
+
+                <div class="fieldset">
+                    <label><img src="<?php echo $socials['weibo']; ?>" title="<?php echo $lang_title_weibo; ?>"></label>
+                    <input type="checkbox" name="show_social_weibo" value="1" <?php if ($show_social_weibo) { echo 'checked'; } ?>>
+                </div>
+            </div>
+
+            <div class="<?php echo ($show_sort_by ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_sort_by; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_sort_by" value="1" <?php if ($show_sort_by) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_sort_by_1; ?></label>
+                    <input type="checkbox" name="show_sort_by_1" value="1" <?php if ($show_sort_by_1) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_1; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_sort_by_2; ?></label>
+                    <input type="checkbox" name="show_sort_by_2" value="1" <?php if ($show_sort_by_2) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_2; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_sort_by_3; ?></label>
+                    <input type="checkbox" name="show_sort_by_3" value="1" <?php if ($show_sort_by_3) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_3; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_sort_by_4; ?></label>
+                    <input type="checkbox" name="show_sort_by_4" value="1" <?php if ($show_sort_by_4) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_4; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_sort_by_5; ?></label>
+                    <input type="checkbox" name="show_sort_by_5" value="1" <?php if ($show_sort_by_5) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_5; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_sort_by_6; ?></label>
+                    <input type="checkbox" name="show_sort_by_6" value="1" <?php if ($show_sort_by_6) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_6; ?>', this, event, '')">[?]</a>
+                </div>
+            </div>
+
+            <div class="<?php echo ($show_topic ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_topic; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_topic" value="1" <?php if ($show_topic) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_topic; ?>', this, event, '')">[?]</a>
                 </div>
             </div>
         </div>
@@ -563,266 +823,6 @@
                     <?php if ($error_reply_depth) { ?>
                         <span class="error"><?php echo $error_reply_depth; ?></span>
                     <?php } ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="element_heading"><?php echo $lang_subheading_outside; ?></div>
-
-        <div class="elements">
-            <div class="<?php echo ($show_average_rating ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_average_rating; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_average_rating" value="1" <?php if ($show_average_rating) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_average_rating; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_guest; ?></label>
-                    <input type="checkbox" name="average_rating_guest" value="1" <?php if ($average_rating_guest) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_guest; ?>', this, event, '')">[?]</a>
-                </div>
-            </div>
-
-            <div class="<?php echo ($show_notify ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_notify; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_notify" value="1" <?php if ($show_notify) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify; ?>', this, event, '')">[?]</a>
-                </div>
-            </div>
-
-            <div class="<?php echo ($show_online ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_online; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_online" value="1" <?php if ($show_online) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_online; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_refresh; ?></label>
-                    <input type="checkbox" name="online_refresh_enabled" value="1" <?php if ($online_refresh_enabled) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_refresh; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_interval; ?></label>
-                    <input type="text" required name="online_refresh_interval" class="small" value="<?php echo $online_refresh_interval; ?>" maxlength="3">
-                    <span class="note"><?php echo $lang_note_seconds; ?></span>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_interval; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_online_refresh_interval) { ?>
-                        <span class="error"><?php echo $error_online_refresh_interval; ?></span>
-                    <?php } ?>
-                </div>
-            </div>
-
-            <div class="<?php echo ($show_pagination || $show_page_number ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_pagination; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_pagination" value="1" <?php if ($show_pagination) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_pagination; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_type; ?></label>
-                    <select name="pagination_type">
-                        <option value="multiple" <?php if ($pagination_type == 'multiple') { echo 'selected'; } ?>><?php echo $lang_select_multiple; ?></option>
-                        <option value="button" <?php if ($pagination_type == 'button') { echo 'selected'; } ?>><?php echo $lang_select_button; ?></option>
-                        <option value="infinite" <?php if ($pagination_type == 'infinite') { echo 'selected'; } ?>><?php echo $lang_select_infinite; ?></option>
-                    </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_type; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_pagination_type) { ?>
-                        <span class="error"><?php echo $error_pagination_type; ?></span>
-                    <?php } ?>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_amount; ?></label>
-                    <input type="text" required name="pagination_amount" class="small" value="<?php echo $pagination_amount; ?>" maxlength="3">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_amount; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_pagination_amount) { ?>
-                        <span class="error"><?php echo $error_pagination_amount; ?></span>
-                    <?php } ?>
-                </div>
-
-                <div class="fieldset range_section">
-                    <label><?php echo $lang_entry_range; ?></label>
-                    <input type="text" required name="pagination_range" class="small" value="<?php echo $pagination_range; ?>" maxlength="2">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_range; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_pagination_range) { ?>
-                        <span class="error"><?php echo $error_pagination_range; ?></span>
-                    <?php } ?>
-                </div>
-
-                <h2><?php echo $lang_subheading_page_number; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_page_number" value="1" <?php if ($show_page_number) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_page_number; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_format; ?></label>
-                    <select name="page_number_format">
-                        <option value="Page X" <?php if ($page_number_format == 'Page X') { echo 'selected'; } ?>><?php echo $lang_select_page_x; ?></option>
-                        <option value="Page X of Y" <?php if ($page_number_format == 'Page X of Y') { echo 'selected'; } ?>><?php echo $lang_select_page_x_of_y; ?></option>
-                    </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_format; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_page_number_format) { ?>
-                        <span class="error"><?php echo $error_page_number_format; ?></span>
-                    <?php } ?>
-                </div>
-            </div>
-
-            <div class="<?php echo ($show_rss ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_rss; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_rss" value="1" <?php if ($show_rss) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_rss; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_new_window; ?></label>
-                    <input type="checkbox" name="rss_new_window" value="1" <?php if ($rss_new_window) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_new_window; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_limit_items; ?></label>
-                    <input type="checkbox" name="rss_limit_enabled" value="1" <?php if ($rss_limit_enabled) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_limit_items; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_limit_amount; ?></label>
-                    <input type="text" required name="rss_limit_amount" class="small" value="<?php echo $rss_limit_amount; ?>" maxlength="3">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_limit_amount; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_rss_limit_amount) { ?>
-                        <span class="error"><?php echo $error_rss_limit_amount; ?></span>
-                    <?php } ?>
-                </div>
-            </div>
-
-            <div class="<?php echo ($show_search ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_search; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_search" value="1" <?php if ($show_search) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_search; ?>', this, event, '')">[?]</a>
-                </div>
-            </div>
-
-            <div class="<?php echo ($show_social ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_social; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_social" value="1" <?php if ($show_social) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_social; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_new_window; ?></label>
-                    <input type="checkbox" name="social_new_window" value="1" <?php if ($social_new_window) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_new_window; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><img src="<?php echo $socials['digg']; ?>" title="<?php echo $lang_title_digg; ?>"></label>
-                    <input type="checkbox" name="show_social_digg" value="1" <?php if ($show_social_digg) { echo 'checked'; } ?>>
-                </div>
-
-                <div class="fieldset">
-                    <label><img src="<?php echo $socials['facebook']; ?>" title="<?php echo $lang_title_facebook; ?>"></label>
-                    <input type="checkbox" name="show_social_facebook" value="1" <?php if ($show_social_facebook) { echo 'checked'; } ?>>
-                </div>
-
-                <div class="fieldset">
-                    <label><img src="<?php echo $socials['linkedin']; ?>" title="<?php echo $lang_title_linkedin; ?>"></label>
-                    <input type="checkbox" name="show_social_linkedin" value="1" <?php if ($show_social_linkedin) { echo 'checked'; } ?>>
-                </div>
-
-                <div class="fieldset">
-                    <label><img src="<?php echo $socials['reddit']; ?>" title="<?php echo $lang_title_reddit; ?>"></label>
-                    <input type="checkbox" name="show_social_reddit" value="1" <?php if ($show_social_reddit) { echo 'checked'; } ?>>
-                </div>
-
-                <div class="fieldset">
-                    <label><img src="<?php echo $socials['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
-                    <input type="checkbox" name="show_social_twitter" value="1" <?php if ($show_social_twitter) { echo 'checked'; } ?>>
-                </div>
-
-                <div class="fieldset">
-                    <label><img src="<?php echo $socials['weibo']; ?>" title="<?php echo $lang_title_weibo; ?>"></label>
-                    <input type="checkbox" name="show_social_weibo" value="1" <?php if ($show_social_weibo) { echo 'checked'; } ?>>
-                </div>
-            </div>
-
-            <div class="<?php echo ($show_sort_by ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_sort_by; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_sort_by" value="1" <?php if ($show_sort_by) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_sort_by_1; ?></label>
-                    <input type="checkbox" name="show_sort_by_1" value="1" <?php if ($show_sort_by_1) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_1; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_sort_by_2; ?></label>
-                    <input type="checkbox" name="show_sort_by_2" value="1" <?php if ($show_sort_by_2) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_2; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_sort_by_3; ?></label>
-                    <input type="checkbox" name="show_sort_by_3" value="1" <?php if ($show_sort_by_3) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_3; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_sort_by_4; ?></label>
-                    <input type="checkbox" name="show_sort_by_4" value="1" <?php if ($show_sort_by_4) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_4; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_sort_by_5; ?></label>
-                    <input type="checkbox" name="show_sort_by_5" value="1" <?php if ($show_sort_by_5) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_5; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_sort_by_6; ?></label>
-                    <input type="checkbox" name="show_sort_by_6" value="1" <?php if ($show_sort_by_6) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort_by_6; ?>', this, event, '')">[?]</a>
-                </div>
-            </div>
-
-            <div class="<?php echo ($show_topic ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_topic; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_topic" value="1" <?php if ($show_topic) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_topic; ?>', this, event, '')">[?]</a>
                 </div>
             </div>
         </div>
