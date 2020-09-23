@@ -1348,13 +1348,15 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 jQuery('.cmtx_share_box').offset({ top: destination.top - 30 , left: destination.left - 55 });
             });
 
-            jQuery(document).mouseup(function(e) {
-                var container = jQuery('.cmtx_share_box');
+            if (jQuery('.cmtx_share_box').length) {
+                jQuery(document).mouseup(function(e) {
+                    var container = jQuery('.cmtx_share_box');
 
-                if (!container.is(e.target) && container.has(e.target).length === 0) {
-                    container.fadeOut(400);
-                }
-            });
+                    if (!container.is(e.target) && container.has(e.target).length === 0) {
+                        container.fadeOut(400);
+                    }
+                });
+            }
 
             /* Flag modal */
             jQuery('body').on('click', '#cmtx_flag_modal_yes', function(e) {
@@ -1433,13 +1435,15 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 jQuery('.cmtx_permalink_box').fadeOut(400);
             });
 
-            jQuery(document).mouseup(function(e) {
-                var container = jQuery('.cmtx_permalink_box');
+            if (jQuery('.cmtx_permalink_box').length) {
+                jQuery(document).mouseup(function(e) {
+                    var container = jQuery('.cmtx_permalink_box');
 
-                if (!container.is(e.target) && container.has(e.target).length === 0) {
-                    container.fadeOut(400);
-                }
-            });
+                    if (!container.is(e.target) && container.has(e.target).length === 0) {
+                        container.fadeOut(400);
+                    }
+                });
+            }
 
             /* Reply to a comment */
             jQuery('#cmtx_container').on('click', '.cmtx_reply_link', function(e) {
@@ -1549,38 +1553,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
             cmtxViewReplies();
             cmtxTimeago();
             cmtxHighlightCode();
-
-            /* Viewers Online */
-
-            if (typeof(cmtx_js_settings_online) != 'undefined') {
-                if (cmtx_js_settings_online.online_refresh_enabled) {
-                    setInterval(function() {
-                        var request = jQuery.ajax({
-                            type: 'POST',
-                            cache: false,
-                            url: cmtx_js_settings_online.commentics_url + 'frontend/index.php?route=part/online/refresh',
-                            data: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_online.page_id),
-                            dataType: 'json'
-                        });
-
-                        request.done(function(response) {
-                            if (response['online'] != 'undefined') { // may be zero
-                                if (jQuery('.cmtx_online_num').first().text() != response['online']) { // only update if different
-                                    jQuery('.cmtx_online_num').fadeOut(function() {
-                                        jQuery('.cmtx_online_num').text(response['online']).fadeIn();
-                                    });
-                                }
-                            }
-                        });
-
-                        request.fail(function(jqXHR, textStatus, errorThrown) {
-                            if (console && console.log) {
-                                console.log(jqXHR.responseText);
-                            }
-                        });
-                    }, cmtx_js_settings_online.online_refresh_interval);
-                }
-            }
+            cmtxViewersOnline();
 
             /* Admin Detect modal */
 
@@ -1876,11 +1849,42 @@ function cmtxTimeago() {
 
 /* Highlight any user-entered code */
 function cmtxHighlightCode() {
-    if (typeof(cmtx_js_settings_comments) != 'undefined') {
-        if (cmtx_js_settings_comments.highlight) {
-            jQuery('.cmtx_code_box, .cmtx_php_box').each(function(i, block) {
-                hljs.highlightBlock(block);
-            });
+    if (typeof(hljs) != 'undefined' && typeof(hljs.highlightBlock) != 'undefined') {
+        jQuery('.cmtx_code_box, .cmtx_php_box').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    }
+}
+
+/* Viewers Online */
+function cmtxViewersOnline() {
+    if (typeof(cmtx_js_settings_online) != 'undefined') {
+        if (cmtx_js_settings_online.online_refresh_enabled) {
+            setInterval(function() {
+                var request = jQuery.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: cmtx_js_settings_online.commentics_url + 'frontend/index.php?route=part/online/refresh',
+                    data: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_online.page_id),
+                    dataType: 'json'
+                });
+
+                request.done(function(response) {
+                    if (response['online'] != 'undefined') { // may be zero
+                        if (jQuery('.cmtx_online_num').first().text() != response['online']) { // only update if different
+                            jQuery('.cmtx_online_num').fadeOut(function() {
+                                jQuery('.cmtx_online_num').text(response['online']).fadeIn();
+                            });
+                        }
+                    }
+                });
+
+                request.fail(function(jqXHR, textStatus, errorThrown) {
+                    if (console && console.log) {
+                        console.log(jqXHR.responseText);
+                    }
+                });
+            }, cmtx_js_settings_online.online_refresh_interval);
         }
     }
 }
@@ -2001,9 +2005,20 @@ function cmtxRefreshComments(options) {
                 cmtx_js_settings_comments = JSON.parse(jQuery('#cmtx_js_settings_comments').text());
             }
 
-            cmtxHighlightCode();
-            cmtxTimeago();
+            /* Load the notify settings in case they weren't already loaded (if there were no comments) */
+            if (jQuery('#cmtx_js_settings_notify').length) {
+                cmtx_js_settings_notify = JSON.parse(jQuery('#cmtx_js_settings_notify').text());
+            }
+
+            /* Load the online settings in case they weren't already loaded (if there were no comments) */
+            if (jQuery('#cmtx_js_settings_online').length) {
+                cmtx_js_settings_online = JSON.parse(jQuery('#cmtx_js_settings_online').text());
+            }
+
             cmtxViewReplies();
+            cmtxTimeago();
+            cmtxHighlightCode();
+            cmtxViewersOnline();
         }
     });
 
