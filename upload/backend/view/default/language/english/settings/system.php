@@ -29,7 +29,7 @@ $_['lang_hint_commentics_url']     = 'The URL to the Commentics folder.<br>http:
 $_['lang_hint_backend_folder']     = 'The name of the backend folder. For example: <i>secret</i>';
 $_['lang_hint_purpose']            = 'Use this to change the wording on all pages automatically.';
 $_['lang_hint_use_wysiwyg']        = 'Should the WYSIWYG (What You See Is What You Get) HTML editor be enabled for the Edit Comment page?';
-$_['lang_hint_display_parsing']    = 'Display parsing information below the form. You must be detected as the admin for it to display.';
+$_['lang_hint_display_parsing']    = 'Display parsing information on the page. You must be detected as the admin for it to display.';
 $_['lang_hint_limit_results']      = 'Show this amount of results per page (backend only).';
 $_['lang_hint_admin_cookie']       = 'The amount of days before the admin cookie expires.';
 

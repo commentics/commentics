@@ -7,7 +7,7 @@ $_['lang_description']           = '<p>Set up your email settings and preference
 $_['lang_description_method']    = '<p>Select the email transport method to use.</p>';
 $_['lang_description_sender']    = '<p>Please enter your sender information in the fields below.</p><p class="extra">You can override these individually in \'Manage -> Sites\'.</p>';
 $_['lang_description_signature'] = '<p>This is your signature for the emails.</p>';
-$_['lang_description_test']      = '<p>Send an email to test your email settings and preferences.</p><p class="extra">The email will be sent to <b>%s</b>.</p>';
+$_['lang_description_test']      = '<p>Send an email to test your email settings and preferences.</p><p class="extra">The email will be sent to <b>%s</b></p>';
 
 // Tab
 $_['lang_tab_method']            = 'Method';
