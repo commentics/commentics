@@ -6,7 +6,7 @@
 
 .cmtx_form_heading {
     margin-bottom: 12px;
-    margin-top: 15px;
+    margin-top: 0;
 }
 
 #cmtx_perm_0 {
@@ -433,7 +433,7 @@
     margin-top: 20px;
 }
 
-.cmtx_user_row {
+.cmtx_name_container, .cmtx_email_container {
     margin-top: 20px;
 }
 
@@ -546,6 +546,11 @@ select.cmtx_required {
     margin-top: 20px;
 }
 
+.cmtx_button_row .cmtx_col_2 {
+    min-width: 150px;
+    width: auto;
+}
+
 .cmtx_question_field {
     cursor: default;
     height: auto !important;
@@ -608,10 +613,6 @@ select.cmtx_required {
     .cmtx_user_row .cmtx_col_6 {
         float: none;
         width: 100%;
-    }
-
-    .cmtx_name_container {
-        margin-bottom: 15px;
     }
 
     .cmtx_geo_row [class*='cmtx_col_'] {

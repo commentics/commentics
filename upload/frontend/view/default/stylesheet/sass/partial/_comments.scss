@@ -6,7 +6,7 @@
 
 .cmtx_comments_heading {
     margin-bottom: 15px;
-    margin-top: 40px;
+    margin-top: 0;
 }
 
 .cmtx_comments_row_one, .cmtx_comments_row_two {
@@ -15,10 +15,6 @@
 
 .cmtx_comments_row_three, .cmtx_comments_row_four {
     margin-top: 20px;
-}
-
-.cmtx_comments_row_four {
-    margin-bottom: 30px;
 }
 
 .cmtx_row_left, .cmtx_row_middle, .cmtx_row_right {
@@ -838,7 +834,7 @@
     line-height: 25px;
     margin: 0 !important;
     padding: 0 0 0 5px !important;
-    position: static;    
+    position: static;
     transition: width 500ms !important;
     width: 125px !important;
 }

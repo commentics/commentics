@@ -65,6 +65,11 @@ $red-dark:   darken($red, 5%);
     border-radius: 5px;
 }
 
+.cmtx_divider_section {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
 .cmtx_clear::before, .cmtx_clear::after {
     content: ' ';
     display: table;

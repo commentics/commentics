@@ -104,6 +104,11 @@
   border-radius: 5px;
 }
 
+.cmtx_divider_section {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
 .cmtx_clear::before, .cmtx_clear::after {
   content: ' ';
   display: table;
@@ -3330,7 +3335,7 @@
 
 .cmtx_form_heading {
   margin-bottom: 12px;
-  margin-top: 15px;
+  margin-top: 0;
 }
 
 #cmtx_perm_0 {
@@ -3761,7 +3766,7 @@
   margin-top: 20px;
 }
 
-.cmtx_user_row {
+.cmtx_name_container, .cmtx_email_container {
   margin-top: 20px;
 }
 
@@ -3874,6 +3879,11 @@ select.cmtx_required {
   margin-top: 20px;
 }
 
+.cmtx_button_row .cmtx_col_2 {
+  min-width: 150px;
+  width: auto;
+}
+
 .cmtx_question_field {
   cursor: default;
   height: auto !important;
@@ -3934,9 +3944,6 @@ select.cmtx_required {
   .cmtx_user_row .cmtx_col_6 {
     float: none;
     width: 100%;
-  }
-  .cmtx_name_container {
-    margin-bottom: 15px;
   }
   .cmtx_geo_row [class*='cmtx_col_'] {
     float: none;
@@ -3999,7 +4006,7 @@ select.cmtx_required {
 
 .cmtx_comments_heading {
   margin-bottom: 15px;
-  margin-top: 40px;
+  margin-top: 0;
 }
 
 .cmtx_comments_row_one, .cmtx_comments_row_two {
@@ -4008,10 +4015,6 @@ select.cmtx_required {
 
 .cmtx_comments_row_three, .cmtx_comments_row_four {
   margin-top: 20px;
-}
-
-.cmtx_comments_row_four {
-  margin-bottom: 30px;
 }
 
 .cmtx_row_left, .cmtx_row_middle, .cmtx_row_right {

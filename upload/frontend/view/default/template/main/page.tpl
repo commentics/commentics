@@ -19,6 +19,8 @@
             </div>
         @endif
 
+        <div class="cmtx_divider_section"></div>
+
         @if order_parts equals '1,2'
             <div class="cmtx_comments_section">{{ comments }}</div>
         @else
