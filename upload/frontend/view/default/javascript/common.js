@@ -1348,16 +1348,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 jQuery('.cmtx_share_box').offset({ top: destination.top - 30 , left: destination.left - 55 });
             });
 
-            if (jQuery('.cmtx_share_box').length) {
-                jQuery(document).mouseup(function(e) {
-                    var container = jQuery('.cmtx_share_box');
-
-                    if (!container.is(e.target) && container.has(e.target).length === 0) {
-                        container.fadeOut(400);
-                    }
-                });
-            }
-
             /* Flag modal */
             jQuery('body').on('click', '#cmtx_flag_modal_yes', function(e) {
                 e.preventDefault();
@@ -1434,16 +1424,6 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 jQuery('.cmtx_permalink_box').fadeOut(400);
             });
-
-            if (jQuery('.cmtx_permalink_box').length) {
-                jQuery(document).mouseup(function(e) {
-                    var container = jQuery('.cmtx_permalink_box');
-
-                    if (!container.is(e.target) && container.has(e.target).length === 0) {
-                        container.fadeOut(400);
-                    }
-                });
-            }
 
             /* Reply to a comment */
             jQuery('#cmtx_container').on('click', '.cmtx_reply_link', function(e) {
@@ -1554,6 +1534,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
             cmtxTimeago();
             cmtxHighlightCode();
             cmtxViewersOnline();
+            cmtxCloseShareBox();
+            cmtxClosePermalinkBox();
 
             /* Admin Detect modal */
 
@@ -1908,6 +1890,32 @@ function cmtxViewReplies() {
     }
 }
 
+/* Close the share box when clicking off it */
+function cmtxCloseShareBox() {
+    if (jQuery('.cmtx_share_box').length) {
+        jQuery(document).mouseup(function(e) {
+            var container = jQuery('.cmtx_share_box');
+
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                container.fadeOut(400);
+            }
+        });
+    }
+}
+
+/* Close the permalink box when clicking off it */
+function cmtxClosePermalinkBox() {
+    if (jQuery('.cmtx_permalink_box').length) {
+        jQuery(document).mouseup(function(e) {
+            var container = jQuery('.cmtx_permalink_box');
+
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                container.fadeOut(400);
+            }
+        });
+    }
+}
+
 /* Auto scroll to element */
 function cmtxAutoScroll(element) {
     try {
@@ -2019,6 +2027,8 @@ function cmtxRefreshComments(options) {
             cmtxTimeago();
             cmtxHighlightCode();
             cmtxViewersOnline();
+            cmtxCloseShareBox();
+            cmtxClosePermalinkBox();
         }
     });
 
