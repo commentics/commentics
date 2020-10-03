@@ -159,6 +159,12 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['average_rating_guest']) ? 1 : 0) . "' WHERE `title` = 'average_rating_guest'");
 
+        /* Custom */
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_custom']) ? 1 : 0) . "' WHERE `title` = 'show_custom'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['custom_content']) . "' WHERE `title` = 'custom_content'");
+
         /* Notify */
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_notify']) ? 1 : 0) . "' WHERE `title` = 'show_notify'");

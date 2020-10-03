@@ -223,6 +223,25 @@
                 </div>
             </div>
 
+            <div class="<?php echo ($show_custom ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_custom; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_custom" value="1" <?php if ($show_custom) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_custom; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_content; ?></label>
+                    <input type="text" name="custom_content" class="medium" value="<?php echo $custom_content; ?>" maxlength="250">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_custom_content; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_custom_content) { ?>
+                        <span class="error"><?php echo $error_custom_content; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
             <div class="<?php echo ($show_notify ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_notify; ?></h2>
 

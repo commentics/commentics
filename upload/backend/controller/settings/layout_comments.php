@@ -641,6 +641,28 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['average_rating_guest'] = $this->setting->get('average_rating_guest');
         }
 
+        /* Custom */
+
+        if (isset($this->request->post['show_custom'])) {
+            $this->data['show_custom'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_custom'])) {
+            $this->data['show_custom'] = false;
+        } else {
+            $this->data['show_custom'] = $this->setting->get('show_custom');
+        }
+
+        if (isset($this->request->post['custom_content'])) {
+            $this->data['custom_content'] = $this->request->post['custom_content'];
+        } else {
+            $this->data['custom_content'] = $this->setting->get('custom_content');
+        }
+
+        if (isset($this->error['custom_content'])) {
+            $this->data['error_custom_content'] = $this->error['custom_content'];
+        } else {
+            $this->data['error_custom_content'] = '';
+        }
+
         /* Notify */
 
         if (isset($this->request->post['show_notify'])) {
@@ -945,6 +967,11 @@ class SettingsLayoutCommentsController extends Controller
                 'enabled' => ($this->data['show_average_rating'] ? true : false)
             ),
             array(
+                'name'    => $this->data['lang_select_custom'],
+                'value'   => 'custom',
+                'enabled' => ($this->data['show_custom'] ? true : false)
+            ),
+            array(
                 'name'    => $this->data['lang_select_notify'],
                 'value'   => 'notify',
                 'enabled' => ($this->data['show_notify'] ? true : false)
@@ -1018,7 +1045,7 @@ class SettingsLayoutCommentsController extends Controller
             $this->error['comments_order'] = $this->data['lang_error_selection'];
         }
 
-        $elements = array('', 'average_rating', 'notify', 'online', 'page_number', 'pagination', 'rss', 'search', 'social', 'sort_by', 'topic');
+        $elements = array('', 'average_rating', 'custom', 'notify', 'online', 'page_number', 'pagination', 'rss', 'search', 'social', 'sort_by', 'topic');
 
         if (!isset($this->request->post['comments_position_1']) || !in_array($this->request->post['comments_position_1'], $elements)) {
             $this->error['comments_position_1'] = $this->data['lang_error_selection'];
@@ -1132,6 +1159,12 @@ class SettingsLayoutCommentsController extends Controller
 
         if (!isset($this->request->post['reply_depth']) || !$this->validation->isInt($this->request->post['reply_depth']) || $this->request->post['reply_depth'] < 1 || $this->request->post['reply_depth'] > 5) {
             $this->error['reply_depth'] = sprintf($this->data['lang_error_range'], 1, 5);
+        }
+
+        /* Custom */
+
+        if (!isset($this->request->post['custom_content']) || $this->validation->length($this->request->post['custom_content']) > 250) {
+            $this->error['custom_content'] = sprintf($this->data['lang_error_length'], 0, 250);
         }
 
         /* Online */
