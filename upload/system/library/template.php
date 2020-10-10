@@ -140,7 +140,7 @@ class Template
             $replacements = array(
                 ' equals '       => ' == ',
                 ' not equal to ' => ' != ',
-                ' more than '  => ' > ',
+                ' more than '    => ' > ',
                 ' less than '    => ' < ',
                 ' and '          => ' && ',
                 ' or '           => ' || '
