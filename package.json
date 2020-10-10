@@ -6,7 +6,7 @@
     "gulp-autoprefixer": "^6.1.0",
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^4.1.0",
     "gulp-stylelint": "^8.0.0",
     "gulp-uglify": "^3.0.2",
     "stylelint": "^9.10.1",
