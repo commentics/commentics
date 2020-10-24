@@ -1,3 +1,66 @@
+Version: 4.1
+Date: 24th October 2020
+
+[Feature] Adds headline field
+[Feature] Adds setting to change comment wording
+[Feature] Clear cache tool
+[Improvement] PHP 7.4 compatibility
+[Improvement] Comment preview shows image upload
+[Improvement] Comment preview gravatar links to gravatar site
+[Improvement] Allows direct upgrade from v2.5 and above
+[Improvement] iFrame cookies samesite none and secure
+[Improvement] Layout settings combined to one page
+[Improvement] Dashboard checks system settings
+[Improvement] Dashboard detects if BitNinja installed
+[Improvement] Displays version on dashboard
+[Improvement] Adds setting to disable guest rating
+[Improvement] Adds extra admin page messages
+[Improvement] Styling of iFrame loading spinner
+[Improvement] One click upgrade deletes install folder
+[Improvement] Download the version check report
+[Improvement] Allows config file to override settings
+[Improvement] Loads countries using ajax
+[Improvement] Removes the ability to rate when replying
+[Improvement] Translatable dashboard admin tips
+[Improvement] Translatable dashboard quick links
+[Improvement] Clear template cache when changing theme
+[Improvement] Clear all cache after upgrade
+[Improvement] Adds admin detection info modal
+[Improvement] Show overall result in permissions report
+[Improvement] Show real folder in permissions report
+[Improvement] iFrame ignores empty integration values
+[Improvement] Simplifies comment management
+[Improvement] Adds FAQ link to no site found error
+[Improvement] Improvements to template engine
+[Improvement] Improvements to fixCase() method
+[Improvement] Improvements to default styling
+[Improvement] Moves repeat language strings to general file
+[Improvement] jQuery '$' changed to 'jQuery'
+[Improvement] Improvements to theme preview
+[Improvement] Add custom outer comment text
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades Summernote script
+[Improvement] Upgrades iFrame Resizer script
+[Bug Fix] Removes ambiguous captcha characters
+[Bug Fix] Fix for importing emails
+[Bug Fix] Clearing cache of replies
+[Bug Fix] No captcha questions after switching language
+[Bug Fix] Position of comment messages
+[Bug Fix] Ajax not working after first comment
+[Bug Fix] Fix for getimagesizefromstring() not available
+[Bug Fix] Fix admin restrictions briefly showing
+[Bug Fix] Fix for no states when editing comment
+[Bug Fix] Fix page count on manage sites page
+[Bug Fix] Fix plural wording for dashboard stats
+[Bug Fix] Fix auto detect if optimize setting disabled
+[Bug Fix] Fix for having to click into filled fields
+[Other] Removes check for 'admin' folder
+[Other] Removes styling from backend templates
+[Other] Changes default prefilled field to hide
+[Other] Increases default flooding to 10 per hour
+
+*************************************************************************
+
 Version: 4.0
 Date: 25th January 2020
 
