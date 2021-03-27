@@ -54,7 +54,6 @@ class LoginLoginModel extends Model
         $ip_address = $this->user->getIpAddress();
 
         if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "attempts` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `amount` >= 3"))) {
-
             $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "attempts` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `amount` >= 3");
 
             $result = $this->db->row($query);
