@@ -73,8 +73,7 @@
   padding: 10px;
   text-align: center;
   text-decoration: none;
-  -webkit-transition-duration: 0.4s;
-          transition-duration: 0.4s;
+  transition-duration: 0.4s;
   width: 100%;
 }
 
@@ -236,53 +235,44 @@
 
 @-webkit-keyframes fa-spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 
 @keyframes fa-spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 
 #cmtx_container .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
-  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
 #cmtx_container .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-  -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
 #cmtx_container .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-  -webkit-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 
 #cmtx_container .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
-  -webkit-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 
 #cmtx_container .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
-  -webkit-transform: scale(1, -1);
   transform: scale(1, -1);
 }
 
@@ -291,8 +281,7 @@
 #cmtx_container :root .fa-rotate-270,
 #cmtx_container :root .fa-flip-horizontal,
 #cmtx_container :root .fa-flip-vertical {
-  -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 
 #cmtx_container .fa-stack {
@@ -3289,7 +3278,6 @@
 }
 
 .cmtx_image_overlay {
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to top, #000 0, rgba(0, 0, 0, 0) 100%);
   bottom: 4px;
   color: #fff;
@@ -3299,7 +3287,6 @@
   opacity: 0;
   position: absolute;
   text-align: center;
-  -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   width: 100%;
   z-index: 6000;
@@ -3324,7 +3311,6 @@
 .cmtx_remove_image:hover {
   background: #c13b2a;
   color: #fff;
-  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
@@ -3738,7 +3724,6 @@
   line-height: normal;
   padding: 5px !important;
   text-align: left !important;
-  -webkit-transition: height 0.25s ease-in !important;
   transition: height 0.25s ease-in !important;
 }
 
@@ -4520,8 +4505,7 @@ select.cmtx_required {
   font-size: 0.9em;
   left: 50%;
   position: absolute;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
 }
 
 .cmtx_view_replies_area a, .cmtx_view_replies_area a * {
@@ -4668,8 +4652,7 @@ select.cmtx_required {
   .cmtx_view_replies_area {
     margin-top: 15px;
     position: static;
-    -webkit-transform: none;
-            transform: none;
+    transform: none;
   }
 }
 
@@ -4830,7 +4813,6 @@ select.cmtx_required {
   margin: 0 !important;
   padding: 0 0 0 5px !important;
   position: static;
-  -webkit-transition: width 500ms !important;
   transition: width 500ms !important;
   width: 125px !important;
 }
@@ -4855,8 +4837,7 @@ select.cmtx_required {
   height: 12px;
   position: absolute;
   right: 5px;
-  -webkit-transform: translateY(50%);
-          transform: translateY(50%);
+  transform: translateY(50%);
 }
 
 .cmtx_search_wrapper {
@@ -4921,6 +4902,10 @@ select.cmtx_required {
 }
 
 /* Topic */
+.cmtx_topic_block {
+  overflow: auto;
+}
+
 .cmtx_topic_intro {
   font-weight: normal;
 }
@@ -4999,7 +4984,6 @@ select.cmtx_required {
 }
 
 .cmtx_user_container .cmtx_settings_container {
-  display: -webkit-box;
   display: flex;
 }
 
@@ -5180,8 +5164,7 @@ select.cmtx_required {
   left: 50%;
   position: fixed;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: auto;
   z-index: 9000;
 }
@@ -5231,7 +5214,6 @@ select.cmtx_required {
 
 .cmtx_modal_box header a:hover {
   color: #4d4d4d;
-  -webkit-transition: color 1s ease;
   transition: color 1s ease;
 }
 
@@ -5278,7 +5260,6 @@ select.cmtx_required {
 }
 
 #cmtx_bullet_modal .cmtx_modal_body div:not(:first-of-type), #cmtx_numeric_modal .cmtx_modal_body div:not(:first-of-type) {
-  display: -webkit-box;
   display: flex;
 }
 
