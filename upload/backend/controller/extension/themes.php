@@ -89,7 +89,7 @@ class ExtensionThemesController extends Controller
 
         $this->data['backend_themes'] = $this->model_extension_themes->getBackendThemes();
 
-        $this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/getthemes');
+        $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/getthemes');
 
         $this->components = array('common/header', 'common/footer');
 

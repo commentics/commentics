@@ -46,9 +46,9 @@ class ExtensionLanguagesController extends Controller
         $this->data['backend_languages'] = $this->model_common_language->getBackendLanguages();
 
         if ($this->data['language_frontend'] == 'english') {
-            $this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/getlanguages');
+            $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/getlanguages');
         } else {
-            $this->data['info'] = sprintf($this->data['lang_submit'], 'https://www.commentics.org/addlanguages');
+            $this->data['info'] = sprintf($this->data['lang_submit'], 'https://commentics.com/addlanguages');
 
             $this->data['warning'] = sprintf($this->data['lang_others'], $this->url->link('settings/email_editor') . '&type=ban', $this->url->link('manage/countries'), $this->url->link('manage/questions'));
         }

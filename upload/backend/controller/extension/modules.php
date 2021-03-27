@@ -34,7 +34,7 @@ class ExtensionModulesController extends Controller
 
         $this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_text_no']);
 
-        $this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/getmodules');
+        $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/getmodules');
 
         $this->components = array('common/header', 'common/footer');
 

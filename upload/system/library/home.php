@@ -20,7 +20,7 @@ class Home
 
     public function getLatestVersion($debug = false)
     {
-        $url = 'https://www.commentics.org/version.txt';
+        $url = 'https://commentics.com/version.txt';
 
         startRequest:
 
@@ -141,7 +141,7 @@ class Home
 
     public function getVersions()
     {
-        $url = 'https://www.commentics.org/versions.php';
+        $url = 'https://commentics.com/versions.php';
 
         ini_set('user_agent', 'Commentics');
 
@@ -171,7 +171,7 @@ class Home
 
     public function getNews()
     {
-        $url = 'https://www.commentics.org/news.txt';
+        $url = 'https://commentics.com/news.txt';
 
         ini_set('user_agent', 'Commentics');
 
@@ -201,7 +201,7 @@ class Home
 
     public function getSponsors()
     {
-        $url = 'https://www.commentics.org/sponsors.php';
+        $url = 'https://commentics.com/sponsors.php';
 
         ini_set('user_agent', 'Commentics');
 
@@ -229,7 +229,7 @@ class Home
         return $sponsors;
     }
 
-    /* Sends completely anonymous data to Commentics.org once a day */
+    /* Sends completely anonymous data to Commentics.com once a day */
     public function callHome()
     {
         $last_call = $this->setting->get('last_call');
@@ -239,7 +239,7 @@ class Home
         if ($last_call != $date) {
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($date) . "' WHERE `title` = 'last_call'");
 
-            $url = 'https://www.commentics.org/call_home.php';
+            $url = 'https://commentics.com/call_home.php';
 
             $data = array(
                 'site_id'          => $this->setting->get('site_id'),
@@ -289,7 +289,7 @@ class Home
 
     public function checkLicence($licence, $forum_user)
     {
-        $url = 'https://www.commentics.org/licence_check.php';
+        $url = 'https://commentics.com/licence_check.php';
 
         $data = array(
             'site_id'    => $this->setting->get('site_id'),

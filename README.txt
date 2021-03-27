@@ -1,20 +1,20 @@
 Project:      Commentics
 
-Website:      https://www.commentics.org
+Website:      https://commentics.com
 
 Version:      v4.1 (24th October 2020)
 
 Description:  Integrates into your website to allow visitors to submit comments
 
-Installation: (Novice Users) Follow the 'Getting Started' guide at https://www.commentics.org/docs
+Installation: (Novice Users) Follow the 'Getting Started' guide at https://commentics.com/docs
               (Expert Users) Follow the installation and integration files in the /docs/ folder
 
 Requirements: See /docs/requirements.txt
 
 Changelog:    See /docs/changelog.txt
 
-Support:      https://www.commentics.org/forum/
+Support:      https://commentics.com/forum/
 
-Upgrade:      https://www.commentics.org/upgrade
+Upgrade:      https://commentics.com/upgrade
 
 License:      GPL v3

@@ -1172,7 +1172,7 @@ class SettingsLayoutFormController extends Controller
         }
 
         if (!$this->setting->get('licence')) {
-            $this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/pricing');
+            $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/pricing');
         }
 
         $this->components = array('common/header', 'common/footer');

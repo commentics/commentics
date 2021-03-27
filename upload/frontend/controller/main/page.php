@@ -45,7 +45,7 @@ class MainPageController extends Controller
             } else {
                 $this->data['auto_detect'] = true;
 
-                $this->data['lang_modal_autodetect_content'] = sprintf($this->data['lang_modal_autodetect_content'], 'https://www.commentics.org/autodetect');
+                $this->data['lang_modal_autodetect_content'] = sprintf($this->data['lang_modal_autodetect_content'], 'https://commentics.com/autodetect');
             }
         } else {
             $this->data['auto_detect'] = false;
@@ -55,7 +55,7 @@ class MainPageController extends Controller
         if ($this->setting->get('admin_detect') && $this->data['is_admin']) {
             $this->data['admin_detect'] = true;
 
-            $this->data['lang_modal_admindetect_content'] = sprintf($this->data['lang_modal_admindetect_content'], 'https://www.commentics.org/faq/general/admin-detection');
+            $this->data['lang_modal_admindetect_content'] = sprintf($this->data['lang_modal_admindetect_content'], 'https://commentics.com/faq/general/admin-detection');
         } else {
             $this->data['admin_detect'] = false;
         }

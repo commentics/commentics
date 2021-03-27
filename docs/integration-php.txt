@@ -1,4 +1,4 @@
-PHP INTEGRATION (detailed guide at commentics.org/docs)
+PHP INTEGRATION (detailed guide at commentics.com/docs)
 
 1. Add the following to the very top of your page (if not there already):
 

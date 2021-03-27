@@ -32,7 +32,7 @@ class ToolUpgradeModel extends Model
     {
         $version = str_replace('.', '-', $version);
 
-        $url = 'https://www.commentics.org/changelogs/commentics-' . $version . '.txt';
+        $url = 'https://commentics.com/changelogs/commentics-' . $version . '.txt';
 
         ini_set('user_agent', 'Commentics');
 
@@ -63,7 +63,7 @@ class ToolUpgradeModel extends Model
 
         $error = '';
 
-        $url = 'https://www.commentics.org/package/commentics-' . $version . '.zip';
+        $url = 'https://commentics.com/package/commentics-' . $version . '.zip';
 
         ini_set('user_agent', 'Commentics');
 

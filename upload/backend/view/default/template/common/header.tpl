@@ -159,10 +159,10 @@
                         <li><a><span class="fa fa-question-circle"></span><?php echo $lang_menu_help; ?></a>
 
                             <ul>
-                                <?php if (!$has_restriction || ($has_restriction && in_array('help/donate', $viewable_pages))) { ?> <li><a href="https://www.commentics.org/donate" target="_blank"><?php echo $lang_menu_help_donate; ?></a></li> <?php } ?>
-                                <?php if (!$has_restriction || ($has_restriction && in_array('help/faq', $viewable_pages))) { ?> <li><a href="https://www.commentics.org/faq" target="_blank"><?php echo $lang_menu_help_faq; ?></a></li> <?php } ?>
-                                <?php if (!$has_restriction || ($has_restriction && in_array('help/forum', $viewable_pages))) { ?> <li><a href="https://www.commentics.org/forum/" target="_blank"><?php echo $lang_menu_help_forum; ?></a></li> <?php } ?>
-                                <?php if (!$has_restriction || ($has_restriction && in_array('help/license', $viewable_pages))) { ?> <li><a href="https://www.commentics.org/gpl.txt" target="_blank"><?php echo $lang_menu_help_license; ?></a></li> <?php } ?>
+                                <?php if (!$has_restriction || ($has_restriction && in_array('help/donate', $viewable_pages))) { ?> <li><a href="https://commentics.com/donate" target="_blank"><?php echo $lang_menu_help_donate; ?></a></li> <?php } ?>
+                                <?php if (!$has_restriction || ($has_restriction && in_array('help/faq', $viewable_pages))) { ?> <li><a href="https://commentics.com/faq" target="_blank"><?php echo $lang_menu_help_faq; ?></a></li> <?php } ?>
+                                <?php if (!$has_restriction || ($has_restriction && in_array('help/forum', $viewable_pages))) { ?> <li><a href="https://commentics.com/forum/" target="_blank"><?php echo $lang_menu_help_forum; ?></a></li> <?php } ?>
+                                <?php if (!$has_restriction || ($has_restriction && in_array('help/license', $viewable_pages))) { ?> <li><a href="https://commentics.com/gpl.txt" target="_blank"><?php echo $lang_menu_help_license; ?></a></li> <?php } ?>
                             </ul>
                         </li>
                     <?php } ?>

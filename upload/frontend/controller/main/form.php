@@ -522,9 +522,9 @@ class MainFormController extends Controller
 
             if ($this->data['enabled_powered_by']) {
                 if ($this->setting->get('powered_by_type') == 'text') {
-                    $this->data['powered_by'] = sprintf($this->data['lang_text_powered_by'], 'https://www.commentics.org', $this->setting->get('powered_by_new_window') ? 'target="_blank"' : '');
+                    $this->data['powered_by'] = sprintf($this->data['lang_text_powered_by'], 'https://commentics.com', $this->setting->get('powered_by_new_window') ? 'target="_blank"' : '');
                 } else {
-                    $this->data['powered_by'] = '<a href="https://www.commentics.org" title="Commentics" ' . ($this->setting->get('powered_by_new_window') ? 'target="_blank"' : '') . '><img src="' . $this->loadImage('commentics/powered_by.png') . '"></a>';
+                    $this->data['powered_by'] = '<a href="https://commentics.com" title="Commentics" ' . ($this->setting->get('powered_by_new_window') ? 'target="_blank"' : '') . '><img src="' . $this->loadImage('commentics/powered_by.png') . '"></a>';
                 }
             }
 

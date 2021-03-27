@@ -71,7 +71,7 @@ class ToolUpgradeController extends Controller
 
                     $version = str_replace('.', '-', $version);
 
-                    $json['messages'][] = sprintf($this->data['lang_text_download'], 'https://www.commentics.org/package/commentics-' . $version . '.zip');
+                    $json['messages'][] = sprintf($this->data['lang_text_download'], 'https://commentics.com/package/commentics-' . $version . '.zip');
 
                     // Name of the temp folder to store the uploaded zip file
                     $temp_folder = CMTX_DIR_UPLOAD . 'temp-' . $this->variable->random();

@@ -1,4 +1,4 @@
-IFRAME INTEGRATION (detailed guide at commentics.org/docs)
+IFRAME INTEGRATION (detailed guide at commentics.com/docs)
 
 1. Make sure you have added your site in 'Manage -> Sites'.
 

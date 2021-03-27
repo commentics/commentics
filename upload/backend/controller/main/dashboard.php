@@ -59,7 +59,7 @@ class MainDashboardController extends Controller
                     $this->data['version_check'] = array(
                         'type'        => 'negative',
                         'text'        => $this->data['lang_text_denied'],
-                        'link_href'   => 'https://www.commentics.org/help/main_dashboard',
+                        'link_href'   => 'https://commentics.com/help/main_dashboard',
                         'link_text'   => $this->data['lang_link_learn_more'],
                         'link_target' => '_blank'
                     );
@@ -146,7 +146,7 @@ class MainDashboardController extends Controller
             $this->data['licence_result'] = 'none';
 
             if ($this->model_main_dashboard->getDaysInstalled() >= 10) {
-                $this->data['info'] = sprintf($this->data['lang_notice'], 'https://www.commentics.org/pricing');
+                $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/pricing');
             }
         }
 

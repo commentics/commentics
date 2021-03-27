@@ -17,7 +17,7 @@ class ReportVersionCheckController extends Controller
 
         $this->data['link_back'] = 'index.php?route=main/dashboard';
 
-        $this->data['lang_description'] = sprintf($this->data['lang_description'], 'https://www.commentics.org/forum/');
+        $this->data['lang_description'] = sprintf($this->data['lang_description'], 'https://commentics.com/forum/');
 
         $this->components = array('common/header', 'common/footer');
 
