@@ -18,6 +18,8 @@
 !/upload/system/cache/database/index.html
 /upload/system/cache/modification/*
 !/upload/system/cache/modification/index.html
+/upload/system/cache/template/*
+!/upload/system/cache/template/index.html
 
 # Upload files
 /upload/upload/*
