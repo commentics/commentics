@@ -396,9 +396,9 @@ class ToolUpgradeController extends Controller
 
         remove_directory(CMTX_DIR_INSTALL);
 
-        remove_directory(CMTX_DIR_CACHE . 'database/', false);
-        remove_directory(CMTX_DIR_CACHE . 'modification/', false);
-        remove_directory(CMTX_DIR_CACHE . 'template/', false);
+        remove_directory(CMTX_DIR_CACHE . 'database/', false, false);
+        remove_directory(CMTX_DIR_CACHE . 'modification/', false, false);
+        remove_directory(CMTX_DIR_CACHE . 'template/', false, false);
 
         unset($this->session->data['cmtx_upgrade_info']);
     }

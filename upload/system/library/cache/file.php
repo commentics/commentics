@@ -91,7 +91,7 @@ class File
 
     public function flush() {
         if ($this->status) {
-            remove_directory(CMTX_DIR_CACHE . 'database/', false);
+            remove_directory(CMTX_DIR_CACHE . 'database/', false, false);
         }
     }
 

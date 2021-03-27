@@ -71,9 +71,9 @@ class MainUpgrade2Controller extends Controller
                 if ($this->db->getQueryError()) {
                     $this->data['error'] = $this->db->getQueryError();
                 } else {
-                    remove_directory(CMTX_DIR_CACHE . 'database/', false);
-                    remove_directory(CMTX_DIR_CACHE . 'modification/', false);
-                    remove_directory(CMTX_DIR_CACHE . 'template/', false);
+                    remove_directory(CMTX_DIR_CACHE . 'database/', false, false);
+                    remove_directory(CMTX_DIR_CACHE . 'modification/', false, false);
+                    remove_directory(CMTX_DIR_CACHE . 'template/', false, false);
 
                     $this->data['lang_info_backend'] = sprintf($this->data['lang_info_backend'], '../' . $this->model_main_upgrade_2->getBackendFolder());
                 }

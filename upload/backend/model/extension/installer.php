@@ -163,7 +163,7 @@ class ExtensionInstallerModel extends Model
         remove_directory($temp_folder);
 
         // Clear modification cache
-        remove_directory(CMTX_DIR_CACHE . 'modification/', false);
+        remove_directory(CMTX_DIR_CACHE . 'modification/', false, false);
 
         return false;
     }
