@@ -343,15 +343,11 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
             /* Update the comment counter whenever anything is entered */
             jQuery('#cmtx_comment').keyup(function(e) {
-                var length = jQuery(this).val().length;
-
-                var maximum = jQuery(this).attr('maxlength');
-
-                jQuery('#cmtx_counter').html(maximum - length);
+                cmtxUpdateCommentCounter();
             });
 
             /* Simulate entering a comment on page load to update the counter in case it has default text */
-            jQuery('#cmtx_comment').trigger('keyup');
+            cmtxUpdateCommentCounter();
 
             /* Allows the user to deselect the star rating */
             jQuery('input[type="radio"][name="cmtx_rating"]').on('click', function() {
@@ -804,6 +800,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                     if (response['result']['success']) {
                         jQuery('#cmtx_comment, #cmtx_answer, #cmtx_securimage').val('');
+
+                        cmtxUpdateCommentCounter();
 
                         jQuery('.cmtx_image_upload').remove();
 
@@ -1926,6 +1924,15 @@ function cmtxAutoScroll(element) {
     }
 }
 
+/* Update the comment counter */
+function cmtxUpdateCommentCounter() {
+    var length = jQuery('#cmtx_comment').val().length;
+
+    var maximum = jQuery('#cmtx_comment').attr('maxlength');
+
+    jQuery('#cmtx_counter').html(maximum - length);
+}
+
 /* Adds a tag (BB Code or Smiley) to the comment field */
 function cmtx_add_tag(start, end) {
     var obj = document.getElementById('cmtx_comment');
@@ -1948,7 +1955,7 @@ function cmtx_add_tag(start, end) {
         jQuery('#cmtx_comment').val(start + end);
     }
 
-    jQuery('#cmtx_comment').trigger('keyup'); // update the counter
+    cmtxUpdateCommentCounter();
 
     jQuery('#cmtx_comment').focus();
 }
