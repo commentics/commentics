@@ -133,6 +133,8 @@ class Geo
 
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "states` WHERE `country_code` = '" . $this->db->escape($code) . "'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `country_id` = '0', `state_id` = '0' WHERE `country_id` = '" . (int) $id . "'");
+
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "countries` WHERE `id` = '" . (int) $id . "'");
 
         if ($this->db->affectedRows()) {
@@ -207,11 +209,15 @@ class Geo
 
         $result = $this->db->row($query);
 
-        $code = $result['code'];
+        if ($result) {
+            $code = $result['code'];
 
-        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "states` WHERE `country_code` = '" . $this->db->escape($code) . "' AND `enabled` = '1' ORDER BY `name` ASC");
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "states` WHERE `country_code` = '" . $this->db->escape($code) . "' AND `enabled` = '1' ORDER BY `name` ASC");
 
-        $results = $this->db->rows($query);
+            $results = $this->db->rows($query);
+        } else {
+            $results = array();
+        }
 
         if (defined('CMTX_FRONTEND')) { // only cache frontend calls
             $this->cache->set('getstates_countryid' . $id, $results);
@@ -222,6 +228,8 @@ class Geo
 
     public function deleteState($id)
     {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `state_id` = '0' WHERE `state_id` = '" . (int) $id . "'");
+
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "states` WHERE `id` = '" . (int) $id . "'");
 
         if ($this->db->affectedRows()) {
