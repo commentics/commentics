@@ -986,7 +986,7 @@ class MainFormController extends Controller
                                 }
 
                                 /* Headline */
-                                if ($this->setting->get('enabled_headline')) {
+                                if ($this->setting->get('enabled_headline') && empty($this->request->post['cmtx_reply_to'])) {
                                     if (isset($this->request->post['cmtx_headline']) && $this->request->post['cmtx_headline'] != '') {
                                         $headline = $this->security->decode($this->request->post['cmtx_headline']);
 
