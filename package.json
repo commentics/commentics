@@ -2,14 +2,14 @@
   "name": "commentics",
   "version": "1.0.0",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^6.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
     "gulp-concat": "^2.6.1",
-    "gulp-rename": "^1.4.0",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
-    "gulp-stylelint": "^8.0.0",
+    "gulp-stylelint": "^13.0.0",
     "gulp-uglify": "^3.0.2",
-    "stylelint": "^9.10.1",
-    "stylelint-config-sass-guidelines": "^5.4.0"
+    "stylelint": "^13.12.0",
+    "stylelint-config-sass-guidelines": "^8.0.0"
   }
 }

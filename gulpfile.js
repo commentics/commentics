@@ -110,11 +110,11 @@ gulp.task('watch', function() {
     gulp.watch('upload/install/view/default/stylesheet/sass/**/*.scss', ['sass-install']);
 });
 
-gulp.task('lint', ['lint-backend', 'lint-frontend', 'lint-install']);
+gulp.task('lint', gulp.series('lint-backend', 'lint-frontend', 'lint-install'));
 
-gulp.task('sass', ['sass-backend', 'sass-frontend', 'sass-install']);
+gulp.task('sass', gulp.series('sass-backend', 'sass-frontend', 'sass-install'));
 
-gulp.task('js', ['common', 'common-jq']);
+gulp.task('js', gulp.series('common', 'common-jq'));
 
 /* Default task when running gulp without a command */
-gulp.task('default', ['watch']);
+gulp.task('default', gulp.series('watch'));
