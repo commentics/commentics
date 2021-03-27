@@ -11,7 +11,7 @@ define('CMTX_VERSION', '4.1');
 header('Content-Type: text/html; charset=utf-8');
 
 // Default session parameters
-$session_parameters = [
+$session_parameters = array(
     'cookie_httponly'  => 1,
     'use_only_cookies' => 1,
     'use_trans_sid'    => 0,
@@ -19,7 +19,7 @@ $session_parameters = [
     'cookie_lifetime'  => 0,
     'cookie_path'      => '/',
     'cookie_secure'    => 0
-];
+);
 
 if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
     $session_parameters['cookie_samesite'] = 'Lax';

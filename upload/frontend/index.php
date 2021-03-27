@@ -5,7 +5,7 @@ define('CMTX_VERSION', '4.1');
 
 if (!session_id()) {
     // Default session parameters
-    $session_parameters = [
+    $session_parameters = array(
         'cookie_httponly'  => 1,
         'use_only_cookies' => 1,
         'use_trans_sid'    => 0,
@@ -13,7 +13,7 @@ if (!session_id()) {
         'cookie_lifetime'  => 0,
         'cookie_path'      => '/',
         'cookie_secure'    => 0
-    ];
+    );
 
     /*
      * If there's an iFrame session, start a session with

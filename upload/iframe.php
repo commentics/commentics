@@ -2,7 +2,7 @@
 session_name('commentics-iframe-session');
 
 // Default session parameters
-$session_parameters = [
+$session_parameters = array(
     'cookie_httponly'  => 1,
     'use_only_cookies' => 1,
     'use_trans_sid'    => 0,
@@ -10,7 +10,7 @@ $session_parameters = [
     'cookie_lifetime'  => 0,
     'cookie_path'      => '/',
     'cookie_secure'    => 1
-];
+);
 
 /*
  * Set session cookie as SameSite = None to allow
