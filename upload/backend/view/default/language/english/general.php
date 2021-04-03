@@ -31,7 +31,9 @@ $_['lang_note_mb']                 = 'MB';
 $_['lang_select_select']           = 'Select';
 
 // Link
+$_['lang_link_add']                = 'Add';
 $_['lang_link_edit']               = 'Edit';
+$_['lang_link_remove']             = 'Remove';
 $_['lang_link_back']               = 'back';
 
 // Error

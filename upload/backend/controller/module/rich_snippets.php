@@ -39,6 +39,12 @@ class ModuleRichSnippetsController extends Controller
             $this->data['rich_snippets_other'] = $this->setting->get('rich_snippets_other');
         }
 
+        if (isset($this->request->post['rich_snippets_property'])) {
+            $this->data['rich_snippets_properties'] = $this->request->post['rich_snippets_property'];
+        } else {
+            $this->data['rich_snippets_properties'] = $this->model_module_rich_snippets->getRichSnippetsProperties();
+        }
+
         if (isset($this->error['rich_snippets_type'])) {
             $this->data['error_rich_snippets_type'] = $this->error['rich_snippets_type'];
         } else {
@@ -86,7 +92,7 @@ class ModuleRichSnippetsController extends Controller
             return false;
         }
 
-        if (!isset($this->request->post['rich_snippets_type']) || !in_array($this->request->post['rich_snippets_type'], array('Brand', 'CreativeWork', 'Offer', 'Organization', 'Place', 'Product', 'Service', 'other'))) {
+        if (!isset($this->request->post['rich_snippets_type']) || !in_array($this->request->post['rich_snippets_type'], array('Brand', 'CreativeWork', 'Event', 'Offer', 'Organization', 'Place', 'Product', 'Service', 'other'))) {
             $this->error['rich_snippets_type'] = $this->data['lang_error_selection'];
         }
 

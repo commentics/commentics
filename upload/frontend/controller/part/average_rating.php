@@ -27,6 +27,10 @@ class PartAverageRatingController extends Controller
 
         if ($this->setting->has('rich_snippets_enabled') && $this->setting->get('rich_snippets_enabled')) {
             $this->data['rich_snippets_enabled'] = true;
+
+            $this->loadModel('module/rich_snippets');
+
+            $this->data['rich_snippets_properties'] = $this->model_module_rich_snippets->getRichSnippetsProperties();
         } else {
             $this->data['rich_snippets_enabled'] = false;
         }

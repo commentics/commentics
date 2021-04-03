@@ -37,6 +37,7 @@
             <select name="rich_snippets_type">
                 <option value="Brand" <?php if ($rich_snippets_type == 'Brand') { echo 'selected'; } ?>><?php echo $lang_select_brand; ?></option>
                 <option value="CreativeWork" <?php if ($rich_snippets_type == 'CreativeWork') { echo 'selected'; } ?>><?php echo $lang_select_creative; ?></option>
+                <option value="Event" <?php if ($rich_snippets_type == 'Event') { echo 'selected'; } ?>><?php echo $lang_select_event; ?></option>
                 <option value="Offer" <?php if ($rich_snippets_type == 'Offer') { echo 'selected'; } ?>><?php echo $lang_select_offer; ?></option>
                 <option value="Organization" <?php if ($rich_snippets_type == 'Organization') { echo 'selected'; } ?>><?php echo $lang_select_organization; ?></option>
                 <option value="Place" <?php if ($rich_snippets_type == 'Place') { echo 'selected'; } ?>><?php echo $lang_select_place; ?></option>
@@ -52,12 +53,30 @@
 
         <div class="fieldset other_section">
             <label><?php echo $lang_entry_other; ?></label>
-            <div>https://schema.org/</div> <input type="text" name="rich_snippets_other" class="small_plus" value="<?php echo $rich_snippets_other; ?>" maxlength="100">
+            <div>https://schema.org/</div> <input type="text" name="rich_snippets_other" class="medium" value="<?php echo $rich_snippets_other; ?>" maxlength="100">
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_other; ?>', this, event, '')">[?]</a>
             <?php if ($error_rich_snippets_other) { ?>
                 <span class="error"><?php echo $error_rich_snippets_other; ?></span>
             <?php } ?>
         </div>
+
+        <div class="fieldset">
+            <label><?php echo $lang_entry_property; ?></label>
+            <a id="add_property"><?php echo $lang_link_add; ?></a>
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_property; ?>', this, event, '')">[?]</a>
+        </div>
+
+        <?php $property_row = 0; ?>
+
+        <?php foreach ($rich_snippets_properties as $rich_snippets_property) { ?>
+            <div id="property-row<?php echo $property_row; ?>" class="fieldset">
+                <label><?php echo $lang_entry_property; ?></label>
+                <input type="text" name="rich_snippets_property[<?php echo $property_row; ?>][name]" class="medium_plus" value="<?php echo $rich_snippets_property['name']; ?>" placeholder="<?php echo $lang_placeholder_name; ?>" maxlength="250">
+                <input type="text" name="rich_snippets_property[<?php echo $property_row; ?>][value]" class="medium_plus" value="<?php echo $rich_snippets_property['value']; ?>" placeholder="<?php echo $lang_placeholder_value; ?>" maxlength="250">
+                <a onclick="$('#property-row<?php echo $property_row; ?>').remove();" style="margin-left:5px"><?php echo $lang_link_remove; ?></a>
+            </div>
+            <?php $property_row++; ?>
+        <?php } ?>
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
@@ -94,6 +113,28 @@
     // ]]>
     </script>
 
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        var property_row = <?php echo $property_row; ?>;
+
+        $('#add_property').click(function(e) {
+            e.preventDefault();
+
+            html =  '<div id="property-row' + property_row + '" class="fieldset">';
+            html += '   <label><?php echo $lang_entry_property; ?></label>';
+            html += '   <input type="text" name="rich_snippets_property[' + property_row + '][name]" class="medium_plus" value="" placeholder="<?php echo $lang_placeholder_name; ?>" maxlength="255">';
+            html += '   <input type="text" name="rich_snippets_property[' + property_row + '][value]" class="medium_plus" value="" placeholder="<?php echo $lang_placeholder_value; ?>" maxlength="255">';
+            html += '   <a onclick="$(\'#property-row' + property_row + '\').remove();" style="margin-left:5px"><?php echo $lang_link_remove; ?></a>';
+            html += '</div>';
+
+            $('input[name="csrf_key"]').before(html);
+
+            property_row++;
+        });
+    });
+    // ]]>
+    </script>
 </div>
 
 <?php echo $footer; ?>
