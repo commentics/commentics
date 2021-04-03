@@ -1738,7 +1738,7 @@ class MainFormController extends Controller
 
                         $user_id = $user['id'];
                     } else {
-                        $user_token = $this->variable->random();
+                        $user_token = $this->user->createToken();
 
                         $user_id = $this->user->createUser($this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $user_token, $ip_address);
                     }
@@ -1820,7 +1820,7 @@ class MainFormController extends Controller
 
                     if ($this->setting->get('enabled_notify') && isset($this->request->post['cmtx_notify']) && $this->setting->get('enabled_email') && $this->request->post['cmtx_email'] && !$is_admin) {
                         if (!$this->model_main_form->subscriptionExists($user_id, $page_id) && !$this->model_main_form->userHasSubscriptionAttempt($user_id) && !$this->model_main_form->ipHasSubscriptionAttempt($ip_address)) {
-                            $subscription_token = $this->variable->random();
+                            $subscription_token = $this->user->createToken();
 
                             $subscription_id = $this->model_main_form->addSubscription($user_id, $page_id, $subscription_token, $ip_address);
 

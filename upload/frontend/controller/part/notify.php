@@ -352,7 +352,7 @@ class PartNotifyController extends Controller
 
                     $user_token = $user['token'];
                 } else {
-                    $user_token = $this->variable->random();
+                    $user_token = $this->user->createToken();
 
                     $user_id = $this->user->createUser($this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $user_token, $ip_address);
                 }
@@ -367,7 +367,7 @@ class PartNotifyController extends Controller
                     }
                 }
 
-                $subscription_token = $this->variable->random();
+                $subscription_token = $this->user->createToken();
 
                 $subscription_id = $this->model_main_form->addSubscription($user_id, $page_id, $subscription_token, $ip_address);
 

@@ -45,7 +45,7 @@
                             <div><input type="radio" id="custom" name="to_all" value="0" {{ custom_checked }}> <label for="custom">{{ lang_text_custom }}</label></div>
                         </div>
 
-                        <div class="cmtx_area_body cmtx_notifications_area_custom">
+                        <div class="cmtx_area_body cmtx_notifications_area_custom" hidden>
                             <div class="cmtx_custom_text">{{ lang_text_custom_section }}</div>
 
                             <div><input type="checkbox" id="to_admin" name="to_admin" value="1" {{ to_admin_checked }}> <label for="to_admin">{{ lang_text_admin_comments }}</label></div>

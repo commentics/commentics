@@ -202,7 +202,11 @@ class Notify
             return;
         }
 
-        if (!$comment['to_approve']) { // only notify the user if they have requested it
+        if (!$comment['email'] || !$comment['is_email_confirmed']) { // check that the user has a confirmed email address
+            return;
+        }
+
+        if (!$comment['to_all'] && !$comment['to_approve']) { // only notify the user if they have requested it
             return;
         }
 
@@ -266,7 +270,10 @@ class Notify
     public function subscriberNotification($id)
     {
         /* Get all user subscribers and store as property (stops users from receiving more than one email) */
-        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "users` WHERE `to_all` = '1' OR `to_admin` = '1' OR `to_reply` = '1'");
+        $query = $this->db->query(" SELECT `id` FROM `" . CMTX_DB_PREFIX . "users`
+                                    WHERE `email` != ''
+                                    AND `is_email_confirmed` = '1'
+                                    AND (`to_all` = '1' OR `to_admin` = '1' OR `to_reply` = '1')");
 
         $users = $this->db->rows($query);
 
@@ -323,7 +330,9 @@ class Notify
                                     FROM `" . CMTX_DB_PREFIX . "users` `u`
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
-                                    WHERE (`u`.`to_all` = '1' OR `u`.`to_reply` = '1')
+                                    WHERE `u`.`email` != ''
+                                    AND `u`.`is_email_confirmed` = '1'
+                                    AND (`u`.`to_all` = '1' OR `u`.`to_reply` = '1')
                                     AND `u`.`id` IN (" . $this->db->escape(implode(',', $this->parents)) . ")
                                     AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
                                     AND `s`.`is_confirmed` = '1'");
@@ -377,7 +386,9 @@ class Notify
                                     FROM `" . CMTX_DB_PREFIX . "users` `u`
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
-                                    WHERE (`u`.`to_all` = '1' OR `u`.`to_admin` = '1')
+                                    WHERE `u`.`email` != ''
+                                    AND `u`.`is_email_confirmed` = '1'
+                                    AND (`u`.`to_all` = '1' OR `u`.`to_admin` = '1')
                                     AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
                                     AND `s`.`is_confirmed` = '1'");
 
@@ -430,7 +441,9 @@ class Notify
                                     FROM `" . CMTX_DB_PREFIX . "users` `u`
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
                                     LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
-                                    WHERE `u`.`to_all` = '1'
+                                    WHERE `u`.`email` != ''
+                                    AND `u`.`is_email_confirmed` = '1'
+                                    AND `u`.`to_all` = '1'
                                     AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
                                     AND `s`.`is_confirmed` = '1'");
 

@@ -72,7 +72,7 @@ $_['lang_select_mask_approve']        = 'Mask/Approve';
 $_['lang_select_error']               = 'Error';
 $_['lang_select_approve']             = 'Approve';
 $_['lang_select_ban']                 = 'Ban';
-$_['lang_select_all']                 = 'All';
+$_['lang_select_all']                 = 'Everything';
 $_['lang_select_custom']              = 'Custom';
 $_['lang_select_html']                = 'HTML';
 $_['lang_select_text']                = 'Text';
@@ -94,7 +94,6 @@ $_['lang_hint_no_follow']             = 'Add <i>rel=nofollow</i> tag to links to
 $_['lang_hint_line_breaks']           = 'Respect when the user presses the enter key to start a new line.';
 $_['lang_hint_notify_type']           = 'This is the type of emails that subscribers initially receive.';
 $_['lang_hint_notify_format']         = 'This is the format of emails that subscribers initially receive.';
-$_['lang_hint_notify_approve']        = 'If the user should initially receive an email when their comment is approved by the administrator.';
 $_['lang_hint_form_cookie']           = 'Store a form cookie with user\'s details. This setting only works if you do not give the user the option to choose.';
 $_['lang_hint_cookie_days']           = 'The amount of days before the form cookie expires.';
 $_['lang_hint_check_capitals']        = 'Detect when a user enters a high percentage of capital letters.';

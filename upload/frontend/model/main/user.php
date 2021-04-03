@@ -35,6 +35,7 @@ class MainUserModel extends Model
                                     RIGHT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `s`.`user_id` = `u`.`id`
                                     RIGHT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
                                     WHERE `u`.`token` = '" . $this->db->escape($user_token) . "'
+                                    AND `s`.`is_confirmed` = '1'
                                     ORDER BY `s`.`date_added` DESC");
 
         $results = $this->db->rows($query);
@@ -58,6 +59,12 @@ class MainUserModel extends Model
     public function deleteAllSubscriptions($user_id)
     {
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "subscriptions` WHERE `user_id` = '" . (int) $user_id . "'");
+    }
+
+    /* Confirm the user's email address */
+    public function confirmEmail($user_token)
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `is_email_confirmed` = '1' WHERE `token` = '" . $this->db->escape($user_token) . "'");
     }
 
     /* Save the user's settings */

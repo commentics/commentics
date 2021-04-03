@@ -1063,7 +1063,6 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'maximum_upload_total', `value` = '5'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'notify_type', `value` = 'all'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'notify_format', `value` = 'html'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'notify_approve', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'form_cookie', `value` = '0'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'form_cookie_days', `value` = '365'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'rss', `title` = 'rss_new_window', `value` = '1'");
@@ -4532,6 +4531,7 @@ class MainInstall2Model extends Model
             `id` int(10) unsigned NOT NULL auto_increment,
             `name` varchar(250) NOT NULL default '',
             `email` varchar(250) NOT NULL default '',
+            `is_email_confirmed` tinyint(1) unsigned NOT NULL default '0',
             `moderate` varchar(250) NOT NULL default 'default',
             `token` varchar(20) NOT NULL default '',
             `to_all` tinyint(1) unsigned NOT NULL default '1',

@@ -94,6 +94,10 @@ class Email
 
     public function send($to_email, $to_name, $subject, $body, $format, $site_id = '')
     {
+        if (!$to_email) { // sanity check
+            return;
+        }
+
         $from_name = $this->setting->get('from_name');
         $from_email = $this->setting->get('from_email');
         $reply_email = $this->setting->get('reply_email');

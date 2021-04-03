@@ -1926,11 +1926,13 @@ function cmtxAutoScroll(element) {
 
 /* Update the comment counter */
 function cmtxUpdateCommentCounter() {
-    var length = jQuery('#cmtx_comment').val().length;
+    if (jQuery('#cmtx_comment').length) {
+        var length = jQuery('#cmtx_comment').val().length;
 
-    var maximum = jQuery('#cmtx_comment').attr('maxlength');
+        var maximum = jQuery('#cmtx_comment').attr('maxlength');
 
-    jQuery('#cmtx_counter').html(maximum - length);
+        jQuery('#cmtx_counter').html(maximum - length);
+    }
 }
 
 /* Adds a tag (BB Code or Smiley) to the comment field */

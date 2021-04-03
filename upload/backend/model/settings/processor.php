@@ -141,8 +141,6 @@ class SettingsProcessorModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['notify_format']) . "' WHERE `title` = 'notify_format'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['notify_approve']) ? 1 : 0) . "' WHERE `title` = 'notify_approve'");
-
         /* Cookie */
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['form_cookie']) ? 1 : 0) . "' WHERE `title` = 'form_cookie'");

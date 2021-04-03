@@ -629,12 +629,6 @@
                         <span class="error"><?php echo $error_notify_format; ?></span>
                     <?php } ?>
                 </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_default_approve; ?></label>
-                    <input type="checkbox" name="notify_approve" value="1" <?php if ($notify_approve) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_approve; ?>', this, event, '')">[?]</a>
-                </div>
             </div>
 
             <div id="tab-cookie">

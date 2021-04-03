@@ -45,9 +45,22 @@ class User
 
     public function createUser($name, $email, $token, $ip_address)
     {
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "users` SET `name` = '" . $this->db->escape($name) . "', `email` = '" . $this->db->escape($email) . "', `moderate` = 'default', `token` = '" . $this->db->escape($token) . "', `to_all` = '" . ($this->setting->get('notify_type') == 'all' ? 1 : 0) . "', `to_admin` = '1', `to_reply` = '1', `to_approve` = '" . (int) $this->setting->get('notify_approve') . "', `format` = '" . $this->db->escape($this->setting->get('notify_format')) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "users` SET `name` = '" . $this->db->escape($name) . "', `email` = '" . $this->db->escape($email) . "', `moderate` = 'default', `token` = '" . $this->db->escape($token) . "', `to_all` = '" . ($this->setting->get('notify_type') == 'all' ? 1 : 0) . "', `to_admin` = '1', `to_reply` = '1', `to_approve` = '1', `format` = '" . $this->db->escape($this->setting->get('notify_format')) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `date_modified` = NOW(), `date_added` = NOW()");
 
         return $this->db->insertId();
+    }
+
+    public function createToken()
+    {
+        do {
+            $token = $this->variable->random();
+
+            $user_token_exists = $this->db->query("SELECT `token` FROM `" . CMTX_DB_PREFIX . "users` WHERE `token` = '" . $this->db->escape($token) . "'");
+
+            $subscription_token_exists = $this->db->query("SELECT `token` FROM `" . CMTX_DB_PREFIX . "subscriptions` WHERE `token` = '" . $this->db->escape($token) . "'");
+        } while ($this->db->numRows($user_token_exists) > 0 || $this->db->numRows($subscription_token_exists) > 0);
+
+        return $token;
     }
 
     public function userExists($id)
@@ -115,21 +128,22 @@ class User
             $user = $this->db->row($query);
 
             return array(
-                'id'            => $user['id'],
-                'name'          => $user['name'],
-                'email'         => $user['email'],
-                'moderate'      => $user['moderate'],
-                'token'         => $user['token'],
-                'to_all'        => $user['to_all'],
-                'to_admin'      => $user['to_admin'],
-                'to_reply'      => $user['to_reply'],
-                'to_approve'    => $user['to_approve'],
-                'format'        => $user['format'],
-                'ip_address'    => $user['ip_address'],
-                'comments'      => $user['comments'],
-                'subscriptions' => $user['subscriptions'],
-                'date_modified' => $user['date_modified'],
-                'date_added'    => $user['date_added']
+                'id'                 => $user['id'],
+                'name'               => $user['name'],
+                'email'              => $user['email'],
+                'is_email_confirmed' => $user['is_email_confirmed'],
+                'moderate'           => $user['moderate'],
+                'token'              => $user['token'],
+                'to_all'             => $user['to_all'],
+                'to_admin'           => $user['to_admin'],
+                'to_reply'           => $user['to_reply'],
+                'to_approve'         => $user['to_approve'],
+                'format'             => $user['format'],
+                'ip_address'         => $user['ip_address'],
+                'comments'           => $user['comments'],
+                'subscriptions'      => $user['subscriptions'],
+                'date_modified'      => $user['date_modified'],
+                'date_added'         => $user['date_added']
             );
         } else {
             return false;

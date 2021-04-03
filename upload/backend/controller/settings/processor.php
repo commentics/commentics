@@ -621,14 +621,6 @@ class SettingsProcessorController extends Controller
             $this->data['notify_format'] = $this->setting->get('notify_format');
         }
 
-        if (isset($this->request->post['notify_approve'])) {
-            $this->data['notify_approve'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['notify_approve'])) {
-            $this->data['notify_approve'] = false;
-        } else {
-            $this->data['notify_approve'] = $this->setting->get('notify_approve');
-        }
-
         if (isset($this->error['notify_type'])) {
             $this->data['error_notify_type'] = $this->error['notify_type'];
         } else {
