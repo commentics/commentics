@@ -3,7 +3,7 @@
 
     @if comments
         @if rich_snippets_enabled
-            <div itemscope itemtype="http://schema.org/{{ rich_snippets_type }}">
+            <div itemscope itemtype="https://schema.org/{{ rich_snippets_type }}">
         @endif
 
         @if row_one or row_two

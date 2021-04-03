@@ -1,4 +1,4 @@
-<div id="cmtx_perm_{{ comment.id }}" class="cmtx_comment_box cmtx_clear" data-cmtx-comment-id="{{ comment.id }}" itemscope itemtype="http://schema.org/Comment">
+<div id="cmtx_perm_{{ comment.id }}" class="cmtx_comment_box cmtx_clear" data-cmtx-comment-id="{{ comment.id }}" itemscope itemtype="https://schema.org/Comment">
     <div class="cmtx_content_area reply_indent_{{ reply_depth }}">
         @if show_gravatar
             <div class="cmtx_gravatar_area">
@@ -88,7 +88,7 @@
                     </div>
                 @endif
 
-                <div class="cmtx_user_area" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                <div class="cmtx_user_area" itemprop="creator" itemscope itemtype="https://schema.org/Person">
                     @if comment.is_admin
                     <span class="cmtx_name cmtx_name_admin">
                     @else
@@ -109,7 +109,7 @@
                     </span>
 
                     @if comment.location
-                        <span class="cmtx_geo" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                        <span class="cmtx_geo" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                             ({{ comment.location }})
                         </span>
                     @endif
