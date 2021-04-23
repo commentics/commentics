@@ -382,6 +382,11 @@ img.loading {
     color: #ffd700;
 }
 
+.avatar {
+    height: 72px;
+    width: 72px;
+}
+
 .clear::before, .clear::after {
     content: ' ';
     display: table;
@@ -1254,7 +1259,7 @@ div.warning {
     color: #9f6000;
 }
 
-div.info a:last-child, div.warning a:last-child {
+div.info a:not([href]):last-child, div.warning a:not([href]):last-child {
     color: #848484;
     cursor: pointer;
     float: right;

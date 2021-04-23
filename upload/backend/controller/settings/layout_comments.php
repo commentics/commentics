@@ -181,14 +181,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_comments_position_12'] = '';
         }
 
-        /* Gravatar */
+        /* Avatar */
 
-        if (isset($this->request->post['show_gravatar'])) {
-            $this->data['show_gravatar'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_gravatar'])) {
-            $this->data['show_gravatar'] = false;
+        if (isset($this->request->post['avatar_type'])) {
+            $this->data['avatar_type'] = $this->request->post['avatar_type'];
         } else {
-            $this->data['show_gravatar'] = $this->setting->get('show_gravatar');
+            $this->data['avatar_type'] = $this->setting->get('avatar_type');
         }
 
         if (isset($this->request->post['gravatar_default'])) {
@@ -213,6 +211,38 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['gravatar_audience'] = $this->request->post['gravatar_audience'];
         } else {
             $this->data['gravatar_audience'] = $this->setting->get('gravatar_audience');
+        }
+
+        if (isset($this->request->post['avatar_selection_attribution'])) {
+            $this->data['avatar_selection_attribution'] = $this->request->post['avatar_selection_attribution'];
+        } else {
+            $this->data['avatar_selection_attribution'] = $this->setting->get('avatar_selection_attribution');
+        }
+
+        if (isset($this->request->post['avatar_upload_min_posts'])) {
+            $this->data['avatar_upload_min_posts'] = $this->request->post['avatar_upload_min_posts'];
+        } else {
+            $this->data['avatar_upload_min_posts'] = $this->setting->get('avatar_upload_min_posts');
+        }
+
+        if (isset($this->request->post['avatar_upload_min_days'])) {
+            $this->data['avatar_upload_min_days'] = $this->request->post['avatar_upload_min_days'];
+        } else {
+            $this->data['avatar_upload_min_days'] = $this->setting->get('avatar_upload_min_days');
+        }
+
+        if (isset($this->request->post['avatar_upload_max_size'])) {
+            $this->data['avatar_upload_max_size'] = $this->request->post['avatar_upload_max_size'];
+        } else {
+            $this->data['avatar_upload_max_size'] = $this->setting->get('avatar_upload_max_size');
+        }
+
+        if (isset($this->request->post['avatar_upload_approve'])) {
+            $this->data['avatar_upload_approve'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['avatar_upload_approve'])) {
+            $this->data['avatar_upload_approve'] = false;
+        } else {
+            $this->data['avatar_upload_approve'] = $this->setting->get('avatar_upload_approve');
         }
 
         if (isset($this->request->post['show_level'])) {
@@ -291,6 +321,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['show_badge_first_poster'] = $this->setting->get('show_badge_first_poster');
         }
 
+        if (isset($this->error['avatar_type'])) {
+            $this->data['error_avatar_type'] = $this->error['avatar_type'];
+        } else {
+            $this->data['error_avatar_type'] = '';
+        }
+
         if (isset($this->error['gravatar_default'])) {
             $this->data['error_gravatar_default'] = $this->error['gravatar_default'];
         } else {
@@ -313,6 +349,30 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_gravatar_audience'] = $this->error['gravatar_audience'];
         } else {
             $this->data['error_gravatar_audience'] = '';
+        }
+
+        if (isset($this->error['avatar_selection_attribution'])) {
+            $this->data['error_avatar_selection_attribution'] = $this->error['avatar_selection_attribution'];
+        } else {
+            $this->data['error_avatar_selection_attribution'] = '';
+        }
+
+        if (isset($this->error['avatar_upload_min_posts'])) {
+            $this->data['error_avatar_upload_min_posts'] = $this->error['avatar_upload_min_posts'];
+        } else {
+            $this->data['error_avatar_upload_min_posts'] = '';
+        }
+
+        if (isset($this->error['avatar_upload_min_days'])) {
+            $this->data['error_avatar_upload_min_days'] = $this->error['avatar_upload_min_days'];
+        } else {
+            $this->data['error_avatar_upload_min_days'] = '';
+        }
+
+        if (isset($this->error['avatar_upload_max_size'])) {
+            $this->data['error_avatar_upload_max_size'] = $this->error['avatar_upload_max_size'];
+        } else {
+            $this->data['error_avatar_upload_max_size'] = '';
         }
 
         if (isset($this->error['level_5'])) {
@@ -1095,7 +1155,11 @@ class SettingsLayoutCommentsController extends Controller
             $this->error['comments_position_12'] = $this->data['lang_error_selection'];
         }
 
-        /* Gravatar */
+        /* Avatar */
+
+        if (!isset($this->request->post['avatar_type']) || !in_array($this->request->post['avatar_type'], array('', 'gravatar', 'selection', 'upload'))) {
+            $this->error['avatar_type'] = $this->data['lang_error_selection'];
+        }
 
         if (!isset($this->request->post['gravatar_default']) || !in_array($this->request->post['gravatar_default'], array('', 'custom', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro', 'robohash'))) {
             $this->error['gravatar_default'] = $this->data['lang_error_selection'];
@@ -1119,6 +1183,22 @@ class SettingsLayoutCommentsController extends Controller
 
         if (!isset($this->request->post['gravatar_audience']) || !in_array($this->request->post['gravatar_audience'], array('g', 'pg', 'r', 'x'))) {
             $this->error['gravatar_audience'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['avatar_selection_attribution']) || $this->validation->length($this->request->post['avatar_selection_attribution']) > 250) {
+            $this->error['avatar_selection_attribution'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['avatar_upload_min_posts']) || !$this->validation->isInt($this->request->post['avatar_upload_min_posts']) || $this->request->post['avatar_upload_min_posts'] < 0 || $this->request->post['avatar_upload_min_posts'] > 999) {
+            $this->error['avatar_upload_min_posts'] = sprintf($this->data['lang_error_range'], 0, 999);
+        }
+
+        if (!isset($this->request->post['avatar_upload_min_days']) || !$this->validation->isInt($this->request->post['avatar_upload_min_days']) || $this->request->post['avatar_upload_min_days'] < 0 || $this->request->post['avatar_upload_min_days'] > 999) {
+            $this->error['avatar_upload_min_days'] = sprintf($this->data['lang_error_range'], 0, 999);
+        }
+
+        if (!isset($this->request->post['avatar_upload_max_size']) || !$this->validation->isFloat($this->request->post['avatar_upload_max_size']) || $this->request->post['avatar_upload_max_size'] < 0.1 || $this->request->post['avatar_upload_max_size'] > 99.9) {
+            $this->error['avatar_upload_max_size'] = $this->data['lang_error_max_size'];
         }
 
         if (!isset($this->request->post['level_5']) || !$this->validation->isInt($this->request->post['level_5']) || $this->request->post['level_5'] < 0 || $this->request->post['level_5'] > 99999) {

@@ -22,8 +22,10 @@
 !/upload/system/cache/template/index.html
 
 # Upload files
-/upload/upload/*
-!/upload/upload/index.html
+/upload/upload/avatar/*
+!/upload/upload/avatar/index.html
+/upload/upload/comment/*
+!/upload/upload/comment/index.html
 
 # Gulp
 node_modules

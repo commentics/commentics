@@ -267,22 +267,6 @@
     </script>
     <?php } ?>
 
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('div.warning a:last-child').click(function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: 'index.php?route=main/dashboard/dismiss',
-            })
-
-            $('div.warning').fadeOut(2000);
-        });
-    });
-    // ]]>
-    </script>
-
 </div>
 
 <?php echo $footer; ?>

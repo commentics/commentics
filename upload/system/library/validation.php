@@ -60,6 +60,15 @@ class Validation
         }
     }
 
+    public function isSelectableAvatar($value)
+    {
+        if (preg_match('/^[a-z0-9-_]+$/i', $value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function isFolder($value)
     {
         if (preg_match('/^[a-z0-9-_]+$/i', $value)) {

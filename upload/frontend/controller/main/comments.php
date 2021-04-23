@@ -150,7 +150,7 @@ class MainCommentsController extends Controller
                 $this->data['hide_replies'] = '';
             }
 
-            $this->data['show_gravatar']           = $this->setting->get('show_gravatar');
+            $this->data['avatar_type']             = $this->setting->get('avatar_type');
             $this->data['show_level']              = $this->setting->get('show_level');
             $this->data['show_bio']                = $this->setting->get('show_bio');
             $this->data['show_badge_top_poster']   = $this->setting->get('show_badge_top_poster');
@@ -338,10 +338,14 @@ class MainCommentsController extends Controller
 
         $comment = $this->comment->getComment($id);
 
-        if ($this->setting->get('show_gravatar')) {
-            $comment['gravatar'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=' . $this->setting->get('gravatar_size');
+        if ($this->setting->get('avatar_type')) {
+            $comment['avatar'] = $this->user->getAvatar($comment['user_id']);
 
-            $comment['gravatar_bio'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=190';
+            if ($this->setting->get('avatar_type') == 'gravatar') {
+                $comment['avatar_bio'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=190';
+            } else {
+                $comment['avatar_bio'] = $comment['avatar'];
+            }
 
             $num_approved_comments = $this->user->getNumApprovedComments($comment['user_id']);
 

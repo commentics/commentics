@@ -12,6 +12,7 @@ class User
     private $security;
     private $session;
     private $setting;
+    private $url;
     private $validation;
     private $variable;
     private $is_admin = false;
@@ -28,6 +29,7 @@ class User
         $this->security   = $registry->get('security');
         $this->session    = $registry->get('session');
         $this->setting    = $registry->get('setting');
+        $this->url        = $registry->get('url');
         $this->validation = $registry->get('validation');
         $this->variable   = $registry->get('variable');
 
@@ -53,7 +55,7 @@ class User
     public function createToken()
     {
         do {
-            $token = $this->variable->random();
+            $token = $this->variable->random(50);
 
             $user_token_exists = $this->db->query("SELECT `token` FROM `" . CMTX_DB_PREFIX . "users` WHERE `token` = '" . $this->db->escape($token) . "'");
 
@@ -98,6 +100,19 @@ class User
         }
     }
 
+    public function getUserByToken($token)
+    {
+        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "users` WHERE `token` = '" . $this->db->escape($token) . "'");
+
+        $result = $this->db->row($query);
+
+        if ($result) {
+            return $this->getUser($result['id']);
+        } else {
+            return false;
+        }
+    }
+
     public function userExistsByName($name)
     {
         if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users` WHERE `name` = '" . $this->db->escape($name) . "'"))) {
@@ -129,6 +144,9 @@ class User
 
             return array(
                 'id'                 => $user['id'],
+                'avatar_id'          => $user['avatar_id'],
+                'avatar_pending_id'  => $user['avatar_pending_id'],
+                'avatar_selected'    => $user['avatar_selected'],
                 'name'               => $user['name'],
                 'email'              => $user['email'],
                 'is_email_confirmed' => $user['is_email_confirmed'],
@@ -336,5 +354,67 @@ class User
     public function getLogin($index)
     {
         return $this->login[$index];
+    }
+
+    private function getUploadedAvatar($avatar_id)
+    {
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "uploads` WHERE `id` = '" . (int) $avatar_id . "'");
+
+        $results = $this->db->row($query);
+
+        return $results;
+    }
+
+    public function getAvatar($id, $show_pending = false)
+    {
+        $avatar = '';
+
+        if ($id) {
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users` WHERE `id` = '" . (int) $id . "'");
+
+            $user = $this->db->row($query);
+
+            if ($user) {
+                if ($this->setting->get('avatar_type') == 'gravatar') {
+                    $avatar = '//www.gravatar.com/avatar/' . md5(strtolower(trim($user['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=' . $this->setting->get('gravatar_size');
+                }
+
+                if ($this->setting->get('avatar_type') == 'selection') {
+                    if ($user['avatar_selected']) {
+                        if (file_exists(CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme') . '/image/avatar/' . $user['avatar_selected'])) {
+                            $avatar = $this->url->getCommenticsUrl() . 'frontend/view/' . $this->setting->get('theme') . '/image/avatar/' . $user['avatar_selected'];
+                        } else if (file_exists(CMTX_DIR_ROOT . 'frontend/view/default/image/avatar/' . $user['avatar_selected'])) {
+                            $avatar = $this->url->getCommenticsUrl() . 'frontend/view/default/image/avatar/' . $user['avatar_selected'];
+                        }
+                    }
+                }
+
+                if ($this->setting->get('avatar_type') == 'upload') {
+                    $avatar_approved = $this->getUploadedAvatar($user['avatar_id']);
+
+                    $avatar_pending = $this->getUploadedAvatar($user['avatar_pending_id']);
+
+                    if ($show_pending && $avatar_pending) {
+                        if (file_exists(CMTX_DIR_UPLOAD . $avatar_pending['folder'] . '/' . $avatar_pending['filename'] . '.' . $avatar_pending['extension'])) {
+                            $avatar = $this->url->getCommenticsUrl() . 'upload/' . $avatar_pending['folder'] . '/' . $avatar_pending['filename'] . '.' . $avatar_pending['extension'];
+                        }
+                    } else if ($avatar_approved) {
+                        if (file_exists(CMTX_DIR_UPLOAD . $avatar_approved['folder'] . '/' . $avatar_approved['filename'] . '.' . $avatar_approved['extension'])) {
+                            $avatar = $this->url->getCommenticsUrl() . 'upload/' . $avatar_approved['folder'] . '/' . $avatar_approved['filename'] . '.' . $avatar_approved['extension'];
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!$avatar) {
+            if (file_exists(CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme') . '/image/misc/avatar.png')) {
+                $avatar = $this->url->getCommenticsUrl() . 'frontend/view/' . $this->setting->get('theme') . '/image/misc/avatar.png';
+            } else if (file_exists(CMTX_DIR_ROOT . 'frontend/view/default/image/misc/avatar.png')) {
+                $avatar = $this->url->getCommenticsUrl() . 'frontend/view/default/image/misc/avatar.png';
+            }
+        }
+
+        return $avatar;
     }
 }

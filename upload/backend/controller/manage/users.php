@@ -25,15 +25,37 @@ class ManageUsersController extends Controller
                     } else {
                         $this->data['error'] = $this->data['lang_message_single_delete_invalid'];
                     }
-                } else if (isset($this->request->post['bulk'])) {
-                    $result = $this->model_manage_users->bulkDelete($this->request->post['bulk']);
+                } else if (isset($this->request->post['bulk']) && isset($this->request->post['bulk_action'])) {
+                    if ($this->request->post['bulk_action'] == 'delete') {
+                        $result = $this->model_manage_users->bulkDelete($this->request->post['bulk']);
 
-                    if ($result['success']) {
-                        $this->data['success'] = sprintf($this->data['lang_message_bulk_delete_success'], $result['success']);
-                    }
+                        if ($result['success']) {
+                            $this->data['success'] = sprintf($this->data['lang_message_bulk_delete_success'], $result['success']);
+                        }
 
-                    if ($result['failure']) {
-                        $this->data['error'] = sprintf($this->data['lang_message_bulk_delete_invalid'], $result['failure']);
+                        if ($result['failure']) {
+                            $this->data['error'] = sprintf($this->data['lang_message_bulk_delete_invalid'], $result['failure']);
+                        }
+                    } else if ($this->request->post['bulk_action'] == 'approve_avatar') {
+                        $result = $this->model_manage_users->bulkApproveAvatar($this->request->post['bulk']);
+
+                        if ($result['success']) {
+                            $this->data['success'] = sprintf($this->data['lang_message_bulk_approve_avatar_success'], $result['success']);
+                        }
+
+                        if ($result['failure']) {
+                            $this->data['error'] = sprintf($this->data['lang_message_bulk_approve_avatar_invalid'], $result['failure']);
+                        }
+                    } else if ($this->request->post['bulk_action'] == 'disapprove_avatar') {
+                        $result = $this->model_manage_users->bulkDisapproveAvatar($this->request->post['bulk']);
+
+                        if ($result['success']) {
+                            $this->data['success'] = sprintf($this->data['lang_message_bulk_disapprove_avatar_success'], $result['success']);
+                        }
+
+                        if ($result['failure']) {
+                            $this->data['error'] = sprintf($this->data['lang_message_bulk_disapprove_avatar_invalid'], $result['failure']);
+                        }
                     }
                 }
             }
@@ -65,6 +87,12 @@ class ManageUsersController extends Controller
             $filter_email = $this->request->get['filter_email'];
         } else {
             $filter_email = '';
+        }
+
+        if (isset($this->request->get['filter_avatar_approved'])) {
+            $filter_avatar_approved = $this->request->get['filter_avatar_approved'];
+        } else {
+            $filter_avatar_approved = '';
         }
 
         if (isset($this->request->get['filter_moderate'])) {
@@ -102,16 +130,17 @@ class ManageUsersController extends Controller
         }
 
         $data = array(
-            'filter_id'       => $filter_id,
-            'filter_name'     => $filter_name,
-            'filter_email'    => $filter_email,
-            'filter_moderate' => $filter_moderate,
-            'filter_date'     => $filter_date,
-            'group_by'        => '',
-            'sort'            => $sort,
-            'order'           => $order,
-            'start'           => ($page - 1) * $this->setting->get('limit_results'),
-            'limit'           => $this->setting->get('limit_results')
+            'filter_id'              => $filter_id,
+            'filter_name'            => $filter_name,
+            'filter_email'           => $filter_email,
+            'filter_avatar_approved' => $filter_avatar_approved,
+            'filter_moderate'        => $filter_moderate,
+            'filter_date'            => $filter_date,
+            'group_by'               => '',
+            'sort'                   => $sort,
+            'order'                  => $order,
+            'start'                  => ($page - 1) * $this->setting->get('limit_results'),
+            'limit'                  => $this->setting->get('limit_results')
         );
 
         $users = $this->model_manage_users->getUsers($data);
@@ -131,12 +160,14 @@ class ManageUsersController extends Controller
 
             $this->data['users'][] = array(
                 'id'                => $user['id'],
+                'avatar'            => ($this->setting->get('avatar_type')) ? $this->user->getAvatar($user['id'], true) : '',
                 'name'              => $user['name'],
                 'email'             => $user['email'],
                 'comments'          => $user['comments'],
                 'comments_url'      => $this->url->link('manage/comments', '&filter_user_id=' . $user['id']),
                 'subscriptions'     => $user['subscriptions'],
                 'subscriptions_url' => $this->url->link('manage/subscriptions', '&filter_user_id=' . $user['id']),
+                'avatar_approved'   => ($user['avatar_pending_id'] == '0') ? $this->data['lang_text_yes'] : $this->data['lang_text_no'],
                 'moderate'          => $moderate,
                 'date_added'        => $this->variable->formatDate($user['date_added'], $this->data['lang_date_time_format'], $this->data),
                 'action_view'       => $this->setting->get('commentics_url') . 'frontend/index.php?route=main/user&u-t=' . $user['token'],
@@ -153,6 +184,8 @@ class ManageUsersController extends Controller
         $this->data['sort_comments'] = $this->url->link('manage/users', '&sort=comments' . $sort_url);
 
         $this->data['sort_subscriptions'] = $this->url->link('manage/users', '&sort=subscriptions' . $sort_url);
+
+        $this->data['sort_avatar_approved'] = $this->url->link('manage/users', '&sort=avatar_approved' . $sort_url);
 
         $this->data['sort_moderate'] = $this->url->link('manage/users', '&sort=u.moderate' . $sort_url);
 
@@ -178,6 +211,8 @@ class ManageUsersController extends Controller
 
         $this->data['filter_email'] = $filter_email;
 
+        $this->data['filter_avatar_approved'] = $filter_avatar_approved;
+
         $this->data['filter_moderate'] = $filter_moderate;
 
         $this->data['filter_date'] = $filter_date;
@@ -202,6 +237,8 @@ class ManageUsersController extends Controller
 
         $this->data['lang_description'] = sprintf($this->data['lang_description'], $this->url->link('manage/bans'), $this->url->link('manage/subscriptions'));
 
+        $this->data['avatar_type'] = $this->setting->get('avatar_type');
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('manage/users');
@@ -213,7 +250,7 @@ class ManageUsersController extends Controller
             return false;
         }
 
-        if (isset($this->request->get['sort']) && !in_array($this->request->get['sort'], array('u.name', 'u.email', 'comments', 'subscriptions', 'u.moderate', 'u.date_added'))) {
+        if (isset($this->request->get['sort']) && !in_array($this->request->get['sort'], array('u.name', 'u.email', 'comments', 'subscriptions', 'avatar_approved', 'u.moderate', 'u.date_added'))) {
             return false;
         }
 

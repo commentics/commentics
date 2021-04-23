@@ -34,10 +34,78 @@
         margin-top: 10px;
     }
 
+    a {
+        color: #00f;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    a:link {
+        color: #00f;
+    }
+
+    a:visited {
+        color: #00f;
+    }
+
+    a:active {
+        color: #00f;
+    }
+
+    a:hover {
+        color: #00f;
+    }
+
     .cmtx_message {
         display: block;
         margin-bottom: 20px;
         padding: 8px 5px 8px 25px;
+    }
+
+    .cmtx_avatar_container {
+        margin-bottom: 30px;
+    }
+
+    .cmtx_avatar_image_container {
+        display: inline-block;
+    }
+
+    .cmtx_avatar_image {
+        height: 72px;
+        width: 72px;
+    }
+
+    .cmtx_avatar_image_input {
+        display: none;
+    }
+
+    .cmtx_avatar_image_links {
+        display: none;
+        text-align: center;
+    }
+
+    .cmtx_avatar_text_container {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .cmtx_avatar_text {
+        margin-left: 30px;
+        padding-top: 25px;
+    }
+
+    .cmtx_avatar_selection_img {
+        cursor: pointer;
+        height: 72px;
+        width: 72px;
+    }
+
+    .cmtx_avatar_selection_attribution {
+        background-color: $grey;
+        color: $white;
+        margin-bottom: 10px;
+        padding: 3px;
+        text-align: center;
     }
 
     .cmtx_settings_container {
@@ -60,6 +128,10 @@
 
     .cmtx_area_body {
         margin-top: 25px;
+    }
+
+    .cmtx_avatar_container .cmtx_area_body {
+        margin-top: 0;
     }
 
     .cmtx_notifications_area, .cmtx_format_area {
@@ -177,6 +249,14 @@
     }
 
     @media all and (max-width: 800px) {
+        .avatar_text_container {
+            display: block;
+        }
+
+        .avatar_text {
+            margin-left: 0;
+        }
+
         .cmtx_settings_container {
             display: block;
         }

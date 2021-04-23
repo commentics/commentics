@@ -486,16 +486,24 @@
         <div class="element_heading"><?php echo $lang_subheading_inside; ?></div>
 
         <div class="elements">
-            <div class="<?php echo ($show_gravatar ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_gravatar; ?></h2>
+            <div class="<?php echo ($avatar_type != '' ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_avatar; ?></h2>
 
                 <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="show_gravatar" value="1" <?php if ($show_gravatar) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_gravatar; ?>', this, event, '')">[?]</a>
+                    <label><?php echo $lang_entry_type; ?></label>
+                    <select name="avatar_type">
+                        <option value="" <?php if ($avatar_type == '') { echo 'selected'; } ?>><?php echo $lang_select_none; ?></option>
+                        <option value="gravatar" <?php if ($avatar_type == 'gravatar') { echo 'selected'; } ?>><?php echo $lang_select_gravatar; ?></option>
+                        <option value="selection" <?php if ($avatar_type == 'selection') { echo 'selected'; } ?>><?php echo $lang_select_selection; ?></option>
+                        <option value="upload" <?php if ($avatar_type == 'upload') { echo 'selected'; } ?>><?php echo $lang_select_upload; ?></option>
+                    </select>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_type; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_avatar_type) { ?>
+                        <span class="error"><?php echo $error_avatar_type; ?></span>
+                    <?php } ?>
                 </div>
 
-                <div class="fieldset">
+                <div class="fieldset avatar_gravatar_section">
                     <label><?php echo $lang_entry_default; ?></label>
                     <select name="gravatar_default">
                         <option value="" <?php if ($gravatar_default == 'default') { echo 'selected'; } ?>><?php echo $lang_select_default; ?></option>
@@ -507,22 +515,22 @@
                         <option value="retro" <?php if ($gravatar_default == 'retro') { echo 'selected'; } ?>><?php echo $lang_select_retro; ?></option>
                         <option value="robohash" <?php if ($gravatar_default == 'robohash') { echo 'selected'; } ?>><?php echo $lang_select_robohash; ?></option>
                     </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_default; ?>', this, event, '')">[?]</a>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_gravatar_default; ?>', this, event, '')">[?]</a>
                     <?php if ($error_gravatar_default) { ?>
                         <span class="error"><?php echo $error_gravatar_default; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset custom_section">
+                <div class="fieldset avatar_gravatar_section gravatar_custom_section">
                     <label><?php echo $lang_entry_custom; ?></label>
                     <input type="text" name="gravatar_custom" class="large" value="<?php echo $gravatar_custom; ?>" placeholder="http://" maxlength="250">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_custom; ?>', this, event, '')">[?]</a>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_gravatar_custom; ?>', this, event, '')">[?]</a>
                     <?php if ($error_gravatar_custom) { ?>
                         <span class="error"><?php echo $error_gravatar_custom; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset">
+                <div class="fieldset avatar_gravatar_section">
                     <label><?php echo $lang_entry_size; ?></label>
                     <input type="text" required name="gravatar_size" class="small" value="<?php echo $gravatar_size; ?>" maxlength="4">
                     <span class="note"><?php echo $lang_note_pixels; ?></span>
@@ -531,7 +539,7 @@
                     <?php } ?>
                 </div>
 
-                <div class="fieldset divide_after">
+                <div class="fieldset avatar_gravatar_section">
                     <label><?php echo $lang_entry_audience; ?></label>
                     <select name="gravatar_audience">
                         <option value="g" <?php if ($gravatar_audience == 'g') { echo 'selected'; } ?>>G</option>
@@ -539,10 +547,54 @@
                         <option value="r" <?php if ($gravatar_audience == 'r') { echo 'selected'; } ?>>R</option>
                         <option value="x" <?php if ($gravatar_audience == 'x') { echo 'selected'; } ?>>X</option>
                     </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_audience; ?>', this, event, '')">[?]</a>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_gravatar_audience; ?>', this, event, '')">[?]</a>
                     <?php if ($error_gravatar_audience) { ?>
                         <span class="error"><?php echo $error_gravatar_audience; ?></span>
                     <?php } ?>
+                </div>
+
+                <div class="fieldset avatar_selection_section">
+                    <label><?php echo $lang_entry_attribution; ?></label>
+                    <input type="text" name="avatar_selection_attribution" class="medium" value="<?php echo $avatar_selection_attribution; ?>" maxlength="250">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_selection_attribution; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_avatar_selection_attribution) { ?>
+                        <span class="error"><?php echo $error_avatar_selection_attribution; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset avatar_upload_section">
+                    <label><?php echo $lang_entry_min_posts; ?></label>
+                    <input type="text" required name="avatar_upload_min_posts" class="small" value="<?php echo $avatar_upload_min_posts; ?>" maxlength="3">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_upload_min_posts; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_avatar_upload_min_posts) { ?>
+                        <span class="error"><?php echo $error_avatar_upload_min_posts; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset avatar_upload_section">
+                    <label><?php echo $lang_entry_min_days; ?></label>
+                    <input type="text" required name="avatar_upload_min_days" class="small" value="<?php echo $avatar_upload_min_days; ?>" maxlength="3">
+                    <span class="note"><?php echo $lang_note_days; ?></span>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_upload_min_days; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_avatar_upload_min_days) { ?>
+                        <span class="error"><?php echo $error_avatar_upload_min_days; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset avatar_upload_section">
+                    <label><?php echo $lang_entry_max_size; ?></label>
+                    <input type="text" required name="avatar_upload_max_size" class="small" value="<?php echo $avatar_upload_max_size; ?>" maxlength="3">
+                    <span class="note"><?php echo $lang_note_mb; ?></span>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_upload_max_size; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_avatar_upload_max_size) { ?>
+                        <span class="error"><?php echo $error_avatar_upload_max_size; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset avatar_upload_section">
+                    <label><?php echo $lang_entry_approve; ?></label>
+                    <input type="checkbox" name="avatar_upload_approve" value="1" <?php if ($avatar_upload_approve) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_upload_approve; ?>', this, event, '')">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -678,7 +730,7 @@
                 </div>
             </div>
 
-            <div class="<?php echo ($show_headline || $show_rating ? 'element_enabled' : 'element_disabled') ?>">
+            <div class="<?php echo ($show_headline ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_headline; ?></h2>
 
                 <div class="fieldset">
@@ -686,7 +738,9 @@
                     <input type="checkbox" name="show_headline" value="1" <?php if ($show_headline) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_headline; ?>', this, event, '')">[?]</a>
                 </div>
+            </div>
 
+            <div class="<?php echo ($show_rating ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_rating; ?></h2>
 
                 <div class="fieldset">
@@ -854,34 +908,6 @@
     <script>
     // <![CDATA[
     $(document).ready(function() {
-        <?php if ($gravatar_default == 'custom' || $error_gravatar_custom) { ?>
-            $('.custom_section').show();
-        <?php } else { ?>
-            $('.custom_section').hide();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('select[name="gravatar_default"]').on('change', function() {
-            var gravatar_default = $(this).val();
-
-            if (gravatar_default == 'custom') {
-                $('.custom_section').show();
-            } else {
-                $('.custom_section').hide();
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
         <?php if ($pagination_type == 'multiple' || $error_pagination_range) { ?>
             $('.range_section').show();
         <?php } else { ?>
@@ -901,6 +927,92 @@
                 $('.range_section').show();
             } else {
                 $('.range_section').hide();
+            }
+        });
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        <?php if ($avatar_type == 'gravatar' || ($error_gravatar_custom || $error_gravatar_size)) { ?>
+            $('.avatar_gravatar_section').show();
+            $('.avatar_selection_section').hide();
+            $('.avatar_upload_section').hide();
+            if ($('select[name="gravatar_default"]').val() != 'custom') {
+                $('.gravatar_custom_section').hide();
+            }
+        <?php } else if ($avatar_type == 'selection' || $error_avatar_selection_attribution) { ?>
+            $('.avatar_gravatar_section').hide();
+            $('.avatar_selection_section').show();
+            $('.avatar_upload_section').hide();
+        <?php } else if ($avatar_type == 'upload' || ($error_avatar_upload_min_posts || $error_avatar_upload_min_days || $error_avatar_upload_max_size)) { ?>
+            $('.avatar_gravatar_section').hide();
+            $('.avatar_selection_section').hide();
+            $('.avatar_upload_section').show();
+        <?php } else { ?>
+            $('.avatar_gravatar_section').hide();
+            $('.avatar_selection_section').hide();
+            $('.avatar_upload_section').hide();
+        <?php } ?>
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        $('select[name="avatar_type"]').on('change', function() {
+            var avatar_type = $(this).val();
+
+            if (avatar_type == '') {
+                $('.avatar_gravatar_section').hide();
+                $('.avatar_selection_section').hide();
+                $('.avatar_upload_section').hide();
+            } else if (avatar_type == 'gravatar') {
+                $('.avatar_gravatar_section').show();
+                $('.avatar_selection_section').hide();
+                $('.avatar_upload_section').hide();
+                if ($('select[name="gravatar_default"]').val() != 'custom') {
+                    $('.gravatar_custom_section').hide();
+                }
+            } else if (avatar_type == 'selection') {
+                $('.avatar_gravatar_section').hide();
+                $('.avatar_selection_section').show();
+                $('.avatar_upload_section').hide();
+            } else if (avatar_type == 'upload') {
+                $('.avatar_gravatar_section').hide();
+                $('.avatar_selection_section').hide();
+                $('.avatar_upload_section').show();
+            }
+        });
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        <?php if (($avatar_type == 'gravatar' && $gravatar_default == 'custom') || $error_gravatar_custom) { ?>
+            $('.gravatar_custom_section').show();
+        <?php } else { ?>
+            $('.gravatar_custom_section').hide();
+        <?php } ?>
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        $('select[name="gravatar_default"]').on('change', function() {
+            var gravatar_default = $(this).val();
+
+            if (gravatar_default == 'custom') {
+                $('.gravatar_custom_section').show();
+            } else {
+                $('.gravatar_custom_section').hide();
             }
         });
     });

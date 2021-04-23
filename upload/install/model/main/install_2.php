@@ -47,6 +47,7 @@ class MainInstall2Model extends Model
         $this->createTableSubscriptions();
         $this->createTableUploads();
         $this->createTableUsers();
+        $this->createTableUsersAttempts();
         $this->createTableVersion($version);
         $this->createTableViewers();
         $this->createTableVoters();
@@ -752,7 +753,6 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'average_rating_guest', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_comment_count', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_topic', `value` = '1'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_gravatar', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_headline', `value` = '0'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_website', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_town', `value` = '1'");
@@ -787,6 +787,12 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_sort_by_4', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_sort_by_5', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_sort_by_6', `value` = '1'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_type', `value` = 'upload'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_selection_attribution', `value` = ''");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_min_posts', `value` = '0'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_min_days', `value` = '0'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_max_size', `value` = '0.3'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_approve', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'gravatar_default', `value` = 'mm'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'gravatar_custom', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'gravatar_size', `value` = '72'");
@@ -4496,7 +4502,7 @@ class MainInstall2Model extends Model
             `id` int(10) unsigned NOT NULL auto_increment,
             `user_id` int(10) unsigned NOT NULL default '0',
             `page_id` int(10) unsigned NOT NULL default '0',
-            `token` varchar(20) NOT NULL default '',
+            `token` varchar(250) NOT NULL default '',
             `is_confirmed` tinyint(1) unsigned NOT NULL default '0',
             `ip_address` varchar(250) NOT NULL default '',
             `date_modified` datetime NOT NULL,
@@ -4513,7 +4519,7 @@ class MainInstall2Model extends Model
             `id` int(10) unsigned NOT NULL auto_increment,
             `user_id` int(10) unsigned NOT NULL default '0',
             `comment_id` int(10) unsigned NOT NULL default '0',
-            `folder` varchar(10) NOT NULL default '',
+            `folder` varchar(250) NOT NULL default '',
             `filename` varchar(250) NOT NULL default '',
             `extension` varchar(10) NOT NULL default '',
             `mime_type` varchar(250) NOT NULL default '',
@@ -4529,11 +4535,14 @@ class MainInstall2Model extends Model
         /********************************************** CREATE TABLE 'users' *********************************************/
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "users` (
             `id` int(10) unsigned NOT NULL auto_increment,
+            `avatar_id` int(10) unsigned NOT NULL default '0',
+            `avatar_pending_id` int(10) unsigned NOT NULL default '0',
+            `avatar_selected` varchar(250) NOT NULL default '',
             `name` varchar(250) NOT NULL default '',
             `email` varchar(250) NOT NULL default '',
             `is_email_confirmed` tinyint(1) unsigned NOT NULL default '0',
             `moderate` varchar(250) NOT NULL default 'default',
-            `token` varchar(20) NOT NULL default '',
+            `token` varchar(250) NOT NULL default '',
             `to_all` tinyint(1) unsigned NOT NULL default '1',
             `to_admin` tinyint(1) unsigned NOT NULL default '1',
             `to_reply` tinyint(1) unsigned NOT NULL default '1',
@@ -4541,6 +4550,19 @@ class MainInstall2Model extends Model
             `format` varchar(250) NOT NULL default 'html',
             `ip_address` varchar(250) NOT NULL default '',
             `date_modified` datetime NOT NULL,
+            `date_added` datetime NOT NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        /*****************************************************************************************************************/
+    }
+
+    public function createTableUsersAttempts()
+    {
+        /********************************************** CREATE TABLE 'users_attempts' ************************************/
+        $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "users_attempts` (
+            `id` int(10) unsigned NOT NULL auto_increment,
+            `ip_address` varchar(250) NOT NULL default '',
+            `amount` int(10) unsigned NOT NULL default '0',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
         ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");

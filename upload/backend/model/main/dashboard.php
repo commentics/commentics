@@ -41,6 +41,11 @@ class MainDashboardModel extends Model
         return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "comments` WHERE `is_approved` = '0'"));
     }
 
+    public function getNumAvatarsApprove()
+    {
+        return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users` WHERE `avatar_pending_id` > '0'"));
+    }
+
     public function getNumCommentsFlagged()
     {
         return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "comments` WHERE `reports` >= '" . (int) $this->setting->get('flag_min_per_comment') . "'"));

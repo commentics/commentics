@@ -37,9 +37,9 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['comments_position_12']) . "' WHERE `title` = 'comments_position_12'");
 
-        /* Gravatar */
+        /* Avatar */
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_gravatar']) ? 1 : 0) . "' WHERE `title` = 'show_gravatar'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['avatar_type']) . "' WHERE `title` = 'avatar_type'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['gravatar_default']) . "' WHERE `title` = 'gravatar_default'");
 
@@ -48,6 +48,16 @@ class SettingsLayoutCommentsModel extends Model
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['gravatar_size'] . "' WHERE `title` = 'gravatar_size'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['gravatar_audience']) . "' WHERE `title` = 'gravatar_audience'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['avatar_selection_attribution']) . "' WHERE `title` = 'avatar_selection_attribution'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['avatar_upload_min_posts'] . "' WHERE `title` = 'avatar_upload_min_posts'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['avatar_upload_min_days'] . "' WHERE `title` = 'avatar_upload_min_days'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (float) $data['avatar_upload_max_size'] . "' WHERE `title` = 'avatar_upload_max_size'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['avatar_upload_approve']) ? 1 : 0) . "' WHERE `title` = 'avatar_upload_approve'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_level']) ? 1 : 0) . "' WHERE `title` = 'show_level'");
 

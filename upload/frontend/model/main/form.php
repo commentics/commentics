@@ -797,10 +797,10 @@ class MainFormModel extends Model
             return $responses['lang_error_upload_writable'];
         }
 
-        $folder = date('Y_m');
+        $folder = 'comment/' . date('Y') . '/' . date('m');
 
         if (!is_dir(CMTX_DIR_UPLOAD . $folder)) {
-            if (!mkdir(CMTX_DIR_UPLOAD . $folder)) {
+            if (!mkdir(CMTX_DIR_UPLOAD . $folder, NULL, true)) {
                 return $responses['lang_error_folder_create'];
             }
         }
@@ -823,8 +823,6 @@ class MainFormModel extends Model
             return $responses['lang_error_image_type'];
         }
 
-        $filename = $this->variable->random();
-
         switch ($mime_type) {
             case 'image/jpeg':
                 $extension = 'jpg';
@@ -838,6 +836,10 @@ class MainFormModel extends Model
             default:
                 $extension = 'jpg';
         }
+
+        do {
+            $filename = $this->variable->random();
+        } while (file_exists(CMTX_DIR_UPLOAD . $folder . '/' . $filename . '.' . $extension));
 
         $location = CMTX_DIR_UPLOAD . $folder . '/' . $filename . '.' . $extension;
 

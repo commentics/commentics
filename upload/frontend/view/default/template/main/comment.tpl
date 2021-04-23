@@ -1,20 +1,12 @@
 <div id="cmtx_perm_{{ comment.id }}" class="cmtx_comment_box cmtx_clear" data-cmtx-comment-id="{{ comment.id }}" itemscope itemtype="https://schema.org/Comment">
     <div class="cmtx_content_area reply_indent_{{ reply_depth }}">
-        @if show_gravatar
-            <div class="cmtx_gravatar_area">
+        @if avatar_type
+            <div class="cmtx_avatar_area">
                 <div>
-                    @if is_preview
-                        <a href="https://gravatar.com" target="_blank" title="Gravatar">
-                    @endif
-
-                    <img src="{{ comment.gravatar }}" class="cmtx_gravatar" alt="Gravatar">
+                    <img src="{{ comment.avatar }}" class="cmtx_avatar" alt="Avatar">
 
                     @if show_level and comment.level
                         <div class="cmtx_level">{{ comment.level }}</div>
-                    @endif
-
-                    @if is_preview
-                        </a>
                     @endif
                 </div>
 
@@ -26,7 +18,7 @@
                             <div class="cmtx_bio_name">{{ comment.name }}</div>
                         @endif
 
-                        <img src="{{ comment.gravatar_bio }}" class="cmtx_gravatar_bio" alt="Gravatar">
+                        <img src="{{ comment.avatar_bio }}" class="cmtx_avatar_bio" alt="Avatar">
 
                         <div class="cmtx_bio_info">
                             <div class="cmtx_bio_info_comments"><label>{{ lang_text_bio_info_posts }}</label> <span>{{ comment.bio_info_posts }}</span></div>
@@ -102,8 +94,8 @@
                             @if show_website and comment.website
                                 </a>
                             @endif
-                            @if show_gravatar
-                                <meta itemprop="image" content="{{ comment.gravatar }}">
+                            @if avatar_type
+                                <meta itemprop="image" content="{{ comment.avatar }}">
                             @endif
                         </span>
                     </span>

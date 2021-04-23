@@ -4056,17 +4056,19 @@ select.cmtx_required {
   position: absolute;
 }
 
-.cmtx_gravatar_area {
+.cmtx_avatar_area {
   display: inline-block;
   float: left;
   margin-right: 10px;
   position: relative;
 }
 
-.cmtx_gravatar_area img {
+.cmtx_avatar_area img {
+  height: 72px;
   max-width: 100%;
   position: relative;
   vertical-align: middle;
+  width: 72px;
 }
 
 .cmtx_level {
@@ -4101,6 +4103,11 @@ select.cmtx_required {
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
+}
+
+.cmtx_bio img {
+  height: 190px;
+  width: 190px;
 }
 
 .cmtx_bio_info {
@@ -4598,7 +4605,7 @@ select.cmtx_required {
   .cmtx_content_area {
     margin-left: 0 !important;
   }
-  .cmtx_gravatar_area {
+  .cmtx_avatar_area {
     float: none;
     margin-right: 0;
   }
@@ -4977,10 +4984,78 @@ select.cmtx_required {
   margin-top: 10px;
 }
 
+.cmtx_user_container a {
+  color: #00f;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.cmtx_user_container a:link {
+  color: #00f;
+}
+
+.cmtx_user_container a:visited {
+  color: #00f;
+}
+
+.cmtx_user_container a:active {
+  color: #00f;
+}
+
+.cmtx_user_container a:hover {
+  color: #00f;
+}
+
 .cmtx_user_container .cmtx_message {
   display: block;
   margin-bottom: 20px;
   padding: 8px 5px 8px 25px;
+}
+
+.cmtx_user_container .cmtx_avatar_container {
+  margin-bottom: 30px;
+}
+
+.cmtx_user_container .cmtx_avatar_image_container {
+  display: inline-block;
+}
+
+.cmtx_user_container .cmtx_avatar_image {
+  height: 72px;
+  width: 72px;
+}
+
+.cmtx_user_container .cmtx_avatar_image_input {
+  display: none;
+}
+
+.cmtx_user_container .cmtx_avatar_image_links {
+  display: none;
+  text-align: center;
+}
+
+.cmtx_user_container .cmtx_avatar_text_container {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.cmtx_user_container .cmtx_avatar_text {
+  margin-left: 30px;
+  padding-top: 25px;
+}
+
+.cmtx_user_container .cmtx_avatar_selection_img {
+  cursor: pointer;
+  height: 72px;
+  width: 72px;
+}
+
+.cmtx_user_container .cmtx_avatar_selection_attribution {
+  background-color: gray;
+  color: #fff;
+  margin-bottom: 10px;
+  padding: 3px;
+  text-align: center;
 }
 
 .cmtx_user_container .cmtx_settings_container {
@@ -5003,6 +5078,10 @@ select.cmtx_required {
 
 .cmtx_user_container .cmtx_area_body {
   margin-top: 25px;
+}
+
+.cmtx_user_container .cmtx_avatar_container .cmtx_area_body {
+  margin-top: 0;
 }
 
 .cmtx_user_container .cmtx_notifications_area, .cmtx_user_container .cmtx_format_area {
@@ -5121,6 +5200,12 @@ select.cmtx_required {
 }
 
 @media all and (max-width: 800px) {
+  .cmtx_user_container .avatar_text_container {
+    display: block;
+  }
+  .cmtx_user_container .avatar_text {
+    margin-left: 0;
+  }
   .cmtx_user_container .cmtx_settings_container {
     display: block;
   }
@@ -5204,7 +5289,7 @@ select.cmtx_required {
 }
 
 .cmtx_modal_box header a {
-  color: #cccccc;
+  color: #cccccc !important;
   font-size: 23px;
   line-height: 1;
   position: absolute;

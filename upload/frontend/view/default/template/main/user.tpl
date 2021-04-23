@@ -35,6 +35,39 @@
 
         @if user
             <form>
+                @if avatar_type
+                    <div class="cmtx_avatar_container">
+                        <div class="cmtx_area">
+                            <div class="cmtx_area_body">
+                                <div class="cmtx_avatar_image_container">
+                                    <img class="cmtx_avatar_image" src="{{ avatar }}" data-type="{{ avatar_type }}">
+                                    <input id="cmtx_avatar_image_input" class="cmtx_avatar_image_input" type="file" accept=".png,.jpg,.jpeg,.gif">
+                                    <div class="cmtx_avatar_image_links"><a href="#" id="cmtx_avatar_save_link">{{ lang_link_save }}</a></div>
+                                </div>
+                                <div class="cmtx_avatar_text_container">
+                                    @if avatar_type equals 'gravatar'
+                                        <div class="cmtx_avatar_text">{{ lang_text_gravatar }}</div>
+                                    @elseif avatar_type equals 'selection'
+                                        <div class="cmtx_avatar_text">{{ lang_text_selection }}</div>
+                                    @elseif avatar_type equals 'upload'
+                                        <div class="cmtx_avatar_text">
+                                            @if can_upload_avatar
+                                                {{ lang_text_upload }}
+                                                @if is_avatar_pending
+                                                    <br>
+                                                    {{ lang_text_avatar_pending }}
+                                                @endif
+                                            @else
+                                                {{ lang_text_cannot_upload_avatar }}
+                                            @endif
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="cmtx_settings_container">
                     <div class="cmtx_area cmtx_notifications_area">
                         <div class="cmtx_area_heading cmtx_desktop">{{ lang_text_notifications_section }}</div>
@@ -112,6 +145,31 @@
 
             {# These settings are passed to common.js #}
             <div id="cmtx_js_settings_user" style="display:none" hidden>{{ cmtx_js_settings_user }}</div>
+        @endif
+
+        @if avatar_type equals 'selection'
+            <div id="cmtx_avatar_selection_modal" class="cmtx_modal_box" role="dialog">
+                <header>
+                    <a href="#" class="cmtx_modal_close">x</a>
+                    <div>{{ lang_modal_heading }}</div>
+                </header>
+                <div class="cmtx_modal_body">
+                    @if avatars
+                        @foreach avatars as avatar
+                            <img src="{{ avatar }}" class="cmtx_avatar_selection_img">
+                        @endforeach
+                    @else
+                        <div>{{ lang_text_no_avatars }}</div>
+                    @endif
+                </div>
+                <footer>
+                    @if avatar_selection_attribution
+                        <div class="cmtx_avatar_selection_attribution">{{ avatar_selection_attribution }}</div>
+                    @endif
+
+                    <input type="button" class="cmtx_button cmtx_button_secondary" value="{{ lang_modal_close }}">
+                </footer>
+            </div>
         @endif
     </div>
 </body>

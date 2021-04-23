@@ -19,12 +19,14 @@ class MainDashboardController extends Controller
             }
         }
 
-        if (!isset($this->session->data['cmtx_hide_dashboard_notice'])) {
-            if ($this->model_main_dashboard->getNumCommentsApprove()) {
-                $this->data['warning'] = sprintf($this->data['lang_message_comments'], $this->url->link('manage/comments', '&filter_approved=0'));
-            } else if ($this->model_main_dashboard->hasErrors()) {
-                $this->data['warning'] = sprintf($this->data['lang_message_errors'], $this->url->link('report/errors'));
-            }
+        if ($this->setting->get('avatar_type') == 'upload' && $this->model_main_dashboard->getNumCommentsApprove() && $this->model_main_dashboard->getNumAvatarsApprove()) {
+            $this->data['warning'] = sprintf($this->data['lang_message_approval'], $this->url->link('manage/comments', '&filter_approved=0'), $this->url->link('manage/users', '&filter_avatar_approved=0'));
+        } else if ($this->model_main_dashboard->getNumCommentsApprove()) {
+            $this->data['warning'] = sprintf($this->data['lang_message_comments'], $this->url->link('manage/comments', '&filter_approved=0'));
+        } else if ($this->setting->get('avatar_type') == 'upload' && $this->model_main_dashboard->getNumAvatarsApprove()) {
+            $this->data['warning'] = sprintf($this->data['lang_message_avatars'], $this->url->link('manage/users', '&filter_avatar_approved=0'));
+        } else if ($this->model_main_dashboard->hasErrors()) {
+            $this->data['warning'] = sprintf($this->data['lang_message_errors'], $this->url->link('report/errors'));
         }
 
         $site_issue = false;
@@ -214,11 +216,6 @@ class MainDashboardController extends Controller
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('main/dashboard');
-    }
-
-    public function dismiss()
-    {
-        $this->session->data['cmtx_hide_dashboard_notice'] = true;
     }
 
     public function stopSystemDetect()

@@ -71,17 +71,19 @@
     position: absolute;
 }
 
-.cmtx_gravatar_area {
+.cmtx_avatar_area {
     display: inline-block;
     float: left;
     margin-right: 10px;
     position: relative;
 }
 
-.cmtx_gravatar_area img {
+.cmtx_avatar_area img {
+    height: 72px;
     max-width: 100%;
     position: relative;
     vertical-align: middle;
+    width: 72px;
 }
 
 .cmtx_level {
@@ -116,6 +118,11 @@
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
+}
+
+.cmtx_bio img {
+    height: 190px;
+    width: 190px;
 }
 
 .cmtx_bio_info {
@@ -598,7 +605,7 @@
         margin-left: 0 !important;
     }
 
-    .cmtx_gravatar_area {
+    .cmtx_avatar_area {
         float: none;
         margin-right: 0;
     }

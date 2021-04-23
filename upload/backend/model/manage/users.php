@@ -31,6 +31,12 @@ class ManageUsersModel extends Model
             $sql .= " AND `u`.`email` LIKE '%" . $this->db->escape($data['filter_email']) . "%'";
         }
 
+        if ($data['filter_avatar_approved'] == '1') {
+            $sql .= " AND `u`.`avatar_pending_id` = '0'";
+        } else if ($data['filter_avatar_approved'] == '0') {
+            $sql .= " AND `u`.`avatar_pending_id` > '0'";
+        }
+
         if ($data['filter_moderate']) {
             $sql .= " AND `u`.`moderate` = '" . $this->db->escape($data['filter_moderate']) . "'";
         }
@@ -46,6 +52,10 @@ class ManageUsersModel extends Model
         }
 
         if (!$count) {
+            if ($data['sort'] == 'avatar_approved') {
+                $data['sort'] = 'avatar_pending_id';
+            }
+
             $sql .= " ORDER BY " . $this->db->backticks($data['sort']);
 
             if ($data['order'] == 'asc') {
@@ -82,6 +92,10 @@ class ManageUsersModel extends Model
             $url .= '&filter_email=' . $this->url->encode($this->security->decode($this->request->get['filter_email']));
         }
 
+        if (isset($this->request->get['filter_avatar_approved'])) {
+            $url .= '&filter_avatar_approved=' . $this->url->encode($this->security->decode($this->request->get['filter_avatar_approved']));
+        }
+
         if (isset($this->request->get['filter_moderate'])) {
             $url .= '&filter_moderate=' . $this->url->encode($this->security->decode($this->request->get['filter_moderate']));
         }
@@ -113,6 +127,10 @@ class ManageUsersModel extends Model
 
         if (isset($this->request->get['filter_email'])) {
             $url .= '&filter_email=' . $this->url->encode($this->security->decode($this->request->get['filter_email']));
+        }
+
+        if (isset($this->request->get['filter_avatar_approved'])) {
+            $url .= '&filter_avatar_approved=' . $this->url->encode($this->security->decode($this->request->get['filter_avatar_approved']));
         }
 
         if (isset($this->request->get['filter_moderate'])) {
@@ -157,6 +175,72 @@ class ManageUsersModel extends Model
         );
     }
 
+    public function bulkApproveAvatar($ids)
+    {
+        $success = $failure = 0;
+
+        foreach ($ids as $id) {
+            if ($this->singleApproveAvatar($id)) {
+                $success++;
+            } else {
+                $failure++;
+            }
+        }
+
+        return array(
+            'success' => $success,
+            'failure' => $failure
+        );
+    }
+
+    public function singleApproveAvatar($user_id)
+    {
+        $user = $this->user->getUser($user_id);
+
+        if ($user['avatar_pending_id']) {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `avatar_id` = `avatar_pending_id`, `avatar_pending_id` = '0', `date_modified` = NOW() WHERE `id` = '" . (int) $user_id . "'");
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function singleDisapproveAvatar($user_id)
+    {
+        $user = $this->user->getUser($user_id);
+
+        if ($user['avatar_pending_id']) {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `avatar_pending_id` = '0', `date_modified` = NOW() WHERE `id` = '" . (int) $user_id . "'");
+
+            return true;
+        } else if ($user['avatar_id']) {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `avatar_id` = '0', `avatar_pending_id` = '0', `date_modified` = NOW() WHERE `id` = '" . (int) $user_id . "'");
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function bulkDisapproveAvatar($ids)
+    {
+        $success = $failure = 0;
+
+        foreach ($ids as $id) {
+            if ($this->singleDisapproveAvatar($id)) {
+                $success++;
+            } else {
+                $failure++;
+            }
+        }
+
+        return array(
+            'success' => $success,
+            'failure' => $failure
+        );
+    }
+
     public function getPageCookie()
     {
         $sort = $order = '';
@@ -166,7 +250,7 @@ class ManageUsersModel extends Model
 
             $content = explode('|', $content);
 
-            if (isset($content[0]) && in_array($content[0], array('u.name', 'u.email', 'comments', 'subscriptions', 'u.moderate', 'u.date_added'))) {
+            if (isset($content[0]) && in_array($content[0], array('u.name', 'u.email', 'comments', 'subscriptions', 'avatar_approved', 'u.moderate', 'u.date_added'))) {
                 $sort = $content[0];
             }
 

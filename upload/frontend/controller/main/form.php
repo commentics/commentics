@@ -1657,7 +1657,7 @@ class MainFormController extends Controller
 
                     $show_bio = false;
 
-                    $show_gravatar      = $this->setting->get('show_gravatar');
+                    $avatar_type        = $this->setting->get('avatar_type');
                     $show_level         = $this->setting->get('show_level');
                     $show_rating        = $this->setting->get('show_rating');
                     $show_website       = $this->setting->get('show_website');
@@ -1708,7 +1708,7 @@ class MainFormController extends Controller
 
                     $comment = array(
                         'id'               => 0,
-                        'gravatar'         => '//www.gravatar.com/avatar/' . md5(strtolower(trim($this->request->post['cmtx_email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=' . $this->setting->get('gravatar_size'),
+                        'avatar'           => ($user ? $this->user->getAvatar($user['id']) : $this->user->getAvatar(0)),
                         'level'            => $this->data['lang_text_preview'],
                         'name'             => $this->request->post['cmtx_name'],
                         'website'          => $this->request->post['cmtx_website'],

@@ -1,8 +1,10 @@
 <?php
 // Message
 $_['lang_message_success']           = 'Notes updated';
-$_['lang_message_comments']          = 'There are comments that <a href="%s">need approval</a> soon <a>x</a>';
-$_['lang_message_errors']            = 'There are errors that <a href="%s">need attention</a> soon <a>x</a>';
+$_['lang_message_approval']          = 'There are <a href="%s">comments</a> and <a href="%s">avatars</a> that need approval soon';
+$_['lang_message_comments']          = 'There are <a href="%s">comments</a> that need approval soon';
+$_['lang_message_avatars']           = 'There are <a href="%s">avatars</a> that need approval soon';
+$_['lang_message_errors']            = 'There are <a href="%s">errors</a> that need attention soon';
 
 // Heading
 $_['lang_heading']                   = 'Dashboard';

@@ -35,6 +35,10 @@ class Task
 
             $this->deletePages();
 
+            if ($this->setting->get('avatar_type') == 'upload') {
+                $this->deleteAvatars();
+            }
+
             if ($this->setting->get('task_enabled_delete_bans')) {
                 $this->deleteBans();
             }
@@ -71,6 +75,25 @@ class Task
 
         foreach ($pages as $page) {
             $this->page->deletePage($page['id']);
+        }
+    }
+
+    private function deleteAvatars()
+    {
+        $avatars = $this->db->query("SELECT `uploads`.* FROM `" . CMTX_DB_PREFIX . "uploads` `uploads`
+                                     LEFT JOIN `" . CMTX_DB_PREFIX . "users` `users` ON `uploads`.`id` = `users`.`avatar_id` OR `uploads`.`id` = `users`.`avatar_pending_id`
+                                     WHERE `users`.`id` IS NULL
+                                     AND `uploads`.`folder` LIKE 'avatar/%'
+                                     AND `uploads`.`date_added` < NOW() - INTERVAL 1 WEEK");
+
+        foreach ($avatars as $avatar) {
+            $location = CMTX_DIR_UPLOAD . $avatar['folder'] . '/' . $avatar['filename'] . '.' . $avatar['extension'];
+
+            if (file_exists($location)) {
+                @unlink($location);
+            }
+
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "uploads` WHERE `id` = '" . (int) $avatar['id'] . "'");
         }
     }
 
