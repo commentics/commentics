@@ -266,7 +266,9 @@
                     <input type="checkbox" name="enabled_counter" value="1" <?php if ($enabled_counter) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_counter; ?>', this, event, '')">[?]</a>
                 </div>
+            </div>
 
+            <div class="<?php echo ($enabled_headline ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_headline; ?></h2>
 
                 <div class="fieldset">
@@ -299,7 +301,9 @@
                         <span class="error"><?php echo $error_headline_maximum_characters; ?></span>
                     <?php } ?>
                 </div>
+            </div>
 
+            <div class="<?php echo ($enabled_upload ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_upload; ?></h2>
 
                 <div class="fieldset">
@@ -733,7 +737,7 @@
                 </div>
             </div>
 
-            <div class="<?php echo ($enabled_question || $enabled_captcha ? 'element_enabled' : 'element_disabled') ?>">
+            <div class="<?php echo ($enabled_question ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_question; ?></h2>
 
                 <div class="fieldset">
@@ -746,7 +750,9 @@
                     <label><?php echo $lang_entry_list; ?></label>
                     <a href="<?php echo $link_questions; ?>"><?php echo $lang_link_edit; ?></a>
                 </div>
+            </div>
 
+            <div class="<?php echo ($enabled_captcha ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_captcha; ?></h2>
 
                 <div class="fieldset">
