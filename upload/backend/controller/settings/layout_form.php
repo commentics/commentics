@@ -1350,8 +1350,16 @@ class SettingsLayoutFormController extends Controller
             $this->error['recaptcha_public_key'] = sprintf($this->data['lang_error_length'], 0, 250);
         }
 
+        if (isset($this->request->post['enabled_captcha']) && isset($this->request->post['captcha_type']) && $this->request->post['captcha_type'] == 'recaptcha' && isset($this->request->post['recaptcha_public_key']) && $this->validation->length($this->request->post['recaptcha_public_key']) < 1) {
+            $this->error['recaptcha_public_key'] = sprintf($this->data['lang_error_length'], 1, 250);
+        }
+
         if (!isset($this->request->post['recaptcha_private_key']) || $this->validation->length($this->request->post['recaptcha_private_key']) > 250) {
             $this->error['recaptcha_private_key'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (isset($this->request->post['enabled_captcha']) && isset($this->request->post['captcha_type']) && $this->request->post['captcha_type'] == 'recaptcha' && isset($this->request->post['recaptcha_private_key']) && $this->validation->length($this->request->post['recaptcha_private_key']) < 1) {
+            $this->error['recaptcha_private_key'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
 
         if (!isset($this->request->post['recaptcha_theme']) || !in_array($this->request->post['recaptcha_theme'], array('dark', 'light'))) {
