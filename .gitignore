@@ -1,31 +1,33 @@
 # Config file
-/upload/config.php
+/commentics/config.php
 
 # Backup files
-/upload/system/backups/*
-!/upload/system/backups/index.html
+/commentics/system/backups/*
+!/commentics/system/backups/.htaccess
+!/commentics/system/backups/index.html
 
 # Log files
-/upload/system/logs/*
-!/upload/system/logs/index.html
+/commentics/system/logs/*
+!/commentics/system/logs/index.html
+!/commentics/system/logs/errors.log
 
 # Modification files
-/upload/system/modification/*
-!/upload/system/modification/index.html
+/commentics/system/modification/*
+!/commentics/system/modification/index.html
 
 # Cache files
-/upload/system/cache/database/*
-!/upload/system/cache/database/index.html
-/upload/system/cache/modification/*
-!/upload/system/cache/modification/index.html
-/upload/system/cache/template/*
-!/upload/system/cache/template/index.html
+/commentics/system/cache/database/*
+!/commentics/system/cache/database/index.html
+/commentics/system/cache/modification/*
+!/commentics/system/cache/modification/index.html
+/commentics/system/cache/template/*
+!/commentics/system/cache/template/index.html
 
 # Upload files
-/upload/upload/avatar/*
-!/upload/upload/avatar/index.html
-/upload/upload/comment/*
-!/upload/upload/comment/index.html
+/commentics/upload/avatar/*
+!/commentics/upload/avatar/index.html
+/commentics/upload/comment/*
+!/commentics/upload/comment/index.html
 
 # Gulp
 node_modules

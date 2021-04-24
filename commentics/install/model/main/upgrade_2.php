@@ -393,7 +393,7 @@ class MainUpgrade2Model extends Model
 
                 $ip_address = $result['ip_address'];
 
-                $user_id = $this->user->createUser($name, $email, $this->variable->random(), $ip_address);
+                $user_id = $this->user->createUser($name, $email, $this->user->createToken(), $ip_address);
 
                 $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `date_added` = '" . $this->db->escape($date_added) . "' WHERE `id` = '" . (int) $user_id . "'");
 
@@ -673,6 +673,51 @@ class MainUpgrade2Model extends Model
             remove_directory(CMTX_DIR_ROOT . $backend_folder . '/view/default/language/english/layout_form/');
             remove_directory(CMTX_DIR_ROOT . $backend_folder . '/view/default/template/layout_comments/');
             remove_directory(CMTX_DIR_ROOT . $backend_folder . '/view/default/template/layout_form/');
+        }
+
+        if ($version == '4.1 -> 4.2') {
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'notify_approve'");
+
+            if ($this->setting->get('show_gravatar')) {
+                $avatar_type = 'gravatar';
+            } else {
+                $avatar_type = '';
+            }
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_type', `value` = '" . $this->db->escape($avatar_type) . "'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_selection_attribution', `value` = 'Icons made by Freepik from flaticon.com'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_min_posts', `value` = '0'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_min_days', `value` = '0'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_max_size', `value` = '0.3'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_approve', `value` = '1'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_gravatar'");
+
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` CHANGE `token` `token` varchar(250) NOT NULL default ''");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_id` int(10) unsigned NOT NULL default '0'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_pending_id` int(10) unsigned NOT NULL default '0'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_selected` varchar(250) NOT NULL default ''");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `is_email_confirmed` tinyint(1) unsigned NOT NULL default '0'");
+
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "uploads` CHANGE `folder` `folder` varchar(250) NOT NULL default ''");
+
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "subscriptions` CHANGE `token` `token` varchar(250) NOT NULL default ''");
+
+            $this->model_main_install_2->createTableUsersAttempts();
+
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` `u`
+                              LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
+                              SET `u`.`is_email_confirmed` = '1'
+                              WHERE `u`.`email` != ''
+                              AND `s`.`is_confirmed` = '1'");
+
+            if ($this->db->numRows($this->db->query("SELECT `module` FROM `" . CMTX_DB_PREFIX . "modules` WHERE `module` = 'rich_snippets'"))) {
+                $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "rich_snippets_properties` (
+                    `id` int(10) unsigned NOT NULL auto_increment,
+                    `name` varchar(250) NOT NULL default '',
+                    `value` varchar(250) NOT NULL default '',
+                    PRIMARY KEY (`id`)
+                ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+            }
         }
     }
 

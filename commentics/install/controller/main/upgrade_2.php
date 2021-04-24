@@ -19,23 +19,30 @@ class MainUpgrade2Controller extends Controller
             $installed_version = $this->model_main_upgrade_2->getInstalledVersion();
 
             switch ($installed_version) {
+                case '4.1':
+                    $this->model_main_upgrade_2->upgrade('4.1 -> 4.2');
+                    break;
                 case '4.0':
                     $this->model_main_upgrade_2->upgrade('4.0 -> 4.1');
+                    $this->model_main_upgrade_2->upgrade('4.1 -> 4.2');
                     break;
                 case '3.4':
                     $this->model_main_upgrade_2->upgrade('3.4 -> 4.0');
                     $this->model_main_upgrade_2->upgrade('4.0 -> 4.1');
+                    $this->model_main_upgrade_2->upgrade('4.1 -> 4.2');
                     break;
                 case '3.3':
                     $this->model_main_upgrade_2->upgrade('3.3 -> 3.4');
                     $this->model_main_upgrade_2->upgrade('3.4 -> 4.0');
                     $this->model_main_upgrade_2->upgrade('4.0 -> 4.1');
+                    $this->model_main_upgrade_2->upgrade('4.1 -> 4.2');
                     break;
                 case '3.2':
                     $this->model_main_upgrade_2->upgrade('3.2 -> 3.3');
                     $this->model_main_upgrade_2->upgrade('3.3 -> 3.4');
                     $this->model_main_upgrade_2->upgrade('3.4 -> 4.0');
                     $this->model_main_upgrade_2->upgrade('4.0 -> 4.1');
+                    $this->model_main_upgrade_2->upgrade('4.1 -> 4.2');
                     break;
                 case '3.1':
                     $this->model_main_upgrade_2->upgrade('3.1 -> 3.2');
@@ -43,6 +50,7 @@ class MainUpgrade2Controller extends Controller
                     $this->model_main_upgrade_2->upgrade('3.3 -> 3.4');
                     $this->model_main_upgrade_2->upgrade('3.4 -> 4.0');
                     $this->model_main_upgrade_2->upgrade('4.0 -> 4.1');
+                    $this->model_main_upgrade_2->upgrade('4.1 -> 4.2');
                     break;
                 case '3.0':
                     $this->model_main_upgrade_2->upgrade('3.0 -> 3.1');
@@ -51,6 +59,7 @@ class MainUpgrade2Controller extends Controller
                     $this->model_main_upgrade_2->upgrade('3.3 -> 3.4');
                     $this->model_main_upgrade_2->upgrade('3.4 -> 4.0');
                     $this->model_main_upgrade_2->upgrade('4.0 -> 4.1');
+                    $this->model_main_upgrade_2->upgrade('4.1 -> 4.2');
                     break;
                 case '2.5':
                     $this->model_main_upgrade_2->upgrade('2.5 -> 3.0');
@@ -59,7 +68,8 @@ class MainUpgrade2Controller extends Controller
                     $this->model_main_upgrade_2->upgrade('3.2 -> 3.3');
                     $this->model_main_upgrade_2->upgrade('3.3 -> 3.4');
                     $this->model_main_upgrade_2->upgrade('3.4 -> 4.0');
-                    $this->model_main_upgrade_2->upgrade('4.0 -> 4.1');                    
+                    $this->model_main_upgrade_2->upgrade('4.0 -> 4.1');
+                    $this->model_main_upgrade_2->upgrade('4.1 -> 4.2');                    
                     break;
                 default:
                     $valid_upgrade = false;

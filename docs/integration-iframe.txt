@@ -14,7 +14,7 @@ IFRAME INTEGRATION (detailed guide at commentics.com/docs)
 
 <script>
 var commentics_config = {
-'identifier': '1',
-'reference': 'Page One'
+  'identifier': '1',
+  'reference' : 'Page One'
 };
 </script>
