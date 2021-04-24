@@ -370,6 +370,8 @@
     // <![CDATA[
     $(document).ready(function() {
         $('.single_approve').click(function(e) {
+            e.preventDefault();
+
             var id = $(this).data('id');
 
             var input = $('<input>').attr('type', 'hidden').attr('name', 'single_approve').val(id);
@@ -386,6 +388,8 @@
     // <![CDATA[
     $(document).ready(function() {
         $('.single_send').click(function(e) {
+            e.preventDefault();
+
             var id = $(this).data('id');
 
             var input = $('<input>').attr('type', 'hidden').attr('name', 'single_send').val(id);
@@ -439,6 +443,8 @@
     // <![CDATA[
     $(document).ready(function() {
         $('input[name="bulk_approve"]').click(function(e) {
+            e.preventDefault();
+
             var input = $('<input>').attr('type', 'hidden').attr('name', 'bulk_action').val('approve');
 
             $('form').append($(input));
@@ -453,6 +459,8 @@
     // <![CDATA[
     $(document).ready(function() {
         $('input[name="bulk_send"]').click(function(e) {
+            e.preventDefault();
+
             var input = $('<input>').attr('type', 'hidden').attr('name', 'bulk_action').val('send');
 
             $('form').append($(input));
