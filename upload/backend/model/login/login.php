@@ -62,7 +62,7 @@ class LoginLoginModel extends Model
 
             $difference = time() - $time;
 
-            if ($difference < 60 * 30) {
+            if ($difference < 60 * 30) { // seconds * minutes
                 return true;
             } else {
                 return false;
