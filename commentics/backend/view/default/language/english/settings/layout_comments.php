@@ -10,6 +10,7 @@ $_['lang_subheading_general']                = 'General';
 $_['lang_subheading_inside']                 = 'Inside the comments';
 $_['lang_subheading_avatar']                 = 'Avatar';
 $_['lang_subheading_name']                   = 'Name';
+$_['lang_subheading_website']                = 'Website';
 $_['lang_subheading_town']                   = 'Town';
 $_['lang_subheading_state']                  = 'State';
 $_['lang_subheading_country']                = 'Country';
@@ -64,7 +65,6 @@ $_['lang_entry_top_poster']                  = 'Top Poster:';
 $_['lang_entry_most_likes']                  = 'Most Likes:';
 $_['lang_entry_first_poster']                = 'First Poster:';
 $_['lang_entry_show_says']                   = 'Show "Says":';
-$_['lang_entry_hyperlink']                   = 'Hyperlink:';
 $_['lang_entry_new_window']                  = 'New Win:';
 $_['lang_entry_no_follow']                   = 'No Follow:';
 $_['lang_entry_auto']                        = 'Auto Update:';
@@ -145,7 +145,7 @@ $_['lang_hint_top_poster']                   = 'Show a badge for the user with t
 $_['lang_hint_most_likes']                   = 'Show a badge for the user with the most likes across all pages.';
 $_['lang_hint_first_poster']                 = 'Show a badge for the user who posted first on the specific page.';
 $_['lang_hint_show_says']                    = 'Display the word <i>Says</i> after the name of the user.';
-$_['lang_hint_hyperlink']                    = 'Whether to hyperlink the name with the user\'s website.';
+$_['lang_hint_website']                      = 'Whether to hyperlink the name with the user\'s website.';
 $_['lang_hint_new_window']                   = 'Open link in new window (tab).';
 $_['lang_hint_no_follow']                    = 'Add <i>rel=nofollow</i> tag to links to stop search engines from following them. This is good for SEO.';
 $_['lang_hint_town']                         = 'Whether to show the town that the user entered.';
@@ -204,6 +204,13 @@ $_['lang_title_weibo']                       = 'Weibo';
 
 // Text
 $_['lang_text_comments']                     = 'Comments';
+
+// Dialog
+$_['lang_dialog_title']                      = 'Layout Settings';
+$_['lang_dialog_content_enabled']            = 'The following features are enabled on this<br>page but disabled on the <a href="%s">form</a> page';
+$_['lang_dialog_content_disabled']           = 'The following features are disabled on this<br>page but enabled on the <a href="%s">form</a> page';
+$_['lang_dialog_stop']                       = 'Don\'t show again';
+$_['lang_dialog_close']                      = 'Close';
 
 // Error
 $_['lang_error_url']                         = 'The URL entered is invalid';

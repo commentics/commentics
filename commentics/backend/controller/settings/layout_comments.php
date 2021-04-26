@@ -1082,9 +1082,38 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['info'] = sprintf($this->data['lang_notice'], $this->url->link('settings/viewers'));
         }
 
+        $this->data['layout_detect'] = $this->setting->get('layout_detect');
+
+        if ($this->data['layout_detect']) {
+            $layout_settings = $this->model_settings_layout_comments->checkLayoutSettings();
+
+            if ($layout_settings['enabled']) {
+                $this->data['layout_settings'] = $layout_settings['enabled'];
+
+                $this->data['lang_dialog_content'] = sprintf($this->data['lang_dialog_content_enabled'], $this->url->link('settings/layout_form'));
+            } else if ($layout_settings['disabled']) {
+                $this->data['layout_settings'] = $layout_settings['disabled'];
+
+                $this->data['lang_dialog_content'] = sprintf($this->data['lang_dialog_content_disabled'], $this->url->link('settings/layout_form'));
+            } else {
+                $this->data['layout_settings'] = false;
+            }
+
+            $this->data['lang_dialog_title'] = $this->variable->encodeDouble($this->data['lang_dialog_title']);
+            $this->data['lang_dialog_stop'] = $this->variable->escapeSingle($this->data['lang_dialog_stop']);
+            $this->data['lang_dialog_close'] = $this->variable->escapeSingle($this->data['lang_dialog_close']);
+        }
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/layout_comments');
+    }
+
+    public function stopLayoutDetect()
+    {
+        $this->loadModel('settings/layout_comments');
+
+        $this->model_settings_layout_comments->stopLayoutDetect();
     }
 
     private function validate()

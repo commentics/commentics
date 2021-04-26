@@ -684,11 +684,15 @@
                     <input type="checkbox" name="show_says" value="1" <?php if ($show_says) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_show_says; ?>', this, event, '')">[?]</a>
                 </div>
+            </div>
+
+            <div class="<?php echo ($show_website ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_website; ?></h2>
 
                 <div class="fieldset">
-                    <label><?php echo $lang_entry_hyperlink; ?></label>
+                    <label><?php echo $lang_entry_enabled; ?></label>
                     <input type="checkbox" name="show_website" value="1" <?php if ($show_website) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_hyperlink; ?>', this, event, '')">[?]</a>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_website; ?>', this, event, '')">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -904,6 +908,49 @@
 
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>
     </form>
+
+    <?php if ($layout_detect && $layout_settings) { ?>
+        <div id="layout_settings_dialog" title="<?php echo $lang_dialog_title; ?>" style="display:none">
+            <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_content; ?>
+
+            <ul>
+                <?php foreach ($layout_settings as $layout_setting) { ?>
+                    <li><?php echo $layout_setting; ?></li>
+                <?php } ?>
+            </ul>
+        </div>
+    <?php } ?>
+
+    <?php if ($layout_detect && $layout_settings) { ?>
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        $('#layout_settings_dialog').dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto',
+            resizable: false,
+            draggable: false,
+            center: true,
+            buttons: {
+                '<?php echo $lang_dialog_stop; ?>': function() {
+                    $.ajax({
+                        url: 'index.php?route=settings/layout_comments/stopLayoutDetect',
+                    })
+
+                    $(this).dialog('close');
+                },
+                '<?php echo $lang_dialog_close; ?>': function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#layout_settings_dialog').dialog('open');
+    });
+    // ]]>
+    </script>
+    <?php } ?>
 
     <script>
     // <![CDATA[

@@ -41,4 +41,17 @@ class Setting
             return false;
         }
     }
+
+    public function refresh()
+    {
+        $settings = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "settings`");
+
+        while ($setting = $this->db->row($settings)) {
+            $this->settings[$setting['title']] = $setting['value'];
+
+            if (defined('CMTX_' . strtoupper($setting['title']))) {
+                $this->settings[$setting['title']] = constant('CMTX_' . strtoupper($setting['title']));
+            }
+        }
+    }
 }

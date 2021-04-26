@@ -1005,6 +1005,49 @@
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>
     </form>
 
+    <?php if ($layout_detect && $layout_settings) { ?>
+        <div id="layout_settings_dialog" title="<?php echo $lang_dialog_title; ?>" style="display:none">
+            <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_content; ?>
+
+            <ul>
+                <?php foreach ($layout_settings as $layout_setting) { ?>
+                    <li><?php echo $layout_setting; ?></li>
+                <?php } ?>
+            </ul>
+        </div>
+    <?php } ?>
+
+    <?php if ($layout_detect && $layout_settings) { ?>
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        $('#layout_settings_dialog').dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto',
+            resizable: false,
+            draggable: false,
+            center: true,
+            buttons: {
+                '<?php echo $lang_dialog_stop; ?>': function() {
+                    $.ajax({
+                        url: 'index.php?route=settings/layout_form/stopLayoutDetect',
+                    })
+
+                    $(this).dialog('close');
+                },
+                '<?php echo $lang_dialog_close; ?>': function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#layout_settings_dialog').dialog('open');
+    });
+    // ]]>
+    </script>
+    <?php } ?>
+
     <script>
     // <![CDATA[
     $(document).ready(function() {

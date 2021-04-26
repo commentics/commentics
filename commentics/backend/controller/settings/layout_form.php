@@ -1171,6 +1171,28 @@ class SettingsLayoutFormController extends Controller
             $this->data['error_powered_by_type'] = '';
         }
 
+        $this->data['layout_detect'] = $this->setting->get('layout_detect');
+
+        if ($this->data['layout_detect']) {
+            $layout_settings = $this->model_settings_layout_form->checkLayoutSettings();
+
+            if ($layout_settings['enabled']) {
+                $this->data['layout_settings'] = $layout_settings['enabled'];
+
+                $this->data['lang_dialog_content'] = sprintf($this->data['lang_dialog_content_enabled'], $this->url->link('settings/layout_comments'));
+            } else if ($layout_settings['disabled']) {
+                $this->data['layout_settings'] = $layout_settings['disabled'];
+
+                $this->data['lang_dialog_content'] = sprintf($this->data['lang_dialog_content_disabled'], $this->url->link('settings/layout_comments'));
+            } else {
+                $this->data['layout_settings'] = false;
+            }
+
+            $this->data['lang_dialog_title'] = $this->variable->encodeDouble($this->data['lang_dialog_title']);
+            $this->data['lang_dialog_stop'] = $this->variable->escapeSingle($this->data['lang_dialog_stop']);
+            $this->data['lang_dialog_close'] = $this->variable->escapeSingle($this->data['lang_dialog_close']);
+        }
+
         if (!$this->setting->get('licence')) {
             $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/pricing');
         }
@@ -1178,6 +1200,13 @@ class SettingsLayoutFormController extends Controller
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/layout_form');
+    }
+
+    public function stopLayoutDetect()
+    {
+        $this->loadModel('settings/layout_form');
+
+        $this->model_settings_layout_form->stopLayoutDetect();
     }
 
     private function validate()

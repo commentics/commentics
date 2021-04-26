@@ -685,12 +685,14 @@ class MainUpgrade2Model extends Model
             }
 
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_type', `value` = '" . $this->db->escape($avatar_type) . "'");
-            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_selection_attribution', `value` = 'Icons made by Freepik from flaticon.com'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_selection_attribution', `value` = ''");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_min_posts', `value` = '0'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_min_days', `value` = '0'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_max_size', `value` = '0.3'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_upload_approve', `value` = '1'");
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'show_gravatar'");
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'layout_detect', `value` = '1'");
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` CHANGE `token` `token` varchar(250) NOT NULL default ''");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_id` int(10) unsigned NOT NULL default '0'");
