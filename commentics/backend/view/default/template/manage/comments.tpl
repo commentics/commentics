@@ -92,7 +92,9 @@
                         <th><input type="checkbox"></th>
                         <th><a href="<?php echo $sort_name; ?>" <?php if ($sort == 'u.name') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_name; ?></a></th>
                         <th><a href="<?php echo $sort_comment; ?>" <?php if ($sort == 'c.comment') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_comment; ?></a></th>
-                        <th><a href="<?php echo $sort_rating; ?>" <?php if ($sort == 'c.rating') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_rating; ?></a></th>
+                        <?php if ($enabled_rating || $show_rating) { ?>
+                            <th><a href="<?php echo $sort_rating; ?>" <?php if ($sort == 'c.rating') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_rating; ?></a></th>
+                        <?php } ?>
                         <th><a href="<?php echo $sort_page; ?>" <?php if ($sort == 'p.reference') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_page; ?></a></th>
                         <th><a href="<?php echo $sort_approved; ?>" <?php if ($sort == 'c.is_approved') { echo 'class="' . $order . '"'; } ?>><?php echo $lang_column_approved; ?></a></th>
                         <?php if ($approve_notifications) { ?>
@@ -114,19 +116,21 @@
                                 <td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $comment['id']; ?>"></td>
                                 <td data-th="<?php echo $lang_column_name; ?>:"><a href="<?php echo $comment['name_url']; ?>"><?php echo $comment['name']; ?></a></td>
                                 <td data-th="<?php echo $lang_column_comment; ?>:"><?php echo $comment['comment']; ?></td>
-                                <td data-th="<?php echo $lang_column_rating; ?>:">
-                                    <?php if ($comment['rating']) { ?>
-                                        <?php for ($i = 0; $i < 5; $i++) { ?>
-                                            <?php if ($i < $comment['rating']) { ?>
-                                                <span class="star star_full"></span>
-                                            <?php } else { ?>
-                                                <span class="star star_empty"></span>
+                                <?php if ($enabled_rating || $show_rating) { ?>
+                                    <td data-th="<?php echo $lang_column_rating; ?>:">
+                                        <?php if ($comment['rating']) { ?>
+                                            <?php for ($i = 0; $i < 5; $i++) { ?>
+                                                <?php if ($i < $comment['rating']) { ?>
+                                                    <span class="star star_full"></span>
+                                                <?php } else { ?>
+                                                    <span class="star star_empty"></span>
+                                                <?php } ?>
                                             <?php } ?>
+                                        <?php } else { ?>
+                                            <?php echo $lang_text_no_rating; ?>
                                         <?php } ?>
-                                    <?php } else { ?>
-                                        <?php echo $lang_text_no_rating; ?>
-                                    <?php } ?>
-                                </td>
+                                    </td>
+                                <?php } ?>
                                 <td data-th="<?php echo $lang_column_page; ?>:"><a href="<?php echo $comment['page_url']; ?>"><?php echo $comment['page']; ?></a></td>
                                 <td data-th="<?php echo $lang_column_approved; ?>:"><?php echo $comment['approved']; ?></td>
                                 <?php if ($approve_notifications) { ?>
