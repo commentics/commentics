@@ -10,5 +10,5 @@ $_['lang_button_upgrade']  = 'Upgrade';
 // Error
 $_['lang_error_latest']    = 'You already have the latest version';
 $_['lang_error_older']     = 'The version you have uploaded is older than the one installed';
-$_['lang_error_2_5']       = 'The oldest version that can be upgraded is v2.5';
+$_['lang_error_oldest']    = 'The oldest version that can be upgraded is v3.0';
 $_['lang_error_no_tables'] = 'There are no database tables. Have you installed the programme?';

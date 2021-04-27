@@ -276,10 +276,10 @@ class MainUserModel extends Model
     {
         $ip_address = $this->user->getIpAddress();
 
-        if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users_attempts` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "'"))) {
-            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users_attempts` SET `amount` = `amount` + 1, `date_added` = NOW() WHERE `ip_address` = '" . $this->db->escape($ip_address) . "'");
+        if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "attempts` WHERE `type` = 'user' AND `ip_address` = '" . $this->db->escape($ip_address) . "'"))) {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "attempts` SET `amount` = `amount` + 1, `date_added` = NOW() WHERE `type` = 'user' AND `ip_address` = '" . $this->db->escape($ip_address) . "'");
         } else {
-            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "users_attempts` SET `ip_address` = '" . $this->db->escape($ip_address) . "', `amount` = '1', `date_added` = NOW()");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "attempts` SET `type` = 'user', `ip_address` = '" . $this->db->escape($ip_address) . "', `amount` = '1', `date_added` = NOW()");
         }
     }
 
@@ -287,8 +287,8 @@ class MainUserModel extends Model
     {
         $ip_address = $this->user->getIpAddress();
 
-        if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users_attempts` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `amount` >= 3"))) {
-            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "users_attempts` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `amount` >= 3");
+        if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "attempts` WHERE `type` = 'user' AND `ip_address` = '" . $this->db->escape($ip_address) . "' AND `amount` >= 3"))) {
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "attempts` WHERE `type` = 'user' AND `ip_address` = '" . $this->db->escape($ip_address) . "' AND `amount` >= 3");
 
             $result = $this->db->row($query);
 
@@ -310,6 +310,6 @@ class MainUserModel extends Model
     {
         $ip_address = $this->user->getIpAddress();
 
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "users_attempts` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "'");
+        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "attempts` WHERE `type` = 'user' AND `ip_address` = '" . $this->db->escape($ip_address) . "'");
     }
 }

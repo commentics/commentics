@@ -47,7 +47,6 @@ class MainInstall2Model extends Model
         $this->createTableSubscriptions();
         $this->createTableUploads();
         $this->createTableUsers();
-        $this->createTableUsersAttempts();
         $this->createTableVersion($version);
         $this->createTableViewers();
         $this->createTableVoters();
@@ -108,6 +107,7 @@ class MainInstall2Model extends Model
         /********************************************** CREATE TABLE 'attempts' ******************************************/
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "attempts` (
             `id` int(10) unsigned NOT NULL auto_increment,
+            `type` varchar(250) NOT NULL default '',
             `ip_address` varchar(250) NOT NULL default '',
             `amount` int(10) unsigned NOT NULL default '0',
             `date_added` datetime NOT NULL,
@@ -118,7 +118,7 @@ class MainInstall2Model extends Model
 
     public function createTableBackups()
     {
-        /********************************************** CREATE TABLE 'backups' **********************************************/
+        /********************************************** CREATE TABLE 'backups' *******************************************/
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "backups` (
             `id` int(10) unsigned NOT NULL auto_increment,
             `description` varchar(250) NOT NULL default '',
@@ -700,7 +700,7 @@ class MainInstall2Model extends Model
 
     public function createTableRatings()
     {
-        /********************************************** CREATE TABLE 'ratings' ********************************************/
+        /********************************************** CREATE TABLE 'ratings' *******************************************/
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "ratings` (
             `id` int(10) unsigned NOT NULL auto_increment,
             `page_id` int(10) unsigned NOT NULL default '0',
@@ -1131,7 +1131,7 @@ class MainInstall2Model extends Model
 
     public function createTableSites($site_name, $site_domain, $site_url)
     {
-        /********************************************** CREATE TABLE 'sites' **********************************************/
+        /********************************************** CREATE TABLE 'sites' *********************************************/
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "sites` (
             `id` int(10) unsigned NOT NULL auto_increment,
             `name` varchar(250) NOT NULL default '',
@@ -4551,19 +4551,6 @@ class MainInstall2Model extends Model
             `format` varchar(250) NOT NULL default 'html',
             `ip_address` varchar(250) NOT NULL default '',
             `date_modified` datetime NOT NULL,
-            `date_added` datetime NOT NULL,
-            PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
-        /*****************************************************************************************************************/
-    }
-
-    public function createTableUsersAttempts()
-    {
-        /********************************************** CREATE TABLE 'users_attempts' ************************************/
-        $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "users_attempts` (
-            `id` int(10) unsigned NOT NULL auto_increment,
-            `ip_address` varchar(250) NOT NULL default '',
-            `amount` int(10) unsigned NOT NULL default '0',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
         ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
