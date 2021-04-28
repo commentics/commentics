@@ -295,19 +295,12 @@ class MainUpgrade2Model extends Model
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_id` int(10) unsigned NOT NULL default '0'");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_pending_id` int(10) unsigned NOT NULL default '0'");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_selected` varchar(250) NOT NULL default ''");
-            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `is_email_confirmed` tinyint(1) unsigned NOT NULL default '0'");
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "uploads` CHANGE `folder` `folder` varchar(250) NOT NULL default ''");
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "subscriptions` CHANGE `token` `token` varchar(250) NOT NULL default ''");
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "attempts` ADD `type` varchar(250) NOT NULL default ''");
-
-            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` `u`
-                              LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
-                              SET `u`.`is_email_confirmed` = '1'
-                              WHERE `u`.`email` != ''
-                              AND `s`.`is_confirmed` = '1'");
 
             if ($this->db->numRows($this->db->query("SELECT `module` FROM `" . CMTX_DB_PREFIX . "modules` WHERE `module` = 'rich_snippets'"))) {
                 $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "rich_snippets_properties` (

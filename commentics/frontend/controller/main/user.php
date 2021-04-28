@@ -110,10 +110,6 @@ class MainUserController extends Controller
                         $this->data['to_approve_checked'] = '';
                     }
 
-                    if (!$this->user->isAdmin()) {
-                        $this->model_main_user->confirmEmail($this->request->get['u-t']);
-                    }
-
                     if (isset($this->request->get['s-t'])) {
                         $subscription = $this->model_main_user->getSubscription($this->request->get['u-t'], $this->request->get['s-t']);
 

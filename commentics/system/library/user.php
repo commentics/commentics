@@ -149,7 +149,6 @@ class User
                 'avatar_selected'    => $user['avatar_selected'],
                 'name'               => $user['name'],
                 'email'              => $user['email'],
-                'is_email_confirmed' => $user['is_email_confirmed'],
                 'moderate'           => $user['moderate'],
                 'token'              => $user['token'],
                 'to_all'             => $user['to_all'],

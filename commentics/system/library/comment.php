@@ -62,7 +62,6 @@ class Comment
                 'page_id'            => $comment['page_id'],
                 'name'               => $comment['name'],
                 'email'              => $comment['email'],
-                'is_email_confirmed' => $comment['is_email_confirmed'],
                 'page_reference'     => $comment['reference'],
                 'page_url'           => $comment['url'],
                 'website'            => $comment['website'],

@@ -51,12 +51,6 @@ class MainUserModel extends Model
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "subscriptions` WHERE `user_id` = '" . (int) $user_id . "'");
     }
 
-    /* Confirm the user's email address */
-    public function confirmEmail($user_token)
-    {
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `is_email_confirmed` = '1' WHERE `token` = '" . $this->db->escape($user_token) . "'");
-    }
-
     /* Save the user's uploaded avatar */
     public function saveUploadedAvatar($user, $data)
     {
@@ -189,7 +183,11 @@ class MainUserModel extends Model
 
         $result = $this->db->row($query);
 
-        return $result['count'];
+        if ($result) {
+            return $result['count'];
+        } else {
+            return 0;
+        }
     }
 
     /* Save the user's selected avatar */
