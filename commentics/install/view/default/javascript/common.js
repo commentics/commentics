@@ -78,8 +78,4 @@ $(document).ready(function() {
             }
         });
     }
-
-    $('.install_2_page .success').delay(3000).fadeOut(2000);
-
-    $('.upgrade_2_page .success').delay(3000).fadeOut(2000);
 });

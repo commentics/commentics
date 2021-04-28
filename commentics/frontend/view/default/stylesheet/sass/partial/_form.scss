@@ -46,6 +46,10 @@
     margin-bottom: 10px;
 }
 
+.cmtx_message_notify ~ .cmtx_form .cmtx_rows {
+    margin-top: -15px;
+}
+
 .cmtx_honeypot {
     display: none !important;
 }
@@ -663,10 +667,6 @@ select.cmtx_required {
     .cmtx_parsing_box {
         float: none;
         width: 100%;
-    }
-
-    .cmtx_required_text {
-        display: none;
     }
 }
 

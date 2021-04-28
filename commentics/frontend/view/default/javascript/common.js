@@ -799,7 +799,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     }
 
                     if (response['result']['success']) {
-                        jQuery('#cmtx_comment, #cmtx_answer, #cmtx_securimage').val('');
+                        jQuery('#cmtx_comment, #cmtx_headline, #cmtx_answer, #cmtx_securimage').val('');
 
                         cmtxUpdateCommentCounter();
 
@@ -825,7 +825,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                         jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_success">' + response['result']['success'] + '</div>');
 
-                        jQuery('.cmtx_message_success').fadeIn(1500).delay(3000).fadeOut(1000);
+                        jQuery('.cmtx_message_success').fadeIn(1500);
 
                         var options = {
                             'commentics_url': cmtx_js_settings_form.commentics_url,
@@ -1091,7 +1091,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 jQuery('.cmtx_wait_for_user').show();
 
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_image_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row').hide();
+                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_image_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row').hide();
 
                 jQuery('.cmtx_question_row, .cmtx_securimage_row').show();
 
@@ -1099,9 +1099,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     cmtx_heading_text = jQuery('.cmtx_form_heading').text();
                 }
 
-                jQuery('.cmtx_form_heading').fadeOut(500, function() {
-                    jQuery('.cmtx_form_heading').text(cmtx_js_settings_notify.lang_heading_notify).fadeIn(500);
-                });
+                jQuery('.cmtx_form_heading').text(cmtx_js_settings_notify.lang_heading_notify);
 
                 var notify_button = '';
 
@@ -1191,7 +1189,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                         jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_success">' + response['result']['success'] + '</div>');
 
-                        jQuery('.cmtx_message_success').fadeIn(1500).delay(3000).fadeOut(1000);
+                        jQuery('.cmtx_message_success').fadeIn(1500);
                     }
 
                     if (response['result']['error']) {
@@ -1243,23 +1241,19 @@ var cmtx_wait_for_jquery = setInterval(function() {
             });
 
             function cmtx_cancel_notify() {
-                jQuery('.cmtx_message:not(.cmtx_message_notify), .cmtx_error, .cmtx_subscribe_row').remove();
+                jQuery('.cmtx_message, .cmtx_error, .cmtx_subscribe_row').remove();
 
                 jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
 
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_securimage_row, .cmtx_checkbox_container, .cmtx_button_row').show();
+                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_securimage_row, .cmtx_checkbox_container, .cmtx_button_row').show();
 
                 jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
 
                 jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
 
-                jQuery('.cmtx_form_heading').fadeOut(250, function() {
-                    jQuery('.cmtx_form_heading').text(cmtx_heading_text).fadeIn(500);
-                });
+                jQuery('.cmtx_form_heading').text(cmtx_heading_text);
 
                 jQuery('input[name="cmtx_subscribe"]').val('');
-
-                jQuery('.cmtx_message_notify').fadeOut(500);
             }
 
             /* Like or dislike a comment */
