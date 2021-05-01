@@ -291,6 +291,8 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'layout_detect', `value` = '1'");
 
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_user_link', `value` = '1'");
+
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` CHANGE `token` `token` varchar(250) NOT NULL default ''");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_id` int(10) unsigned NOT NULL default '0'");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_pending_id` int(10) unsigned NOT NULL default '0'");

@@ -1741,6 +1741,12 @@ class MainFormController extends Controller
                         $user_token = $this->user->createToken();
 
                         $user_id = $this->user->createUser($this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $user_token, $ip_address);
+
+                        if ($this->setting->get('avatar_user_link')) {
+                            if (in_array($this->setting->get('avatar_type'), array('selection', 'upload')) || ($this->setting->get('avatar_type') == 'gravatar' && $this->request->post['cmtx_email'])) {
+                                $json['user_link'] = sprintf($this->data['lang_text_user_link'], $this->setting->get('commentics_url') . 'frontend/index.php?route=main/user&u-t=' . $user_token);
+                            }
+                        }
                     }
 
                     /* Determine if the comment needs to be approved by the administrator */

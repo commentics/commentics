@@ -597,6 +597,12 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_upload_approve; ?>', this, event, '')">[?]</a>
                 </div>
 
+                <div class="fieldset divide_after">
+                    <label><?php echo $lang_entry_user_link; ?></label>
+                    <input type="checkbox" name="avatar_user_link" value="1" <?php if ($avatar_user_link) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_user_link; ?>', this, event, '')">[?]</a>
+                </div>
+
                 <div class="fieldset">
                     <label><?php echo $lang_entry_show_level; ?></label>
                     <input type="checkbox" name="show_level" value="1" <?php if ($show_level) { echo 'checked'; } ?>>

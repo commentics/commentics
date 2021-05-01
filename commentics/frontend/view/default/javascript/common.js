@@ -786,7 +786,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 });
 
                 request.done(function(response) {
-                    jQuery('.cmtx_message_success, .cmtx_message_error, .cmtx_error').remove();
+                    jQuery('.cmtx_message, .cmtx_error').remove();
 
                     jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
 
@@ -826,6 +826,12 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_success">' + response['result']['success'] + '</div>');
 
                         jQuery('.cmtx_message_success').fadeIn(1500);
+
+                        if (response['user_link']) {
+                            jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_info">' + response['user_link'] + '</div>');
+
+                            jQuery('.cmtx_message_info').fadeIn(1500);
+                        }
 
                         var options = {
                             'commentics_url': cmtx_js_settings_form.commentics_url,

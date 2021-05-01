@@ -59,6 +59,8 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['avatar_upload_approve']) ? 1 : 0) . "' WHERE `title` = 'avatar_upload_approve'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['avatar_user_link']) ? 1 : 0) . "' WHERE `title` = 'avatar_user_link'");
+
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_level']) ? 1 : 0) . "' WHERE `title` = 'show_level'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['level_5'] . "' WHERE `title` = 'level_5'");

@@ -245,6 +245,14 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['avatar_upload_approve'] = $this->setting->get('avatar_upload_approve');
         }
 
+        if (isset($this->request->post['avatar_user_link'])) {
+            $this->data['avatar_user_link'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['avatar_user_link'])) {
+            $this->data['avatar_user_link'] = false;
+        } else {
+            $this->data['avatar_user_link'] = $this->setting->get('avatar_user_link');
+        }
+
         if (isset($this->request->post['show_level'])) {
             $this->data['show_level'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_level'])) {
