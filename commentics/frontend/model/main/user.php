@@ -72,7 +72,11 @@ class MainUserModel extends Model
             }
 
             if ($file['error']) {
-                return $responses['lang_error_image_error'];
+                if ($file['error'] == '1') {
+                    return $responses['lang_error_image_size'];
+                } else {
+                    return $responses['lang_error_image_error'];
+                }
             }
 
             if ($file['size'] > ($this->setting->get('avatar_upload_max_size') * pow(1024, 2))) {
@@ -88,7 +92,7 @@ class MainUserModel extends Model
                 '.gif'
             );
 
-            if (!in_array($file_extension, $allowed_file_extensions)) {
+            if (!in_array($this->variable->strtolower($file_extension), $allowed_file_extensions)) {
                 return $responses['lang_error_image_extension'];
             }
 
