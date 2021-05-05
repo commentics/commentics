@@ -13,11 +13,11 @@ class SettingsEmailSetupModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['smtp_encrypt']) . "' WHERE `title` = 'smtp_encrypt'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['smtp_timeout'] . "' WHERE `title` = 'smtp_timeout'");
+
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['smtp_username']) . "' WHERE `title` = 'smtp_username'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['smtp_password']) . "' WHERE `title` = 'smtp_password'");
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['sendmail_path']) . "' WHERE `title` = 'sendmail_path'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['from_name']) . "' WHERE `title` = 'from_name'");
 
@@ -30,6 +30,8 @@ class SettingsEmailSetupModel extends Model
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "data` SET `text` = '" . $this->db->escape($data['signature_html']) . "', `modified_by` = '" . $this->db->escape($username) . "', `date_modified` = NOW() WHERE `type` = 'signature_html'");
 
         if (isset($data['send'])) {
+            $this->setting->refresh();
+
             $this->send($admin_id);
         }
     }
@@ -64,25 +66,18 @@ class SettingsEmailSetupModel extends Model
 
         $email = $this->email->get('setup_test');
 
-        if ($format == 'text') {
-            $body = $email['text'];
-        } else {
-            $body = $email['html'];
-        }
-
         $subject = $this->security->decode($email['subject']);
 
-        $body = str_ireplace('[username]', $this->session->data['cmtx_username'], $body);
-        $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
+        $text = str_ireplace('[username]', $this->session->data['cmtx_username'], $email['text']);
+        $text = str_ireplace('[admin link]', $this->email->getAdminLink(), $text);
+        $text = str_ireplace('[signature]', $this->email->getSignatureText(), $text);
+        $text = $this->security->decode($text);
 
-        if ($format == 'text') {
-            $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
-        } else {
-            $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
-        }
+        $html = str_ireplace('[username]', $this->session->data['cmtx_username'], $email['html']);
+        $html = str_ireplace('[admin link]', $this->email->getAdminLink(), $html);
+        $html = str_ireplace('[signature]', $this->email->getSignatureHtml(), $html);
+        $html = $this->security->decode($html);
 
-        $body = $this->security->decode($body);
-
-        $this->email->send($to_email, null, $subject, $body, $format);
+        $this->email->send($to_email, null, $subject, $text, $html, $format);
     }
 }

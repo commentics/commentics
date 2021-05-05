@@ -20,9 +20,9 @@ $_['lang_entry_method']          = 'Method:';
 $_['lang_entry_host']            = 'Host:';
 $_['lang_entry_port']            = 'Port:';
 $_['lang_entry_encrypt']         = 'Encrypt:';
+$_['lang_entry_timeout']         = 'Timeout:';
 $_['lang_entry_username']        = 'Username:';
 $_['lang_entry_password']        = 'Password:';
-$_['lang_entry_path']            = 'Path:';
 $_['lang_entry_keywords']        = 'Keywords:';
 $_['lang_entry_from_name']       = 'From Name:';
 $_['lang_entry_from_email']      = 'From Email:';
@@ -32,14 +32,10 @@ $_['lang_entry_html']            = 'HTML:';
 $_['lang_entry_send']            = 'Send:';
 
 // Selection
-$_['lang_select_php_basic']      = 'PHP (Basic)';
-$_['lang_select_php']            = 'PHP (Swift)';
-$_['lang_select_smtp']           = 'SMTP (Swift)';
-$_['lang_select_sendmail']       = 'Sendmail (Swift)';
-$_['lang_select_off']            = 'Off';
+$_['lang_select_php']            = 'PHP';
+$_['lang_select_smtp']           = 'SMTP';
 $_['lang_select_ssl']            = 'SSL';
 $_['lang_select_tls']            = 'TLS';
 
 // Error
-$_['lang_error_path']            = 'The path entered is invalid';
 $_['lang_error_email_invalid']   = 'Must be a valid email address';

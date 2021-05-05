@@ -268,28 +268,23 @@ class User
             $email = $this->email->get('ban');
 
             foreach ($admins as $admin) {
-                if ($admin['format'] == 'text') {
-                    $body = $email['text'];
-                } else {
-                    $body = $email['html'];
-                }
-
                 $subject = $this->security->decode(str_ireplace('[username]', $admin['username'], $email['subject']));
 
-                $body = str_ireplace('[username]', $admin['username'], $body);
-                $body = str_ireplace('[ip address]', $ip_address, $body);
-                $body = str_ireplace('[reason]', $reason, $body);
-                $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
+                $text = str_ireplace('[username]', $admin['username'], $email['text']);
+                $text = str_ireplace('[ip address]', $ip_address, $text);
+                $text = str_ireplace('[reason]', $reason, $text);
+                $text = str_ireplace('[admin link]', $this->email->getAdminLink(), $text);
+                $text = str_ireplace('[signature]', $this->email->getSignatureText($this->page->getSiteId()), $text);
+                $text = $this->security->decode($text);
 
-                if ($admin['format'] == 'text') {
-                    $body = str_ireplace('[signature]', $this->email->getSignatureText($this->page->getSiteId()), $body);
-                } else {
-                    $body = str_ireplace('[signature]', $this->email->getSignatureHtml($this->page->getSiteId()), $body);
-                }
+                $html = str_ireplace('[username]', $admin['username'], $email['html']);
+                $html = str_ireplace('[ip address]', $ip_address, $html);
+                $html = str_ireplace('[reason]', $reason, $html);
+                $html = str_ireplace('[admin link]', $this->email->getAdminLink(), $html);
+                $html = str_ireplace('[signature]', $this->email->getSignatureHtml($this->page->getSiteId()), $html);
+                $html = $this->security->decode($html);
 
-                $body = $this->security->decode($body);
-
-                $this->email->send($admin['email'], null, $subject, $body, $admin['format'], $this->page->getSiteId());
+                $this->email->send($admin['email'], null, $subject, $text, $html, $admin['format'], $this->page->getSiteId());
             }
         }
     }

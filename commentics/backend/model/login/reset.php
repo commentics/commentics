@@ -7,27 +7,21 @@ class LoginResetModel extends Model
     {
         $email = $this->email->get('password_reset');
 
-        if ($format == 'text') {
-            $body = $email['text'];
-        } else {
-            $body = $email['html'];
-        }
-
         $subject = $this->security->decode($email['subject']);
 
-        $body = str_ireplace('[username]', $username, $body);
-        $body = str_ireplace('[password]', $password, $body);
-        $body = str_ireplace('[admin link]', $this->email->getAdminLink(), $body);
+        $text = str_ireplace('[username]', $username, $email['text']);
+        $text = str_ireplace('[password]', $password, $text);
+        $text = str_ireplace('[admin link]', $this->email->getAdminLink(), $text);
+        $text = str_ireplace('[signature]', $this->email->getSignatureText(), $text);
+        $text = $this->security->decode($text);
 
-        if ($format == 'text') {
-            $body = str_ireplace('[signature]', $this->email->getSignatureText(), $body);
-        } else {
-            $body = str_ireplace('[signature]', $this->email->getSignatureHtml(), $body);
-        }
+        $html = str_ireplace('[username]', $username, $email['html']);
+        $html = str_ireplace('[password]', $password, $html);
+        $html = str_ireplace('[admin link]', $this->email->getAdminLink(), $html);
+        $html = str_ireplace('[signature]', $this->email->getSignatureHtml(), $html);
+        $html = $this->security->decode($html);
 
-        $body = $this->security->decode($body);
-
-        $this->email->send($to_email, null, $subject, $body, $format);
+        $this->email->send($to_email, null, $subject, $text, $html, $format);
     }
 
     public function updatePassword($password, $email)

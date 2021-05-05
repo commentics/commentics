@@ -45,6 +45,12 @@ class SettingsEmailSetupController extends Controller
             $this->data['smtp_encrypt'] = $this->setting->get('smtp_encrypt');
         }
 
+        if (isset($this->request->post['smtp_timeout'])) {
+            $this->data['smtp_timeout'] = $this->request->post['smtp_timeout'];
+        } else {
+            $this->data['smtp_timeout'] = $this->setting->get('smtp_timeout');
+        }
+
         if (isset($this->request->post['smtp_username'])) {
             $this->data['smtp_username'] = $this->request->post['smtp_username'];
         } else {
@@ -117,6 +123,12 @@ class SettingsEmailSetupController extends Controller
             $this->data['error_smtp_encrypt'] = '';
         }
 
+        if (isset($this->error['smtp_timeout'])) {
+            $this->data['error_smtp_timeout'] = $this->error['smtp_timeout'];
+        } else {
+            $this->data['error_smtp_timeout'] = '';
+        }
+
         if (isset($this->error['smtp_username'])) {
             $this->data['error_smtp_username'] = $this->error['smtp_username'];
         } else {
@@ -182,7 +194,7 @@ class SettingsEmailSetupController extends Controller
             return false;
         }
 
-        if (!isset($this->request->post['transport_method']) || !in_array($this->request->post['transport_method'], array('php-basic', 'php', 'smtp', 'sendmail'))) {
+        if (!isset($this->request->post['transport_method']) || !in_array($this->request->post['transport_method'], array('php', 'smtp'))) {
             $this->error['transport_method'] = $this->data['lang_error_selection'];
         }
 
@@ -194,8 +206,12 @@ class SettingsEmailSetupController extends Controller
             $this->error['smtp_port'] = sprintf($this->data['lang_error_range'], 1, 1000);
         }
 
-        if (!isset($this->request->post['smtp_encrypt']) || !in_array($this->request->post['smtp_encrypt'], array('Off', 'SSL', 'TLS'))) {
+        if (!isset($this->request->post['smtp_encrypt']) || !in_array($this->request->post['smtp_encrypt'], array('SSL', 'TLS'))) {
             $this->error['smtp_encrypt'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['smtp_timeout']) || !$this->validation->isInt($this->request->post['smtp_timeout']) || $this->request->post['smtp_timeout'] < 1 || $this->request->post['smtp_timeout'] > 60) {
+            $this->error['smtp_timeout'] = sprintf($this->data['lang_error_range'], 1, 60);
         }
 
         if (!isset($this->request->post['smtp_username']) || $this->validation->length($this->request->post['smtp_username']) > 250) {
@@ -204,14 +220,6 @@ class SettingsEmailSetupController extends Controller
 
         if (!isset($this->request->post['smtp_password']) || $this->validation->length($this->request->post['smtp_password']) > 250) {
             $this->error['smtp_password'] = sprintf($this->data['lang_error_length'], 0, 250);
-        }
-
-        if (isset($this->request->post['sendmail_path']) && !empty($this->request->post['sendmail_path']) && !$this->validation->isPath($this->request->post['sendmail_path'])) {
-            $this->error['sendmail_path'] = $this->data['lang_error_path'];
-        }
-
-        if (!isset($this->request->post['sendmail_path']) || $this->validation->length($this->request->post['sendmail_path']) < 1 || $this->validation->length($this->request->post['sendmail_path']) > 250) {
-            $this->error['sendmail_path'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
 
         if (!isset($this->request->post['from_name']) || $this->validation->length($this->request->post['from_name']) < 1 || $this->validation->length($this->request->post['from_name']) > 250) {

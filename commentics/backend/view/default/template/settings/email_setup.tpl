@@ -41,10 +41,8 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_method; ?></label>
                     <select name="transport_method">
-                        <option value="php-basic" <?php if ($transport_method == 'php-basic') { echo 'selected'; } ?>><?php echo $lang_select_php_basic; ?></option>
                         <option value="php" <?php if ($transport_method == 'php') { echo 'selected'; } ?>><?php echo $lang_select_php; ?></option>
                         <option value="smtp" <?php if ($transport_method == 'smtp') { echo 'selected'; } ?>><?php echo $lang_select_smtp; ?></option>
-                        <option value="sendmail" <?php if ($transport_method == 'sendmail') { echo 'selected'; } ?>><?php echo $lang_select_sendmail; ?></option>
                     </select>
                     <?php if ($error_transport_method) { ?>
                         <span class="error"><?php echo $error_transport_method; ?></span>
@@ -70,12 +68,20 @@
                 <div class="fieldset smtp_section">
                     <label><?php echo $lang_entry_encrypt; ?></label>
                     <select name="smtp_encrypt">
-                        <option value="Off" <?php if ($smtp_encrypt == 'Off') { echo 'selected'; } ?>><?php echo $lang_select_off; ?></option>
                         <option value="SSL" <?php if ($smtp_encrypt == 'SSL') { echo 'selected'; } ?>><?php echo $lang_select_ssl; ?></option>
                         <option value="TLS" <?php if ($smtp_encrypt == 'TLS') { echo 'selected'; } ?>><?php echo $lang_select_tls; ?></option>
                     </select>
                     <?php if ($error_smtp_encrypt) { ?>
                         <span class="error"><?php echo $error_smtp_encrypt; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset smtp_section">
+                    <label><?php echo $lang_entry_timeout; ?></label>
+                    <input type="text" required name="smtp_timeout" class="small" value="<?php echo $smtp_timeout; ?>" maxlength="2">
+                    <span class="note"><?php echo $lang_note_seconds; ?></span>
+                    <?php if ($error_smtp_timeout) { ?>
+                        <span class="error"><?php echo $error_smtp_timeout; ?></span>
                     <?php } ?>
                 </div>
 
@@ -92,14 +98,6 @@
                     <input type="password" name="smtp_password" class="large" value="<?php echo $smtp_password; ?>" maxlength="250">
                     <?php if ($error_smtp_password) { ?>
                         <span class="error"><?php echo $error_smtp_password; ?></span>
-                    <?php } ?>
-                </div>
-
-                <div class="fieldset sendmail_section">
-                    <label><?php echo $lang_entry_path; ?></label>
-                    <input type="text" required name="sendmail_path" class="large" value="<?php echo $sendmail_path; ?>" maxlength="250">
-                    <?php if ($error_sendmail_path) { ?>
-                        <span class="error"><?php echo $error_sendmail_path; ?></span>
                     <?php } ?>
                 </div>
             </div>
@@ -181,12 +179,6 @@
         <?php } else { ?>
             $('.smtp_section').hide();
         <?php } ?>
-
-        <?php if ($transport_method == 'sendmail') { ?>
-            $('.sendmail_section').show();
-        <?php } else { ?>
-            $('.sendmail_section').hide();
-        <?php } ?>
     });
     // ]]>
     </script>
@@ -195,17 +187,12 @@
     // <![CDATA[
     $(document).ready(function() {
         $('select[name="transport_method"]').on('change', function() {
-            var method = $(this).val();
+            var transport_method = $(this).val();
 
-            if (method == 'php-basic' || method == 'php') {
-                $('.smtp_section').hide();
-                $('.sendmail_section').hide();
-            } else if (method == 'smtp') {
+            if (transport_method == 'smtp') {
                 $('.smtp_section').show();
-                $('.sendmail_section').hide();
             } else {
                 $('.smtp_section').hide();
-                $('.sendmail_section').show();
             }
         });
     });
