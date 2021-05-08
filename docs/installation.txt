@@ -1,7 +1,7 @@
 INSTALLATION (detailed guide at commentics.com/docs)
 
 1. Download and unzip the programme
-2. Rename the backend folder /commentics/backend/
-3. Upload the /commentics/ folder to your website
+2. Rename the backend folder /comments/backend/
+3. Upload the /comments/ folder to your website
 4. Create a database for Commentics on your server
-5. Run the installer your-domain.com/commentics/install/
+5. Run the installer your-domain.com/comments/install/

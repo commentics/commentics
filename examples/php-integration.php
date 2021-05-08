@@ -17,7 +17,7 @@ session_start();
 <?php
 $cmtx_identifier = '2';
 $cmtx_reference  = 'Page Two';
-$cmtx_folder     = '/commentics/';
+$cmtx_folder     = '/comments/';
 require($_SERVER['DOCUMENT_ROOT'] . $cmtx_folder . 'frontend/index.php');
 ?>
 

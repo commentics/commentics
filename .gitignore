@@ -1,33 +1,33 @@
 # Config file
-/commentics/config.php
+/comments/config.php
 
 # Backup files
-/commentics/system/backups/*
-!/commentics/system/backups/.htaccess
-!/commentics/system/backups/index.html
+/comments/system/backups/*
+!/comments/system/backups/.htaccess
+!/comments/system/backups/index.html
 
 # Log files
-/commentics/system/logs/*
-!/commentics/system/logs/index.html
-!/commentics/system/logs/errors.log
+/comments/system/logs/*
+!/comments/system/logs/index.html
+!/comments/system/logs/errors.log
 
 # Modification files
-/commentics/system/modification/*
-!/commentics/system/modification/index.html
+/comments/system/modification/*
+!/comments/system/modification/index.html
 
 # Cache files
-/commentics/system/cache/database/*
-!/commentics/system/cache/database/index.html
-/commentics/system/cache/modification/*
-!/commentics/system/cache/modification/index.html
-/commentics/system/cache/template/*
-!/commentics/system/cache/template/index.html
+/comments/system/cache/database/*
+!/comments/system/cache/database/index.html
+/comments/system/cache/modification/*
+!/comments/system/cache/modification/index.html
+/comments/system/cache/template/*
+!/comments/system/cache/template/index.html
 
 # Upload files
-/commentics/upload/avatar/*
-!/commentics/upload/avatar/index.html
-/commentics/upload/comment/*
-!/commentics/upload/comment/index.html
+/comments/upload/avatar/*
+!/comments/upload/avatar/index.html
+/comments/upload/comment/*
+!/comments/upload/comment/index.html
 
 # Gulp
 node_modules
