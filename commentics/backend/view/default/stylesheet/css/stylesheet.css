@@ -3925,9 +3925,20 @@ img.loading {
   width: 300px;
 }
 
-.edit_comment_page img.upload {
+.edit_comment_page .upload_section {
+  display: inline-block;
+  line-height: normal;
+}
+
+.edit_comment_page .upload_image {
   height: 100px;
   width: 100px;
+}
+
+.edit_comment_page .upload_remove {
+  display: block;
+  line-height: normal;
+  text-align: center;
 }
 
 .edit_spam_page .section div:first-of-type {

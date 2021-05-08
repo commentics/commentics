@@ -104,6 +104,74 @@ $(document).ready(function() {
 
     /* Add a divider after certain fields */
     $('.divide_after').after('<div class="fieldset"><label></label></div>');
+
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var content = '';
+
+                content += '<section class="upload_section">';
+                content += '    <img src="' + e.target.result + '" class="upload_image">';
+                content += '    <span class="upload_remove"><a data-upload-id="">' + $('.lang_link_remove').text() + '</a></span>';
+                content += '</section>';
+
+                $('.upload_msg_hasnt').after(content + ' ');
+            }
+
+            reader.readAsDataURL(input.files[0]);
+
+            $('.upload_msg_has').show();
+            $('.upload_msg_hasnt').hide();
+        }
+    }
+
+    $('body').on('change', '.edit_comment_page .upload_image_input', function() {
+        readURL(this);
+    });
+
+    var upload_add_count = 0;
+
+    $('.edit_comment_page .upload_add').click(function(e) {
+        e.preventDefault();
+
+        /* Tidy up any unused file inputs */
+        $('.upload_image_input').each(function() {
+            if ($(this).val() == '') {
+                $(this).remove();
+            }
+        });
+
+        $('.upload_msg_hasnt').after('<input name="upload_add_' + upload_add_count + '" hidden class="upload_image_input" type="file" accept=".png,.jpg,.jpeg,.gif">');
+
+        upload_add_count++;
+
+        $('.upload_image_input:first').click();
+    });
+
+    $('body').on('click', '.edit_comment_page .upload_remove a', function(e) {
+        e.preventDefault();
+
+        var upload_id = $(this).attr('data-upload-id');
+
+        if (upload_id) {
+            $('.edit_comment_page form').append('<input type="hidden" name="upload_remove[]" value="' + upload_id + '">');
+        }
+
+        $(this).closest('.upload_section').fadeOut(500, function() {
+            if (!upload_id) {
+                $(this).closest('.upload_section').next('.upload_image_input').remove();
+            }
+
+            $(this).closest('.upload_section').remove();
+
+            if (!$('.upload_section').length) {
+                $('.upload_msg_has').hide();
+                $('.upload_msg_hasnt').show();
+            }
+        });
+    });
 });
 
 /* Upgrade */

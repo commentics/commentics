@@ -81,6 +81,12 @@ class ManageCommentsController extends Controller
             unset($this->session->data['cmtx_success']);
         }
 
+        if (isset($this->session->data['cmtx_error'])) {
+            $this->data['error'] = $this->session->data['cmtx_error'];
+
+            unset($this->session->data['cmtx_error']);
+        }
+
         if (isset($this->request->get['page'])) {
             $page = $this->request->get['page'];
         } else {

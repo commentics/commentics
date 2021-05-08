@@ -216,6 +216,23 @@ class Comment
         return $url;
     }
 
+    public function deleteUpload($upload_id)
+    {
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "uploads` WHERE `id` = '" . (int) $upload_id . "'");
+
+        $result = $this->db->row($query);
+
+        if ($result) {
+            $location = CMTX_DIR_UPLOAD . $result['folder'] . '/' . $result['filename'] . '.' . $result['extension'];
+
+            if (file_exists($location)) {
+                @unlink($location);
+            }
+        }
+
+        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "uploads` WHERE `id` = '" . (int) $upload_id . "'");
+    }
+
     private function deleteReplies($id)
     {
         $replies = $this->getReplies($id);
@@ -233,7 +250,7 @@ class Comment
 
     private function getUploads($comment_id)
     {
-        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "uploads` WHERE `comment_id` = '" . (int) $comment_id . "'");
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "uploads` WHERE `comment_id` = '" . (int) $comment_id . "' ORDER BY `date_added` DESC");
 
         $results = $this->db->rows($query);
 

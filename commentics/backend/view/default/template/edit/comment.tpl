@@ -26,7 +26,7 @@
 
     <div class="description"><?php echo $lang_description; ?></div>
 
-    <form action="index.php?route=edit/comment&amp;id=<?php echo $id; ?>" class="controls" method="post">
+    <form action="index.php?route=edit/comment&amp;id=<?php echo $id; ?>" class="controls" method="post" enctype="multipart/form-data">
         <div class="left">
             <h2><?php echo $lang_subheading_left; ?></h2>
 
@@ -153,12 +153,19 @@
                 <label><?php echo $lang_entry_uploads; ?></label>
                 <div>
                     <?php if ($uploads) { ?>
+                        <div class="upload_msg_has"><?php echo $lang_text_upload_has; ?> (<a class="upload_add"><?php echo $lang_link_add; ?></a>)</div>
+                        <div class="upload_msg_hasnt" hidden><?php echo $lang_text_upload_hasnt; ?> (<a class="upload_add"><?php echo $lang_link_add; ?></a>)</div>
                         <?php foreach ($uploads as $upload) { ?>
-                            <a href="<?php echo $upload['image']; ?>" class="gallery"><img src="<?php echo $upload['image']; ?>" class="upload" title="<?php echo $upload['filename'] . '.' . $upload['extension']; ?>"></a>
+                            <section class="upload_section">
+                                <a href="<?php echo $upload['image']; ?>" class="gallery"><img src="<?php echo $upload['image']; ?>" class="upload_image" title="<?php echo $upload['filename'] . '.' . $upload['extension']; ?>"></a>
+                                <span class="upload_remove"><a data-upload-id="<?php echo $upload['id']; ?>"><?php echo $lang_link_remove; ?></a></span>
+                            </section>
                         <?php } ?>
                     <?php } else { ?>
-                        <?php echo $lang_text_no_uploads; ?>
+                        <div class="upload_msg_has" hidden><?php echo $lang_text_upload_has; ?> (<a class="upload_add"><?php echo $lang_link_add; ?></a>)</div>
+                        <div class="upload_msg_hasnt"><?php echo $lang_text_upload_hasnt; ?> (<a class="upload_add"><?php echo $lang_link_add; ?></a>)</div>
                     <?php } ?>
+                    <div class="lang_link_remove" hidden><?php echo $lang_link_remove; ?></div>
                 </div>
             </div>
 
@@ -260,6 +267,8 @@
 
             <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
         </div>
+
+        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
     </form>

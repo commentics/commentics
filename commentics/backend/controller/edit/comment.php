@@ -25,6 +25,8 @@ class EditCommentController extends Controller
 
         $comment = $this->comment->getComment($this->request->get['id']);
 
+        $this->data['user_id'] = $comment['user_id'];
+
         $this->data['name'] = $comment['name'];
 
         $this->data['email'] = $comment['email'];
