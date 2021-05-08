@@ -314,7 +314,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_max_size; ?></label>
-                    <input type="text" required name="maximum_upload_size" class="small" value="<?php echo $maximum_upload_size; ?>" maxlength="2">
+                    <input type="text" required name="maximum_upload_size" class="small" value="<?php echo $maximum_upload_size; ?>" maxlength="3">
                     <span class="note"><?php echo $lang_note_mb; ?></span>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_max_size; ?>', this, event, '')">[?]</a>
                     <?php if ($error_maximum_upload_size) { ?>
@@ -333,7 +333,7 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_max_total; ?></label>
-                    <input type="text" required name="maximum_upload_total" class="small" value="<?php echo $maximum_upload_total; ?>" maxlength="2">
+                    <input type="text" required name="maximum_upload_total" class="small" value="<?php echo $maximum_upload_total; ?>" maxlength="3">
                     <span class="note"><?php echo $lang_note_mb; ?></span>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_max_total; ?>', this, event, '')">[?]</a>
                     <?php if ($error_maximum_upload_total) { ?>

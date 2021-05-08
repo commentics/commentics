@@ -139,7 +139,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 jQuery('.cmtx_form_container select').children().css('color', 'black');
             }
 
-            jQuery('body').on('change', '.cmtx_form_container select', function () {
+            jQuery('body').on('change', '.cmtx_form_container select', function() {
                 if (jQuery(this).find('option:selected').val() == '') {
                     jQuery(this).css('color', '#666');
                     jQuery(this).children().css('color', 'black');
@@ -489,7 +489,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if (size > cmtx_js_settings_form.maximum_upload_size) {
-                            jQuery('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_size.replace('%d', cmtx_js_settings_form.maximum_upload_size));
+                            jQuery('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_size.replace('%.1f', cmtx_js_settings_form.maximum_upload_size));
 
                             jQuery('body').append(jQuery('#cmtx_upload_modal'));
 
@@ -511,7 +511,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         }
 
                         if (total_size > cmtx_js_settings_form.maximum_upload_total) {
-                            jQuery('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_total.replace('%d', cmtx_js_settings_form.maximum_upload_total));
+                            jQuery('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_total.replace('%.1f', cmtx_js_settings_form.maximum_upload_total));
 
                             jQuery('body').append(jQuery('#cmtx_upload_modal'));
 
@@ -786,7 +786,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 });
 
                 request.done(function(response) {
-                    jQuery('.cmtx_message, .cmtx_error').remove();
+                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
 
                     jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
 
@@ -799,6 +799,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     }
 
                     if (response['result']['success']) {
+                        jQuery('.cmtx_message').remove();
+
                         jQuery('#cmtx_comment, #cmtx_headline, #cmtx_answer, #cmtx_securimage').val('');
 
                         cmtxUpdateCommentCounter();
@@ -1464,6 +1466,31 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 jQuery('.cmtx_message_reply').text(cmtx_js_settings_comments.lang_text_not_replying);
             });
 
+            /* Lightbox for comment uploads */
+            jQuery('#cmtx_container').on('click', '.cmtx_upload_area a', function(e) {
+                e.preventDefault();
+
+                var src = jQuery(this).find('img').attr('src');
+
+                jQuery('#cmtx_lightbox_modal .cmtx_modal_body').html('<img src="' + src + '" class="cmtx_lightbox_image">');
+
+                jQuery('body').append(jQuery('#cmtx_lightbox_modal'));
+
+                jQuery('body').append('<div class="cmtx_overlay"></div>');
+
+                if (isInIframe) {
+                    var destination = jQuery('#cmtx_container').offset();
+
+                    jQuery('#cmtx_lightbox_modal').css({top: destination.top + 130});
+
+                    jQuery('.cmtx_overlay').css('background-color', 'transparent');
+                }
+
+                jQuery('.cmtx_overlay').fadeIn(200);
+
+                jQuery('#cmtx_lightbox_modal').fadeIn(200);
+            });
+
             /* Load more comments button */
             jQuery('#cmtx_container').on('click', '#cmtx_more_button', function(e) {
                 e.preventDefault();
@@ -1607,7 +1634,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     }
                 }
 
-                jQuery('#cmtx_avatar_image_input').on('change', function(){
+                jQuery('#cmtx_avatar_image_input').on('change', function() {
                     readURL(this);
                 });
 

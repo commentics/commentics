@@ -133,7 +133,7 @@
             @if comment.uploads
                 <div class="cmtx_upload_area">
                     @foreach comment.uploads as upload
-                        <img src="{{ upload.image }}" class="cmtx_upload" alt="Upload">
+                        <a><img src="{{ upload.image }}" class="cmtx_upload" alt="Upload"></a>
                     @endforeach
                 </div>
             @endif

@@ -165,6 +165,8 @@ $_['lang_dialog_stop']             = 'Don\'t show again';
 $_['lang_dialog_close']            = 'Close';
 
 // Error
+$_['lang_error_max_size']          = 'Must be between 0.1 and 99.9';
+$_['lang_error_max_total']         = 'Must be between 0.1 and 99.9';
 $_['lang_error_fopen']             = 'The fopen(URL) function must be enabled';
 $_['lang_error_perturbation']      = 'Must be between %04.2f and %04.2f';
 $_['lang_error_hex_format']        = 'Must be in hexadecimal format';

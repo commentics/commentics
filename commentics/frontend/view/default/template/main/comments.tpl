@@ -176,6 +176,17 @@
             </div>
         @endif
 
+        <div id="cmtx_lightbox_modal" class="cmtx_lightbox_modal cmtx_modal_box" role="dialog">
+            <header>
+                <a href="#" class="cmtx_modal_close">x</a>
+                <div>{{ lang_modal_lightbox_heading }}</div>
+            </header>
+            <div class="cmtx_modal_body"></div>
+            <footer>
+                <input type="button" class="cmtx_button cmtx_button_secondary" value="{{ lang_modal_close }}">
+            </footer>
+        </div>
+
         <input type="hidden" name="cmtx_next_page" id="cmtx_next_page" value="2">
 
         <div id="cmtx_loading_helper" data-cmtx-load="1" data-cmtx-total-comments="{{ total }}"></div>

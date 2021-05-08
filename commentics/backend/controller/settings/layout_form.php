@@ -1243,16 +1243,16 @@ class SettingsLayoutFormController extends Controller
 
         /* Upload */
 
-        if (!isset($this->request->post['maximum_upload_size']) || !$this->validation->isInt($this->request->post['maximum_upload_size']) || $this->request->post['maximum_upload_size'] < 1 || $this->request->post['maximum_upload_size'] > 99) {
-            $this->error['maximum_upload_size'] = sprintf($this->data['lang_error_range'], 1, 99);
+        if (!isset($this->request->post['maximum_upload_size']) || !$this->validation->isFloat($this->request->post['maximum_upload_size']) || $this->request->post['maximum_upload_size'] < 0.1 || $this->request->post['maximum_upload_size'] > 99.9) {
+            $this->error['maximum_upload_size'] = $this->data['lang_error_max_size'];
         }
 
         if (!isset($this->request->post['maximum_upload_amount']) || !$this->validation->isInt($this->request->post['maximum_upload_amount']) || $this->request->post['maximum_upload_amount'] < 1 || $this->request->post['maximum_upload_amount'] > 10) {
             $this->error['maximum_upload_amount'] = sprintf($this->data['lang_error_range'], 1, 10);
         }
 
-        if (!isset($this->request->post['maximum_upload_total']) || !$this->validation->isInt($this->request->post['maximum_upload_total']) || $this->request->post['maximum_upload_total'] < 1 || $this->request->post['maximum_upload_total'] > 99) {
-            $this->error['maximum_upload_total'] = sprintf($this->data['lang_error_range'], 1, 99);
+        if (!isset($this->request->post['maximum_upload_total']) || !$this->validation->isFloat($this->request->post['maximum_upload_total']) || $this->request->post['maximum_upload_total'] < 0.1 || $this->request->post['maximum_upload_total'] > 99.9) {
+            $this->error['maximum_upload_total'] = $this->data['lang_error_max_total'];
         }
 
         /* Name */
