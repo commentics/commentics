@@ -177,10 +177,9 @@ class CommonAdministratorModel extends Model
         $restrictions[] = $this->getRestriction('tool/upgrade', 20, false, $viewable_pages, $modifiable_pages);
 
         $restrictions[] = $this->getRestriction('help', 0, true, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('help/donate', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('help/faq', 20, false, $viewable_pages, $modifiable_pages);
         $restrictions[] = $this->getRestriction('help/forum', 20, false, $viewable_pages, $modifiable_pages);
-        $restrictions[] = $this->getRestriction('help/license', 20, false, $viewable_pages, $modifiable_pages);
+        $restrictions[] = $this->getRestriction('help/private', 20, false, $viewable_pages, $modifiable_pages);
 
         return $restrictions;
     }

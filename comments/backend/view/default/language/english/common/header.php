@@ -69,10 +69,9 @@ $_['lang_menu_tool_text_finder']          = 'Text Finder';
 
 /* Help */
 $_['lang_menu_help']                      = 'Help';
-$_['lang_menu_help_donate']               = 'Donate';
 $_['lang_menu_help_faq']                  = 'FAQ';
 $_['lang_menu_help_forum']                = 'Forum';
-$_['lang_menu_help_license']              = 'License';
+$_['lang_menu_help_private']              = 'Private';
 
 /* Log Out */
 $_['lang_menu_log_out']                   = 'Log Out';
