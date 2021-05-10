@@ -28,7 +28,6 @@ $_['lang_title_administrator_notes'] = 'Administrator Notes';
 $_['lang_text_version_latest']       = 'You are using the latest version';
 $_['lang_text_version_newer']        = 'A newer version is available';
 $_['lang_text_unable']               = 'Your server is unable to check';
-$_['lang_text_denied']               = 'Your server is denying access';
 $_['lang_text_site_issue']           = 'There is an issue with Commentics.com';
 $_['lang_text_last_login']           = 'The last login was at %s on %s';
 $_['lang_text_stats_action']         = 'You have %d comments that require approval<span class="dashboard_extra">. %d comments are flagged.</span>';
@@ -149,7 +148,6 @@ $_['lang_tip_38']                    = 'Enable SSL in Settings -> Security if yo
 
 // Link
 $_['lang_link_upgrade']              = 'upgrade';
-$_['lang_link_learn_more']           = 'learn more';
 $_['lang_link_log']                  = 'log';
 
 // Dialog

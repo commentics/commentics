@@ -57,23 +57,13 @@ class MainDashboardController extends Controller
             } else {
                 $site_issue = true;
 
-                if (is_string($latest_version) && $this->variable->stripos($latest_version, 'bitninja') !== false) {
-                    $this->data['version_check'] = array(
-                        'type'        => 'negative',
-                        'text'        => $this->data['lang_text_denied'],
-                        'link_href'   => 'https://commentics.com/help/main_dashboard',
-                        'link_text'   => $this->data['lang_link_learn_more'],
-                        'link_target' => '_blank'
-                    );
-                } else {
-                    $this->data['version_check'] = array(
-                        'type'        => 'negative',
-                        'text'        => $this->data['lang_text_site_issue'],
-                        'link_href'   => $this->url->link('report/version_check'),
-                        'link_text'   => $this->data['lang_link_log'],
-                        'link_target' => '_self'
-                    );
-                }
+                $this->data['version_check'] = array(
+                    'type'        => 'negative',
+                    'text'        => $this->data['lang_text_site_issue'],
+                    'link_href'   => $this->url->link('report/version_check'),
+                    'link_text'   => $this->data['lang_link_log'],
+                    'link_target' => '_self'
+                );
             }
         } else {
             $this->data['version_check'] = array(
