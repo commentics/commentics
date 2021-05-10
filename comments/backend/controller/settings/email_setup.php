@@ -63,12 +63,6 @@ class SettingsEmailSetupController extends Controller
             $this->data['smtp_password'] = $this->setting->get('smtp_password');
         }
 
-        if (isset($this->request->post['sendmail_path'])) {
-            $this->data['sendmail_path'] = $this->request->post['sendmail_path'];
-        } else {
-            $this->data['sendmail_path'] = $this->setting->get('sendmail_path');
-        }
-
         if (isset($this->request->post['from_name'])) {
             $this->data['from_name'] = $this->request->post['from_name'];
         } else {
