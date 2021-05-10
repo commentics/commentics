@@ -55,6 +55,16 @@
         </div>
     @endif
 
+    <div id="cmtx_lightbox_modal" class="cmtx_lightbox_modal cmtx_modal_box" role="dialog">
+        <header>
+            <a href="#" class="cmtx_modal_close">x</a>
+        </header>
+        <div class="cmtx_modal_body"></div>
+        <footer>
+            <input type="button" class="cmtx_button cmtx_button_secondary" value="{{ lang_modal_close }}">
+        </footer>
+    </div>
+
     {# These are passed to autodetect.js via the template #}
     <div id="cmtx_js_settings_page" style="display:none" hidden>{{ cmtx_js_settings_page }}</div>
 
