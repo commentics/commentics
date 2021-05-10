@@ -317,8 +317,38 @@ class MainUpgrade2Model extends Model
                     `name` varchar(250) NOT NULL default '',
                     `value` varchar(250) NOT NULL default '',
                     PRIMARY KEY (`id`)
-                ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+                ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
             }
+
+            /* Convert the database to utf8mb4 to allow for all characters */
+            $this->db->query("ALTER DATABASE `" . CMTX_DB_DATABASE . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+
+            /* Convert the tables (and all applicable columns) */
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "access` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "attempts` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "backups` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "bans` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "countries` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "data` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "emails` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "geo` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "logins` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "modules` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "questions` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "ratings` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "reporters` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "settings` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "sites` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "states` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "subscriptions` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "uploads` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "version` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "viewers` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "voters` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         }
     }
 

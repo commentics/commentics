@@ -25,6 +25,8 @@ class MainInstall2Model extends Model
         $backend_folder    = $this->getBackendFolder();
         $version           = CMTX_VERSION;
 
+        $this->db->query("ALTER DATABASE `" . CMTX_DB_DATABASE . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+
         $this->createTableAccess();
         $this->createTableAdmins($username, $password, $email, $ip_address, $cookie_key);
         $this->createTableAttempts();
@@ -66,7 +68,7 @@ class MainInstall2Model extends Model
             `page` varchar(250) NOT NULL default '',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -96,7 +98,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "admins` SET `username` = '" . $this->db->escape($username) . "', `password` = '" . $this->db->escape($password) . "', `email` = '" . $this->db->escape($email) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `cookie_key` = '" . $this->db->escape($cookie_key) . "', `receive_email_ban` = '1', `receive_email_comment_approve` = '1', `receive_email_comment_success` = '1', `receive_email_flag` = '1', `login_attempts` = '0', `resets` = '0', `last_login` = NOW(), `restrict_pages` = '0', `viewable_pages` = '', `modifiable_pages` = '', `format` = 'html', `is_super` = '1', `is_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         /*****************************************************************************************************************/
@@ -112,7 +114,7 @@ class MainInstall2Model extends Model
             `amount` int(10) unsigned NOT NULL default '0',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -126,7 +128,7 @@ class MainInstall2Model extends Model
             `size` int(10) unsigned NOT NULL default '0',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -141,7 +143,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -176,7 +178,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -191,7 +193,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'AFG', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'ALB', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -378,7 +380,7 @@ class MainInstall2Model extends Model
             `modified_by` varchar(250) NOT NULL default '',
             `date_modified` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "data` SET `type` = 'admin_notes', `text` = '', `modified_by` = '', `date_modified` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "data` SET `type` = 'banned_emails', `text` = '', `modified_by` = '', `date_modified` = NOW()");
@@ -414,7 +416,7 @@ class MainInstall2Model extends Model
             `language` varchar(250) NOT NULL default '',
             `date_modified` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = 'ban', `subject` = '[username], there&#039;s a new ban!', `text` = 'Hello [username],\r\n\r\nA new user, with the IP address [ip address], has been banned for the following reason:\r\n- [reason]\r\n\r\nHere is the link to your admin panel:\r\n[admin link]\r\n\r\nRegards,\r\n\r\n[signature]', `html` = '<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td>Hello [username],</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">A new user, with the IP address [ip address], has been banned for the following reason:</td>\r\n</tr>\r\n<tr>\r\n<td>- [reason]</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Here is the link to your admin panel:</td>\r\n</tr>\r\n<tr>\r\n<td><a href=\"[admin link]\">[admin link]</a></td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Regards,</td>\r\n</tr>\r\n</table>\r\n\r\n[signature]', `language` = 'english', `date_modified` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = 'comment_approve', `subject` = 'Comment Approve', `text` = 'Hello [username],\r\n\r\nA new comment has been posted on the page [page reference], located at the following address:\r\n[comment url]\r\n\r\nThe comment was made by [poster] and was as follows:\r\n\r\n************************\r\n\r\n[comment]\r\n\r\n************************\r\n\r\nThis comment requires approval due to the following reason(s):\r\n[reason]\r\n\r\nHere is the link to your admin panel:\r\n[admin link]\r\n\r\nRegards,\r\n\r\n[signature]', `html` = '<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td>Hello [username],</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">A new comment has been posted on the page [page reference], located at the following address:</td>\r\n</tr>\r\n<tr>\r\n<td><a href=\"[comment url]\">[comment url]</a></td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">The comment was made by [poster] and was as follows:</td>\r\n</tr>\r\n<tr>\r\n<td style=\"padding-top:20px\">************************</td>\r\n</tr>\r\n<tr>\r\n<td style=\"padding-top:10px\">[comment]</td>\r\n</tr>\r\n<tr>\r\n<td style=\"padding-top:20px\">************************</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">This comment requires approval due to the following reason(s):</td>\r\n</tr>\r\n<tr>\r\n<td>[reason]</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Here is the link to your admin panel:</td>\r\n</tr>\r\n<tr>\r\n<td><a href=\"[admin link]\">[admin link]</a></td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Regards,</td>\r\n</tr>\r\n</table>\r\n\r\n[signature]', `language` = 'english', `date_modified` = NOW()");
@@ -441,7 +443,7 @@ class MainInstall2Model extends Model
             `language` varchar(250) NOT NULL default '',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Afghanistan', `country_code` = 'AFG', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Albania', `country_code` = 'ALB', `language` = 'english', `date_added` = NOW()");
@@ -625,7 +627,7 @@ class MainInstall2Model extends Model
             `id` int(10) unsigned NOT NULL auto_increment,
             `date_modified` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "logins` SET `id` = '1', `date_modified` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "logins` SET `id` = '2', `date_modified` = NOW()");
@@ -640,7 +642,7 @@ class MainInstall2Model extends Model
             `module` varchar(250) NOT NULL default '',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -658,7 +660,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -673,7 +675,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "questions` SET `question` = 'Enter the third letter of the word castle.', `answer` = 's', `language` = 'english', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "questions` SET `question` = 'Enter the word shark backwards.', `answer` = 'krahs', `language` = 'english', `date_modified` = NOW(), `date_added` = NOW()");
@@ -708,7 +710,7 @@ class MainInstall2Model extends Model
             `ip_address` varchar(250) NOT NULL default '',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -721,7 +723,7 @@ class MainInstall2Model extends Model
             `ip_address` varchar(250) NOT NULL default '',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -734,7 +736,7 @@ class MainInstall2Model extends Model
             `title` varchar(250) NOT NULL default '',
             `value` varchar(250) NOT NULL default '',
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'checklist_complete', `value` = '0'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'admin_detect', `value` = '1'");
@@ -1146,7 +1148,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "sites` SET `id` = '1', `name` = '" . $this->db->escape($site_name) . "', `domain` = '" . $this->db->escape($site_domain) . "', `url` = '" . $this->db->escape($site_url) . "', `iframe_enabled` = '1', `new_pages` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         /*****************************************************************************************************************/
@@ -1163,7 +1165,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         // Afghanistan
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Badakhshan') . "', `country_code` = 'AFG', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -4510,7 +4512,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -4528,7 +4530,7 @@ class MainInstall2Model extends Model
             `file_size` int(10) unsigned NOT NULL default '0',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -4553,7 +4555,7 @@ class MainInstall2Model extends Model
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -4566,7 +4568,7 @@ class MainInstall2Model extends Model
             `type` varchar(250) NOT NULL default '',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "version` SET `version` = '" . $this->db->escape($version) . "', `type` = 'Installation', `date_added` = NOW()");
         /*****************************************************************************************************************/
@@ -4585,7 +4587,7 @@ class MainInstall2Model extends Model
             `page_url` varchar(1000) NOT NULL default '',
             `time_added` int(50) unsigned NOT NULL default '0',
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -4598,7 +4600,7 @@ class MainInstall2Model extends Model
             `ip_address` varchar(250) NOT NULL default '',
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
