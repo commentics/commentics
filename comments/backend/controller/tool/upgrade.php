@@ -116,6 +116,8 @@ class ToolUpgradeController extends Controller
 
         $this->loadModel('tool/upgrade');
 
+        sleep(3); // Sleep for 3 seconds to help avoid triggering DoS detection
+
         if ($this->request->isAjax()) {
             $this->response->addHeader('Content-Type: application/json');
 
@@ -155,6 +157,8 @@ class ToolUpgradeController extends Controller
         $this->loadLanguage('tool/upgrade');
 
         $this->loadModel('tool/upgrade');
+
+        sleep(3); // Sleep for 3 seconds to help avoid triggering DoS detection
 
         if ($this->request->isAjax()) {
             $this->response->addHeader('Content-Type: application/json');
@@ -196,6 +200,8 @@ class ToolUpgradeController extends Controller
 
         $this->loadModel('tool/upgrade');
 
+        sleep(3); // Sleep for 3 seconds to help avoid triggering DoS detection
+
         if ($this->request->isAjax()) {
             $this->response->addHeader('Content-Type: application/json');
 
@@ -235,6 +241,8 @@ class ToolUpgradeController extends Controller
         $this->loadLanguage('tool/upgrade');
 
         $this->loadModel('tool/upgrade');
+
+        sleep(3); // Sleep for 3 seconds to help avoid triggering DoS detection
 
         if ($this->request->isAjax()) {
             $this->response->addHeader('Content-Type: application/json');
@@ -279,6 +287,8 @@ class ToolUpgradeController extends Controller
         $this->loadLanguage('tool/upgrade');
 
         $this->loadModel('tool/upgrade');
+
+        sleep(3); // Sleep for 3 seconds to help avoid triggering DoS detection
 
         if ($this->request->isAjax()) {
             $this->response->addHeader('Content-Type: application/json');
