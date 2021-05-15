@@ -227,7 +227,7 @@
 }
 
 .cmtx_icons_container {
-    background: rgba(0, 0, 0, 0) -moz-linear-gradient(center top , #fbfbfb, $white) repeat scroll 0 0;
+    background-image: linear-gradient(to bottom, #fbfbfb, $white);
     border: 1px solid $grey-lighter;
     border-radius: 3px;
     cursor: default;
