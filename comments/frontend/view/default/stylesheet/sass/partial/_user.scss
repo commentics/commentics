@@ -293,4 +293,14 @@
             border-bottom: 1px solid $grey-lighter;
         }
     }
+
+    @media all and (max-width: 700px) {
+        .cmtx_avatar_text_container {
+            display: block;
+        }
+
+        .cmtx_avatar_text {
+            margin-left: 0;
+        }
+    }
 }
