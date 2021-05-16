@@ -4309,9 +4309,9 @@ select.cmtx_required {
 }
 
 .cmtx_lightbox_modal .cmtx_lightbox_image {
+  max-height: 80vh;
   max-width: 80vw;
   min-width: 200px;
-  max-height: 80vh;
 }
 
 .cmtx_date_and_action_area {
@@ -5276,8 +5276,8 @@ select.cmtx_required {
 
 .cmtx_modal_box header {
   border-bottom: 1px solid #e6e6e6;
-  min-height: 25px;
   height: auto !important;
+  min-height: 25px;
   padding: 10px;
   width: auto !important;
 }
