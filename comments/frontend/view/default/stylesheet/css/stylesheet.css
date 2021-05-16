@@ -5063,6 +5063,7 @@ select.cmtx_required {
 .cmtx_user_container .cmtx_avatar_selection_img {
   cursor: pointer;
   height: 72px;
+  margin-right: 5px;
   width: 72px;
 }
 
