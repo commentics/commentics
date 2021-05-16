@@ -12,7 +12,7 @@ class MainDatabaseController extends Controller
         $this->loadLanguage('main/database');
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-            $this->db->connect($this->request->post['hostname'], $this->request->post['username'], $this->request->post['password'], $this->request->post['database'], $this->request->post['port'], $this->request->post['prefix'], $this->request->post['driver']);
+            $this->db->connect($this->request->post['hostname'], $this->security->decode($this->request->post['username']), $this->security->decode($this->request->post['password']), $this->request->post['database'], $this->request->post['port'], $this->request->post['prefix'], $this->request->post['driver']);
 
             if ($this->db->isConnected()) {
                 $this->loadModel('main/database');

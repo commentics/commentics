@@ -10,8 +10,8 @@ class MainDatabaseModel extends Model
         $data .= '<?php' . PHP_EOL;
         $data .= '/* Database Details */' . PHP_EOL;
         $data .= 'define(\'CMTX_DB_DATABASE\', \'' . addslashes($this->request->post['database']) . '\');' . PHP_EOL;
-        $data .= 'define(\'CMTX_DB_USERNAME\', \'' . addslashes($this->request->post['username']) . '\');' . PHP_EOL;
-        $data .= 'define(\'CMTX_DB_PASSWORD\', \'' . addslashes($this->request->post['password']) . '\');' . PHP_EOL;
+        $data .= 'define(\'CMTX_DB_USERNAME\', \'' . addslashes($this->security->decode($this->request->post['username'])) . '\');' . PHP_EOL;
+        $data .= 'define(\'CMTX_DB_PASSWORD\', \'' . addslashes($this->security->decode($this->request->post['password'])) . '\');' . PHP_EOL;
         $data .= 'define(\'CMTX_DB_HOSTNAME\', \'' . addslashes($this->request->post['hostname']) . '\');' . PHP_EOL;
         $data .= 'define(\'CMTX_DB_PORT\', \'' . addslashes($this->request->post['port']) . '\');' . PHP_EOL;
         $data .= 'define(\'CMTX_DB_PREFIX\', \'' . addslashes($this->request->post['prefix']) . '\');' . PHP_EOL;
