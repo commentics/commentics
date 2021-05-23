@@ -86,9 +86,13 @@ abstract class Base
     public function loadJavascript($cmtx_javascript)
     {
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/javascript/' . strtolower($cmtx_javascript))) {
-            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/javascript/' . strtolower($cmtx_javascript);
+            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/javascript/' . strtolower($cmtx_javascript));
+
+            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/javascript/' . strtolower($cmtx_javascript) . ($modified ? '?' . $modified : '');
         } else if (file_exists(CMTX_DIR_VIEW . 'default/javascript/' . strtolower($cmtx_javascript))) {
-            return CMTX_HTTP_VIEW . 'default/javascript/' . strtolower($cmtx_javascript);
+            $modified = filemtime(CMTX_DIR_VIEW . 'default/javascript/' . strtolower($cmtx_javascript));
+
+            return CMTX_HTTP_VIEW . 'default/javascript/' . strtolower($cmtx_javascript) . ($modified ? '?' . $modified : '');
         } else {
             die('<b>Error</b>: Could not load javascript ' . strtolower($cmtx_javascript) . '!');
         }
@@ -97,9 +101,13 @@ abstract class Base
     public function loadStylesheet($cmtx_stylesheet)
     {
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet))) {
-            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet);
+            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet));
+
+            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet) . ($modified ? '?' . $modified : '');
         } else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet))) {
-            return CMTX_HTTP_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet);
+            $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet));
+
+            return CMTX_HTTP_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet) . ($modified ? '?' . $modified : '');
         } else {
             die('<b>Error</b>: Could not load stylesheet ' . strtolower($cmtx_stylesheet) . '!');
         }
@@ -108,9 +116,13 @@ abstract class Base
     public function loadCustomCss()
     {
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css')) {
-            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css';
+            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css');
+
+            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css' . ($modified ? '?' . $modified : '');
         } else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/custom.css')) {
-            return CMTX_HTTP_VIEW . 'default/stylesheet/css/custom.css';
+            $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/custom.css');
+
+            return CMTX_HTTP_VIEW . 'default/stylesheet/css/custom.css' . ($modified ? '?' . $modified : '');
         } else {
             return '';
         }
