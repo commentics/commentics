@@ -96,7 +96,9 @@ window.addEventListener('load', function(e) {
                 onInit: function(iframe) {
                     /* Remove spinner */
                     var spinner = document.getElementById('cmtx_spinner');
-                    spinner.parentNode.removeChild(spinner);
+                    if (spinner) {
+                        spinner.parentNode.removeChild(spinner);
+                    }
 
                     iframe.style.visibility = 'visible'; // show the iframe now that it's fully loaded and re-sized
 

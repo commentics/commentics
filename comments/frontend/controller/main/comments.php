@@ -342,7 +342,7 @@ class MainCommentsController extends Controller
             $comment['avatar'] = $this->user->getAvatar($comment['user_id']);
 
             if ($this->setting->get('avatar_type') == 'gravatar') {
-                $comment['avatar_bio'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=190';
+                $comment['avatar_bio'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=158';
             } else {
                 if (substr($comment['avatar'], -15) == 'misc/avatar.png') {
                     $comment['avatar_bio'] = $this->loadImage('misc/avatar_bio.png');

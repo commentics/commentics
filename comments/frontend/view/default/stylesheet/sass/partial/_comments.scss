@@ -102,7 +102,7 @@
 .cmtx_bio {
     background-color: $white;
     border: 1px solid $grey-light;
-    bottom: -130px;
+    bottom: -100px;
     display: none;
     left: 20%;
     padding: 10px;
@@ -121,12 +121,13 @@
 }
 
 .cmtx_bio img {
-    height: 190px;
-    width: 190px;
+    height: 158px;
+    width: 158px;
 }
 
 .cmtx_bio_info {
     margin-top: 5px;
+    text-align: left;
 }
 
 .cmtx_bio_info div {
@@ -309,8 +310,11 @@
     width: auto;
 }
 
-.cmtx_upload_area a {
+.cmtx_comments_container .cmtx_upload_area a {
     cursor: pointer;
+}
+
+.cmtx_upload_area a {
     text-decoration: none;
 }
 

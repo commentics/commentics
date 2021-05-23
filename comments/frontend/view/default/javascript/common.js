@@ -1467,28 +1467,24 @@ var cmtx_wait_for_jquery = setInterval(function() {
             });
 
             /* Lightbox for comment uploads */
-            jQuery('#cmtx_container').on('click', '.cmtx_upload_area a', function(e) {
-                e.preventDefault();
-
+            jQuery('#cmtx_container').on('click', '.cmtx_comments_container .cmtx_upload_area a', function(e) {
                 var src = jQuery(this).find('img').attr('src');
 
-                jQuery('#cmtx_lightbox_modal .cmtx_modal_body').html('<img src="' + src + '" class="cmtx_lightbox_image">');
-
-                jQuery('body').append(jQuery('#cmtx_lightbox_modal'));
-
-                jQuery('body').append('<div class="cmtx_overlay"></div>');
-
                 if (isInIframe) {
-                    var destination = jQuery('#cmtx_container').offset();
+                    jQuery(this).attr('href', src);
+                } else {
+                    e.preventDefault();
 
-                    jQuery('#cmtx_lightbox_modal').css({top: destination.top + 130});
+                    jQuery('#cmtx_lightbox_modal .cmtx_modal_body').html('<img src="' + src + '" class="cmtx_lightbox_image">');
 
-                    jQuery('.cmtx_overlay').css('background-color', 'transparent');
+                    jQuery('body').append(jQuery('#cmtx_lightbox_modal'));
+
+                    jQuery('body').append('<div class="cmtx_overlay"></div>');
+
+                    jQuery('.cmtx_overlay').fadeIn(200);
+
+                    jQuery('#cmtx_lightbox_modal').fadeIn(200);
                 }
-
-                jQuery('.cmtx_overlay').fadeIn(200);
-
-                jQuery('#cmtx_lightbox_modal').fadeIn(200);
             });
 
             /* Load more comments button */
