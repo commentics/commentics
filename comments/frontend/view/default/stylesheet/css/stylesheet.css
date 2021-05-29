@@ -5286,6 +5286,7 @@ select.cmtx_required {
 
 .cmtx_modal_box header {
   border-bottom: 1px solid #e6e6e6;
+  box-sizing: content-box;
   height: auto !important;
   min-height: 25px;
   padding: 10px;

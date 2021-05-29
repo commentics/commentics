@@ -22,6 +22,7 @@
 
 .cmtx_modal_box header {
     border-bottom: 1px solid $grey-lighter;
+    box-sizing: content-box;
     height: auto !important;
     min-height: 25px;
     padding: 10px;
