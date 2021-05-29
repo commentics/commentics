@@ -27,6 +27,8 @@ class MySqli
 
                 mysqli_set_charset($this->link, 'utf8mb4');
 
+                $this->query("SET SQL_MODE = ''");
+
                 if ($this->numRows($this->query("SHOW TABLES LIKE '" . $prefix . "comments'"))) {
                     $this->installed = true;
                 }
