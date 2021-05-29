@@ -292,16 +292,17 @@ class ManageUsersController extends Controller
                 }
 
                 $data = array(
-                    'filter_id'       => '',
-                    'filter_name'     => $filter_name,
-                    'filter_email'    => $filter_email,
-                    'filter_moderate' => '',
-                    'filter_date'     => '',
-                    'group_by'        => $group_by,
-                    'sort'            => $sort,
-                    'order'           => 'asc',
-                    'start'           => 0,
-                    'limit'           => 10
+                    'filter_id'              => '',
+                    'filter_name'            => $filter_name,
+                    'filter_email'           => $filter_email,
+                    'filter_avatar_approved' => '',
+                    'filter_moderate'        => '',
+                    'filter_date'            => '',
+                    'group_by'               => $group_by,
+                    'sort'                   => $sort,
+                    'order'                  => 'asc',
+                    'start'                  => 0,
+                    'limit'                  => 10
                 );
 
                 $users = $this->model_manage_users->getUsers($data);
