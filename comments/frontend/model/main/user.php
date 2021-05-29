@@ -66,7 +66,7 @@ class MainUserModel extends Model
             $folder = 'avatar/' . date('Y') . '/' . date('m');
 
             if (!is_dir(CMTX_DIR_UPLOAD . $folder)) {
-                if (!mkdir(CMTX_DIR_UPLOAD . $folder, NULL, true)) {
+                if (!mkdir(CMTX_DIR_UPLOAD . $folder, 0777, true)) {
                     return $responses['lang_error_folder_create'];
                 }
             }

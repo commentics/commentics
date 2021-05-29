@@ -21,7 +21,7 @@ class EditCommentModel extends Model
                 $folder = 'comment/' . date('Y') . '/' . date('m');
 
                 if (!is_dir(CMTX_DIR_UPLOAD . $folder)) {
-                    if (!mkdir(CMTX_DIR_UPLOAD . $folder, NULL, true)) {
+                    if (!mkdir(CMTX_DIR_UPLOAD . $folder, 0777, true)) {
                         $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_folder_create'];
                         continue;
                     }
