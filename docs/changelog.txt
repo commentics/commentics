@@ -1,3 +1,54 @@
+Version: 4.2
+Date: 29th May 2021
+
+[Feature] Adds avatar upload / selection feature
+[Improvement] MySQL uses utf8mb4 to allow for all characters
+[Improvement] Admin can add/remove comment uploads
+[Improvement] Adds comment upload lightbox for users
+[Improvement] Shows message if layout settings don't correspond
+[Improvement] Adds Rich Snippets property settings
+[Improvement] Keeps index file when clearing cache
+[Improvement] Uses original array syntax for wider PHP compatibility
+[Improvement] Checks for user token collision
+[Improvement] Increases length of user token
+[Improvement] Only sends approval notification email to subscribers
+[Improvement] Removes 'Default Approve' setting in notify tab
+[Improvement] Checks 404 attempts on user page
+[Improvement] Appends modified date of CSS/JS to clear cache
+[Improvement] File uploads stored as /year/month/file
+[Improvement] Improves form layout settings categorisation
+[Improvement] Only shows rating column in admin area if enabled
+[Improvement] Renames /upload/ folder to simplify install steps
+[Improvement] No longer fades out success messages
+[Improvement] Improves form spacing on notify form
+[Improvement] Shows "* required information" on mobile
+[Improvement] Upgrade tool sleeps to avoid DoS detection
+[Improvement] Replaces Swift Mailer with own code
+[Improvement] Adds email SMTP timeout setting
+[Improvement] Adds email attachment support
+[Improvement] Sends both text and HTML when emailing
+[Improvement] Updates .htaccess directives for Apache 2.4
+[Improvement] Updates admin area help menu links
+[Improvement] Allows float (e.g. 0.5mb) for max upload size
+[Improvement] Removes BitNinja detection
+[Improvement] Sets SQL mode when connecting
+[Improvement] Upgrades jQuery script
+[Bug Fix] Fix for headline validation when replying
+[Bug Fix] Fix not clearing headline value after posting
+[Bug Fix] Fix not hiding headline when showing notify form
+[Bug Fix] Fix for comment counter after submit
+[Bug Fix] Fix for topic text overflow
+[Bug Fix] Fix smiley spacing inside comments
+[Bug Fix] Deleting country/state updates comments
+[Bug Fix] ReCaptcha settings validation
+[Bug Fix] Fix handling of special characters in DB details
+[Bug Fix] Fix icon container gradient CSS
+[Other] Updates the Commentics website URL (org to com)
+[Other] Effectively disables long word validation
+[Other] Changes oldest upgradeable version to 3.0
+
+*************************************************************************
+
 Version: 4.1
 Date: 24th October 2020
 
