@@ -90,13 +90,19 @@ class MainCommentsModel extends Model
     /* Calculate the difference in days between the current date and the comment date */
     public function calculateDayDifference($date_added)
     {
-        $current_date = strtotime(date('Y-m-d H:i:s'));
+        $today = date('Y-m-d');
 
-        $comment_date = strtotime($date_added);
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
 
-        $difference = floor(($current_date - $comment_date) / (60 * 60 * 24));
+        $date_added = date('Y-m-d', strtotime($date_added));
 
-        return $difference;
+        if ($date_added == $today) {
+            return 0;
+        } else if ($date_added == $yesterday) {
+            return 1;
+        } else {
+            return 2;
+        }
     }
 
     /* Checks if the comment was submitted by a particular IP address */
