@@ -155,7 +155,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
 
-                if (jQuery('input[name="cmtx_reply_to"]').val() == '' ) {
+                if (jQuery('input[name="cmtx_reply_to"]').val() == '') {
                     jQuery('.cmtx_wait_for_comment').fadeIn('slow');
                 }
             });
