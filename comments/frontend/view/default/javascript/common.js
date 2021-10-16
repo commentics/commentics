@@ -162,7 +162,13 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
             if (typeof(cmtx_js_settings_form) != 'undefined') {
                 if (!cmtx_js_settings_form.cmtx_wait_for_comment) {
-                    jQuery('#cmtx_comment').focus();
+                    jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
+
+                    jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
+
+                    if (jQuery('input[name="cmtx_reply_to"]').val() == '') {
+                        jQuery('.cmtx_wait_for_comment').fadeIn('slow');
+                    }
                 }
             }
 
