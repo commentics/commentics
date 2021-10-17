@@ -11,7 +11,7 @@
     @endif
     <script src="{{ common }}"></script>
 </head>
-<body class="cmtx_user_body">
+<body class="cmtx_user_body {{ cmtx_dir }}">
     <div id="cmtx_user_container" class="cmtx_user_container cmtx_clear">
         @if lang_heading
             <h1>{{ lang_heading }}</h1>

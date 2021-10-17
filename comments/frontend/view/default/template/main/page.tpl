@@ -1,4 +1,4 @@
-<div id="cmtx_container" class="cmtx_container">
+<div id="cmtx_container" class="cmtx_container {{ cmtx_dir }}">
     {{ header }}
 
     @if maintenance_mode

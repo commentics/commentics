@@ -51,6 +51,12 @@
             <?php } ?>
         </div>
 
+        <div class="fieldset">
+            <label><?php echo $lang_entry_rtl; ?></label>
+            <input type="checkbox" name="rtl" value="1" <?php if ($rtl) { echo 'checked'; } ?>>
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_rtl; ?>', this, event, '')">[?]</a>
+        </div>
+
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>

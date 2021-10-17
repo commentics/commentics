@@ -140,6 +140,13 @@ class MainUserController extends Controller
 
                     $this->data['subscriptions'] = $subscriptions;
 
+                    /* RTL (Right to Left) */
+                    if ($this->setting->get('rtl')) {
+                        $this->data['cmtx_dir'] = 'cmtx_rtl';
+                    } else {
+                        $this->data['cmtx_dir'] = 'cmtx_ltr';
+                    }
+
                     /* These are passed to common.js via the template */
                     $this->data['cmtx_js_settings_user'] = array(
                         'commentics_url'       => $this->url->getCommenticsUrl(),

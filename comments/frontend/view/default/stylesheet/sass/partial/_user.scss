@@ -59,7 +59,7 @@
     .cmtx_message {
         display: block;
         margin-bottom: 20px;
-        padding: 8px 5px 8px 25px;
+        padding: 8px 8px 8px 25px;
     }
 
     .cmtx_avatar_container {
@@ -68,6 +68,7 @@
 
     .cmtx_avatar_image_container {
         display: inline-block;
+        margin-right: 30px;
     }
 
     .cmtx_avatar_image {
@@ -90,7 +91,6 @@
     }
 
     .cmtx_avatar_text {
-        margin-left: 30px;
         padding-top: 25px;
     }
 
@@ -250,14 +250,6 @@
     }
 
     @media all and (max-width: 800px) {
-        .avatar_text_container {
-            display: block;
-        }
-
-        .avatar_text {
-            margin-left: 0;
-        }
-
         .cmtx_settings_container {
             display: block;
         }
@@ -298,10 +290,6 @@
     @media all and (max-width: 700px) {
         .cmtx_avatar_text_container {
             display: block;
-        }
-
-        .cmtx_avatar_text {
-            margin-left: 0;
         }
     }
 }

@@ -350,6 +350,10 @@ class MainUpgrade2Model extends Model
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "viewers` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "voters` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         }
+
+        if ($version == '4.2 -> 4.3') {
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'language', `title` = 'rtl', `value` = '0'");
+        }
     }
 
     public function getInstalledVersion()

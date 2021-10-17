@@ -13,3 +13,7 @@ $_['lang_description']    = '<p>Select the desired language for the pages.</p>';
 // Entry
 $_['lang_entry_frontend'] = 'Frontend:';
 $_['lang_entry_backend']  = 'Backend:';
+$_['lang_entry_rtl']      = 'RTL:';
+
+// Hint
+$_['lang_hint_rtl']       = 'Whether the frontend language is RTL (Right to Left).';

@@ -60,6 +60,13 @@ class MainPageController extends Controller
             $this->data['admin_detect'] = false;
         }
 
+        /* RTL (Right to Left) */
+        if ($this->setting->get('rtl')) {
+            $this->data['cmtx_dir'] = 'cmtx_rtl';
+        } else {
+            $this->data['cmtx_dir'] = 'cmtx_ltr';
+        }
+
         /* These are passed to autodetect.js via the template */
         $this->data['cmtx_js_settings_page'] = array(
             'commentics_url' => $this->url->getCommenticsUrl(),

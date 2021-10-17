@@ -9,6 +9,8 @@ class ExtensionLanguagesModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['language_backend']) . "' WHERE `title` = 'language_backend'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['rtl']) ? 1 : 0) . "' WHERE `title` = 'rtl'");
+
         if ($data['language_frontend'] != $this->setting->get('language_frontend')) {
             $this->translateCountries($data['language_frontend']);
         }
