@@ -40,8 +40,14 @@ class User
             $this->login['town']    = (defined('CMTX_TOWN')) ? $this->security->encode(CMTX_TOWN) : '';
             $this->login['country'] = (defined('CMTX_COUNTRY')) ? $this->security->encode(CMTX_COUNTRY) : '';
             $this->login['state']   = (defined('CMTX_STATE')) ? $this->security->encode(CMTX_STATE) : '';
+            $this->login['avatar']  = (defined('CMTX_AVATAR')) ? $this->security->encode(CMTX_AVATAR) : '';
 
             $this->is_admin = $this->isAdministrator();
+
+            /* Update avatar provided by login information */
+            if ($this->setting->get('avatar_type') == 'login' && $this->login['avatar'] && $this->validation->isUrl($this->login['avatar']) && $this->login['name'] && $this->login['email']) {
+                $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `avatar_login` = '" . $this->db->escape($this->login['avatar']) . "' WHERE `name` = '" . $this->db->escape($this->login['name']) . "' AND `email` = '" . $this->db->escape($this->login['email']) . "'");
+            }
         }
     }
 
@@ -147,6 +153,7 @@ class User
                 'avatar_id'          => $user['avatar_id'],
                 'avatar_pending_id'  => $user['avatar_pending_id'],
                 'avatar_selected'    => $user['avatar_selected'],
+                'avatar_login'       => $user['avatar_login'],
                 'name'               => $user['name'],
                 'email'              => $user['email'],
                 'moderate'           => $user['moderate'],
@@ -373,6 +380,12 @@ class User
                     $avatar = '//www.gravatar.com/avatar/' . md5(strtolower(trim($user['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=' . $this->setting->get('gravatar_size');
                 }
 
+                if ($this->setting->get('avatar_type') == 'login') {
+                    if ($user['avatar_login']) {
+                        $avatar = $user['avatar_login'];
+                    }
+                }
+
                 if ($this->setting->get('avatar_type') == 'selection') {
                     if ($user['avatar_selected']) {
                         if (file_exists(CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme') . '/image/avatar/' . $user['avatar_selected'])) {
@@ -410,5 +423,10 @@ class User
         }
 
         return $avatar;
+    }
+
+    public function saveAvatarLogin($id, $avatar_login)
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `avatar_login` = '" . $this->db->escape($avatar_login) . "' WHERE `id` = '" . (int) $id . "'");
     }
 }

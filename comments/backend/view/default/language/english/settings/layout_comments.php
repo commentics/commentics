@@ -112,6 +112,7 @@ $_['lang_select_topic']                      = 'Topic';
 $_['lang_select_default']                    = 'Default';
 $_['lang_select_none']                       = 'None';
 $_['lang_select_gravatar']                   = 'Gravatar';
+$_['lang_select_login']                      = 'Login';
 $_['lang_select_selection']                  = 'Selection';
 $_['lang_select_upload']                     = 'Upload';
 $_['lang_select_custom']                     = 'Custom';

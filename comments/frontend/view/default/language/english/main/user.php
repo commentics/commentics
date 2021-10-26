@@ -14,6 +14,7 @@ $_['lang_column_action']              = 'Action';
 
 // Text
 $_['lang_text_gravatar']              = 'Please manage your avatar at %s';
+$_['lang_text_login']                 = 'Please manage your avatar in your %s account area';
 $_['lang_text_selection']             = 'Click <a id="%s">here</a> to select your avatar';
 $_['lang_text_upload']                = 'Click <a id="%s">here</a> to upload your avatar. Maximum size is %.1f MB.';
 $_['lang_text_no_avatars']            = 'There are no avatars available to select. Please contact the administrator.';

@@ -1194,7 +1194,7 @@ class SettingsLayoutCommentsController extends Controller
 
         /* Avatar */
 
-        if (!isset($this->request->post['avatar_type']) || !in_array($this->request->post['avatar_type'], array('', 'gravatar', 'selection', 'upload'))) {
+        if (!isset($this->request->post['avatar_type']) || !in_array($this->request->post['avatar_type'], array('', 'gravatar', 'login', 'selection', 'upload'))) {
             $this->error['avatar_type'] = $this->data['lang_error_selection'];
         }
 

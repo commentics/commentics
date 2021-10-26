@@ -42,6 +42,8 @@ class MainUserController extends Controller
 
                     if ($this->data['avatar_type'] == 'gravatar') {
                         $this->data['lang_text_gravatar'] = sprintf($this->data['lang_text_gravatar'], '<a href="https://gravatar.com" target="_blank">https://gravatar.com</a>');
+                    } else if ($this->data['avatar_type'] == 'login') {
+                        $this->data['lang_text_login'] = sprintf($this->data['lang_text_login'], $this->setting->get('site_name'));
                     } else if ($this->data['avatar_type'] == 'selection') {
                         $this->data['lang_text_selection'] = sprintf($this->data['lang_text_selection'], 'cmtx_avatar_selection_link');
 

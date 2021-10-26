@@ -494,6 +494,7 @@
                     <select name="avatar_type">
                         <option value="" <?php if ($avatar_type == '') { echo 'selected'; } ?>><?php echo $lang_select_none; ?></option>
                         <option value="gravatar" <?php if ($avatar_type == 'gravatar') { echo 'selected'; } ?>><?php echo $lang_select_gravatar; ?></option>
+                        <option value="login" <?php if ($avatar_type == 'login') { echo 'selected'; } ?>><?php echo $lang_select_login; ?></option>
                         <option value="selection" <?php if ($avatar_type == 'selection') { echo 'selected'; } ?>><?php echo $lang_select_selection; ?></option>
                         <option value="upload" <?php if ($avatar_type == 'upload') { echo 'selected'; } ?>><?php echo $lang_select_upload; ?></option>
                     </select>
@@ -1019,7 +1020,7 @@
         $('select[name="avatar_type"]').on('change', function() {
             var avatar_type = $(this).val();
 
-            if (avatar_type == '') {
+            if (avatar_type == '' || avatar_type == 'login') {
                 $('.avatar_gravatar_section').hide();
                 $('.avatar_selection_section').hide();
                 $('.avatar_upload_section').hide();

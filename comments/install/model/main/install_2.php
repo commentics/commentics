@@ -4543,6 +4543,7 @@ class MainInstall2Model extends Model
             `avatar_id` int(10) unsigned NOT NULL default '0',
             `avatar_pending_id` int(10) unsigned NOT NULL default '0',
             `avatar_selected` varchar(250) NOT NULL default '',
+            `avatar_login` varchar(250) NOT NULL default '',
             `name` varchar(250) NOT NULL default '',
             `email` varchar(250) NOT NULL default '',
             `moderate` varchar(250) NOT NULL default 'default',

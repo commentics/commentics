@@ -603,6 +603,11 @@ class MainFormController extends Controller
                     $this->data['geo_column_size'] = '4';
             }
 
+            /* Avatar provided by login information */
+            if ($this->user->getLogin('avatar')) {
+                $hidden_data .= '&cmtx_avatar=' . $this->url->encode($this->user->getLogin('avatar'));
+            }
+
             $this->data['lang_tag_bb_code_bold']        = $this->data['lang_tag_bb_code_bold_start'] . '|' . $this->data['lang_tag_bb_code_bold_end'];
             $this->data['lang_tag_bb_code_italic']      = $this->data['lang_tag_bb_code_italic_start'] . '|' . $this->data['lang_tag_bb_code_italic_end'];
             $this->data['lang_tag_bb_code_underline']   = $this->data['lang_tag_bb_code_underline_start'] . '|' . $this->data['lang_tag_bb_code_underline_end'];
@@ -1629,6 +1634,13 @@ class MainFormController extends Controller
                                         }
                                     }
                                 }
+
+                                /* Avatar provided by login information */
+                                if ($this->setting->get('avatar_type') == 'login' && isset($this->request->post['cmtx_avatar']) && $this->validation->isUrl($this->request->post['cmtx_avatar']) && $this->request->post['cmtx_email']) {
+                                    $avatar_login = $this->request->post['cmtx_avatar'];
+                                } else {
+                                    $avatar_login = '';
+                                }
                             }
                         } else {
                             $json['result']['error'] = $this->data['lang_error_form_disabled'];
@@ -1667,6 +1679,14 @@ class MainFormController extends Controller
                     $show_headline      = $this->setting->get('show_headline');
                     $show_date          = $this->setting->get('show_date');
                     $date_auto          = $this->setting->get('date_auto');
+
+                    if ($avatar_login) {
+                        $avatar = $avatar_login;
+                    } else if ($user) {
+                        $avatar = $this->user->getAvatar($user['id']);
+                    } else {
+                        $avatar = $this->user->getAvatar(0);
+                    }
 
                     $location = '';
 
@@ -1708,7 +1728,7 @@ class MainFormController extends Controller
 
                     $comment = array(
                         'id'               => 0,
-                        'avatar'           => ($user ? $this->user->getAvatar($user['id']) : $this->user->getAvatar(0)),
+                        'avatar'           => $avatar,
                         'level'            => $this->data['lang_text_preview'],
                         'name'             => $this->request->post['cmtx_name'],
                         'website'          => $this->request->post['cmtx_website'],
@@ -1865,6 +1885,11 @@ class MainFormController extends Controller
 
                     /* Unset that the Captcha is complete so the user has to pass it again */
                     unset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()]);
+
+                    /* Save avatar provided by login information */
+                    if ($avatar_login) {
+                        $this->user->saveAvatarLogin($user_id, $avatar_login);
+                    }
 
                     if ($approve) {
                         $json['result']['success'] = $this->data['lang_text_comment_approve'];

@@ -47,6 +47,8 @@
                                 <div class="cmtx_avatar_text_container">
                                     @if avatar_type equals 'gravatar'
                                         <div class="cmtx_avatar_text">{{ lang_text_gravatar }}</div>
+                                    @elseif avatar_type equals 'login'
+                                        <div class="cmtx_avatar_text">{{ lang_text_login }}</div>
                                     @elseif avatar_type equals 'selection'
                                         <div class="cmtx_avatar_text">{{ lang_text_selection }}</div>
                                     @elseif avatar_type equals 'upload'

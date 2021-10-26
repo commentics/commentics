@@ -95,7 +95,7 @@ if (isset($cmtx_page_url)) { // if this is set, it's an iFrame integration
     }
 
     /* Set these extra config values if provided */
-    $extra_configs = array('logged_in', 'name', 'email', 'website', 'town', 'country', 'state', 'language');
+    $extra_configs = array('logged_in', 'name', 'email', 'website', 'town', 'country', 'state', 'avatar', 'language');
 
     foreach($extra_configs as $extra_config) {
         if (isset($_GET[$extra_config])) {
@@ -148,6 +148,10 @@ if (isset($cmtx_country)) {
 
 if (isset($cmtx_state)) {
     define('CMTX_STATE', $cmtx_state);
+}
+
+if (isset($cmtx_avatar)) {
+    define('CMTX_AVATAR', $cmtx_avatar);
 }
 
 /*
