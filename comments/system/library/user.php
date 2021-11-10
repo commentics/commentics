@@ -16,7 +16,7 @@ class User
     private $validation;
     private $variable;
     private $is_admin = false;
-    public $login = array();
+    private $login = array();
 
     public function __construct($registry)
     {

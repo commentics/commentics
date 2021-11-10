@@ -608,6 +608,12 @@ class MainFormController extends Controller
                 $hidden_data .= '&cmtx_avatar=' . $this->url->encode($this->user->getLogin('avatar'));
             }
 
+            if ($this->user->getLogin('name') || $this->user->getLogin('email')) {
+                $hidden_data .= '&cmtx_login=1';
+            } else {
+                $hidden_data .= '&cmtx_login=0';
+            }
+
             $this->data['lang_tag_bb_code_bold']        = $this->data['lang_tag_bb_code_bold_start'] . '|' . $this->data['lang_tag_bb_code_bold_end'];
             $this->data['lang_tag_bb_code_italic']      = $this->data['lang_tag_bb_code_italic_start'] . '|' . $this->data['lang_tag_bb_code_italic_end'];
             $this->data['lang_tag_bb_code_underline']   = $this->data['lang_tag_bb_code_underline_start'] . '|' . $this->data['lang_tag_bb_code_underline_end'];
@@ -1139,12 +1145,15 @@ class MainFormController extends Controller
                                 if (isset($this->request->post['cmtx_name']) && $this->request->post['cmtx_name'] != '') {
                                     $name = $this->security->decode($this->request->post['cmtx_name']);
 
-                                    if (!$this->model_main_form->isNameValid($name)) {
-                                        $json['error']['name'] = $this->data['lang_error_name_invalid'];
-                                    }
+                                    /* Relax name validation if provided by login info */
+                                    if (isset($this->request->post['cmtx_login']) && $this->request->post['cmtx_login'] == '0') {
+                                        if (!$this->model_main_form->isNameValid($name)) {
+                                            $json['error']['name'] = $this->data['lang_error_name_invalid'];
+                                        }
 
-                                    if (!$this->model_main_form->startsWithLetter($name)) {
-                                        $json['error']['name'] = $this->data['lang_error_name_start'];
+                                        if (!$this->model_main_form->startsWithLetter($name)) {
+                                            $json['error']['name'] = $this->data['lang_error_name_start'];
+                                        }
                                     }
 
                                     if ($this->validation->length($name) < 1 || $this->validation->length($name) > $this->setting->get('maximum_name')) {

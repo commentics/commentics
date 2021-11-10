@@ -85,12 +85,15 @@ class PartNotifyController extends Controller
                                     if (isset($this->request->post['cmtx_name']) && $this->request->post['cmtx_name'] != '') {
                                         $name = $this->security->decode($this->request->post['cmtx_name']);
 
-                                        if (!$this->model_main_form->isNameValid($name)) {
-                                            $json['error']['name'] = $this->data['lang_error_name_invalid'];
-                                        }
+                                        /* Relax name validation if provided by login info */
+                                        if (isset($this->request->post['cmtx_login']) && $this->request->post['cmtx_login'] == '0') {
+                                            if (!$this->model_main_form->isNameValid($name)) {
+                                                $json['error']['name'] = $this->data['lang_error_name_invalid'];
+                                            }
 
-                                        if (!$this->model_main_form->startsWithLetter($name)) {
-                                            $json['error']['name'] = $this->data['lang_error_name_start'];
+                                            if (!$this->model_main_form->startsWithLetter($name)) {
+                                                $json['error']['name'] = $this->data['lang_error_name_start'];
+                                            }
                                         }
 
                                         if ($this->validation->length($name) < 1 || $this->validation->length($name) > $this->setting->get('maximum_name')) {
