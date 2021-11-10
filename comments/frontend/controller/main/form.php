@@ -583,10 +583,8 @@ class MainFormController extends Controller
 
             if (!$geo_row_visible) {
                 $this->data['geo_row_visible'] = 'cmtx_hide';
-            } else if ($this->setting->get('hide_form') && $user_row_visible) {
-                $this->data['geo_row_visible'] = 'cmtx_wait_for_user';
             } else {
-                $this->data['geo_row_visible'] = '';
+                $this->data['geo_row_visible'] = $this->data['cmtx_wait_for_user'];
             }
 
             switch ($geo_columns) {
