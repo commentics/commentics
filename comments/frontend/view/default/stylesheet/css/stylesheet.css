@@ -3489,6 +3489,7 @@
   border: 1px solid #e6e6e6;
   border-radius: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  color: #000 !important;
   font-weight: normal;
   height: 35px !important;
   padding: 4px 6px;
@@ -3995,6 +3996,7 @@ select.cmtx_required {
 .cmtx_row_left, .cmtx_row_middle, .cmtx_row_right {
   background-color: #fcfcfc;
   border: 1px dotted #e6e6e6;
+  color: #000 !important;
   float: left;
   line-height: 25px;
   padding: 4px;
@@ -4078,6 +4080,7 @@ select.cmtx_required {
   background-color: #fff;
   border: 1px solid #cccccc;
   bottom: -100px;
+  color: #000 !important;
   display: none;
   left: 20%;
   padding: 10px;
@@ -4539,6 +4542,10 @@ select.cmtx_required {
 
 .cmtx_reply_num {
   font-weight: bold;
+}
+
+.cmtx_permalink_box {
+  color: #000 !important;
 }
 
 .cmtx_permalink_box input {
@@ -5255,6 +5262,7 @@ select.cmtx_required {
   border-bottom: 1px solid gray;
   border-radius: 4px;
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  color: #000 !important;
   display: none;
   left: 50%;
   position: fixed;

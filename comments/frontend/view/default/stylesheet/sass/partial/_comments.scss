@@ -16,6 +16,7 @@
 .cmtx_row_left, .cmtx_row_middle, .cmtx_row_right {
     background-color: $grey-lightest;
     border: 1px dotted $grey-lighter;
+    color: $black !important;
     float: left;
     line-height: 25px;
     padding: 4px;
@@ -99,6 +100,7 @@
     background-color: $white;
     border: 1px solid $grey-light;
     bottom: -100px;
+    color: $black !important;
     display: none;
     left: 20%;
     padding: 10px;
@@ -538,6 +540,10 @@
 
 .cmtx_reply_num {
     font-weight: bold;
+}
+
+.cmtx_permalink_box {
+    color: $black !important;
 }
 
 .cmtx_permalink_box input {
