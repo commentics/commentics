@@ -3882,6 +3882,7 @@ select.cmtx_required {
   color: gray;
   cursor: pointer;
   font-size: 14px;
+  margin-left: 5px;
   vertical-align: top;
 }
 
@@ -5539,6 +5540,11 @@ select.cmtx_required {
 
 .cmtx_rtl .cmtx_share_box a:not(:last-child) {
   margin-left: 12px;
+}
+
+.cmtx_rtl .cmtx_securimage_refresh {
+  margin-left: 0;
+  margin-right: 5px;
 }
 
 .cmtx_rtl .cmtx_button_row [class*='cmtx_col_'] {
