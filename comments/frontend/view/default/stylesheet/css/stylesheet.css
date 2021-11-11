@@ -46,6 +46,7 @@
 .cmtx_container img {
   border: 0;
   border-radius: 0;
+  display: inline-block !important;
   float: none;
   margin: 0;
   padding: 0;
@@ -3485,7 +3486,7 @@
 }
 
 .cmtx_field {
-  background-color: #fff;
+  background-color: #fff !important;
   border: 1px solid #e6e6e6;
   border-radius: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
@@ -3502,7 +3503,7 @@
 }
 
 .cmtx_field[disabled], .cmtx_field[readonly] {
-  background-color: #e6e6e6;
+  background-color: #e6e6e6 !important;
   cursor: not-allowed;
   -webkit-user-select: none;
      -moz-user-select: none;
