@@ -75,6 +75,7 @@ window.addEventListener('load', function(e) {
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('scrolling', 'no');
         iframe.setAttribute('tabindex', '0');
+        iframe.setAttribute('title', 'Commentics');
         iframe.style.width = '1px';
         iframe.style.minWidth = '100%';
         iframe.style.visibility = 'hidden'; // don't show the iframe until it's fully loaded and re-sized
