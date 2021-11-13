@@ -628,6 +628,32 @@ img.loading {
     margin-bottom: 20px;
 }
 
+.module_css_editor_page .elements {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.module_css_editor_page .elements > div {
+    background-color: #fbfbfb;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    padding: 10px;
+    padding-top: 5px;
+}
+
+.module_css_editor_page .elements h2 {
+    margin-top: 10px;
+}
+
+.module_css_editor_page textarea {
+    height: 300px;
+    width: 100%;
+}
+
 .module_language_editor_page .description {
     margin-bottom: 20px;
 }

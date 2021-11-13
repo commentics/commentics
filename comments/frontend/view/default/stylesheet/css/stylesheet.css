@@ -3313,6 +3313,7 @@
 }
 
 .cmtx_form_heading {
+  display: inline-block;
   margin-bottom: 12px;
   margin-top: 0;
 }
@@ -3983,6 +3984,7 @@ select.cmtx_required {
 
 /* Comments */
 .cmtx_comments_heading {
+  display: inline-block;
   margin-bottom: 15px;
   margin-top: 0;
 }

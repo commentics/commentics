@@ -65,6 +65,88 @@
         </footer>
     </div>
 
+    @if css_editor_enabled
+    <style>
+    #cmtx_container {
+        background-color: {{ css_editor_general_background_color }};
+        color: {{ css_editor_general_foreground_color }};
+        @if css_editor_general_font_family
+            font-family: "{{ css_editor_general_font_family }}";
+        @endif
+        @if css_editor_general_font_size
+            font-size: {{ css_editor_general_font_size }}px;
+        @endif
+    }
+
+    #cmtx_container h3 {
+        background-color: {{ css_editor_heading_background_color }};
+        color: {{ css_editor_heading_foreground_color }};
+        @if css_editor_heading_font_family
+            font-family: "{{ css_editor_heading_font_family }}";
+        @endif
+        @if css_editor_heading_font_size
+            font-size: {{ css_editor_heading_font_size }}px;
+        @endif
+    }
+
+    #cmtx_container a {
+        color: {{ css_editor_link_foreground_color }};
+    }
+
+    #cmtx_container .cmtx_checkbox_container a, #cmtx_container .cmtx_powered_by a, #cmtx_container .cmtx_comment_area a {
+        background-color: {{ css_editor_link_background_color }};
+        @if css_editor_link_font_family
+            font-family: "{{ css_editor_link_font_family }}";
+        @endif
+        @if css_editor_link_font_size
+            font-size: {{ css_editor_link_font_size }}px;
+        @endif
+    }
+
+    #cmtx_container .cmtx_button_primary {
+        background-color: {{ css_editor_primary_button_background_color }};
+        color: {{ css_editor_primary_button_foreground_color }};
+        @if css_editor_primary_button_font_family
+            font-family: "{{ css_editor_primary_button_font_family }}";
+        @endif
+        @if css_editor_primary_button_font_size
+            font-size: {{ css_editor_primary_button_font_size }}px;
+        @endif
+    }
+
+    @if css_editor_primary_button_background_color equals '#3f6f95'
+        #cmtx_container .cmtx_button_primary:hover {
+            background-color: #305471;
+        }
+    @else
+        #cmtx_container .cmtx_button_primary:hover {
+            background-color: {{ css_editor_primary_button_background_color }};
+        }
+    @endif
+
+    #cmtx_container .cmtx_button_secondary {
+        background-color: {{ css_editor_secondary_button_background_color }};
+        color: {{ css_editor_secondary_button_foreground_color }};
+        @if css_editor_secondary_button_font_family
+            font-family: "{{ css_editor_secondary_button_font_family }}";
+        @endif
+        @if css_editor_secondary_button_font_size
+            font-size: {{ css_editor_secondary_button_font_size }}px;
+        @endif
+    }
+
+    @if css_editor_secondary_button_background_color equals '#e7e7e7'
+        #cmtx_container .cmtx_button_secondary:hover {
+            background-color: #dadada;
+        }
+    @else
+        #cmtx_container .cmtx_button_secondary:hover {
+            background-color: {{ css_editor_secondary_button_background_color }};
+        }
+    @endif
+    </style>
+    @endif
+
     {# These are passed to autodetect.js via the template #}
     <div id="cmtx_js_settings_page" style="display:none" hidden>{{ cmtx_js_settings_page }}</div>
 
