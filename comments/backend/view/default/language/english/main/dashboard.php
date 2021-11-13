@@ -71,6 +71,7 @@ $_['lang_manage/subscriptions']      = 'Manage Subscriptions';
 $_['lang_manage/users']              = 'Manage Users';
 $_['lang_module/akismet']            = 'Akismet Module';
 $_['lang_module/chart']              = 'Chart Module';
+$_['lang_module/language_editor']    = 'Language Editor';
 $_['lang_module/rich_snippets']      = 'Rich Snippets Module';
 $_['lang_report/access']             = 'Access Report';
 $_['lang_report/errors']             = 'Error Report';

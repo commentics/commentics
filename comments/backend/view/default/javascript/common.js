@@ -172,6 +172,19 @@ $(document).ready(function() {
             }
         });
     });
+
+    /* Language editor module */
+    $('.module_language_editor_page .text_value').dblclick(function(e) {
+        if ($(this).find('input').length == 0) {
+            var text = $(this).text();
+
+            text = text.replace(/"/g, '&quot;');
+
+            var key = $(this).prev().text();
+
+            $(this).html('<input name="' + key + '" type="text" value="' + text + '">');
+        }
+    });
 });
 
 /* Upgrade */

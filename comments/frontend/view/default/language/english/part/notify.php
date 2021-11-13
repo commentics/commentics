@@ -18,7 +18,6 @@ $_['lang_link_cancel']         = '[Cancel]';
 $_['lang_error_disabled']      = 'This feature is disabled';
 $_['lang_error_subscribed']    = 'You are already subscribed to this page';
 $_['lang_error_pending']       = 'You have a pending subscription';
-$_['lang_error_review']        = 'Please review the errors below';
 
 // Button
 $_['lang_button_notify']       = 'Subscribe';
