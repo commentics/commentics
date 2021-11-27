@@ -869,7 +869,7 @@
 
                 <div class="fieldset securimage_section">
                     <label><?php echo $lang_entry_text_color; ?></label>
-                    <input type="text" required name="securimage_text_color" class="medium" value="<?php echo $securimage_text_color; ?>" maxlength="7">
+                    <input type="color" name="securimage_text_color" value="<?php echo $securimage_text_color; ?>">
                     <?php if ($error_securimage_text_color) { ?>
                         <span class="error"><?php echo $error_securimage_text_color; ?></span>
                     <?php } ?>
@@ -877,7 +877,7 @@
 
                 <div class="fieldset securimage_section">
                     <label><?php echo $lang_entry_line_color; ?></label>
-                    <input type="text" required name="securimage_line_color" class="medium" value="<?php echo $securimage_line_color; ?>" maxlength="7">
+                    <input type="color" name="securimage_line_color" value="<?php echo $securimage_line_color; ?>">
                     <?php if ($error_securimage_line_color) { ?>
                         <span class="error"><?php echo $error_securimage_line_color; ?></span>
                     <?php } ?>
@@ -885,7 +885,7 @@
 
                 <div class="fieldset securimage_section">
                     <label><?php echo $lang_entry_back_color; ?></label>
-                    <input type="text" required name="securimage_back_color" class="medium" value="<?php echo $securimage_back_color; ?>" maxlength="7">
+                    <input type="color" name="securimage_back_color" value="<?php echo $securimage_back_color; ?>">
                     <?php if ($error_securimage_back_color) { ?>
                         <span class="error"><?php echo $error_securimage_back_color; ?></span>
                     <?php } ?>
@@ -893,7 +893,7 @@
 
                 <div class="fieldset securimage_section">
                     <label><?php echo $lang_entry_noise_color; ?></label>
-                    <input type="text" required name="securimage_noise_color" class="medium" value="<?php echo $securimage_noise_color; ?>" maxlength="7">
+                    <input type="color" name="securimage_noise_color" value="<?php echo $securimage_noise_color; ?>">
                     <?php if ($error_securimage_noise_color) { ?>
                         <span class="error"><?php echo $error_securimage_noise_color; ?></span>
                     <?php } ?>
