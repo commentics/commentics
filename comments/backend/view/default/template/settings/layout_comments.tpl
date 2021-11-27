@@ -598,10 +598,20 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_upload_approve; ?>', this, event, '')">[?]</a>
                 </div>
 
-                <div class="fieldset divide_after">
+                <div class="fieldset">
                     <label><?php echo $lang_entry_user_link; ?></label>
                     <input type="checkbox" name="avatar_user_link" value="1" <?php if ($avatar_user_link) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_user_link; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset divide_after">
+                    <label><?php echo $lang_entry_link_days; ?></label>
+                    <input type="text" required name="avatar_link_days" class="small" value="<?php echo $avatar_link_days; ?>" maxlength="3">
+                    <span class="note"><?php echo $lang_note_days; ?></span>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_avatar_link_days; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_avatar_link_days) { ?>
+                        <span class="error"><?php echo $error_avatar_link_days; ?></span>
+                    <?php } ?>
                 </div>
 
                 <div class="fieldset">

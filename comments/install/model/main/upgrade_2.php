@@ -354,6 +354,8 @@ class MainUpgrade2Model extends Model
         if ($version == '4.2 -> 4.3') {
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'language', `title` = 'rtl', `value` = '0'");
 
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_link_days', `value` = '30'");
+
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_login` varchar(250) NOT NULL default ''");
         }
     }

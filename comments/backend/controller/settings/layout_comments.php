@@ -253,6 +253,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['avatar_user_link'] = $this->setting->get('avatar_user_link');
         }
 
+        if (isset($this->request->post['avatar_link_days'])) {
+            $this->data['avatar_link_days'] = $this->request->post['avatar_link_days'];
+        } else {
+            $this->data['avatar_link_days'] = $this->setting->get('avatar_link_days');
+        }
+
         if (isset($this->request->post['show_level'])) {
             $this->data['show_level'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_level'])) {
@@ -381,6 +387,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_avatar_upload_max_size'] = $this->error['avatar_upload_max_size'];
         } else {
             $this->data['error_avatar_upload_max_size'] = '';
+        }
+
+        if (isset($this->error['avatar_link_days'])) {
+            $this->data['error_avatar_link_days'] = $this->error['avatar_link_days'];
+        } else {
+            $this->data['error_avatar_link_days'] = '';
         }
 
         if (isset($this->error['level_5'])) {
@@ -1236,6 +1248,10 @@ class SettingsLayoutCommentsController extends Controller
 
         if (!isset($this->request->post['avatar_upload_max_size']) || !$this->validation->isFloat($this->request->post['avatar_upload_max_size']) || $this->request->post['avatar_upload_max_size'] < 0.1 || $this->request->post['avatar_upload_max_size'] > 99.9) {
             $this->error['avatar_upload_max_size'] = $this->data['lang_error_max_size'];
+        }
+
+        if (!isset($this->request->post['avatar_link_days']) || !$this->validation->isInt($this->request->post['avatar_link_days']) || $this->request->post['avatar_link_days'] < 0 || $this->request->post['avatar_link_days'] > 999) {
+            $this->error['avatar_link_days'] = sprintf($this->data['lang_error_range'], 0, 999);
         }
 
         if (!isset($this->request->post['level_5']) || !$this->validation->isInt($this->request->post['level_5']) || $this->request->post['level_5'] < 0 || $this->request->post['level_5'] > 99999) {

@@ -1764,6 +1764,16 @@ class MainFormController extends Controller
                         $user_token = $user['token'];
 
                         $user_id = $user['id'];
+
+                        if ($this->setting->get('avatar_user_link') && $this->request->post['cmtx_email']) {
+                            if (in_array($this->setting->get('avatar_type'), array('gravatar', 'selection', 'upload'))) {
+                                $this->loadModel('main/user');
+
+                                if ($this->setting->get('avatar_link_days') && $this->model_main_user->numDaysSinceUserAdded($user['date_added']) <= $this->setting->get('avatar_link_days')) {
+                                    $json['user_link'] = sprintf($this->data['lang_text_user_link'], $this->setting->get('commentics_url') . 'frontend/index.php?route=main/user&u-t=' . $user_token);
+                                }
+                            }
+                        }
                     } else {
                         $user_token = $this->user->createToken();
 
