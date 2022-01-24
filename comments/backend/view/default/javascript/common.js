@@ -179,6 +179,8 @@ $(document).ready(function() {
             var text = $(this).text();
 
             text = text.replace(/"/g, '&quot;');
+            text = text.replace(/&lt;/g, '&amp;lt;');
+            text = text.replace(/&gt;/g, '&amp;gt;');
 
             var key = $(this).prev().text();
 
