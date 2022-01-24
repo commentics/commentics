@@ -1,12 +1,11 @@
 /* Font Awesome (3rd party) */
 @font-face {
-  font-family: 'FontAwesome';
+  font-family: "FontAwesome";
   src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
   src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
-
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -66,9 +65,9 @@
 }
 
 .fa-border {
-  padding: .2em .25em .15em;
+  padding: 0.2em 0.25em 0.15em;
   border: solid 0.08em #eeeeee;
-  border-radius: .1em;
+  border-radius: 0.1em;
 }
 
 .fa-pull-left {
@@ -80,11 +79,11 @@
 }
 
 .fa.fa-pull-left {
-  margin-right: .3em;
+  margin-right: 0.3em;
 }
 
 .fa.fa-pull-right {
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 .pull-right {
@@ -96,11 +95,11 @@
 }
 
 .fa.pull-left {
-  margin-right: .3em;
+  margin-right: 0.3em;
 }
 
 .fa.pull-right {
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 .fa-spin {
@@ -121,7 +120,6 @@
     transform: rotate(359deg);
   }
 }
-
 @keyframes fa-spin {
   0% {
     transform: rotate(0deg);
@@ -130,7 +128,6 @@
     transform: rotate(359deg);
   }
 }
-
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   transform: rotate(90deg);
@@ -3216,9 +3213,9 @@ select {
  * Correct the inability to style clickable types in iOS and Safari.
  */
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type=button],
+[type=reset],
+[type=submit] {
   -webkit-appearance: button;
 }
 
@@ -3226,9 +3223,9 @@ button,
  * Remove the inner border and padding in Firefox.
  */
 button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
@@ -3237,9 +3234,9 @@ button::-moz-focus-inner,
  * Restore the focus styles unset by the previous rule.
  */
 button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
@@ -3289,8 +3286,8 @@ textarea {
  * 1. Add the correct box sizing in IE 10.
  * 2. Remove the padding in IE 10.
  */
-[type="checkbox"],
-[type="radio"] {
+[type=checkbox],
+[type=radio] {
   box-sizing: border-box;
   /* 1 */
   padding: 0;
@@ -3300,8 +3297,8 @@ textarea {
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -3309,7 +3306,7 @@ textarea {
  * 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari.
  */
-[type="search"] {
+[type=search] {
   -webkit-appearance: textfield;
   /* 1 */
   outline-offset: -2px;
@@ -3319,7 +3316,7 @@ textarea {
 /**
  * Remove the inner padding in Chrome and Safari on macOS.
  */
-[type="search"]::-webkit-search-decoration {
+[type=search]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -3476,7 +3473,7 @@ h3 {
   text-decoration: none;
 }
 
-input[type='text'], input[type='email'], input[type='password'], select, textarea {
+input[type=text], input[type=email], input[type=password], select, textarea {
   box-sizing: border-box;
 }
 
@@ -3504,27 +3501,27 @@ input[type='text'], input[type='email'], input[type='password'], select, textare
   cursor: not-allowed;
 }
 
-input.small[type='text'], input.small[type='password'], input.small[type='email'], select.small {
+input.small[type=text], input.small[type=password], input.small[type=email], select.small {
   width: 30px;
 }
 
-input.small_plus[type='text'], input.small_plus[type='password'], input.small_plus[type='email'], select.small_plus {
+input.small_plus[type=text], input.small_plus[type=password], input.small_plus[type=email], select.small_plus {
   width: 50px;
 }
 
-input.medium[type='text'], input.medium[type='password'], input.medium[type='email'], select.medium {
+input.medium[type=text], input.medium[type=password], input.medium[type=email], select.medium {
   width: 125px;
 }
 
-input.medium_plus[type='text'], input.medium_plus[type='password'], input.medium_plus[type='email'], select.medium_plus {
+input.medium_plus[type=text], input.medium_plus[type=password], input.medium_plus[type=email], select.medium_plus {
   width: 160px;
 }
 
-input.large[type='text'], input.large[type='password'], input.large[type='email'], select.large {
+input.large[type=text], input.large[type=password], input.large[type=email], select.large {
   width: 200px;
 }
 
-input.large_plus[type='text'], input.large_plus[type='password'], input.large_plus[type='email'], select.large_plus {
+input.large_plus[type=text], input.large_plus[type=password], input.large_plus[type=email], select.large_plus {
   width: 300px;
 }
 
@@ -3618,7 +3615,7 @@ span.error {
   border-width: 1px;
   color: #fff;
   cursor: pointer;
-  font: bold 12px arial,helvetica,sans-serif !important;
+  font: bold 12px arial, helvetica, sans-serif !important;
   padding: 1px 7px 2px;
   text-align: center !important;
   white-space: nowrap;
@@ -3706,13 +3703,13 @@ span.error {
   margin-bottom: 2px;
 }
 
-.filter input[type='text'], .filter select {
+.filter input[type=text], .filter select {
   box-sizing: content-box;
   margin-bottom: 10px;
   width: 100%;
 }
 
-.filter input[type='button'] {
+.filter input[type=button] {
   float: right;
   margin-right: -5px;
 }
@@ -3724,13 +3721,12 @@ span.error {
     width: 100%;
   }
 }
-
 img.loading {
   margin-left: 5px;
 }
 
 .star::before {
-  content: '\f005';
+  content: "\f005";
   display: inline-block;
   font-family: FontAwesome;
   font-size: 1.1em;
@@ -3750,7 +3746,7 @@ img.loading {
 }
 
 .clear::before, .clear::after {
-  content: ' ';
+  content: " ";
   display: table;
 }
 
@@ -3760,7 +3756,7 @@ img.loading {
 
 /******************* Page Specific *******************/
 /* Main */
-.main_checklist_page .controls input[type='submit'] {
+.main_checklist_page .controls input[type=submit] {
   margin-top: 12px;
 }
 
@@ -3882,7 +3878,6 @@ img.loading {
     display: none;
   }
 }
-
 /* Manage */
 .manage_questions_page .controls {
   margin-bottom: 8px;
@@ -3894,11 +3889,11 @@ img.loading {
 }
 
 /* Edit */
-.edit_admin_page input[name='viewable_pages[]'], .add_admin_page input[name='viewable_pages[]'] {
+.edit_admin_page input[name="viewable_pages[]"], .add_admin_page input[name="viewable_pages[]"] {
   margin-right: 2px;
 }
 
-.edit_admin_page input[name='modifiable_pages[]'], .add_admin_page input[name='modifiable_pages[]'] {
+.edit_admin_page input[name="modifiable_pages[]"], .add_admin_page input[name="modifiable_pages[]"] {
   margin-left: 2px;
   margin-right: 5px;
 }
@@ -3920,7 +3915,7 @@ img.loading {
   width: 500px;
 }
 
-.edit_comment_page textarea[name='notes'] {
+.edit_comment_page textarea[name=notes] {
   height: 65px;
   width: 300px;
 }
@@ -4354,12 +4349,12 @@ img.loading {
 }
 
 /* Tool */
-.tool_database_backup_page input[name='description'] {
+.tool_database_backup_page input[name=description] {
   height: 20px;
   width: 85.5%;
 }
 
-.tool_database_backup_page input[name='create'] {
+.tool_database_backup_page input[name=create] {
   float: right;
   width: 14%;
 }
@@ -4407,196 +4402,228 @@ img.loading {
     float: none;
     width: 100%;
   }
+
   .edit_comment_page .right {
     width: 100%;
   }
+
   .edit_comment_page h2 {
     display: none;
   }
 }
-
 @media all and (max-width: 1000px) {
   .main_dashboard_page .left {
     float: none;
     width: 100%;
   }
+
   .main_dashboard_page .right {
     width: 100%;
   }
+
   .main_dashboard_page .news_block {
     height: auto;
   }
+
   .report_phpinfo_page .phpinfodisplay {
     margin-left: 0;
     width: 100%;
   }
 }
-
 @media all and (max-width: 800px) {
   .chart_block {
     display: none;
   }
 }
-
 @media all and (max-width: 750px) {
   .error_header {
     display: none;
   }
+
   .settings_email_editor_page .selection {
     float: none;
     margin-bottom: 10px;
     margin-top: 10px;
   }
+
   .data_list_page .selection {
     display: none;
   }
+
   .data_list_page .modified {
     display: none;
   }
-  .tool_database_backup_page input[name='description'] {
+
+  .tool_database_backup_page input[name=description] {
     width: 100%;
   }
-  .tool_database_backup_page input[name='create'] {
+
+  .tool_database_backup_page input[name=create] {
     float: none;
     margin-top: 10px !important;
     width: 100%;
   }
 }
-
 @media all and (max-width: 700px) {
   .settings_layout_comments_page .position_block {
     width: auto;
   }
+
   .settings_layout_comments_page .position_block .left, .settings_layout_comments_page .position_block .center, .settings_layout_comments_page .position_block .right {
     display: block;
     float: none;
     margin-bottom: 10px;
   }
+
   .settings_layout_comments_page .position_block .comments {
     margin-bottom: 25px;
   }
 }
-
 @media all and (max-width: 650px) {
   .settings_email_editor_page .keywords {
     margin-top: 5px;
   }
+
   .settings_email_editor_page .keywords span {
     display: block;
     margin-top: 5px;
   }
+
   .settings_email_editor_page select {
     width: 100%;
   }
 }
-
 @media all and (max-width: 600px) {
   .edit_comment_page .left textarea {
     width: 100%;
   }
 }
-
 @media all and (max-width: 500px) {
   .page_help_block {
     display: none;
   }
+
   .description .extra, .description_tab .extra {
     display: none;
   }
+
   .controls {
     margin-top: 0;
   }
+
   .controls .fieldset {
     display: inline;
     line-height: normal !important;
   }
+
   .controls .fieldset::after {
     margin-bottom: 20px !important;
   }
+
   .controls .fieldset label {
     display: block;
     margin-bottom: 3px;
   }
+
   .controls input, .controls select {
     display: inline;
     text-align: left;
   }
-  .controls input[type='text'], .controls input[type='password'], .controls input[type='email'] {
+
+  .controls input[type=text], .controls input[type=password], .controls input[type=email] {
     padding: 5px;
     width: 100% !important;
   }
+
   .controls select {
     padding: 5px;
     width: 100%;
   }
+
   .controls textarea {
     margin-top: 0;
     width: 100%;
   }
+
   .buttons {
     margin-bottom: 5px;
   }
+
   .controls .button {
     margin-top: 10px;
     padding: 3px;
     width: 100%;
   }
+
   .controls .button:not(:first-child) {
     margin-top: 28px;
   }
+
   span.error {
     margin-top: 1px;
   }
+
   .extension_themes_page .sortable {
     margin-bottom: 15px;
   }
+
   .module_rich_snippets_page .other_section div {
     display: none;
   }
+
   .layout_form_comment_page span.error {
     margin-top: 0;
   }
+
   .note {
     display: none;
   }
+
   .hint {
     display: none;
   }
+
   .controls .fieldset::after {
     clear: both;
-    content: '';
+    content: "";
     display: block;
     margin-bottom: 10px;
   }
+
   .controls .divide_after input, .controls .divide_after select {
     margin-bottom: 10px;
   }
+
   .controls .divide_after span.error {
     margin-top: -6px;
   }
+
   .data_list_page .update {
     float: none;
   }
+
   .pagination_stats {
     float: none;
     margin-bottom: 25px;
     margin-top: 25px;
     text-align: center;
   }
+
   .pagination_links {
     display: flex;
     float: none;
     justify-content: space-between;
     margin-top: 18px;
   }
+
   .pagination_links span, .pagination_links span.active {
     padding: 5px;
   }
+
   .edit_comment_page .right textarea {
     width: 100%;
   }
 }
-
 /******************* Messages ************************/
 div.success, div.info, div.error, div.warning {
   background-position: 5px center;
@@ -4679,7 +4706,7 @@ div.info a:not([href]):last-child, div.warning a:not([href]):last-child {
   width: 45px;
 }
 
-.login_page input[type='text'], .login_page input[type='password'], .reset_page input[type='email'] {
+.login_page input[type=text], .login_page input[type=password], .reset_page input[type=email] {
   width: 150px;
 }
 
@@ -4714,28 +4741,33 @@ div.info a:not([href]):last-child, div.warning a:not([href]):last-child {
     margin-left: 5%;
     width: 90%;
   }
+
   .login_page .box {
     margin-top: -110px;
   }
+
   .reset_page .box {
     margin-top: -75px;
   }
+
   .login_page label, .reset_page label {
     display: block;
     float: none;
     width: auto;
   }
-  .login_page input[type='text'], .login_page input[type='password'], .reset_page input[type='email'] {
+
+  .login_page input[type=text], .login_page input[type=password], .reset_page input[type=email] {
     width: 100%;
   }
-  .login_page input[type='submit'], .reset_page input[type='submit'] {
+
+  .login_page input[type=submit], .reset_page input[type=submit] {
     width: 100%;
   }
+
   .login_page input {
     margin-bottom: 5px;
   }
 }
-
 /*********************** Menu ************************/
 .flexnav {
   position: relative;
@@ -4806,17 +4838,19 @@ nav ul {
   .flexnav li a {
     border-right: 0;
   }
+
   .flexnav .item-with-ul li:first-of-type a:first-of-type {
     border-top: 0;
   }
+
   .flexnav .item-with-ul li:last-of-type a:last-of-type {
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   }
+
   .flexnav .indent {
     padding-left: 25px;
   }
 }
-
 /*********************** Tabs ************************/
 .ui-tabs {
   border: 0 !important;
@@ -4881,17 +4915,19 @@ nav ul {
   .ui-tabs {
     margin-top: 12px;
   }
+
   .ui-tabs .ui-state-default {
     width: 100%;
   }
+
   .ui-tabs .ui-tabs-nav li a {
     width: 90%;
   }
+
   .ui-tabs .ui-widget-content {
     margin-top: 15px !important;
   }
 }
-
 /*********************** Editor **********************/
 .note-editor {
   line-height: initial !important;
@@ -4909,7 +4945,6 @@ nav ul {
     width: auto !important;
   }
 }
-
 /*********************** Dialog **********************/
 .ui-dialog {
   box-shadow: 1px 1px 5px #333;
@@ -4936,14 +4971,15 @@ nav ul {
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     float: none;
   }
+
   .ui-dialog .ui-dialog-buttonpane button {
     margin-left: 5px;
   }
+
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button {
     width: 100%;
   }
 }
-
 /*********************** Sortable ********************/
 .ui-sortable {
   cursor: default;
@@ -4974,7 +5010,6 @@ nav ul {
     width: 93%;
   }
 }
-
 /********************** Datepicker ******************/
 .ui-datepicker {
   font-family: arial !important;
@@ -5055,32 +5090,37 @@ table.table {
   table.table, .table thead, .table tbody, .table th, .table td, .table tr {
     display: block;
   }
+
   .table tr {
     border: 1px solid #ccc;
     margin-bottom: 10px;
   }
+
   .table td {
     border: 0;
     border-bottom: 1px solid #dedede;
   }
+
   .table td:not(.selector):not(.actions)::before {
     color: #2c2c2c;
     content: attr(data-th);
     font-weight: bold;
     padding-right: 5px;
   }
+
   .table td.actions {
     display: flex;
     justify-content: space-between;
   }
+
   .extension_modules_page .table th:last-of-type, .extension_modules_page .table td:last-of-type:not(.no_results) {
     text-align: left;
   }
+
   .tool_database_backup_page .table th:last-of-type, .tool_database_backup_page .table td:last-of-type:not(.no_results) {
     text-align: left;
   }
 }
-
 /****************** Password Strength ***************/
 #password_strength {
   display: block;
@@ -5134,11 +5174,11 @@ table.table {
   #password_strength {
     margin-top: 0;
   }
+
   #password_description {
     float: none;
   }
 }
-
 /****************** Admin Restriction ***************/
 .restriction_fieldset {
   line-height: 25px !important;

@@ -1,12 +1,11 @@
 /* Font Awesome (3rd party) */
 @font-face {
-  font-family: 'FontAwesome';
+  font-family: "FontAwesome";
   src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
   src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
-
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -66,9 +65,9 @@
 }
 
 .fa-border {
-  padding: .2em .25em .15em;
+  padding: 0.2em 0.25em 0.15em;
   border: solid 0.08em #eeeeee;
-  border-radius: .1em;
+  border-radius: 0.1em;
 }
 
 .fa-pull-left {
@@ -80,11 +79,11 @@
 }
 
 .fa.fa-pull-left {
-  margin-right: .3em;
+  margin-right: 0.3em;
 }
 
 .fa.fa-pull-right {
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 .pull-right {
@@ -96,11 +95,11 @@
 }
 
 .fa.pull-left {
-  margin-right: .3em;
+  margin-right: 0.3em;
 }
 
 .fa.pull-right {
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 .fa-spin {
@@ -115,53 +114,42 @@
 
 @-webkit-keyframes fa-spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
-
 @keyframes fa-spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
-
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
-  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-  -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-  -webkit-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
-  -webkit-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
-  -webkit-transform: scale(1, -1);
   transform: scale(1, -1);
 }
 
@@ -170,8 +158,7 @@
 :root .fa-rotate-270,
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical {
-  -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 
 .fa-stack {
@@ -3226,9 +3213,9 @@ select {
  * Correct the inability to style clickable types in iOS and Safari.
  */
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type=button],
+[type=reset],
+[type=submit] {
   -webkit-appearance: button;
 }
 
@@ -3236,9 +3223,9 @@ button,
  * Remove the inner border and padding in Firefox.
  */
 button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
@@ -3247,9 +3234,9 @@ button::-moz-focus-inner,
  * Restore the focus styles unset by the previous rule.
  */
 button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
@@ -3299,8 +3286,8 @@ textarea {
  * 1. Add the correct box sizing in IE 10.
  * 2. Remove the padding in IE 10.
  */
-[type="checkbox"],
-[type="radio"] {
+[type=checkbox],
+[type=radio] {
   box-sizing: border-box;
   /* 1 */
   padding: 0;
@@ -3310,8 +3297,8 @@ textarea {
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -3319,7 +3306,7 @@ textarea {
  * 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari.
  */
-[type="search"] {
+[type=search] {
   -webkit-appearance: textfield;
   /* 1 */
   outline-offset: -2px;
@@ -3329,7 +3316,7 @@ textarea {
 /**
  * Remove the inner padding in Chrome and Safari on macOS.
  */
-[type="search"]::-webkit-search-decoration {
+[type=search]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -3432,7 +3419,7 @@ a:hover {
 /*********************** Steps ***********************/
 .steps {
   color: #adac9c;
-  font-family: 'Century Gothic', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+  font-family: "Century Gothic", "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size: 1.3em;
   font-weight: bold;
   margin-bottom: -17px;
@@ -3441,7 +3428,7 @@ a:hover {
 }
 
 .steps::after {
-  content: '';
+  content: "";
   display: inline-block;
   width: 100%;
 }
@@ -3456,7 +3443,7 @@ a:hover {
 }
 
 /*********************** Forms ***********************/
-input[type='text'], input[type='email'], input[type='password'], select {
+input[type=text], input[type=email], input[type=password], select {
   box-sizing: border-box;
 }
 
@@ -3481,7 +3468,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
   border-width: 1px;
   color: #fff;
   cursor: pointer;
-  font: bold 12px arial,helvetica,sans-serif;
+  font: bold 12px arial, helvetica, sans-serif;
   padding: 1px 7px 2px;
   text-align: center !important;
   white-space: nowrap;
@@ -3533,7 +3520,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
   margin-bottom: 15px;
 }
 
-.database_page input[type='text'], .database_page input[type='password'], .database_page select {
+.database_page input[type=text], .database_page input[type=password], .database_page select {
   width: 250px;
 }
 
@@ -3622,7 +3609,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
   width: 27%;
 }
 
-.install_1_page input[type='text'], .install_1_page input[type='password'], .install_1_page input[type='email'], .install_1_page select {
+.install_1_page input[type=text], .install_1_page input[type=password], .install_1_page input[type=email], .install_1_page select {
   width: 250px;
 }
 
@@ -3660,68 +3647,76 @@ input[type='text'], input[type='email'], input[type='password'], select {
     display: none;
   }
 }
-
 @media all and (max-width: 1200px) {
   .install_1_page .heading_note {
     display: none;
   }
 }
-
 @media all and (max-width: 1000px) {
   body {
     margin: 10px;
     padding: 0;
     width: 95%;
   }
+
   .steps .step {
     float: left;
     width: 33%;
   }
+
   .step:nth-child(1), .step:nth-child(4) {
     text-align: left;
   }
+
   .step:nth-child(2), .step:nth-child(5) {
     text-align: center;
   }
+
   .step:nth-child(3), .step:nth-child(6) {
     text-align: right;
   }
+
   .step:nth-child(1), .step:nth-child(2), .step:nth-child(3) {
     margin-bottom: 15px;
   }
+
   .note {
     display: none;
   }
-  input[type='text'], input[type='email'], input[type='password'], select {
+
+  input[type=text], input[type=email], input[type=password], select {
     width: 100% !important;
   }
+
   .database_page br {
     display: none;
   }
+
   .install_1_page .left, .install_1_page .center, .install_1_page .right {
     float: none;
     margin-right: 0;
     width: auto;
   }
+
   .install_1_page br {
     display: none;
   }
 }
-
 @media all and (max-width: 500px) {
-  input[type='submit'] {
+  input[type=submit] {
     margin-top: 5px;
     width: 100%;
   }
+
   .system_page .item {
     float: none;
     width: auto;
   }
+
   .system_page .green, .system_page .amber, .system_page .red {
     float: right;
   }
 }
-
 /****************** Password Strength ***************/
 #password_strength {
   display: block;
@@ -3774,21 +3769,27 @@ input[type='text'], input[type='email'], input[type='password'], select {
   .strength_0 {
     width: 100%;
   }
+
   .strength_1 {
     width: 16%;
   }
+
   .strength_2 {
     width: 33%;
   }
+
   .strength_3 {
     width: 50%;
   }
+
   .strength_4 {
     width: 66%;
   }
+
   .strength_5 {
     width: 83%;
   }
+
   .strength_6 {
     width: 100%;
   }

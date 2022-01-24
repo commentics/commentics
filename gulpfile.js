@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var autoprefix = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 var stylelint = require('gulp-stylelint');
 var uglify = require('gulp-uglify');
 
