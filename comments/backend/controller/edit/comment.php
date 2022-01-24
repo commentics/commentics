@@ -277,6 +277,29 @@ class EditCommentController extends Controller
 
         $this->data['pages'] = $this->model_edit_comment->getPages();
 
+        $this->data['extra_fields'] = array();
+
+        if ($this->setting->has('extra_fields_enabled') && $this->setting->get('extra_fields_enabled')) {
+            $this->loadModel('module/extra_fields');
+
+            $data = array(
+                'group_by' => '',
+                'sort'     => 'f.name',
+                'order'    => 'asc',
+                'start'    => 0,
+                'limit'    => 9999
+            );
+
+            $extra_fields = $this->model_module_extra_fields->getFields($data);
+
+            foreach ($extra_fields as $extra_field) {
+                $this->data['extra_fields'][] = array(
+                    'name'  => $extra_field['name'],
+                    'value' => $this->model_module_extra_fields->getFieldValue($extra_field['id'], $this->data['id'])
+                );
+            }
+        }
+
         $this->data['loading'] = $this->loadImage('misc/loading.gif');
 
         $this->data['link_name'] = $this->url->link('edit/user', '&id=' . $comment['user_id']);

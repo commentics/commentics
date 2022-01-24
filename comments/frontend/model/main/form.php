@@ -897,4 +897,22 @@ class MainFormModel extends Model
     {
         return (int) (strlen(rtrim($base64, '=')) * 3 / 4);
     }
+
+    public function getExtraField($field_id)
+    {
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "fields` WHERE `id` = '" . (int) $field_id . "' AND `is_enabled` = '1'");
+
+        $result = $this->db->row($query);
+
+        return $result;
+    }
+
+    public function getExtraFields()
+    {
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "fields` WHERE `is_enabled` = '1' ORDER BY `sort` ASC");
+
+        $result = $this->db->rows($query);
+
+        return $result;
+    }
 }

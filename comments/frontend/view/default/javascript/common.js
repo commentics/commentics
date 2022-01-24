@@ -807,7 +807,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     if (response['result']['success']) {
                         jQuery('.cmtx_message').remove();
 
-                        jQuery('#cmtx_comment, #cmtx_headline, #cmtx_answer, #cmtx_securimage').val('');
+                        jQuery('#cmtx_comment, #cmtx_headline, #cmtx_answer, [name^="cmtx_field_"], #cmtx_securimage').val('');
 
                         cmtxUpdateCommentCounter();
 
@@ -912,6 +912,14 @@ var cmtx_wait_for_jquery = setInterval(function() {
                             jQuery('#cmtx_answer').addClass('cmtx_field_error');
 
                             jQuery('#cmtx_answer').after('<span class="cmtx_error">' + response['error']['answer'] + '</span>');
+                        }
+
+                        for (var field in response['error']) {
+                            if (field.startsWith('cmtx_field_')) {
+                                jQuery('[name="' + field + '"]').addClass('cmtx_field_error');
+
+                                jQuery('[name="' + field + '"]').after('<span class="cmtx_error">' + response['error'][field] + '</span>');
+                            }
                         }
 
                         if (response['error']['recaptcha']) {

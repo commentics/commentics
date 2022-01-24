@@ -274,6 +274,10 @@ $_['lang_error_image_type']               = 'Only image file types jpg, png and 
 $_['lang_error_image_create']             = 'The image was not created. Please try uploading the image again.';
 $_['lang_error_image_size']               = 'The image size is too big. Please try uploading a smaller image.';
 $_['lang_error_reply_invalid']            = 'The comment you are replying to does not exist';
+$_['lang_error_field_required']           = 'This is a required field';
+$_['lang_error_field_invalid']            = 'The value entered is invalid';
+$_['lang_error_field_min_length']         = 'The value entered is too short';
+$_['lang_error_field_max_length']         = 'The value entered is too long';
 $_['lang_error_review']                   = 'Please check the errors below';
 
 // Button

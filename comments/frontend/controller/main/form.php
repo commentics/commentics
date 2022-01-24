@@ -454,6 +454,32 @@ class MainFormController extends Controller
                 }
             }
 
+            /* Extra fields */
+
+            $this->data['fields'] = array();
+
+            $fields = explode(',', $this->setting->get('order_fields'));
+
+            foreach ($fields as $field) {
+                /* Try to extract ID portion in case it's an extra field (such as field_1, field_2 etc) */
+                $field_id = $this->variable->substr($field, 6, strlen($field));
+
+                /* If we found an ID and it's an int then it's an extra field and we need to add more info to it */
+                if ($field_id && $this->validation->isInt($field_id)) {
+                    $field_info = $this->model_main_form->getExtraField($field_id);
+
+                    if ($field_info) {
+                        $field_info['template'] = 'extra';
+                        $field_info['values'] = explode(',', $field_info['values']);
+                        $field_info['symbol'] = ($this->setting->get('display_required_symbol') && $field_info['is_required'] ? 'cmtx_required' : '');
+
+                        $this->data['fields'][$field] = $field_info;
+                    }
+                } else {
+                    $this->data['fields'][$field] = array('template' => $field);
+                }
+            }
+
             /* ReCaptcha */
 
             $this->data['recaptcha'] = false;
@@ -748,7 +774,7 @@ class MainFormController extends Controller
                                 $approve = $notes = '';
                                 $country = 0;
                                 $user = false;
-                                $uploads = array();
+                                $uploads = $extra_fields = array();
 
                                 /* Is this a preview? */
                                 if ($this->setting->get('enabled_preview') && isset($this->request->post['cmtx_type']) && $this->request->post['cmtx_type'] == 'preview') {
@@ -1539,6 +1565,59 @@ class MainFormController extends Controller
                                     }
                                 }
 
+                                /* Extra fields */
+                                if ($this->setting->has('extra_fields_enabled') && $this->setting->get('extra_fields_enabled')) {
+                                    $fields = $this->model_main_form->getExtraFields();
+
+                                    foreach ($fields as $field) {
+                                        $field_name = 'cmtx_field_' . $field['id'];
+
+                                        if (isset($this->request->post[$field_name])) {
+                                            if ($field['is_required'] && $this->request->post[$field_name] == '') {
+                                                $json['error'][$field_name] = $this->data['lang_error_field_required'];
+                                            } else if ($this->request->post[$field_name]) {
+                                                $value = $this->security->decode($this->request->post[$field_name]);
+
+                                                if ($field['type'] == 'select') {
+                                                    $values = explode(',', $field['values']);
+
+                                                    if (!in_array($this->request->post[$field_name], $values)) {
+                                                        $json['error'][$field_name] = $this->data['lang_error_field_invalid'];
+                                                    }
+                                                } else if (in_array($field['type'], array('text', 'textarea'))) {
+                                                    if ($this->validation->length($value) < $field['minimum']) {
+                                                        $json['error'][$field_name] = $this->data['lang_error_field_min_length'];
+                                                    }
+
+                                                    if ($this->validation->length($value) > $field['maximum']) {
+                                                        $json['error'][$field_name] = $this->data['lang_error_field_max_length'];
+                                                    }
+
+                                                    if ($field['validation']) {
+                                                        if (!preg_match($this->security->decode($field['validation']), $value)) {
+                                                            $json['error'][$field_name] = $this->data['lang_error_field_invalid'];
+                                                        }
+                                                    }
+
+                                                    if ($field['type'] == 'textarea') {
+                                                        $this->request->post[$field_name] = $this->model_main_form->removeLineBreaks($this->request->post[$field_name]);
+                                                    }
+                                                }
+
+                                                if ($is_preview) {
+                                                    if ($field['display']) {
+                                                        $extra_fields[$field['name']] = $this->request->post[$field_name];
+                                                    }
+                                                } else {
+                                                    $extra_fields['field_' . $field['id']] = $this->request->post[$field_name];
+                                                }
+                                            }
+                                        } else {
+                                            $json['error'][$field_name] = $this->data['lang_error_field_required'];
+                                        }
+                                    }
+                                }
+
                                 /* ReCaptcha */
                                 if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha' && (bool) ini_get('allow_url_fopen') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
                                     if (isset($this->request->post['g-recaptcha-response'])) {
@@ -1748,6 +1827,7 @@ class MainFormController extends Controller
                         'date_added'       => $date_added,
                         'date_added_title' => $date_added_title,
                         'uploads'          => $uploads,
+                        'extra_fields'     => $extra_fields,
                         'reply'            => false,
                         'reply_id'         => array()
                     );
@@ -1831,7 +1911,7 @@ class MainFormController extends Controller
                         $notes = rtrim($approve, "\r\n");
                     }
 
-                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads);
+                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads, $extra_fields);
 
                     if ($this->setting->get('cache_type')) {
                         $this->cache->delete('getcomments_pageid' . $page_id . '_count0');

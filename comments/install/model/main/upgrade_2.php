@@ -357,6 +357,13 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_link_days', `value` = '30'");
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `avatar_login` varchar(250) NOT NULL default ''");
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'order_fields', `value` = 'comment,headline,upload,rating,user,website,geo,question'");
+
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = 'form,comments' WHERE `title` = 'order_parts' AND `value` = '1,2'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = 'comments,form' WHERE `title` = 'order_parts' AND `value` = '2,1'");
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_extra_fields', `value` = '1'");
         }
     }
 

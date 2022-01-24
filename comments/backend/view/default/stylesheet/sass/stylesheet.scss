@@ -583,6 +583,21 @@ img.loading {
     text-align: center;
 }
 
+.edit_comment_page .extra_fields {
+    background-color: #f7f7f7;
+    border: 1px solid #afafaf;
+    clear: both;
+    padding-bottom: 10px;
+    margin: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 98%;
+}
+
+.edit_comment_page .extra_fields span {
+    font-weight: bold;
+}
+
 .edit_spam_page .section div:first-of-type {
     margin-top: 25px;
 }
@@ -652,6 +667,10 @@ img.loading {
 .module_css_editor_page textarea {
     height: 300px;
     width: 100%;
+}
+
+.module_extra_fields_page .description {
+    margin-bottom: 20px;
 }
 
 .module_language_editor_page .description {
@@ -1642,7 +1661,7 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 150px;
+    width: 160px;
 }
 
 .ui-sortable li {
@@ -1655,6 +1674,10 @@ nav ul {
 .ui-sortable li span {
     margin-left: -18px;
     position: absolute;
+}
+
+.ui-icon-arrowthick-2-n-s {
+    background-position: -128px -46px;
 }
 
 @media all and (max-width: 500px) {

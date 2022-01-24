@@ -297,6 +297,20 @@
     margin-left: 125px;
 }
 
+.cmtx_extra_fields_area {
+    background-color: $grey-lightest;
+    border: 1px solid $grey-lighter;
+    border-radius: 8px;
+    color: $black !important;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px;
+}
+
+.cmtx_extra_fields_area span {
+    font-weight: bold;
+}
+
 .cmtx_upload_area {
     margin-bottom: 20px;
 }

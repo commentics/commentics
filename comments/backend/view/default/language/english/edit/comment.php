@@ -6,6 +6,7 @@ $_['lang_message_success']                   = 'Comment updated';
 $_['lang_heading']                           = 'Edit Comment';
 $_['lang_subheading_left']                   = 'Comment';
 $_['lang_subheading_right']                  = 'Details';
+$_['lang_subheading_fields']                 = 'Extra Fields';
 
 // Notice
 $_['lang_notice']                            = 'To edit the user\'s name or email go to \'Manage -> Users\' <a>x</a>';

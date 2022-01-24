@@ -87,12 +87,12 @@
 
         <div class="sortable">
             <ul id="sortable">
-                <?php if ($order_parts == '1,2') { ?>
-                    <li id="1" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $lang_text_form; ?></li>
-                    <li id="2" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $lang_text_comments; ?></li>
+                <?php if ($order_parts == 'form,comments') { ?>
+                    <li data-id="form" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $lang_text_form; ?></li>
+                    <li data-id="comments" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $lang_text_comments; ?></li>
                 <?php } else { ?>
-                    <li id="2" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $lang_text_comments; ?></li>
-                    <li id="1" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $lang_text_form; ?></li>
+                    <li data-id="comments" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $lang_text_comments; ?></li>
+                    <li data-id="form" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $lang_text_form; ?></li>
                 <?php } ?>
             </ul>
             <?php if ($error_order_parts) { ?>
@@ -212,7 +212,7 @@
     $(document).ready(function() {
         $('#sortable').sortable({
             update: function() {
-                var order = $(this).sortable('toArray').toString();
+                var order = $(this).sortable('toArray', {attribute: 'data-id'}).toString();
 
                 $('input[name="order_parts"]').val(order);
             }

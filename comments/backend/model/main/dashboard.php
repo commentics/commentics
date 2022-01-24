@@ -116,7 +116,19 @@ class MainDashboardModel extends Model
     {
         $lang = $this->loadWord('main/dashboard');
 
-        $query = $this->db->query("SELECT `page`, COUNT(*) AS `frequency` FROM `" . CMTX_DB_PREFIX . "access` WHERE `page` NOT IN ('main/checklist', 'main/dashboard', 'extension/modules/install', 'extension/modules/uninstall') AND `page` NOT LIKE 'edit%' GROUP BY `page` ORDER BY `frequency` DESC LIMIT 5");
+        $query = $this->db->query("SELECT `page`, COUNT(*) AS `frequency`
+                                   FROM `" . CMTX_DB_PREFIX . "access`
+                                   WHERE `page` NOT IN (
+                                        'main/checklist',
+                                        'main/dashboard',
+                                        'extension/modules/install',
+                                        'extension/modules/uninstall'
+                                   )
+                                   AND `page` NOT LIKE 'edit%'
+                                   AND `page` NOT LIKE '%edit'
+                                   GROUP BY `page`
+                                   ORDER BY `frequency` DESC
+                                   LIMIT 5");
 
         if ($this->db->numRows($query) == 5) {
             $results = $this->db->rows($query);

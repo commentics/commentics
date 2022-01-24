@@ -168,7 +168,7 @@ class ExtensionThemesController extends Controller
             $this->error['jquery_source'] = $this->data['lang_error_selection'];
         }
 
-        if (!isset($this->request->post['order_parts']) || !in_array($this->request->post['order_parts'], array('1,2', '2,1'))) {
+        if (!isset($this->request->post['order_parts']) || !in_array($this->request->post['order_parts'], array('form,comments', 'comments,form'))) {
             $this->error['order_parts'] = $this->data['lang_error_selection'];
         }
 

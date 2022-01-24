@@ -9,6 +9,8 @@ class SettingsLayoutFormController extends Controller
 
         $this->loadModel('settings/layout_form');
 
+        $this->loadModel('module/extra_fields');
+
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
             if ($this->validate()) {
                 $this->model_settings_layout_form->update($this->request->post);
@@ -55,6 +57,36 @@ class SettingsLayoutFormController extends Controller
             $this->data['display_required_text'] = false;
         } else {
             $this->data['display_required_text'] = $this->setting->get('display_required_text');
+        }
+
+        if (isset($this->request->post['order_fields'])) {
+            $this->data['order_fields'] = $this->request->post['order_fields'];
+        } else {
+            $this->data['order_fields'] = $this->setting->get('order_fields');
+        }
+
+        $fields = array();
+
+        foreach (explode(',', $this->data['order_fields']) as $field) {
+            $field_id = $this->variable->substr($field, 6, strlen($field));
+
+            if ($field_id && $this->validation->isInt($field_id)) {
+                $field_info = $this->model_module_extra_fields->getField($field_id);
+
+                if ($field_info) {
+                    $fields[$field] = $field_info['name'];
+                }
+            } else if (isset($this->data['lang_text_' . $field])) {
+                $fields[$field] = $this->data['lang_text_' . $field];
+            }
+        }
+
+        $this->data['fields'] = $fields;
+
+        if (isset($this->error['order_fields'])) {
+            $this->data['error_order_fields'] = $this->error['order_fields'];
+        } else {
+            $this->data['error_order_fields'] = '';
         }
 
         /* BB Code */
@@ -451,6 +483,48 @@ class SettingsLayoutFormController extends Controller
             $this->data['error_maximum_upload_total'] = '';
         }
 
+        /* Rating */
+
+        if (isset($this->request->post['enabled_rating'])) {
+            $this->data['enabled_rating'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_rating'])) {
+            $this->data['enabled_rating'] = false;
+        } else {
+            $this->data['enabled_rating'] = $this->setting->get('enabled_rating');
+        }
+
+        if (isset($this->request->post['required_rating'])) {
+            $this->data['required_rating'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_rating'])) {
+            $this->data['required_rating'] = false;
+        } else {
+            $this->data['required_rating'] = $this->setting->get('required_rating');
+        }
+
+        if (isset($this->request->post['default_rating'])) {
+            $this->data['default_rating'] = $this->request->post['default_rating'];
+        } else {
+            $this->data['default_rating'] = $this->setting->get('default_rating');
+        }
+
+        if (isset($this->request->post['repeat_rating'])) {
+            $this->data['repeat_rating'] = $this->request->post['repeat_rating'];
+        } else {
+            $this->data['repeat_rating'] = $this->setting->get('repeat_rating');
+        }
+
+        if (isset($this->error['default_rating'])) {
+            $this->data['error_default_rating'] = $this->error['default_rating'];
+        } else {
+            $this->data['error_default_rating'] = '';
+        }
+
+        if (isset($this->error['repeat_rating'])) {
+            $this->data['error_repeat_rating'] = $this->error['repeat_rating'];
+        } else {
+            $this->data['error_repeat_rating'] = '';
+        }
+
         /* Name */
 
         if (isset($this->request->post['default_name'])) {
@@ -565,48 +639,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['error_filled_email_login_action'] = $this->error['filled_email_login_action'];
         } else {
             $this->data['error_filled_email_login_action'] = '';
-        }
-
-        /* Rating */
-
-        if (isset($this->request->post['enabled_rating'])) {
-            $this->data['enabled_rating'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['enabled_rating'])) {
-            $this->data['enabled_rating'] = false;
-        } else {
-            $this->data['enabled_rating'] = $this->setting->get('enabled_rating');
-        }
-
-        if (isset($this->request->post['required_rating'])) {
-            $this->data['required_rating'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['required_rating'])) {
-            $this->data['required_rating'] = false;
-        } else {
-            $this->data['required_rating'] = $this->setting->get('required_rating');
-        }
-
-        if (isset($this->request->post['default_rating'])) {
-            $this->data['default_rating'] = $this->request->post['default_rating'];
-        } else {
-            $this->data['default_rating'] = $this->setting->get('default_rating');
-        }
-
-        if (isset($this->request->post['repeat_rating'])) {
-            $this->data['repeat_rating'] = $this->request->post['repeat_rating'];
-        } else {
-            $this->data['repeat_rating'] = $this->setting->get('repeat_rating');
-        }
-
-        if (isset($this->error['default_rating'])) {
-            $this->data['error_default_rating'] = $this->error['default_rating'];
-        } else {
-            $this->data['error_default_rating'] = '';
-        }
-
-        if (isset($this->error['repeat_rating'])) {
-            $this->data['error_repeat_rating'] = $this->error['repeat_rating'];
-        } else {
-            $this->data['error_repeat_rating'] = '';
         }
 
         /* Website */
@@ -1221,6 +1253,26 @@ class SettingsLayoutFormController extends Controller
             return false;
         }
 
+        /* General */
+
+        if (isset($this->request->post['order_fields'])) {
+            $order_fields = explode(',', $this->request->post['order_fields']);
+
+            $fields = explode(',', $this->setting->get('order_fields'));
+
+            if (count($order_fields) == count($fields) && count(array_unique($order_fields)) == count($fields)) {
+                foreach ($order_fields as $order_field) {
+                    if (!in_array($order_field, $fields)) {
+                        $this->error['order_fields'] = $this->data['lang_error_selection'];
+                    }
+                }
+            } else {
+                $this->error['order_fields'] = $this->data['lang_error_selection'];
+            }
+        } else {
+            $this->error['order_fields'] = $this->data['lang_error_selection'];
+        }
+
         /* Comment */
 
         if (!isset($this->request->post['default_comment']) || $this->validation->length($this->request->post['default_comment']) > 250) {
@@ -1253,6 +1305,16 @@ class SettingsLayoutFormController extends Controller
 
         if (!isset($this->request->post['maximum_upload_total']) || !$this->validation->isFloat($this->request->post['maximum_upload_total']) || $this->request->post['maximum_upload_total'] < 0.1 || $this->request->post['maximum_upload_total'] > 99.9) {
             $this->error['maximum_upload_total'] = $this->data['lang_error_max_total'];
+        }
+
+        /* Rating */
+
+        if (!isset($this->request->post['default_rating']) || !in_array($this->request->post['default_rating'], array('', '1', '2', '3', '4', '5'))) {
+            $this->error['default_rating'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['repeat_rating']) || !in_array($this->request->post['repeat_rating'], array('normal', 'hide'))) {
+            $this->error['repeat_rating'] = $this->data['lang_error_selection'];
         }
 
         /* Name */
@@ -1289,16 +1351,6 @@ class SettingsLayoutFormController extends Controller
 
         if (!isset($this->request->post['filled_email_login_action']) || !in_array($this->request->post['filled_email_login_action'], array('normal', 'disable', 'hide'))) {
             $this->error['filled_email_login_action'] = $this->data['lang_error_selection'];
-        }
-
-        /* Rating */
-
-        if (!isset($this->request->post['default_rating']) || !in_array($this->request->post['default_rating'], array('', '1', '2', '3', '4', '5'))) {
-            $this->error['default_rating'] = $this->data['lang_error_selection'];
-        }
-
-        if (!isset($this->request->post['repeat_rating']) || !in_array($this->request->post['repeat_rating'], array('normal', 'hide'))) {
-            $this->error['repeat_rating'] = $this->data['lang_error_selection'];
         }
 
         /* Website */

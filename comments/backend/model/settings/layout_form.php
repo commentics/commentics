@@ -17,6 +17,8 @@ class SettingsLayoutFormModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['display_required_text']) ? 1 : 0) . "' WHERE `title` = 'display_required_text'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['order_fields']) . "' WHERE `title` = 'order_fields'");
+
         /* BB Code */
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['enabled_bb_code']) ? 1 : 0) . "' WHERE `title` = 'enabled_bb_code'");
@@ -115,6 +117,16 @@ class SettingsLayoutFormModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (float) $data['maximum_upload_total'] . "' WHERE `title` = 'maximum_upload_total'");
 
+        /* Rating */
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['enabled_rating']) ? 1 : 0) . "' WHERE `title` = 'enabled_rating'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['required_rating']) ? 1 : 0) . "' WHERE `title` = 'required_rating'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['default_rating'] . "' WHERE `title` = 'default_rating'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['repeat_rating']) . "' WHERE `title` = 'repeat_rating'");
+
         /* Name */
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['default_name']) . "' WHERE `title` = 'default_name'");
@@ -138,16 +150,6 @@ class SettingsLayoutFormModel extends Model
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['filled_email_cookie_action']) . "' WHERE `title` = 'filled_email_cookie_action'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['filled_email_login_action']) . "' WHERE `title` = 'filled_email_login_action'");
-
-        /* Rating */
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['enabled_rating']) ? 1 : 0) . "' WHERE `title` = 'enabled_rating'");
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['required_rating']) ? 1 : 0) . "' WHERE `title` = 'required_rating'");
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['default_rating'] . "' WHERE `title` = 'default_rating'");
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['repeat_rating']) . "' WHERE `title` = 'repeat_rating'");
 
         /* Website */
 

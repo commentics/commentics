@@ -6,7 +6,7 @@
 
         <div class="cmtx_maintenance_mode">{{ maintenance_message }}</div>
     @else
-        @if order_parts equals '1,2'
+        @if order_parts equals 'form,comments'
             <div class="cmtx_form_section">{{ form }}</div>
         @else
             <div class="cmtx_comments_section">{{ comments }}</div>
@@ -21,7 +21,7 @@
 
         <div class="cmtx_divider_section"></div>
 
-        @if order_parts equals '1,2'
+        @if order_parts equals 'form,comments'
             <div class="cmtx_comments_section">{{ comments }}</div>
         @else
             <div class="cmtx_form_section">{{ form }}</div>

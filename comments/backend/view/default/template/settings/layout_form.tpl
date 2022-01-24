@@ -60,6 +60,19 @@
                     <input type="checkbox" name="display_required_text" value="1" <?php if ($display_required_text) { echo 'checked'; } ?>>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_required_text; ?>', this, event, '')">[?]</a>
                 </div>
+
+                <p><?php echo $lang_text_fields; ?></p>
+
+                <div class="sortable">
+                    <ul id="sortable">
+                        <?php foreach ($fields as $key => $value) { ?>
+                            <li data-id="<?php echo $key; ?>" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $value; ?></li>
+                        <?php } ?>
+                    </ul>
+                    <?php if ($error_order_fields) { ?>
+                        <span class="error"><?php echo $error_order_fields; ?></span>
+                    <?php } ?>
+                </div>
             </div>
         </div>
 
@@ -342,6 +355,50 @@
                 </div>
             </div>
 
+            <div class="<?php echo ($enabled_rating ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_rating; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="enabled_rating" value="1" <?php if ($enabled_rating) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_rating; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_required; ?></label>
+                    <input type="checkbox" name="required_rating" value="1" <?php if ($required_rating) { echo 'checked'; } ?>>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_required; ?>', this, event, '')">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_default; ?></label>
+                    <select name="default_rating">
+                        <option value=""><?php echo $lang_select_select; ?></option>
+                        <option value="1" <?php if ($default_rating == '1') { echo 'selected'; } ?>><?php echo $lang_select_rating_1; ?></option>
+                        <option value="2" <?php if ($default_rating == '2') { echo 'selected'; } ?>><?php echo $lang_select_rating_2; ?></option>
+                        <option value="3" <?php if ($default_rating == '3') { echo 'selected'; } ?>><?php echo $lang_select_rating_3; ?></option>
+                        <option value="4" <?php if ($default_rating == '4') { echo 'selected'; } ?>><?php echo $lang_select_rating_4; ?></option>
+                        <option value="5" <?php if ($default_rating == '5') { echo 'selected'; } ?>><?php echo $lang_select_rating_5; ?></option>
+                    </select>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_default; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_default_rating) { ?>
+                        <span class="error"><?php echo $error_default_rating; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_repeat; ?></label>
+                    <select name="repeat_rating">
+                        <option value="normal" <?php if ($repeat_rating == 'normal') { echo 'selected'; } ?>><?php echo $lang_select_normal; ?></option>
+                        <option value="hide" <?php if ($repeat_rating == 'hide') { echo 'selected'; } ?>><?php echo $lang_select_hide; ?></option>
+                    </select>
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_repeat; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_repeat_rating) { ?>
+                        <span class="error"><?php echo $error_repeat_rating; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
             <div class="element_enabled">
                 <h2><?php echo $lang_subheading_name; ?></h2>
 
@@ -448,50 +505,6 @@
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_filled_login; ?>', this, event, '')">[?]</a>
                     <?php if ($error_filled_email_login_action) { ?>
                         <span class="error"><?php echo $error_filled_email_login_action; ?></span>
-                    <?php } ?>
-                </div>
-            </div>
-
-            <div class="<?php echo ($enabled_rating ? 'element_enabled' : 'element_disabled') ?>">
-                <h2><?php echo $lang_subheading_rating; ?></h2>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="enabled_rating" value="1" <?php if ($enabled_rating) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_rating; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_required; ?></label>
-                    <input type="checkbox" name="required_rating" value="1" <?php if ($required_rating) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_required; ?>', this, event, '')">[?]</a>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_default; ?></label>
-                    <select name="default_rating">
-                        <option value=""><?php echo $lang_select_select; ?></option>
-                        <option value="1" <?php if ($default_rating == '1') { echo 'selected'; } ?>><?php echo $lang_select_rating_1; ?></option>
-                        <option value="2" <?php if ($default_rating == '2') { echo 'selected'; } ?>><?php echo $lang_select_rating_2; ?></option>
-                        <option value="3" <?php if ($default_rating == '3') { echo 'selected'; } ?>><?php echo $lang_select_rating_3; ?></option>
-                        <option value="4" <?php if ($default_rating == '4') { echo 'selected'; } ?>><?php echo $lang_select_rating_4; ?></option>
-                        <option value="5" <?php if ($default_rating == '5') { echo 'selected'; } ?>><?php echo $lang_select_rating_5; ?></option>
-                    </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_default; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_default_rating) { ?>
-                        <span class="error"><?php echo $error_default_rating; ?></span>
-                    <?php } ?>
-                </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_repeat; ?></label>
-                    <select name="repeat_rating">
-                        <option value="normal" <?php if ($repeat_rating == 'normal') { echo 'selected'; } ?>><?php echo $lang_select_normal; ?></option>
-                        <option value="hide" <?php if ($repeat_rating == 'hide') { echo 'selected'; } ?>><?php echo $lang_select_hide; ?></option>
-                    </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_repeat; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_repeat_rating) { ?>
-                        <span class="error"><?php echo $error_repeat_rating; ?></span>
                     <?php } ?>
                 </div>
             </div>
@@ -1000,6 +1013,8 @@
             </div>
         </div>
 
+        <input type="hidden" name="order_fields" value="<?php echo $order_fields; ?>">
+
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>
@@ -1144,6 +1159,20 @@
             } else {
                 $('.recaptcha_section').hide();
                 $('.securimage_section').show();
+            }
+        });
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
+        $('#sortable').sortable({
+            update: function() {
+                var order = $(this).sortable('toArray', {attribute: 'data-id'}).toString();
+
+                $('input[name="order_fields"]').val(order);
             }
         });
     });

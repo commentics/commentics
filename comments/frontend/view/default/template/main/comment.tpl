@@ -130,6 +130,14 @@
                 </div>
             @endif
 
+            @if comment.extra_fields
+                <div class="cmtx_extra_fields_area">
+                    @foreach comment.extra_fields as key and value
+                        <div><span>{{ key }}:</span> {{ value }}</div>
+                    @endforeach
+                </div>
+            @endif
+
             @if comment.uploads
                 <div class="cmtx_upload_area">
                     @foreach comment.uploads as upload

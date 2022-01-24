@@ -268,6 +268,16 @@
             <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
         </div>
 
+        <?php if ($extra_fields) { ?>
+            <div class="extra_fields">
+                <h2><?php echo $lang_subheading_fields; ?></h2>
+
+                <?php foreach ($extra_fields as $extra_field) { ?>
+                    <div><span><?php echo $extra_field['name']; ?>:</span> <?php echo $extra_field['value']; ?></div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+
         <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">

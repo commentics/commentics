@@ -16,7 +16,7 @@ class Comment
         $this->setting = $registry->get('setting');
     }
 
-    public function createComment($user_id, $page_id, $website, $town, $state_id, $country_id, $rating, $reply_to, $headline, $comment, $ip_address, $approve, $notes, $is_admin, $uploads)
+    public function createComment($user_id, $page_id, $website, $town, $state_id, $country_id, $rating, $reply_to, $headline, $comment, $ip_address, $approve, $notes, $is_admin, $uploads, $extra_fields)
     {
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int) $user_id . "', `page_id` = '" . (int) $page_id . "', `website` = '" . $this->db->escape($website) . "', `town` = '" . $this->db->escape($town) . "', `state_id` = '" . (int) $state_id . "', `country_id` = '" . (int) $country_id . "', `rating` = '" . (int) $rating . "', `reply_to` = '" . (int) $reply_to . "', `headline` = '" . $this->db->escape($headline) . "', `comment` = '" . $this->db->escape($comment) . "', `reply` = '', `ip_address` = '" . $this->db->escape($ip_address) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `is_admin` = '" . (int) $is_admin . "', `is_sent` = '0', `sent_to` = '0', `likes` = '0', `dislikes` = '0', `reports` = '0', `is_sticky` = '0', `is_locked` = '0', `is_verified` = '0', `date_modified` = NOW(), `date_added` = NOW()");
 
@@ -24,6 +24,10 @@ class Comment
 
         foreach ($uploads as $upload) {
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "uploads` SET `user_id` = '" . (int) $user_id . "', `comment_id` = '" . (int) $comment_id . "', `folder` = '" . $this->db->escape($upload['folder']) . "', `filename` = '" . $this->db->escape($upload['filename']) . "', `extension` = '" . $this->db->escape($upload['extension']) . "', `mime_type` = '" . $this->db->escape($upload['mime_type']) . "', `file_size` = '" . $this->db->escape($upload['file_size']) . "', `date_added` = NOW()");
+        }
+
+        foreach ($extra_fields as $key => $value) {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `" . $this->db->escape($key) . "` = '" . $this->db->escape($value) . "' WHERE `id` = '" . (int) $comment_id . "'");
         }
 
         return $comment_id;
@@ -56,48 +60,52 @@ class Comment
 
             $uploads = $this->getUploads($id);
 
-            return array(
-                'id'                 => $comment['id'],
-                'user_id'            => $comment['user_id'],
-                'page_id'            => $comment['page_id'],
-                'name'               => $comment['name'],
-                'email'              => $comment['email'],
-                'page_reference'     => $comment['reference'],
-                'page_url'           => $comment['url'],
-                'website'            => $comment['website'],
-                'town'               => $comment['town'],
-                'state_id'           => $comment['state_id'],
-                'state'              => $comment['state_name'],
-                'country_id'         => $comment['country_id'],
-                'country'            => $comment['country_name'],
-                'rating'             => $comment['rating'],
-                'reply_to'           => $comment['reply_to'],
-                'headline'           => $comment['headline'],
-                'comment'            => $comment['comment'],
-                'reply'              => $comment['reply'],
-                'ip_address'         => $comment['ip_address'],
-                'is_approved'        => $comment['is_approved'],
-                'notes'              => $comment['notes'],
-                'is_admin'           => $comment['is_admin'],
-                'is_sent'            => $comment['is_sent'],
-                'sent_to'            => $comment['sent_to'],
-                'likes'              => $comment['likes'],
-                'dislikes'           => $comment['dislikes'],
-                'reports'            => $comment['reports'],
-                'is_sticky'          => $comment['is_sticky'],
-                'is_locked'          => $comment['is_locked'],
-                'is_verified'        => $comment['is_verified'],
-                'date_modified'      => $comment['date_modified'],
-                'date_added'         => $comment['date_added'],
-                'token'              => $comment['token'],
-                'to_all'             => $comment['to_all'],
-                'to_admin'           => $comment['to_admin'],
-                'to_reply'           => $comment['to_reply'],
-                'to_approve'         => $comment['to_approve'],
-                'format'             => $comment['format'],
-                'date_added_user'    => $comment['date_added_user'],
-                'uploads'            => $uploads
+            $result = array(
+                'id'              => $comment['id'],
+                'user_id'         => $comment['user_id'],
+                'page_id'         => $comment['page_id'],
+                'name'            => $comment['name'],
+                'email'           => $comment['email'],
+                'page_reference'  => $comment['reference'],
+                'page_url'        => $comment['url'],
+                'website'         => $comment['website'],
+                'town'            => $comment['town'],
+                'state_id'        => $comment['state_id'],
+                'state'           => $comment['state_name'],
+                'country_id'      => $comment['country_id'],
+                'country'         => $comment['country_name'],
+                'rating'          => $comment['rating'],
+                'reply_to'        => $comment['reply_to'],
+                'headline'        => $comment['headline'],
+                'comment'         => $comment['comment'],
+                'reply'           => $comment['reply'],
+                'ip_address'      => $comment['ip_address'],
+                'is_approved'     => $comment['is_approved'],
+                'notes'           => $comment['notes'],
+                'is_admin'        => $comment['is_admin'],
+                'is_sent'         => $comment['is_sent'],
+                'sent_to'         => $comment['sent_to'],
+                'likes'           => $comment['likes'],
+                'dislikes'        => $comment['dislikes'],
+                'reports'         => $comment['reports'],
+                'is_sticky'       => $comment['is_sticky'],
+                'is_locked'       => $comment['is_locked'],
+                'is_verified'     => $comment['is_verified'],
+                'date_modified'   => $comment['date_modified'],
+                'date_added'      => $comment['date_added'],
+                'token'           => $comment['token'],
+                'to_all'          => $comment['to_all'],
+                'to_admin'        => $comment['to_admin'],
+                'to_reply'        => $comment['to_reply'],
+                'to_approve'      => $comment['to_approve'],
+                'format'          => $comment['format'],
+                'date_added_user' => $comment['date_added_user'],
+                'uploads'         => $uploads
             );
+
+            $result = $this->addExtraFields($result, $comment);
+
+            return $result;
         } else {
             return false;
         }
@@ -272,5 +280,36 @@ class Comment
         }
 
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "uploads` WHERE `comment_id` = '" . (int) $comment_id . "'");
+    }
+
+    private function addExtraFields($result, $comment)
+    {
+        $extra_fields = array();
+
+        if ($this->setting->has('extra_fields_enabled') && $this->setting->get('extra_fields_enabled')) {
+            foreach ($comment as $key => $value) {
+                if (strpos($key, 'field_') === 0) {
+                    $result[$key] = $value;
+                }
+            }
+
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "fields` WHERE `is_enabled` = '1' AND `display` = '1' ORDER BY `sort` ASC");
+
+            $fields = $this->db->rows($query);
+
+            foreach ($fields as $field) {
+                $query = $this->db->query("SELECT `" . $this->db->escape('field_' . $field['id']) . "` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `id` = '" . (int) $comment['id'] . "'");
+
+                $result2 = $this->db->row($query);
+
+                if ($result2['field_' . $field['id']]) {
+                    $extra_fields[$field['name']] = $result2['field_' . $field['id']];
+                }
+            }
+        }
+
+        $result['extra_fields'] = $extra_fields;
+
+        return $result;
     }
 }

@@ -25,6 +25,8 @@ class Template
     {
         $this->removeComment();
 
+        $this->loadTemplate();
+
         $this->echoVariableQuote();
 
         $this->echoVariable();
@@ -43,8 +45,6 @@ class Template
         $this->increaseCount();
         $this->decreaseCount();
 
-        $this->loadTemplate();
-
         if ($this->minify) {
             $this->minify();
         }
@@ -58,6 +58,22 @@ class Template
     private function removeComment()
     {
         $this->code = preg_replace('/.*{#.*?#}([\r\n])/', '', $this->code);
+    }
+
+    /* Parse loading of template e.g. @template main/comment */
+    private function loadTemplate()
+    {
+        if (preg_match_all('/@template (.*)[\r\n]/', $this->code, $matches)) {
+            foreach ($matches[0] as $index => $tag) {
+                $template = trim($matches[1][$index]);
+
+                if ($template == 'field/{{ field.template }}') {
+                    $this->code = str_replace($tag, "<?php require(\$this->loadTemplate('field/' . \$field['template'])); ?>" . PHP_EOL, $this->code);
+                } else {
+                    $this->code = str_replace($tag, "<?php require(\$this->loadTemplate('$template')); ?>" . PHP_EOL, $this->code);
+                }
+            }
+        }
     }
 
     /* Echo variable surrounded by quotes e.g. title="{{ var }}" */
@@ -268,18 +284,6 @@ class Template
     private function decreaseCount()
     {
         $this->code = str_replace('@decrease count', '<?php $count--; ?>', $this->code);
-    }
-
-    /* Parse loading of template e.g. @template main/comment */
-    private function loadTemplate()
-    {
-        if (preg_match_all('/@template (.*)[\r\n]/', $this->code, $matches)) {
-            foreach ($matches[0] as $index => $tag) {
-                $template = trim($matches[1][$index]);
-
-                $this->code = str_replace($tag, "<?php require(\$this->loadTemplate('$template')); ?>" . PHP_EOL, $this->code);
-            }
-        }
     }
 
     /* Minify HTML */

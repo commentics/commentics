@@ -3355,6 +3355,10 @@
   margin-bottom: 10px;
 }
 
+.cmtx_rows {
+  margin-top: -10px;
+}
+
 .cmtx_message_notify ~ .cmtx_form .cmtx_rows {
   margin-top: -15px;
 }
@@ -3537,6 +3541,10 @@
 
 .cmtx_hide {
   display: none;
+}
+
+.cmtx_comment_group {
+  margin-top: 20px;
 }
 
 .cmtx_icons_container {
@@ -3751,7 +3759,7 @@
   margin-top: 20px;
 }
 
-.cmtx_name_container, .cmtx_email_container {
+.cmtx_user_row {
   margin-top: 20px;
 }
 
@@ -3833,6 +3841,21 @@ select.cmtx_required {
 
 .cmtx_question_row {
   margin-top: 20px;
+}
+
+.cmtx_extra_row {
+  margin-top: 20px;
+}
+
+.cmtx_extra_textarea_container textarea {
+  height: 70px !important;
+  resize: none;
+  text-align: left !important;
+  width: 100%;
+}
+
+.cmtx_extra_textarea_container textarea.cmtx_required {
+  padding-left: 20px;
 }
 
 .cmtx_recaptcha_row {
@@ -4278,6 +4301,20 @@ select.cmtx_required {
 
 .reply_indent_5 {
   margin-left: 125px;
+}
+
+.cmtx_extra_fields_area {
+  background-color: #fcfcfc;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  color: #000 !important;
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px;
+}
+
+.cmtx_extra_fields_area span {
+  font-weight: bold;
 }
 
 .cmtx_upload_area {
