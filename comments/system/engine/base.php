@@ -4,7 +4,7 @@ namespace Commentics;
 abstract class Base
 {
     public $registry = '';
-    public $error = false;
+    public $error = array();
     public $data = array();
     public $components = array();
 

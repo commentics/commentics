@@ -4,8 +4,8 @@ namespace Commentics;
 class Db
 {
     private $driver = '';
-    public $query_count;
-    public $query_time;
+    public $query_count = 0;
+    public $query_time = 0;
     public $query_error;
     public $query_last;
     public $connected = false;
