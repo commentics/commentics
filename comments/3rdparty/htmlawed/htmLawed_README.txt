@@ -1,6 +1,6 @@
 /*
-htmLawed_README.txt, 24 September 2019
-htmLawed 1.2.5, 24 September 2019
+htmLawed_README.txt, 4 September 2021
+htmLawed 1.2.6, 4 September 2021
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed
@@ -1027,7 +1027,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   Note that attributes specified in '$config["deny_attribute"]' are denied globally, for all elements. To deny attributes for only specific elements, '$spec' (see section:- #2.3) can be used. '$spec' can also be used to element-specifically permit an attribute otherwise denied through '$config["deny_attribute"]'.
   
-  Finer restrictions on attributes can also be put into effect through '$config["deny_attribute"]' (section:- 3.4.9).
+  Finer restrictions on attributes can also be put into effect through '$config["hook_tag"]' (section:- #3.4.9).
 
   *Note*: To deny all but a few attributes globally, a simpler way to specify '$config["deny_attribute"]' would be to use the notation '* -attribute1 -attribute2 ...'. Thus, a value of '* -title -href' implies that except 'href' and 'title' (where allowed as per standards) all other attributes are to be removed. With this notation, the value for the parameter 'safe' (section:- #3.6) will have no effect on 'deny_attribute'. Values of 'aria*' 'data*', and 'on*' cannot be used in this notation to refer to the sets of all ARIA, data-*, and on* attributes respectively.
 
@@ -1369,6 +1369,8 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   (The release date for the downloadable package of files containing documentation, demo script, test-cases, etc., besides the 'htmLawed.php' file, may be updated without a change-log entry if the secondary files, but not htmLawed per se, are revised.)
 
   `Version number - Release date. Notes`
+
+  1.2.6 - 4 September 2021. Fixes a bug that arises when '$config["deny_attribute"]' has a 'data-*' attribute with > 1 hyphen character 
 
   1.2.5 - 24 September 2019. Fixes two bugs in 'font' tag transformation
 

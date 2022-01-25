@@ -1,7 +1,7 @@
 <?php
 
 /*
-htmLawed 1.2.5, 24 September 2019
+htmLawed 1.2.6, 4 September 2021
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - www.bioinformatics.org/phplabware/internal_utilities/htmLawed
@@ -37,8 +37,8 @@ else{
 }
 $C['elements'] =& $e;
 // config attrs
-$x = !empty($C['deny_attribute']) ? strtolower(str_replace(array("\n", "\r", "\t", ' '), '', $C['deny_attribute'])) : '';
-$x = array_flip((isset($x[0]) && $x[0] == '*') ? str_replace('/', 'data-', explode('-', str_replace('data-', '/', $x))) : explode(',', $x. (!empty($C['safe']) ? ',on*' : '')));
+$x = !empty($C['deny_attribute']) ? strtolower(preg_replace('"\s+-"', '/', trim($C['deny_attribute']))) : '';
+$x = array_flip((isset($x[0]) && $x[0] == '*') ? explode('/', $x) : explode(',', $x. (!empty($C['safe']) ? ',on*' : '')));
 $C['deny_attribute'] = $x;
 // config URLs
 $x = (isset($C['schemes'][2]) && strpos($C['schemes'], ':')) ? strtolower($C['schemes']) : 'href: aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet'. (empty($C['safe']) ? ', app, javascript; *: data, javascript, ' : '; *:'). 'file, http, https';
@@ -725,5 +725,5 @@ return str_replace(array("\x01", "\x02", "\x03", "\x04", "\x05", "\x07"), array(
 
 function hl_version(){
 // version
-return '1.2.5';
+return '1.2.6';
 }
