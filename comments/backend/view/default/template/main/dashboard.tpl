@@ -196,12 +196,12 @@
                         responsive: true,
                         maintainAspectRatio : false,
                         scales: {
-                            yAxes: [{
+                            yAxes: {
                                 ticks: {
                                     beginAtZero: true,
                                     precision: 0
                                 }
-                            }]
+                            }
                         }
                     }
                 });
