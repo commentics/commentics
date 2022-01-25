@@ -45,6 +45,11 @@
 
 namespace Commentics;
 
+error_reporting(0); // turn off all error reporting
+
+ini_set('log_errors', 0); // don't log errors
+ini_set('display_errors', 0); // don't display errors
+
 require_once dirname(__FILE__) . '/securimage.php';
 
 $img = new Securimage();
