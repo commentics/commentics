@@ -1,7 +1,7 @@
 <?php
 define('CMTX_FRONTEND', true);
 
-define('CMTX_VERSION', '4.2');
+define('CMTX_VERSION', '4.3');
 
 if (!session_id()) {
     // Default session parameters

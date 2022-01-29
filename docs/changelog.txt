@@ -1,3 +1,32 @@
+Version: 4.3
+Date: 29th January 2022
+
+[Feature] Extra fields module
+[Feature] Language editor module
+[Feature] CSS editor module
+[Improvement] PHP 8.1 compatibility
+[Improvement] Sortable fields
+[Improvement] RTL (Right to Left) support
+[Improvement] Adds ability to pass avatar in integration code
+[Improvement] Shows link to user page for x days
+[Improvement] Relaxes name validation if by integration code
+[Improvement] Dark background improvements
+[Improvement] Styling of captcha refresh icon
+[Improvement] Improves reset styling
+[Improvement] Sets title for iFrame
+[Improvement] Uses input type color in admin area
+[Improvement] Improves coding standards
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades chart script
+[Improvement] Upgrades iFrame Resizer script
+[Improvement] Upgrades highlight script
+[Bug Fix] Fix page jumping to comment field
+[Bug Fix] Fix today/yesterday date inaccuracy
+[Bug Fix] Fix visibility of geo fields
+[Other] Disables resizing of comment field
+
+*************************************************************************
+
 Version: 4.2
 Date: 29th May 2021
 
