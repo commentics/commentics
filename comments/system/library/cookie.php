@@ -38,14 +38,14 @@ class Cookie
                 $samesite = 'Lax';
             }
 
-            setcookie($name, $value, [
+            setcookie($name, $value, array(
                 'expires'  => $expires,
                 'path'     => $path,
                 'domain'   => $domain,
                 'secure'   => $secure,
                 'httponly' => $httponly,
                 'samesite' => $samesite
-            ]);
+            ));
         } else {
             if ($this->page->isIFrame()) {
                 $secure = true;
