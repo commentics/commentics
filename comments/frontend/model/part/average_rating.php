@@ -22,6 +22,10 @@ class PartAverageRatingModel extends Model
 
         $result = $this->db->row($query);
 
+        if (is_null($result['average'])) {
+            $result['average'] = 0;
+        }
+
         $average = round($result['average'], 0, PHP_ROUND_HALF_UP);
 
         $total = $result['count'];
