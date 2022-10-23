@@ -494,16 +494,16 @@ class MainFormController extends Controller
                 $this->data['recaptcha_size'] = $this->setting->get('recaptcha_size');
             }
 
-            /* Securimage */
+            /* Captcha */
 
-            $this->data['securimage'] = false;
+            $this->data['captcha'] = false;
 
-            $this->data['securimage_url'] = CMTX_HTTP_3RDPARTY . 'securimage/securimage_show.php?namespace=cmtx_' . $this->page->getId();
+            $this->data['captcha_url'] = $this->setting->get('commentics_url') . 'frontend/index.php?route=main/form/captcha&page_id=' . $this->page->getId();
 
-            if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'securimage' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext')) {
-                $this->data['securimage'] = true;
+            if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'image' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext')) {
+                $this->data['captcha'] = true;
 
-                $this->data['maximum_securimage'] = $this->setting->get('securimage_length');
+                $this->data['maximum_captcha'] = $this->setting->get('captcha_length');
             }
 
             /* Notify */
@@ -670,8 +670,8 @@ class MainFormController extends Controller
                 'maximum_upload_amount'    => (int) $this->setting->get('maximum_upload_amount'),
                 'maximum_upload_size'      => (float) $this->setting->get('maximum_upload_size'),
                 'maximum_upload_total'     => (float) $this->setting->get('maximum_upload_total'),
-                'securimage'               => (bool) $this->data['securimage'],
-                'securimage_url'           => $this->data['securimage_url'],
+                'captcha'                  => (bool) $this->data['captcha'],
+                'captcha_url'              => $this->data['captcha_url'],
                 'cmtx_wait_for_comment'    => $this->data['cmtx_wait_for_comment'],
                 'lang_error_file_num'      => $this->data['lang_error_file_num'],
                 'lang_error_file_size'     => $this->data['lang_error_file_size'],
@@ -738,6 +738,95 @@ class MainFormController extends Controller
             }
 
             echo json_encode($json);
+        }
+    }
+
+    public function captcha()
+    {
+        if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'image' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext')) {
+            if (isset($this->request->get['page_id'])) {
+                $page_id = (int) $this->request->get['page_id'];
+
+                if ($this->page->pageExists($page_id)) {
+                    $captcha_length = $this->setting->get('captcha_length');
+
+                    $captcha_string = $this->variable->random($captcha_length, true);
+
+                    $this->session->data['cmtx_captcha_answer_' . $page_id] = $captcha_string;
+
+                    // Create the image
+                    $image = imagecreatetruecolor($this->setting->get('captcha_width'), $this->setting->get('captcha_height'));
+
+                    // Dimensions
+                    $width = imagesx($image);
+                    $height = imagesy($image);
+
+                    // Background color
+                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_back_color'));
+                    imagefilledrectangle($image, 0, 0, $width, $height, $color);
+
+                    // Draw lines
+                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_line_color'));
+                    for ($i = 0; $i < $this->setting->get('captcha_lines'); $i++) {
+                        imagesetthickness($image, rand(2, 10));
+                        imageline($image, ceil(rand(5, 145)), ceil(rand(0, 35)), ceil(rand(5, 145)), ceil(rand(0, 35)), $color);
+                    }
+
+                    // Draw circles
+                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_circle_color'), true);
+                    for ($i = 0; $i < $this->setting->get('captcha_circles'); $i++) {
+                        imagefilledellipse($image, ceil(rand(5, 145)), ceil(rand(0, 35)), 30, 30, $color);
+                    }
+
+                    // Draw squares
+                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_square_color'), true);
+                    for ($i = 0; $i < $this->setting->get('captcha_squares'); $i++) {
+                        imagesetthickness($image, rand(2, 4));
+                        imagerectangle($image, rand(-10, 190), rand(-10, 10), rand(-10, 190), rand(40, 60), $color);
+                    }
+
+                    // Draw dots
+                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_dots_color'));
+                    for ($i = 0; $i < $this->setting->get('captcha_dots'); $i++) {
+                        $x = mt_rand(0, $width);
+                        $y = mt_rand(0, $height);
+                        $size = mt_rand(1, 5);
+                        imagefilledarc($image, $x, $y, $size, $size, 0, mt_rand(180,360), $color, IMG_ARC_PIE);
+                    }
+
+                    // Draw characters
+                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_text_color'));
+                    $size = 20; // the font size in points
+                    $font = $this->loadFont('AHGBold.ttf'); // load font
+                    $letter_space = 170 / $captcha_length;
+                    $initial = 25;
+                    for ($i = 0; $i < $captcha_length; $i++) {
+                        $angle = rand(-15, 15); // the angle in degrees
+                        $x = $initial + (int) ($i * $letter_space); // the x coordinate of the character
+                        $y = rand(35, 55); // the y coordinate of the character
+                        imagettftext($image, $size, $angle, $x, $y, $color, $font, $captcha_string[$i]);
+                    }
+
+                    $this->response->addHeader('Content-type: image/png');
+
+                    imagepng($image);
+                    imagedestroy($image);
+                }
+            }
+        }
+    }
+
+    private function hexColorAllocate($image, $hex, $transparency = false) {
+        $hex = ltrim($hex, '#');
+
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+
+        if ($transparency) {
+            return imagecolorallocatealpha($image, $r, $g, $b, 75);
+        } else {
+            return imagecolorallocate($image, $r, $g, $b);
         }
     }
 
@@ -1641,24 +1730,20 @@ class MainFormController extends Controller
                                     }
                                 }
 
-                                /* Securimage */
-                                if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'securimage' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
-                                    if (isset($this->request->post['cmtx_securimage']) && $this->request->post['cmtx_securimage'] != '') {
-                                        if (!class_exists('Securimage')) {
-                                            require_once CMTX_DIR_3RDPARTY . 'securimage/securimage.php';
-                                        }
-
-                                        $securimage = new \Commentics\Securimage();
-
-                                        $securimage->setNamespace('cmtx_' . $this->page->getId());
-
-                                        if ($securimage->check($this->request->post['cmtx_securimage']) == false) {
-                                            $json['error']['securimage'] = $this->data['lang_error_incorrect_securimage'];
+                                /* Image Captcha */
+                                if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'image' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
+                                    if (!empty($this->request->post['cmtx_captcha'])) {
+                                        if (!empty($this->session->data['cmtx_captcha_answer_' . $this->page->getId()])) {
+                                            if ($this->variable->strtoupper($this->request->post['cmtx_captcha']) != $this->variable->strtoupper($this->session->data['cmtx_captcha_answer_' . $this->page->getId()])) {
+                                                $json['error']['captcha'] = $this->data['lang_error_incorrect_captcha'];
+                                            } else {
+                                                $this->session->data['cmtx_captcha_complete_' . $this->page->getId()] = true;
+                                            }
                                         } else {
-                                            $this->session->data['cmtx_captcha_complete_' . $this->page->getId()] = true;
+                                            $json['error']['captcha'] = $this->data['lang_error_missing_captcha'];
                                         }
                                     } else {
-                                        $json['error']['securimage'] = $this->data['lang_error_no_securimage'];
+                                        $json['error']['captcha'] = $this->data['lang_error_no_captcha'];
                                     }
                                 }
 

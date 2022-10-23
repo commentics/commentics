@@ -551,7 +551,7 @@ select.cmtx_required {
     margin-top: 20px;
 }
 
-.cmtx_securimage_row {
+.cmtx_captcha_row {
     margin-top: 20px;
 }
 
@@ -588,11 +588,11 @@ select.cmtx_required {
     padding: 6px;
 }
 
-#cmtx_securimage_image, .cmtx_securimage_field {
+#cmtx_captcha_image, .cmtx_captcha_field {
     width: 215px;
 }
 
-.cmtx_securimage_refresh {
+.cmtx_captcha_refresh {
     color: $grey;
     cursor: pointer;
     font-size: 14px;

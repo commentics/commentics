@@ -305,24 +305,20 @@ class PartNotifyController extends Controller
                                         }
                                     }
 
-                                    /* Securimage */
-                                    if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'securimage' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
-                                        if (isset($this->request->post['cmtx_securimage']) && $this->request->post['cmtx_securimage'] != '') {
-                                            if (!class_exists('Securimage')) {
-                                                require_once CMTX_DIR_3RDPARTY . 'securimage/securimage.php';
-                                            }
-
-                                            $securimage = new \Commentics\Securimage();
-
-                                            $securimage->setNamespace('cmtx_' . $this->page->getId());
-
-                                            if ($securimage->check($this->request->post['cmtx_securimage']) == false) {
-                                                $json['error']['securimage'] = $this->data['lang_error_incorrect_securimage'];
+                                    /* Image Captcha */
+                                    if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'image' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
+                                        if (!empty($this->request->post['cmtx_captcha'])) {
+                                            if (!empty($this->session->data['cmtx_captcha_answer_' . $this->page->getId()])) {
+                                                if ($this->variable->strtoupper($this->request->post['cmtx_captcha']) != $this->variable->strtoupper($this->session->data['cmtx_captcha_answer_' . $this->page->getId()])) {
+                                                    $json['error']['captcha'] = $this->data['lang_error_incorrect_captcha'];
+                                                } else {
+                                                    $this->session->data['cmtx_captcha_complete_' . $this->page->getId()] = true;
+                                                }
                                             } else {
-                                                $this->session->data['cmtx_captcha_complete_' . $this->page->getId()] = true;
+                                                $json['error']['captcha'] = $this->data['lang_error_missing_captcha'];
                                             }
                                         } else {
-                                            $json['error']['securimage'] = $this->data['lang_error_no_securimage'];
+                                            $json['error']['captcha'] = $this->data['lang_error_no_captcha'];
                                         }
                                     }
 

@@ -778,7 +778,7 @@
                     <label><?php echo $lang_entry_type; ?></label>
                     <select name="captcha_type">
                         <option value="recaptcha" <?php if ($captcha_type == 'recaptcha') { echo 'selected'; } ?>>ReCaptcha</option>
-                        <option value="securimage" <?php if ($captcha_type == 'securimage') { echo 'selected'; } ?>>Securimage</option>
+                        <option value="image" <?php if ($captcha_type == 'image') { echo 'selected'; } ?>><?php echo $lang_select_image; ?></option>
                     </select>
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_captcha_type; ?>', this, event, '')">[?]</a>
                     <?php if ($error_captcha_type) { ?>
@@ -826,89 +826,114 @@
                     <?php } ?>
                 </div>
 
-                <div class="fieldset securimage_section">
+                <div class="fieldset captcha_section">
                     <label><?php echo $lang_entry_width; ?></label>
-                    <input type="text" required name="securimage_width" class="small" value="<?php echo $securimage_width; ?>" maxlength="3">
+                    <input type="text" required name="captcha_width" class="small" value="<?php echo $captcha_width; ?>" maxlength="3">
                     <span class="note"><?php echo $lang_note_pixels; ?></span>
-                    <?php if ($error_securimage_width) { ?>
-                        <span class="error"><?php echo $error_securimage_width; ?></span>
+                    <?php if ($error_captcha_width) { ?>
+                        <span class="error"><?php echo $error_captcha_width; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset securimage_section">
+                <div class="fieldset captcha_section">
                     <label><?php echo $lang_entry_height; ?></label>
-                    <input type="text" required name="securimage_height" class="small" value="<?php echo $securimage_height; ?>" maxlength="3">
+                    <input type="text" required name="captcha_height" class="small" value="<?php echo $captcha_height; ?>" maxlength="3">
                     <span class="note"><?php echo $lang_note_pixels; ?></span>
-                    <?php if ($error_securimage_height) { ?>
-                        <span class="error"><?php echo $error_securimage_height; ?></span>
+                    <?php if ($error_captcha_height) { ?>
+                        <span class="error"><?php echo $error_captcha_height; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset securimage_section">
+                <div class="fieldset captcha_section">
                     <label><?php echo $lang_entry_length; ?></label>
-                    <input type="text" required name="securimage_length" class="small" value="<?php echo $securimage_length; ?>" maxlength="2">
+                    <input type="text" required name="captcha_length" class="small" value="<?php echo $captcha_length; ?>" maxlength="2">
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_length; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_securimage_length) { ?>
-                        <span class="error"><?php echo $error_securimage_length; ?></span>
+                    <?php if ($error_captcha_length) { ?>
+                        <span class="error"><?php echo $error_captcha_length; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset securimage_section">
-                    <label><?php echo $lang_entry_perturbation; ?></label>
-                    <input type="text" required name="securimage_perturbation" class="small" value="<?php echo $securimage_perturbation; ?>" maxlength="4">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_perturbation; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_securimage_perturbation) { ?>
-                        <span class="error"><?php echo $error_securimage_perturbation; ?></span>
-                    <?php } ?>
-                </div>
-
-                <div class="fieldset securimage_section">
+                <div class="fieldset captcha_section">
                     <label><?php echo $lang_entry_lines; ?></label>
-                    <input type="text" required name="securimage_lines" class="small" value="<?php echo $securimage_lines; ?>" maxlength="2">
+                    <input type="text" required name="captcha_lines" class="small" value="<?php echo $captcha_lines; ?>" maxlength="2">
                     <a class="hint" onmouseover="showhint('<?php echo $lang_hint_lines; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_securimage_lines) { ?>
-                        <span class="error"><?php echo $error_securimage_lines; ?></span>
+                    <?php if ($error_captcha_lines) { ?>
+                        <span class="error"><?php echo $error_captcha_lines; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset securimage_section">
-                    <label><?php echo $lang_entry_noise; ?></label>
-                    <input type="text" required name="securimage_noise" class="small" value="<?php echo $securimage_noise; ?>" maxlength="2">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_noise; ?>', this, event, '')">[?]</a>
-                    <?php if ($error_securimage_noise) { ?>
-                        <span class="error"><?php echo $error_securimage_noise; ?></span>
+                <div class="fieldset captcha_section">
+                    <label><?php echo $lang_entry_circles; ?></label>
+                    <input type="text" required name="captcha_circles" class="small" value="<?php echo $captcha_circles; ?>" maxlength="2">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_circles; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_captcha_circles) { ?>
+                        <span class="error"><?php echo $error_captcha_circles; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset securimage_section">
+                <div class="fieldset captcha_section">
+                    <label><?php echo $lang_entry_squares; ?></label>
+                    <input type="text" required name="captcha_squares" class="small" value="<?php echo $captcha_squares; ?>" maxlength="2">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_squares; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_captcha_squares) { ?>
+                        <span class="error"><?php echo $error_captcha_squares; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset captcha_section">
+                    <label><?php echo $lang_entry_dots; ?></label>
+                    <input type="text" required name="captcha_dots" class="small" value="<?php echo $captcha_dots; ?>" maxlength="2">
+                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_dots; ?>', this, event, '')">[?]</a>
+                    <?php if ($error_captcha_dots) { ?>
+                        <span class="error"><?php echo $error_captcha_dots; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset captcha_section">
                     <label><?php echo $lang_entry_text_color; ?></label>
-                    <input type="color" name="securimage_text_color" value="<?php echo $securimage_text_color; ?>">
-                    <?php if ($error_securimage_text_color) { ?>
-                        <span class="error"><?php echo $error_securimage_text_color; ?></span>
+                    <input type="color" name="captcha_text_color" value="<?php echo $captcha_text_color; ?>">
+                    <?php if ($error_captcha_text_color) { ?>
+                        <span class="error"><?php echo $error_captcha_text_color; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset securimage_section">
-                    <label><?php echo $lang_entry_line_color; ?></label>
-                    <input type="color" name="securimage_line_color" value="<?php echo $securimage_line_color; ?>">
-                    <?php if ($error_securimage_line_color) { ?>
-                        <span class="error"><?php echo $error_securimage_line_color; ?></span>
-                    <?php } ?>
-                </div>
-
-                <div class="fieldset securimage_section">
+                <div class="fieldset captcha_section">
                     <label><?php echo $lang_entry_back_color; ?></label>
-                    <input type="color" name="securimage_back_color" value="<?php echo $securimage_back_color; ?>">
-                    <?php if ($error_securimage_back_color) { ?>
-                        <span class="error"><?php echo $error_securimage_back_color; ?></span>
+                    <input type="color" name="captcha_back_color" value="<?php echo $captcha_back_color; ?>">
+                    <?php if ($error_captcha_back_color) { ?>
+                        <span class="error"><?php echo $error_captcha_back_color; ?></span>
                     <?php } ?>
                 </div>
 
-                <div class="fieldset securimage_section">
-                    <label><?php echo $lang_entry_noise_color; ?></label>
-                    <input type="color" name="securimage_noise_color" value="<?php echo $securimage_noise_color; ?>">
-                    <?php if ($error_securimage_noise_color) { ?>
-                        <span class="error"><?php echo $error_securimage_noise_color; ?></span>
+                <div class="fieldset captcha_section">
+                    <label><?php echo $lang_entry_line_color; ?></label>
+                    <input type="color" name="captcha_line_color" value="<?php echo $captcha_line_color; ?>">
+                    <?php if ($error_captcha_line_color) { ?>
+                        <span class="error"><?php echo $error_captcha_line_color; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset captcha_section">
+                    <label><?php echo $lang_entry_circle_color; ?></label>
+                    <input type="color" name="captcha_circle_color" value="<?php echo $captcha_circle_color; ?>">
+                    <?php if ($error_captcha_circle_color) { ?>
+                        <span class="error"><?php echo $error_captcha_circle_color; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset captcha_section">
+                    <label><?php echo $lang_entry_square_color; ?></label>
+                    <input type="color" name="captcha_square_color" value="<?php echo $captcha_square_color; ?>">
+                    <?php if ($error_captcha_square_color) { ?>
+                        <span class="error"><?php echo $error_captcha_square_color; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset captcha_section">
+                    <label><?php echo $lang_entry_dots_color; ?></label>
+                    <input type="color" name="captcha_dots_color" value="<?php echo $captcha_dots_color; ?>">
+                    <?php if ($error_captcha_dots_color) { ?>
+                        <span class="error"><?php echo $error_captcha_dots_color; ?></span>
                     <?php } ?>
                 </div>
             </div>
@@ -1134,14 +1159,14 @@
     // <![CDATA[
     $(document).ready(function() {
         $('.recaptcha_section').hide();
-        $('.securimage_section').hide();
+        $('.captcha_section').hide();
 
         <?php if ($captcha_type == 'recaptcha') { ?>
             $('.recaptcha_section').show();
         <?php } ?>
 
-        <?php if ($captcha_type == 'securimage') { ?>
-            $('.securimage_section').show();
+        <?php if ($captcha_type == 'image') { ?>
+            $('.captcha_section').show();
         <?php } ?>
     });
     // ]]>
@@ -1155,10 +1180,10 @@
 
             if (type == 'recaptcha') {
                 $('.recaptcha_section').show();
-                $('.securimage_section').hide();
+                $('.captcha_section').hide();
             } else {
                 $('.recaptcha_section').hide();
-                $('.securimage_section').show();
+                $('.captcha_section').show();
             }
         });
     });

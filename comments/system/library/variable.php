@@ -100,9 +100,13 @@ class Variable
     }
 
     /* Gets a random string of mixed case letters and numbers */
-    public function random($length = 20)
+    public function random($length = 20, $friendly = false)
     {
-        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        if ($friendly) {
+            $characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // omits characters I/1 and O/0
+        } else {
+            $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        }
 
         $key = '';
 

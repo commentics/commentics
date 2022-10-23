@@ -18,7 +18,7 @@ $_['lang_placeholder_town']               = 'Town';
 $_['lang_placeholder_country']            = 'Country';
 $_['lang_placeholder_state']              = 'State';
 $_['lang_placeholder_answer']             = 'Answer';
-$_['lang_placeholder_securimage']         = 'Enter the characters';
+$_['lang_placeholder_captcha']            = 'Enter the characters';
 
 // Title
 $_['lang_title_bb_code_bold']             = 'Bold';
@@ -67,10 +67,10 @@ $_['lang_title_country']                  = 'Select your country';
 $_['lang_title_state']                    = 'Select your state';
 $_['lang_title_answer']                   = 'Enter your answer here';
 $_['lang_title_refresh']                  = 'Refresh';
-$_['lang_title_securimage']               = 'Enter the characters here';
+$_['lang_title_captcha']                  = 'Enter the characters here';
 
 // Alt
-$_['lang_alt_securimage']                 = 'Captcha Image';
+$_['lang_alt_captcha']                    = 'Captcha Image';
 
 // Tag
 $_['lang_tag_bb_code_bold_start']         = '[B]';
@@ -262,8 +262,9 @@ $_['lang_error_honeypot']                 = 'A hidden field to detect bots was f
 $_['lang_error_time']                     = 'The form was submitted too quickly. Please take longer.';
 $_['lang_error_no_recaptcha']             = 'Please tick the checkbox inside the captcha';
 $_['lang_error_incorrect_recaptcha']      = 'You didn\'t pass the captcha test. Please try again.';
-$_['lang_error_no_securimage']            = 'Please enter the characters from the image';
-$_['lang_error_incorrect_securimage']     = 'You didn\'t enter the correct characters';
+$_['lang_error_no_captcha']               = 'Please enter the characters from the image';
+$_['lang_error_incorrect_captcha']        = 'You didn\'t enter the correct characters';
+$_['lang_error_missing_captcha']          = 'Please click to refresh the captcha';
 $_['lang_error_flooding_delay']           = 'Your last comment was submitted recently. Please wait longer.';
 $_['lang_error_flooding_maximum']         = 'You have submitted several comments recently. Please wait longer.';
 $_['lang_error_upload_writable']          = 'The upload folder is not writable. Please contact the administrator.';

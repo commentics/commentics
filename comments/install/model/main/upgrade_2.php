@@ -365,6 +365,26 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'notice', `title` = 'notice_extra_fields', `value` = '1'");
         }
+
+        if ($version == '4.3 -> 4.4') {
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` LIKE 'securimage%'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = 'image' WHERE `title` = 'captcha_type' AND `value` = 'securimage'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_width', `value` = '215'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_height', `value` = '80'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_length', `value` = '6'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_lines', `value` = '3'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_circles', `value` = '3'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_squares', `value` = '2'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_dots', `value` = '20'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_text_color', `value` = '#616161'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_back_color', `value` = '#FFFFFF'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_line_color', `value` = '#00FF00'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_circle_color', `value` = '#FF0000'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_square_color', `value` = '#0000FF'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_dots_color', `value` = '#616161'");
+
+            remove_directory(CMTX_DIR_3RDPARTY . 'securimage/');
+        }
     }
 
     public function getInstalledVersion()

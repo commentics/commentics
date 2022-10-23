@@ -943,64 +943,82 @@ class SettingsLayoutFormController extends Controller
             $this->data['recaptcha_size'] = $this->setting->get('recaptcha_size');
         }
 
-        if (isset($this->request->post['securimage_width'])) {
-            $this->data['securimage_width'] = $this->request->post['securimage_width'];
+        if (isset($this->request->post['captcha_width'])) {
+            $this->data['captcha_width'] = $this->request->post['captcha_width'];
         } else {
-            $this->data['securimage_width'] = $this->setting->get('securimage_width');
+            $this->data['captcha_width'] = $this->setting->get('captcha_width');
         }
 
-        if (isset($this->request->post['securimage_height'])) {
-            $this->data['securimage_height'] = $this->request->post['securimage_height'];
+        if (isset($this->request->post['captcha_height'])) {
+            $this->data['captcha_height'] = $this->request->post['captcha_height'];
         } else {
-            $this->data['securimage_height'] = $this->setting->get('securimage_height');
+            $this->data['captcha_height'] = $this->setting->get('captcha_height');
         }
 
-        if (isset($this->request->post['securimage_length'])) {
-            $this->data['securimage_length'] = $this->request->post['securimage_length'];
+        if (isset($this->request->post['captcha_length'])) {
+            $this->data['captcha_length'] = $this->request->post['captcha_length'];
         } else {
-            $this->data['securimage_length'] = $this->setting->get('securimage_length');
+            $this->data['captcha_length'] = $this->setting->get('captcha_length');
         }
 
-        if (isset($this->request->post['securimage_perturbation'])) {
-            $this->data['securimage_perturbation'] = $this->request->post['securimage_perturbation'];
+        if (isset($this->request->post['captcha_lines'])) {
+            $this->data['captcha_lines'] = $this->request->post['captcha_lines'];
         } else {
-            $this->data['securimage_perturbation'] = $this->setting->get('securimage_perturbation');
+            $this->data['captcha_lines'] = $this->setting->get('captcha_lines');
         }
 
-        if (isset($this->request->post['securimage_lines'])) {
-            $this->data['securimage_lines'] = $this->request->post['securimage_lines'];
+        if (isset($this->request->post['captcha_circles'])) {
+            $this->data['captcha_circles'] = $this->request->post['captcha_circles'];
         } else {
-            $this->data['securimage_lines'] = $this->setting->get('securimage_lines');
+            $this->data['captcha_circles'] = $this->setting->get('captcha_circles');
         }
 
-        if (isset($this->request->post['securimage_noise'])) {
-            $this->data['securimage_noise'] = $this->request->post['securimage_noise'];
+        if (isset($this->request->post['captcha_squares'])) {
+            $this->data['captcha_squares'] = $this->request->post['captcha_squares'];
         } else {
-            $this->data['securimage_noise'] = $this->setting->get('securimage_noise');
+            $this->data['captcha_squares'] = $this->setting->get('captcha_squares');
         }
 
-        if (isset($this->request->post['securimage_text_color'])) {
-            $this->data['securimage_text_color'] = $this->request->post['securimage_text_color'];
+        if (isset($this->request->post['captcha_dots'])) {
+            $this->data['captcha_dots'] = $this->request->post['captcha_dots'];
         } else {
-            $this->data['securimage_text_color'] = $this->setting->get('securimage_text_color');
+            $this->data['captcha_dots'] = $this->setting->get('captcha_dots');
         }
 
-        if (isset($this->request->post['securimage_line_color'])) {
-            $this->data['securimage_line_color'] = $this->request->post['securimage_line_color'];
+        if (isset($this->request->post['captcha_text_color'])) {
+            $this->data['captcha_text_color'] = $this->request->post['captcha_text_color'];
         } else {
-            $this->data['securimage_line_color'] = $this->setting->get('securimage_line_color');
+            $this->data['captcha_text_color'] = $this->setting->get('captcha_text_color');
         }
 
-        if (isset($this->request->post['securimage_back_color'])) {
-            $this->data['securimage_back_color'] = $this->request->post['securimage_back_color'];
+        if (isset($this->request->post['captcha_back_color'])) {
+            $this->data['captcha_back_color'] = $this->request->post['captcha_back_color'];
         } else {
-            $this->data['securimage_back_color'] = $this->setting->get('securimage_back_color');
+            $this->data['captcha_back_color'] = $this->setting->get('captcha_back_color');
         }
 
-        if (isset($this->request->post['securimage_noise_color'])) {
-            $this->data['securimage_noise_color'] = $this->request->post['securimage_noise_color'];
+        if (isset($this->request->post['captcha_line_color'])) {
+            $this->data['captcha_line_color'] = $this->request->post['captcha_line_color'];
         } else {
-            $this->data['securimage_noise_color'] = $this->setting->get('securimage_noise_color');
+            $this->data['captcha_line_color'] = $this->setting->get('captcha_line_color');
+        }
+
+        if (isset($this->request->post['captcha_circle_color'])) {
+            $this->data['captcha_circle_color'] = $this->request->post['captcha_circle_color'];
+        } else {
+            $this->data['captcha_circle_color'] = $this->setting->get('captcha_circle_color');
+        }
+
+        if (isset($this->request->post['captcha_square_color'])) {
+            $this->data['captcha_square_color'] = $this->request->post['captcha_square_color'];
+        } else {
+            $this->data['captcha_square_color'] = $this->setting->get('captcha_square_color');
+        }
+
+        if (isset($this->request->post['captcha_dots_color'])) {
+            $this->data['captcha_dots_color'] = $this->request->post['captcha_dots_color'];
+        } else {
+            $this->data['captcha_dots_color'] = $this->setting->get('captcha_dots_color');
         }
 
         if (isset($this->error['captcha_type'])) {
@@ -1033,64 +1051,82 @@ class SettingsLayoutFormController extends Controller
             $this->data['error_recaptcha_size'] = '';
         }
 
-        if (isset($this->error['securimage_width'])) {
-            $this->data['error_securimage_width'] = $this->error['securimage_width'];
+        if (isset($this->error['captcha_width'])) {
+            $this->data['error_captcha_width'] = $this->error['captcha_width'];
         } else {
-            $this->data['error_securimage_width'] = '';
+            $this->data['error_captcha_width'] = '';
         }
 
-        if (isset($this->error['securimage_height'])) {
-            $this->data['error_securimage_height'] = $this->error['securimage_height'];
+        if (isset($this->error['captcha_height'])) {
+            $this->data['error_captcha_height'] = $this->error['captcha_height'];
         } else {
-            $this->data['error_securimage_height'] = '';
+            $this->data['error_captcha_height'] = '';
         }
 
-        if (isset($this->error['securimage_length'])) {
-            $this->data['error_securimage_length'] = $this->error['securimage_length'];
+        if (isset($this->error['captcha_length'])) {
+            $this->data['error_captcha_length'] = $this->error['captcha_length'];
         } else {
-            $this->data['error_securimage_length'] = '';
+            $this->data['error_captcha_length'] = '';
         }
 
-        if (isset($this->error['securimage_perturbation'])) {
-            $this->data['error_securimage_perturbation'] = $this->error['securimage_perturbation'];
+        if (isset($this->error['captcha_lines'])) {
+            $this->data['error_captcha_lines'] = $this->error['captcha_lines'];
         } else {
-            $this->data['error_securimage_perturbation'] = '';
+            $this->data['error_captcha_lines'] = '';
         }
 
-        if (isset($this->error['securimage_lines'])) {
-            $this->data['error_securimage_lines'] = $this->error['securimage_lines'];
+        if (isset($this->error['captcha_circles'])) {
+            $this->data['error_captcha_circles'] = $this->error['captcha_circles'];
         } else {
-            $this->data['error_securimage_lines'] = '';
+            $this->data['error_captcha_circles'] = '';
         }
 
-        if (isset($this->error['securimage_noise'])) {
-            $this->data['error_securimage_noise'] = $this->error['securimage_noise'];
+        if (isset($this->error['captcha_squares'])) {
+            $this->data['error_captcha_squares'] = $this->error['captcha_squares'];
         } else {
-            $this->data['error_securimage_noise'] = '';
+            $this->data['error_captcha_squares'] = '';
         }
 
-        if (isset($this->error['securimage_text_color'])) {
-            $this->data['error_securimage_text_color'] = $this->error['securimage_text_color'];
+        if (isset($this->error['captcha_dots'])) {
+            $this->data['error_captcha_dots'] = $this->error['captcha_dots'];
         } else {
-            $this->data['error_securimage_text_color'] = '';
+            $this->data['error_captcha_dots'] = '';
         }
 
-        if (isset($this->error['securimage_line_color'])) {
-            $this->data['error_securimage_line_color'] = $this->error['securimage_line_color'];
+        if (isset($this->error['captcha_text_color'])) {
+            $this->data['error_captcha_text_color'] = $this->error['captcha_text_color'];
         } else {
-            $this->data['error_securimage_line_color'] = '';
+            $this->data['error_captcha_text_color'] = '';
         }
 
-        if (isset($this->error['securimage_back_color'])) {
-            $this->data['error_securimage_back_color'] = $this->error['securimage_back_color'];
+        if (isset($this->error['captcha_back_color'])) {
+            $this->data['error_captcha_back_color'] = $this->error['captcha_back_color'];
         } else {
-            $this->data['error_securimage_back_color'] = '';
+            $this->data['error_captcha_back_color'] = '';
         }
 
-        if (isset($this->error['securimage_noise_color'])) {
-            $this->data['error_securimage_noise_color'] = $this->error['securimage_noise_color'];
+        if (isset($this->error['captcha_line_color'])) {
+            $this->data['error_captcha_line_color'] = $this->error['captcha_line_color'];
         } else {
-            $this->data['error_securimage_noise_color'] = '';
+            $this->data['error_captcha_line_color'] = '';
+        }
+
+        if (isset($this->error['captcha_circle_color'])) {
+            $this->data['error_captcha_circle_color'] = $this->error['captcha_circle_color'];
+        } else {
+            $this->data['error_captcha_circle_color'] = '';
+        }
+
+        if (isset($this->error['captcha_square_color'])) {
+            $this->data['error_captcha_square_color'] = $this->error['captcha_square_color'];
+        } else {
+            $this->data['error_captcha_square_color'] = '';
+        }
+
+        if (isset($this->error['captcha_dots_color'])) {
+            $this->data['error_captcha_dots_color'] = $this->error['captcha_dots_color'];
+        } else {
+            $this->data['error_captcha_dots_color'] = '';
         }
 
         /* Notify */
@@ -1423,7 +1459,7 @@ class SettingsLayoutFormController extends Controller
             $this->error['captcha_type'] = $this->data['lang_error_fopen'];
         }
 
-        if (!isset($this->request->post['captcha_type']) || !in_array($this->request->post['captcha_type'], array('recaptcha', 'securimage'))) {
+        if (!isset($this->request->post['captcha_type']) || !in_array($this->request->post['captcha_type'], array('recaptcha', 'image'))) {
             $this->error['captcha_type'] = $this->data['lang_error_selection'];
         }
 
@@ -1451,60 +1487,88 @@ class SettingsLayoutFormController extends Controller
             $this->error['recaptcha_size'] = $this->data['lang_error_selection'];
         }
 
-        if (!isset($this->request->post['securimage_width']) || !$this->validation->isInt($this->request->post['securimage_width']) || $this->request->post['securimage_width'] < 1 || $this->request->post['securimage_width'] > 500) {
-            $this->error['securimage_width'] = sprintf($this->data['lang_error_range'], 1, 500);
+        if (isset($this->request->post['enabled_captcha']) && isset($this->request->post['captcha_type']) && $this->request->post['captcha_type'] == 'image' && (!function_exists('imagettftext') || !is_callable('imagettftext'))) {
+            $this->error['captcha_type'] = $this->data['lang_error_freetype'];
         }
 
-        if (!isset($this->request->post['securimage_height']) || !$this->validation->isInt($this->request->post['securimage_height']) || $this->request->post['securimage_height'] < 1 || $this->request->post['securimage_height'] > 500) {
-            $this->error['securimage_height'] = sprintf($this->data['lang_error_range'], 1, 500);
+        if (isset($this->request->post['enabled_captcha']) && isset($this->request->post['captcha_type']) && $this->request->post['captcha_type'] == 'image' && !extension_loaded('gd')) {
+            $this->error['captcha_type'] = $this->data['lang_error_gd'];
         }
 
-        if (!isset($this->request->post['securimage_length']) || !$this->validation->isInt($this->request->post['securimage_length']) || $this->request->post['securimage_length'] < 1 || $this->request->post['securimage_length'] > 10) {
-            $this->error['securimage_length'] = sprintf($this->data['lang_error_range'], 1, 10);
+        if (!isset($this->request->post['captcha_width']) || !$this->validation->isInt($this->request->post['captcha_width']) || $this->request->post['captcha_width'] < 1 || $this->request->post['captcha_width'] > 500) {
+            $this->error['captcha_width'] = sprintf($this->data['lang_error_range'], 1, 500);
         }
 
-        if (!isset($this->request->post['securimage_perturbation']) || !preg_match('/^[0|1]{1}\.[0-9]{1,2}$/i', $this->request->post['securimage_perturbation']) || $this->request->post['securimage_perturbation'] < 0 || $this->request->post['securimage_perturbation'] > 1) {
-            $this->error['securimage_perturbation'] = sprintf($this->data['lang_error_perturbation'], 0.00, 1.00);
+        if (!isset($this->request->post['captcha_height']) || !$this->validation->isInt($this->request->post['captcha_height']) || $this->request->post['captcha_height'] < 1 || $this->request->post['captcha_height'] > 500) {
+            $this->error['captcha_height'] = sprintf($this->data['lang_error_range'], 1, 500);
         }
 
-        if (!isset($this->request->post['securimage_lines']) || !$this->validation->isInt($this->request->post['securimage_lines']) || $this->request->post['securimage_lines'] < 0 || $this->request->post['securimage_lines'] > 10) {
-            $this->error['securimage_lines'] = sprintf($this->data['lang_error_range'], 0, 10);
+        if (!isset($this->request->post['captcha_length']) || !$this->validation->isInt($this->request->post['captcha_length']) || $this->request->post['captcha_length'] < 1 || $this->request->post['captcha_length'] > 10) {
+            $this->error['captcha_length'] = sprintf($this->data['lang_error_range'], 1, 10);
         }
 
-        if (!isset($this->request->post['securimage_noise']) || !$this->validation->isInt($this->request->post['securimage_noise']) || $this->request->post['securimage_noise'] < 0 || $this->request->post['securimage_noise'] > 10) {
-            $this->error['securimage_noise'] = sprintf($this->data['lang_error_range'], 0, 10);
+        if (!isset($this->request->post['captcha_lines']) || !$this->validation->isInt($this->request->post['captcha_lines']) || $this->request->post['captcha_lines'] < 0 || $this->request->post['captcha_lines'] > 10) {
+            $this->error['captcha_lines'] = sprintf($this->data['lang_error_range'], 0, 10);
         }
 
-        if (!isset($this->request->post['securimage_text_color']) || substr($this->request->post['securimage_text_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['securimage_text_color'], '#'))) {
-            $this->error['securimage_text_color'] = $this->data['lang_error_hex_format'];
+        if (!isset($this->request->post['captcha_circles']) || !$this->validation->isInt($this->request->post['captcha_circles']) || $this->request->post['captcha_circles'] < 0 || $this->request->post['captcha_circles'] > 10) {
+            $this->error['captcha_circles'] = sprintf($this->data['lang_error_range'], 0, 10);
         }
 
-        if (!isset($this->request->post['securimage_text_color']) || $this->validation->length($this->request->post['securimage_text_color']) != 7) {
-            $this->error['securimage_text_color'] = $this->data['lang_error_hex_length'];
+        if (!isset($this->request->post['captcha_squares']) || !$this->validation->isInt($this->request->post['captcha_squares']) || $this->request->post['captcha_squares'] < 0 || $this->request->post['captcha_squares'] > 10) {
+            $this->error['captcha_squares'] = sprintf($this->data['lang_error_range'], 0, 10);
         }
 
-        if (!isset($this->request->post['securimage_line_color']) || substr($this->request->post['securimage_line_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['securimage_line_color'], '#'))) {
-            $this->error['securimage_line_color'] = $this->data['lang_error_hex_format'];
+        if (!isset($this->request->post['captcha_dots']) || !$this->validation->isInt($this->request->post['captcha_dots']) || $this->request->post['captcha_dots'] < 0 || $this->request->post['captcha_dots'] > 99) {
+            $this->error['captcha_dots'] = sprintf($this->data['lang_error_range'], 0, 99);
         }
 
-        if (!isset($this->request->post['securimage_line_color']) || $this->validation->length($this->request->post['securimage_line_color']) != 7) {
-            $this->error['securimage_line_color'] = $this->data['lang_error_hex_length'];
+        if (!isset($this->request->post['captcha_text_color']) || substr($this->request->post['captcha_text_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['captcha_text_color'], '#'))) {
+            $this->error['captcha_text_color'] = $this->data['lang_error_hex_format'];
         }
 
-        if (!isset($this->request->post['securimage_back_color']) || substr($this->request->post['securimage_back_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['securimage_back_color'], '#'))) {
-            $this->error['securimage_back_color'] = $this->data['lang_error_hex_format'];
+        if (!isset($this->request->post['captcha_text_color']) || $this->validation->length($this->request->post['captcha_text_color']) != 7) {
+            $this->error['captcha_text_color'] = $this->data['lang_error_hex_length'];
         }
 
-        if (!isset($this->request->post['securimage_back_color']) || $this->validation->length($this->request->post['securimage_back_color']) != 7) {
-            $this->error['securimage_back_color'] = $this->data['lang_error_hex_length'];
+        if (!isset($this->request->post['captcha_back_color']) || substr($this->request->post['captcha_back_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['captcha_back_color'], '#'))) {
+            $this->error['captcha_back_color'] = $this->data['lang_error_hex_format'];
         }
 
-        if (!isset($this->request->post['securimage_noise_color']) || substr($this->request->post['securimage_noise_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['securimage_noise_color'], '#'))) {
-            $this->error['securimage_noise_color'] = $this->data['lang_error_hex_format'];
+        if (!isset($this->request->post['captcha_back_color']) || $this->validation->length($this->request->post['captcha_back_color']) != 7) {
+            $this->error['captcha_back_color'] = $this->data['lang_error_hex_length'];
         }
 
-        if (!isset($this->request->post['securimage_noise_color']) || $this->validation->length($this->request->post['securimage_noise_color']) != 7) {
-            $this->error['securimage_noise_color'] = $this->data['lang_error_hex_length'];
+        if (!isset($this->request->post['captcha_line_color']) || substr($this->request->post['captcha_line_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['captcha_line_color'], '#'))) {
+            $this->error['captcha_line_color'] = $this->data['lang_error_hex_format'];
+        }
+
+        if (!isset($this->request->post['captcha_line_color']) || $this->validation->length($this->request->post['captcha_line_color']) != 7) {
+            $this->error['captcha_line_color'] = $this->data['lang_error_hex_length'];
+        }
+
+        if (!isset($this->request->post['captcha_circle_color']) || substr($this->request->post['captcha_circle_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['captcha_circle_color'], '#'))) {
+            $this->error['captcha_circle_color'] = $this->data['lang_error_hex_format'];
+        }
+
+        if (!isset($this->request->post['captcha_circle_color']) || $this->validation->length($this->request->post['captcha_circle_color']) != 7) {
+            $this->error['captcha_circle_color'] = $this->data['lang_error_hex_length'];
+        }
+
+        if (!isset($this->request->post['captcha_square_color']) || substr($this->request->post['captcha_square_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['captcha_square_color'], '#'))) {
+            $this->error['captcha_square_color'] = $this->data['lang_error_hex_format'];
+        }
+
+        if (!isset($this->request->post['captcha_square_color']) || $this->validation->length($this->request->post['captcha_square_color']) != 7) {
+            $this->error['captcha_square_color'] = $this->data['lang_error_hex_length'];
+        }
+
+        if (!isset($this->request->post['captcha_dots_color']) || substr($this->request->post['captcha_dots_color'], 0, 1) != '#' || !$this->validation->isHex(ltrim($this->request->post['captcha_dots_color'], '#'))) {
+            $this->error['captcha_dots_color'] = $this->data['lang_error_hex_format'];
+        }
+
+        if (!isset($this->request->post['captcha_dots_color']) || $this->validation->length($this->request->post['captcha_dots_color']) != 7) {
+            $this->error['captcha_dots_color'] = $this->data['lang_error_hex_length'];
         }
 
         /* Powered By */

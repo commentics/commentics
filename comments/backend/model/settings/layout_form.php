@@ -221,25 +221,31 @@ class SettingsLayoutFormModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['recaptcha_size']) . "' WHERE `title` = 'recaptcha_size'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['securimage_width'] . "' WHERE `title` = 'securimage_width'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['captcha_width'] . "' WHERE `title` = 'captcha_width'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['securimage_height'] . "' WHERE `title` = 'securimage_height'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['captcha_height'] . "' WHERE `title` = 'captcha_height'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['securimage_length'] . "' WHERE `title` = 'securimage_length'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['captcha_length'] . "' WHERE `title` = 'captcha_length'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (float) $data['securimage_perturbation'] . "' WHERE `title` = 'securimage_perturbation'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['captcha_lines'] . "' WHERE `title` = 'captcha_lines'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['securimage_lines'] . "' WHERE `title` = 'securimage_lines'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['captcha_circles'] . "' WHERE `title` = 'captcha_circles'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['securimage_noise'] . "' WHERE `title` = 'securimage_noise'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['captcha_squares'] . "' WHERE `title` = 'captcha_squares'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['securimage_text_color']) . "' WHERE `title` = 'securimage_text_color'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (int) $data['captcha_dots'] . "' WHERE `title` = 'captcha_dots'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['securimage_line_color']) . "' WHERE `title` = 'securimage_line_color'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['captcha_text_color']) . "' WHERE `title` = 'captcha_text_color'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['securimage_back_color']) . "' WHERE `title` = 'securimage_back_color'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['captcha_back_color']) . "' WHERE `title` = 'captcha_back_color'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['securimage_noise_color']) . "' WHERE `title` = 'securimage_noise_color'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['captcha_line_color']) . "' WHERE `title` = 'captcha_line_color'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['captcha_circle_color']) . "' WHERE `title` = 'captcha_circle_color'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['captcha_square_color']) . "' WHERE `title` = 'captcha_square_color'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['captcha_dots_color']) . "' WHERE `title` = 'captcha_dots_color'");
 
         /* Notify */
 

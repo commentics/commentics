@@ -34,17 +34,17 @@
                     </div>
                 @endif
 
-                @if securimage
-                    <div class="cmtx_row cmtx_securimage_row cmtx_clear {{ cmtx_wait_for_user }}">
+                @if captcha
+                    <div class="cmtx_row cmtx_captcha_row cmtx_clear {{ cmtx_wait_for_user }}">
                         <div class="cmtx_col_12">
-                            <div class="cmtx_container cmtx_securimage_container">
+                            <div class="cmtx_container cmtx_captcha_container">
                                 <div>
-                                    <img id="cmtx_securimage_image" src="{{ securimage_url }}" alt="{{ lang_alt_securimage }}">
+                                    <img id="cmtx_captcha_image" src="{{ captcha_url }}" alt="{{ lang_alt_captcha }}">
 
-                                    <span id="cmtx_securimage_refresh" class="cmtx_securimage_refresh fa fa-refresh" title="{{ lang_title_refresh }}"></span>
+                                    <span id="cmtx_captcha_refresh" class="cmtx_captcha_refresh fa fa-refresh" title="{{ lang_title_refresh }}"></span>
                                 </div>
 
-                                <div><input type="text" name="cmtx_securimage" id="cmtx_securimage" class="cmtx_field cmtx_securimage_field {{ answer_symbol }}" placeholder="{{ lang_placeholder_securimage }}" title="{{ lang_title_securimage }}" maxlength="{{ maximum_securimage }}"></div>
+                                <div><input type="text" name="cmtx_captcha" id="cmtx_captcha" class="cmtx_field cmtx_captcha_field {{ answer_symbol }}" placeholder="{{ lang_placeholder_captcha }}" title="{{ lang_title_captcha }}" maxlength="{{ maximum_captcha }}"></div>
                             </div>
                         </div>
                     </div>

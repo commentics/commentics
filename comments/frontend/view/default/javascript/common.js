@@ -722,13 +722,13 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 }
             }
 
-            /* Securimage captcha */
+            /* Image captcha */
             if (typeof(cmtx_js_settings_form) != 'undefined') {
-                if (cmtx_js_settings_form.securimage) {
-                    jQuery('#cmtx_securimage_refresh').click(function() {
-                        var src = cmtx_js_settings_form.securimage_url + '&' + Math.random();
+                if (cmtx_js_settings_form.captcha) {
+                    jQuery('#cmtx_captcha_refresh').click(function() {
+                        var src = cmtx_js_settings_form.captcha_url + '&' + Math.random();
 
-                        jQuery('#cmtx_securimage_image').attr('src', src);
+                        jQuery('#cmtx_captcha_image').attr('src', src);
                     });
                 }
             }
@@ -807,7 +807,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     if (response['result']['success']) {
                         jQuery('.cmtx_message').remove();
 
-                        jQuery('#cmtx_comment, #cmtx_headline, #cmtx_answer, [name^="cmtx_field_"], #cmtx_securimage').val('');
+                        jQuery('#cmtx_comment, #cmtx_headline, #cmtx_answer, [name^="cmtx_field_"], #cmtx_captcha').val('');
 
                         cmtxUpdateCommentCounter();
 
@@ -821,7 +821,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                             jQuery('.cmtx_rating_row').remove();
                         }
 
-                        jQuery('#cmtx_securimage_refresh').trigger('click');
+                        jQuery('#cmtx_captcha_refresh').trigger('click');
 
                         if (typeof(grecaptcha) != 'undefined') {
                             grecaptcha.reset();
@@ -928,14 +928,14 @@ var cmtx_wait_for_jquery = setInterval(function() {
                             grecaptcha.reset();
                         }
 
-                        if (response['error']['securimage']) {
-                            jQuery('#cmtx_securimage').addClass('cmtx_field_error');
+                        if (response['error']['captcha']) {
+                            jQuery('#cmtx_captcha').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_securimage').after('<span class="cmtx_error">' + response['error']['securimage'] + '</span>');
+                            jQuery('#cmtx_captcha').after('<span class="cmtx_error">' + response['error']['captcha'] + '</span>');
 
-                            jQuery('#cmtx_securimage_refresh').trigger('click');
+                            jQuery('#cmtx_captcha_refresh').trigger('click');
 
-                            jQuery('#cmtx_securimage').val('');
+                            jQuery('#cmtx_captcha').val('');
                         }
 
                         jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
@@ -1115,7 +1115,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_image_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row').hide();
 
-                jQuery('.cmtx_question_row, .cmtx_securimage_row').show();
+                jQuery('.cmtx_question_row, .cmtx_captcha_row').show();
 
                 if (jQuery('input[name="cmtx_subscribe"]').val() == '') {
                     cmtx_heading_text = jQuery('.cmtx_form_heading').text();
@@ -1199,9 +1199,9 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
 
                     if (response['result']['success']) {
-                        jQuery('#cmtx_answer, #cmtx_securimage').val('');
+                        jQuery('#cmtx_answer, #cmtx_captcha').val('');
 
-                        jQuery('#cmtx_securimage_refresh').trigger('click');
+                        jQuery('#cmtx_captcha_refresh').trigger('click');
 
                         if (typeof(grecaptcha) != 'undefined') {
                             grecaptcha.reset();
@@ -1239,14 +1239,14 @@ var cmtx_wait_for_jquery = setInterval(function() {
                             grecaptcha.reset();
                         }
 
-                        if (response['error']['securimage']) {
-                            jQuery('#cmtx_securimage').addClass('cmtx_field_error');
+                        if (response['error']['captcha']) {
+                            jQuery('#cmtx_captcha').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_securimage').after('<span class="cmtx_error">' + response['error']['securimage'] + '</span>');
+                            jQuery('#cmtx_captcha').after('<span class="cmtx_error">' + response['error']['captcha'] + '</span>');
 
-                            jQuery('#cmtx_securimage_refresh').trigger('click');
+                            jQuery('#cmtx_captcha_refresh').trigger('click');
 
-                            jQuery('#cmtx_securimage').val('');
+                            jQuery('#cmtx_captcha').val('');
                         }
 
                         jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
@@ -1267,7 +1267,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
 
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_securimage_row, .cmtx_checkbox_container, .cmtx_button_row').show();
+                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row').show();
 
                 jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
 
@@ -1449,7 +1449,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 jQuery('.cmtx_message_info').remove();
 
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_securimage_row, .cmtx_checkbox_container, .cmtx_button_row').show();
+                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row').show();
 
                 jQuery('.cmtx_headline_row, .cmtx_rating_row').hide();
 

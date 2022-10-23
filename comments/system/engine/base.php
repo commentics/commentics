@@ -83,6 +83,17 @@ abstract class Base
         }
     }
 
+    public function loadFont($cmtx_font)
+    {
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/font/' . strtolower($cmtx_font))) {
+            return CMTX_DIR_VIEW . $this->setting->get('theme') . '/font/' . strtolower($cmtx_font);
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/font/' . strtolower($cmtx_font))) {
+            return CMTX_DIR_VIEW . 'default/font/' . strtolower($cmtx_font);
+        } else {
+            die('<b>Error</b>: Could not load font ' . strtolower($cmtx_font) . '!');
+        }
+    }
+
     public function loadJavascript($cmtx_javascript)
     {
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/javascript/' . strtolower($cmtx_javascript))) {

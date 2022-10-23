@@ -183,20 +183,10 @@
   margin-left: 0.3em;
 }
 #cmtx_container .fa-spin {
-  -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
 #cmtx_container .fa-pulse {
-  -webkit-animation: fa-spin 1s infinite steps(8);
   animation: fa-spin 1s infinite steps(8);
-}
-@-webkit-keyframes fa-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(359deg);
-  }
 }
 @keyframes fa-spin {
   0% {
@@ -3124,7 +3114,7 @@ select.cmtx_required {
   margin-top: 20px;
 }
 
-.cmtx_securimage_row {
+.cmtx_captcha_row {
   margin-top: 20px;
 }
 
@@ -3161,11 +3151,11 @@ select.cmtx_required {
   padding: 6px;
 }
 
-#cmtx_securimage_image, .cmtx_securimage_field {
+#cmtx_captcha_image, .cmtx_captcha_field {
   width: 215px;
 }
 
-.cmtx_securimage_refresh {
+.cmtx_captcha_refresh {
   color: gray;
   cursor: pointer;
   font-size: 14px;
@@ -3697,15 +3687,6 @@ select.cmtx_required {
   font-weight: bold;
 }
 
-@-webkit-keyframes like_keyframe {
-  0% {
-    background: #529214;
-  }
-  100% {
-    background: none;
-  }
-}
-
 @keyframes like_keyframe {
   0% {
     background: #529214;
@@ -3715,19 +3696,8 @@ select.cmtx_required {
   }
 }
 .like_animation {
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-name: like_keyframe;
-          animation-name: like_keyframe;
-}
-
-@-webkit-keyframes dislike_keyframe {
-  0% {
-    background: #d12f19;
-  }
-  100% {
-    background: none;
-  }
+  animation-duration: 2s;
+  animation-name: like_keyframe;
 }
 
 @keyframes dislike_keyframe {
@@ -3739,10 +3709,8 @@ select.cmtx_required {
   }
 }
 .dislike_animation {
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-name: dislike_keyframe;
-          animation-name: dislike_keyframe;
+  animation-duration: 2s;
+  animation-name: dislike_keyframe;
 }
 
 .cmtx_action_message {
@@ -3754,7 +3722,6 @@ select.cmtx_required {
   font-weight: bold;
   padding: 3px;
   position: absolute;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -3881,8 +3848,7 @@ select.cmtx_required {
 }
 
 .cmtx_loading_icon {
-  -webkit-animation: fa-spin 2s infinite linear;
-          animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
   display: none;
   left: 50%;
   margin-top: -20px;
@@ -4791,7 +4757,7 @@ select.cmtx_required {
 .cmtx_rtl .cmtx_share_box a:not(:last-child) {
   margin-left: 12px;
 }
-.cmtx_rtl .cmtx_securimage_refresh {
+.cmtx_rtl .cmtx_captcha_refresh {
   margin-left: 0;
   margin-right: 5px;
 }
