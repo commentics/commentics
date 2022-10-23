@@ -81,6 +81,14 @@ class SettingsSystemController extends Controller
             $this->data['display_parsing'] = $this->setting->get('display_parsing');
         }
 
+        if (isset($this->request->post['empty_pages'])) {
+            $this->data['empty_pages'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['empty_pages'])) {
+            $this->data['empty_pages'] = false;
+        } else {
+            $this->data['empty_pages'] = $this->setting->get('empty_pages');
+        }
+
         if (isset($this->request->post['limit_results'])) {
             $this->data['limit_results'] = $this->request->post['limit_results'];
         } else {

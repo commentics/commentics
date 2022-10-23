@@ -16,6 +16,7 @@ $_['lang_entry_backend_folder']    = 'Backend Folder:';
 $_['lang_entry_purpose']           = 'Purpose:';
 $_['lang_entry_use_wysiwyg']       = 'Use WYSIWYG:';
 $_['lang_entry_display_parsing']   = 'Display Parsing:';
+$_['lang_entry_empty_pages']       = 'Empty Pages:';
 $_['lang_entry_limit_results']     = 'Limit Results:';
 $_['lang_entry_admin_cookie']      = 'Admin Cookie:';
 
@@ -30,6 +31,7 @@ $_['lang_hint_backend_folder']     = 'The name of the backend folder. For exampl
 $_['lang_hint_purpose']            = 'Use this to change the wording on all pages automatically.';
 $_['lang_hint_use_wysiwyg']        = 'Should the WYSIWYG (What You See Is What You Get) HTML editor be enabled for the Edit Comment page?';
 $_['lang_hint_display_parsing']    = 'Display parsing information on the page. You must be detected as the admin for it to display.';
+$_['lang_hint_empty_pages']        = 'Enable this to show empty pages on the \'Manage -> Pages\' page.';
 $_['lang_hint_limit_results']      = 'Show this amount of results per page (backend only).';
 $_['lang_hint_admin_cookie']       = 'The amount of days before the admin cookie expires.';
 

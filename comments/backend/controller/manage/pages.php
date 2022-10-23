@@ -230,6 +230,10 @@ class ManagePagesController extends Controller
             $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/integration');
         }
 
+        if ($this->setting->get('warning_manage_pages')) {
+            $this->data['warning'] = sprintf($this->data['lang_warning'], $this->url->link('settings/system'));
+        }
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('manage/pages');
@@ -240,6 +244,13 @@ class ManagePagesController extends Controller
         $this->loadModel('manage/pages');
 
         $this->model_manage_pages->dismiss();
+    }
+
+    public function discard()
+    {
+        $this->loadModel('manage/pages');
+
+        $this->model_manage_pages->discard();
     }
 
     private function checkParameters()

@@ -147,6 +147,22 @@
     <script>
     // <![CDATA[
     $(document).ready(function() {
+        $('div.warning a:last-child').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: 'index.php?route=manage/pages/discard',
+            })
+
+            $('div.warning').fadeOut(2000);
+        });
+    });
+    // ]]>
+    </script>
+
+    <script>
+    // <![CDATA[
+    $(document).ready(function() {
         $('#filter').click(function() {
             var url = 'index.php?route=manage/pages';
 

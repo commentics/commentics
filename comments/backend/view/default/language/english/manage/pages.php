@@ -11,6 +11,9 @@ $_['lang_heading']                       = 'Pages';
 // Notice
 $_['lang_notice']                        = 'Follow <a href="%s" target="_blank">this guide</a> if you haven\'t yet integrated your pages <a>x</a>';
 
+// Warning
+$_['lang_warning']                       = 'To show pages with no comments, change the <a href="%s">empty pages</a> setting. <a>x</a>';
+
 // Description
 $_['lang_description']                   = '<p>Here you can edit and delete pages.</p>';
 

@@ -120,6 +120,12 @@
         </div>
 
         <div class="fieldset">
+            <label><?php echo $lang_entry_empty_pages; ?></label>
+            <input type="checkbox" name="empty_pages" value="1" <?php if ($empty_pages) { echo 'checked'; } ?>>
+            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_empty_pages; ?>', this, event, '')">[?]</a>
+        </div>
+
+        <div class="fieldset">
             <label><?php echo $lang_entry_limit_results; ?></label>
             <input type="text" required name="limit_results" class="small" value="<?php echo $limit_results; ?>" maxlength="4">
             <a class="hint" onmouseover="showhint('<?php echo $lang_hint_limit_results; ?>', this, event, '')">[?]</a>

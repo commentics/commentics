@@ -47,7 +47,9 @@ class ManagePagesModel extends Model
             $sql .= " AND `p`.`date_added` LIKE '%" . $this->db->escape($data['filter_date']) . "%'";
         }
 
-        $sql .= " AND (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`page_id` = `p`.`id`) > 0";
+        if (!$this->setting->get('empty_pages')) {
+            $sql .= " AND (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`page_id` = `p`.`id`) > 0";
+        }
 
         if ($data['group_by']) {
             $sql .= " GROUP BY " . $this->db->backticks($data['group_by']);
@@ -186,6 +188,11 @@ class ManagePagesModel extends Model
     public function dismiss()
     {
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'notice_manage_pages'");
+    }
+
+    public function discard()
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'warning_manage_pages'");
     }
 
     public function getPageCookie()

@@ -384,6 +384,9 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'captcha_dots_color', `value` = '#616161'");
 
             remove_directory(CMTX_DIR_3RDPARTY . 'securimage/');
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'warning', `title` = 'warning_manage_pages', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'empty_pages', `value` = '0'");
         }
     }
 
