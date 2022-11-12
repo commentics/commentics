@@ -43,12 +43,11 @@ class Geo
 
     public function getCountry($id)
     {
-        $query = $this->db->query(" SELECT `c`.*, `g`.`name`
-                                    FROM `" . CMTX_DB_PREFIX . "countries` `c`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
-                                    WHERE `c`.`id` = '" . (int) $id . "'
-                                    AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
-                                    ");
+        $query = $this->db->query("SELECT `c`.*, `g`.`name`
+                                   FROM `" . CMTX_DB_PREFIX . "countries` `c`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
+                                   WHERE `c`.`id` = '" . (int) $id . "'
+                                   AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'");
 
         $result = $this->db->row($query);
 
@@ -73,12 +72,12 @@ class Geo
 
         $countries = array();
 
-        $query = $this->db->query(" SELECT `c`.*, `g`.`name`
-                                    FROM `" . CMTX_DB_PREFIX . "countries` `c`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
-                                    WHERE `c`.`enabled` IN (" . $status . ")
-                                    AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
-                                    ORDER BY `c`.`top` DESC, `g`.`name` ASC");
+        $query = $this->db->query("SELECT `c`.*, `g`.`name`
+                                   FROM `" . CMTX_DB_PREFIX . "countries` `c`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "geo` `g` ON `g`.`country_code` = `c`.`code`
+                                   WHERE `c`.`enabled` IN (" . $status . ")
+                                   AND `g`.`language` = '" . $this->db->escape($this->setting->get('language')) . "'
+                                   ORDER BY `c`.`top` DESC, `g`.`name` ASC");
 
         if ($this->db->numRows($query)) {
             $is_top = false;
@@ -158,11 +157,10 @@ class Geo
         if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "states` WHERE `id` = '" . (int) $id . "' AND `enabled` = '1'"))) {
             if ($country_id) {
                 /* Make sure the submitted state belongs to the submitted country */
-                $query = $this->db->query(" SELECT * FROM `" . CMTX_DB_PREFIX . "states` `s`
-                                            RIGHT JOIN `" . CMTX_DB_PREFIX . "countries` `c` ON `s`.`country_code` = `c`.`code`
-                                            WHERE `s`.`id` = '" . (int) $id . "'
-                                            AND `c`.`id` = '" . (int) $country_id . "'
-                                            ");
+                $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "states` `s`
+                                           RIGHT JOIN `" . CMTX_DB_PREFIX . "countries` `c` ON `s`.`country_code` = `c`.`code`
+                                           WHERE `s`.`id` = '" . (int) $id . "'
+                                           AND `c`.`id` = '" . (int) $country_id . "'");
 
                 if ($this->db->numRows($query)) {
                     return true;
@@ -212,7 +210,10 @@ class Geo
         if ($result) {
             $code = $result['code'];
 
-            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "states` WHERE `country_code` = '" . $this->db->escape($code) . "' AND `enabled` = '1' ORDER BY `name` ASC");
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "states`
+                                       WHERE `country_code` = '" . $this->db->escape($code) . "'
+                                       AND `enabled` = '1'
+                                       ORDER BY `name` ASC");
 
             $results = $this->db->rows($query);
         } else {
