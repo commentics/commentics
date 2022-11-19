@@ -61,12 +61,12 @@ class ModuleCssEditorModel extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_enabled', `value` = '0'");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_background_color', `value` = '#FFFFFF'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_foreground_color', `value` = ''");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_foreground_color', `value` = '#000000'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_font_family', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_font_size', `value` = ''");
 
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_background_color', `value` = '#FFFFFF'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_foreground_color', `value` = ''");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_foreground_color', `value` = '#000000'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_font_family', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_font_size', `value` = ''");
 
