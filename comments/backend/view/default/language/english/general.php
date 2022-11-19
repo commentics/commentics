@@ -45,9 +45,9 @@ $_['lang_error_range']             = 'Must be between %d and %d';
 $_['lang_error_length']            = 'Must be between %d and %d characters';
 
 // Dates
-$_['lang_date_time_format']        = 'jS F Y g:ia';
-$_['lang_date_format']             = 'jS F Y';
-$_['lang_time_format']             = 'g:ia';
+$_['lang_date_time_format']        = 'j F Y H:i';
+$_['lang_date_format']             = 'j F Y';
+$_['lang_time_format']             = 'H:i';
 
 // Months (long)
 $_['lang_january']                 = 'January';
