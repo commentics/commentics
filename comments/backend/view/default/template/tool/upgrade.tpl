@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="tool_upgrade_page">
+<div id="tool_upgrade_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -27,7 +27,7 @@
     <div id="upgrade-progress"></div>
 
     <?php if ($start) { ?>
-        <script>$(document).ready(function() { cmtx_start_upgrade('<?php echo $csrf_key; ?>'); });</script>
+        <div id="start-upgrade"></div>
     <?php } else { ?>
         <?php if ($next_version) { ?>
             <p><?php echo $lang_text_newer; ?> <?php echo $lang_text_version; ?></p>
@@ -43,22 +43,6 @@
             <p><?php echo $lang_text_no_update; ?></p>
         <?php } ?>
     <?php } ?>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('div.info a:last-child').click(function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: 'index.php?route=tool/upgrade/dismiss',
-            })
-
-            $('div.info').fadeOut(2000);
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

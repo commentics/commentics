@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="module_css_editor_page">
+<div id="module_css_editor_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -52,7 +52,7 @@
                     <select name="css_editor_general_font_family">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_families as $font_family) { ?>
-                            <option value="<?php echo $font_family; ?>" style="font-family: <?php echo $font_family; ?>" <?php if ($css_editor_general_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
+                            <option value="<?php echo $font_family; ?>" <?php if ($css_editor_general_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_general_font_family) { ?>
@@ -65,7 +65,7 @@
                     <select name="css_editor_general_font_size">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_sizes as $font_size) { ?>
-                            <option value="<?php echo $font_size; ?>" style="font-size: <?php echo $font_size; ?>px" <?php if ($css_editor_general_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
+                            <option value="<?php echo $font_size; ?>" <?php if ($css_editor_general_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_general_font_size) { ?>
@@ -98,7 +98,7 @@
                     <select name="css_editor_heading_font_family">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_families as $font_family) { ?>
-                            <option value="<?php echo $font_family; ?>" style="font-family: <?php echo $font_family; ?>" <?php if ($css_editor_heading_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
+                            <option value="<?php echo $font_family; ?>" <?php if ($css_editor_heading_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_heading_font_family) { ?>
@@ -111,7 +111,7 @@
                     <select name="css_editor_heading_font_size">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_sizes as $font_size) { ?>
-                            <option value="<?php echo $font_size; ?>" style="font-size: <?php echo $font_size; ?>px" <?php if ($css_editor_heading_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
+                            <option value="<?php echo $font_size; ?>" <?php if ($css_editor_heading_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_heading_font_size) { ?>
@@ -144,7 +144,7 @@
                     <select name="css_editor_link_font_family">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_families as $font_family) { ?>
-                            <option value="<?php echo $font_family; ?>" style="font-family: <?php echo $font_family; ?>" <?php if ($css_editor_link_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
+                            <option value="<?php echo $font_family; ?>" <?php if ($css_editor_link_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_link_font_family) { ?>
@@ -157,7 +157,7 @@
                     <select name="css_editor_link_font_size">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_sizes as $font_size) { ?>
-                            <option value="<?php echo $font_size; ?>" style="font-size: <?php echo $font_size; ?>px" <?php if ($css_editor_link_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
+                            <option value="<?php echo $font_size; ?>" <?php if ($css_editor_link_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_link_font_size) { ?>
@@ -190,7 +190,7 @@
                     <select name="css_editor_primary_button_font_family">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_families as $font_family) { ?>
-                            <option value="<?php echo $font_family; ?>" style="font-family: <?php echo $font_family; ?>" <?php if ($css_editor_primary_button_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
+                            <option value="<?php echo $font_family; ?>" <?php if ($css_editor_primary_button_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_primary_button_font_family) { ?>
@@ -203,7 +203,7 @@
                     <select name="css_editor_primary_button_font_size">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_sizes as $font_size) { ?>
-                            <option value="<?php echo $font_size; ?>" style="font-size: <?php echo $font_size; ?>px" <?php if ($css_editor_primary_button_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
+                            <option value="<?php echo $font_size; ?>" <?php if ($css_editor_primary_button_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_primary_button_font_size) { ?>
@@ -236,7 +236,7 @@
                     <select name="css_editor_secondary_button_font_family">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_families as $font_family) { ?>
-                            <option value="<?php echo $font_family; ?>" style="font-family: <?php echo $font_family; ?>" <?php if ($css_editor_secondary_button_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
+                            <option value="<?php echo $font_family; ?>" <?php if ($css_editor_secondary_button_font_family == $font_family) { echo 'selected'; } ?>><?php echo $font_family; ?></option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_secondary_button_font_family) { ?>
@@ -249,7 +249,7 @@
                     <select name="css_editor_secondary_button_font_size">
                         <option value=""><?php echo $lang_select_select; ?></option>
                         <?php foreach ($font_sizes as $font_size) { ?>
-                            <option value="<?php echo $font_size; ?>" style="font-size: <?php echo $font_size; ?>px" <?php if ($css_editor_secondary_button_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
+                            <option value="<?php echo $font_size; ?>" <?php if ($css_editor_secondary_button_font_size == $font_size) { echo 'selected'; } ?>><?php echo $font_size; ?> pixels</option>
                         <?php } ?>
                     </select>
                     <?php if ($error_css_editor_secondary_button_font_size) { ?>

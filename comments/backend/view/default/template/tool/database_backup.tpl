@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="tool_database_backup_page">
+<div id="tool_database_backup_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -100,161 +100,13 @@
 
     <div class="pagination_links"><?php echo $pagination_links; ?></div>
 
-    <div id="single_delete_dialog" title="<?php echo $lang_dialog_single_delete_title; ?>" style="display:none">
+    <div id="single_delete_dialog" title="<?php echo $lang_dialog_single_delete_title; ?>" class="hide">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_single_delete_content; ?>
     </div>
 
-    <div id="bulk_delete_dialog" title="<?php echo $lang_dialog_bulk_delete_title; ?>" style="display:none">
+    <div id="bulk_delete_dialog" title="<?php echo $lang_dialog_bulk_delete_title; ?>" class="hide">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_bulk_delete_content; ?>
     </div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('#filter').click(function() {
-            var url = 'index.php?route=tool/database_backup';
-
-            var filter_description = $('input[name="filter_description"]').val();
-
-            if (filter_description) {
-                url += '&filter_description=' + encodeURIComponent(filter_description);
-            }
-
-            var filter_filename = $('input[name="filter_filename"]').val();
-
-            if (filter_filename) {
-                url += '&filter_filename=' + encodeURIComponent(filter_filename);
-            }
-
-            var filter_date = $('input[name="filter_date"]').val();
-
-            if (filter_date) {
-                url += '&filter_date=' + encodeURIComponent(filter_date);
-            }
-
-            location = url;
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name=\'filter_description\']').autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    url: 'index.php?route=tool/database_backup/autocomplete&filter_description=' + encodeURIComponent(request.term),
-                    dataType: 'json',
-                    success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.description,
-                                value: item.description
-                            }
-                        }));
-                    }
-                });
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name=\'filter_filename\']').autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    url: 'index.php?route=tool/database_backup/autocomplete&filter_filename=' + encodeURIComponent(request.term),
-                    dataType: 'json',
-                    success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.filename,
-                                value: item.filename
-                            }
-                        }));
-                    }
-                });
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.single_delete').click(function(e) {
-            e.preventDefault();
-
-            var id = $(this).data('id');
-
-            $('#single_delete_dialog').dialog({
-                modal: true,
-                height: 'auto',
-                width: 'auto',
-                resizable: false,
-                draggable: false,
-                center: true,
-                buttons: {
-                    '<?php echo $lang_dialog_yes; ?>': function() {
-                        var input = $('<input>').attr('type', 'hidden').attr('name', 'single_delete').val(id);
-
-                        $('form').append($(input));
-
-                        $('form').submit();
-
-                        $(this).dialog('close');
-                    },
-                    '<?php echo $lang_dialog_no; ?>': function() {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $('#single_delete_dialog').dialog('open');
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name="bulk_delete"]').click(function(e) {
-            e.preventDefault();
-
-            $('#bulk_delete_dialog').dialog({
-                modal: true,
-                height: 'auto',
-                width: 'auto',
-                resizable: false,
-                draggable: false,
-                center: true,
-                buttons: {
-                    '<?php echo $lang_dialog_yes; ?>': function() {
-                        $('form').submit();
-
-                        $(this).dialog('close');
-                    },
-                    '<?php echo $lang_dialog_no; ?>': function() {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $('#bulk_delete_dialog').dialog('open');
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

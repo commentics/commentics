@@ -292,7 +292,7 @@
         @endif
 
         {# These settings are passed to common.js #}
-        <div id="cmtx_js_settings_form" style="display:none" hidden>{{ cmtx_js_settings_form }}</div>
+        <div id="cmtx_js_settings_form" class="cmtx_hide" hidden>{{ cmtx_js_settings_form }}</div>
     @else
         <div class="cmtx_form_disabled">{{ lang_error_form_disabled }}</div>
     @endif

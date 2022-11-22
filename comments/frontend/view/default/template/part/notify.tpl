@@ -3,4 +3,4 @@
 </div>
 
 {# These settings are passed to common.js #}
-<div id="cmtx_js_settings_notify" style="display:none" hidden>{{ cmtx_js_settings_notify }}</div>
+<div id="cmtx_js_settings_notify" class="cmtx_hide" hidden>{{ cmtx_js_settings_notify }}</div>

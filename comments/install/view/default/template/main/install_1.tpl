@@ -91,7 +91,7 @@
 
         </form>
 
-        <div id="cmtx_js_settings_install_1" style="display:none"><?php echo json_encode($cmtx_js_settings_install_1); ?></div>
+        <div id="cmtx_js_settings_install_1" class="hide" hidden><?php echo json_encode($cmtx_js_settings_install_1); ?></div>
 
     <?php } ?>
 

@@ -199,8 +199,6 @@ class MainDashboardController extends Controller
 
             $this->data['lang_dialog_title'] = $this->variable->encodeDouble($this->data['lang_dialog_title']);
             $this->data['lang_dialog_content'] = sprintf($this->data['lang_dialog_content'], $this->url->link('settings/system'));
-            $this->data['lang_dialog_stop'] = $this->variable->escapeSingle($this->data['lang_dialog_stop']);
-            $this->data['lang_dialog_close'] = $this->variable->escapeSingle($this->data['lang_dialog_close']);
         }
 
         $this->components = array('common/header', 'common/footer');

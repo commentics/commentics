@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_error_reporting_page">
+<div id="settings_error_reporting_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

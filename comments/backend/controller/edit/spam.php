@@ -89,10 +89,6 @@ class EditSpamController extends Controller
 
         $this->data['lang_dialog_spam_title'] = $this->variable->encodeDouble($this->data['lang_dialog_spam_title']);
 
-        $this->data['lang_dialog_yes'] = $this->variable->escapeSingle($this->data['lang_text_yes']);
-
-        $this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_text_no']);
-
         $this->data['id'] = $this->request->get['id'];
 
         if ($this->setting->get('notice_edit_spam')) {

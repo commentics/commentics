@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="reset_page">
+<div id="reset_page">
 
     <div class="box">
         <form action="index.php?route=login/reset" method="post">

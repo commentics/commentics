@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="login_page">
+<div id="login_page">
 
     <div class="box">
         <form action="index.php?route=login/login" method="post">

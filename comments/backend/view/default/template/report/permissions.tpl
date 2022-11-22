@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="report_permissions_page">
+<div id="report_permissions_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

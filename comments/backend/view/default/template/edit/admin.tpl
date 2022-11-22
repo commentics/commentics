@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="edit_admin_page">
+<div id="edit_admin_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -68,31 +68,31 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_enabled; ?></label>
             <input type="checkbox" name="is_enabled" value="1" <?php if ($is_enabled) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_enabled; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_enabled; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_super; ?></label>
             <input type="checkbox" name="is_super" value="1" <?php if ($is_super) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_super; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_super; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_restrict; ?></label>
             <input type="checkbox" name="restrict_pages" value="1" <?php if ($restrict_pages) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_restrict; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_restrict; ?>">[?]</a>
         </div>
 
-        <div class="fieldset restriction_fieldset" style="display:none">
+        <div class="fieldset restriction_fieldset restriction_fieldset_hidden">
             <label></label>
             <span class="note"><?php echo $lang_text_allowed_pages; ?></span>
         </div>
 
         <?php foreach ($restrictions as $restriction) { ?>
-            <div class="fieldset restriction_fieldset <?php if ($restriction['is_top']) { echo 'restriction_fieldset_top'; } ?>" style="display:none">
+            <div class="fieldset restriction_fieldset restriction_fieldset_hidden <?php if ($restriction['is_top']) { echo 'restriction_fieldset_top'; } ?>">
                 <label></label>
 
-                <input type="checkbox" name="viewable_pages[]" style="margin-left: <?php echo $restriction['indent']; ?>" value="<?php echo $restriction['page']; ?>" <?php if ($restriction['is_viewable']) { echo 'checked'; } ?>>
+                <input type="checkbox" name="viewable_pages[]" class="restriction_indent_<?php echo $restriction['indent']; ?>" value="<?php echo $restriction['page']; ?>" <?php if ($restriction['is_viewable']) { echo 'checked'; } ?>>
 
                 <?php if (!$restriction['is_top']) { ?>
                     <input type="checkbox" name="modifiable_pages[]" value="<?php echo $restriction['page']; ?>" <?php if ($restriction['is_modifiable']) { echo 'checked'; } ?>>
@@ -121,99 +121,15 @@
         <div class="buttons">
             <input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>">
 
-            <input type="button" class="button" name="delete" data-id="<?php echo $id; ?>" value="<?php echo $lang_button_delete; ?>" title="<?php echo $lang_button_delete; ?>">
+            <input type="button" class="button" name="delete" data-id="<?php echo $id; ?>" data-url="manage/admins" value="<?php echo $lang_button_delete; ?>" title="<?php echo $lang_button_delete; ?>">
         </div>
 
         <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
     </form>
 
-    <div id="delete_dialog" title="<?php echo $lang_dialog_delete_title; ?>" style="display:none">
+    <div id="delete_dialog" title="<?php echo $lang_dialog_delete_title; ?>" class="hide">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_delete_content; ?>
     </div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        <?php if ($restrict_pages) { ?>
-            $('.restriction_fieldset').show();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name="restrict_pages"]').change(function() {
-            if ($(this).is(':checked')) {
-                $('.restriction_fieldset').show();
-            } else {
-                $('.restriction_fieldset').hide();
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.restriction_fieldset input[type="checkbox"]').change(function() {
-            $('input[name="viewable_pages[]"]').each(function() {
-                if ($(this).next().attr('name') == 'modifiable_pages[]') {
-                     if ($(this).is(':checked')) {
-                         $(this).next().prop('disabled', false);
-                     } else {
-                         $(this).next().prop('checked', false);
-                         $(this).next().prop('disabled', true);
-                     }
-                }
-            });
-        });
-
-        $('.restriction_fieldset input[type="checkbox"]').trigger('change');
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name="delete"]').click(function(e) {
-            e.preventDefault();
-
-            var id = $(this).data('id');
-
-            $('#delete_dialog').dialog({
-                modal: true,
-                height: 'auto',
-                width: 'auto',
-                resizable: false,
-                draggable: false,
-                center: true,
-                buttons: {
-                    '<?php echo $lang_dialog_yes; ?>': function() {
-                        $('form').attr('action', 'index.php?route=manage/admins');
-
-                        var input = $('<input>').attr('type', 'hidden').attr('name', 'single_delete').val(id);
-
-                        $('form').append($(input));
-
-                        $('form').submit();
-
-                        $(this).dialog('close');
-                    },
-                    '<?php echo $lang_dialog_no; ?>': function() {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $('#delete_dialog').dialog('open');
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

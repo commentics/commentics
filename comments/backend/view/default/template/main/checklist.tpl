@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="main_checklist_page">
+<div id="main_checklist_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

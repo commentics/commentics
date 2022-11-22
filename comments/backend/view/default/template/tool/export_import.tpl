@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="tool_export_import_page">
+<div id="tool_export_import_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

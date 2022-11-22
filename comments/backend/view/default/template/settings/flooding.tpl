@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_flooding_page">
+<div id="settings_flooding_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -30,7 +30,7 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_delay; ?></label>
             <input type="checkbox" name="flood_control_delay_enabled" value="1" <?php if ($flood_control_delay_enabled) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_delay; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_delay; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
@@ -45,13 +45,13 @@
         <div class="fieldset divide_after">
             <label><?php echo $lang_entry_all_pages; ?></label>
             <input type="checkbox" name="flood_control_delay_all_pages" value="1" <?php if ($flood_control_delay_all_pages) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_all_pages; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_all_pages; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_maximum; ?></label>
             <input type="checkbox" name="flood_control_maximum_enabled" value="1" <?php if ($flood_control_maximum_enabled) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_maximum; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_maximum; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
@@ -74,7 +74,7 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_all_pages; ?></label>
             <input type="checkbox" name="flood_control_maximum_all_pages" value="1" <?php if ($flood_control_maximum_all_pages) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_all_pages; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_all_pages; ?>">[?]</a>
         </div>
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">

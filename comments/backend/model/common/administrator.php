@@ -209,7 +209,7 @@ class CommonAdministratorModel extends Model
         $restriction = array(
             'title'         => $title,
             'page'          => $page,
-            'indent'        => $indent . 'px',
+            'indent'        => $indent,
             'is_top'        => $is_top,
             'is_viewable'   => $is_viewable,
             'is_modifiable' => $is_modifiable

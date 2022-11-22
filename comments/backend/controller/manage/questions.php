@@ -179,10 +179,6 @@ class ManageQuestionsController extends Controller
 
         $this->data['lang_dialog_bulk_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_bulk_delete_title']);
 
-        $this->data['lang_dialog_yes'] = $this->variable->escapeSingle($this->data['lang_text_yes']);
-
-        $this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_text_no']);
-
         if ($this->setting->get('notice_manage_questions')) {
             $this->data['info'] = sprintf($this->data['lang_notice'], $this->url->link('tool/export_import'));
         }

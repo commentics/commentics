@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="module_akismet_page">
+<div id="module_akismet_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -43,7 +43,7 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_logging; ?></label>
             <input type="checkbox" name="akismet_logging" value="1" <?php if ($akismet_logging) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_logging; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_logging; ?>">[?]</a>
         </div>
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">

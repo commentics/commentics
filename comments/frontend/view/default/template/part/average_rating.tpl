@@ -7,7 +7,7 @@
         <input type="radio" id="cmtx_avg_star_1" name="cmtx_rating" value="1" {{ rating_1_checked }}><label for="cmtx_avg_star_1" title="{{ lang_title_avg_rating_1 }}"></label>
     </div>
     @if rich_snippets_enabled
-        <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating" style="line-height:0">
+        <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
             <span class="cmtx_average_rating_stats"><span class="cmtx_average_rating_stat_rating" itemprop="ratingValue">{{ average_rating }}</span>/<span class="cmtx_average_rating_stat_maximum" itemprop="bestRating">5</span> (<span class="cmtx_average_rating_stat_number" itemprop="reviewCount">{{ num_of_ratings }}</span>)</span>
         </div>
 

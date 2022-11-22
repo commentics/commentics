@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="module_chart_page">
+<div id="module_chart_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

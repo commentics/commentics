@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="edit_spam_page">
+<div id="edit_spam_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -62,68 +62,9 @@
         <div class="links"><a id="back"><?php echo $lang_link_back; ?></a></div>
     </form>
 
-    <div id="spam_dialog" title="<?php echo $lang_dialog_spam_title; ?>" style="display:none">
+    <div id="spam_dialog" title="<?php echo $lang_dialog_spam_title; ?>" class="hide">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_spam_content; ?>
     </div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('div.info a:last-child').click(function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: 'index.php?route=edit/spam/dismiss',
-            })
-
-            $('div.info').fadeOut(2000);
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.button').click(function(e) {
-            e.preventDefault();
-
-            $('#spam_dialog').dialog({
-                modal: true,
-                height: 'auto',
-                width: 'auto',
-                resizable: false,
-                draggable: false,
-                center: true,
-                buttons: {
-                    '<?php echo $lang_dialog_yes; ?>': function() {
-                        $('form').submit();
-
-                        $(this).dialog('close');
-                    },
-                    '<?php echo $lang_dialog_no; ?>': function() {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $('#spam_dialog').dialog('open');
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('#back').click(function(e) {
-            e.preventDefault();
-
-            window.history.back();
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

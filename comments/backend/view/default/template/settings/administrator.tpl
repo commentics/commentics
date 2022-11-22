@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_administrator_page">
+<div id="settings_administrator_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -73,7 +73,7 @@
                 <option value="html" <?php if ($format == 'html') { echo 'selected'; } ?>><?php echo $lang_select_html; ?></option>
                 <option value="text" <?php if ($format == 'text') { echo 'selected'; } ?>><?php echo $lang_select_text; ?></option>
             </select>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_format; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_format; ?>">[?]</a>
             <?php if ($error_format) { ?>
                 <span class="error"><?php echo $error_format; ?></span>
             <?php } ?>
@@ -82,25 +82,25 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_ban; ?></label>
             <input type="checkbox" name="receive_email_ban" value="1" <?php if ($receive_email_ban) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_ban; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_ban; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_comment_approve; ?></label>
             <input type="checkbox" name="receive_email_comment_approve" value="1" <?php if ($receive_email_comment_approve) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_comment_approve; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_comment_approve; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_comment_success; ?></label>
             <input type="checkbox" name="receive_email_comment_success" value="1" <?php if ($receive_email_comment_success) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_comment_success; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_comment_success; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_flag; ?></label>
             <input type="checkbox" name="receive_email_flag" value="1" <?php if ($receive_email_flag) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_flag; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_flag; ?>">[?]</a>
         </div>
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">

@@ -88,6 +88,14 @@
   padding-top: 20px;
 }
 
+.cmtx_iframe_body {
+  margin: 0 0 50px 0;
+}
+
+.cmtx_hide {
+  display: none;
+}
+
 .cmtx_clear::before, .cmtx_clear::after {
   content: " ";
   display: table;
@@ -3977,10 +3985,6 @@ select.cmtx_required {
 }
 /**************************** Outer *****************************/
 /* Average Rating */
-.cmtx_average_rating_block {
-  line-height: 0;
-}
-
 .cmtx_average_rating {
   display: inline-block;
   margin-left: -4px;

@@ -103,6 +103,10 @@ $_['lang_type_reviews']            = 'reviews';
 $_['lang_type_testimonial']        = 'testimonial';
 $_['lang_type_testimonials']       = 'testimonials';
 
+// Dialog
+$_['lang_dialog_stop']             = 'Don\'t show again';
+$_['lang_dialog_close']            = 'Close';
+
 // Button
 $_['lang_button_filter']           = 'Filter';
 $_['lang_button_update']           = 'Update';

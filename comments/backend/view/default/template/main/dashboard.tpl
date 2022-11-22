@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="main_dashboard_page">
+<div id="main_dashboard_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -121,93 +121,33 @@
         <div class="chart_block">
             <div class="title"><span class="fa fa-bar-chart"></span> <?php echo $lang_title_chart; ?></div>
 
+            <input type="hidden" data-js="chart_comments_jan" value="<?php echo $chart_comments['jan']; ?>">
+            <input type="hidden" data-js="chart_comments_feb" value="<?php echo $chart_comments['feb']; ?>">
+            <input type="hidden" data-js="chart_comments_mar" value="<?php echo $chart_comments['mar']; ?>">
+            <input type="hidden" data-js="chart_comments_apr" value="<?php echo $chart_comments['apr']; ?>">
+            <input type="hidden" data-js="chart_comments_may" value="<?php echo $chart_comments['may']; ?>">
+            <input type="hidden" data-js="chart_comments_jun" value="<?php echo $chart_comments['jun']; ?>">
+            <input type="hidden" data-js="chart_comments_jul" value="<?php echo $chart_comments['jul']; ?>">
+            <input type="hidden" data-js="chart_comments_aug" value="<?php echo $chart_comments['aug']; ?>">
+            <input type="hidden" data-js="chart_comments_sep" value="<?php echo $chart_comments['sep']; ?>">
+            <input type="hidden" data-js="chart_comments_oct" value="<?php echo $chart_comments['oct']; ?>">
+            <input type="hidden" data-js="chart_comments_nov" value="<?php echo $chart_comments['nov']; ?>">
+            <input type="hidden" data-js="chart_comments_dec" value="<?php echo $chart_comments['dec']; ?>">
+
+            <input type="hidden" data-js="chart_subscriptions_jan" value="<?php echo $chart_subscriptions['jan']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_feb" value="<?php echo $chart_subscriptions['feb']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_mar" value="<?php echo $chart_subscriptions['mar']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_apr" value="<?php echo $chart_subscriptions['apr']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_may" value="<?php echo $chart_subscriptions['may']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_jun" value="<?php echo $chart_subscriptions['jun']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_jul" value="<?php echo $chart_subscriptions['jul']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_aug" value="<?php echo $chart_subscriptions['aug']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_sep" value="<?php echo $chart_subscriptions['sep']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_oct" value="<?php echo $chart_subscriptions['oct']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_nov" value="<?php echo $chart_subscriptions['nov']; ?>">
+            <input type="hidden" data-js="chart_subscriptions_dec" value="<?php echo $chart_subscriptions['dec']; ?>">
+
             <canvas id="chart" class="chart"></canvas>
-
-            <script>
-            // <![CDATA[
-            $(document).ready(function() {
-                var ctx = $('#chart');
-
-                var data = {
-                    labels: [
-                        "<?php echo $lang_january; ?>",
-                        "<?php echo $lang_february; ?>",
-                        "<?php echo $lang_march; ?>",
-                        "<?php echo $lang_april; ?>",
-                        "<?php echo $lang_may; ?>",
-                        "<?php echo $lang_june; ?>",
-                        "<?php echo $lang_july; ?>",
-                        "<?php echo $lang_august; ?>",
-                        "<?php echo $lang_september; ?>",
-                        "<?php echo $lang_october; ?>",
-                        "<?php echo $lang_november; ?>",
-                        "<?php echo $lang_december; ?>"
-                    ],
-                    datasets: [
-                        {
-                            label: "<?php echo $lang_text_comments; ?>",
-                            fill: true,
-                            backgroundColor: "rgba(237,237,237,0.2)",
-                            borderColor: "#A8A8A8",
-                            borderWidth: 1,
-                            data: [
-                                <?php echo $chart_comments['jan']; ?>,
-                                <?php echo $chart_comments['feb']; ?>,
-                                <?php echo $chart_comments['mar']; ?>,
-                                <?php echo $chart_comments['apr']; ?>,
-                                <?php echo $chart_comments['may']; ?>,
-                                <?php echo $chart_comments['jun']; ?>,
-                                <?php echo $chart_comments['jul']; ?>,
-                                <?php echo $chart_comments['aug']; ?>,
-                                <?php echo $chart_comments['sep']; ?>,
-                                <?php echo $chart_comments['oct']; ?>,
-                                <?php echo $chart_comments['nov']; ?>,
-                                <?php echo $chart_comments['dec']; ?>
-                            ]
-                        },
-                        {
-                            label: "<?php echo $lang_text_subscriptions; ?>",
-                            fill: true,
-                            backgroundColor: "rgba(237,237,237,0.2)",
-                            borderColor: "#FF7F00",
-                            borderWidth: 1,
-                            data: [
-                                <?php echo $chart_subscriptions['jan']; ?>,
-                                <?php echo $chart_subscriptions['feb']; ?>,
-                                <?php echo $chart_subscriptions['mar']; ?>,
-                                <?php echo $chart_subscriptions['apr']; ?>,
-                                <?php echo $chart_subscriptions['may']; ?>,
-                                <?php echo $chart_subscriptions['jun']; ?>,
-                                <?php echo $chart_subscriptions['jul']; ?>,
-                                <?php echo $chart_subscriptions['aug']; ?>,
-                                <?php echo $chart_subscriptions['sep']; ?>,
-                                <?php echo $chart_subscriptions['oct']; ?>,
-                                <?php echo $chart_subscriptions['nov']; ?>,
-                                <?php echo $chart_subscriptions['dec']; ?>
-                            ]
-                        }
-                    ]
-                };
-
-                var myLineChart = new Chart(ctx, {
-                    type: 'line',
-                    data: data,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio : false,
-                        scales: {
-                            yAxes: {
-                                ticks: {
-                                    beginAtZero: true,
-                                    precision: 0
-                                }
-                            }
-                        }
-                    }
-                });
-            });
-            // ]]>
-            </script>
         </div>
     <?php } ?>
 
@@ -225,7 +165,7 @@
     </form>
 
     <?php if ($system_detect && $system_settings) { ?>
-        <div id="system_settings_dialog" title="<?php echo $lang_dialog_title; ?>" style="display:none">
+        <div id="system_settings_dialog" title="<?php echo $lang_dialog_title; ?>" class="hide">
             <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_content; ?>
 
             <ul>
@@ -234,37 +174,6 @@
                 <?php } ?>
             </ul>
         </div>
-    <?php } ?>
-
-    <?php if ($system_detect && $system_settings) { ?>
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('#system_settings_dialog').dialog({
-            modal: true,
-            height: 'auto',
-            width: 'auto',
-            resizable: false,
-            draggable: false,
-            center: true,
-            buttons: {
-                '<?php echo $lang_dialog_stop; ?>': function() {
-                    $.ajax({
-                        url: 'index.php?route=main/dashboard/stopSystemDetect',
-                    })
-
-                    $(this).dialog('close');
-                },
-                '<?php echo $lang_dialog_close; ?>': function() {
-                    $(this).dialog('close');
-                }
-            }
-        });
-
-        $('#system_settings_dialog').dialog('open');
-    });
-    // ]]>
-    </script>
     <?php } ?>
 
 </div>

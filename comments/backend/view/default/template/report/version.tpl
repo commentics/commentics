@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="report_version_page">
+<div id="report_version_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -81,61 +81,6 @@
     <div class="pagination_stats"><?php echo $pagination_stats; ?></div>
 
     <div class="pagination_links"><?php echo $pagination_links; ?></div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('#filter').click(function() {
-            var url = 'index.php?route=report/version';
-
-            var filter_version = $('input[name="filter_version"]').val();
-
-            if (filter_version) {
-                url += '&filter_version=' + encodeURIComponent(filter_version);
-            }
-
-            var filter_type = $('select[name="filter_type"]').val();
-
-            if (filter_type) {
-                url += '&filter_type=' + encodeURIComponent(filter_type);
-            }
-
-            var filter_date = $('input[name="filter_date"]').val();
-
-            if (filter_date) {
-                url += '&filter_date=' + encodeURIComponent(filter_date);
-            }
-
-            location = url;
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name=\'filter_version\']').autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    url: 'index.php?route=report/version/autocomplete&filter_version=' + encodeURIComponent(request.term),
-                    dataType: 'json',
-                    success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.version,
-                                value: item.version
-                            }
-                        }));
-                    }
-                });
-            }
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

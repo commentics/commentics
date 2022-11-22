@@ -176,8 +176,6 @@ $_['lang_title_shocked']           = 'Shocked';
 $_['lang_dialog_title']            = 'Layout Settings';
 $_['lang_dialog_content_enabled']  = 'The following features are enabled on this<br>page but disabled on the <a href="%s">comments</a> page';
 $_['lang_dialog_content_disabled'] = 'The following features are disabled on this<br>page but enabled on the <a href="%s">comments</a> page';
-$_['lang_dialog_stop']             = 'Don\'t show again';
-$_['lang_dialog_close']            = 'Close';
 
 // Error
 $_['lang_error_max_size']          = 'Must be between 0.1 and 99.9';

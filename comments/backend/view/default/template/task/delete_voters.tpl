@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="task_delete_voters_page">
+<div id="task_delete_voters_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

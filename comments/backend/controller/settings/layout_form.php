@@ -885,8 +885,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['error_filled_country_login_action'] = '';
         }
 
-        $this->data['loading'] = $this->loadImage('misc/loading.gif');
-
         $this->data['countries'] = $this->geo->getCountries();
 
         $this->data['link_countries'] = 'index.php?route=manage/countries';
@@ -1257,8 +1255,6 @@ class SettingsLayoutFormController extends Controller
             }
 
             $this->data['lang_dialog_title'] = $this->variable->encodeDouble($this->data['lang_dialog_title']);
-            $this->data['lang_dialog_stop'] = $this->variable->escapeSingle($this->data['lang_dialog_stop']);
-            $this->data['lang_dialog_close'] = $this->variable->escapeSingle($this->data['lang_dialog_close']);
         }
 
         if (!$this->setting->get('licence')) {

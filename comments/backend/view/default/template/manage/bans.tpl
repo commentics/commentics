@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="manage_bans_page">
+<div id="manage_bans_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -91,177 +91,13 @@
 
     <div class="pagination_links"><?php echo $pagination_links; ?></div>
 
-    <div id="single_delete_dialog" title="<?php echo $lang_dialog_single_delete_title; ?>" style="display:none">
+    <div id="single_delete_dialog" title="<?php echo $lang_dialog_single_delete_title; ?>" class="hide">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_single_delete_content; ?>
     </div>
 
-    <div id="bulk_delete_dialog" title="<?php echo $lang_dialog_bulk_delete_title; ?>" style="display:none">
+    <div id="bulk_delete_dialog" title="<?php echo $lang_dialog_bulk_delete_title; ?>" class="hide">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_bulk_delete_content; ?>
     </div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('div.info a:last-child').click(function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: 'index.php?route=manage/bans/dismiss',
-            })
-
-            $('div.info').fadeOut(2000);
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('#filter').click(function() {
-            var url = 'index.php?route=manage/bans';
-
-            var filter_ip_address = $('input[name="filter_ip_address"]').val();
-
-            if (filter_ip_address) {
-                url += '&filter_ip_address=' + encodeURIComponent(filter_ip_address);
-            }
-
-            var filter_reason = $('input[name="filter_reason"]').val();
-
-            if (filter_reason) {
-                url += '&filter_reason=' + encodeURIComponent(filter_reason);
-            }
-
-            var filter_date = $('input[name="filter_date"]').val();
-
-            if (filter_date) {
-                url += '&filter_date=' + encodeURIComponent(filter_date);
-            }
-
-            location = url;
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name=\'filter_ip_address\']').autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    url: 'index.php?route=manage/bans/autocomplete&filter_ip_address=' + encodeURIComponent(request.term),
-                    dataType: 'json',
-                    success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.ip_address,
-                                value: item.ip_address
-                            }
-                        }));
-                    }
-                });
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name=\'filter_reason\']').autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    url: 'index.php?route=manage/bans/autocomplete&filter_reason=' + encodeURIComponent(request.term),
-                    dataType: 'json',
-                    success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.reason,
-                                value: item.reason
-                            }
-                        }));
-                    }
-                });
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.single_delete').click(function(e) {
-            e.preventDefault();
-
-            var id = $(this).data('id');
-
-            $('#single_delete_dialog').dialog({
-                modal: true,
-                height: 'auto',
-                width: 'auto',
-                resizable: false,
-                draggable: false,
-                center: true,
-                buttons: {
-                    '<?php echo $lang_dialog_yes; ?>': function() {
-                        var input = $('<input>').attr('type', 'hidden').attr('name', 'single_delete').val(id);
-
-                        $('form').append($(input));
-
-                        $('form').submit();
-
-                        $(this).dialog('close');
-                    },
-                    '<?php echo $lang_dialog_no; ?>': function() {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $('#single_delete_dialog').dialog('open');
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name="bulk_delete"]').click(function(e) {
-            e.preventDefault();
-
-            $('#bulk_delete_dialog').dialog({
-                modal: true,
-                height: 'auto',
-                width: 'auto',
-                resizable: false,
-                draggable: false,
-                center: true,
-                buttons: {
-                    '<?php echo $lang_dialog_yes; ?>': function() {
-                        $('form').submit();
-
-                        $(this).dialog('close');
-                    },
-                    '<?php echo $lang_dialog_no; ?>': function() {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $('#bulk_delete_dialog').dialog('open');
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

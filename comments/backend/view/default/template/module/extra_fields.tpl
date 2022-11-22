@@ -1,7 +1,7 @@
 <?php echo $header; ?>
 
 <?php if ($page == 'list') { ?>
-    <div class="module_extra_fields_page">
+    <div id="module_extra_fields_page">
 
         <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -75,103 +75,19 @@
 
         <div class="pagination_links"><?php echo $pagination_links; ?></div>
 
-        <div id="single_delete_dialog" title="<?php echo $lang_dialog_single_delete_title; ?>" style="display:none">
+        <div id="single_delete_dialog" title="<?php echo $lang_dialog_single_delete_title; ?>" class="hide">
             <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_single_delete_content; ?>
         </div>
 
-        <div id="bulk_delete_dialog" title="<?php echo $lang_dialog_bulk_delete_title; ?>" style="display:none">
+        <div id="bulk_delete_dialog" title="<?php echo $lang_dialog_bulk_delete_title; ?>" class="hide">
             <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_bulk_delete_content; ?>
         </div>
-
-        <script>
-        // <![CDATA[
-        $(document).ready(function() {
-            $('div.info a:last-child').click(function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    url: 'index.php?route=module/extra_fields/dismiss',
-                })
-
-                $('div.info').fadeOut(2000);
-            });
-        });
-        // ]]>
-        </script>
-
-        <script>
-        // <![CDATA[
-        $(document).ready(function() {
-            $('.single_delete').click(function(e) {
-                e.preventDefault();
-
-                var id = $(this).data('id');
-
-                $('#single_delete_dialog').dialog({
-                    modal: true,
-                    height: 'auto',
-                    width: 'auto',
-                    resizable: false,
-                    draggable: false,
-                    center: true,
-                    buttons: {
-                        '<?php echo $lang_dialog_yes; ?>': function() {
-                            var input = $('<input>').attr('type', 'hidden').attr('name', 'single_delete').val(id);
-
-                            $('form').append($(input));
-
-                            $('form').submit();
-
-                            $(this).dialog('close');
-                        },
-                        '<?php echo $lang_dialog_no; ?>': function() {
-                            $(this).dialog('close');
-                        }
-                    }
-                });
-
-                $('#single_delete_dialog').dialog('open');
-            });
-        });
-        // ]]>
-        </script>
-
-        <script>
-        // <![CDATA[
-        $(document).ready(function() {
-            $('input[name="bulk_delete"]').click(function(e) {
-                e.preventDefault();
-
-                $('#bulk_delete_dialog').dialog({
-                    modal: true,
-                    height: 'auto',
-                    width: 'auto',
-                    resizable: false,
-                    draggable: false,
-                    center: true,
-                    buttons: {
-                        '<?php echo $lang_dialog_yes; ?>': function() {
-                            $('form').submit();
-
-                            $(this).dialog('close');
-                        },
-                        '<?php echo $lang_dialog_no; ?>': function() {
-                            $(this).dialog('close');
-                        }
-                    }
-                });
-
-                $('#bulk_delete_dialog').dialog('open');
-            });
-        });
-        // ]]>
-        </script>
 
     </div>
 <?php } ?>
 
 <?php if (in_array($page, array('add','edit'))) { ?>
-    <div class="module_extra_fields_form_page">
+    <div id="module_extra_fields_form_page">
 
         <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -201,7 +117,7 @@
             <div class="fieldset">
                 <label><?php echo $lang_entry_name; ?></label>
                 <input type="text" name="name" class="large" value="<?php echo $name; ?>" maxlength="250">
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_name; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_name; ?>">[?]</a>
                 <?php if ($error_name) { ?>
                     <span class="error"><?php echo $error_name; ?></span>
                 <?php } ?>
@@ -214,7 +130,7 @@
                     <option value="text" <?php if ($type == 'text') { echo 'selected'; } ?>><?php echo $lang_text_text; ?></option>
                     <option value="textarea" <?php if ($type == 'textarea') { echo 'selected'; } ?>><?php echo $lang_text_textarea; ?></option>
                 </select>
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_type; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_type; ?>">[?]</a>
                 <?php if ($error_type) { ?>
                     <span class="error"><?php echo $error_type; ?></span>
                 <?php } ?>
@@ -223,13 +139,13 @@
             <div class="fieldset">
                 <label><?php echo $lang_entry_required; ?></label>
                 <input type="checkbox" name="is_required" value="1" <?php if ($is_required) { echo 'checked'; } ?>>
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_required; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_required; ?>">[?]</a>
             </div>
 
             <div class="fieldset select_section">
                 <label><?php echo $lang_entry_values; ?></label>
                 <input type="text" name="values" class="large" value="<?php echo $values; ?>" maxlength="9999">
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_values; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_values; ?>">[?]</a>
                 <?php if ($error_values) { ?>
                     <span class="error"><?php echo $error_values; ?></span>
                 <?php } ?>
@@ -238,7 +154,7 @@
             <div class="fieldset text_section">
                 <label><?php echo $lang_entry_default; ?></label>
                 <input type="text" name="default" class="large" value="<?php echo $default; ?>" maxlength="9999">
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_default; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_default; ?>">[?]</a>
                 <?php if ($error_default) { ?>
                     <span class="error"><?php echo $error_default; ?></span>
                 <?php } ?>
@@ -247,7 +163,7 @@
             <div class="fieldset text_section">
                 <label><?php echo $lang_entry_minimum; ?></label>
                 <input type="text" name="minimum" class="small_plus" value="<?php echo $minimum; ?>" maxlength="4">
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_minimum; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_minimum; ?>">[?]</a>
                 <?php if ($error_minimum) { ?>
                     <span class="error"><?php echo $error_minimum; ?></span>
                 <?php } ?>
@@ -256,7 +172,7 @@
             <div class="fieldset text_section">
                 <label><?php echo $lang_entry_maximum; ?></label>
                 <input type="text" name="maximum" class="small_plus" value="<?php echo $maximum; ?>" maxlength="4">
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_maximum; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_maximum; ?>">[?]</a>
                 <?php if ($error_maximum) { ?>
                     <span class="error"><?php echo $error_maximum; ?></span>
                 <?php } ?>
@@ -265,7 +181,7 @@
             <div class="fieldset text_section">
                 <label><?php echo $lang_entry_validation; ?></label>
                 <input type="text" name="validation" class="large" value="<?php echo $validation; ?>" maxlength="9999">
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_validation; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_validation; ?>">[?]</a>
                 <?php if ($error_validation) { ?>
                     <span class="error"><?php echo $error_validation; ?></span>
                 <?php } ?>
@@ -274,13 +190,13 @@
             <div class="fieldset">
                 <label><?php echo $lang_entry_display; ?></label>
                 <input type="checkbox" name="display" value="1" <?php if ($display) { echo 'checked'; } ?>>
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_display; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_display; ?>">[?]</a>
             </div>
 
             <div class="fieldset">
                 <label><?php echo $lang_entry_sort; ?></label>
                 <input type="text" name="sort" class="small_plus" value="<?php echo $sort; ?>" maxlength="4">
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sort; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_sort; ?>">[?]</a>
                 <?php if ($error_sort) { ?>
                     <span class="error"><?php echo $error_sort; ?></span>
                 <?php } ?>
@@ -289,7 +205,7 @@
             <div class="fieldset">
                 <label><?php echo $lang_entry_enabled; ?></label>
                 <input type="checkbox" name="is_enabled" value="1" <?php if ($is_enabled) { echo 'checked'; } ?>>
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_enabled; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_enabled; ?>">[?]</a>
             </div>
 
             <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
@@ -300,90 +216,16 @@
                 <?php } else { ?>
                     <input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>">
 
-                    <input type="button" class="button" name="delete" data-id="<?php echo $id; ?>" value="<?php echo $lang_button_delete; ?>" title="<?php echo $lang_button_delete; ?>">
+                    <input type="button" class="button" name="delete" data-id="<?php echo $id; ?>" data-url="module/extra_fields" value="<?php echo $lang_button_delete; ?>" title="<?php echo $lang_button_delete; ?>">
                 <?php } ?>
             </div>
 
             <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
         </form>
 
-        <div id="delete_dialog" title="<?php echo $lang_dialog_delete_title; ?>" style="display:none">
+        <div id="delete_dialog" title="<?php echo $lang_dialog_delete_title; ?>" class="hide">
             <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_delete_content; ?>
         </div>
-
-        <script>
-        // <![CDATA[
-        $(document).ready(function() {
-            $('.select_section').hide();
-            $('.text_section').hide();
-
-            <?php if ($type == 'select') { ?>
-                $('.select_section').show();
-            <?php } else { ?>
-                $('.text_section').show();
-            <?php } ?>
-        });
-        // ]]>
-        </script>
-
-        <script>
-        // <![CDATA[
-        $(document).ready(function() {
-            $('select[name="type"]').on('change', function() {
-                var type = $(this).val();
-
-                if (type == 'select') {
-                    $('.select_section').show();
-                    $('.text_section').hide();
-                } else {
-                    $('.select_section').hide();
-                    $('.text_section').show();
-                }
-            });
-        });
-        // ]]>
-        </script>
-
-        <?php if ($page == 'edit') { ?>
-            <script>
-            // <![CDATA[
-            $(document).ready(function() {
-                $('input[name="delete"]').click(function(e) {
-                    e.preventDefault();
-
-                    var id = $(this).data('id');
-
-                    $('#delete_dialog').dialog({
-                        modal: true,
-                        height: 'auto',
-                        width: 'auto',
-                        resizable: false,
-                        draggable: false,
-                        center: true,
-                        buttons: {
-                            '<?php echo $lang_dialog_yes; ?>': function() {
-                                $('form').attr('action', 'index.php?route=module/extra_fields');
-
-                                var input = $('<input>').attr('type', 'hidden').attr('name', 'single_delete').val(id);
-
-                                $('form').append($(input));
-
-                                $('form').submit();
-
-                                $(this).dialog('close');
-                            },
-                            '<?php echo $lang_dialog_no; ?>': function() {
-                                $(this).dialog('close');
-                            }
-                        }
-                    });
-
-                    $('#delete_dialog').dialog('open');
-                });
-            });
-            // ]]>
-            </script>
-        <?php } ?>
 
     </div>
 <?php } ?>

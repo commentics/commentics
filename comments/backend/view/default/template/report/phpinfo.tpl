@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="report_phpinfo_page">
+<div id="report_phpinfo_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

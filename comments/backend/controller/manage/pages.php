@@ -222,15 +222,11 @@ class ManagePagesController extends Controller
 
         $this->data['lang_dialog_bulk_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_bulk_delete_title']);
 
-        $this->data['lang_dialog_yes'] = $this->variable->escapeSingle($this->data['lang_text_yes']);
-
-        $this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_text_no']);
-
         if ($this->setting->get('notice_manage_pages')) {
             $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/integration');
         }
 
-        if ($this->setting->get('warning_manage_pages')) {
+        if ($this->setting->get('warning_manage_pages') && !$this->setting->get('empty_pages')) {
             $this->data['warning'] = sprintf($this->data['lang_warning'], $this->url->link('settings/system'));
         }
 

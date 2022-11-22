@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_email_editor_page">
+<div id="settings_email_editor_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -82,36 +82,6 @@
             <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>
         </form>
     </div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('div.info a:last-child').click(function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: 'index.php?route=settings/email_editor/dismiss',
-            })
-
-            $('div.info').fadeOut(2000);
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.selection select').on('change', function() {
-            var url = $(this).val();
-
-            if (!url.match(/type=admin$/) && !url.match(/type=user$/)) {
-                window.location.href = url;
-            }
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

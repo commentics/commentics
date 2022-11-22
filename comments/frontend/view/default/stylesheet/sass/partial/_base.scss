@@ -70,6 +70,14 @@ $red-dark:   darken($red, 5%);
     padding-top: 20px;
 }
 
+.cmtx_iframe_body {
+    margin: 0 0 50px 0;
+}
+
+.cmtx_hide {
+    display: none;
+}
+
 .cmtx_clear::before, .cmtx_clear::after {
     content: ' ';
     display: table;

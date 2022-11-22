@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="extension_modules_page">
+<div id="extension_modules_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -62,80 +62,9 @@
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
     </form>
 
-    <div id="uninstall_dialog" title="<?php echo $lang_dialog_uninstall_title; ?>" style="display:none">
+    <div id="uninstall_dialog" title="<?php echo $lang_dialog_uninstall_title; ?>" class="hide">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_uninstall_content; ?>
     </div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('div.info a:last-child').click(function(e) {
-            e.preventDefault();
-
-            $('div.info').fadeOut(2000);
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.install').click(function(e) {
-            e.preventDefault();
-
-            var id = $(this).data('id');
-
-            var input = $('<input>').attr('type', 'hidden').attr('name', 'module').val(id);
-
-            $('form').append($(input));
-
-            $('form').attr('action', 'index.php?route=extension/modules/install');
-
-            $('form').submit();
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.uninstall').click(function(e) {
-            e.preventDefault();
-
-            var id = $(this).data('id');
-
-            $('#uninstall_dialog').dialog({
-                modal: true,
-                height: 'auto',
-                width: 'auto',
-                resizable: false,
-                draggable: false,
-                center: true,
-                buttons: {
-                    '<?php echo $lang_dialog_yes; ?>': function() {
-                        var input = $('<input>').attr('type', 'hidden').attr('name', 'module').val(id);
-
-                        $('form').append($(input));
-
-                        $('form').attr('action', 'index.php?route=extension/modules/uninstall');
-
-                        $('form').submit();
-
-                        $(this).dialog('close');
-                    },
-                    '<?php echo $lang_dialog_no; ?>': function() {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $('#uninstall_dialog').dialog('open');
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

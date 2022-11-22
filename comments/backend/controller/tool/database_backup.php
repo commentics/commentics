@@ -166,10 +166,6 @@ class ToolDatabaseBackupController extends Controller
 
         $this->data['lang_dialog_bulk_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_bulk_delete_title']);
 
-        $this->data['lang_dialog_yes'] = $this->variable->escapeSingle($this->data['lang_text_yes']);
-
-        $this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_text_no']);
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('tool/database_backup');

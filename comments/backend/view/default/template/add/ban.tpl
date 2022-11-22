@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="add_ban_page">
+<div id="add_ban_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="report_access_page">
+<div id="report_access_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -82,117 +82,6 @@
     <div class="pagination_stats"><?php echo $pagination_stats; ?></div>
 
     <div class="pagination_links"><?php echo $pagination_links; ?></div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('#filter').click(function() {
-            var url = 'index.php?route=report/access';
-
-            var filter_username = $('input[name="filter_username"]').val();
-
-            if (filter_username) {
-                url += '&filter_username=' + encodeURIComponent(filter_username);
-            }
-
-            var filter_ip_address = $('input[name="filter_ip_address"]').val();
-
-            if (filter_ip_address) {
-                url += '&filter_ip_address=' + encodeURIComponent(filter_ip_address);
-            }
-
-            var filter_page = $('input[name="filter_page"]').val();
-
-            if (filter_page) {
-                url += '&filter_page=' + encodeURIComponent(filter_page);
-            }
-
-            var filter_date = $('input[name="filter_date"]').val();
-
-            if (filter_date) {
-                url += '&filter_date=' + encodeURIComponent(filter_date);
-            }
-
-            location = url;
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name=\'filter_username\']').autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    url: 'index.php?route=report/access/autocomplete&filter_username=' + encodeURIComponent(request.term),
-                    dataType: 'json',
-                    success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.username,
-                                value: item.username
-                            }
-                        }));
-                    }
-                });
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name=\'filter_ip_address\']').autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    url: 'index.php?route=report/access/autocomplete&filter_ip_address=' + encodeURIComponent(request.term),
-                    dataType: 'json',
-                    success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.ip_address,
-                                value: item.ip_address
-                            }
-                        }));
-                    }
-                });
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name=\'filter_page\']').autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    url: 'index.php?route=report/access/autocomplete&filter_page=' + encodeURIComponent(request.term),
-                    dataType: 'json',
-                    success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.page,
-                                value: item.page
-                            }
-                        }));
-                    }
-                });
-            }
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

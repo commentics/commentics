@@ -119,8 +119,6 @@ class Variable
 
     public function hint($hint)
     {
-        $hint = str_replace("'", "\'", $hint); // replace ' with \'
-
         $hint = str_replace("\"", "&quot;", $hint); // replace " with &quot;
 
         return $hint;

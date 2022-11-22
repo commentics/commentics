@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_cache_page">
+<div id="settings_cache_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -35,7 +35,7 @@
                 <option value="memcached" <?php if ($cache_type == 'memcached') { echo 'selected'; } ?>><?php echo $lang_select_memcached; ?></option>
                 <option value="redis" <?php if ($cache_type == 'redis') { echo 'selected'; } ?>><?php echo $lang_select_redis; ?></option>
             </select>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_type; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_type; ?>">[?]</a>
             <?php if ($error_cache_type) { ?>
                 <span class="error"><?php echo $error_cache_type; ?></span>
             <?php } ?>
@@ -70,34 +70,6 @@
 
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>
     </form>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        <?php if ($cache_type == 'memcached' || $cache_type == 'redis') { ?>
-            $('.extra_section').show();
-        <?php } else { ?>
-            $('.extra_section').hide();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('select[name="cache_type"]').on('change', function() {
-            var cache_type = $(this).val();
-
-            if (cache_type == 'memcached' || cache_type == 'redis') {
-                $('.extra_section').show();
-            } else {
-                $('.extra_section').hide();
-            }
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_approval_page">
+<div id="settings_approval_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -30,19 +30,19 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_approve_comments; ?></label>
             <input type="checkbox" name="approve_comments" value="1" <?php if ($approve_comments) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_approve_comments; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_approve_comments; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_approve_notifications; ?></label>
             <input type="checkbox" name="approve_notifications" value="1" <?php if ($approve_notifications) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_approve_notifications; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_approve_notifications; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_trust_previous_users; ?></label>
             <input type="checkbox" name="trust_previous_users" value="1" <?php if ($trust_previous_users) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_trust_previous_users; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_trust_previous_users; ?>">[?]</a>
         </div>
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">

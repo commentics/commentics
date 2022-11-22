@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="add_country_page">
+<div id="add_country_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -41,7 +41,7 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_code; ?></label>
             <input type="text" required name="code" class="small_plus" value="<?php echo $code; ?>" maxlength="3">
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_code; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_code; ?>">[?]</a>
             <?php if ($error_code) { ?>
                 <span class="error"><?php echo $error_code; ?></span>
             <?php } ?>
@@ -53,7 +53,7 @@
                 <option value="0" <?php if ($top == '0') { echo 'selected'; } ?>><?php echo $lang_text_no; ?></option>
                 <option value="1" <?php if ($top == '1') { echo 'selected'; } ?>><?php echo $lang_text_yes; ?></option>
             </select>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_top; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_top; ?>">[?]</a>
             <?php if ($error_top) { ?>
                 <span class="error"><?php echo $error_top; ?></span>
             <?php } ?>

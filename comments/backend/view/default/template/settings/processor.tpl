@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_processor_page">
+<div id="settings_processor_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -44,19 +44,19 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_one_name; ?></label>
                     <input type="checkbox" name="one_name_enabled" value="1" <?php if ($one_name_enabled) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_one_name; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_one_name; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_fix_name; ?></label>
                     <input type="checkbox" name="fix_name_enabled" value="1" <?php if ($fix_name_enabled) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_fix_name; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_fix_name; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset divide_after">
                     <label><?php echo $lang_entry_unique_name; ?></label>
                     <input type="checkbox" name="unique_name_enabled" value="1" <?php if ($unique_name_enabled) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_unique_name; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_unique_name; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -220,7 +220,7 @@
                 <div class="fieldset divide_after">
                     <label><?php echo $lang_entry_fix_town; ?></label>
                     <input type="checkbox" name="fix_town_enabled" value="1" <?php if ($fix_town_enabled) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_fix_town; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_fix_town; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -316,13 +316,13 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_approve; ?></label>
                     <input type="checkbox" name="approve_websites" value="1" <?php if ($approve_websites) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_approve_websites; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_approve_websites; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset divide_after">
                     <label><?php echo $lang_entry_ping; ?></label>
                     <input type="checkbox" name="validate_website_ping" value="1" <?php if ($validate_website_ping) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_validate_website_ping; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_validate_website_ping; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -396,43 +396,43 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_approve_images; ?></label>
                     <input type="checkbox" name="approve_images" value="1" <?php if ($approve_images) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_approve_images; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_approve_images; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_approve_videos; ?></label>
                     <input type="checkbox" name="approve_videos" value="1" <?php if ($approve_videos) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_approve_videos; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_approve_videos; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset divide_after">
                     <label><?php echo $lang_entry_approve_uploads; ?></label>
                     <input type="checkbox" name="approve_uploads" value="1" <?php if ($approve_uploads) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_approve_uploads; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_approve_uploads; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_convert_links; ?></label>
                     <input type="checkbox" name="comment_convert_links" value="1" <?php if ($comment_convert_links) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_convert_links; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_convert_links; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_convert_emails; ?></label>
                     <input type="checkbox" name="comment_convert_emails" value="1" <?php if ($comment_convert_emails) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_convert_emails; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_convert_emails; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_new_window; ?></label>
                     <input type="checkbox" name="comment_links_new_window" value="1" <?php if ($comment_links_new_window) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_new_window; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_new_window; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset divide_after">
                     <label><?php echo $lang_entry_no_follow; ?></label>
                     <input type="checkbox" name="comment_links_nofollow" value="1" <?php if ($comment_links_nofollow) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_no_follow; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_no_follow; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -487,7 +487,7 @@
                 <div class="fieldset divide_after">
                     <label><?php echo $lang_entry_line_breaks; ?></label>
                     <input type="checkbox" name="comment_line_breaks" value="1" <?php if ($comment_line_breaks) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_line_breaks; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_line_breaks; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -612,7 +612,7 @@
                         <option value="all" <?php if ($notify_type == 'all') { echo 'selected'; } ?>><?php echo $lang_select_all; ?></option>
                         <option value="custom" <?php if ($notify_type == 'custom') { echo 'selected'; } ?>><?php echo $lang_select_custom; ?></option>
                     </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_type; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_notify_type; ?>">[?]</a>
                     <?php if ($error_notify_type) { ?>
                         <span class="error"><?php echo $error_notify_type; ?></span>
                     <?php } ?>
@@ -624,7 +624,7 @@
                         <option value="html" <?php if ($notify_format == 'html') { echo 'selected'; } ?>><?php echo $lang_select_html; ?></option>
                         <option value="text" <?php if ($notify_format == 'text') { echo 'selected'; } ?>><?php echo $lang_select_text; ?></option>
                     </select>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_notify_format; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_notify_format; ?>">[?]</a>
                     <?php if ($error_notify_format) { ?>
                         <span class="error"><?php echo $error_notify_format; ?></span>
                     <?php } ?>
@@ -635,13 +635,13 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_form_cookie; ?></label>
                     <input type="checkbox" name="form_cookie" value="1" <?php if ($form_cookie) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_form_cookie; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_form_cookie; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_days; ?></label>
                     <input type="text" required name="form_cookie_days" class="small" value="<?php echo $form_cookie_days; ?>" maxlength="4">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_cookie_days; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_cookie_days; ?>">[?]</a>
                     <?php if ($error_form_cookie_days) { ?>
                         <span class="error"><?php echo $error_form_cookie_days; ?></span>
                     <?php } ?>
@@ -652,7 +652,7 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_max_capitals; ?></label>
                     <input type="checkbox" name="check_capitals_enabled" value="1" <?php if ($check_capitals_enabled) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_capitals; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_check_capitals; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
@@ -679,13 +679,13 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_detect_repeats; ?></label>
                     <input type="checkbox" name="check_repeats_enabled" value="1" <?php if ($check_repeats_enabled) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_repeats; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_check_repeats; ?>">[?]</a>
                 </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_amount; ?></label>
                     <input type="text" required name="check_repeats_amount" class="small" value="<?php echo $check_repeats_amount; ?>" maxlength="3">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_repeats_amount; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_repeats_amount; ?>">[?]</a>
                     <?php if ($error_check_repeats_amount) { ?>
                         <span class="error"><?php echo $error_check_repeats_amount; ?></span>
                     <?php } ?>
@@ -776,7 +776,7 @@
                 <div class="fieldset">
                     <label><?php echo $lang_entry_mask; ?></label>
                     <input type="text" required name="swear_word_masking" class="medium" value="<?php echo $swear_word_masking; ?>" maxlength="10">
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_mask; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_mask; ?>">[?]</a>
                     <?php if ($error_swear_word_masking) { ?>
                         <span class="error"><?php echo $error_swear_word_masking; ?></span>
                     <?php } ?>

@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="add_admin_page">
+<div id="add_admin_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -68,31 +68,31 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_enabled; ?></label>
             <input type="checkbox" name="is_enabled" value="1" <?php if ($is_enabled) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_enabled; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_enabled; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_super; ?></label>
             <input type="checkbox" name="is_super" value="1" <?php if ($is_super) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_super; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_super; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_restrict; ?></label>
             <input type="checkbox" name="restrict_pages" value="1" <?php if ($restrict_pages) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_restrict; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_restrict; ?>">[?]</a>
         </div>
 
-        <div class="fieldset restriction_fieldset" style="display:none">
+        <div class="fieldset restriction_fieldset restriction_fieldset_hidden">
             <label></label>
             <span class="note"><?php echo $lang_text_allowed_pages; ?></span>
         </div>
 
         <?php foreach ($restrictions as $restriction) { ?>
-            <div class="fieldset restriction_fieldset <?php if ($restriction['is_top']) { echo 'restriction_fieldset_top'; } ?>" style="display:none">
+            <div class="fieldset restriction_fieldset restriction_fieldset_hidden <?php if ($restriction['is_top']) { echo 'restriction_fieldset_top'; } ?>">
                 <label></label>
 
-                <input type="checkbox" name="viewable_pages[]" style="margin-left: <?php echo $restriction['indent']; ?>" value="<?php echo $restriction['page']; ?>" <?php if ($restriction['is_viewable']) { echo 'checked'; } ?>>
+                <input type="checkbox" name="viewable_pages[]" class="restriction_indent_<?php echo $restriction['indent']; ?>" value="<?php echo $restriction['page']; ?>" <?php if ($restriction['is_viewable']) { echo 'checked'; } ?>>
 
                 <?php if (!$restriction['is_top']) { ?>
                     <input type="checkbox" name="modifiable_pages[]" value="<?php echo $restriction['page']; ?>" <?php if ($restriction['is_modifiable']) { echo 'checked'; } ?>>
@@ -112,51 +112,6 @@
 
         <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
     </form>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        <?php if ($restrict_pages) { ?>
-            $('.restriction_fieldset').show();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name="restrict_pages"]').change(function() {
-            if ($(this).is(':checked')) {
-                $('.restriction_fieldset').show();
-            } else {
-                $('.restriction_fieldset').hide();
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.restriction_fieldset input[type="checkbox"]').change(function() {
-            $('input[name="viewable_pages[]"]').each(function() {
-                if ($(this).next().attr('name') == 'modifiable_pages[]') {
-                     if ($(this).is(':checked')) {
-                         $(this).next().prop('disabled', false);
-                     } else {
-                         $(this).next().prop('checked', false);
-                         $(this).next().prop('disabled', true);
-                     }
-                }
-            });
-        });
-
-        $('.restriction_fieldset input[type="checkbox"]').trigger('change');
-    });
-    // ]]>
-    </script>
 
 </div>
 

@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="cmtx_row cmtx_image_row cmtx_clear" style="display:none">
+    <div class="cmtx_row cmtx_image_row cmtx_hide cmtx_clear">
         <div class="cmtx_col_12">
             <div class="cmtx_container cmtx_image_container"></div>
         </div>

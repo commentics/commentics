@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_licence_page">
+<div id="settings_licence_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -38,7 +38,7 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_forum_user; ?></label>
             <input type="text" name="forum_user" class="medium" value="<?php echo $forum_user; ?>" maxlength="250">
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_forum_user; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_forum_user; ?>">[?]</a>
             <?php if ($error_forum_user) { ?>
                 <span class="error"><?php echo $error_forum_user; ?></span>
             <?php } ?>

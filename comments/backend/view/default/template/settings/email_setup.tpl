@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_email_setup_page">
+<div id="settings_email_setup_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -170,34 +170,6 @@
         <div class="buttons"><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></div>
 
     </form>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        <?php if ($transport_method == 'smtp') { ?>
-            $('.smtp_section').show();
-        <?php } else { ?>
-            $('.smtp_section').hide();
-        <?php } ?>
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('select[name="transport_method"]').on('change', function() {
-            var transport_method = $(this).val();
-
-            if (transport_method == 'smtp') {
-                $('.smtp_section').show();
-            } else {
-                $('.smtp_section').hide();
-            }
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

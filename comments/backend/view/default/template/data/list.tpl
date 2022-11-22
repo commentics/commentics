@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="data_list_page">
+<div id="data_list_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -36,7 +36,7 @@
 
     <div class="clear"></div>
 
-    <div class="guide" style="display:none">
+    <div class="guide hide">
         <?php echo $lang_text_wildcard; ?>
 
         <ul>
@@ -91,50 +91,6 @@
 
         <div class="links"><a id="back"><?php echo $lang_link_back; ?></a></div>
     </form>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.description a').click(function(e) {
-            e.preventDefault();
-
-            if ($('.guide').is(':hidden')) {
-                $('.guide').slideDown('slow', function() {} );
-
-                $('.description a').text('<?php echo $lang_link_less; ?>');
-            } else {
-                $('.guide').slideUp('slow', function() {} );
-
-                $('.description a').text('<?php echo $lang_link_more; ?>');
-            }
-
-            return false;
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('.selection select').on('change', function() {
-            window.location.href = $(this).val();
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('#back').click(function(e) {
-            e.preventDefault();
-
-            window.history.back();
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

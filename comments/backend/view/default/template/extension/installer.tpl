@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="extension_installer_page">
+<div id="extension_installer_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 

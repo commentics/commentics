@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="settings_security_page">
+<div id="settings_security_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -30,7 +30,7 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_check_referrer; ?></label>
             <input type="checkbox" name="check_referrer" value="1" <?php if ($check_referrer) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_referrer; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_check_referrer; ?>">[?]</a>
             <?php if ($error_check_referrer) { ?>
                 <span class="error"><?php echo $error_check_referrer; ?></span>
             <?php } ?>
@@ -39,44 +39,44 @@
         <div class="fieldset">
             <label><?php echo $lang_entry_check_config; ?></label>
             <input type="checkbox" name="check_config" value="1" <?php if ($check_config) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_config; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_check_config; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_check_honeypot; ?></label>
             <input type="checkbox" name="check_honeypot" value="1" <?php if ($check_honeypot) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_honeypot; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_check_honeypot; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_check_time; ?></label>
             <input type="checkbox" name="check_time" value="1" <?php if ($check_time) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_time; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_check_time; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_check_ip_address; ?></label>
             <input type="checkbox" name="check_ip_address" value="1" <?php if ($check_ip_address) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_check_ip_address; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_check_ip_address; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_ssl_certificate; ?></label>
             <input type="checkbox" name="ssl_certificate" value="1" <?php if ($ssl_certificate) { echo 'checked'; } ?>>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_ssl_certificate; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_ssl_certificate; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_delete_install; ?></label>
             <input type="checkbox" name="delete_install" value="1">
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_delete_install; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_delete_install; ?>">[?]</a>
         </div>
 
         <div class="fieldset">
             <label><?php echo $lang_entry_ban_cookie; ?></label>
             <input type="text" required name="ban_cookie_days" class="small" value="<?php echo $ban_cookie_days; ?>" maxlength="4">
             <span class="note"><?php echo $lang_note_days; ?></span>
-            <a class="hint" onmouseover="showhint('<?php echo $lang_hint_ban_cookie; ?>', this, event, '')">[?]</a>
+            <a class="hint" data-hint="<?php echo $lang_hint_ban_cookie; ?>">[?]</a>
             <?php if ($error_ban_cookie_days) { ?>
                 <span class="error"><?php echo $error_ban_cookie_days; ?></span>
             <?php } ?>

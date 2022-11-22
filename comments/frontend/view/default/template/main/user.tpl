@@ -146,7 +146,7 @@
             </div>
 
             {# These settings are passed to common.js #}
-            <div id="cmtx_js_settings_user" style="display:none" hidden>{{ cmtx_js_settings_user }}</div>
+            <div id="cmtx_js_settings_user" class="cmtx_hide" hidden>{{ cmtx_js_settings_user }}</div>
 
             @if avatar_type equals 'selection'
                 <div id="cmtx_avatar_selection_modal" class="cmtx_modal_box" role="dialog">

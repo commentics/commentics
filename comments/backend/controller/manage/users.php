@@ -231,10 +231,6 @@ class ManageUsersController extends Controller
 
         $this->data['lang_dialog_bulk_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_bulk_delete_title']);
 
-        $this->data['lang_dialog_yes'] = $this->variable->escapeSingle($this->data['lang_text_yes']);
-
-        $this->data['lang_dialog_no'] = $this->variable->escapeSingle($this->data['lang_text_no']);
-
         $this->data['lang_description'] = sprintf($this->data['lang_description'], $this->url->link('manage/bans'), $this->url->link('manage/subscriptions'));
 
         $this->data['avatar_type'] = $this->setting->get('avatar_type');

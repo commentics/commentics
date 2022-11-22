@@ -148,7 +148,7 @@
     @endif
 
     {# These are passed to autodetect.js via the template #}
-    <div id="cmtx_js_settings_page" style="display:none" hidden>{{ cmtx_js_settings_page }}</div>
+    <div id="cmtx_js_settings_page" class="cmtx_hide" hidden>{{ cmtx_js_settings_page }}</div>
 
     {{ footer }}
 </div>

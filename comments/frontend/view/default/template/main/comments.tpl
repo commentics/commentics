@@ -82,7 +82,7 @@
                         </div>
                     @endif
 
-                    <span class="cmtx_reply_counter" style="display:none" hidden>{{ count }}</span>
+                    <span class="cmtx_reply_counter cmtx_hide" hidden>{{ count }}</span>
                 </section>
             @endforeach
         </div>
@@ -185,7 +185,7 @@
         @endif
 
         {# These settings are passed to common.js #}
-        <div id="cmtx_js_settings_comments" style="display:none" hidden>{{ cmtx_js_settings_comments }}</div>
+        <div id="cmtx_js_settings_comments" class="cmtx_hide" hidden>{{ cmtx_js_settings_comments }}</div>
     @elseif is_permalink
         <div class="cmtx_no_permalink">{{ lang_text_no_permalink }}</div>
     @elseif is_search

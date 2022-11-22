@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="edit_comment_page">
+<div id="edit_comment_page">
 
     <div class='page_help_block'><?php echo $page_help_link; ?></div>
 
@@ -106,7 +106,7 @@
 
             <div class="fieldset">
                 <label><?php echo $lang_entry_comment; ?></label>
-                <textarea name="comment"><?php echo $comment; ?></textarea>
+                <textarea name="comment" class="<?php if ($wysiwyg_enabled) { ?>wysiwyg<?php } ?>"><?php echo $comment; ?></textarea>
                 <?php if ($error_comment) { ?>
                     <span class="error"><?php echo $error_comment; ?></span>
                 <?php } ?>
@@ -114,7 +114,7 @@
 
             <div class="fieldset">
                 <label><?php echo $lang_entry_reply; ?></label>
-                <textarea name="reply"><?php echo $reply; ?></textarea>
+                <textarea name="reply" class="<?php if ($wysiwyg_enabled) { ?>wysiwyg<?php } ?>"><?php echo $reply; ?></textarea>
                 <?php if ($error_reply) { ?>
                     <span class="error"><?php echo $error_reply; ?></span>
                 <?php } ?>
@@ -194,7 +194,7 @@
                     <div><?php echo $lang_text_sent; ?></div>
                 <?php } else { ?>
                     <input type="checkbox" name="send" value="1" <?php if ($is_sent) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_send; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_send; ?>">[?]</a>
                 <?php } ?>
             </div>
 
@@ -219,7 +219,7 @@
                     <div><?php echo $lang_text_verified; ?></div>
                 <?php } else { ?>
                     <input type="checkbox" name="verify" value="1" <?php if ($is_verified) { echo 'checked'; } ?>>
-                    <a class="hint" onmouseover="showhint('<?php echo $lang_hint_verify; ?>', this, event, '')">[?]</a>
+                    <a class="hint" data-hint="<?php echo $lang_hint_verify; ?>">[?]</a>
                 <?php } ?>
             </div>
 
@@ -229,7 +229,7 @@
                     <option value="0" <?php if ($is_sticky == '0') { echo 'selected'; } ?>><?php echo $lang_text_no; ?></option>
                     <option value="1" <?php if ($is_sticky == '1') { echo 'selected'; } ?>><?php echo $lang_text_yes; ?></option>
                 </select>
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_sticky; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_sticky; ?>">[?]</a>
                 <?php if ($error_is_sticky) { ?>
                     <span class="error"><?php echo $error_is_sticky; ?></span>
                 <?php } ?>
@@ -241,7 +241,7 @@
                     <option value="0" <?php if ($is_locked == '0') { echo 'selected'; } ?>><?php echo $lang_text_no; ?></option>
                     <option value="1" <?php if ($is_locked == '1') { echo 'selected'; } ?>><?php echo $lang_text_yes; ?></option>
                 </select>
-                <a class="hint" onmouseover="showhint('<?php echo $lang_hint_locked; ?>', this, event, '')">[?]</a>
+                <a class="hint" data-hint="<?php echo $lang_hint_locked; ?>">[?]</a>
                 <?php if ($error_is_locked) { ?>
                     <span class="error"><?php echo $error_is_locked; ?></span>
                 <?php } ?>
@@ -260,7 +260,7 @@
             <div class="buttons">
                 <input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>">
 
-                <input type="button" class="button" name="delete" data-id="<?php echo $id; ?>" value="<?php echo $lang_button_delete; ?>" title="<?php echo $lang_button_delete; ?>">
+                <input type="button" class="button" name="delete" data-id="<?php echo $id; ?>" data-url="manage/comments" value="<?php echo $lang_button_delete; ?>" title="<?php echo $lang_button_delete; ?>">
 
                 <input type="button" class="button" name="spam" value="<?php echo $lang_button_spam; ?>" title="<?php echo $lang_button_spam; ?>">
             </div>
@@ -278,259 +278,22 @@
             </div>
         <?php } ?>
 
+        <input type="hidden" data-js="id" value="<?php echo $id; ?>">
+
+        <input type="hidden" data-js="state_id" value="<?php echo $state_id; ?>">
+
+        <input type="hidden" data-js="reply_to" value="<?php echo $reply_to; ?>">
+
+        <input type="hidden" data-js="link_spam" value="<?php echo $link_spam; ?>">
+
         <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
     </form>
 
-    <div id="delete_dialog" title="<?php echo $lang_dialog_delete_title; ?>" style="display:none">
+    <div id="delete_dialog" title="<?php echo $lang_dialog_delete_title; ?>" class="hide">
         <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_delete_content; ?>
     </div>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('div.info a:last-child').click(function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: 'index.php?route=edit/comment/dismiss',
-            })
-
-            $('div.info').fadeOut(2000);
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('select[name="country_id"]').bind('change', function() {
-            var data = 'country_id=' + encodeURIComponent($('select[name="country_id"]').val());
-
-            var request = $.ajax({
-                type: 'POST',
-                cache: false,
-                url: 'index.php?route=edit/comment/getStates',
-                data: data,
-                dataType: 'json',
-                beforeSend: function() {
-                    $('select[name="country_id"]').after('<img src="<?php echo $loading; ?>" class="loading">');
-                }
-            });
-
-            request.always(function() {
-                setTimeout(function() {
-                    $('.loading').remove();
-                }, 500);
-            });
-
-            request.done(function(response) {
-                states = response;
-
-                html = '<option value=""><?php echo $lang_select_select; ?></option>';
-
-                for (i = 0; i < states.length; i++) {
-                    html += '<option value="' + states[i]['id'] + '"';
-
-                    if (states[i]['id'] == '<?php echo $state_id; ?>') {
-                        html += ' selected';
-                    }
-
-                    html += '>' + states[i]['name'] + '</option>';
-                }
-
-                $('select[name="state_id"]').html(html);
-
-                $('select[name="state_id"]').trigger('change');
-            });
-
-            request.fail(function(jqXHR, textStatus, errorThrown) {
-                if (console && console.log) {
-                    console.log(jqXHR.responseText);
-                }
-            });
-        });
-
-        $('select[name="country_id"]').trigger('change');
-    });
-    // ]]>
-    </script>
-
-    <?php if ($wysiwyg_enabled) { ?>
-        <script>
-        // <![CDATA[
-        $(document).ready(function() {
-            $('.left textarea').summernote({
-                height: 155,
-                disableDragAndDrop: true,
-                shortcuts: false,
-                toolbar: [
-                    ['font', ['bold', 'italic', 'underline', 'clear']],
-                    ['para', ['ul', 'ol']],
-                    ['insert', ['link', 'picture', 'hr']],
-                    ['view', ['codeview']]
-                ],
-            });
-        });
-        // ]]>
-        </script>
-    <?php } ?>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('select[name="page_id"]').bind('change', function() {
-            var data = 'id=' + encodeURIComponent('<?php echo $id; ?>') + '&page_id=' + encodeURIComponent($('select[name="page_id"]').val());
-
-            var request = $.ajax({
-                type: 'POST',
-                cache: false,
-                url: 'index.php?route=edit/comment/getReplies',
-                data: data,
-                dataType: 'json',
-                beforeSend: function() {
-                    $('select[name="page_id"]').after('<img src="<?php echo $loading; ?>" class="loading">');
-                }
-            });
-
-            request.always(function() {
-                setTimeout(function() {
-                    $('.loading').remove();
-                }, 500);
-            });
-
-            request.done(function(response) {
-                replies = response;
-
-                html = '<option value="0"><?php echo $lang_text_nobody; ?></option>';
-
-                for (i = 0; i < replies.length; i++) {
-                    html += '<option value="' + replies[i]['id'] + '"';
-
-                    if (replies[i]['id'] == '<?php echo $reply_to; ?>') {
-                        html += ' selected';
-                    }
-
-                    html += '>' + replies[i]['name'] + ' - ' + replies[i]['date_added'] + '</option>';
-                }
-
-                $('select[name="reply_to"]').html(html);
-
-                $('select[name="reply_to"]').trigger('change');
-            });
-
-            request.fail(function(jqXHR, textStatus, errorThrown) {
-                if (console && console.log) {
-                    console.log(jqXHR.responseText);
-                }
-            });
-        });
-
-        $('select[name="page_id"]').trigger('change');
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('select[name="reply_to"]').bind('change', function() {
-            var reply_to = $(this).val();
-
-            if (reply_to == '0') {
-                $('select[name="is_sticky"]').attr('disabled', false);
-            } else {
-                $('select[name="is_sticky"]').val('0');
-
-                $('select[name="is_sticky"]').attr('disabled', true);
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('a.gallery').colorbox({
-            maxWidth: '80%',
-            maxHeight: '50%',
-            rel: 'gallery'
-        })
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('select[name="is_approved"]').bind('change', function() {
-            var is_approved = $(this).val();
-
-            if (is_approved == '1') {
-                $('input[name="send"]').prop('checked', true);
-
-                $('input[name="verify"]').prop('checked', true);
-            } else {
-                $('input[name="send"]').prop('checked', false);
-
-                $('input[name="verify"]').prop('checked', false);
-            }
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name="delete"]').click(function(e) {
-            e.preventDefault();
-
-            var id = $(this).data('id');
-
-            $('#delete_dialog').dialog({
-                modal: true,
-                height: 'auto',
-                width: 'auto',
-                resizable: false,
-                draggable: false,
-                center: true,
-                buttons: {
-                    '<?php echo $lang_dialog_yes; ?>': function() {
-                        $('form').attr('action', 'index.php?route=manage/comments');
-
-                        var input = $('<input>').attr('type', 'hidden').attr('name', 'single_delete').val(id);
-
-                        $('form').append($(input));
-
-                        $('form').submit();
-
-                        $(this).dialog('close');
-                    },
-                    '<?php echo $lang_dialog_no; ?>': function() {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $('#delete_dialog').dialog('open');
-        });
-    });
-    // ]]>
-    </script>
-
-    <script>
-    // <![CDATA[
-    $(document).ready(function() {
-        $('input[name="spam"]').click(function(e) {
-            location = '<?php echo $link_spam; ?>';
-        });
-    });
-    // ]]>
-    </script>
 
 </div>
 

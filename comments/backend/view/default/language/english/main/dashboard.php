@@ -157,5 +157,3 @@ $_['lang_link_log']                  = 'log';
 // Dialog
 $_['lang_dialog_title']              = 'System Settings';
 $_['lang_dialog_content']            = 'These <a href="%s">system settings</a> appear to be incorrect';
-$_['lang_dialog_stop']               = 'Don\'t show again';
-$_['lang_dialog_close']              = 'Close';
