@@ -620,7 +620,7 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Rwanda', `country_code` = 'RWA', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Saint Kitts and Nevis', `country_code` = 'KNA', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Saint Lucia', `country_code` = 'LCA', `language` = 'english', `date_added` = NOW()");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Saint Vincent and the Grenadines', `country_code` = 'VCT', `language` = 'english', `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Saint Vincent and Grenadines', `country_code` = 'VCT', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Samoa', `country_code` = 'WSM', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'San Marino', `country_code` = 'SMR', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'São Tomé and Príncipe', `country_code` = 'STP', `language` = 'english', `date_added` = NOW()");
