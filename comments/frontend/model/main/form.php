@@ -380,12 +380,12 @@ class MainFormModel extends Model
 
     /*
      * Checks if the name contains only valid characters
-     * Letters, ampersand, hyphen, apostrophe, period, space, numbers
+     * Letters, ampersand, hyphen, apostrophe, period, space, numbers, extended hyphen
      * \p{L} (any kind of letter from any language)
      */
     public function isNameValid($name)
     {
-        if (preg_match('/^[\p{L}&\-\'. 0-9]+$/u', $name)) {
+        if (preg_match('/^[\p{L}&\-\'. 0-9–]+$/u', $name)) {
             return true;
         } else {
             return false;
