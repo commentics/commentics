@@ -2356,6 +2356,16 @@ $(document).ready(function() {
         window.history.back();
     });
 
+    /* Fix for dialog close button */
+
+    $.widget('ui.dialog', $.ui.dialog, {
+        open: function() {
+            $('.ui-dialog-titlebar-close').html('<span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>');
+
+            return this._super();
+        }
+    });
+
 });
 
 function translate_buttons() {
