@@ -50,7 +50,11 @@ class MySqli
 
         $start = microtime(true);
 
-        $resource = mysqli_query($this->link, $sql);
+        try {
+            $resource = mysqli_query($this->link, $sql);
+        } catch(\Exception $e) {
+            $resource = false;
+        }
 
         $end = microtime(true);
 
