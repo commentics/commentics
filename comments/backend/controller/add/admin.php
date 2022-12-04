@@ -75,8 +75,6 @@ class AddAdminController extends Controller
 
         $this->data['restrictions'] = $this->model_common_administrator->getRestrictions();
 
-        $this->data['lang_dialog_super_title'] = $this->variable->encodeDouble($this->data['lang_dialog_super_title']);
-
         if (!$this->session->data['cmtx_is_super']) {
             $this->data['info'] = $this->data['lang_notice'];
         }

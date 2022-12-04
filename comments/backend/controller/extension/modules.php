@@ -28,8 +28,6 @@ class ExtensionModulesController extends Controller
             );
         }
 
-        $this->data['lang_dialog_uninstall_title'] = $this->variable->encodeDouble($this->data['lang_dialog_uninstall_title']);
-
         $this->data['info'] = sprintf($this->data['lang_notice'], 'https://commentics.com/getmodules');
 
         $this->components = array('common/header', 'common/footer');

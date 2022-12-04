@@ -175,10 +175,6 @@ class ManageQuestionsController extends Controller
 
         $this->data['button_delete'] = $this->loadImage('button/delete.png');
 
-        $this->data['lang_dialog_single_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_single_delete_title']);
-
-        $this->data['lang_dialog_bulk_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_bulk_delete_title']);
-
         if ($this->setting->get('notice_manage_questions')) {
             $this->data['info'] = sprintf($this->data['lang_notice'], $this->url->link('tool/export_import'));
         }

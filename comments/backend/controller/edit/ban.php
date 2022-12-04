@@ -51,8 +51,6 @@ class EditBanController extends Controller
             $this->data['error_reason'] = '';
         }
 
-        $this->data['lang_dialog_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_delete_title']);
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['link_back'] = $this->url->link('manage/bans');

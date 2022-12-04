@@ -85,10 +85,6 @@ class EditAdminController extends Controller
 
         $this->data['restrictions'] = $this->model_common_administrator->getRestrictions($this->request->get['id']);
 
-        $this->data['lang_dialog_super_title'] = $this->variable->encodeDouble($this->data['lang_dialog_super_title']);
-
-        $this->data['lang_dialog_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_delete_title']);
-
         $this->data['id'] = $this->request->get['id'];
 
         if ($this->session->data['cmtx_is_super'] && $this->request->get['id'] != $this->session->data['cmtx_admin_id']) {

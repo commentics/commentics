@@ -1118,8 +1118,6 @@ class SettingsLayoutCommentsController extends Controller
             } else {
                 $this->data['layout_settings'] = false;
             }
-
-            $this->data['lang_dialog_title'] = $this->variable->encodeDouble($this->data['lang_dialog_title']);
         }
 
         $this->components = array('common/header', 'common/footer');

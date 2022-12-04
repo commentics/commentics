@@ -162,10 +162,6 @@ class ToolDatabaseBackupController extends Controller
 
         $this->data['button_delete'] = $this->loadImage('button/delete.png');
 
-        $this->data['lang_dialog_single_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_single_delete_title']);
-
-        $this->data['lang_dialog_bulk_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_bulk_delete_title']);
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('tool/database_backup');

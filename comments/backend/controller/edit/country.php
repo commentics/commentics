@@ -77,8 +77,6 @@ class EditCountryController extends Controller
             $this->data['error_enabled'] = '';
         }
 
-        $this->data['lang_dialog_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_delete_title']);
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['languages'] = $this->model_common_language->getFrontendLanguages();

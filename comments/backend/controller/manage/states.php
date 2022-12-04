@@ -174,10 +174,6 @@ class ManageStatesController extends Controller
 
         $this->data['button_delete'] = $this->loadImage('button/delete.png');
 
-        $this->data['lang_dialog_single_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_single_delete_title']);
-
-        $this->data['lang_dialog_bulk_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_bulk_delete_title']);
-
         $this->data['lang_description'] = sprintf($this->data['lang_description'], $this->url->link('add/state'));
 
         $this->data['countries'] = $this->geo->getCountries(true);

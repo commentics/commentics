@@ -197,7 +197,6 @@ class MainDashboardController extends Controller
         if ($this->data['system_detect']) {
             $this->data['system_settings'] = $this->model_main_dashboard->checkSystemSettings();
 
-            $this->data['lang_dialog_title'] = $this->variable->encodeDouble($this->data['lang_dialog_title']);
             $this->data['lang_dialog_content'] = sprintf($this->data['lang_dialog_content'], $this->url->link('settings/system'));
         }
 

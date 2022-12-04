@@ -25,9 +25,13 @@ abstract class Controller extends Base
             $this->data['warning'] = '';
         }
 
-        foreach ($this->data as $cmtx_key => &$cmtx_value) {
-            if (substr($cmtx_key, 0, 10) == 'lang_hint_') {
-                $cmtx_value = $this->variable->hint($cmtx_value);
+        if (defined('CMTX_BACKEND')) {
+            foreach ($this->data as $cmtx_key => &$cmtx_value) {
+                if (substr($cmtx_key, 0, 10) == 'lang_hint_') {
+                    $cmtx_value = $this->variable->hint($cmtx_value);
+                } else if (substr($cmtx_key, 0, 12) == 'lang_dialog_' && substr($cmtx_key, -6) == '_title') {
+                    $cmtx_value = $this->variable->encodeDouble($cmtx_value);
+                }
             }
         }
 

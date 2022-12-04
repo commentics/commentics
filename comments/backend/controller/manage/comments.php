@@ -306,10 +306,6 @@ class ManageCommentsController extends Controller
 
         $this->data['button_spam'] = $this->loadImage('button/spam.png');
 
-        $this->data['lang_dialog_single_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_single_delete_title']);
-
-        $this->data['lang_dialog_bulk_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_bulk_delete_title']);
-
         if ($this->setting->get('notice_manage_comments')) {
             $this->data['info'] = $this->data['lang_notice'];
         }

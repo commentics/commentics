@@ -259,8 +259,6 @@ class EditCommentController extends Controller
             $this->data['error_is_locked'] = '';
         }
 
-        $this->data['lang_dialog_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_delete_title']);
-
         $this->data['id'] = $this->request->get['id'];
 
         if ($this->setting->get('use_wysiwyg')) {

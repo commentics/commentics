@@ -87,8 +87,6 @@ class EditSpamController extends Controller
 
         $this->data['lang_text_add_website'] = sprintf($this->data['lang_text_add_website'], $comment['website']);
 
-        $this->data['lang_dialog_spam_title'] = $this->variable->encodeDouble($this->data['lang_dialog_spam_title']);
-
         $this->data['id'] = $this->request->get['id'];
 
         if ($this->setting->get('notice_edit_spam')) {
