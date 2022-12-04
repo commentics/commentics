@@ -66,18 +66,18 @@
         </div>
 
         <div class="fieldset">
-            <label><?php echo $lang_entry_enabled; ?></label>
-            <input type="checkbox" name="is_enabled" value="1" <?php if ($is_enabled) { echo 'checked'; } ?>>
-            <a class="hint" data-hint="<?php echo $lang_hint_enabled; ?>">[?]</a>
-        </div>
-
-        <div class="fieldset">
             <label><?php echo $lang_entry_super; ?></label>
             <input type="checkbox" name="is_super" value="1" <?php if ($is_super) { echo 'checked'; } ?>>
             <a class="hint" data-hint="<?php echo $lang_hint_super; ?>">[?]</a>
         </div>
 
-        <div class="fieldset">
+        <div class="fieldset super_admin_settings">
+            <label><?php echo $lang_entry_enabled; ?></label>
+            <input type="checkbox" name="is_enabled" value="1" <?php if ($is_enabled) { echo 'checked'; } ?>>
+            <a class="hint" data-hint="<?php echo $lang_hint_enabled; ?>">[?]</a>
+        </div>
+
+        <div class="fieldset super_admin_settings">
             <label><?php echo $lang_entry_restrict; ?></label>
             <input type="checkbox" name="restrict_pages" value="1" <?php if ($restrict_pages) { echo 'checked'; } ?>>
             <a class="hint" data-hint="<?php echo $lang_hint_restrict; ?>">[?]</a>
@@ -112,6 +112,10 @@
 
         <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
     </form>
+
+    <div id="super_dialog" title="<?php echo $lang_dialog_super_title; ?>" class="hide">
+        <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_super_content; ?>
+    </div>
 
 </div>
 

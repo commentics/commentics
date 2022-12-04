@@ -39,20 +39,20 @@ class EditAdminController extends Controller
             $this->data['email'] = $admin['email'];
         }
 
-        if (isset($this->request->post['is_enabled'])) {
-            $this->data['is_enabled'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['is_enabled'])) {
-            $this->data['is_enabled'] = false;
-        } else {
-            $this->data['is_enabled'] = $admin['is_enabled'];
-        }
-
         if (isset($this->request->post['is_super'])) {
             $this->data['is_super'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['is_super'])) {
             $this->data['is_super'] = false;
         } else {
             $this->data['is_super'] = $admin['is_super'];
+        }
+
+        if (isset($this->request->post['is_enabled'])) {
+            $this->data['is_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['is_enabled'])) {
+            $this->data['is_enabled'] = false;
+        } else {
+            $this->data['is_enabled'] = $admin['is_enabled'];
         }
 
         if (isset($this->request->post['restrict_pages'])) {
@@ -85,9 +85,21 @@ class EditAdminController extends Controller
 
         $this->data['restrictions'] = $this->model_common_administrator->getRestrictions($this->request->get['id']);
 
+        $this->data['lang_dialog_super_title'] = $this->variable->encodeDouble($this->data['lang_dialog_super_title']);
+
         $this->data['lang_dialog_delete_title'] = $this->variable->encodeDouble($this->data['lang_dialog_delete_title']);
 
         $this->data['id'] = $this->request->get['id'];
+
+        if ($this->session->data['cmtx_is_super'] && $this->request->get['id'] != $this->session->data['cmtx_admin_id']) {
+            $this->data['show_extra'] = true;
+        } else {
+            $this->data['show_extra'] = false;
+        }
+
+        if (!$this->session->data['cmtx_is_super'] && $this->request->get['id'] != $this->session->data['cmtx_admin_id']) {
+            $this->data['info'] = $this->data['lang_notice'];
+        }
 
         $this->data['link_back'] = $this->url->link('manage/admins');
 
@@ -104,6 +116,12 @@ class EditAdminController extends Controller
 
         if ($unpostable) {
             $this->data['error'] = $unpostable;
+
+            return false;
+        }
+
+        if ($this->request->get['id'] != $this->session->data['cmtx_admin_id'] && !$this->session->data['cmtx_is_super']) {
+            $this->data['error'] = $this->data['lang_notice'];
 
             return false;
         }

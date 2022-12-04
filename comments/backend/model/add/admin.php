@@ -5,21 +5,33 @@ class AddAdminModel extends Model
 {
     public function add($data)
     {
-        if (isset($data['viewable_pages'])) {
-            $data['viewable_pages'] = implode(',', $data['viewable_pages']);
-        } else {
+        if (isset($data['is_super'])) {
+            $data['is_enabled'] = 1;
+
+            unset($data['restrict_pages']);
+
             $data['viewable_pages'] = '';
-        }
 
-        if (isset($data['modifiable_pages'])) {
-            $data['modifiable_pages'] = implode(',', $data['modifiable_pages']);
-        } else {
             $data['modifiable_pages'] = '';
+
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "admins` SET `is_super` = '0', `date_modified` = NOW() WHERE `is_super` = '1'");
+        } else {
+            if (isset($data['viewable_pages'])) {
+                $data['viewable_pages'] = implode(',', $data['viewable_pages']);
+            } else {
+                $data['viewable_pages'] = '';
+            }
+
+            if (isset($data['modifiable_pages'])) {
+                $data['modifiable_pages'] = implode(',', $data['modifiable_pages']);
+            } else {
+                $data['modifiable_pages'] = '';
+            }
+
+            $data['viewable_pages'] = str_ireplace('extension/modules', 'extension/modules,extension/modules/install,extension/modules/uninstall', $data['viewable_pages']);
+
+            $data['modifiable_pages'] = str_ireplace('extension/modules', 'extension/modules,extension/modules/install,extension/modules/uninstall', $data['modifiable_pages']);
         }
-
-        $data['viewable_pages'] = str_ireplace('extension/modules', 'extension/modules,extension/modules/install,extension/modules/uninstall', $data['viewable_pages']);
-
-        $data['modifiable_pages'] = str_ireplace('extension/modules', 'extension/modules,extension/modules/install,extension/modules/uninstall', $data['modifiable_pages']);
 
         $password = password_hash($data['password_1'], PASSWORD_DEFAULT);
 

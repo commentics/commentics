@@ -45,6 +45,7 @@ class LoginLoginController extends Controller
 
                 $this->session->data['cmtx_admin_id']   = $admin_id;
                 $this->session->data['cmtx_username']   = $this->request->post['username'];
+                $this->session->data['cmtx_is_super']   = $admin['is_super'];
                 $this->session->data['cmtx_csrf_key']   = $this->variable->random();
                 $this->session->data['cmtx_user_agent'] = $this->user->getUserAgent();
                 $this->session->data['cmtx_user_lang']  = $this->user->getAcceptLanguage();
@@ -62,8 +63,8 @@ class LoginLoginController extends Controller
 
                 $this->response->redirect('login/login');
             }
-        } else if (isset($this->session->data['cmtx_admin_id'])) {
-            // currently logged in, no action required.
+        } else if (isset($this->session->data['cmtx_admin_id'])) { // currently logged in, no action required.
+            $admin = $this->model_common_administrator->getAdmin($this->session->data['cmtx_admin_id']);
 
             // verify account still exists and still enabled
             if (!$this->model_login_login->isAccountStillValid()) {
@@ -92,6 +93,9 @@ class LoginLoginController extends Controller
 
                 $this->model_login_logout->logout();
             }
+
+            // update whether administrator is a super admin
+            $this->session->data['cmtx_is_super'] = $admin['is_super'];
 
             if (isset($this->request->get['route']) && $this->request->get['route'] == 'login/login') {
                 $this->response->redirect('main/dashboard');

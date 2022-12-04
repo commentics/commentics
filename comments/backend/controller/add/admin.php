@@ -33,20 +33,20 @@ class AddAdminController extends Controller
             $this->data['email'] = '';
         }
 
-        if (isset($this->request->post['is_enabled'])) {
-            $this->data['is_enabled'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['is_enabled'])) {
-            $this->data['is_enabled'] = false;
-        } else {
-            $this->data['is_enabled'] = true;
-        }
-
         if (isset($this->request->post['is_super'])) {
             $this->data['is_super'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['is_super'])) {
             $this->data['is_super'] = false;
         } else {
             $this->data['is_super'] = false;
+        }
+
+        if (isset($this->request->post['is_enabled'])) {
+            $this->data['is_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['is_enabled'])) {
+            $this->data['is_enabled'] = false;
+        } else {
+            $this->data['is_enabled'] = true;
         }
 
         if (isset($this->request->post['restrict_pages'])) {
@@ -75,6 +75,12 @@ class AddAdminController extends Controller
 
         $this->data['restrictions'] = $this->model_common_administrator->getRestrictions();
 
+        $this->data['lang_dialog_super_title'] = $this->variable->encodeDouble($this->data['lang_dialog_super_title']);
+
+        if (!$this->session->data['cmtx_is_super']) {
+            $this->data['info'] = $this->data['lang_notice'];
+        }
+
         $this->data['link_back'] = $this->url->link('manage/admins');
 
         $this->components = array('common/header', 'common/footer');
@@ -90,6 +96,12 @@ class AddAdminController extends Controller
 
         if ($unpostable) {
             $this->data['error'] = $unpostable;
+
+            return false;
+        }
+
+        if (!$this->session->data['cmtx_is_super']) {
+            $this->data['error'] = $this->data['lang_notice'];
 
             return false;
         }

@@ -148,12 +148,22 @@ class ManageAdminsModel extends Model
 
     public function singleDelete($id)
     {
-        /* Don't let the admin delete their own account */
-        if ($id == $this->session->data['cmtx_admin_id']) {
+        /* Don't let the super admin delete their own account */
+        if ($this->session->data['cmtx_is_super'] && $id == $this->session->data['cmtx_admin_id']) {
+            return false;
+        }
+
+        /* Don't let a regular admin delete another account */
+        if (!$this->session->data['cmtx_is_super'] && $id != $this->session->data['cmtx_admin_id']) {
             return false;
         }
 
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "admins` WHERE `id` = '" . (int) $id . "'");
+
+        /* If admin deleted their own account */
+        if ($id == $this->session->data['cmtx_admin_id']) {
+            $this->response->redirect('login/login');
+        }
 
         if ($this->db->affectedRows()) {
             return true;

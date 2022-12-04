@@ -1336,6 +1336,38 @@ $(document).ready(function() {
         $('form').submit();
     });
 
+    /* Edit Admin */
+
+    $('input[name="is_super"]').change(function() {
+        if (this.checked) {
+            $('.super_admin_settings').hide();
+
+            $('input[name="restrict_pages"]').prop('checked', false);
+
+            $('input[name="restrict_pages"]').trigger('change');
+
+            $('#super_dialog').dialog({
+                modal: true,
+                height: 'auto',
+                width: 'auto',
+                resizable: false,
+                draggable: false,
+                center: true,
+                buttons: {
+                    'Close': function() {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+
+            translate_buttons();
+
+            $('#super_dialog').dialog('open');
+        } else {
+            $('.super_admin_settings').show();
+        }
+    });
+
     /* Edit Comment */
 
     if ($('#edit_comment_page .wysiwyg').length) {
