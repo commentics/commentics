@@ -264,6 +264,12 @@ class MainFormController extends Controller
                 $this->data['user_row_visible'] = 'cmtx_hide';
             }
 
+            if ($user_columns == 2) {
+                $this->data['name_spacing'] = 'cmtx_name_spacing';
+            } else {
+                $this->data['name_spacing'] = '';
+            }
+
             $this->data['cmtx_wait_for_comment'] = '';
             $this->data['cmtx_wait_for_user'] = '';
 

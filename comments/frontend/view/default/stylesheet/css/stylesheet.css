@@ -3216,6 +3216,10 @@ select.cmtx_required {
     width: 100%;
   }
 
+  .cmtx_name_spacing {
+    margin-bottom: 20px;
+  }
+
   .cmtx_geo_row [class*=cmtx_col_] {
     float: none;
     width: 100%;
