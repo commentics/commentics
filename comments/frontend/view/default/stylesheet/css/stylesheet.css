@@ -3890,6 +3890,10 @@ select.cmtx_required {
     width: 100%;
   }
 
+  .cmtx_reply_view {
+    display: none;
+  }
+
   .cmtx_return {
     margin-bottom: 12px;
   }
@@ -3898,7 +3902,7 @@ select.cmtx_required {
     display: none;
   }
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 650px) {
   .cmtx_comment_box {
     text-align: center;
   }
@@ -3985,6 +3989,10 @@ select.cmtx_required {
     margin-top: 15px;
     position: static;
     transform: none;
+  }
+
+  .cmtx_reply_view {
+    display: inline;
   }
 }
 /**************************** Outer *****************************/
