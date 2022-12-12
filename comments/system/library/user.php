@@ -377,7 +377,7 @@ class User
 
             if ($user) {
                 if ($this->setting->get('avatar_type') == 'gravatar') {
-                    $avatar = '//www.gravatar.com/avatar/' . md5(strtolower(trim($user['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=' . $this->setting->get('gravatar_size');
+                    $avatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($user['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=' . $this->setting->get('gravatar_size');
                 }
 
                 if ($this->setting->get('avatar_type') == 'login') {

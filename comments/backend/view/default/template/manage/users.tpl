@@ -89,7 +89,7 @@
                             <tr>
                                 <td class="selector"><input type="checkbox" name="bulk[]" value="<?php echo $user['id']; ?>"></td>
                                 <?php if ($avatar_type) { ?>
-                                    <td data-th="<?php echo $lang_column_avatar; ?>:"><img src="<?php echo $user['avatar']; ?>" class="avatar"></td>
+                                    <td data-th="<?php echo $lang_column_avatar; ?>:"><a href="<?php echo $user['avatar']; ?>" target="_blank"><img src="<?php echo $user['avatar']; ?>" class="avatar"></a></td>
                                 <?php } ?>
                                 <td data-th="<?php echo $lang_column_name; ?>:"><?php echo $user['name']; ?></td>
                                 <td data-th="<?php echo $lang_column_email; ?>:"><?php echo $user['email']; ?></td>
