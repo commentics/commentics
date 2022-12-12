@@ -35,10 +35,11 @@ session_start($session_parameters);
 <body class="cmtx_iframe_body">
 <?php
 if (isset($_GET['identifier']) && isset($_GET['reference']) && isset($_GET['url'])) {
+    $cmtx_is_iframe  = true;
     $cmtx_identifier = $_GET['identifier'];
     $cmtx_reference  = $_GET['reference'];
-    $cmtx_page_url   = $_GET['url'];
-    require('frontend/index.php');
+    $cmtx_url        = $_GET['url'];
+    require 'frontend/index.php';
 }
 ?>
 </body>

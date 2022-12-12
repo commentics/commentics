@@ -70,23 +70,20 @@ if (file_exists(CMTX_DIR_ROOT . 'config.php') && filesize(CMTX_DIR_ROOT . 'confi
  * iFrame integration
  */
 
-if (isset($cmtx_page_url)) { // if this is set, it's an iFrame integration
+if (!empty($cmtx_is_iframe)) { // it's an iFrame integration
+    define('CMTX_IS_IFRAME', true);
+
     if (isset($_GET['block'])) { // helps prevent manipulation of the iFrame parameters
         $_SESSION['cmtx_block'] = '1';
         return;
     }
 
-    define('CMTX_PAGE_URL', $cmtx_page_url);
-
     /* If no identifier is passed, use the page URL */
     if (!$cmtx_identifier) {
-        /* Tidy up the page URL first */
-        $cmtx_page_url = preg_replace('#^(https?://)?(www.)?#', '', $cmtx_page_url); // Remove http and www from URL
-        $cmtx_page_url = explode('cmtx', $cmtx_page_url); // Remove any cmtx parameters e.g. if permalink
-        $cmtx_page_url = $cmtx_page_url[0];
-        $cmtx_page_url = rtrim($cmtx_page_url, '&?'); // Remove ampersand and question mark from end
-
-        $cmtx_identifier = $cmtx_page_url;
+        $cmtx_identifier = preg_replace('#^(https?://)?(www.)?#', '', $cmtx_url); // Remove http and www from URL
+        $cmtx_identifier = explode('cmtx', $cmtx_identifier); // Remove any cmtx parameters e.g. if permalink
+        $cmtx_identifier = $cmtx_identifier[0];
+        $cmtx_identifier = rtrim($cmtx_identifier, '&?'); // Remove ampersand and question mark from end
     }
 
     /* If no reference is passed, set as 'Untitled' */
@@ -117,6 +114,10 @@ if (isset($cmtx_identifier)) {
 
 if (isset($cmtx_reference)) {
     define('CMTX_REFERENCE', $cmtx_reference);
+}
+
+if (isset($cmtx_url)) {
+    define('CMTX_URL', $cmtx_url);
 }
 
 /*

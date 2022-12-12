@@ -32,13 +32,13 @@ class Page
             $this->reference = $this->security->encode(CMTX_REFERENCE);
         }
 
-        if (defined('CMTX_PAGE_URL')) { // only set for iFrame
-            $this->page_url = $this->security->encode(CMTX_PAGE_URL);
+        if (defined('CMTX_URL')) {
+            $this->page_url = $this->security->encode(CMTX_URL);
         } else {
             $this->page_url = $this->url->getPageUrl();
         }
 
-        if (defined('CMTX_PAGE_URL') || $this->session->getName() == 'commentics-iframe-session' || !empty($this->request->post['cmtx_iframe'])) {
+        if (defined('CMTX_IS_IFRAME') || $this->session->getName() == 'commentics-iframe-session' || !empty($this->request->post['cmtx_iframe'])) {
             $this->iframe = true;
         }
 

@@ -15,7 +15,7 @@ window.addEventListener('load', function(e) {
         spinner.setAttribute('style', 'margin-top: 5px');
         document.getElementById('commentics').appendChild(spinner);
 
-        var identifier = reference = '';
+        var identifier = reference = url = '';
 
         /* Get identifier */
         if (typeof commentics_config !== 'undefined' && typeof commentics_config.identifier !== 'undefined' && commentics_config.identifier !== '') {
@@ -30,7 +30,11 @@ window.addEventListener('load', function(e) {
         }
 
         /* Get URL */
-        var url = window.location.href;
+        if (typeof commentics_config !== 'undefined' && typeof commentics_config.url !== 'undefined' && commentics_config.url !== '') {
+            url = commentics_config.url;
+        } else {
+            url = window.location.href;
+        }
 
         var parameters = 'identifier=' + encodeURIComponent(identifier) + '&reference=' + encodeURIComponent(reference) + '&url=' + encodeURIComponent(url);
 
@@ -50,7 +54,7 @@ window.addEventListener('load', function(e) {
 
         /* Append any extra config values */
         if (typeof commentics_config !== 'undefined') {
-            var ignore = ['identifier', 'reference'];
+            var ignore = ['identifier', 'reference', 'url'];
 
             var extra_config = '&';
 
