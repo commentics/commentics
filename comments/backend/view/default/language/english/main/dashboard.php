@@ -155,5 +155,7 @@ $_['lang_link_upgrade']              = 'upgrade';
 $_['lang_link_log']                  = 'log';
 
 // Dialog
-$_['lang_dialog_title']              = 'System Settings';
-$_['lang_dialog_content']            = 'These <a href="%s">system settings</a> appear to be incorrect';
+$_['lang_dialog_version_title']      = 'Version Issue';
+$_['lang_dialog_version_content']    = 'Your files are at v%s, but your database is at v%s.<br>This likely means that you should run the <a href="%s" target="_blank">installer</a>.';
+$_['lang_dialog_system_title']       = 'System Settings';
+$_['lang_dialog_system_content']     = 'These <a href="%s">system settings</a> appear to be incorrect';

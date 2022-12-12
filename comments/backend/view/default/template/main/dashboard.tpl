@@ -164,9 +164,15 @@
         <p><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></p>
     </form>
 
+    <?php if ($version_detect && $version_issue) { ?>
+        <div id="version_issue_dialog" title="<?php echo $lang_dialog_version_title; ?>" class="hide">
+            <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_version_content; ?>
+        </div>
+    <?php } ?>
+
     <?php if ($system_detect && $system_settings) { ?>
-        <div id="system_settings_dialog" title="<?php echo $lang_dialog_title; ?>" class="hide">
-            <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_content; ?>
+        <div id="system_settings_dialog" title="<?php echo $lang_dialog_system_title; ?>" class="hide">
+            <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_system_content; ?>
 
             <ul>
                 <?php foreach ($system_settings as $system_setting) { ?>

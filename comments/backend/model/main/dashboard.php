@@ -230,6 +230,15 @@ class MainDashboardModel extends Model
         return $this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "subscriptions` WHERE `date_added` LIKE '" . $this->db->escape(date('Y') . '-' . $month . '-%') . "'"));
     }
 
+    public function checkVersionIssue($current_version)
+    {
+        if (version_compare($current_version, CMTX_VERSION, '<')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function checkSystemSettings()
     {
         $site_domain = str_ireplace('www.', '', parse_url($this->url->decode($this->url->getPageUrl()), PHP_URL_HOST));
@@ -281,5 +290,10 @@ class MainDashboardModel extends Model
     public function stopSystemDetect()
     {
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'system_detect'");
+    }
+
+    public function stopVersionDetect()
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'version_detect'");
     }
 }

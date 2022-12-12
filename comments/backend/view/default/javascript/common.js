@@ -293,6 +293,33 @@ $(document).ready(function() {
 
     /* Dashboard */
 
+    if ($('#version_issue_dialog').length) {
+        $('#version_issue_dialog').dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto',
+            resizable: false,
+            draggable: false,
+            center: true,
+            buttons: {
+                'Stop': function() {
+                    $.ajax({
+                        url: 'index.php?route=main/dashboard/stopVersionDetect',
+                    })
+
+                    $(this).dialog('close');
+                },
+                'Close': function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        translate_buttons();
+
+        $('#version_issue_dialog').dialog('open');
+    }
+
     if ($('#system_settings_dialog').length) {
         $('#system_settings_dialog').dialog({
             modal: true,

@@ -192,17 +192,32 @@ class MainDashboardController extends Controller
 
         $this->data['lang_title_version_check'] = sprintf($this->data['lang_title_version_check'], $current_version);
 
+        $this->data['version_detect'] = $this->setting->get('version_detect');
+
+        if ($this->data['version_detect']) {
+            $this->data['version_issue'] = $this->model_main_dashboard->checkVersionIssue($current_version);
+
+            $this->data['lang_dialog_version_content'] = sprintf($this->data['lang_dialog_version_content'], CMTX_VERSION, $current_version, $this->setting->get('commentics_url') . 'install/');
+        }
+
         $this->data['system_detect'] = $this->setting->get('system_detect');
 
         if ($this->data['system_detect']) {
             $this->data['system_settings'] = $this->model_main_dashboard->checkSystemSettings();
 
-            $this->data['lang_dialog_content'] = sprintf($this->data['lang_dialog_content'], $this->url->link('settings/system'));
+            $this->data['lang_dialog_system_content'] = sprintf($this->data['lang_dialog_system_content'], $this->url->link('settings/system'));
         }
 
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('main/dashboard');
+    }
+
+    public function stopVersionDetect()
+    {
+        $this->loadModel('main/dashboard');
+
+        $this->model_main_dashboard->stopVersionDetect();
     }
 
     public function stopSystemDetect()
