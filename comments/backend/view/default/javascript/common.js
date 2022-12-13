@@ -757,6 +757,70 @@ $(document).ready(function() {
         $('form').submit();
     });
 
+    $('#manage_comments_page .single_delete').click(function(e) {
+        e.preventDefault();
+
+        var id = $(this).data('id');
+
+        $('#single_delete_dialog').dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto',
+            resizable: false,
+            draggable: false,
+            center: true,
+            buttons: {
+                'Yes': function() {
+                    var input = $('<input>').attr('type', 'hidden').attr('name', 'single_delete').val(id);
+
+                    $('form').append($(input));
+
+                    $('form').submit();
+
+                    $(this).dialog('close');
+                },
+                'No': function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        translate_buttons();
+
+        $('#single_delete_dialog').dialog('open');
+    });
+
+    $('#manage_comments_page input[name="bulk_delete"]').click(function(e) {
+        e.preventDefault();
+
+        $('#bulk_delete_dialog').dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto',
+            resizable: false,
+            draggable: false,
+            center: true,
+            buttons: {
+                'Yes': function() {
+                    var input = $('<input>').attr('type', 'hidden').attr('name', 'bulk_action').val('delete');
+
+                    $('form').append($(input));
+
+                    $('form').submit();
+
+                    $(this).dialog('close');
+                },
+                'No': function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        translate_buttons();
+
+        $('#bulk_delete_dialog').dialog('open');
+    });
+
     /* Manage Countries */
 
     $('#manage_countries_page #filter').click(function() {
