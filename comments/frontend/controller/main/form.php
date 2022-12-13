@@ -803,7 +803,7 @@ class MainFormController extends Controller
                     // Draw characters
                     $color = $this->hexColorAllocate($image, $this->setting->get('captcha_text_color'));
                     $size = 20; // the font size in points
-                    $font = $this->loadFont('AHGBold.ttf'); // load font
+                    $font = $this->loadFont('ahgbold.ttf'); // load font
                     $letter_space = 170 / $captcha_length;
                     $initial = 25;
                     for ($i = 0; $i < $captcha_length; $i++) {
