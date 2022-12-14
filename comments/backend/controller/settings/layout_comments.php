@@ -25,6 +25,14 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['show_comment_count'] = $this->setting->get('show_comment_count');
         }
 
+        if (isset($this->request->post['count_replies'])) {
+            $this->data['count_replies'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['count_replies'])) {
+            $this->data['count_replies'] = false;
+        } else {
+            $this->data['count_replies'] = $this->setting->get('count_replies');
+        }
+
         if (isset($this->request->post['comments_order'])) {
             $this->data['comments_order'] = $this->request->post['comments_order'];
         } else {

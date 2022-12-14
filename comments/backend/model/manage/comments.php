@@ -242,8 +242,7 @@ class ManageCommentsModel extends Model
             if ($this->setting->get('cache_type')) {
                 $page_id = $this->comment->getPageIdByCommentId($id);
 
-                $this->cache->delete('getcomments_pageid' . $page_id . '_count0');
-                $this->cache->delete('getcomments_pageid' . $page_id . '_count1');
+                $this->cache->delete('getcomments_pageid' . $page_id . '_count*');
 
                 /* If the comment is a reply, we need to clear the cache of the parent comments */
                 $parent_ids = $this->comment->getParents($id);

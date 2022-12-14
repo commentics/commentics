@@ -54,19 +54,27 @@ class Memcached
 
     public function delete($key) {
         if ($this->status) {
-            $this->memcached->delete('cmtx_' . $key);
+            if (substr($key, -1) == '*') { // has wildcard
+                $this->deleteByPrefix('cmtx_' . rtrim($key, '*'));
+            } else {
+                $this->memcached->delete('cmtx_' . $key);
+            }
         }
     }
 
     public function flush() {
         if ($this->status) {
-            $keys = $this->memcached->getAllKeys();
+            $this->deleteByPrefix('cmtx_');
+        }
+    }
 
-            if (is_array($keys)) {
-                foreach ($keys as $key) {
-                    if (strpos($key, 'cmtx_') === 0) {
-                        $this->memcached->delete($key);
-                    }
+    private function deleteByPrefix($prefix) {
+        $keys = $this->memcached->getAllKeys();
+
+        if (is_array($keys)) {
+            foreach ($keys as $key) {
+                if (strpos($key, $prefix) === 0) {
+                    $this->memcached->delete($key);
                 }
             }
         }

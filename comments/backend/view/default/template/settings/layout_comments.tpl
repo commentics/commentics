@@ -38,6 +38,12 @@
                 </div>
 
                 <div class="fieldset">
+                    <label><?php echo $lang_entry_count_replies; ?></label>
+                    <input type="checkbox" name="count_replies" value="1" <?php if ($count_replies) { echo 'checked'; } ?>>
+                    <a class="hint" data-hint="<?php echo $lang_hint_count_replies; ?>">[?]</a>
+                </div>
+
+                <div class="fieldset">
                     <label><?php echo $lang_entry_default_order; ?></label>
                     <select name="comments_order">
                         <option value="1" <?php if ($comments_order == '1') { echo 'selected'; } ?>><?php echo $lang_select_newest; ?></option>

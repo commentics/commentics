@@ -388,6 +388,7 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'warning', `title` = 'warning_manage_pages', `value` = '1'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'empty_pages', `value` = '0'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'version_detect', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'count_replies', `value` = '0'");
         }
     }
 

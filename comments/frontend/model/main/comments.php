@@ -8,7 +8,7 @@ class MainCommentsModel extends Model
     {
         if (!$data['filter_comment_id'] && !$data['filter_comment']) { // don't cache permalink and searches
             if ($data['group_by'] == '' && $data['sort'] == 'date_added' && $data['order'] == 'desc' && $data['start'] == 0) { // only cache initial page
-                $result = $this->cache->get('getcomments_pageid' . $data['filter_page_id'] . '_count' . (int)$count);
+                $result = $this->cache->get('getcomments_pageid' . $data['filter_page_id'] . '_count' . (int) $count . '_replies' . (int) $data['count_replies']);
 
                 if ($result !== false) { // check boolean as could be zero or an empty array if no comments
                     return $result;
@@ -22,9 +22,10 @@ class MainCommentsModel extends Model
 
         $sql .= " AND `is_approved` = '1'";
 
-        /* Allow replies to be retrieved if it's a permalink */
         if ($data['filter_comment_id']) {
             $sql .= " AND `id` = '" . (int) $data['filter_comment_id'] . "'";
+        } else if ($count && $data['count_replies'] && !$data['filter_comment']) {
+            // if counting replies and not a search
         } else {
             $sql .= " AND `reply_to` = '0'";
         }
@@ -80,7 +81,7 @@ class MainCommentsModel extends Model
 
         if (!$data['filter_comment_id'] && !$data['filter_comment']) { // don't cache permalink and searches
             if ($data['group_by'] == '' && $data['sort'] == 'date_added' && $data['order'] == 'desc' && $data['start'] == 0) { // only cache initial page
-                $this->cache->set('getcomments_pageid' . $data['filter_page_id'] . '_count' . (int)$count, $result);
+                $this->cache->set('getcomments_pageid' . $data['filter_page_id'] . '_count' . (int) $count . '_replies' . (int) $data['count_replies'], $result);
             }
         }
 

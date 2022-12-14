@@ -42,6 +42,7 @@ $_['lang_description']                       = '<p>These settings control the di
 
 // Entry
 $_['lang_entry_display_count']               = 'Display Count:';
+$_['lang_entry_count_replies']               = 'Count Replies:';
 $_['lang_entry_default_order']               = 'Default Order:';
 $_['lang_entry_positions']                   = 'Positions:';
 $_['lang_entry_default']                     = 'Default:';
@@ -131,6 +132,7 @@ $_['lang_select_infinite']                   = 'Infinite Scroll';
 
 // Hint
 $_['lang_hint_display_count']                = 'Whether to display the comment count after the heading.';
+$_['lang_hint_count_replies']                = 'Whether to include the number of replies in the comment count.';
 $_['lang_hint_default_order']                = 'The default display order of the comments. Default is newest.';
 $_['lang_hint_avatar_type']                  = 'Choose the type of avatar. Click the "Get help for this page" link at the top right for more information.';
 $_['lang_hint_avatar_selection_attribution'] = 'If your icons require attribution you can add that here. HTML is allowed.';

@@ -78,6 +78,7 @@ class MainCommentsController extends Controller
             'filter_comment_id' => $filter_comment_id,
             'filter_page_id'    => $this->page->getId(),
             'filter_comment'    => $filter_comment,
+            'count_replies'     => false,
             'group_by'          => '',
             'sort'              => $sort,
             'order'             => $order,
@@ -123,7 +124,18 @@ class MainCommentsController extends Controller
             }
 
             if ($this->setting->get('show_comment_count')) {
-                $this->data['lang_heading_comments'] .= ' (' . $this->data['total'] . ')';
+                if ($this->setting->get('count_replies')) {
+                    if ($this->data['is_permalink']) {
+                        $total = $this->data['total'] + count($this->comment->getReplies($filter_comment_id));
+                    } else {
+                        $data['count_replies'] = true;
+                        $total = $this->model_main_comments->getComments($data, true);
+                    }
+                } else {
+                    $total = $this->data['total'];
+                }
+
+                $this->data['lang_heading_comments'] .= ' (' . $total . ')';
             }
 
             if ($this->setting->get('website_new_window')) {
@@ -561,8 +573,7 @@ class MainCommentsController extends Controller
                         if ($this->setting->get('flag_disapprove')) {
                             $this->comment->unapproveComment($comment_id);
 
-                            $this->cache->delete('getcomments_pageid' . $this->page->getId() . '_count0');
-                            $this->cache->delete('getcomments_pageid' . $this->page->getId() . '_count1');
+                            $this->cache->delete('getcomments_pageid' . $this->page->getId() . '_count*');
                         }
 
                         $this->notify->adminNotifyCommentFlag($comment_id);

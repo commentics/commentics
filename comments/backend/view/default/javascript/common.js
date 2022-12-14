@@ -1725,6 +1725,14 @@ $(document).ready(function() {
     $('#settings_cache_page select[name="cache_type"]').on('change', function() {
         var cache_type = $(this).val();
 
+        if (cache_type == 'memcached') {
+            $('input[name="cache_port"]').val('11211');
+        }
+
+        if (cache_type == 'redis') {
+            $('input[name="cache_port"]').val('6379');
+        }
+
         if (cache_type == 'memcached' || cache_type == 'redis') {
             $('.extra_section').show();
         } else {

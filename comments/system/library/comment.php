@@ -142,8 +142,7 @@ class Comment
         if ($this->setting->get('cache_type')) {
             $page_id = $this->getPageIdByCommentId($id);
 
-            $this->cache->delete('getcomments_pageid' . $page_id . '_count0');
-            $this->cache->delete('getcomments_pageid' . $page_id . '_count1');
+            $this->cache->delete('getcomments_pageid' . $page_id . '_count*');
         }
 
         $this->deleteReplies($id);

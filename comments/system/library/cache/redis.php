@@ -68,16 +68,28 @@ class Redis
 
     public function delete($key) {
         if ($this->status) {
-            $this->redis->delete('cmtx_' . $key);
+            if (substr($key, -1) == '*') { // has wildcard
+                $this->deleteByPrefix('cmtx_' . rtrim($key, '*'));
+            } else {
+                $this->redis->del('cmtx_' . $key);
+            }
         }
     }
 
     public function flush() {
         if ($this->status) {
-            $keys = $this->redis->keys('cmtx_*');
+            $this->deleteByPrefix('cmtx_');
+        }
+    }
 
+    private function deleteByPrefix($prefix) {
+        $keys = $this->redis->keys('cmtx_*');
+
+        if (is_array($keys)) {
             foreach ($keys as $key) {
-                $this->redis->delete($key);
+                if (strpos($key, $prefix) === 0) {
+                    $this->redis->del($key);
+                }
             }
         }
     }

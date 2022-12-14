@@ -77,7 +77,11 @@ class File
 
     public function delete($key) {
         if ($this->status) {
-            $files = glob(CMTX_DIR_CACHE . 'database/cache.' . $key . '.*');
+            if (substr($key, -1) == '*') { // has wildcard
+                $files = glob(CMTX_DIR_CACHE . 'database/cache.' . $key);
+            } else {
+                $files = glob(CMTX_DIR_CACHE . 'database/cache.' . $key . '.*');
+            }
 
             if ($files) {
                 foreach ($files as $file) {

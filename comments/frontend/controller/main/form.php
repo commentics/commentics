@@ -2005,8 +2005,7 @@ class MainFormController extends Controller
                     $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads, $extra_fields);
 
                     if ($this->setting->get('cache_type')) {
-                        $this->cache->delete('getcomments_pageid' . $page_id . '_count0');
-                        $this->cache->delete('getcomments_pageid' . $page_id . '_count1');
+                        $this->cache->delete('getcomments_pageid' . $page_id . '_count*');
 
                         /* If the comment is a reply, we need to clear the cache of the parent comments */
                         if ($this->request->post['cmtx_reply_to']) {
