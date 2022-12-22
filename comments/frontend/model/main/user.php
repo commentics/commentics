@@ -6,11 +6,11 @@ class MainUserModel extends Model
     /* Get the user's subscription */
     public function getSubscription($user_token, $subscription_token)
     {
-        $query = $this->db->query(" SELECT *
-                                    FROM `" . CMTX_DB_PREFIX . "subscriptions` `s`
-                                    RIGHT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `s`.`user_id` = `u`.`id`
-                                    WHERE `s`.`token` = '" . $this->db->escape($subscription_token) . "'
-                                    AND `u`.`token` = '" . $this->db->escape($user_token) . "'");
+        $query = $this->db->query("SELECT *
+                                   FROM `" . CMTX_DB_PREFIX . "subscriptions` `s`
+                                   RIGHT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `s`.`user_id` = `u`.`id`
+                                   WHERE `s`.`token` = '" . $this->db->escape($subscription_token) . "'
+                                   AND `u`.`token` = '" . $this->db->escape($user_token) . "'");
 
         $result = $this->db->row($query);
 
@@ -20,13 +20,13 @@ class MainUserModel extends Model
     /* Get the user's subscriptions */
     public function getSubscriptions($user_token)
     {
-        $query = $this->db->query(" SELECT `s`.*, `p`.`reference`, `p`.`url`
-                                    FROM `" . CMTX_DB_PREFIX . "subscriptions` `s`
-                                    RIGHT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `s`.`user_id` = `u`.`id`
-                                    RIGHT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
-                                    WHERE `u`.`token` = '" . $this->db->escape($user_token) . "'
-                                    AND `s`.`is_confirmed` = '1'
-                                    ORDER BY `s`.`date_added` DESC");
+        $query = $this->db->query("SELECT `s`.*, `p`.`reference`, `p`.`url`
+                                   FROM `" . CMTX_DB_PREFIX . "subscriptions` `s`
+                                   RIGHT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `s`.`user_id` = `u`.`id`
+                                   RIGHT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
+                                   WHERE `u`.`token` = '" . $this->db->escape($user_token) . "'
+                                   AND `s`.`is_confirmed` = '1'
+                                   ORDER BY `s`.`date_added` DESC");
 
         $results = $this->db->rows($query);
 

@@ -32,12 +32,12 @@ class Site
 
     public function getSiteIdByCommentId($comment_id)
     {
-        $query = $this->db->query(" SELECT `s`.`id` AS `site_id`
-                                    FROM `" . CMTX_DB_PREFIX . "sites` `s`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `p`.`site_id` = `s`.`id`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "comments` `c` ON `c`.`page_id` = `p`.`id`
-                                    WHERE `c`.`id` = '" . (int) $comment_id . "'
-                                    ");
+        $query = $this->db->query("SELECT `s`.`id` AS `site_id`
+                                   FROM `" . CMTX_DB_PREFIX . "sites` `s`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `p`.`site_id` = `s`.`id`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "comments` `c` ON `c`.`page_id` = `p`.`id`
+                                   WHERE `c`.`id` = '" . (int) $comment_id . "'
+                                   ");
 
         if ($this->db->numRows($query)) {
             $result = $this->db->row($query);

@@ -172,11 +172,11 @@ class Page
 
     public function getPage($id)
     {
-        $query = $this->db->query(" SELECT `p`.*,
-                                    (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "subscriptions` `s` WHERE `s`.`page_id` = `p`.`id`) AS `subscriptions`,
-                                    (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`page_id` = `p`.`id`) AS `comments`
-                                    FROM `" . CMTX_DB_PREFIX . "pages` `p`
-                                    WHERE `p`.`id` = '" . (int) $id . "'");
+        $query = $this->db->query("SELECT `p`.*,
+                                   (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "subscriptions` `s` WHERE `s`.`page_id` = `p`.`id`) AS `subscriptions`,
+                                   (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`page_id` = `p`.`id`) AS `comments`
+                                   FROM `" . CMTX_DB_PREFIX . "pages` `p`
+                                   WHERE `p`.`id` = '" . (int) $id . "'");
 
         if ($this->db->numRows($query)) {
             $page = $this->db->row($query);

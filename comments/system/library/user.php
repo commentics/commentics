@@ -139,11 +139,11 @@ class User
 
     public function getUser($id)
     {
-        $query = $this->db->query(" SELECT `u`.*,
-                                    (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "subscriptions` `s` WHERE `s`.`user_id` = `u`.`id`) AS `subscriptions`,
-                                    (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`user_id` = `u`.`id`) AS `comments`
-                                    FROM `" . CMTX_DB_PREFIX . "users` `u`
-                                    WHERE `u`.`id` = '" . (int) $id . "'");
+        $query = $this->db->query("SELECT `u`.*,
+                                   (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "subscriptions` `s` WHERE `s`.`user_id` = `u`.`id`) AS `subscriptions`,
+                                   (SELECT COUNT(`id`) FROM `" . CMTX_DB_PREFIX . "comments` `c` WHERE `c`.`user_id` = `u`.`id`) AS `comments`
+                                   FROM `" . CMTX_DB_PREFIX . "users` `u`
+                                   WHERE `u`.`id` = '" . (int) $id . "'");
 
         if ($this->db->numRows($query)) {
             $user = $this->db->row($query);
