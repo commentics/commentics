@@ -25,6 +25,7 @@ $_['lang_select_questions'] = 'Questions';
 $_['lang_button_export']    = 'Export';
 $_['lang_button_import']    = 'Import';
 
+// Error
 $_['lang_error_no_upload']  = 'Nothing was uploaded.';
 $_['lang_error_not_csv']    = 'The uploaded file is not a CSV.';
 $_['lang_error_bad_data']   = 'The type of data could not be determined.';
