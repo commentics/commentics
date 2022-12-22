@@ -174,9 +174,9 @@ class User
         }
     }
 
-    public function getUsers()
+    public function getUsers($sort = 'id', $order = 'ASC')
     {
-        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "users`");
+        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "users` ORDER BY `" . $sort . "` " . $order);
 
         $results = $this->db->rows($query);
 

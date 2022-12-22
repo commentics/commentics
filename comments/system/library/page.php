@@ -199,9 +199,9 @@ class Page
         }
     }
 
-    public function getPages()
+    public function getPages($sort = 'id', $order = 'ASC')
     {
-        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "pages`");
+        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "pages` ORDER BY `" . $sort . "` " . $order);
 
         $results = $this->db->rows($query);
 

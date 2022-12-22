@@ -122,9 +122,9 @@ class Comment
         return $page_id;
     }
 
-    public function getComments()
+    public function getComments($sort = 'id', $order = 'ASC')
     {
-        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments`");
+        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` ORDER BY `" . $sort . "` " . $order);
 
         $results = $this->db->rows($query);
 
