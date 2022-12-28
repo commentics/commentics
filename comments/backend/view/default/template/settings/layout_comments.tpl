@@ -891,6 +891,16 @@
                 </div>
             </div>
 
+            <div class="<?php echo ($show_delete ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_delete; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_delete" value="1" <?php if ($show_delete) { echo 'checked'; } ?>>
+                    <a class="hint" data-hint="<?php echo $lang_hint_delete; ?>">[?]</a>
+                </div>
+            </div>
+
             <div class="<?php echo ($show_permalink ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_permalink; ?></h2>
 

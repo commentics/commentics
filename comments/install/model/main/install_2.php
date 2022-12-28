@@ -35,6 +35,7 @@ class MainInstall2Model extends Model
         $this->createTableComments();
         $this->createTableCountries();
         $this->createTableData();
+        $this->createTableDeleted();
         $this->createTableEmails();
         $this->createTableGeo();
         $this->createTableLogins();
@@ -175,6 +176,7 @@ class MainInstall2Model extends Model
             `is_sticky` tinyint(1) unsigned NOT NULL default '0',
             `is_locked` tinyint(1) unsigned NOT NULL default '0',
             `is_verified` tinyint(1) unsigned NOT NULL default '0',
+            `session_id` varchar(250) NOT NULL default '',
             `date_modified` datetime NOT NULL,
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
@@ -427,6 +429,21 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "data` SET `type` = 'signature_text', `text` = '[site name]\r\n[site url]', `modified_by` = '', `date_modified` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "data` SET `type` = 'spam_words', `text` = 'ambien\r\ncapsule\r\ncapsules\r\ncialis\r\nherbal\r\nlevitra\r\nmedication\r\nmedications\r\npharma\r\npharmaceutical\r\npharmacy\r\npill\r\npills\r\nprescription\r\ntablet\r\ntablets\r\nviagra\r\n\r\nanal\r\nclit\r\nclits\r\nenlarge\r\nenlarger\r\nenlarges\r\nerect\r\nerection\r\nfetish\r\nhormone\r\nhormones\r\nintimacy\r\nintimate\r\nnaked\r\nnude\r\norgasm\r\norgasms\r\npenis\r\nporn\r\nporno\r\npornography\r\nsex\r\nsexual\r\nsexy\r\nvagina\r\n\r\ncasino\r\ncasinos\r\nholdem\r\ngamble\r\ngambling\r\nlottery\r\npoker\r\nslots\r\n\r\nact now\r\nact today\r\nbest price\r\nbest prices\r\nbuy cheap\r\nbuy now\r\nbuy today\r\ncall now\r\ncall today\r\ncash bonus\r\ncheap price\r\ncheap prices\r\ncheapest price\r\ncheapest prices\r\ndiscount\r\ndiscounts\r\ndiscounted\r\ngreat price\r\ngreat prices\r\nhigh quality\r\nlow price\r\nlow prices\r\nlowest price\r\nlowest prices\r\norder now\r\norder today\r\nsave almost\r\nsave \r\nearly\r\nsave up to\r\nwholesale\r\n\r\nreplica\r\nrolex\r\n\r\nhair loss\r\nweight loss\r\n\r\nbankrupt\r\nbankruptcy\r\n\r\ncvv\r\ncvv2\r\n\r\nsim card\r\nsim cards', `modified_by` = '', `date_modified` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "data` SET `type` = 'strong_swear_words', `text` = 'arse hole\r\narsehole\r\narse holes\r\narseholes\r\nass hole\r\nasshole\r\nass holes\r\nassholes\r\nbastard\r\nbastards\r\nbitch\r\nbitches\r\nblow job\r\nblowjob\r\nblow jobs\r\nblowjobs\r\nbull shit\r\nbullshit\r\nchinc\r\nchincs\r\nchink\r\nchinks\r\ncock sucker\r\ncock suckers\r\ncock\r\ncocks\r\ncocksucker\r\ncocksuckers\r\ncum\r\ncums\r\ncunt\r\ncunts\r\ndick\r\ndicks\r\ndick head\r\ndickhead\r\ndick heads\r\ndickheads\r\ndike\r\ndikes\r\ndildo\r\ndildos\r\ndyke\r\ndykes\r\nfaggot\r\nfaggots\r\nfuc\r\nfuck\r\nfucka\r\nfucked\r\nfucker\r\nfuckers\r\nfuckin\r\nfucking\r\nfucks\r\nfuk\r\nfuks\r\ngook\r\ngooks\r\nhand job\r\nhandjob\r\nhand jobs\r\nhandjobs\r\njackarse\r\njackarses\r\njackass\r\njackasses\r\njap\r\njaps\r\nmothafucka\r\nmothafucker\r\nmother fuckers\r\nmotherfuckers\r\nmother fucker\r\nmotherfucker\r\nnigga\r\nniggas\r\nnigger\r\nniggers\r\nniglet\r\nniglets\r\npaki\r\npakis\r\npiss\r\npissed\r\npoof\r\npoofs\r\nprick\r\npricks\r\npussies\r\npussy\r\npussys\r\nshit\r\nshite\r\nshits\r\nslut\r\nsluts\r\ntit\r\ntits\r\ntwat\r\ntwats\r\nwank\r\nwanks\r\nwanker\r\nwankers\r\nwanking\r\nwhore\r\nwhores\r\nwop\r\nwops', `modified_by` = '', `date_modified` = NOW()");
+        /*****************************************************************************************************************/
+    }
+
+    public function createTableDeleted()
+    {
+        /********************************************** CREATE TABLE 'deleted' *******************************************/
+        $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "deleted` (
+            `id` int(10) unsigned NOT NULL auto_increment,
+            `user_id` int(10) unsigned NOT NULL default '0',
+            `comment_id` int(10) unsigned NOT NULL default '0',
+            `page_id` int(10) unsigned NOT NULL default '0',
+            `ip_address` varchar(250) NOT NULL default '',
+            `date_added` datetime NOT NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         /*****************************************************************************************************************/
     }
 
@@ -821,6 +838,7 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_dislike', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_share', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_flag', `value` = '1'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_delete', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_permalink', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_reply', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_rss', `value` = '1'");

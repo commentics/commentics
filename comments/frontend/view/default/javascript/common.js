@@ -115,6 +115,33 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 jQuery('#cmtx_flag_modal').fadeIn(200);
             });
 
+            /* Show the delete modal */
+            jQuery('#cmtx_container').on('click', '.cmtx_delete_link', function(e) {
+                e.preventDefault();
+
+                var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
+
+                jQuery('#cmtx_delete_modal_yes').attr('data-cmtx-comment-id', comment_id);
+
+                if (jQuery('body > #cmtx_delete_modal').length === 0) {
+                    jQuery('body').append(jQuery('#cmtx_delete_modal'));
+                }
+
+                jQuery('body').append('<div class="cmtx_overlay"></div>');
+
+                if (isInIframe) {
+                    var destination = jQuery(this).offset();
+
+                    jQuery('#cmtx_delete_modal').css({top: destination.top - 150});
+
+                    jQuery('.cmtx_overlay').css('background-color', 'transparent');
+                }
+
+                jQuery('.cmtx_overlay').fadeIn(200);
+
+                jQuery('#cmtx_delete_modal').fadeIn(200);
+            });
+
             /* Modal cancel button */
             jQuery('body').on('click', '.cmtx_modal_box .cmtx_button_secondary', function(e) {
                 e.preventDefault();
@@ -1395,6 +1422,56 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         jQuery('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
 
                         var destination = flag_link.offset();
+
+                        jQuery('.cmtx_action_message_error').offset({top: destination.top - 25, left: destination.left - 100});
+                    }
+                });
+
+                request.fail(function(jqXHR, textStatus, errorThrown) {
+                    if (console && console.log) {
+                        console.log(jqXHR.responseText);
+                    }
+                });
+
+                jQuery('.cmtx_modal_close').trigger('click');
+            });
+
+            /* Delete modal */
+            jQuery('body').on('click', '#cmtx_delete_modal_yes', function(e) {
+                e.preventDefault();
+
+                var comment_id = jQuery(this).attr('data-cmtx-comment-id');
+
+                var delete_link = jQuery('.cmtx_comment_box[data-cmtx-comment-id=' + comment_id + '] .cmtx_delete_link');
+
+                var request = jQuery.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/delete',
+                    data: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id),
+                    dataType: 'json'
+                });
+
+                request.done(function(response) {
+                    if (response['success']) {
+                        var options = {
+                            'commentics_url': cmtx_js_settings_comments.commentics_url,
+                            'page_id'       : cmtx_js_settings_comments.page_id,
+                            'page_number'   : '',
+                            'sort_by'       : '',
+                            'search'        : '',
+                            'effect'        : true
+                        }
+
+                        cmtxRefreshComments(options);
+                    }
+
+                    if (response['error']) {
+                        jQuery('.cmtx_action_message_error').clearQueue();
+                        jQuery('.cmtx_action_message_error').html(response['error']);
+                        jQuery('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
+
+                        var destination = delete_link.offset();
 
                         jQuery('.cmtx_action_message_error').offset({top: destination.top - 25, left: destination.left - 100});
                     }

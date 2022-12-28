@@ -196,6 +196,14 @@
                             </div>
                         @endif
 
+                        @if show_delete and comment.session_id equals session_id and comment.ip_address equals ip_address
+                            <div class="cmtx_delete_area">
+                                <a href="#" class="cmtx_delete_link" title="{{ lang_title_delete }}">
+                                    <span class="cmtx_icon cmtx_delete_icon" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        @endif
+
                         @if show_permalink
                             <div class="cmtx_permalink_area">
                                 <a href="#" class="cmtx_permalink_link" title="{{ lang_title_permalink }}" data-cmtx-permalink="{{ comment.permalink }}">

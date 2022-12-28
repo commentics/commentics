@@ -198,6 +198,12 @@ class MainCommentsController extends Controller
                 $this->data['show_reply'] = false;
             }
 
+            if ($this->setting->get('show_delete') && $this->session->getId()) {
+                $this->data['show_delete'] = true;
+            } else {
+                $this->data['show_delete'] = false;
+            }
+
             $outer_components = array();
 
             if ($this->setting->get('show_average_rating')) {
@@ -301,6 +307,10 @@ class MainCommentsController extends Controller
             $this->data['ratings'] = array(0, 1, 2, 3, 4);
 
             $this->data['page_reference'] = $this->page->getReference();
+
+            $this->data['session_id'] = $this->session->getId();
+
+            $this->data['ip_address'] = $this->user->getIpAddress();
 
             /* These are passed to common.js via the template */
             $this->data['cmtx_js_settings_comments'] = array(
@@ -582,6 +592,49 @@ class MainCommentsController extends Controller
                     $this->model_main_comments->addReport($comment_id, $ip_address);
 
                     $json['success'] = $this->data['lang_text_reported'];
+                }
+            }
+
+            echo json_encode($json);
+        }
+    }
+
+    public function delete()
+    {
+        if ($this->request->isAjax()) {
+            $this->response->addHeader('Content-Type: application/json');
+
+            $json = array();
+
+            if (isset($this->request->post['cmtx_comment_id'])) {
+                $this->loadLanguage('main/comments');
+
+                $this->loadModel('main/comments');
+
+                $comment_id = $this->request->post['cmtx_comment_id'];
+
+                $comment = $this->comment->getComment($comment_id);
+
+                $ip_address = $this->user->getIpAddress();
+
+                if ($this->setting->get('maintenance_mode')) { // check if in maintenance mode
+                    $json['error'] = $this->data['lang_error_maintenance'];
+                } else if (!$this->setting->get('show_delete')) { // check if feature enabled
+                    $json['error'] = $this->data['lang_error_disabled'];
+                } else if (!$comment) { // check if comment exists
+                    $json['error'] = $this->data['lang_error_no_comment'];
+                } else if (!$comment['session_id'] || $comment['session_id'] != $this->session->getId()) { // check if user is deleting own comment
+                    $json['error'] = $this->data['lang_error_delete_own'];
+                } else if ($comment['ip_address'] != $ip_address) { // check if user is deleting own comment
+                    $json['error'] = $this->data['lang_error_delete_own'];
+                } else if ($this->user->isBanned($ip_address)) { // check if user is banned
+                    $json['error'] = $this->data['lang_error_banned'];
+                }
+
+                if (!$json) {
+                    $this->comment->deleteComment($comment_id);
+
+                    $json['success'] = true;
                 }
             }
 

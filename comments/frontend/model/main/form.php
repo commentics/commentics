@@ -647,13 +647,13 @@ class MainFormModel extends Model
     }
 
     /* Checks if the time since the user's last comment is less than the minimum delay */
-    public function isFloodingDelay($ip_address, $page_id)
+    public function isFloodingDelay($table, $ip_address, $page_id)
     {
         /* Get the time of the last comment (if any) by the current user */
         if ($this->setting->get('flood_control_delay_all_pages')) { // for all the pages
-            $query = $this->db->query("SELECT `date_added` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' ORDER BY `date_added` DESC LIMIT 1");
+            $query = $this->db->query("SELECT `date_added` FROM `" . CMTX_DB_PREFIX . $table . "` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' ORDER BY `date_added` DESC LIMIT 1");
         } else { // for the current page
-            $query = $this->db->query("SELECT `date_added` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `page_id` = '" . (int) $page_id . "' ORDER BY `date_added` DESC LIMIT 1");
+            $query = $this->db->query("SELECT `date_added` FROM `" . CMTX_DB_PREFIX . $table . "` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `page_id` = '" . (int) $page_id . "' ORDER BY `date_added` DESC LIMIT 1");
         }
 
         $result = $this->db->row($query);
@@ -674,15 +674,15 @@ class MainFormModel extends Model
     }
 
     /* Checks if the number of recent comments by the user exceeds the maximum amount */
-    public function isFloodingMaximum($ip_address, $page_id)
+    public function isFloodingMaximum($table, $ip_address, $page_id)
     {
         $earlier = date('Y-m-d H:i:s', time() - (3600 * $this->setting->get('flood_control_maximum_period')));
 
         /* Count the number of comments (if any) within past period by the current user */
         if ($this->setting->get('flood_control_maximum_all_pages')) { // for all the pages
-            $query = $this->db->query("SELECT COUNT(*) AS `amount` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `date_added` > '" . $this->db->escape($earlier) . "'");
+            $query = $this->db->query("SELECT COUNT(*) AS `amount` FROM `" . CMTX_DB_PREFIX . $table . "` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `date_added` > '" . $this->db->escape($earlier) . "'");
         } else { // for the current page
-            $query = $this->db->query("SELECT COUNT(*) AS `amount` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `page_id` = '" . (int) $page_id . "' AND `date_added` > '" . $this->db->escape($earlier) . "'");
+            $query = $this->db->query("SELECT COUNT(*) AS `amount` FROM `" . CMTX_DB_PREFIX . $table . "`` WHERE `ip_address` = '" . $this->db->escape($ip_address) . "' AND `page_id` = '" . (int) $page_id . "' AND `date_added` > '" . $this->db->escape($earlier) . "'");
         }
 
         $result = $this->db->row($query);

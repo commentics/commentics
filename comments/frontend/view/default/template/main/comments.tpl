@@ -166,6 +166,22 @@
             </div>
         @endif
 
+        @if show_delete
+            <div id="cmtx_delete_modal" class="cmtx_modal_box" role="dialog">
+                <header>
+                    <a href="#" class="cmtx_modal_close">x</a>
+                    <div>{{ lang_modal_delete_heading }}</div>
+                </header>
+                <div class="cmtx_modal_body">
+                    <div><span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> {{ lang_modal_delete_content }}</div>
+                </div>
+                <footer>
+                    <input type="button" id="cmtx_delete_modal_yes" class="cmtx_button cmtx_button_primary" value="{{ lang_modal_yes }}">
+                    <input type="button" id="cmtx_delete_modal_no" class="cmtx_button cmtx_button_secondary" value="{{ lang_modal_no }}">
+                </footer>
+            </div>
+        @endif
+
         @if show_permalink
             <div class="cmtx_permalink_box" role="dialog">
                 <div>{{ lang_text_permalink }}</div>

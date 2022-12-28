@@ -3679,6 +3679,11 @@ select.cmtx_required {
   content: "\f11d";
 }
 
+.cmtx_delete_icon::before {
+  color: gray;
+  content: "\f014";
+}
+
 .cmtx_permalink_icon::before {
   color: gray;
   content: "\f0c1";

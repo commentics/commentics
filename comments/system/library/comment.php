@@ -5,6 +5,7 @@ class Comment
 {
     private $cache;
     private $db;
+    private $session;
     private $setting;
     private $parents = array();
     private $replies = array();
@@ -13,12 +14,13 @@ class Comment
     {
         $this->cache   = $registry->get('cache');
         $this->db      = $registry->get('db');
+        $this->session = $registry->get('session');
         $this->setting = $registry->get('setting');
     }
 
     public function createComment($user_id, $page_id, $website, $town, $state_id, $country_id, $rating, $reply_to, $headline, $comment, $ip_address, $approve, $notes, $is_admin, $uploads, $extra_fields)
     {
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int) $user_id . "', `page_id` = '" . (int) $page_id . "', `website` = '" . $this->db->escape($website) . "', `town` = '" . $this->db->escape($town) . "', `state_id` = '" . (int) $state_id . "', `country_id` = '" . (int) $country_id . "', `rating` = '" . (int) $rating . "', `reply_to` = '" . (int) $reply_to . "', `headline` = '" . $this->db->escape($headline) . "', `comment` = '" . $this->db->escape($comment) . "', `reply` = '', `ip_address` = '" . $this->db->escape($ip_address) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `is_admin` = '" . (int) $is_admin . "', `is_sent` = '0', `sent_to` = '0', `likes` = '0', `dislikes` = '0', `reports` = '0', `is_sticky` = '0', `is_locked` = '0', `is_verified` = '0', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int) $user_id . "', `page_id` = '" . (int) $page_id . "', `website` = '" . $this->db->escape($website) . "', `town` = '" . $this->db->escape($town) . "', `state_id` = '" . (int) $state_id . "', `country_id` = '" . (int) $country_id . "', `rating` = '" . (int) $rating . "', `reply_to` = '" . (int) $reply_to . "', `headline` = '" . $this->db->escape($headline) . "', `comment` = '" . $this->db->escape($comment) . "', `reply` = '', `ip_address` = '" . $this->db->escape($ip_address) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `is_admin` = '" . (int) $is_admin . "', `is_sent` = '0', `sent_to` = '0', `likes` = '0', `dislikes` = '0', `reports` = '0', `is_sticky` = '0', `is_locked` = '0', `is_verified` = '0', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `date_modified` = NOW(), `date_added` = NOW()");
 
         $comment_id = $this->db->insertId();
 
@@ -91,6 +93,7 @@ class Comment
                 'is_sticky'       => $comment['is_sticky'],
                 'is_locked'       => $comment['is_locked'],
                 'is_verified'     => $comment['is_verified'],
+                'session_id'      => $comment['session_id'],
                 'date_modified'   => $comment['date_modified'],
                 'date_added'      => $comment['date_added'],
                 'token'           => $comment['token'],
@@ -143,6 +146,10 @@ class Comment
             $page_id = $this->getPageIdByCommentId($id);
 
             $this->cache->delete('getcomments_pageid' . $page_id . '_count*');
+        }
+
+        if ($this->setting->get('flood_control_delay_enabled') || $this->setting->get('flood_control_maximum_enabled')) {
+            $this->moveDeleted($id);
         }
 
         $this->deleteReplies($id);
@@ -238,6 +245,17 @@ class Comment
         }
 
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "uploads` WHERE `id` = '" . (int) $upload_id . "'");
+    }
+
+    private function moveDeleted($id)
+    {
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "comments` WHERE `id` = '" . (int) $id . "'");
+
+        $result = $this->db->row($query);
+
+        if ($result) {
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "deleted` SET `user_id` = '" . (int) $result['user_id'] . "', `comment_id` = '" . (int) $id . "', `page_id` = '" . (int) $result['page_id'] . "', `ip_address` = '" . $this->db->escape($result['ip_address']) . "', `date_added` = NOW()");
+        }
     }
 
     private function deleteReplies($id)

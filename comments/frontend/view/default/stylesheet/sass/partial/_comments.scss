@@ -400,6 +400,11 @@
     content: '\f11d';
 }
 
+.cmtx_delete_icon::before {
+    color: $grey;
+    content: '\f014';
+}
+
 .cmtx_permalink_icon::before {
     color: $grey;
     content: '\f0c1';

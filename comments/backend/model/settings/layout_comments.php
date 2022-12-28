@@ -157,6 +157,10 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['flag_disapprove']) ? 1 : 0) . "' WHERE `title` = 'flag_disapprove'");
 
+        /* Delete */
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_delete']) ? 1 : 0) . "' WHERE `title` = 'show_delete'");
+
         /* Permalink */
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_permalink']) ? 1 : 0) . "' WHERE `title` = 'show_permalink'");

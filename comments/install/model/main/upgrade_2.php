@@ -5,6 +5,8 @@ class MainUpgrade2Model extends Model
 {
     public function upgrade($version)
     {
+        $this->loadModel('main/install_2');
+
         if ($version == '3.0 -> 3.1') {
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'hide_replies', `value` = '1'");
         }
@@ -68,14 +70,7 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "emails` SET `type` = 'new_version', `subject` = 'New Version', `from_name` = '" . $this->db->escape($this->setting->get('site_name')) . "', `from_email` = 'comments@" . $this->db->escape($this->setting->get('site_domain')) . "', `reply_to` = 'no-reply@" . $this->db->escape($this->setting->get('site_domain')) . "', `text` = 'Hello [username],\r\n\r\nA newer version of Commentics is available.\r\n\r\nYour installed version is [installed version]. The newest version is [newest version].\r\n\r\nPlease upgrade at your earliest convenience.\r\n\r\nHere is the link to your admin panel:\r\n[admin link]\r\n\r\nRegards,\r\n\r\n[signature]', `html` = '<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td>Hello [username],</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">A newer version of Commentics is available.</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Your installed version is [installed version]. The newest version is [newest version].</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Please upgrade at your earliest convenience.</td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Here is the link to your admin panel:</td>\r\n</tr>\r\n<tr>\r\n<td><a href=\"[admin link]\">[admin link]</a></td>\r\n</tr>\r\n</table>\r\n\r\n<table style=\"border-collapse:collapse\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n<tr>\r\n<td style=\"padding-top:15px\">Regards,</td>\r\n</tr>\r\n</table>\r\n\r\n[signature]', `language` = 'english', `date_modified` = NOW()");
 
-            $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "geo` (
-                `id` int(10) unsigned NOT NULL auto_increment,
-                `name` varchar(250) NOT NULL default '',
-                `country_code` varchar(3) NOT NULL default '',
-                `language` varchar(250) NOT NULL default '',
-                `date_added` datetime NOT NULL,
-                PRIMARY KEY (`id`)
-            ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+            $this->model_main_install_2->createTableGeo();
 
             $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "countries`");
 
@@ -131,22 +126,9 @@ class MainUpgrade2Model extends Model
             $result = $this->db->row($query);
             $site_url = $result['value'];
 
-            $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "sites` (
-                `id` int(10) unsigned NOT NULL auto_increment,
-                `name` varchar(250) NOT NULL default '',
-                `domain` varchar(250) NOT NULL default '',
-                `url` varchar(250) NOT NULL default '',
-                `iframe_enabled` tinyint(1) unsigned NOT NULL default '1',
-                `new_pages` tinyint(1) unsigned NOT NULL default '1',
-                `from_name` varchar(250) NOT NULL default '',
-                `from_email` varchar(250) NOT NULL default '',
-                `reply_email` varchar(250) NOT NULL default '',
-                `date_modified` datetime NOT NULL,
-                `date_added` datetime NOT NULL,
-                PRIMARY KEY (`id`)
-            ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+            $this->model_main_install_2->createTableSites($site_name, $site_domain, $site_url);
 
-            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "sites` SET `id` = '1', `name` = '" . $this->db->escape($site_name) . "', `domain` = '" . $this->db->escape($site_domain) . "', `url` = '" . $this->db->escape($site_url) . "', `iframe_enabled` = '0', `new_pages` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+            $this->model_main_install_2->createTableGeo();
 
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rss_title'");
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rss_link'");
@@ -389,6 +371,11 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'empty_pages', `value` = '0'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'admin_panel', `title` = 'version_detect', `value` = '1'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'count_replies', `value` = '0'");
+
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_delete', `value` = '0'");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `session_id` varchar(250) NOT NULL default ''");
+
+            $this->model_main_install_2->createTableDeleted();
         }
     }
 

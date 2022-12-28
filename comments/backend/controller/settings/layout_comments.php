@@ -671,6 +671,16 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_flag_min_per_comment'] = '';
         }
 
+        /* Delete */
+
+        if (isset($this->request->post['show_delete'])) {
+            $this->data['show_delete'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_delete'])) {
+            $this->data['show_delete'] = false;
+        } else {
+            $this->data['show_delete'] = $this->setting->get('show_delete');
+        }
+
         /* Permalink */
 
         if (isset($this->request->post['show_permalink'])) {
