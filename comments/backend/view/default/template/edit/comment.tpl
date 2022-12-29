@@ -235,7 +235,7 @@
                 <?php } ?>
             </div>
 
-            <div class="fieldset divide_after">
+            <div class="fieldset">
                 <label><?php echo $lang_entry_locked; ?></label>
                 <select name="is_locked">
                     <option value="0" <?php if ($is_locked == '0') { echo 'selected'; } ?>><?php echo $lang_text_no; ?></option>
@@ -244,6 +244,18 @@
                 <a class="hint" data-hint="<?php echo $lang_hint_locked; ?>">[?]</a>
                 <?php if ($error_is_locked) { ?>
                     <span class="error"><?php echo $error_is_locked; ?></span>
+                <?php } ?>
+            </div>
+
+            <div class="fieldset divide_after">
+                <label><?php echo $lang_entry_admin; ?></label>
+                <select name="is_admin">
+                    <option value="0" <?php if ($is_admin == '0') { echo 'selected'; } ?>><?php echo $lang_text_no; ?></option>
+                    <option value="1" <?php if ($is_admin == '1') { echo 'selected'; } ?>><?php echo $lang_text_yes; ?></option>
+                </select>
+                <a class="hint" data-hint="<?php echo $lang_hint_admin; ?>">[?]</a>
+                <?php if ($error_is_admin) { ?>
+                    <span class="error"><?php echo $error_is_admin; ?></span>
                 <?php } ?>
             </div>
 

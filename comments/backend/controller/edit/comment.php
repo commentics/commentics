@@ -171,6 +171,12 @@ class EditCommentController extends Controller
             $this->data['is_locked'] = $comment['is_locked'];
         }
 
+        if (isset($this->request->post['is_admin'])) {
+            $this->data['is_admin'] = $this->request->post['is_admin'];
+        } else {
+            $this->data['is_admin'] = $comment['is_admin'];
+        }
+
         $this->data['ip_address'] = $comment['ip_address'];
 
         $this->data['date_added'] = $this->variable->formatDate($comment['date_added'], $this->data['lang_date_time_format'], $this->data);
@@ -257,6 +263,12 @@ class EditCommentController extends Controller
             $this->data['error_is_locked'] = $this->error['is_locked'];
         } else {
             $this->data['error_is_locked'] = '';
+        }
+
+        if (isset($this->error['is_admin'])) {
+            $this->data['error_is_admin'] = $this->error['is_admin'];
+        } else {
+            $this->data['error_is_admin'] = '';
         }
 
         $this->data['id'] = $this->request->get['id'];
@@ -439,6 +451,10 @@ class EditCommentController extends Controller
 
         if (!isset($this->request->post['is_locked']) || !in_array($this->request->post['is_locked'], array('0', '1'))) {
             $this->error['is_locked'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['is_admin']) || !in_array($this->request->post['is_admin'], array('0', '1'))) {
+            $this->error['is_admin'] = $this->data['lang_error_selection'];
         }
 
         if ($this->error) {

@@ -24,7 +24,7 @@ $_['lang_entry_country']                     = 'Country:';
 $_['lang_entry_rating']                      = 'Rating:';
 $_['lang_entry_headline']                    = 'Headline:';
 $_['lang_entry_comment']                     = 'Comment:';
-$_['lang_entry_reply']                       = 'Admin:';
+$_['lang_entry_reply']                       = 'Reply:';
 $_['lang_entry_page']                        = 'Page:';
 $_['lang_entry_reply_to']                    = 'Reply to:';
 $_['lang_entry_replies']                     = 'Replies:';
@@ -38,6 +38,7 @@ $_['lang_entry_reports']                     = 'Reports:';
 $_['lang_entry_verify']                      = 'Verify:';
 $_['lang_entry_sticky']                      = 'Sticky:';
 $_['lang_entry_locked']                      = 'Locked:';
+$_['lang_entry_admin']                       = 'Admin:';
 $_['lang_entry_ip_address']                  = 'IP Address:';
 $_['lang_entry_date']                        = 'Date:';
 
@@ -53,6 +54,7 @@ $_['lang_hint_send']                         = 'Send a notification email of thi
 $_['lang_hint_verify']                       = 'Verify this comment to reset and stop any further reports. This will unflag a flagged comment.';
 $_['lang_hint_sticky']                       = 'Stick this comment at the top of the page. You can\'t stick a reply.';
 $_['lang_hint_locked']                       = 'Lock this comment so that no one can reply any further to it.';
+$_['lang_hint_admin']                        = 'Set if this comment was made by an administrator.';
 
 // Text
 $_['lang_text_no_email']                     = 'No email address entered';
