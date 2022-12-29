@@ -33,7 +33,9 @@ class Task
         if ($last_task != $date) {
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($date) . "' WHERE `title` = 'last_task'");
 
-            $this->deletePages();
+            if (!$this->setting->get('empty_pages')) {
+                $this->deletePages();
+            }
 
             if ($this->setting->get('avatar_type') == 'upload') {
                 $this->deleteAvatars();
