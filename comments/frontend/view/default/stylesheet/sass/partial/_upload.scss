@@ -41,6 +41,7 @@
 }
 
 .cmtx_image_section {
+    height: 100px;
     overflow: hidden;
     position: relative;
 }
@@ -53,7 +54,7 @@
 
 .cmtx_image_overlay {
     background: linear-gradient(to top, $black 0, rgba(0, 0, 0, 0) 100%);
-    bottom: 4px;
+    bottom: 0;
     color: $white;
     height: 50%;
     left: 0;
