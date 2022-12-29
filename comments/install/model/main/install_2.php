@@ -1078,6 +1078,7 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'dummy_names_action', `value` = 'error'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'banned_names_enabled', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'banned_names_action', `value` = 'ban'");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'unique_email_enabled', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'reserved_emails_enabled', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'reserved_emails_action', `value` = 'error'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'dummy_emails_enabled', `value` = '1'");

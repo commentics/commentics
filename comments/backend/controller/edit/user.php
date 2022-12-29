@@ -108,8 +108,10 @@ class EditUserController extends Controller
             $this->error['name'] = sprintf($this->data['lang_error_length'], 1, 250);
         }
 
-        if (isset($this->request->post['email']) && $this->request->post['email'] && $this->model_edit_user->emailExists($this->request->post['email'], $this->request->get['id'])) {
-            $this->error['email'] = $this->data['lang_error_email_exists'];
+        if ($this->setting->get('unique_email_enabled')) {
+            if (isset($this->request->post['email']) && $this->request->post['email'] && $this->model_edit_user->emailExists($this->request->post['email'], $this->request->get['id'])) {
+                $this->error['email'] = $this->data['lang_error_email_exists'];
+            }
         }
 
         if (!isset($this->request->post['email']) || $this->validation->length($this->request->post['email']) < 0 || $this->validation->length($this->request->post['email']) > 250) {

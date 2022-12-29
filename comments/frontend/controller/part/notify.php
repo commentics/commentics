@@ -221,8 +221,10 @@ class PartNotifyController extends Controller
                                         $user = $this->user->getUserByNameAndEmail($this->request->post['cmtx_name'], $this->request->post['cmtx_email']);
 
                                         if (!$user) {
-                                            if ($this->user->userExistsByEmail($this->request->post['cmtx_email'])) {
-                                                $json['error']['email'] = $this->data['lang_error_email_partial'];
+                                            if ($this->setting->get('unique_email_enabled')) {
+                                                if ($this->user->userExistsByEmail($this->request->post['cmtx_email'])) {
+                                                    $json['error']['email'] = $this->data['lang_error_email_partial'];
+                                                }
                                             }
 
                                             if ($this->setting->get('unique_name_enabled')) {

@@ -123,6 +123,14 @@ class SettingsProcessorController extends Controller
 
         /* Email */
 
+        if (isset($this->request->post['unique_email_enabled'])) {
+            $this->data['unique_email_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['unique_email_enabled'])) {
+            $this->data['unique_email_enabled'] = false;
+        } else {
+            $this->data['unique_email_enabled'] = $this->setting->get('unique_email_enabled');
+        }
+
         if (isset($this->request->post['reserved_emails_enabled'])) {
             $this->data['reserved_emails_enabled'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['reserved_emails_enabled'])) {

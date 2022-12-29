@@ -31,6 +31,8 @@ class SettingsProcessorModel extends Model
 
         /* Email */
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['unique_email_enabled']) ? 1 : 0) . "' WHERE `title` = 'unique_email_enabled'");
+
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['reserved_emails_enabled']) ? 1 : 0) . "' WHERE `title` = 'reserved_emails_enabled'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['reserved_emails_action']) . "' WHERE `title` = 'reserved_emails_action'");

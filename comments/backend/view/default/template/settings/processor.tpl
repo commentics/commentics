@@ -149,6 +149,12 @@
             </div>
 
             <div id="tab-email">
+                <div class="fieldset divide_after">
+                    <label><?php echo $lang_entry_unique_email; ?></label>
+                    <input type="checkbox" name="unique_email_enabled" value="1" <?php if ($unique_email_enabled) { echo 'checked'; } ?>>
+                    <a class="hint" data-hint="<?php echo $lang_hint_unique_email; ?>">[?]</a>
+                </div>
+
                 <div class="fieldset">
                     <label><?php echo $lang_entry_reserved_email; ?></label>
                     <input type="checkbox" name="reserved_emails_enabled" value="1" <?php if ($reserved_emails_enabled) { echo 'checked'; } ?>>
