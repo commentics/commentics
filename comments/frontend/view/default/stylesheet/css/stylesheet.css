@@ -96,6 +96,10 @@
   display: none;
 }
 
+.cmtx_m-0 {
+  margin: 0 !important;
+}
+
 .cmtx_clear::before, .cmtx_clear::after {
   content: " ";
   display: table;
@@ -2710,11 +2714,6 @@
   position: relative;
 }
 
-.cmtx_message span {
-  margin-left: 2px;
-  margin-right: 5px;
-}
-
 .cmtx_message_success {
   background-color: #e8fcdc;
   background-image: url("../../image/message/success.png");
@@ -4673,6 +4672,54 @@ select.cmtx_required {
     width: 80%;
   }
 }
+/* Quick Reply */
+.quick_reply {
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  margin-top: 18px;
+  padding: 10px;
+}
+.quick_reply textarea {
+  height: 60px !important;
+}
+.quick_reply .cmtx_quick_reply_user {
+  display: flex;
+  margin-top: 8px;
+}
+.quick_reply .cmtx_quick_reply_user div {
+  flex: 1;
+}
+.quick_reply .cmtx_quick_reply_name_holder + .cmtx_quick_reply_email_holder {
+  margin-left: 8px;
+}
+.quick_reply .cmtx_quick_reply_lower {
+  display: flex;
+  margin-top: 8px;
+}
+.quick_reply .cmtx_quick_reply_lower div {
+  flex: 1;
+}
+.quick_reply .cmtx_quick_reply_link a {
+  text-decoration: none !important;
+}
+.quick_reply .cmtx_quick_reply_agree {
+  color: gray;
+}
+.quick_reply .cmtx_quick_reply_button input {
+  border-radius: 5px;
+}
+.quick_reply .cmtx_quick_reply_link, .quick_reply .cmtx_quick_reply_agree {
+  margin-top: 8px;
+}
+@media all and (max-width: 600px) {
+  .quick_reply .cmtx_quick_reply_lower {
+    display: block;
+  }
+  .quick_reply .cmtx_quick_reply_button {
+    margin-top: 8px;
+  }
+}
+
 /* RTL */
 .cmtx_ltr {
   direction: ltr;
@@ -4794,6 +4841,10 @@ select.cmtx_required {
   direction: ltr;
   left: 0;
   right: auto;
+}
+.cmtx_rtl .cmtx_quick_reply_name_holder + .cmtx_quick_reply_email_holder {
+  margin-left: 0;
+  margin-right: 8px;
 }
 @media all and (max-width: 600px) {
   .cmtx_rtl .cmtx_avatar_area {

@@ -78,6 +78,10 @@ $red-dark:   darken($red, 5%);
     display: none;
 }
 
+.cmtx_m-0 {
+    margin: 0 !important;
+}
+
 .cmtx_clear::before, .cmtx_clear::after {
     content: ' ';
     display: table;

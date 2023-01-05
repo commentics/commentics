@@ -255,19 +255,25 @@ class User
     }
 
     /* Bans the user */
-    public function ban($ip_address, $reason)
+    public function ban($reason, $ip_address = '')
     {
+        if (!$ip_address) {
+            $ip_address = $this->getIpAddress();
+        }
+
         /* Insert into bans table */
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "bans` SET `ip_address` = '" . $this->db->escape($ip_address) . "', `reason` = '" . $this->db->escape($reason) . "', `unban` = '0', `date_added` = NOW()");
+        if ($ip_address) {
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "bans` SET `ip_address` = '" . $this->db->escape($ip_address) . "', `reason` = '" . $this->db->escape($reason) . "', `unban` = '0', `date_added` = NOW()");
+        }
 
         /* Set ban cookie */
         $this->cookie->set('Commentics-Ban', 'Ban', 60 * 60 * 24 * $this->setting->get('ban_cookie_days') + time());
 
         /* Get administrators who have requested a notification of bans */
-        $query = $this->db->query(" SELECT `username`, `email`, `format`
-                                    FROM `" . CMTX_DB_PREFIX . "admins` `a`
-                                    WHERE `a`.`receive_email_ban` = '1'
-                                    AND `a`.`is_enabled` = '1'");
+        $query = $this->db->query("SELECT `username`, `email`, `format`
+                                   FROM `" . CMTX_DB_PREFIX . "admins` `a`
+                                   WHERE `a`.`receive_email_ban` = '1'
+                                   AND `a`.`is_enabled` = '1'");
 
         $admins = $this->db->rows($query);
 

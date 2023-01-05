@@ -66,17 +66,21 @@ var cmtx_wait_for_jquery = setInterval(function() {
             });
 
             /* Show an agreement modal */
-            jQuery('#cmtx_container label[for="cmtx_privacy"] a, #cmtx_container label[for="cmtx_terms"] a').click(function(e) {
+            jQuery('#cmtx_container').on('click', 'a[data-cmtx-target-modal]', function(e) {
                 e.preventDefault();
 
-                var target = jQuery(this).parent().parent().attr('data-cmtx-target-modal');
+                var target = jQuery(this).attr('data-cmtx-target-modal');
 
                 jQuery('body').append(jQuery(target));
 
                 jQuery('body').append('<div class="cmtx_overlay"></div>');
 
                 if (isInIframe) {
-                    var destination = jQuery('.cmtx_checkbox_container').offset();
+                    if (jQuery(this).closest('.quick_reply').length) {
+                        var destination = jQuery('.quick_reply').offset();
+                    } else {
+                        var destination = jQuery('.cmtx_checkbox_container').offset();
+                    }
 
                     jQuery(jQuery(target)).css({top: destination.top - 150});
 
@@ -881,93 +885,95 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     }
 
                     if (response['result']['error']) {
-                        if (response['error']['comment']) {
-                            jQuery('#cmtx_comment').addClass('cmtx_field_error');
+                        if (response['error']) {
+                            if (response['error']['comment']) {
+                                jQuery('#cmtx_comment').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_comment').after('<span class="cmtx_error">' + response['error']['comment'] + '</span>');
-                        }
-
-                        if (response['error']['headline']) {
-                            jQuery('#cmtx_headline').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_headline').after('<span class="cmtx_error">' + response['error']['headline'] + '</span>');
-                        }
-
-                        if (response['error']['name']) {
-                            jQuery('#cmtx_name').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_name').after('<span class="cmtx_error">' + response['error']['name'] + '</span>');
-                        }
-
-                        if (response['error']['email']) {
-                            jQuery('#cmtx_email').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_email').after('<span class="cmtx_error">' + response['error']['email'] + '</span>');
-                        }
-
-                        if (response['error']['rating']) {
-                            jQuery('#cmtx_rating').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_rating').after('<span class="cmtx_error">' + response['error']['rating'] + '</span>');
-                        }
-
-                        if (response['error']['website']) {
-                            jQuery('#cmtx_website').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_website').after('<span class="cmtx_error">' + response['error']['website'] + '</span>');
-                        }
-
-                        if (response['error']['town']) {
-                            jQuery('#cmtx_town').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_town').after('<span class="cmtx_error">' + response['error']['town'] + '</span>');
-                        }
-
-                        if (response['error']['country']) {
-                            jQuery('#cmtx_country').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_country').after('<span class="cmtx_error">' + response['error']['country'] + '</span>');
-                        }
-
-                        if (response['error']['state']) {
-                            jQuery('#cmtx_state').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_state').after('<span class="cmtx_error">' + response['error']['state'] + '</span>');
-                        }
-
-                        if (response['error']['answer']) {
-                            jQuery('#cmtx_answer').addClass('cmtx_field_error');
-
-                            jQuery('#cmtx_answer').after('<span class="cmtx_error">' + response['error']['answer'] + '</span>');
-                        }
-
-                        for (var field in response['error']) {
-                            if (field.startsWith('cmtx_field_')) {
-                                jQuery('[name="' + field + '"]').addClass('cmtx_field_error');
-
-                                jQuery('[name="' + field + '"]').after('<span class="cmtx_error">' + response['error'][field] + '</span>');
+                                jQuery('#cmtx_comment').after('<span class="cmtx_error">' + response['error']['comment'] + '</span>');
                             }
-                        }
 
-                        if (response['error']['recaptcha']) {
-                            jQuery('#g-recaptcha').after('<span class="cmtx_error">' + response['error']['recaptcha'] + '</span>');
+                            if (response['error']['headline']) {
+                                jQuery('#cmtx_headline').addClass('cmtx_field_error');
 
-                            grecaptcha.reset();
-                        }
+                                jQuery('#cmtx_headline').after('<span class="cmtx_error">' + response['error']['headline'] + '</span>');
+                            }
 
-                        if (response['error']['captcha']) {
-                            jQuery('#cmtx_captcha').addClass('cmtx_field_error');
+                            if (response['error']['name']) {
+                                jQuery('#cmtx_name').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_captcha').after('<span class="cmtx_error">' + response['error']['captcha'] + '</span>');
+                                jQuery('#cmtx_name').after('<span class="cmtx_error">' + response['error']['name'] + '</span>');
+                            }
 
-                            jQuery('#cmtx_captcha_refresh').trigger('click');
+                            if (response['error']['email']) {
+                                jQuery('#cmtx_email').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_captcha').val('');
+                                jQuery('#cmtx_email').after('<span class="cmtx_error">' + response['error']['email'] + '</span>');
+                            }
+
+                            if (response['error']['rating']) {
+                                jQuery('#cmtx_rating').addClass('cmtx_field_error');
+
+                                jQuery('#cmtx_rating').after('<span class="cmtx_error">' + response['error']['rating'] + '</span>');
+                            }
+
+                            if (response['error']['website']) {
+                                jQuery('#cmtx_website').addClass('cmtx_field_error');
+
+                                jQuery('#cmtx_website').after('<span class="cmtx_error">' + response['error']['website'] + '</span>');
+                            }
+
+                            if (response['error']['town']) {
+                                jQuery('#cmtx_town').addClass('cmtx_field_error');
+
+                                jQuery('#cmtx_town').after('<span class="cmtx_error">' + response['error']['town'] + '</span>');
+                            }
+
+                            if (response['error']['country']) {
+                                jQuery('#cmtx_country').addClass('cmtx_field_error');
+
+                                jQuery('#cmtx_country').after('<span class="cmtx_error">' + response['error']['country'] + '</span>');
+                            }
+
+                            if (response['error']['state']) {
+                                jQuery('#cmtx_state').addClass('cmtx_field_error');
+
+                                jQuery('#cmtx_state').after('<span class="cmtx_error">' + response['error']['state'] + '</span>');
+                            }
+
+                            if (response['error']['answer']) {
+                                jQuery('#cmtx_answer').addClass('cmtx_field_error');
+
+                                jQuery('#cmtx_answer').after('<span class="cmtx_error">' + response['error']['answer'] + '</span>');
+                            }
+
+                            for (var field in response['error']) {
+                                if (field.startsWith('cmtx_field_')) {
+                                    jQuery('[name="' + field + '"]').addClass('cmtx_field_error');
+
+                                    jQuery('[name="' + field + '"]').after('<span class="cmtx_error">' + response['error'][field] + '</span>');
+                                }
+                            }
+
+                            if (response['error']['recaptcha']) {
+                                jQuery('#g-recaptcha').after('<span class="cmtx_error">' + response['error']['recaptcha'] + '</span>');
+
+                                grecaptcha.reset();
+                            }
+
+                            if (response['error']['captcha']) {
+                                jQuery('#cmtx_captcha').addClass('cmtx_field_error');
+
+                                jQuery('#cmtx_captcha').after('<span class="cmtx_error">' + response['error']['captcha'] + '</span>');
+
+                                jQuery('#cmtx_captcha_refresh').trigger('click');
+
+                                jQuery('#cmtx_captcha').val('');
+                            }
                         }
 
                         jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
 
-                        jQuery('.cmtx_message_error, .cmtx_container_error, .cmtx_error').fadeIn(2000);
+                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
                     }
 
                     if (response['question']) {
@@ -1140,7 +1146,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 jQuery('.cmtx_wait_for_user').show();
 
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_image_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row').hide();
+                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_image_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row').hide();
 
                 jQuery('.cmtx_question_row, .cmtx_captcha_row').show();
 
@@ -1242,43 +1248,45 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     }
 
                     if (response['result']['error']) {
-                        if (response['error']['name']) {
-                            jQuery('#cmtx_name').addClass('cmtx_field_error');
+                        if (response['error']) {
+                            if (response['error']['name']) {
+                                jQuery('#cmtx_name').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_name').after('<span class="cmtx_error">' + response['error']['name'] + '</span>');
-                        }
+                                jQuery('#cmtx_name').after('<span class="cmtx_error">' + response['error']['name'] + '</span>');
+                            }
 
-                        if (response['error']['email']) {
-                            jQuery('#cmtx_email').addClass('cmtx_field_error');
+                            if (response['error']['email']) {
+                                jQuery('#cmtx_email').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_email').after('<span class="cmtx_error">' + response['error']['email'] + '</span>');
-                        }
+                                jQuery('#cmtx_email').after('<span class="cmtx_error">' + response['error']['email'] + '</span>');
+                            }
 
-                        if (response['error']['answer']) {
-                            jQuery('#cmtx_answer').addClass('cmtx_field_error');
+                            if (response['error']['answer']) {
+                                jQuery('#cmtx_answer').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_answer').after('<span class="cmtx_error">' + response['error']['answer'] + '</span>');
-                        }
+                                jQuery('#cmtx_answer').after('<span class="cmtx_error">' + response['error']['answer'] + '</span>');
+                            }
 
-                        if (response['error']['recaptcha']) {
-                            jQuery('#g-recaptcha').after('<span class="cmtx_error">' + response['error']['recaptcha'] + '</span>');
+                            if (response['error']['recaptcha']) {
+                                jQuery('#g-recaptcha').after('<span class="cmtx_error">' + response['error']['recaptcha'] + '</span>');
 
-                            grecaptcha.reset();
-                        }
+                                grecaptcha.reset();
+                            }
 
-                        if (response['error']['captcha']) {
-                            jQuery('#cmtx_captcha').addClass('cmtx_field_error');
+                            if (response['error']['captcha']) {
+                                jQuery('#cmtx_captcha').addClass('cmtx_field_error');
 
-                            jQuery('#cmtx_captcha').after('<span class="cmtx_error">' + response['error']['captcha'] + '</span>');
+                                jQuery('#cmtx_captcha').after('<span class="cmtx_error">' + response['error']['captcha'] + '</span>');
 
-                            jQuery('#cmtx_captcha_refresh').trigger('click');
+                                jQuery('#cmtx_captcha_refresh').trigger('click');
 
-                            jQuery('#cmtx_captcha').val('');
+                                jQuery('#cmtx_captcha').val('');
+                            }
                         }
 
                         jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
 
-                        jQuery('.cmtx_message_error, .cmtx_container_error, .cmtx_error').fadeIn(2000);
+                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
                     }
 
                     if (response['question']) {
@@ -1294,7 +1302,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                 jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
 
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row').show();
+                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row').show();
 
                 jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
 
@@ -1520,31 +1528,93 @@ var cmtx_wait_for_jquery = setInterval(function() {
             jQuery('#cmtx_container').on('click', '.cmtx_reply_link', function(e) {
                 e.preventDefault();
 
-                if (jQuery('input[name="cmtx_subscribe"]').val() == '1') {
-                    jQuery('.cmtx_message_notify a').trigger('click');
+                if (jQuery(this).closest('.quick_reply').length) {
+                    var is_quick_reply = false;
+                } else {
+                    var is_quick_reply = true;
                 }
-
-                jQuery('.cmtx_message_info').remove();
-
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row').show();
-
-                jQuery('.cmtx_headline_row, .cmtx_rating_row').hide();
-
-                jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
-
-                jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
 
                 var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
 
-                var name = jQuery(this).closest('.cmtx_comment_box').find('.cmtx_name_text').text();
-
                 jQuery('input[name="cmtx_reply_to"]').val(comment_id);
 
-                jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_reply">' + cmtx_js_settings_comments.lang_text_replying_to + ' ' + name + ' <a href="#" title="' + cmtx_js_settings_comments.lang_title_cancel_reply + '">' + cmtx_js_settings_comments.lang_link_cancel + '</a></div>');
+                var name = jQuery(this).closest('.cmtx_comment_box').find('.cmtx_name_text').text();
 
-                cmtxAutoScroll(jQuery('#cmtx_form_container'));
+                var quick_reply_name = jQuery(this).closest('.cmtx_comment_box').find('input[name="cmtx_quick_reply_name"]').val();
+                var quick_reply_email = jQuery(this).closest('.cmtx_comment_box').find('input[name="cmtx_quick_reply_email"]').val();
+                var quick_reply_comment = jQuery(this).closest('.cmtx_comment_box').find('textarea[name="cmtx_quick_reply_comment"]').val();
 
-                jQuery('.cmtx_message_reply').fadeIn(2000);
+                jQuery('.quick_reply').remove();
+
+                if (cmtx_js_settings_comments.quick_reply && is_quick_reply) {
+                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
+
+                    jQuery(this).closest('.cmtx_comment_box').find('.cmtx_view_replies_link').trigger('click');
+
+                    html =  '<div class="quick_reply">';
+                    html += '  <div class="cmtx_quick_reply_comment_holder"><textarea name="cmtx_quick_reply_comment" class="cmtx_field cmtx_textarea_field cmtx_comment_field cmtx_comment_field_active" placeholder="' + jQuery('#cmtx_comment').attr('placeholder') + '" title="' + jQuery('#cmtx_comment').attr('title') + '" maxlength="' + jQuery('#cmtx_comment').attr('maxlength') + '"></textarea></div>';
+
+                    if (jQuery('#cmtx_name').length || jQuery('#cmtx_email').length) {
+                        html += '  <div class="cmtx_quick_reply_user">';
+
+                        if (jQuery('#cmtx_name').length) {
+                            html += '<div class="cmtx_quick_reply_name_holder"><input type="text" name="cmtx_quick_reply_name" class="' + jQuery('#cmtx_name').attr('class') + '" value="' + jQuery('#cmtx_name').val() + '" placeholder="' + jQuery('#cmtx_name').attr('placeholder') + '" title="' + jQuery('#cmtx_name').attr('title') + '" maxlength="' + jQuery('#cmtx_name').attr('maxlength') + '" ' + (jQuery('#cmtx_name').is('[readonly]') ? 'readonly' : '') + '></div>';
+                        }
+
+                        if (jQuery('#cmtx_email').length) {
+                            html += '<div class="cmtx_quick_reply_email_holder"><input type="email" name="cmtx_quick_reply_email" class="' + jQuery('#cmtx_email').attr('class') + '" value="' + jQuery('#cmtx_email').val() + '" placeholder="' + jQuery('#cmtx_email').attr('placeholder') + '" title="' + jQuery('#cmtx_email').attr('title') + '" maxlength="' + jQuery('#cmtx_email').attr('maxlength') + '" ' + (jQuery('#cmtx_email').is('[readonly]') ? 'readonly' : '') + '></div>';
+                        }
+
+                        html += '  </div>';
+                    }
+
+                    var lang_text_agree = cmtx_js_settings_comments.lang_text_agree;
+                    lang_text_agree = lang_text_agree.replace('[1]', '<a href="#" data-cmtx-target-modal="#cmtx_privacy_modal">' + cmtx_js_settings_comments.lang_text_privacy + '</a>');
+                    lang_text_agree = lang_text_agree.replace('[2]', '<a href="#" data-cmtx-target-modal="#cmtx_terms_modal">' + cmtx_js_settings_comments.lang_text_terms + '</a>');
+
+                    html += '  <div class="cmtx_quick_reply_lower">';
+                    html += '    <div class="cmtx_quick_reply_link"><a href="#" class="cmtx_reply_link">' + cmtx_js_settings_comments.lang_link_reply + '</a></div>';
+                    html += '    <div class="cmtx_quick_reply_agree">' + lang_text_agree + '</div>';
+                    html += '    <div class="cmtx_quick_reply_button"><input type="button" class="' + jQuery('#cmtx_submit_button').attr('class') + ' cmtx_button_quick_reply" value="' + cmtx_js_settings_comments.lang_button_reply + '" title="' + cmtx_js_settings_comments.lang_button_reply + '"></div>';
+                    html += '  </div>';
+                    html += '</div>';
+
+                    jQuery(this).closest('.cmtx_main_area').append(html);
+                } else {
+                    /* Copy quick reply values to main form */
+                    if (quick_reply_name) {
+                        jQuery('#cmtx_name').val(quick_reply_name);
+                    }
+
+                    if (quick_reply_email) {
+                        jQuery('#cmtx_email').val(quick_reply_email);
+                    }
+
+                    if (quick_reply_comment) {
+                        jQuery('#cmtx_comment').val(quick_reply_comment);
+                    }
+                    /* End of copying values */
+
+                    if (jQuery('input[name="cmtx_subscribe"]').val() == '1') {
+                        cmtx_cancel_notify();
+                    }
+
+                    jQuery('.cmtx_message_info').remove();
+
+                    jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row').show();
+
+                    jQuery('.cmtx_headline_row, .cmtx_rating_row').hide();
+
+                    jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
+
+                    jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
+
+                    jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_reply">' + cmtx_js_settings_comments.lang_text_replying_to + ' ' + name + ' <a href="#" title="' + cmtx_js_settings_comments.lang_title_cancel_reply + '">' + cmtx_js_settings_comments.lang_link_cancel + '</a></div>');
+
+                    cmtxAutoScroll(jQuery('#cmtx_form_container'));
+
+                    jQuery('.cmtx_message_reply').fadeIn(2000);
+                }
             });
 
             jQuery('body').on('click', '.cmtx_message_reply a', function(e) {
@@ -1606,7 +1676,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
             });
 
             /* Return to comments link */
-            jQuery('#cmtx_container').on('click', '.cmtx_no_results a, .cmtx_return a', function(e) {
+            jQuery('#cmtx_container').on('click', '.cmtx_no_results a, .cmtx_return a, .cmtx_quick_reply_reload', function(e) {
                 e.preventDefault();
 
                 jQuery('#cmtx_search').val('');
@@ -1680,6 +1750,97 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     jQuery('.cmtx_modal_close').trigger('click');
                 });
             }
+
+            /* Quick reply */
+            jQuery('#cmtx_container').on('click', '.cmtx_button_quick_reply', function(e) {
+                e.preventDefault();
+
+                var quick_reply = jQuery(this).closest('.cmtx_comment_box').find('.quick_reply');
+
+                // Find any disabled inputs and remove the "disabled" attribute
+                var disabled = jQuery('#cmtx_form').find(':input:disabled').removeAttr('disabled');
+
+                // Serialize the form
+                var serialized = jQuery('#cmtx_form').serialize();
+
+                // Re-disable the set of inputs that were originally disabled
+                disabled.attr('disabled', 'disabled');
+
+                var request = jQuery.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/reply',
+                    data: serialized + '&cmtx_comment=' + encodeURIComponent(quick_reply.find('textarea[name="cmtx_quick_reply_comment"]').val()) + '&cmtx_email=' + encodeURIComponent(quick_reply.find('input[name="cmtx_quick_reply_email"]').val()) + '&cmtx_name=' + encodeURIComponent(quick_reply.find('input[name="cmtx_quick_reply_name"]').val()) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id) + jQuery('#cmtx_hidden_data').val(),
+                    dataType: 'json',
+                    beforeSend: function() {
+                        quick_reply.find('.cmtx_button_quick_reply').val(cmtx_js_settings_form.lang_button_processing);
+
+                        quick_reply.find('.cmtx_button_quick_reply').prop('disabled', true);
+
+                        quick_reply.find('.cmtx_button_quick_reply').addClass('cmtx_button_disabled');
+                    }
+                });
+
+                request.always(function() {
+                    quick_reply.find('.cmtx_button_quick_reply').val(cmtx_js_settings_comments.lang_button_reply);
+
+                    quick_reply.find('.cmtx_button_quick_reply').prop('disabled', false);
+
+                    quick_reply.find('.cmtx_button_quick_reply').removeClass('cmtx_button_disabled');
+                });
+
+                request.done(function(response) {
+                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
+
+                    jQuery('.cmtx_field').removeClass('cmtx_field_error');
+
+                    if (response['result']['success']) {
+                        jQuery('.cmtx_message').remove();
+
+                        jQuery('input[name="cmtx_reply_to"]').val('');
+
+                        if (response['result']['approve']) {
+                            quick_reply.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + '</div>');
+                        } else {
+                            quick_reply.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + ' <a href="#" class="cmtx_quick_reply_reload">' + cmtx_js_settings_comments.lang_link_reload + '</a>' + '</div>');
+                        }
+
+                        jQuery('.cmtx_message_success').fadeIn(1500);
+                    }
+
+                    if (response['result']['error']) {
+                        if (response['error']) {
+                            if (response['error']['comment']) {
+                                quick_reply.find('textarea[name="cmtx_quick_reply_comment"]').addClass('cmtx_field_error');
+
+                                quick_reply.find('textarea[name="cmtx_quick_reply_comment"]').after('<span class="cmtx_error">' + response['error']['comment'] + '</span>');
+                            }
+
+                            if (response['error']['name']) {
+                                quick_reply.find('input[name="cmtx_quick_reply_name"]').addClass('cmtx_field_error');
+
+                                quick_reply.find('input[name="cmtx_quick_reply_name"]').after('<span class="cmtx_error">' + response['error']['name'] + '</span>');
+                            }
+
+                            if (response['error']['email']) {
+                                quick_reply.find('input[name="cmtx_quick_reply_email"]').addClass('cmtx_field_error');
+
+                                quick_reply.find('input[name="cmtx_quick_reply_email"]').after('<span class="cmtx_error">' + response['error']['email'] + '</span>');
+                            }
+                        }
+
+                        quick_reply.prepend('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
+
+                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
+                    }
+                });
+
+                request.fail(function(jqXHR, textStatus, errorThrown) {
+                    if (console && console.log) {
+                        console.log(jqXHR.responseText);
+                    }
+                });
+            });
 
             /* User Page */
 
@@ -1994,7 +2155,6 @@ function cmtxInfiniteScrollIframe(e) {
 if (typeof window.iFrameResizer != 'undefined' && window.iFrameResizer != null) {
     window.iFrameResizer = {
         messageCallback: function (message) {
-            console.log('test');
             console.log(message);
         }
     };

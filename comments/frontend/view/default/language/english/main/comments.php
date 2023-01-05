@@ -31,6 +31,9 @@ $_['lang_text_no_permalink']       = 'No such comment';
 $_['lang_text_no_results']         = 'No results. <a href="" title="Go back">Go back</a>';
 $_['lang_text_no_comments']        = 'No comments yet. Be the first!';
 $_['lang_text_reported']           = 'Thanks for the report';
+$_['lang_text_privacy']            = 'privacy';
+$_['lang_text_terms']              = 'terms';
+$_['lang_text_agree']              = 'By posting you agree to the [1] and [2]';
 
 // Title
 $_['lang_title_sticky']            = 'Sticky';
@@ -63,15 +66,16 @@ $_['lang_modal_close']             = 'Close';
 // Link
 $_['lang_link_close']              = 'Close';
 $_['lang_link_cancel']             = '[Cancel]';
+$_['lang_link_reload']             = '[Reload]';
+$_['lang_link_reply']              = 'Switch to full reply';
 
 // Button
-$_['lang_button_more']             = 'More Comments';
+$_['lang_button_more']             = 'More <a>test</a> Comments';
 $_['lang_button_loading']          = 'Loading..';
+$_['lang_button_reply']            = 'Add Reply';
 
 // Error
 $_['lang_error_no_comment']        = 'This comment no longer exists';
-$_['lang_error_maintenance']       = 'The script is in maintenance mode';
-$_['lang_error_disabled']          = 'This feature is disabled';
 $_['lang_error_vote_own']          = 'You can\'t vote for yourself';
 $_['lang_error_vote_already']      = 'You\'ve already voted';
 $_['lang_error_report_own']        = 'You can\'t report yourself';

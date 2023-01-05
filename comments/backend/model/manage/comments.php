@@ -239,18 +239,7 @@ class ManageCommentsModel extends Model
 
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '1', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
 
-            if ($this->setting->get('cache_type')) {
-                $page_id = $this->comment->getPageIdByCommentId($id);
-
-                $this->cache->delete('getcomments_pageid' . $page_id . '_count*');
-
-                /* If the comment is a reply, we need to clear the cache of the parent comments */
-                $parent_ids = $this->comment->getParents($id);
-
-                foreach ($parent_ids as $parent_id) {
-                    $this->cache->delete('getcomment_commentid' . $parent_id . '_' . $this->setting->get('language'));
-                }
-            }
+            $this->comment->deleteCache($id);
 
             return true;
         } else {

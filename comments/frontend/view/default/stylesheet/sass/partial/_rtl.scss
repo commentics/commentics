@@ -153,6 +153,11 @@
         right: auto;
     }
 
+    .cmtx_quick_reply_name_holder + .cmtx_quick_reply_email_holder {
+        margin-left: 0;
+        margin-right: 8px;
+    }
+
     @media all and (max-width: 600px) {
         .cmtx_avatar_area {
             float: none;

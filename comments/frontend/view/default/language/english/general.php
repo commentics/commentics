@@ -72,3 +72,7 @@ $_['lang_type_review']          = 'review';
 $_['lang_type_reviews']         = 'reviews';
 $_['lang_type_testimonial']     = 'testimonial';
 $_['lang_type_testimonials']    = 'testimonials';
+
+// Error
+$_['lang_error_maintenance']  = 'The script is in maintenance mode';
+$_['lang_error_disabled']     = 'This feature is disabled';

@@ -373,6 +373,7 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'count_replies', `value` = '0'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'show_delete', `value` = '0'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'processor', `title` = 'unique_email_enabled', `value` = '1'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'quick_reply', `value` = '0'");
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "comments` ADD `session_id` varchar(250) NOT NULL default ''");
 

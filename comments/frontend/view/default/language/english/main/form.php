@@ -5,8 +5,8 @@ $_['lang_heading_form']                   = 'Add Comment';
 // Entry
 $_['lang_entry_notify']                   = 'Notify me of new comments<span class="cmtx_checkbox_extra"> via email</span>';
 $_['lang_entry_cookie']                   = 'Remember my form inputs<span class="cmtx_checkbox_extra"> on this computer</span>';
-$_['lang_entry_privacy']                  = 'I have read <span class="cmtx_checkbox_extra">and understand</span> the <a href="#" title="View the privacy policy">privacy policy</a>';
-$_['lang_entry_terms']                    = 'I have read <span class="cmtx_checkbox_extra">and agree to</span> the <a href="#" title="View the terms and conditions">terms and conditions</a>';
+$_['lang_entry_privacy']                  = 'I have read <span class="cmtx_checkbox_extra">and understand</span> the <a href="#" title="View the privacy policy" data-cmtx-target-modal="#cmtx_privacy_modal">privacy policy</a>';
+$_['lang_entry_terms']                    = 'I have read <span class="cmtx_checkbox_extra">and agree to</span> the <a href="#" title="View the terms and conditions" data-cmtx-target-modal="#cmtx_terms_modal">terms and conditions</a>';
 
 // Placeholder
 $_['lang_placeholder_comment']            = 'Enter your comment here ..';
@@ -275,6 +275,7 @@ $_['lang_error_image_type']               = 'Only image file types jpg, png and 
 $_['lang_error_image_create']             = 'The image was not created. Please try uploading the image again.';
 $_['lang_error_image_size']               = 'The image size is too big. Please try uploading a smaller image.';
 $_['lang_error_reply_invalid']            = 'The comment you are replying to does not exist';
+$_['lang_error_reply_required']           = 'You are not replying to anyone';
 $_['lang_error_field_required']           = 'This is a required field';
 $_['lang_error_field_invalid']            = 'The value entered is invalid';
 $_['lang_error_field_min_length']         = 'The value entered is too short';

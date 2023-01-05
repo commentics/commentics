@@ -921,6 +921,12 @@
                 </div>
 
                 <div class="fieldset">
+                    <label><?php echo $lang_entry_quick_reply; ?></label>
+                    <input type="checkbox" name="quick_reply" value="1" <?php if ($quick_reply) { echo 'checked'; } ?>>
+                    <a class="hint" data-hint="<?php echo $lang_hint_quick_reply; ?>">[?]</a>
+                </div>
+
+                <div class="fieldset">
                     <label><?php echo $lang_entry_hide; ?></label>
                     <input type="checkbox" name="hide_replies" value="1" <?php if ($hide_replies) { echo 'checked'; } ?>>
                     <a class="hint" data-hint="<?php echo $lang_hint_hide_replies; ?>">[?]</a>

@@ -74,7 +74,7 @@
                     @if enabled_privacy
                         <div class="cmtx_row cmtx_privacy_row cmtx_clear">
                             <div class="cmtx_col_12">
-                                <div class="cmtx_container cmtx_privacy_container" data-cmtx-target-modal="#cmtx_privacy_modal">
+                                <div class="cmtx_container cmtx_privacy_container">
                                     <input type="checkbox" id="cmtx_privacy" name="cmtx_privacy" value="1"> <label for="cmtx_privacy">{{ lang_entry_privacy }}</label>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                     @if enabled_terms
                         <div class="cmtx_row cmtx_terms_row cmtx_clear">
                             <div class="cmtx_col_12">
-                                <div class="cmtx_container cmtx_terms_container" data-cmtx-target-modal="#cmtx_terms_modal">
+                                <div class="cmtx_container cmtx_terms_container">
                                     <input type="checkbox" id="cmtx_terms" name="cmtx_terms" value="1"> <label for="cmtx_terms">{{ lang_entry_terms }}</label>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@
             </div>
         @endif
 
-        @if enabled_privacy
+        @if enabled_privacy or quick_reply
             <div id="cmtx_privacy_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
@@ -276,7 +276,7 @@
             </div>
         @endif
 
-        @if enabled_terms
+        @if enabled_terms or quick_reply
             <div id="cmtx_terms_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>

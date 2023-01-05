@@ -109,20 +109,15 @@ class EditCommentModel extends Model
             }
         }
 
+        if ($data['is_approved'] == 0) {
+            $this->comment->unapproveComment($id);
+        }
+
         if (isset($data['send'])) {
             $this->notify->subscriberNotification($id);
         }
 
-        $this->cache->delete('getcomment_commentid' . $id . '_' . $this->setting->get('language_frontend'));
-
-        $this->cache->delete('getcomments_pageid' . $data['page_id'] . '_count*');
-
-        /* If the comment is a reply, we need to clear the cache of the parent comments */
-        $parent_ids = $this->comment->getParents($id);
-
-        foreach ($parent_ids as $parent_id) {
-            $this->cache->delete('getcomment_commentid' . $parent_id . '_' . $this->setting->get('language'));
-        }
+        $this->comment->deleteCache($id);
     }
 
     public function getStates($id)

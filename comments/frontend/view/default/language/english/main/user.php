@@ -53,10 +53,8 @@ $_['lang_modal_close']                = 'Close';
 // Error
 $_['lang_error_no_user']              = 'No user found';
 $_['lang_error_no_subscription']      = 'No subscription found';
-$_['lang_error_maintenance']          = 'The script is in maintenance mode';
 $_['lang_error_timeout']              = 'Please try again later';
 $_['lang_error_banned']               = 'You\'ve been banned';
-$_['lang_error_disabled']             = 'This feature is disabled';
 $_['lang_error_no_image']             = 'No image was submitted. Please try again.';
 $_['lang_error_upload_writable']      = 'The upload folder is not writable. Please contact the administrator.';
 $_['lang_error_folder_create']        = 'The image folder was not created. Please contact the administrator.';

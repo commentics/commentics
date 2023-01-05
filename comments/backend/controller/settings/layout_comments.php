@@ -701,6 +701,14 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['show_reply'] = $this->setting->get('show_reply');
         }
 
+        if (isset($this->request->post['quick_reply'])) {
+            $this->data['quick_reply'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['quick_reply'])) {
+            $this->data['quick_reply'] = false;
+        } else {
+            $this->data['quick_reply'] = $this->setting->get('quick_reply');
+        }
+
         if (isset($this->request->post['hide_replies'])) {
             $this->data['hide_replies'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['hide_replies'])) {

@@ -323,11 +323,18 @@ class MainCommentsController extends Controller
                 'lang_text_replying_to'   => $this->data['lang_text_replying_to'],
                 'lang_title_cancel_reply' => $this->data['lang_title_cancel_reply'],
                 'lang_link_cancel'        => $this->data['lang_link_cancel'],
+                'lang_text_privacy'       => $this->data['lang_text_privacy'],
+                'lang_text_terms'         => $this->data['lang_text_terms'],
+                'lang_text_agree'         => $this->data['lang_text_agree'],
                 'lang_text_not_replying'  => $this->data['lang_text_not_replying'],
                 'lang_button_loading'     => $this->data['lang_button_loading'],
                 'lang_button_more'        => $this->data['lang_button_more'],
+                'lang_button_reply'       => $this->data['lang_button_reply'],
+                'lang_link_reply'         => $this->data['lang_link_reply'],
+                'lang_link_reload'        => $this->data['lang_link_reload'],
                 'date_auto'               => (bool) $this->setting->get('date_auto'),
                 'show_pagination'         => (bool) $this->setting->get('show_pagination'),
+                'quick_reply'             => (bool) $this->setting->get('quick_reply'),
                 'pagination_type'         => $this->setting->get('pagination_type'),
                 'timeago_suffixAgo'       => $this->data['lang_text_timeago_ago'],
                 'timeago_inPast'          => $this->data['lang_text_timeago_second'],
@@ -486,7 +493,9 @@ class MainCommentsController extends Controller
             $comment['reply_id'][$reply['id']] = $this->getComment($reply['id']);
         }
 
-        $this->cache->set('getcomment_commentid' . $id . '_' . $this->setting->get('language'), $comment);
+        if ($comment['reply_to'] == 0) {
+            $this->cache->set('getcomment_commentid' . $id . '_' . $this->setting->get('language'), $comment);
+        }
 
         return $comment;
     }
@@ -528,7 +537,7 @@ class MainCommentsController extends Controller
                 if (!$json) {
                     $this->model_main_comments->addVote($comment_id, $type, $ip_address);
 
-                    $this->cache->delete('getcomment_commentid' . $comment_id . '_' . $this->setting->get('language'));
+                    $this->cache->delete('getcomment_commentid' . $comment_id . '_*');
 
                     $json['success'] = true;
                 }
@@ -583,7 +592,7 @@ class MainCommentsController extends Controller
                         if ($this->setting->get('flag_disapprove')) {
                             $this->comment->unapproveComment($comment_id);
 
-                            $this->cache->delete('getcomments_pageid' . $this->page->getId() . '_count*');
+                            $this->comment->deleteCache($comment_id);
                         }
 
                         $this->notify->adminNotifyCommentFlag($comment_id);

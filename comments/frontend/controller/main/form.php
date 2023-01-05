@@ -578,6 +578,8 @@ class MainFormController extends Controller
                 $this->data['cmtx_admin_button'] = '';
             }
 
+            $this->data['quick_reply'] = $this->setting->get('quick_reply');
+
             $this->data['page_id'] = $this->page->getId();
 
             $this->data['iframe'] = (int) $this->page->isIFrame();
@@ -754,6 +756,8 @@ class MainFormController extends Controller
                 $page_id = (int) $this->request->get['page_id'];
 
                 if ($this->page->pageExists($page_id)) {
+                    $this->loadModel('main/form');
+
                     $captcha_length = $this->setting->get('captcha_length');
 
                     $captcha_string = $this->variable->random($captcha_length, true);
@@ -768,31 +772,31 @@ class MainFormController extends Controller
                     $height = imagesy($image);
 
                     // Background color
-                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_back_color'));
+                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_back_color'));
                     imagefilledrectangle($image, 0, 0, $width, $height, $color);
 
                     // Draw lines
-                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_line_color'));
+                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_line_color'));
                     for ($i = 0; $i < $this->setting->get('captcha_lines'); $i++) {
                         imagesetthickness($image, rand(2, 10));
                         imageline($image, ceil(rand(5, 145)), ceil(rand(0, 35)), ceil(rand(5, 145)), ceil(rand(0, 35)), $color);
                     }
 
                     // Draw circles
-                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_circle_color'), true);
+                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_circle_color'), true);
                     for ($i = 0; $i < $this->setting->get('captcha_circles'); $i++) {
                         imagefilledellipse($image, ceil(rand(5, 145)), ceil(rand(0, 35)), 30, 30, $color);
                     }
 
                     // Draw squares
-                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_square_color'), true);
+                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_square_color'), true);
                     for ($i = 0; $i < $this->setting->get('captcha_squares'); $i++) {
                         imagesetthickness($image, rand(2, 4));
                         imagerectangle($image, rand(-10, 190), rand(-10, 10), rand(-10, 190), rand(40, 60), $color);
                     }
 
                     // Draw dots
-                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_dots_color'));
+                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_dots_color'));
                     for ($i = 0; $i < $this->setting->get('captcha_dots'); $i++) {
                         $x = mt_rand(0, $width);
                         $y = mt_rand(0, $height);
@@ -801,7 +805,7 @@ class MainFormController extends Controller
                     }
 
                     // Draw characters
-                    $color = $this->hexColorAllocate($image, $this->setting->get('captcha_text_color'));
+                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_text_color'));
                     $size = 20; // the font size in points
                     $font = $this->loadFont('ahgbold.ttf'); // load font
                     $letter_space = 170 / $captcha_length;
@@ -819,20 +823,6 @@ class MainFormController extends Controller
                     imagedestroy($image);
                 }
             }
-        }
-    }
-
-    private function hexColorAllocate($image, $hex, $transparency = false) {
-        $hex = ltrim($hex, '#');
-
-        $r = hexdec(substr($hex, 0, 2));
-        $g = hexdec(substr($hex, 2, 2));
-        $b = hexdec(substr($hex, 4, 2));
-
-        if ($transparency) {
-            return imagecolorallocatealpha($image, $r, $g, $b, 75);
-        } else {
-            return imagecolorallocate($image, $r, $g, $b);
         }
     }
 
@@ -865,11 +855,8 @@ class MainFormController extends Controller
                             if ($this->user->isBanned($ip_address)) {
                                 $json['result']['error'] = $this->data['lang_error_banned'];
                             } else {
-                                /* Initialise some variables */
-                                $approve = $notes = '';
-                                $country = 0;
-                                $user = false;
-                                $uploads = $extra_fields = array();
+                                /* Let the model access the language */
+                                $this->model_main_form->data = $this->data;
 
                                 /* Is this a preview? */
                                 if ($this->setting->get('enabled_preview') && isset($this->request->post['cmtx_type']) && $this->request->post['cmtx_type'] == 'preview') {
@@ -879,944 +866,76 @@ class MainFormController extends Controller
                                 }
 
                                 /* Check for flooding (delay) */
-                                if ($this->setting->get('flood_control_delay_enabled') && !$is_admin) {
-                                    if ($this->model_main_form->isFloodingDelay('comments', $ip_address, $page_id)) {
-                                        $json['result']['error'] = $this->data['lang_error_flooding_delay'];
-                                    } else if ($this->model_main_form->isFloodingDelay('deleted', $ip_address, $page_id)) {
-                                        $json['result']['error'] = $this->data['lang_error_flooding_delay'];
-                                    }
-                                }
+                                $this->model_main_form->validateFloodingDelay($is_admin, $page_id);
 
                                 /* Check for flooding (maximum) */
-                                if ($this->setting->get('flood_control_maximum_enabled') && !$is_admin) {
-                                    if ($this->model_main_form->isFloodingMaximum('comments', $ip_address, $page_id)) {
-                                        $json['result']['error'] = $this->data['lang_error_flooding_maximum'];
-                                    } else if ($this->model_main_form->isFloodingMaximum('deleted', $ip_address, $page_id)) {
-                                        $json['result']['error'] = $this->data['lang_error_flooding_maximum'];
-                                    }
-                                }
+                                $this->model_main_form->validateFloodingMaximum($is_admin, $page_id);
 
                                 /* Check referrer */
-                                if ($this->setting->get('check_referrer')) {
-                                    if (isset($this->request->server['HTTP_REFERER'])) {
-                                        $referrer = $this->url->decode($this->request->server['HTTP_REFERER']);
-
-                                        $domain = $this->url->decode($this->setting->get('site_domain'));
-
-                                        if (!$this->variable->stristr($referrer, $domain)) { // if referrer does not contain domain
-                                            $json['result']['error'] = $this->data['lang_error_incorrect_referrer'];
-                                        }
-                                    } else {
-                                        $json['result']['error'] = $this->data['lang_error_no_referrer'];
-                                    }
-                                }
+                                $this->model_main_form->validateReferrer();
 
                                 /* Check honeypot */
-                                if ($this->setting->get('check_honeypot') && (!isset($this->request->post['cmtx_honeypot']) || $this->request->post['cmtx_honeypot'])) {
-                                    $json['result']['error'] = $this->data['lang_error_honeypot'];
-                                }
+                                $this->model_main_form->validateHoneypot();
 
                                 /* Check time */
-                                if ($this->setting->get('check_time') && (!isset($this->request->post['cmtx_time']) || (time() - intval($this->request->post['cmtx_time'])) < 5)) {
-                                    $json['result']['error'] = $this->data['lang_error_time'];
-                                }
+                                $this->model_main_form->validateTime();
 
                                 /* Comment */
-                                if (isset($this->request->post['cmtx_comment']) && $this->request->post['cmtx_comment'] != '') {
-                                    $comment = $this->security->decode($this->request->post['cmtx_comment']);
-
-                                    /* Check comment length does not exceed maximum */
-                                    if ($this->validation->length($this->request->post['cmtx_comment']) > $this->setting->get('comment_maximum_characters')) {
-                                        $json['error']['comment'] = $this->data['lang_error_comment_max_length'];
-                                    }
-
-                                    /* Check repeats */
-                                    if ($this->setting->get('check_repeats_enabled') && $this->model_main_form->hasRepeats($comment)) {
-                                        if ($this->setting->get('check_repeats_action') == 'error') {
-                                            $json['error']['comment'] = $this->data['lang_error_comment_has_repeats'];
-                                        } else if ($this->setting->get('check_repeats_action') == 'approve') {
-                                            $approve .= $this->data['lang_error_comment_has_repeats'] . "\r\n";
-                                        } else {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_comment_has_repeats']);
-                                        }
-                                    }
-
-                                    /* Check for long word */
-                                    if ($this->model_main_form->hasLongWord($comment)) {
-                                        $json['error']['comment'] = $this->data['lang_error_comment_has_long_word'];
-                                    }
-
-                                    /* Check maximum lines */
-                                    if ($this->model_main_form->countLines($comment) > $this->setting->get('comment_maximum_lines')) {
-                                        $json['error']['comment'] = $this->data['lang_error_comment_max_lines'];
-                                    }
-
-                                    /* Check minimum words */
-                                    if ($this->model_main_form->countWords($comment) < $this->setting->get('comment_minimum_words')) {
-                                        $json['error']['comment'] = $this->data['lang_error_comment_min_words'];
-                                    }
-
-                                    /* Check for mild swear words */
-                                    if ($this->setting->get('mild_swear_words_enabled')) {
-                                        if ($this->model_main_form->hasWord($comment, 'mild_swear_words')) {
-                                            if ($this->setting->get('mild_swear_words_action') == 'mask') {
-                                                if (!$is_preview) {
-                                                    $this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'mild_swear_words');
-                                                }
-                                            } else if ($this->setting->get('mild_swear_words_action') == 'mask_approve') {
-                                                if (!$is_preview) {
-                                                    $this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'mild_swear_words');
-
-                                                    $approve .= $this->data['lang_error_comment_mild_swearing'] . "\r\n";
-                                                }
-                                            } else if ($this->setting->get('mild_swear_words_action') == 'error') {
-                                                $json['error']['comment'] = $this->data['lang_error_comment_mild_swearing'];
-                                            } else if ($this->setting->get('mild_swear_words_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_comment_mild_swearing'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_comment_mild_swearing']);
-                                            }
-                                        }
-                                    }
-
-                                    /* Check for strong swear words */
-                                    if ($this->setting->get('strong_swear_words_enabled')) {
-                                        if ($this->model_main_form->hasWord($comment, 'strong_swear_words')) {
-                                            if ($this->setting->get('strong_swear_words_action') == 'mask') {
-                                                if (!$is_preview) {
-                                                    $this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'strong_swear_words');
-                                                }
-                                            } else if ($this->setting->get('strong_swear_words_action') == 'mask_approve') {
-                                                if (!$is_preview) {
-                                                    $this->request->post['cmtx_comment'] = $this->model_main_form->maskWord($comment, 'strong_swear_words');
-
-                                                    $approve .= $this->data['lang_error_comment_strong_swearing'] . "\r\n";
-                                                }
-                                            } else if ($this->setting->get('strong_swear_words_action') == 'error') {
-                                                $json['error']['comment'] = $this->data['lang_error_comment_strong_swearing'];
-                                            } else if ($this->setting->get('strong_swear_words_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_comment_strong_swearing'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_comment_strong_swearing']);
-                                            }
-                                        }
-                                    }
-
-                                    /* Check for spam words */
-                                    if ($this->setting->get('spam_words_enabled')) {
-                                        if ($this->model_main_form->hasWord($comment, 'spam_words')) {
-                                            if ($this->setting->get('spam_words_action') == 'error') {
-                                                $json['error']['comment'] = $this->data['lang_error_comment_spam'];
-                                            } else if ($this->setting->get('spam_words_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_comment_spam'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_comment_spam']);
-                                            }
-                                        }
-                                    }
-
-                                    /* Check for banned website */
-                                    if ($this->setting->get('banned_websites_as_comment_enabled') && $this->model_main_form->hasWord($comment, 'banned_websites', false)) {
-                                        if ($this->setting->get('banned_websites_as_comment_action') == 'error') {
-                                            $json['error']['comment'] = $this->data['lang_error_website_banned'];
-                                        } else if ($this->setting->get('banned_websites_as_comment_action') == 'approve') {
-                                            $approve .= $this->data['lang_error_website_banned'] . "\r\n";
-                                        } else {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_website_banned']);
-                                        }
-                                    }
-
-                                    /* Check for link */
-                                    if ($this->setting->get('detect_link_in_comment_enabled') && $this->model_main_form->hasLink($comment)) {
-                                        if ($this->setting->get('link_in_comment_action') == 'error') {
-                                            $json['error']['comment'] = $this->data['lang_error_comment_has_link'];
-                                        } else if ($this->setting->get('link_in_comment_action') == 'approve') {
-                                            $approve .= $this->data['lang_error_comment_has_link'] . "\r\n";
-                                        } else {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_comment_has_link']);
-                                        }
-                                    }
-
-                                    /* Check for image */
-                                    if ($this->setting->get('approve_images') && $this->model_main_form->hasImage($comment)) {
-                                        $approve .= $this->data['lang_error_comment_has_image'] . "\r\n";
-                                    }
-
-                                    /* Check for video */
-                                    if ($this->setting->get('approve_videos') && $this->model_main_form->hasVideo($comment)) {
-                                        $approve .= $this->data['lang_error_comment_has_video'] . "\r\n";
-                                    }
-
-                                    /* Check maximum smilies */
-                                    if ($this->setting->get('enabled_smilies')) {
-                                        if ($this->model_main_form->countSmilies($comment) > $this->setting->get('comment_maximum_smilies')) {
-                                            $json['error']['comment'] = sprintf($this->data['lang_error_comment_max_smilies'], $this->setting->get('comment_maximum_smilies'));
-                                        }
-                                    }
-
-                                    /* Convert BB code to HTML */
-                                    if ($this->setting->get('enabled_bb_code')) {
-                                        $this->request->post['cmtx_comment'] = $this->model_main_form->addBBCode($this->request->post['cmtx_comment']);
-
-                                        if ($this->variable->strpos($this->request->post['cmtx_comment'], 'cmtx-invalid-bb-code-link') !== false) {
-                                            $json['error']['comment'] = $this->data['lang_error_comment_invalid_link'];
-                                        }
-                                    }
-
-                                    /* Check capitals (after BB Code because we don't want to include tags) */
-                                    if ($this->setting->get('check_capitals_enabled') && $this->model_main_form->hasCapitals($this->request->post['cmtx_comment'])) {
-                                        if ($this->setting->get('check_capitals_action') == 'error') {
-                                            $json['error']['comment'] = $this->data['lang_error_comment_has_capitals'];
-                                        } else if ($this->setting->get('check_capitals_action') == 'approve') {
-                                            $approve .= $this->data['lang_error_comment_has_capitals'] . "\r\n";
-                                        } else {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_comment_has_capitals']);
-                                        }
-                                    }
-
-                                    /* Convert web links (non-BB code) to HTML */
-                                    if ($this->setting->get('comment_convert_links')) {
-                                        $this->request->post['cmtx_comment'] = $this->model_main_form->convertLinks($this->request->post['cmtx_comment']);
-                                    }
-
-                                    /* Convert email links (non-BB code) to HTML */
-                                    if ($this->setting->get('comment_convert_emails')) {
-                                        $this->request->post['cmtx_comment'] = $this->model_main_form->convertEmails($this->request->post['cmtx_comment']);
-                                    }
-
-                                    /* Wrap each line in a paragraph tag */
-                                    if ($this->setting->get('comment_line_breaks')) {
-                                        $this->request->post['cmtx_comment'] = $this->model_main_form->addLineBreaks($this->request->post['cmtx_comment']);
-                                    } else {
-                                        $this->request->post['cmtx_comment'] = $this->model_main_form->removeLineBreaks($this->request->post['cmtx_comment']);
-                                    }
-
-                                    /* Purify the comment. Ensures properly balanced tags and neutralizes attacks. */
-                                    $this->request->post['cmtx_comment'] = $this->model_main_form->purifyComment($this->request->post['cmtx_comment']);
-
-                                    /* Finally remove any space at beginning and end */
-                                    $this->request->post['cmtx_comment'] = trim($this->request->post['cmtx_comment']);
-
-                                    /* Check comment length exceeds minimum */
-                                    if ($this->model_main_form->getCommentDisplayLength($this->request->post['cmtx_comment']) < $this->setting->get('comment_minimum_characters')) {
-                                        $json['error']['comment'] = $this->data['lang_error_comment_min_length'];
-                                    }
-                                } else {
-                                    $json['error']['comment'] = $this->data['lang_error_comment_empty'];
-                                }
+                                $this->model_main_form->validateComment($is_preview);
 
                                 /* Headline */
-                                if ($this->setting->get('enabled_headline') && empty($this->request->post['cmtx_reply_to'])) {
-                                    if (isset($this->request->post['cmtx_headline']) && $this->request->post['cmtx_headline'] != '') {
-                                        $headline = $this->security->decode($this->request->post['cmtx_headline']);
-
-                                        /* Check minimum length */
-                                        if ($this->validation->length($headline) < $this->setting->get('headline_minimum_characters')) {
-                                            $json['error']['headline'] = $this->data['lang_error_headline_min_length'];
-                                        }
-
-                                        /* Check minimum words */
-                                        if ($this->model_main_form->countWords($headline) < $this->setting->get('headline_minimum_words')) {
-                                            $json['error']['headline'] = $this->data['lang_error_headline_min_words'];
-                                        }
-
-                                        /* Check maximum length */
-                                        if ($this->validation->length($headline) > $this->setting->get('headline_maximum_characters')) {
-                                            $json['error']['headline'] = $this->data['lang_error_headline_max_length'];
-                                        }
-
-                                        /* Check capitals */
-                                        if ($this->setting->get('check_capitals_enabled') && $this->model_main_form->hasCapitals($headline)) {
-                                            if ($this->setting->get('check_capitals_action') == 'error') {
-                                                $json['error']['headline'] = $this->data['lang_error_headline_has_capitals'];
-                                            } else if ($this->setting->get('check_capitals_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_headline_has_capitals'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_headline_has_capitals']);
-                                            }
-                                        }
-
-                                        /* Check repeats */
-                                        if ($this->setting->get('check_repeats_enabled') && $this->model_main_form->hasRepeats($headline)) {
-                                            if ($this->setting->get('check_repeats_action') == 'error') {
-                                                $json['error']['headline'] = $this->data['lang_error_headline_has_repeats'];
-                                            } else if ($this->setting->get('check_repeats_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_headline_has_repeats'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_headline_has_repeats']);
-                                            }
-                                        }
-
-                                        /* Check for mild swear words */
-                                        if ($this->setting->get('mild_swear_words_enabled')) {
-                                            if ($this->model_main_form->hasWord($headline, 'mild_swear_words')) {
-                                                if ($this->setting->get('mild_swear_words_action') == 'mask') {
-                                                    if (!$is_preview) {
-                                                        $this->request->post['cmtx_headline'] = $this->model_main_form->maskWord($headline, 'mild_swear_words');
-                                                    }
-                                                } else if ($this->setting->get('mild_swear_words_action') == 'mask_approve') {
-                                                    if (!$is_preview) {
-                                                        $this->request->post['cmtx_headline'] = $this->model_main_form->maskWord($headline, 'mild_swear_words');
-
-                                                        $approve .= $this->data['lang_error_headline_mild_swearing'] . "\r\n";
-                                                    }
-                                                } else if ($this->setting->get('mild_swear_words_action') == 'error') {
-                                                    $json['error']['headline'] = $this->data['lang_error_headline_mild_swearing'];
-                                                } else if ($this->setting->get('mild_swear_words_action') == 'approve') {
-                                                    $approve .= $this->data['lang_error_headline_mild_swearing'] . "\r\n";
-                                                } else {
-                                                    $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                    $this->user->ban($ip_address, $this->data['lang_error_headline_mild_swearing']);
-                                                }
-                                            }
-                                        }
-
-                                        /* Check for strong swear words */
-                                        if ($this->setting->get('strong_swear_words_enabled')) {
-                                            if ($this->model_main_form->hasWord($headline, 'strong_swear_words')) {
-                                                if ($this->setting->get('strong_swear_words_action') == 'mask') {
-                                                    if (!$is_preview) {
-                                                        $this->request->post['cmtx_headline'] = $this->model_main_form->maskWord($headline, 'strong_swear_words');
-                                                    }
-                                                } else if ($this->setting->get('strong_swear_words_action') == 'mask_approve') {
-                                                    if (!$is_preview) {
-                                                        $this->request->post['cmtx_headline'] = $this->model_main_form->maskWord($headline, 'strong_swear_words');
-
-                                                        $approve .= $this->data['lang_error_headline_strong_swearing'] . "\r\n";
-                                                    }
-                                                } else if ($this->setting->get('strong_swear_words_action') == 'error') {
-                                                    $json['error']['headline'] = $this->data['lang_error_headline_strong_swearing'];
-                                                } else if ($this->setting->get('strong_swear_words_action') == 'approve') {
-                                                    $approve .= $this->data['lang_error_headline_strong_swearing'] . "\r\n";
-                                                } else {
-                                                    $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                    $this->user->ban($ip_address, $this->data['lang_error_headline_strong_swearing']);
-                                                }
-                                            }
-                                        }
-
-                                        /* Check for spam words */
-                                        if ($this->setting->get('spam_words_enabled')) {
-                                            if ($this->model_main_form->hasWord($headline, 'spam_words')) {
-                                                if ($this->setting->get('spam_words_action') == 'error') {
-                                                    $json['error']['headline'] = $this->data['lang_error_headline_spam'];
-                                                } else if ($this->setting->get('spam_words_action') == 'approve') {
-                                                    $approve .= $this->data['lang_error_headline_spam'] . "\r\n";
-                                                } else {
-                                                    $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                    $this->user->ban($ip_address, $this->data['lang_error_headline_spam']);
-                                                }
-                                            }
-                                        }
-
-                                        /* Check for link */
-                                        if ($this->setting->get('detect_link_in_headline_enabled') && $this->model_main_form->hasLink($headline)) {
-                                            if ($this->setting->get('link_in_headline_action') == 'error') {
-                                                $json['error']['headline'] = $this->data['lang_error_headline_has_link'];
-                                            } else if ($this->setting->get('link_in_headline_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_headline_has_link'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_headline_has_link']);
-                                            }
-                                        }
-
-                                        /* Check for banned website */
-                                        if ($this->setting->get('banned_websites_as_headline_enabled') && $this->model_main_form->hasWord($headline, 'banned_websites', false)) {
-                                            if ($this->setting->get('banned_websites_as_headline_action') == 'error') {
-                                                $json['error']['headline'] = $this->data['lang_error_website_banned'];
-                                            } else if ($this->setting->get('banned_websites_as_headline_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_website_banned'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_website_banned']);
-                                            }
-                                        }
-                                    } else if ($this->setting->get('required_headline')) {
-                                        $json['error']['headline'] = $this->data['lang_error_headline_empty'];
-                                    } else {
-                                        $this->request->post['cmtx_headline'] = '';
-                                    }
-                                } else {
-                                    $this->request->post['cmtx_headline'] = '';
-                                }
+                                $this->model_main_form->validateHeadline($is_preview);
 
                                 /* Name */
-                                if (isset($this->request->post['cmtx_name']) && $this->request->post['cmtx_name'] != '') {
-                                    $name = $this->security->decode($this->request->post['cmtx_name']);
-
-                                    /* Relax name validation if provided by login info */
-                                    if (isset($this->request->post['cmtx_login']) && $this->request->post['cmtx_login'] == '0') {
-                                        if (!$this->model_main_form->isNameValid($name)) {
-                                            $json['error']['name'] = $this->data['lang_error_name_invalid'];
-                                        }
-
-                                        if (!$this->model_main_form->startsWithLetter($name)) {
-                                            $json['error']['name'] = $this->data['lang_error_name_start'];
-                                        }
-                                    }
-
-                                    if ($this->validation->length($name) < 1 || $this->validation->length($name) > $this->setting->get('maximum_name')) {
-                                        $json['error']['name'] = sprintf($this->data['lang_error_length'], 1, $this->setting->get('maximum_name'));
-                                    }
-
-                                    if ($this->setting->get('one_name_enabled') && !$this->model_main_form->isOneWord($name)) {
-                                        $json['error']['name'] = $this->data['lang_error_name_one_word'];
-                                    }
-
-                                    if ($this->setting->get('fix_name_enabled')) {
-                                        $this->request->post['cmtx_name'] = $this->variable->fixCase($this->request->post['cmtx_name']);
-                                    }
-
-                                    if ($this->setting->get('detect_link_in_name_enabled') && $this->model_main_form->hasLink($name)) {
-                                        if ($this->setting->get('link_in_name_action') == 'error') {
-                                            $json['error']['name'] = $this->data['lang_error_name_has_link'];
-                                        } else if ($this->setting->get('link_in_name_action') == 'approve') {
-                                            $approve .= $this->data['lang_error_name_has_link'] . "\r\n";
-                                        } else {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_name_has_link']);
-                                        }
-                                    }
-
-                                    if ($this->setting->get('reserved_names_enabled') && !$is_admin && $this->model_main_form->hasWord($name, 'reserved_names')) {
-                                        if ($this->setting->get('reserved_names_action') == 'error') {
-                                            $json['error']['name'] = $this->data['lang_error_name_reserved'];
-                                        } else if ($this->setting->get('reserved_names_action') == 'approve') {
-                                            $approve .= $this->data['lang_error_name_reserved'] . "\r\n";
-                                        } else {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_name_reserved']);
-                                        }
-                                    }
-
-                                    if ($this->setting->get('dummy_names_enabled') && $this->model_main_form->hasWord($name, 'dummy_names')) {
-                                        if ($this->setting->get('dummy_names_action') == 'error') {
-                                            $json['error']['name'] = $this->data['lang_error_name_dummy'];
-                                        } else if ($this->setting->get('dummy_names_action') == 'approve') {
-                                            $approve .= $this->data['lang_error_name_dummy'] . "\r\n";
-                                        } else {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_name_dummy']);
-                                        }
-                                    }
-
-                                    if ($this->setting->get('banned_names_enabled') && $this->model_main_form->hasWord($name, 'banned_names')) {
-                                        if ($this->setting->get('banned_names_action') == 'error') {
-                                            $json['error']['name'] = $this->data['lang_error_name_banned'];
-                                        } else if ($this->setting->get('banned_names_action') == 'approve') {
-                                            $approve .= $this->data['lang_error_name_banned'] . "\r\n";
-                                        } else {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_name_banned']);
-                                        }
-                                    }
-                                } else {
-                                    $json['error']['name'] = $this->data['lang_error_name_empty'];
-                                }
+                                $this->model_main_form->validateName($is_admin);
 
                                 /* Email */
-                                if ($this->setting->get('enabled_email')) {
-                                    if (isset($this->request->post['cmtx_email']) && $this->request->post['cmtx_email'] != '') {
-                                        $email = $this->security->decode($this->request->post['cmtx_email']);
-
-                                        if (!$this->validation->isEmail($email)) {
-                                            $json['error']['email'] = $this->data['lang_error_email_invalid'];
-                                        }
-
-                                        if ($this->validation->length($email) < 1 || $this->validation->length($email) > $this->setting->get('maximum_email')) {
-                                            $json['error']['email'] = sprintf($this->data['lang_error_length'], 1, $this->setting->get('maximum_email'));
-                                        }
-
-                                        if ($this->security->isInjected($email)) {
-                                            $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                            $this->user->ban($ip_address, $this->data['lang_error_email_injected']);
-                                        }
-
-                                        if ($this->setting->get('reserved_emails_enabled') && !$is_admin && $this->model_main_form->hasWord($email, 'reserved_emails', false)) {
-                                            if ($this->setting->get('reserved_emails_action') == 'error') {
-                                                $json['error']['email'] = $this->data['lang_error_email_reserved'];
-                                            } else if ($this->setting->get('reserved_emails_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_email_reserved'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_email_reserved']);
-                                            }
-                                        }
-
-                                        if ($this->setting->get('dummy_emails_enabled') && $this->model_main_form->hasWord($email, 'dummy_emails', false)) {
-                                            if ($this->setting->get('dummy_emails_action') == 'error') {
-                                                $json['error']['email'] = $this->data['lang_error_email_dummy'];
-                                            } else if ($this->setting->get('dummy_emails_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_email_dummy'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_email_dummy']);
-                                            }
-                                        }
-
-                                        if ($this->setting->get('banned_emails_enabled') && $this->model_main_form->hasWord($email, 'banned_emails', false)) {
-                                            if ($this->setting->get('banned_emails_action') == 'error') {
-                                                $json['error']['email'] = $this->data['lang_error_email_banned'];
-                                            } else if ($this->setting->get('banned_emails_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_email_banned'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_email_banned']);
-                                            }
-                                        }
-                                    } else if ($this->setting->get('required_email')) {
-                                        $json['error']['email'] = $this->data['lang_error_email_empty'];
-                                    } else {
-                                        $this->request->post['cmtx_email'] = '';
-                                    }
-                                } else {
-                                    $this->request->post['cmtx_email'] = '';
-                                }
+                                $this->model_main_form->validateEmail($is_admin);
 
                                 /* User */
-                                if (isset($this->request->post['cmtx_name']) && $this->request->post['cmtx_name'] != '') {
-                                    if (isset($this->request->post['cmtx_email']) && $this->request->post['cmtx_email'] != '') {
-                                        $user = $this->user->getUserByNameAndEmail($this->request->post['cmtx_name'], $this->request->post['cmtx_email']);
-
-                                        if (!$user) {
-                                            if ($this->setting->get('unique_email_enabled')) {
-                                                if ($this->user->userExistsByEmail($this->request->post['cmtx_email'])) {
-                                                    $json['error']['email'] = $this->data['lang_error_email_partial'];
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        $user = $this->user->getUserByNameAndNoEmail($this->request->post['cmtx_name']);
-                                    }
-
-                                    if (!$user) {
-                                        if ($this->setting->get('unique_name_enabled')) {
-                                            if ($this->user->userExistsByName($this->request->post['cmtx_name'])) {
-                                                $json['error']['name'] = $this->data['lang_error_name_partial'];
-                                            }
-                                        }
-                                    }
-                                }
+                                $user = $this->model_main_form->validateUser();
 
                                 /* Rating */
-                                if ($this->setting->get('enabled_rating') && empty($this->request->post['cmtx_reply_to'])) {
-                                    if ($this->setting->get('repeat_rating') == 'hide' && $this->model_main_form->hasUserRated($page_id, $ip_address)) {
-                                        $this->request->post['cmtx_rating'] = 0;
-
-                                        $json['hide_rating'] = true;
-                                    } else {
-                                        if (isset($this->request->post['cmtx_rating']) && $this->request->post['cmtx_rating'] != '') {
-                                            $rating = $this->security->decode($this->request->post['cmtx_rating']);
-
-                                            if (!$this->model_main_form->isRatingValid($rating)) {
-                                                $json['error']['rating'] = $this->data['lang_error_rating_invalid'];
-                                            } else if ($this->setting->get('repeat_rating') == 'hide') {
-                                                $json['hide_rating'] = true;
-                                            }
-                                        } else if ($this->setting->get('required_rating')) {
-                                            $json['error']['rating'] = $this->data['lang_error_rating_empty'];
-                                        } else {
-                                            $this->request->post['cmtx_rating'] = 0;
-                                        }
-                                    }
-                                } else {
-                                    $this->request->post['cmtx_rating'] = 0;
-                                }
+                                $this->model_main_form->validateRating($page_id);
 
                                 /* Website */
-                                if ($this->setting->get('enabled_website')) {
-                                    if (isset($this->request->post['cmtx_website']) && $this->request->post['cmtx_website'] != '') {
-                                        $scheme = parse_url($this->request->post['cmtx_website'], PHP_URL_SCHEME);
-
-                                        if ($scheme != 'http' && $scheme != 'https') {
-                                            $this->request->post['cmtx_website'] = 'http://' . $this->request->post['cmtx_website'];
-                                        }
-
-                                        $website = $this->security->decode($this->request->post['cmtx_website']);
-
-                                        if ($this->setting->get('approve_websites')) {
-                                            $approve .= $this->data['lang_error_website_approve'] . "\r\n";
-                                        }
-
-                                        if (!$this->validation->isUrl($website)) {
-                                            $json['error']['website'] = $this->data['lang_error_website_invalid'];
-                                        } else if ($this->setting->get('validate_website_ping') && !$this->model_main_form->canPingWebsite($website)) {
-                                            $json['error']['website'] = $this->data['lang_error_website_ping'];
-                                        }
-
-                                        if ($this->validation->length($website) < 1 || $this->validation->length($website) > $this->setting->get('maximum_website')) {
-                                            $json['error']['website'] = sprintf($this->data['lang_error_length'], 1, $this->setting->get('maximum_website'));
-                                        }
-
-                                        if ($this->setting->get('reserved_websites_enabled') && !$is_admin && $this->model_main_form->hasWord($website, 'reserved_websites', false)) {
-                                            if ($this->setting->get('reserved_websites_action') == 'error') {
-                                                $json['error']['website'] = $this->data['lang_error_website_reserved'];
-                                            } else if ($this->setting->get('reserved_websites_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_website_reserved'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_website_reserved']);
-                                            }
-                                        }
-
-                                        if ($this->setting->get('dummy_websites_enabled') && $this->model_main_form->hasWord($website, 'dummy_websites', false)) {
-                                            if ($this->setting->get('dummy_websites_action') == 'error') {
-                                                $json['error']['website'] = $this->data['lang_error_website_dummy'];
-                                            } else if ($this->setting->get('dummy_websites_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_website_dummy'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_website_dummy']);
-                                            }
-                                        }
-
-                                        if ($this->setting->get('banned_websites_as_website_enabled') && $this->model_main_form->hasWord($website, 'banned_websites', false)) {
-                                            if ($this->setting->get('banned_websites_as_website_action') == 'error') {
-                                                $json['error']['website'] = $this->data['lang_error_website_banned'];
-                                            } else if ($this->setting->get('banned_websites_as_website_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_website_banned'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_website_banned']);
-                                            }
-                                        }
-                                    } else if ($this->setting->get('required_website')) {
-                                        $json['error']['website'] = $this->data['lang_error_website_empty'];
-                                    } else {
-                                        $this->request->post['cmtx_website'] = '';
-                                    }
-                                } else {
-                                    $this->request->post['cmtx_website'] = '';
-                                }
+                                $this->model_main_form->validateWebsite($is_admin);
 
                                 /* Town */
-                                if ($this->setting->get('enabled_town')) {
-                                    if (isset($this->request->post['cmtx_town']) && $this->request->post['cmtx_town'] != '') {
-                                        $town = $this->security->decode($this->request->post['cmtx_town']);
-
-                                        if (!$this->model_main_form->isTownValid($town)) {
-                                            $json['error']['town'] = $this->data['lang_error_town_invalid'];
-                                        }
-
-                                        if (!$this->model_main_form->startsWithLetter($town)) {
-                                            $json['error']['town'] = $this->data['lang_error_town_start'];
-                                        }
-
-                                        if ($this->validation->length($town) < 1 || $this->validation->length($town) > $this->setting->get('maximum_town')) {
-                                            $json['error']['town'] = sprintf($this->data['lang_error_length'], 1, $this->setting->get('maximum_town'));
-                                        }
-
-                                        if ($this->setting->get('fix_town_enabled')) {
-                                            $this->request->post['cmtx_town'] = $this->variable->fixCase($this->request->post['cmtx_town']);
-                                        }
-
-                                        if ($this->setting->get('detect_link_in_town_enabled') && $this->model_main_form->hasLink($town)) {
-                                            if ($this->setting->get('link_in_town_action') == 'error') {
-                                                $json['error']['town'] = $this->data['lang_error_town_has_link'];
-                                            } else if ($this->setting->get('link_in_town_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_town_has_link'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_town_has_link']);
-                                            }
-                                        }
-
-                                        if ($this->setting->get('reserved_towns_enabled') && !$is_admin && $this->model_main_form->hasWord($town, 'reserved_towns')) {
-                                            if ($this->setting->get('reserved_towns_action') == 'error') {
-                                                $json['error']['town'] = $this->data['lang_error_town_reserved'];
-                                            } else if ($this->setting->get('reserved_towns_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_town_reserved'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_town_reserved']);
-                                            }
-                                        }
-
-                                        if ($this->setting->get('dummy_towns_enabled') && $this->model_main_form->hasWord($town, 'dummy_towns')) {
-                                            if ($this->setting->get('dummy_towns_action') == 'error') {
-                                                $json['error']['town'] = $this->data['lang_error_town_dummy'];
-                                            } else if ($this->setting->get('dummy_towns_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_town_dummy'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_town_dummy']);
-                                            }
-                                        }
-
-                                        if ($this->setting->get('banned_towns_enabled') && $this->model_main_form->hasWord($town, 'banned_towns')) {
-                                            if ($this->setting->get('banned_towns_action') == 'error') {
-                                                $json['error']['town'] = $this->data['lang_error_town_banned'];
-                                            } else if ($this->setting->get('banned_towns_action') == 'approve') {
-                                                $approve .= $this->data['lang_error_town_banned'] . "\r\n";
-                                            } else {
-                                                $json['result']['error'] = $this->data['lang_error_ban'];
-
-                                                $this->user->ban($ip_address, $this->data['lang_error_town_banned']);
-                                            }
-                                        }
-                                    } else if ($this->setting->get('required_town')) {
-                                        $json['error']['town'] = $this->data['lang_error_town_empty'];
-                                    } else {
-                                        $this->request->post['cmtx_town'] = '';
-                                    }
-                                } else {
-                                    $this->request->post['cmtx_town'] = '';
-                                }
+                                $this->model_main_form->validateTown($is_admin);
 
                                 /* Country */
-                                if ($this->setting->get('enabled_country')) {
-                                    if (isset($this->request->post['cmtx_country']) && $this->request->post['cmtx_country'] != '') {
-                                        $country = $this->security->decode($this->request->post['cmtx_country']);
-
-                                        if (!$this->geo->countryValid($country)) {
-                                            $json['error']['country'] = $this->data['lang_error_country_invalid'];
-                                        }
-                                    } else if ($this->setting->get('required_country')) {
-                                        $json['error']['country'] = $this->data['lang_error_country_empty'];
-                                    } else {
-                                        $this->request->post['cmtx_country'] = 0;
-                                    }
-                                } else {
-                                    $this->request->post['cmtx_country'] = 0;
-                                }
+                                $this->model_main_form->validateCountry();
 
                                 /* State */
-                                if ($this->setting->get('enabled_state')) {
-                                    if (isset($this->request->post['cmtx_state']) && $this->request->post['cmtx_state'] != '') {
-                                        $state = $this->security->decode($this->request->post['cmtx_state']);
-
-                                        if (!$this->geo->stateValid($state, $country)) {
-                                            $json['error']['state'] = $this->data['lang_error_state_invalid'];
-                                        }
-                                    } else if ($this->setting->get('required_state')) {
-                                        $json['error']['state'] = $this->data['lang_error_state_empty'];
-                                    } else {
-                                        $this->request->post['cmtx_state'] = 0;
-                                    }
-                                } else {
-                                    $this->request->post['cmtx_state'] = 0;
-                                }
+                                $this->model_main_form->validateState();
 
                                 /* Question */
-                                if ($this->setting->get('enabled_question')) {
-                                    if (isset($this->request->post['cmtx_answer']) && $this->request->post['cmtx_answer'] != '') {
-                                        $answer = $this->security->decode($this->request->post['cmtx_answer']);
-
-                                        if (isset($this->session->data['cmtx_question_id_' . $this->page->getId()])) {
-                                            $question_id = $this->session->data['cmtx_question_id_' . $this->page->getId()];
-
-                                            if (!$this->model_main_form->isAnswerValid($question_id, $answer)) {
-                                                $json['error']['answer'] = $this->data['lang_error_answer_invalid'];
-                                            }
-                                        } else {
-                                            /* The session may have expired */
-                                            $json['error']['answer'] = $this->data['lang_error_question_empty'];
-                                        }
-
-                                        /* Generate a new question to answer */
-                                        if (isset($json['error']['answer'])) {
-                                            $question = $this->model_main_form->getQuestion();
-
-                                            if ($question) {
-                                                $this->session->data['cmtx_question_id_' . $this->page->getId()] = $question['id'];
-
-                                                $json['question'] = $question['question'];
-                                            }
-                                        }
-                                    } else {
-                                        $json['error']['answer'] = $this->data['lang_error_answer_empty'];
-                                    }
-                                }
+                                $this->model_main_form->validateQuestion();
 
                                 /* Extra fields */
-                                if ($this->setting->has('extra_fields_enabled') && $this->setting->get('extra_fields_enabled')) {
-                                    $fields = $this->model_main_form->getExtraFields();
-
-                                    foreach ($fields as $field) {
-                                        $field_name = 'cmtx_field_' . $field['id'];
-
-                                        if (isset($this->request->post[$field_name])) {
-                                            if ($field['is_required'] && $this->request->post[$field_name] == '') {
-                                                $json['error'][$field_name] = $this->data['lang_error_field_required'];
-                                            } else if ($this->request->post[$field_name]) {
-                                                $value = $this->security->decode($this->request->post[$field_name]);
-
-                                                if ($field['type'] == 'select') {
-                                                    $values = explode(',', $field['values']);
-
-                                                    if (!in_array($this->request->post[$field_name], $values)) {
-                                                        $json['error'][$field_name] = $this->data['lang_error_field_invalid'];
-                                                    }
-                                                } else if (in_array($field['type'], array('text', 'textarea'))) {
-                                                    if ($this->validation->length($value) < $field['minimum']) {
-                                                        $json['error'][$field_name] = $this->data['lang_error_field_min_length'];
-                                                    }
-
-                                                    if ($this->validation->length($value) > $field['maximum']) {
-                                                        $json['error'][$field_name] = $this->data['lang_error_field_max_length'];
-                                                    }
-
-                                                    if ($field['validation']) {
-                                                        if (!preg_match($this->security->decode($field['validation']), $value)) {
-                                                            $json['error'][$field_name] = $this->data['lang_error_field_invalid'];
-                                                        }
-                                                    }
-
-                                                    if ($field['type'] == 'textarea') {
-                                                        $this->request->post[$field_name] = $this->model_main_form->removeLineBreaks($this->request->post[$field_name]);
-                                                    }
-                                                }
-
-                                                if ($is_preview) {
-                                                    if ($field['display']) {
-                                                        $extra_fields[$field['name']] = $this->request->post[$field_name];
-                                                    }
-                                                } else {
-                                                    $extra_fields['field_' . $field['id']] = $this->request->post[$field_name];
-                                                }
-                                            }
-                                        } else {
-                                            $json['error'][$field_name] = $this->data['lang_error_field_required'];
-                                        }
-                                    }
-                                }
+                                $this->model_main_form->validateExtraFields($is_preview);
 
                                 /* ReCaptcha */
-                                if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha' && (bool) ini_get('allow_url_fopen') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
-                                    if (isset($this->request->post['g-recaptcha-response'])) {
-                                        $captcha = $this->request->post['g-recaptcha-response'];
-
-                                        if ($captcha) {
-                                            $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $this->setting->get('recaptcha_private_key') . '&response=' . $captcha . '&remoteip=' . str_replace(' ', '%20', $ip_address));
-
-                                            $response = json_decode($response);
-
-                                            if ($response->success === false) {
-                                                $json['error']['recaptcha'] = $this->data['lang_error_incorrect_recaptcha'];
-                                            } else {
-                                                $this->session->data['cmtx_captcha_complete_' . $this->page->getId()] = true;
-                                            }
-                                        } else {
-                                            $json['error']['recaptcha'] = $this->data['lang_error_no_recaptcha'];
-                                        }
-                                    } else {
-                                        $json['error']['recaptcha'] = $this->data['lang_error_no_recaptcha'];
-                                    }
-                                }
+                                $this->model_main_form->validateReCaptcha();
 
                                 /* Image Captcha */
-                                if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'image' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext') && !isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
-                                    if (!empty($this->request->post['cmtx_captcha'])) {
-                                        if (!empty($this->session->data['cmtx_captcha_answer_' . $this->page->getId()])) {
-                                            if ($this->variable->strtoupper($this->request->post['cmtx_captcha']) != $this->variable->strtoupper($this->session->data['cmtx_captcha_answer_' . $this->page->getId()])) {
-                                                $json['error']['captcha'] = $this->data['lang_error_incorrect_captcha'];
-                                            } else {
-                                                $this->session->data['cmtx_captcha_complete_' . $this->page->getId()] = true;
-                                            }
-                                        } else {
-                                            $json['error']['captcha'] = $this->data['lang_error_missing_captcha'];
-                                        }
-                                    } else {
-                                        $json['error']['captcha'] = $this->data['lang_error_no_captcha'];
-                                    }
-                                }
+                                $this->model_main_form->validateImageCaptcha();
 
                                 /* Captcha */
-                                if (isset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()])) {
-                                    $json['captcha_complete'] = true;
-                                }
+                                $this->model_main_form->validateCaptcha();
 
                                 /* Privacy */
-                                if ($this->setting->get('enabled_privacy') && !isset($this->request->post['cmtx_privacy'])) {
-                                    if (!$is_preview || ($is_preview && $this->setting->get('agree_to_preview'))) {
-                                        $json['result']['error'] = $this->data['lang_error_agree_privacy'];
-                                    }
-                                }
+                                $this->model_main_form->validatePrivacy($is_preview);
 
                                 /* Terms */
-                                if ($this->setting->get('enabled_terms') && !isset($this->request->post['cmtx_terms'])) {
-                                    if (!$is_preview || ($is_preview && $this->setting->get('agree_to_preview'))) {
-                                        $json['result']['error'] = $this->data['lang_error_agree_terms'];
-                                    }
-                                }
+                                $this->model_main_form->validateTerms($is_preview);
 
                                 /* Reply */
-                                if ($this->setting->get('show_reply') && isset($this->request->post['cmtx_reply_to']) && $this->request->post['cmtx_reply_to']) {
-                                    if (!$this->comment->commentExists($this->request->post['cmtx_reply_to'])) {
-                                        $json['result']['error'] = $this->data['lang_error_reply_invalid'];
-                                    }
-                                } else {
-                                    $this->request->post['cmtx_reply_to'] = 0;
-                                }
+                                $this->model_main_form->validateReply();
 
-                                /* Uploads */
-                                if ($this->setting->get('enabled_upload') && isset($this->request->post['cmtx_upload']) && is_array($this->request->post['cmtx_upload'])) {
-                                    if (!$json || ($json && (!isset($json['result']['error']) && !isset($json['error'])))) {
-                                        if (count($this->request->post['cmtx_upload']) > $this->setting->get('maximum_upload_amount')) {
-                                            $json['result']['error'] = sprintf($this->data['lang_error_image_amount'], $this->setting->get('maximum_upload_amount'));
-                                        } else {
-                                            if ($is_preview) { // don't upload if only a preview
-                                                foreach ($this->request->post['cmtx_upload'] as $base64) {
-                                                    $uploads[] = array(
-                                                        'image' => $base64
-                                                    );
-                                                }
-                                            } else {
-                                                foreach ($this->request->post['cmtx_upload'] as $base64) {
-                                                    $result = $this->model_main_form->createImageFromBase64($base64);
-
-                                                    if (is_array($result)) {
-                                                        $uploads[] = $result;
-                                                    } else {
-                                                        $json['result']['error'] = $result;
-                                                    }
-                                                }
-
-                                                if ($this->setting->get('approve_uploads') && $uploads) {
-                                                    $approve .= $this->data['lang_error_comment_has_upload'] . "\r\n";
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                /* Upload */
+                                $this->model_main_form->validateUpload($is_preview);
 
                                 /* Avatar provided by login information */
                                 if ($this->setting->get('avatar_type') == 'login' && isset($this->request->post['cmtx_avatar']) && $this->validation->isUrl($this->request->post['cmtx_avatar']) && $this->request->post['cmtx_email']) {
@@ -1836,6 +955,8 @@ class MainFormController extends Controller
                 }
             }
 
+            $json = array_merge($json, $this->model_main_form->getJson());
+
             if ($json && (isset($json['result']['error']) || isset($json['error']))) {
                 if (isset($json['result']['error'])) {
                     $json['error'] = '';
@@ -1843,6 +964,10 @@ class MainFormController extends Controller
                     $json['result']['error'] = $this->data['lang_error_review'];
                 }
             } else {
+                $approve = $this->model_main_form->approve;
+                $uploads = $this->model_main_form->uploads;
+                $extra_fields = $this->model_main_form->extra_fields;
+
                 if ($is_preview) {
                     $this->loadLanguage('main/comments');
 
@@ -1964,67 +1089,14 @@ class MainFormController extends Controller
                     }
 
                     /* Determine if the comment needs to be approved by the administrator */
-                    if ($is_admin) { // admin comments don't need to be approved
-                        $approve = '';
+                    $approve = $this->model_main_form->needsApproval($is_admin, $user, $page, $ip_address);
 
-                        $notes = $this->data['lang_text_moderate_admin'];
-                    } else if ($user && $user['moderate'] == 'always') { // the user's moderation setting has secondary precedence
-                        $approve = $this->data['lang_text_moderate_user_y'];
-                    } else if ($user && $user['moderate'] == 'never') {
-                        $approve = '';
+                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form->getNotes(), $is_admin, $uploads, $extra_fields);
 
-                        $notes = $this->data['lang_text_moderate_user_n'];
-                    } else if ($page['moderate'] == 'always') {
-                        $approve = $this->data['lang_text_moderate_page_y'];
-                    } else if ($page['moderate'] == 'never') {
-                        $approve = '';
+                    $this->comment->deleteCache($comment_id);
 
-                        $notes = $this->data['lang_text_moderate_page_n'];
-                    } else if ($approve) {
-
-                    } else if ($this->setting->get('approve_comments')) {
-                        if ($user && $this->setting->get('trust_previous_users')) {
-                            if ($this->model_main_form->hasUserPreviouslyPostedApprovedComment($user['id'])) {
-                                $approve = '';
-
-                                $notes = $this->data['lang_text_moderate_user_previous'];
-                            } else {
-                                $approve = $this->data['lang_text_moderate_all'];
-                            }
-                        } else {
-                            $approve = $this->data['lang_text_moderate_all'];
-                        }
-                    } else if ($this->setting->has('akismet_enabled') && $this->setting->get('akismet_enabled') && extension_loaded('curl')) {
-                        if ($this->model_main_form->isAkismetSpam($ip_address, $page['url'], $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $this->request->post['cmtx_website'], $this->request->post['cmtx_comment'])) {
-                            $approve = $this->data['lang_text_moderate_akismet_y'];
-                        } else {
-                            $approve = '';
-
-                            $notes = $this->data['lang_text_moderate_akismet_n'];
-                        }
-                    }
-
-                    if ($approve) {
-                        $notes = rtrim($approve, "\r\n");
-                    }
-
-                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_comment'], $ip_address, $approve, $notes, $is_admin, $uploads, $extra_fields);
-
-                    if ($this->setting->get('cache_type')) {
-                        $this->cache->delete('getcomments_pageid' . $page_id . '_count*');
-
-                        /* If the comment is a reply, we need to clear the cache of the parent comments */
-                        if ($this->request->post['cmtx_reply_to']) {
-                            $parent_ids = $this->comment->getParents($comment_id);
-
-                            foreach ($parent_ids as $parent_id) {
-                                $this->cache->delete('getcomment_commentid' . $parent_id . '_' . $this->setting->get('language'));
-                            }
-                        }
-
-                        if ($this->request->post['cmtx_rating']) {
-                            $this->cache->delete('getaveragerating_pageid' . $page_id);
-                        }
+                    if ($this->request->post['cmtx_rating']) {
+                        $this->cache->delete('getaveragerating_pageid' . $page_id);
                     }
 
                     if ($this->setting->get('enabled_question')) {
@@ -2085,8 +1157,140 @@ class MainFormController extends Controller
                     }
 
                     if ($approve) {
+                        $json['result']['approve'] = true;
                         $json['result']['success'] = $this->data['lang_text_comment_approve'];
                     } else {
+                        $json['result']['approve'] = false;
+                        $json['result']['success'] = $this->data['lang_text_comment_success'];
+                    }
+                }
+            }
+
+            echo json_encode($json);
+        }
+    }
+
+    public function reply()
+    {
+        if ($this->request->isAjax()) {
+            $this->loadLanguage('main/form');
+
+            $this->loadModel('main/form');
+
+            $this->response->addHeader('Content-Type: application/json');
+
+            $json = array();
+
+            if (!$this->setting->get('show_reply') || !$this->setting->get('quick_reply')) { // check if feature enabled
+                $json['result']['error'] = $this->data['lang_error_disabled'];
+            } else {
+                /* Is this an administrator? */
+                $is_admin = $this->user->isAdmin();
+
+                if ($this->setting->get('maintenance_mode') && !$is_admin) {
+                    $json['result']['error'] = $this->setting->get('maintenance_message');
+                } else {
+                    if ($this->setting->get('enabled_form')) {
+                        $page_id = $this->page->getId();
+
+                        if ($page_id) {
+                            $page = $this->page->getPage($page_id);
+
+                            if ($page['is_form_enabled']) {
+                                $ip_address = $this->user->getIpAddress();
+
+                                if ($this->user->isBanned($ip_address)) {
+                                    $json['result']['error'] = $this->data['lang_error_banned'];
+                                } else {
+                                    /* Let the model access the language */
+                                    $this->model_main_form->data = $this->data;
+
+                                    /* Check for flooding (delay) */
+                                    $this->model_main_form->validateFloodingDelay($is_admin, $page_id);
+
+                                    /* Check for flooding (maximum) */
+                                    $this->model_main_form->validateFloodingMaximum($is_admin, $page_id);
+
+                                    /* Check referrer */
+                                    $this->model_main_form->validateReferrer();
+
+                                    /* Check honeypot */
+                                    $this->model_main_form->validateHoneypot();
+
+                                    /* Check time */
+                                    $this->model_main_form->validateTime();
+
+                                    /* Comment */
+                                    $this->model_main_form->validateComment(false);
+
+                                    /* Name */
+                                    $this->model_main_form->validateName($is_admin);
+
+                                    /* Email */
+                                    $this->model_main_form->validateEmail($is_admin);
+
+                                    /* User */
+                                    $user = $this->model_main_form->validateUser();
+
+                                    /* Reply */
+                                    $this->model_main_form->validateReply(true);
+                                }
+                            } else {
+                                $json['result']['error'] = $this->data['lang_error_form_disabled'];
+                            }
+                        } else {
+                            $json['result']['error'] = $this->data['lang_error_page_invalid'];
+                        }
+                    } else {
+                        $json['result']['error'] = $this->data['lang_error_form_disabled'];
+                    }
+                }
+
+                $json = array_merge($json, $this->model_main_form->getJson());
+
+                if ($json && (isset($json['result']['error']) || isset($json['error']))) {
+                    if (isset($json['result']['error'])) {
+                        $json['error'] = '';
+                    } else {
+                        $json['result']['error'] = $this->data['lang_error_review'];
+                    }
+                } else {
+                    if ($user) {
+                        $user_token = $user['token'];
+
+                        $user_id = $user['id'];
+                    } else {
+                        $user_token = $this->user->createToken();
+
+                        $user_id = $this->user->createUser($this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $user_token, $ip_address);
+                    }
+
+                    /* Determine if the comment needs to be approved by the administrator */
+                    $approve = $this->model_main_form->needsApproval($is_admin, $user, $page, $ip_address);
+
+                    $comment_id = $this->comment->createComment($user_id, $page_id, '', '', '', 0, 0, $this->request->post['cmtx_reply_to'], '', $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form->getNotes(), $is_admin, array(), array());
+
+                    $this->comment->deleteCache($comment_id);
+
+                    /* Notify admins of comment */
+                    if (!$is_admin) {
+                        if ($approve) {
+                            $this->notify->adminNotifyCommentApprove($comment_id);
+                        } else {
+                            $this->notify->adminNotifyCommentSuccess($comment_id);
+                        }
+                    }
+
+                    /* Notify subscribers of comment */
+                    if ($this->setting->get('enabled_notify') && ($is_admin || (!$this->setting->get('approve_notifications') && !$approve))) {
+                        $this->notify->subscriberNotification($comment_id);
+                    }
+
+                    if ($approve) {
+                        $json['result']['approve'] = true;
+                        $json['result']['success'] = $this->data['lang_text_comment_approve'];
+                    } else {
+                        $json['result']['approve'] = false;
                         $json['result']['success'] = $this->data['lang_text_comment_success'];
                     }
                 }

@@ -142,12 +142,6 @@ class Comment
 
     public function deleteComment($id)
     {
-        if ($this->setting->get('cache_type')) {
-            $page_id = $this->getPageIdByCommentId($id);
-
-            $this->cache->delete('getcomments_pageid' . $page_id . '_count*');
-        }
-
         if ($this->setting->get('flood_control_delay_enabled') || $this->setting->get('flood_control_maximum_enabled')) {
             $this->moveDeleted($id);
         }
@@ -155,6 +149,8 @@ class Comment
         $this->deleteReplies($id);
 
         $this->deleteUploads($id);
+
+        $this->deleteCache($id);
 
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "reporters` WHERE `comment_id` = '" . (int) $id . "'");
 
@@ -169,11 +165,35 @@ class Comment
         }
     }
 
+    public function deleteCache($id)
+    {
+        if ($this->setting->get('cache_type')) {
+            $page_id = $this->getPageIdByCommentId($id);
+
+            /* Clear the cache for the number of comments on the page */
+            $this->cache->delete('getcomments_pageid' . $page_id . '_*');
+
+            /* If the comment is a reply, we need to clear the cache of the parent comments */
+            $parent_ids = $this->getParents($id);
+
+            foreach ($parent_ids as $parent_id) {
+                $this->cache->delete('getcomment_commentid' . $parent_id . '_*');
+            }
+
+            /* Clear the cache of the comment */
+            $this->cache->delete('getcomment_commentid' . $id . '_*');
+        }
+    }
+
     public function unapproveComment($id)
     {
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '0' WHERE `id` = '" . (int) $id . "'");
 
-        // TODO: unapprove replies
+        $replies = $this->getReplies($id);
+
+        foreach ($replies as $id) {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '0' WHERE `id` = '" . (int) $id . "'");
+        }
     }
 
     public function getParents($id)
@@ -264,6 +284,10 @@ class Comment
 
         foreach ($replies as $id) {
             $this->deleteUploads($id);
+
+            if ($this->setting->get('flood_control_delay_enabled') || $this->setting->get('flood_control_maximum_enabled')) {
+                $this->moveDeleted($id);
+            }
 
             $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "reporters` WHERE `comment_id` = '" . (int) $id . "'");
 

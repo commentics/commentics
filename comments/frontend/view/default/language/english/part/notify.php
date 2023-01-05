@@ -15,7 +15,6 @@ $_['lang_text_notify_success'] = 'A confirmation email has been sent to you';
 $_['lang_link_cancel']         = '[Cancel]';
 
 // Error
-$_['lang_error_disabled']      = 'This feature is disabled';
 $_['lang_error_subscribed']    = 'You are already subscribed to this page';
 $_['lang_error_pending']       = 'You have a pending subscription';
 
