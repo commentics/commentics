@@ -2207,9 +2207,9 @@ function cmtxTimeago() {
 
 /* Highlight any user-entered code */
 function cmtxHighlightCode() {
-    if (typeof(hljs) != 'undefined' && typeof(hljs.highlightBlock) != 'undefined') {
-        jQuery('.cmtx_code_box, .cmtx_php_box').each(function(i, block) {
-            hljs.highlightBlock(block);
+    if (typeof(hljs) != 'undefined' && typeof(hljs.highlightElement) != 'undefined') {
+        jQuery('.cmtx_code_box, .cmtx_php_box').each(function(i, el) {
+            hljs.highlightElement(el);
         });
     }
 }
