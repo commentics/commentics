@@ -17,16 +17,19 @@ class ModuleLanguageEditorModel extends Model
     {
         $results = array();
 
-        $path = CMTX_DIR_ROOT . 'frontend/view/default/language/' . $this->setting->get('language_frontend') . '/';
-        $directory1 = new \RecursiveDirectoryIterator($path, \FilesystemIterator::UNIX_PATHS);
+        $directory1 = $this->getDirectoryIterator(CMTX_DIR_ROOT . 'frontend/view/default/language/' . $this->setting->get('language_frontend') . '/');
 
-        $path = CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/';
-        $directory2 = new \RecursiveDirectoryIterator($path, \FilesystemIterator::UNIX_PATHS);
+        $directory2 = $this->getDirectoryIterator(CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/');
 
         $iterator = new \AppendIterator();
 
-        $iterator->append(new \RecursiveIteratorIterator($directory1));
-        $iterator->append(new \RecursiveIteratorIterator($directory2));
+        if (!empty($directory1)) {
+            $iterator->append(new \RecursiveIteratorIterator($directory1));
+        }
+
+        if (!empty($directory2)) {
+            $iterator->append(new \RecursiveIteratorIterator($directory2));
+        }
 
         $matches = new \RegexIterator($iterator, '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH);
 
@@ -90,9 +93,26 @@ class ModuleLanguageEditorModel extends Model
         return $results;
     }
 
+    private function getDirectoryIterator($path)
+    {
+        if (file_exists($path)) {
+            $directory_iterator = new \RecursiveDirectoryIterator($path, \FilesystemIterator::UNIX_PATHS);
+        } else {
+            $directory_iterator = false;
+        }
+
+        return $directory_iterator;
+    }
+
     public function update($data)
     {
         $language_file = CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/custom.php';
+
+        $directory = dirname($language_file);
+
+        if (!is_dir($directory)) {
+            @mkdir($directory, 0777, true);
+        }
 
         file_put_contents($language_file, '<?php' . "\r\n");
 

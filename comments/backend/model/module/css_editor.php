@@ -46,6 +46,12 @@ class ModuleCssEditorModel extends Model
         $css_file = CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/stylesheet/css/custom.css';
 
         if ($data['css']) {
+            $directory = dirname($css_file);
+
+            if (!is_dir($directory)) {
+                @mkdir($directory, 0777, true);
+            }
+
             $handle = fopen($css_file, 'w');
 
             fputs($handle, $data['css']);
