@@ -5,7 +5,8 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass')(require('sass'));
 var stylelint = require('gulp-stylelint');
-var uglify = require('gulp-uglify');
+var terser = require('gulp-terser');
+var strip = require('gulp-strip-comments');
 
 // Lint backend Sass
 gulp.task('lint-backend', function() {
@@ -86,7 +87,8 @@ gulp.task('common', function() {
     return gulp.src(js_files)
         .pipe(concat('common.min.js'))
         .pipe(gulp.dest('comments/frontend/view/default/javascript'))
-        .pipe(uglify())
+        .pipe(strip())
+        .pipe(terser())
         .pipe(gulp.dest('comments/frontend/view/default/javascript'));
 });
 
@@ -99,15 +101,17 @@ gulp.task('common-jq', function() {
     return gulp.src(jquery.concat(js_files))
         .pipe(concat('common-jq.min.js'))
         .pipe(gulp.dest('comments/frontend/view/default/javascript'))
-        .pipe(uglify())
+        .pipe(strip())
+        .pipe(terser())
         .pipe(gulp.dest('comments/frontend/view/default/javascript'));
 });
 
 /* Auto precompile Sass on save */
 gulp.task('watch', function() {
-    gulp.watch('comments/backend/view/default/stylesheet/sass/**/*.scss', ['sass-backend']);
-    gulp.watch('comments/frontend/view/default/stylesheet/sass/**/*.scss', ['sass-frontend']);
-    gulp.watch('comments/install/view/default/stylesheet/sass/**/*.scss', ['sass-install']);
+    gulp.watch('comments/backend/view/default/stylesheet/sass/**/*.scss', gulp.series('sass-backend'));
+    gulp.watch('comments/frontend/view/default/stylesheet/sass/**/*.scss', gulp.series('sass-frontend'));
+    gulp.watch('comments/install/view/default/stylesheet/sass/**/*.scss', gulp.series('sass-install'));
+    gulp.watch('comments/frontend/view/default/javascript/common.js', gulp.series('js'));
 });
 
 gulp.task('lint', gulp.series('lint-backend', 'lint-frontend', 'lint-install'));
