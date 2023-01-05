@@ -294,6 +294,8 @@
 
         <input type="hidden" data-js="state_id" value="<?php echo $state_id; ?>">
 
+        <input type="hidden" data-js="default_country" value="<?php echo $default_country; ?>">
+
         <input type="hidden" data-js="reply_to" value="<?php echo $reply_to; ?>">
 
         <input type="hidden" data-js="link_spam" value="<?php echo $link_spam; ?>">

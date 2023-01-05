@@ -1565,7 +1565,14 @@ $(document).ready(function() {
     $('#edit_comment_page select[name="page_id"]').trigger('change');
 
     $('#edit_comment_page select[name="country_id"]').bind('change', function() {
-        var data = 'country_id=' + encodeURIComponent($('select[name="country_id"]').val());
+        var country_id = $('select[name="country_id"]').val();
+
+        /* For cases where there's a state but no country */
+        if (!country_id) {
+            country_id = $('input[data-js="default_country"]').val();
+        }
+
+        var data = 'country_id=' + encodeURIComponent(country_id);
 
         var request = $.ajax({
             type: 'POST',
@@ -2384,10 +2391,10 @@ $(document).ready(function() {
         e.preventDefault();
 
         html =  '<div id="property-row' + property_row + '" class="fieldset">';
-        html += '   <label>' + js_settings.lang_entry_property + '</label>';
-        html += '   <input type="text" name="rich_snippets_property[' + property_row + '][name]" class="medium_plus" value="" placeholder="' + js_settings.lang_placeholder_name + '" maxlength="255">';
-        html += '   <input type="text" name="rich_snippets_property[' + property_row + '][value]" class="medium_plus" value="" placeholder="' + js_settings.lang_placeholder_value + '" maxlength="255">';
-        html += '   <a>' + js_settings.lang_link_remove + '</a>';
+        html += '  <label>' + js_settings.lang_entry_property + '</label>';
+        html += '  <input type="text" name="rich_snippets_property[' + property_row + '][name]" class="medium_plus" value="" placeholder="' + js_settings.lang_placeholder_name + '" maxlength="255">';
+        html += '  <input type="text" name="rich_snippets_property[' + property_row + '][value]" class="medium_plus" value="" placeholder="' + js_settings.lang_placeholder_value + '" maxlength="255">';
+        html += '  <a>' + js_settings.lang_link_remove + '</a>';
         html += '</div>';
 
         $('input[name="csrf_key"]').before(html);
