@@ -75,6 +75,7 @@ span.totop a, span.totop a:visited {color: #6699cc;}
 &#160; &#160; <span class="toc-item"><a href="#s3.3.3"><span class="item-no">3.3.3</span>&#160; Tag balancing &amp; proper nesting</a></span><br />
 &#160; &#160; <span class="toc-item"><a href="#s3.3.4"><span class="item-no">3.3.4</span>&#160; Elements requiring child elements</a></span><br />
 &#160; &#160; <span class="toc-item"><a href="#s3.3.5"><span class="item-no">3.3.5</span>&#160; Beautify or compact HTML</a></span><br />
+&#160; &#160; <span class="toc-item"><a href="#s3.3.6"><span class="item-no">3.3.6</span>&#160; Custom elements</a></span><br />
 &#160; <span class="toc-item"><a href="#s3.4"><span class="item-no">3.4</span>&#160; Attributes</a></span><br />
 &#160; &#160; <span class="toc-item"><a href="#s3.4.1"><span class="item-no">3.4.1</span>&#160; Auto-addition of XHTML-required attributes</a></span><br />
 &#160; &#160; <span class="toc-item"><a href="#s3.4.2"><span class="item-no">3.4.2</span>&#160; Duplicate/invalid <span class="term">id</span>&#160;values</a></span><br />
@@ -111,11 +112,11 @@ span.totop a, span.totop a:visited {color: #6699cc;}
 
 <div id="body">
 <br />
-<div class="comment">htmLawed_README.txt, 4 September 2021<br />
-htmLawed 1.2.6, 4 September 2021<br />
+<div class="comment">htmLawed_README.txt, 5 November 2022<br />
+htmLawed 1.2.10<br />
 Copyright Santosh Patnaik<br />
 Dual licensed with LGPL 3 and GPL 2+<br />
-A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed</a>&#160;</div>
+A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">https://bioinformatics.org/phplabware/internal_utilities/htmLawed</a>&#160;</div>
 <br />
 
 <div class="section"><h2>
@@ -152,7 +153,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; htmLawed:<br />
 <br />
 &#160; * &#160;makes input more <strong>secure</strong>&#160;and <strong>standard-compliant</strong>&#160;for HTML as well as generic <strong>XML</strong>&#160;documents &#160;^<br />
-&#160; * &#160;supports markup for <strong>HTML 5</strong>&#160;and <strong>microdata, ARIA, Ruby, custom attributes</strong>, etc. &#160;^<br />
+&#160; * &#160;supports markup for <strong>HTML 5</strong>, <strong>custom elements</strong>, and <strong>microdata, ARIA, Ruby, custom attributes</strong>, etc. &#160;^<br />
 &#160; * &#160;can <strong>beautify</strong>&#160;or <strong>compact</strong>&#160;HTML &#160;~<br />
 &#160; * &#160;works with input of almost any <strong>character encoding</strong>&#160;and does not affect it<br />
 &#160; * &#160;has good <strong>tolerance for ill-written HTML</strong><br />
@@ -259,7 +260,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s1.6" id="s1.6"></a><span class="item-no">1.6</span>&#160; Availability
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; htmLawed can be downloaded for free at its <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">website</a>. Besides the <span class="term">htmLawed.php</span>&#160;file, the download has the htmLawed documentation (this document) in plain <a href="htmLawed_README.txt">text</a>&#160;and <a href="htmLawed_README.htm">HTML</a>&#160;formats, a script for <a href="htmLawedTest.php">testing</a>, and a text file for <a href="htmLawed_TESTCASE.txt">test-cases</a>. htmLawed is also available as a PHP class (OOP code) at its website.<br />
+&#160; htmLawed can be downloaded for free at its <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">website</a>. Besides the <span class="term">htmLawed.php</span>&#160;file, the download has the htmLawed documentation (this document) in plain <a href="htmLawed_README.txt">text</a>&#160;and <a href="htmLawed_README.htm">HTML</a>&#160;formats, a script for <a href="htmLawedTest.php">testing</a>, and a text file for <a href="htmLawed_TESTCASE.txt">test-cases</a>. htmLawed can be installed with Composer, and is also available as a PHP class (OOP code) – see the <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">website</a>. Official htmLawed releases are also put up on <a href="https://sourceforge.net/projects/htmlawed/">Sourceforge</a>.<br />
 
 </div>
 </div>
@@ -353,6 +354,12 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; <span class="term">0</span>&#160;- no measure taken &#160;*<br />
 &#160; <em>word</em>&#160;- <span class="term">@</span>&#160;in mail address in <span class="term">href</span>&#160;attribute value is replaced with specified <em>word</em><br />
 <br />
+&#160; <strong>any_custom_element</strong><br />
+&#160; Permit any custom element; regardless of this setting, specific custom elements can be denied or permitted through <span class="term">$config["elements"]</span>; see <a href="#s3.3.6">section 3.3.6</a><br />
+<br />
+&#160; <span class="term">0</span>&#160;- no<br />
+&#160; <span class="term">1</span>&#160;- yes &#160;*<br />
+<br />
 &#160; <strong>balance</strong><br />
 &#160; Balance tags for well-formedness and proper nesting; see <a href="#s3.3.3">section 3.3.3</a><br />
 <br />
@@ -409,7 +416,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; <em>all</em>&#160;- *^<br />
 &#160; <span class="term">&#42; -acronym -big -center -dir -font -isindex -s -strike -tt</span>&#160;- &#160;~^<br />
-&#160; <em>applet, audio, canvas, embed, iframe, object, script, and video elements not allowed</em>&#160;- &#160;"^<br />
+&#160; <em>applet, audio, canvas, dialog, embed, iframe, object, script, and video elements not allowed</em>&#160;- &#160;"^<br />
 <br />
 &#160; <strong>hexdec_entity</strong><br />
 &#160; Allow hexadecimal numeric entities and do not convert to the more widely accepted decimal ones, or convert decimal to hexadecimal ones; see <a href="#s3.2">section 3.2</a><br />
@@ -538,7 +545,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; A rule begins with an HTML <strong>element</strong>&#160;name(s) (<em>rule-element</em>), for which the rule applies, followed by an equal-to (=) sign. A rule-element may represent multiple elements if comma (,)-separated element names are used. E.g., <span class="term">th,td,tr=</span>.<br />
 <br />
-&#160; Rest of the rule consists of comma-separated HTML <strong>attribute names</strong>. A minus (-) character before an attribute means that the attribute is not permitted inside the rule-element. E.g., <span class="term">-width</span>. To deny all attributes, <span class="term">-&#42;</span>&#160;can be used.<br />
+&#160; Rest of the rule consists of comma-separated HTML <strong>attribute names</strong>, which can be the wildcard references <span class="term">&#42;</span>, <span class="term">aria&#42;</span>, <span class="term">data&#42;</span>, and <span class="term">on&#42;</span>&#160;for the sets of all standard, Aria, data-*, and event (on*) attributes, respectively. A minus (-) character before an attribute means that the attribute is not permitted inside the rule-element. E.g., <span class="term">-width</span>. To deny all attributes, <span class="term">-&#42;</span>&#160;can be used. All Aria, data-*, and event (on*) attributes can similarly be denined using <span class="term">aria&#42;</span>, <span class="term">data&#42;</span>, and <span class="term">on&#42;</span>, respectively.<br />
 <br />
 &#160; Following shows examples of rule excerpts with rule-element <span class="term">a</span>&#160;and the attributes that are being permitted:<br />
 <br />
@@ -549,8 +556,9 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; * &#160;<span class="term">a=-&#42;</span>&#160;- none<br />
 &#160; * &#160;<span class="term">a=-&#42;, href, title</span>&#160;- none except <span class="term">href</span>&#160;and <span class="term">title</span><br />
 &#160; * &#160;<span class="term">a=-&#42;, -id, href, title</span>&#160;- none except <span class="term">href</span>&#160;and <span class="term">title</span><br />
+&#160; * &#160;<span class="term">a=-on&#42;, -id, href, onclick, title</span>&#160;- all except <span class="term">id</span>&#160;and on* other than <span class="term">onclick</span><br />
 <br />
-&#160; Rules regarding <strong>attribute values</strong>&#160;are optionally specified inside round brackets after attribute names in solidus (/)-separated <em>parameter = value</em>&#160;pairs. E.g., <span class="term">title(maxlen=30/minlen=5)</span>. None or one or more of the following parameters may be specified:<br />
+&#160; Rules regarding <strong>attribute values</strong>&#160;are optionally specified inside round brackets after attribute names – which cannot be wildcard references like <span class="term">&#42;</span>&#160;or <span class="term">data&#42;</span>&#160;– in solidus (/)-separated <em>parameter = value</em>&#160;pairs. E.g., <span class="term">title(maxlen=30/minlen=5)</span>. None or one or more of the following parameters may be specified:<br />
 <br />
 &#160; * &#160;<span class="term">oneof</span>&#160;- one or more choices separated by <span class="term">|</span>&#160;that the value should match; if only one choice is provided, then the value must match that choice; matching is case-sensitive<br />
 <br />
@@ -582,13 +590,15 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; <strong>Special characters</strong>: The characters <span class="term">;</span>, <span class="term">,</span>, <span class="term">/</span>, <span class="term">(</span>, <span class="term">)</span>, <span class="term">|</span>, <span class="term">~</span>&#160;and space have special meanings in the rules. Words in the rules that use such characters, or the characters themselves, should be <em>escaped</em>&#160;by enclosing in pairs of double-quotes (<span class="term">"</span>). A back-tick (<span class="term">&#96;</span>) can be used to escape a literal <span class="term">"</span>. An example rule illustrating this is <span class="term">input=value(maxlen=30/match="/^\w/"/default="your &#96;"ID&#96;"")</span>.<br />
 <br />
-&#160; <strong>Attributes that accept multiple values</strong>: If an attribute is <span class="term">accesskey</span>, <span class="term">class</span>, <span class="term">itemtype</span>&#160;or <span class="term">rel</span>, which can have multiple, space-separated values, or <span class="term">srcset</span>, which can have multiple, comma-separated values, htmLawed will parse the attribute value for such multiple values and will individually test each of them.<br />
+&#160; <strong>Attributes that accept multiple values</strong>: If an attribute is <span class="term">accesskey</span>, <span class="term">class</span>, <span class="term">itemtype</span>&#160;or <span class="term">rel</span>, or <span class="term">archive</span>&#160;in case of <span class="term">object</span>&#160;element, which can have multiple, space-separated values, or <span class="term">archive</span>&#160;in case of <span class="term">object</span>&#160;element and <span class="term">srcset</span>, which can have multiple, comma-separated values, htmLawed will parse the attribute value for such multiple values and will individually test each of them. The parsing is performed after any URL assessment of the attribute values (<a href="#s3.4.3">section 3.4.3</a>).<br />
 <br />
 &#160; <strong>Note</strong>: To deny an attribute for all elements for which it is legal, <span class="term">$config["deny_attribute"]</span>&#160;(see <a href="#s3.4">section 3.4</a>) can be used instead of <span class="term">$spec</span>. Also, attributes can be allowed element-specifically through <span class="term">$spec</span>&#160;while being denied globally through <span class="term">$config["deny_attribute"]</span>. The <span class="term">hook_tag</span>&#160;parameter (<a href="#s3.4.9">section 3.4.9</a>) can also be possibly used to implement a functionality like that achieved using <span class="term">$spec</span>&#160;functionality.<br />
 <br />
-&#160; <strong>Note</strong>: Attributes' specifications for an element may be set through multiple rules. In case of conflict, the attribute specification in the first rule will get precedence.<br />
+&#160; <strong>Note</strong>: Attributes permitted through <span class="term">$spec</span>&#160;are permitted regardless of any denial through <span class="term">$config</span>. An attribute for which $spec indicates both permission and denial will be permitted. E.g., <span class="term">onclick</span>&#160;with <span class="term">$spec</span>&#160;value of <span class="term">a = &#42;, -onclick, onclick</span>, <span class="term">a = -on&#42;, onclick</span>&#160;or <span class="term">a = on&#42;, -onclick</span>&#160;will be permitted inside <span class="term">a</span>.<br />
 <br />
-&#160; <span class="term">$spec</span>&#160;can also be used to permit custom, non-standard attributes as well as custom rules for standard attributes. Thus, the following value of <span class="term">$spec</span>&#160;will permit the custom uses of the standard <span class="term">rel</span>&#160;attribute in <span class="term">input</span>&#160;(not permitted as per standards) and of a non-standard attribute, <span class="term">vFlag</span>, in <span class="term">img</span>.<br />
+&#160; <strong>Note</strong>: Attributes' specifications for an element may be (inadvertently) set through multiple rules. In case of conflict, the attribute specification in the first rule will get precedence.<br />
+<br />
+&#160; <span class="term">$spec</span>&#160;can also be used to permit <strong>custom or non-standard attributes</strong>. Thus, the following value of <span class="term">$spec</span>&#160;will permit the custom uses of the standard <span class="term">rel</span>&#160;attribute in <span class="term">input</span>&#160;(not permitted as per standards) and of a non-standard attribute, <span class="term">vFlag</span>, in <span class="term">img</span>.<br />
 <br />
 
 <code class="code">&#160; &#160; $spec = &#39;img=vFlag; input=rel&#39;</code>
@@ -612,7 +622,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; When setting the parameters/arguments (like those to allow certain HTML elements) for use with htmLawed, one should bear in mind that the setting may let through potentially <em>dangerous</em>&#160;HTML code which is meant to steal user-data, deface a website, render a page non-functional, etc. Unless end-users, either people or software, supplying the content are completely trusted, security issues arising from the degree of HTML usage permitted through htmLawed's setting should be considered. For example, following increase security risks:<br />
 <br />
-&#160; * &#160;Allowing <span class="term">script</span>, <span class="term">applet</span>, <span class="term">embed</span>, <span class="term">iframe</span>, <span class="term">canvas</span>, <span class="term">audio</span>, <span class="term">video</span>&#160;or <span class="term">object</span>&#160;elements, or certain of their attributes like <span class="term">allowscriptaccess</span><br />
+&#160; * &#160;Allowing <span class="term">script</span>, <span class="term">applet</span>, <span class="term">embed</span>, <span class="term">iframe</span>, <span class="term">canvas</span>, <span class="term">audio</span>, <span class="term">video</span>, <span class="term">dialog</span>&#160;or <span class="term">object</span>&#160;elements, or certain of their attributes like <span class="term">allowscriptaccess</span><br />
 <br />
 &#160; * &#160;Allowing HTML comments (some Internet Explorer versions are vulnerable with, e.g., <span class="term">&lt;!--[if gte IE 4]&gt;&lt;script&gt;alert("xss");&lt;/script&gt;&lt;![endif]--&gt;</span><br />
 <br />
@@ -781,7 +791,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; It should be borne in mind that no browser application is 100% standard-compliant, standard specifications continue to evolve, and many browsers accept commonly used non-standard HTML. Regarding security, note that <em>unsafe</em>&#160;HTML code is not legally invalid per se.<br />
 <br />
-&#160; * &#160;By default, htmLawed will not strictly adhere to the <em>current</em>&#160;HTML standard. Admins can configure htmLawed to be more strict about standard compliance. Standard specification for HTML is continuously evolving. There are two bodies (<a href="http://www.w3c.org">W3C</a>&#160;and <a href="http://www.whatwg.org">WHATWG</a>) that specify the standard and their specifications are not identical. E.g., as in mid-2013, the <span class="term">border</span>&#160;attribute is valid in <span class="term">table</span>&#160;as per W3C but not WHATWG. Thus, htmLawed may not be fully compliant with the standard of a specific group. The HTML standards/rules that htmLawed uses in its logic are a mix of the W3C and WHATWG standards, and can be lax because of the laxity of HTML interpreters (browsers) regarding standards.<br />
+&#160; * &#160;htmLawed might not strictly adhere to <em>current</em>&#160;HTML standards as standard specification for HTML by <a href="http://www.whatwg.org">WHATWG</a>&#160;is continuously evolving, and there is laxity among HTML interpreters (browsers) regarding standards. Admins can configure htmLawed to be more strict about standard compliance.<br />
 <br />
 &#160; * &#160;In general, htmLawed processes input to generate output that is most likely to be standard-compatible in most users' browsers. Thus, for example, it does not enforce the required value of <span class="term">0</span>&#160;on <span class="term">border</span>&#160;attribute of <span class="term">img</span>&#160;(an HTML version 5 specification).<br />
 <br />
@@ -791,9 +801,9 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; * &#160;By default, htmLawed won't check many attribute values for standard compliance. E.g., <span class="term">width="20m"</span>&#160;with the dimension in non-standard <span class="term">m</span>&#160;is let through. Implementing universal and strict attribute value checks can make htmLawed slow and resource-intensive. Admins should look at the <span class="term">hook_tag</span>&#160;parameter (<a href="#s3.4.9">section 3.4.9</a>) or <span class="term">$spec</span>&#160;to enforce finer checks on attribute values.<br />
 <br />
-&#160; * &#160;By default, htmLawed considers all ARIA, data-*, event and microdata attributes as global attributes and permits them in all elements. This is not strictly standard-compliant. E.g., the <span class="term">itemtype</span>&#160;microdata attribute is permitted only in elements that also have the <span class="term">itemscope</span>&#160;attribute. Admins can configure htmLawed to be more strict about this (<a href="#s2.3">section 2.3</a>).<br />
+&#160; * &#160;By default, htmLawed considers all ARIA, data-*, event, and microdata attributes as global attributes and permits them in all elements. This is not strictly standard-compliant. E.g., the <span class="term">itemtype</span>&#160;microdata attribute is permitted only in elements that also have the <span class="term">itemscope</span>&#160;attribute. Admins can configure htmLawed to be more strict about this (<a href="#s2.3">section 2.3</a>).<br />
 <br />
-&#160; * &#160;The attributes, deprecated (which can be transformed too) or not, that it supports are largely those that are in the specifications. Only a few of the proprietary attributes are supported. However, <span class="term">$spec</span>&#160;can be used to allow custom attributes (<a href="#s2.3">section 2.3</a>).<br />
+&#160; * &#160;The attributes, whether deprecated (which can be transformed by htmLawed) or not, that it supports are largely those that are in the specifications. Only a few of the proprietary attributes are supported. However, <span class="term">$spec</span>&#160;can be used to allow custom attributes (<a href="#s2.3">section 2.3</a>).<br />
 <br />
 &#160; * &#160;Except for contained URLs and dynamic expressions (also optional), htmLawed does not check CSS style property values. Admins should look at using the <span class="term">hook_tag</span>&#160;parameter (<a href="#s3.4.9">section 3.4.9</a>) or <span class="term">$spec</span>&#160;for finer checks. Perhaps the best option is to disallow <span class="term">style</span>&#160;but allow <span class="term">class</span>&#160;attributes with the right <span class="term">oneof</span>&#160;or <span class="term">match</span>&#160;values for <span class="term">class</span>, and have the various class style properties in <span class="term">.css</span>&#160;CSS stylesheet files.<br />
 <br />
@@ -817,7 +827,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; * &#160;htmLawed does not correct certain possible attribute-based security vulnerabilities (e.g., <span class="term">&lt;a href="http&#58;//x%22+style=%22background-image&#58;xss"&gt;x&lt;/a&gt;</span>). These arise when browsers mis-identify markup in <em>escaped</em>&#160;text, defeating the very purpose of escaping text (a bad browser will read the given example as <span class="term">&lt;a href="http&#58;//x" style="background-image&#58;xss"&gt;x&lt;/a&gt;</span>).<br />
 <br />
-&#160; * &#160;Because of poor Unicode support in PHP, htmLawed does not remove the <em>high value</em>&#160;HTML-invalid characters with multi-byte code-points. Such characters however are extremely unlikely to be in the input. (see <a href="#s3.1">section 3.1</a>).<br />
+&#160; * &#160;Because of inadequate Unicode support in PHP, htmLawed does not remove the <em>high value</em>&#160;HTML-invalid characters with multi-byte code-points. Such characters however are extremely unlikely to be in the input. (see <a href="#s3.1">section 3.1</a>).<br />
 <br />
 &#160; * &#160;htmLawed does not check or correct the character encoding of the input it receives. In conjunction with permitting circumstances such as when the character encoding is left undefined through HTTP headers or HTML <span class="term">meta</span>&#160;tags, this can permit an exploit (like Google's <em>UTF-7/XSS</em>&#160;vulnerability of the past). Also, htmLawed can mangle input text if it is not well-formed in terms of character encoding. Administrators can consider using code available elsewhere to check well-formedness of input text characters to correct any defect.<br />
 <br />
@@ -974,7 +984,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; Valid character entities take the form <span class="term">&amp;&#42;;</span>&#160;where <span class="term">&#42;</span>&#160;is <span class="term">#x</span>&#160;followed by a hexadecimal number (hexadecimal numeric entity; like <span class="term">&amp;#xA0;</span>&#160;for non-breaking space), or alphanumeric like <span class="term">gt</span>&#160;(external or named entity; like <span class="term">&amp;nbsp;</span>&#160;for non-breaking space), or <span class="term">#</span>&#160;followed by a number (decimal numeric entity; like <span class="term">&amp;#160;</span>&#160;for non-breaking space). Character entities referring to the soft-hyphen character (the <span class="term">&amp;shy;</span>&#160;or <span class="term">\xad</span>&#160;character; hexadecimal code-point <span class="term">ad</span>&#160;[decimal <span class="term">173</span>]) in URL-accepting attribute values are always replaced with spaces; soft-hyphens in attribute values introduce vulnerabilities in some older versions of the Opera and Mozilla [Firefox] browsers.<br />
 <br />
-&#160; htmLawed (function <span class="term">hl_ent()</span>):<br />
+&#160; htmLawed (function <span class="term">hl_entity()</span>):<br />
 <br />
 &#160; * &#160;Neutralizes entities with multiple leading zeroes or missing semi-colons (potentially dangerous)<br />
 <br />
@@ -984,7 +994,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; * &#160;Neutralizes entities referring to characters that are HTML-discouraged (code-points, hexadecimally, <span class="term">7f</span>&#160;to <span class="term">84</span>, <span class="term">86</span>&#160;to <span class="term">9f</span>, and <span class="term">fdd0</span>&#160;to <span class="term">fddf</span>, or decimally, <span class="term">127</span>&#160;to <span class="term">132</span>, <span class="term">134</span>&#160;to <span class="term">159</span>, and <span class="term">64991</span>&#160;to <span class="term">64976</span>). Entities referring to the remaining discouraged characters (see <a href="#s5.1">section 5.1</a>&#160;for a full list) are let through.<br />
 <br />
-&#160; * &#160;Neutralizes named entities that are not in the specifications<br />
+&#160; * &#160;Neutralizes named entities that are not in the HTML5 specification<br />
 <br />
 &#160; * &#160;Optionally converts valid HTML-specific named entities except <span class="term">&amp;gt;</span>, <span class="term">&amp;lt;</span>, <span class="term">&amp;quot;</span>, and <span class="term">&amp;amp;</span>&#160;to decimal numeric ones (hexadecimal if $config["hexdec_entity"] is <span class="term">2</span>) for generic XML-compliance. For this, <span class="term">$config["named_entity"]</span>&#160;should be <span class="term">1</span>.<br />
 <br />
@@ -1033,17 +1043,25 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; See <a href="#s3.3.3">section 3.3.3</a>&#160;for differences between the various non-zero <span class="term">$config["keep_bad"]</span>&#160;values.<br />
 <br />
-&#160; htmLawed by default permits these 118 HTML elements:<br />
+&#160; htmLawed by default permits these 122 HTML elements:<br />
 <br />
 
-<code class="code">&#160; &#160; a, abbr, acronym, address, applet, area, article, aside, audio, b, bdi, bdo, big, blockquote, br, button, canvas, caption, center, cite, code, col, colgroup, command, data, datalist, dd, del, details, dfn, dir, div, dl, dt, em, embed, fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, i, iframe, img, input, ins, isindex, kbd, keygen, label, legend, li, link, main, map, mark, menu, meta, meter, nav, noscript, object, ol, optgroup, option, output, p, param, pre, progress, q, rb, rbc, rp, rt, rtc, ruby, s, samp, script, section, select, small, source, span, strike, strong, style, sub, summary, sup, table, tbody, td, textarea, tfoot, th, thead, time, tr, track, tt, u, ul, var, video, wbr</code>
+<code class="code">&#160; &#160; a, abbr, acronym, address, applet, area, article, aside, audio, b, bdi, bdo, big, blockquote, br, button, canvas, caption, center, cite, code, col, colgroup, command, data, datalist, dd, del, details, dfn, dialog, dir, div, dl, dt, em, embed, fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, i, iframe, img, input, ins, isindex, kbd, keygen, label, legend, li, link, main, map, mark, menu, meta, meter, nav, noscript, object, ol, optgroup, option, output, p, param, picture, pre, progress, q, rb, rbc, rp, rt, rtc, ruby, s, samp, script, section, select, slot, small, source, span, strike, strong, style, sub, summary, sup, table, tbody, td, template, textarea, tfoot, th, thead, time, tr, track, tt, u, ul, var, video, wbr</code>
 <br />
 <br />
-&#160; The HTML version 4 elements <span class="term">acronym</span>, <span class="term">applet</span>, <span class="term">big</span>, <span class="term">center</span>, <span class="term">dir</span>, <span class="term">font</span>, <span class="term">strike</span>, and <span class="term">tt</span>&#160;are obsolete/deprecated in HTML version 5. On the other hand, the obsolete/deprecated HTML 4 elements <span class="term">embed</span>, <span class="term">menu</span>&#160;and <span class="term">u</span>&#160;are no longer so in HTML 5. Elements new to HTML 5 are <span class="term">article</span>, <span class="term">aside</span>, <span class="term">audio</span>, <span class="term">bdi</span>, <span class="term">canvas</span>, <span class="term">command</span>, <span class="term">data</span>, <span class="term">datalist</span>, <span class="term">details</span>, <span class="term">figure</span>, <span class="term">figcaption</span>, <span class="term">footer</span>, <span class="term">header</span>, <span class="term">hgroup</span>, <span class="term">keygen</span>, <span class="term">link</span>, <span class="term">main</span>, <span class="term">mark</span>, <span class="term">meta</span>, <span class="term">meter</span>, <span class="term">nav</span>, <span class="term">output</span>, <span class="term">progress</span>, <span class="term">section</span>, <span class="term">source</span>, <span class="term">style</span>, <span class="term">summary</span>, <span class="term">time</span>, <span class="term">track</span>, <span class="term">video</span>, and <span class="term">wbr</span>. The <span class="term">link</span>, <span class="term">meta</span>&#160;and <span class="term">style</span>&#160;elements exist in HTML 4 but are not allowed in the HTML body. These 16 elements are <em>empty</em>&#160;elements that have an opening tag with possible content but no element content (thus, no closing tag): <span class="term">area</span>, <span class="term">br</span>, <span class="term">col</span>, <span class="term">command</span>, <span class="term">embed</span>, <span class="term">hr</span>, <span class="term">img</span>, <span class="term">input</span>, <span class="term">isindex</span>, <span class="term">keygen</span>, <span class="term">link</span>, <span class="term">meta</span>, <span class="term">param</span>, <span class="term">source</span>, <span class="term">track</span>, and <span class="term">wbr</span>.<br />
+&#160; htmLawed also supports use of custom HTML elements, but this support can be turned off when $config is appropriately set (i.e., in default configuration, such elements are permitted); see <a href="#s3.3.6">section 3.3.6</a>.<br />
 <br />
-&#160; With <span class="term">$config["safe"] = 1</span>, the default set will exclude <span class="term">applet</span>, <span class="term">audio</span>, <span class="term">canvas</span>, <span class="term">embed</span>, <span class="term">iframe</span>, <span class="term">object</span>, <span class="term">script</span>&#160;and <span class="term">video</span>; see <a href="#s3.6">section 3.6</a>.<br />
+&#160; Elements <span class="term">math</span>&#160;and <span class="term">svg</span>&#160;are not supported. They and their content will get <em>filtered</em>&#160;unless a strategy like in <a href="#s3.9">section 3.9</a>&#160;is used.<br />
 <br />
-&#160; When <span class="term">$config["elements"]</span>, which specifies allowed elements, is <em>properly</em>&#160;defined, and neither empty nor set to <span class="term">0</span>&#160;or <span class="term">&#42;</span>, the default set is not used. To have elements added to or removed from the default set, a <span class="term">+/-</span>&#160;notation is used. E.g., <span class="term">&#42;-script-object</span>&#160;implies that only <span class="term">script</span>&#160;and <span class="term">object</span>&#160;are disallowed, whereas <span class="term">&#42;+embed</span>&#160;means that <span class="term">noembed</span>&#160;is also allowed. Elements can also be specified as comma separated names. E.g., <span class="term">a, b, i</span>&#160;means only <span class="term">a</span>, <span class="term">b</span>&#160;and <span class="term">i</span>&#160;are permitted. In this notation, <span class="term">&#42;</span>, <span class="term">+</span>&#160;and <span class="term">-</span>&#160;have no significance and can actually cause a mis-reading.<br />
+&#160; Elements like <span class="term">acronym</span>, <span class="term">applet</span>, <span class="term">basefont</span>, <span class="term">bgsound</span>, <span class="term">big</span>, <span class="term">blink</span>, <span class="term">center</span>, <span class="term">command</span>, <span class="term">dir</span>, <span class="term">font</span>, <span class="term">hgroup</span>, <span class="term">image</span>, <span class="term">keygen</span>, <span class="term">marquee</span>, <span class="term">menuitem</span>, <span class="term">nobr</span>, <span class="term">noembed</span>, <span class="term">rb</span>, <span class="term">rtc</span>, <span class="term">shadow</span>, <span class="term">spacer</span>, <span class="term">strike</span>, <span class="term">tt</span>, and <span class="term">xmp</span>&#160;are currently obsolete/deprecated. Some of them, like <span class="term">acronym</span>&#160;and <span class="term">keygen</span>, are supported in htmLawed (see above list). <em>Tag transformation</em>&#160;is possible for improving compliance with HTML standards -- most, but not all, of the obsolete/deprecated elements are converted to valid &#160;ones; see <a href="#s3.3.2">section 3.3.2</a>.<br />
+<br />
+&#160; These 16 htmLawed-supported elements are <em>empty</em>&#160;elements that have an opening tag with possible content but no element content (thus, no closing tag): <span class="term">area</span>, <span class="term">br</span>, <span class="term">col</span>, <span class="term">command</span>, <span class="term">embed</span>, <span class="term">hr</span>, <span class="term">img</span>, <span class="term">input</span>, <span class="term">isindex</span>, <span class="term">keygen</span>, <span class="term">link</span>, <span class="term">meta</span>, <span class="term">param</span>, <span class="term">source</span>, <span class="term">track</span>, and <span class="term">wbr</span>.<br />
+<br />
+&#160; As per standards, closing tags are optional for these elements under certain conditions: <span class="term">caption</span>, <span class="term">colgroup</span>, <span class="term">dd</span>, <span class="term">dt</span>, <span class="term">li</span>, <span class="term">optgroup</span>, <span class="term">option</span>, <span class="term">p</span>, <span class="term">rp</span>, <span class="term">rt</span>, <span class="term">tbody</span>, <span class="term">td</span>, <span class="term">tfoot</span>, <span class="term">th</span>, <span class="term">thead</span>, and <span class="term">tr</span>. By default, htmLawed will add a missing closing tag for such elements, unless balancing (<a href="#s3.3.3">section 3.3.3</a>) is turned off.<br />
+<br />
+&#160; With <span class="term">$config["safe"] = 1</span>, the default set of htmLawed-supported elements will exclude <span class="term">applet</span>, <span class="term">audio</span>, <span class="term">canvas</span>, <span class="term">dialog</span>, <span class="term">embed</span>, <span class="term">iframe</span>, <span class="term">object</span>, <span class="term">script</span>&#160;and <span class="term">video</span>; see <a href="#s3.6">section 3.6</a>.<br />
+<br />
+&#160; When <span class="term">$config["elements"]</span>, which specifies allowed elements, is <em>properly</em>&#160;defined, and neither empty nor set to <span class="term">0</span>&#160;or <span class="term">&#42;</span>, the default set is not used. To have elements added to or removed from the default set, a <span class="term">+/-</span>&#160;notation is used. E.g., <span class="term">&#42;-script-object</span>&#160;implies that only <span class="term">script</span>&#160;and <span class="term">object</span>&#160;are disallowed, whereas <span class="term">&#42;+noembed</span>&#160;means that <span class="term">noembed</span>&#160;is also allowed. For an element with a hyphen in name, use round brackets around the name; e.g., <span class="term">(my-custom-element)</span>. Elements can also be specified as comma separated names. E.g., <span class="term">a, b, i</span>&#160;means only <span class="term">a</span>, <span class="term">b</span>&#160;and <span class="term">i</span>&#160;are permitted. In this notation, <span class="term">&#42;</span>, <span class="term">+</span>&#160;and <span class="term">-</span>&#160;have no significance and can actually cause a mis-reading.<br />
 <br />
 &#160; Some more examples of <span class="term">$config["elements"]</span>&#160;values indicating permitted elements (note that empty spaces are liberally allowed for clarity):<br />
 <br />
@@ -1051,6 +1069,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; * &#160;<span class="term">&#42;-script</span>&#160;-- all excluding <span class="term">script</span><br />
 &#160; * &#160;<span class="term">&#42; -acronym -big -center -dir -font -isindex -s -strike -tt</span>&#160;-- only non-obsolete/deprecated elements of HTML5<br />
 &#160; * &#160;<span class="term">&#42;+noembed-script</span>&#160;-- all including <span class="term">noembed</span>&#160;excluding <span class="term">script</span><br />
+&#160; * &#160;<span class="term">&#42;+noembed+(my-custom-element)</span>&#160;-- all including <span class="term">noembed</span>&#160;and <span class="term">my-custom-element</span><br />
 <br />
 &#160; Some mis-usages (and the resulting permitted elements) that can be avoided:<br />
 <br />
@@ -1064,11 +1083,9 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; Basically, when using the <span class="term">+/-</span>&#160;notation, commas (<span class="term">,</span>) should not be used, and vice versa, and <span class="term">&#42;</span>&#160;should be used with the former but not the latter.<br />
 <br />
-&#160; <strong>Note</strong>: Even if an element that is not in the default set is allowed through <span class="term">$config["elements"]</span>, like <span class="term">noembed</span>&#160;in the last example, it will eventually be removed during tag balancing unless such balancing is turned off (<span class="term">$config["balance"]</span>&#160;set to <span class="term">0</span>). Currently, the only way around this, which actually is simple, is to edit htmLawed's PHP code which define various arrays in the function <span class="term">hl_bal()</span>&#160;to accommodate the element and its nesting properties.<br />
+&#160; <strong>Note</strong>: Even if an element that is not in the default set is allowed through <span class="term">$config["elements"]</span>, like <span class="term">noembed</span>&#160;in the last example, it will eventually be removed during tag balancing unless such balancing is turned off (<span class="term">$config["balance"]</span>&#160;set to <span class="term">0</span>). Currently, the only way around this, which actually is simple, is to edit htmLawed's PHP code which define various arrays in the function <span class="term">hl_balance()</span>&#160;to accommodate the element and its nesting properties.<br />
 <br />
-&#160; A possible second way to specify allowed elements is to set <span class="term">$config["parent"]</span>&#160;to an element name that supposedly will hold the input, and to set <span class="term">$config["balance"]</span>&#160;to <span class="term">1</span>. During tag balancing (see <a href="#s3.3.3">section 3.3.3</a>), all elements that cannot legally nest inside the parent element will be removed. The parent element is auto-reset to <span class="term">div</span>&#160;if <span class="term">$config["parent"]</span>&#160;is empty, <span class="term">body</span>, or an element not in htmLawed's default set of 118 elements.<br />
-<br />
-&#160; <em>Tag transformation</em>&#160;is possible for improving compliance with HTML standards -- most of the obsolete/deprecated elements of HTML version 5 are converted to valid &#160;ones; see <a href="#s3.3.2">section 3.3.2</a>.<br />
+&#160; A possible second way to specify allowed elements is to set <span class="term">$config["parent"]</span>&#160;to an element name that supposedly will hold the input, and to set <span class="term">$config["balance"]</span>&#160;to <span class="term">1</span>. During tag balancing (see <a href="#s3.3.3">section 3.3.3</a>), all elements that cannot legally nest inside the parent element will be removed. The parent element is auto-reset to <span class="term">div</span>&#160;if <span class="term">$config["parent"]</span>&#160;is empty, <span class="term">body</span>, or an element not in htmLawed's default set of 122 elements.<br />
 
 <div class="sub-sub-section"><h4>
 <a name="s3.3.1" id="s3.3.1"></a><span class="item-no">3.3.1</span>&#160; Handling of comments &amp; CDATA sections
@@ -1076,7 +1093,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; <span class="term">CDATA</span>&#160;sections have the format <span class="term">&lt;![CDATA[...anything but not "]]&gt;"...]]&gt;</span>, and HTML comments, <span class="term">&lt;!--...anything but not "--&gt;"... --&gt;</span>. Neither HTML comments nor <span class="term">CDATA</span>&#160;sections can reside inside tags. HTML comments can exist anywhere else, but <span class="term">CDATA</span>&#160;sections can exist only where plain text is allowed (e.g., immediately inside <span class="term">td</span>&#160;element content but not immediately inside <span class="term">tr</span>&#160;element content).<br />
 <br />
-&#160; htmLawed (function <span class="term">hl_cmtcd()</span>) handles HTML comments or <span class="term">CDATA</span>&#160;sections depending on the values of <span class="term">$config["comment"]</span>&#160;or <span class="term">$config["cdata"]</span>. If <span class="term">0</span>, such markup is not looked for and the text is processed like plain text. If <span class="term">1</span>, it is removed completely. If <span class="term">2</span>, it is preserved but any <span class="term">&lt;</span>, <span class="term">&gt;</span>&#160;and <span class="term">&amp;</span>&#160;inside are changed to entities. If <span class="term">3</span>&#160;for <span class="term">$config["cdata"]</span>, or <span class="term">3</span>&#160;or <span class="term">4</span>&#160;for <span class="term">$config["comment"]</span>, they are left as such. When <span class="term">$config["comment"]</span>&#160;is set to <span class="term">4</span>, htmLawed will not force a space character before the <span class="term">--&gt;</span>&#160;comment-closing marker. While such a space is required for standard-compliance, it can corrupt marker code put in HTML by some software (such as Microsoft Outlook).<br />
+&#160; htmLawed (function <span class="term">hl_commentCdata()</span>) handles HTML comments or <span class="term">CDATA</span>&#160;sections depending on the values of <span class="term">$config["comment"]</span>&#160;or <span class="term">$config["cdata"]</span>. If <span class="term">0</span>, such markup is not looked for and the text is processed like plain text. If <span class="term">1</span>, it is removed completely. If <span class="term">2</span>, it is preserved but any <span class="term">&lt;</span>, <span class="term">&gt;</span>&#160;and <span class="term">&amp;</span>&#160;inside are changed to entities. If <span class="term">3</span>&#160;for <span class="term">$config["cdata"]</span>, or <span class="term">3</span>&#160;or <span class="term">4</span>&#160;for <span class="term">$config["comment"]</span>, they are left as such. When <span class="term">$config["comment"]</span>&#160;is set to <span class="term">4</span>, htmLawed will not force a space character before the <span class="term">--&gt;</span>&#160;comment-closing marker. While such a space is required for standard-compliance, it can corrupt marker code put in HTML by some software (such as Microsoft Outlook).<br />
 <br />
 &#160; Note that for the last two cases, HTML comments and <span class="term">CDATA</span>&#160;sections will always be removed from tag content (function <span class="term">hl_tag()</span>).<br />
 <br />
@@ -1120,14 +1137,14 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s3.3.2" id="s3.3.2"></a><span class="item-no">3.3.2</span>&#160; Tag-transformation for better compliance with standards
 </h4><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; If <span class="term">$config["make_tag_strict"]</span>&#160;is set and not <span class="term">0</span>, following deprecated elements (and attributes), as per HTML 5 specification, even if admin-permitted, are mutated as indicated (element content remains intact; function <span class="term">hl_tag2()</span>):<br />
+&#160; If <span class="term">$config["make_tag_strict"]</span>&#160;is set and not <span class="term">0</span>, following deprecated elements (and attributes), even if admin-permitted, are mutated as indicated (element content remains intact; function <span class="term">hl_deprecatedElement()</span>):<br />
 <br />
 &#160; * &#160;acronym - <span class="term">abbr</span><br />
 &#160; * &#160;applet - based on <span class="term">$config["make_tag_strict"]</span>, unchanged (<span class="term">1</span>) or removed (<span class="term">2</span>)<br />
 &#160; * &#160;big - <span class="term">span style="font-size&#58; larger;"</span><br />
 &#160; * &#160;center - <span class="term">div style="text-align&#58; center;"</span><br />
 &#160; * &#160;dir - <span class="term">ul</span><br />
-&#160; * &#160;font (face, size, color) - &#160; &#160;<span class="term">span style="font-family&#58; ; font-size&#58; ; color&#58; ;"</span>&#160;(size transformation <a href="http://web.archive.org/web/20180201141931/http://style.cleverchimp.com/font_size_intervals/altintervals.html">reference</a>)<br />
+&#160; * &#160;font (face, size, color) - <span class="term">span style="font-family&#58; ; font-size&#58; ; color&#58; ;"</span>&#160;(size transformation <a href="http://web.archive.org/web/20180201141931/http://style.cleverchimp.com/font_size_intervals/altintervals.html">reference</a>)<br />
 &#160; * &#160;isindex - based on <span class="term">$config["make_tag_strict"]</span>, unchanged (<span class="term">1</span>) or removed (<span class="term">2</span>)<br />
 &#160; * &#160;s - <span class="term">span style="text-decoration&#58; line-through;"</span><br />
 &#160; * &#160;strike - <span class="term">span style="text-decoration&#58; line-through;"</span><br />
@@ -1164,7 +1181,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s3.3.3" id="s3.3.3"></a><span class="item-no">3.3.3</span>&#160; Tag balancing &amp; proper nesting
 </h4><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; If <span class="term">$config["balance"]</span>&#160;is set to <span class="term">1</span>, htmLawed (function <span class="term">hl_bal()</span>) checks and corrects the input to have properly balanced tags and legal element content (i.e., any element nesting should be valid, and plain text may be present only in the content of elements that allow them).<br />
+&#160; If <span class="term">$config["balance"]</span>&#160;is set to <span class="term">1</span>, htmLawed (function <span class="term">hl_balance()</span>) checks and corrects the input to have properly balanced tags and legal element content (i.e., any element nesting should be valid, and plain text may be present only in the content of elements that allow them).<br />
 <br />
 &#160; Depending on the value of <span class="term">$config["keep_bad"]</span>&#160;(see <a href="#s2.2">section 2.2</a>&#160;and <a href="#s3.3">section 3.3</a>), illegal content may be removed or neutralized to plain text by converting &lt; and &gt; to entities:<br />
 <br />
@@ -1258,7 +1275,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; <strong>Note:</strong>&#160;In the example above, unlike <span class="term">&lt;&#42;&gt;</span>, <span class="term">&lt;xml&gt;</span>&#160;gets considered as a tag (even though there is no HTML element named <span class="term">xml</span>). Thus, the <span class="term">keep_bad</span>&#160;parameter's value affects <span class="term">&lt;xml&gt;</span>&#160;but not <span class="term">&lt;&#42;&gt;</span>. In general, text matching the regular expression pattern <span class="term">&lt;(/?)([a-zA-Z][a-zA-Z1-6]&#42;)([^&gt;]&#42;?)\s?&gt;</span>&#160;is considered a tag (phrase enclosed by the angled brackets <span class="term">&lt;</span>&#160;and <span class="term">&gt;</span>, and starting [with an optional slash preceding] with an alphanumeric word that starts with an alphabet...), and is subjected to the <span class="term">keep_bad</span>&#160;value.<br />
 <br />
-&#160; Nesting/content rules for each of the 118 elements in htmLawed's default set (see <a href="#s3.3">section 3.3</a>) are defined in function <span class="term">hl_bal()</span>. This means that if a non-standard element besides <span class="term">embed</span>&#160;is being permitted through <span class="term">$config["elements"]</span>, the element's tag content will end up getting removed if <span class="term">$config["balance"]</span>&#160;is set to <span class="term">1</span>.<br />
+&#160; Nesting/content rules for each of the 122 standard elements in htmLawed's default set (see <a href="#s3.3">section 3.3</a>) are defined in function <span class="term">hl_balance()</span>. Any custom element (<a href="#s3.3.6">section 3.3.6</a>) is permitted to be within and to contain any other element.<br />
 <br />
 &#160; Plain text and/or certain elements nested inside <span class="term">blockquote</span>, <span class="term">form</span>, <span class="term">map</span>&#160;and <span class="term">noscript</span>&#160;need to be in block-level elements. This point is often missed during manual writing of HTML code. htmLawed attempts to address this during balancing. E.g., if the parent container is set as <span class="term">form</span>, the input <span class="term">B&#58;&lt;input type="text" value="b" /&gt;C&#58;&lt;input type="text" value="c" /&gt;</span>&#160;is converted to <span class="term">&lt;div&gt;B&#58;&lt;input type="text" value="b" /&gt;C&#58;&lt;input type="text" value="c" /&gt;&lt;/div&gt;</span>.<br />
 
@@ -1288,34 +1305,57 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; As per the HTML standards, spaces, tabs and line-breaks in web-pages (except those inside <span class="term">pre</span>&#160;elements) are all considered equivalent, and referred to as <em>white-spaces</em>. Browser applications are supposed to consider contiguous white-spaces as just a single space, and to disregard white-spaces trailing opening tags or preceding closing tags. This white-space <em>normalization</em>&#160;allows the use of text/code beautifully formatted with indentations and line-spacings for readability. Such <em>pretty</em>&#160;HTML can, however, increase the size of web-pages, or make the extraction or scraping of plain text cumbersome.<br />
 <br />
-&#160; With the <span class="term">$config</span>&#160;parameter <span class="term">tidy</span>, htmLawed can be used to beautify or compact the input text. Input with just plain text and no HTML markup is also subject to this. Besides <span class="term">pre</span>, the <span class="term">script</span>&#160;and <span class="term">textarea</span>&#160;elements, CDATA sections, and HTML comments are not subjected to the tidying process.<br />
+&#160; With the <span class="term">$config</span>&#160;parameter <span class="term">tidy</span>, htmLawed can be used to beautify or compact the input text. Input with just plain text and no HTML markup is also subject to this. Besides <span class="term">pre</span>, the <span class="term">script</span>, and <span class="term">textarea</span>&#160;elements, CDATA sections, and HTML comments are not subjected to the tidying process.<br />
+<br />
+&#160; Any custom HTML element (<a href="#s3.3.6">section 3.3.6</a>) is treated like an inline element, like <span class="term">strong</span>, during tidying.<br />
 <br />
 &#160; To <em>compact</em>, use <span class="term">$config["tidy"] = -1</span>; single instances or runs of white-spaces are replaced with a single space, and white-spaces trailing and leading open and closing tags, respectively, are removed.<br />
 <br />
 &#160; To <em>beautify</em>, <span class="term">$config["tidy"]</span>&#160;is set as <span class="term">1</span>, or for customized tidying, as a string like <span class="term">2s2n</span>. The <span class="term">s</span>&#160;or <span class="term">t</span>&#160;character specifies the use of spaces or tabs for indentation. The first and third characters, any of the digits 0-9, specify the number of spaces or tabs per indentation, and any parental lead spacing (extra indenting of the whole block of input text). The <span class="term">r</span>&#160;and <span class="term">n</span>&#160;characters are used to specify line-break characters: <span class="term">n</span>&#160;for <span class="term">\n</span>&#160;(Unix/Mac OS X line-breaks), <span class="term">rn</span>&#160;or <span class="term">nr</span>&#160;for <span class="term">\r\n</span>&#160;(Windows/DOS line-breaks), or <span class="term">r</span>&#160;for <span class="term">\r</span>.<br />
+<br />
+&#160; For instance, with <span class="term">$config["tidy"]</span>&#160;set as <span class="term">3s2n</span>, 3 space characters are used per indentation level, the entire block of text (HTML code) gets a lead (left spacing) of 2 space characters, and line-breaks are with <span class="term">\n</span>&#160;character.<br />
 <br />
 &#160; The <span class="term">$config["tidy"]</span>&#160;value of <span class="term">1</span>&#160;is equivalent to <span class="term">2s0n</span>. Other <span class="term">$config["tidy"]</span>&#160;values are read loosely: a value of <span class="term">4</span>&#160;is equivalent to <span class="term">4s0n</span>; <span class="term">t2</span>, to <span class="term">1t2n</span>; <span class="term">s</span>, to <span class="term">2s0n</span>; <span class="term">2TR</span>, to <span class="term">2t0r</span>; <span class="term">T1</span>, to <span class="term">1t1n</span>; <span class="term">nr3</span>, to <span class="term">3s0nr</span>, and so on. Except in the indentations and line-spacings, runs of white-spaces are replaced with a single space during beautification.<br />
 <br />
 &#160; Input formatting using <span class="term">$config["tidy"]</span>&#160;is not recommended when input text has mixed markup (like HTML + PHP).<br />
 
 </div>
+<div class="sub-sub-section"><h4>
+<a name="s3.3.6" id="s3.3.6"></a><span class="item-no">3.3.6</span>&#160; Custom HTML elements
+</h4><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
+<br />
+&#160; Custom elements are HTML elements whose properties/behaviors are defined by the <em>author</em>, instead of being <em>universal</em>&#160;(i.e., defined by the HTML interpreter like a browser). Their names must begin with a lowercased a-z character, contain at least one hyphen (-), and cannot be: <em>annotation-xml, color-profile, font-face, font-face-src, font-face-uri, font-face-format, font-face-name, missing-glyph</em>. A huge variety of characters is permitted in the name.<br />
+<br />
+
+<code class="code">&#160; &#160; 0-9 | . | _ | #xB7 | #xC0-#xD6 | #xD8-#xF6 | #xF8-#x37D | #x37F-#x1FFF | #x200C-#x200D | #x203F-#x2040 | #x2070-#x218F | #x2C00-#x2FEF | #x3001-#xD7FF | #xF900-#xFDCF | #xFDF0-#xFFFD | [#x10000-#xEFFFF]</code>
+<br />
+<br />
+&#160; With <span class="term">$config["any_custom_element"]</span>&#160;set to <span class="term">0</span>, no custom element is permitted, whereas with a value of <span class="term">1</span>&#160;(default value), any such element is permitted. Regardless of the setting, specific custom elements can be denied or permitted through <span class="term">$config["elements"]</span>&#160;(see <a href="#s3.3.1">section 3.3.1</a>).<br />
+<br />
+&#160; Any custom HTML element is treated like an inline element, like <span class="term">strong</span>, during tidying (<a href="#s3.3.5">section 3.3.5</a>). During tag balancing (<a href="#s3.3.3">section 3.3.3</a>), any custom element is permitted to be within and to contain any other element. These laxities are necessitated because, by definition, custom elements are parochial.<br />
+<br />
+&#160; Custom elements are permitted to have attributes of any name consisting of any character except a few such as equal, forward slash, and most control characters (unless denied through <span class="term">$spec</span>) and satisfying any <span class="term">data</span>&#160;attribute name requirement.<br />
+
+</div>
 <div class="sub-section"><h3>
 <a name="s3.4" id="s3.4"></a><span class="item-no">3.4</span>&#160; Attributes
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; In its default setting, htmLawed will only permit attributes described in the HTML specifications (including deprecated ones). A list of the attributes and the elements they are allowed in is in <a href="#s5.2">section 5.2</a>. Using the <span class="term">$spec</span>&#160;argument, htmLawed can be forced to permit custom, non-standard attributes as well as custom rules for standard attributes (<a href="#s2.3">section 2.3</a>).<br />
+
+<code class="code">&#160; &#160; In its default setting, htmLawed will only permit attributes described in the HTML specifications (including deprecated ones). A list of the attributes and the elements they are allowed in is in section&#58;- #5.2. Using the &#39;$spec&#39; argument, htmLawed can be forced to permit custom, non-standard attributes as well as custom rules for standard attributes (section&#58;- #2.3).</code>
+<br />
 <br />
 &#160; Custom <em>data-*</em>&#160;(<em>data-star</em>) attributes, where the first three characters of the value of <em>star</em>&#160;(*) after lower-casing do not equal <span class="term">xml</span>, and the value of <em>star</em>&#160;does not have a colon (:), equal-to (=), newline, solidus (/), space or tab character, or any upper-case A-Z character are allowed in all elements. ARIA, event and microdata attributes like <span class="term">aria-live</span>, <span class="term">onclick</span>&#160;and <span class="term">itemid</span>&#160;are also considered global attributes (<a href="#s5.2">section 5.2</a>).<br />
 <br />
-&#160; When <span class="term">$config["deny_attribute"]</span>&#160;is not set, or set to <span class="term">0</span>, or empty (<span class="term">""</span>), all attributes are permitted. Otherwise, <span class="term">$config["deny_attribute"]</span>&#160;can be set as a list of comma-separated names of the denied attributes. <span class="term">on&#42;</span>&#160;can be used to refer to the group of potentially dangerous, script-accepting event attributes like <span class="term">onblur</span>&#160;and <span class="term">onchange</span>&#160;that have <span class="term">on</span>&#160;at the beginning of their names. Similarly, <span class="term">aria&#42;</span>&#160;and <span class="term">data&#42;</span>&#160;can be used to respectively refer to the set of all ARIA and data-* attributes.<br />
+&#160; When <span class="term">$config["deny_attribute"]</span>&#160;is not set, or set to <span class="term">0</span>, or empty (<span class="term">""</span>), all attributes are permitted as per standards. Otherwise, <span class="term">$config["deny_attribute"]</span>&#160;can be set in two different ways. One way is as a list of comma-separated names of the denied attributes. <span class="term">on&#42;</span>&#160;can be used to refer to the group of potentially dangerous, script-accepting event attributes like <span class="term">onchange</span>&#160;that have <span class="term">on</span>&#160;at the beginning of their names. Similarly, <span class="term">aria&#42;</span>&#160;and <span class="term">data&#42;</span>&#160;can be used to respectively refer to the set of all ARIA and data-* attributes. The second way to set <span class="term">$config["deny_attribute"]</span>&#160;permits the denying of all but a few attributes globally. The notation is <span class="term">&#42; -attribute1 -attribute2 ...</span>. Thus, a value of <span class="term">&#42; -title -href</span>&#160;implies that except <span class="term">href</span>&#160;and <span class="term">title</span>&#160;(where allowed as per standards) all other attributes are to be removed. Terms <span class="term">aria&#42;</span>&#160;<span class="term">data&#42;</span>, and <span class="term">on&#42;</span>&#160;can be used in this notation, and a whitespace character is necessary before the <span class="term">-</span>&#160;character.<br />
 <br />
-&#160; With <span class="term">$config["safe"] = 1</span>&#160;(<a href="#s3.6">section 3.6</a>), the <span class="term">on&#42;</span>&#160;event attributes are automatically disallowed even if a value for <span class="term">$config["deny_attribute"]</span>&#160;has been manually provided.<br />
+&#160; With <span class="term">$config["safe"] = 1</span>&#160;(<a href="#s3.6">section 3.6</a>), any <span class="term">on&#42;</span>&#160;event attribute is disallowed even if <span class="term">$config["deny_attribute"]</span>&#160;is set otherwise (such as <span class="term">&#42; -style -on&#42;</span>).<br />
 <br />
-&#160; Note that attributes specified in <span class="term">$config["deny_attribute"]</span>&#160;are denied globally, for all elements. To deny attributes for only specific elements, <span class="term">$spec</span>&#160;(see <a href="#s2.3">section 2.3</a>) can be used. <span class="term">$spec</span>&#160;can also be used to element-specifically permit an attribute otherwise denied through <span class="term">$config["deny_attribute"]</span>.<br />
+&#160; The attribute restrictions specified with <span class="term">$config["deny_attribute"]</span>&#160;apply to all elements. To deny attributes for only specific elements, <span class="term">$spec</span>&#160;(see <a href="#s2.3">section 2.3</a>) can be used. <span class="term">$spec</span>&#160;can also be used to element-specifically permit an attribute otherwise denied through <span class="term">$config["deny_attribute"]</span>.<br />
 <br />
 &#160; Finer restrictions on attributes can also be put into effect through <span class="term">$config["hook_tag"]</span>&#160;(<a href="#s3.4.9">section 3.4.9</a>).<br />
 <br />
-&#160; <strong>Note</strong>: To deny all but a few attributes globally, a simpler way to specify <span class="term">$config["deny_attribute"]</span>&#160;would be to use the notation <span class="term">&#42; -attribute1 -attribute2 ...</span>. Thus, a value of <span class="term">&#42; -title -href</span>&#160;implies that except <span class="term">href</span>&#160;and <span class="term">title</span>&#160;(where allowed as per standards) all other attributes are to be removed. With this notation, the value for the parameter <span class="term">safe</span>&#160;(<a href="#s3.6">section 3.6</a>) will have no effect on <span class="term">deny_attribute</span>. Values of <span class="term">aria&#42;</span>&#160;<span class="term">data&#42;</span>, and <span class="term">on&#42;</span>&#160;cannot be used in this notation to refer to the sets of all ARIA, data-*, and on* attributes respectively.<br />
+&#160; Custom elements are permitted to have attributes of any name consisting of any character except a few such as equal, forward slash, and most control characters (unless denied through <span class="term">$spec</span>) and satisfying any <span class="term">data</span>&#160;attribute name requirement.<br />
 <br />
 &#160; htmLawed (function <span class="term">hl_tag()</span>) also:<br />
 <br />
@@ -1323,6 +1363,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; * &#160;Removes duplicate attributes (last one stays)<br />
 &#160; * &#160;Gives attributes the form <span class="term">name="value"</span>&#160;and single-spaces them, removing unnecessary white-spacing<br />
 &#160; * &#160;Provides <em>required</em>&#160;attributes (see <a href="#s3.4.1">section 3.4.1</a>)<br />
+&#160; * &#160;Optionally lowercases certain standard attribute values (see <a href="#s3.4.5">section 3.4.5</a>)<br />
 &#160; * &#160;Double-quotes values and escapes any <span class="term">"</span>&#160;inside them<br />
 &#160; * &#160;Replaces the possibly dangerous soft-hyphen characters (hexadecimal code-point <span class="term">ad</span>) in the values with spaces<br />
 &#160; * &#160;Allows custom function to additionally filter/modify attribute values (see <a href="#s3.4.9">section 3.4.9</a>)<br />
@@ -1380,10 +1421,12 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; Also, only <span class="term">data</span>, <span class="term">file</span>, <span class="term">http</span>, <span class="term">https</span>&#160;and <span class="term">javascript</span>&#160;are permitted in these attributes that accept URLs:<br />
 <br />
 
-<code class="code">&#160; &#160; action, cite, classid, codebase, data, itemtype, longdesc, model, pluginspage, pluginurl, src, srcset, style, usemap, and event attributes like onclick</code>
+<code class="code">&#160; &#160; action, archive, cite, classid, codebase, data, itemtype, longdesc, model, pluginspage, pluginurl, poster, src, srcset, style, usemap, and event attributes like onclick</code>
 <br />
 <br />
 &#160; With <span class="term">$config["safe"] = 1</span>&#160;(<a href="#s3.6">section 3.6</a>), the above is changed to disallow <span class="term">app</span>, <span class="term">data</span>&#160;and <span class="term">javascript</span>.<br />
+<br />
+&#160; <strong>Note</strong>: URLs in <em>data-*</em>&#160;attribute values are not checked, but $spec (<a href="#s2.3">section 2.3</a>) or <span class="term">$config["hook_tag"]</span>&#160;(<a href="#s3.4.9">section 3.4.9</a>) can be used for this purpose.<br />
 <br />
 &#160; These default sets are used when <span class="term">$config["schemes"]</span>&#160;is not set (see <a href="#s2.2">section 2.2</a>). To over-ride the defaults, <span class="term">$config["schemes"]</span>&#160;is defined as a string of semi-colon-separated sub-strings of type <span class="term">attribute&#58; comma-separated schemes</span>. E.g., <span class="term">href&#58; mailto, http, https; onclick&#58; javascript; src&#58; http, https</span>. For unspecified attributes, <span class="term">data</span>, <span class="term">file</span>, <span class="term">http</span>, <span class="term">https</span>&#160;and <span class="term">javascript</span>&#160;are permitted. This can be changed by passing schemes for <span class="term">&#42;</span>&#160;in <span class="term">$config["schemes"]</span>. E.g., <span class="term">href&#58; mailto, http, https; &#42;&#58; https, https</span>.<br />
 <br />
@@ -1394,8 +1437,6 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; As a side-note, one may find <span class="term">style&#58; &#42;</span>&#160;useful as URLs in <span class="term">style</span>&#160;attributes can be specified in a variety of ways, and the patterns that htmLawed uses to identify URLs may mistakenly identify non-URL text.<br />
 <br />
 &#160; <span class="term">!</span>&#160;can be put in the list of schemes to disallow all protocols as well as <em>local</em>&#160;URLs. Thus, with <span class="term">href&#58; http, style&#58; !</span>, <span class="term">&lt;a href="http&#58;//cnn.com" style="background-image&#58; url(local.jpg);"&gt;CNN&lt;/a&gt;</span>&#160;will become <span class="term">&lt;a href="http&#58;//cnn.com" style="background-image&#58; url(denied&#58;local.jpg);"&gt;CNN&lt;/a&gt;</span><br />
-<br />
-&#160; <strong>Note</strong>: If URL-accepting attributes other than those listed above are being allowed, then the scheme will not be checked unless the attribute name contains the string <span class="term">src</span>&#160;(e.g., <span class="term">dynsrc</span>) or starts with <span class="term">o</span>&#160;(e.g., <span class="term">onbeforecopy</span>).<br />
 <br />
 &#160; With <span class="term">$config["safe"] = 1</span>, all URLs are disallowed in the <span class="term">style</span>&#160;attribute values.<br />
 
@@ -1606,11 +1647,9 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s3.4.9" id="s3.4.9"></a><span class="item-no">3.4.9</span>&#160; Hook function for tag content
 </h4><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; It is possible to utilize a custom hook function to alter the tag content htmLawed has finalized (i.e., after it has checked/corrected for required attributes, transformed attributes, lower-cased attribute names, etc.).<br />
+&#160; It is possible to utilize a custom hook function to alter the tag content htmLawed has finalized (i.e., after it has checked/corrected for required attributes, transformed attributes, lower-cased attribute names, etc.). The function should have two arguments, the first receiving an element name and the second receiving either <span class="term">0</span>&#160;(in case of a closing tag) or an array of attribute name-value pairs (opening tag). It should return a string &#160;with full HTM markup, either an opening or a closing tag with element name and any string of attributes.<br />
 <br />
-&#160; When <span class="term">$config</span>&#160;parameter <span class="term">hook_tag</span>&#160;is set to the name of a function, htmLawed (function <span class="term">hl_tag()</span>) will pass on the element name, and the <em>finalized</em>&#160;attribute name-value pairs as array elements to the function. The function, after completing a task such as filtering or tag transformation, will typically return an empty string, the full opening tag string like <span class="term">&lt;element_name attribute_1_name="attribute_1_value"...&gt;</span>&#160;(for empty elements like <span class="term">img</span>&#160;and <span class="term">input</span>, the element-closing slash <span class="term">/</span>&#160;should also be included), etc.<br />
-<br />
-&#160; Any <span class="term">hook_tag</span>&#160;function, since htmLawed version 1.1.11, also receives names of elements in closing tags, such as <span class="term">a</span>&#160;in the closing <span class="term">&lt;/a&gt;</span>&#160;tag of the element <span class="term">&lt;a href="http&#58;//cnn.com"&gt;CNN&lt;/a&gt;</span>. No other value is passed to the function since a closing tag contains only element names. Typically, the function will return an empty string or a full closing tag (like <span class="term">&lt;/a&gt;</span>).<br />
+&#160; When <span class="term">$config</span>&#160;parameter <span class="term">hook_tag</span>&#160;is set to the name of a function or class method, htmLawed (function <span class="term">hl_tag()</span>) will pass on the element name, and the <em>finalized</em>&#160;attribute name-value pairs as array elements to the function. The function, after completing a task such as filtering or tag transformation, will typically return an empty string, the full opening tag string like <span class="term">&lt;element_name attribute_1_name="attribute_1_value"...&gt;</span>&#160;(for empty elements like <span class="term">img</span>&#160;and <span class="term">input</span>, the element-closing slash <span class="term">/</span>&#160;should also be included), etc.<br />
 <br />
 &#160; This is a <strong>powerful functionality</strong>&#160;that can be exploited for various objectives: consolidate-and-convert inline <span class="term">style</span>&#160;attributes to <span class="term">class</span>, convert <span class="term">embed</span>&#160;elements to <span class="term">object</span>, permit only one <span class="term">caption</span>&#160;element in a <span class="term">table</span>&#160;element, disallow embedding of certain types of media, <strong>inject HTML</strong>, use <a href="http://csstidy.sourceforge.net">CSSTidy</a>&#160;to sanitize <span class="term">style</span>&#160;attribute values, etc.<br />
 <br />
@@ -1705,7 +1744,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; The <span class="term">hook_tag</span>&#160;parameter is different from the <span class="term">hook</span>&#160;parameter (<a href="#s3.7">section 3.7</a>).<br />
 <br />
-&#160; Snippets of hook function code developed by others may be available on the <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">htmLawed</a>&#160;website.<br />
+&#160; Snippets of hook function code developed by others may be available on the <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">htmLawed</a>&#160;website.<br />
 
 </div>
 <div class="sub-section"><h3>
@@ -1733,13 +1772,13 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <code class="code">&#160; &#160; deny_attribute - on&#42;</code>
 <br />
 
-<code class="code">&#160; &#160; elements - &#42; -applet -audio -canvas -embed -iframe -object -script -video</code>
+<code class="code">&#160; &#160; elements - &#42; -applet -audio -canvas -dialog -embed -iframe -object -script -video</code>
 <br />
 
 <code class="code">&#160; &#160; schemes - href&#58; aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet; style&#58; !; &#42;&#58;file, http, https</code>
 <br />
 <br />
-&#160; With <span class="term">safe</span>&#160;set to <span class="term">1</span>, htmLawed considers <span class="term">CDATA</span>&#160;sections and HTML comments as plain text, and prohibits the <span class="term">applet</span>, <span class="term">audio</span>, <span class="term">canvas</span>, <span class="term">embed</span>, <span class="term">iframe</span>, <span class="term">object</span>, <span class="term">script</span>&#160;and <span class="term">video</span>&#160;elements, and the <span class="term">on&#42;</span>&#160;attributes like <span class="term">onclick</span>. ( There are <span class="term">$config</span>&#160;parameters like <span class="term">css_expression</span>&#160;that are not affected by the value set for <span class="term">safe</span>&#160;but whose default values still contribute towards a more <em>safe</em>&#160;output.) Further, unless overridden by the value for parameter <span class="term">schemes</span>&#160;(see <a href="#s3.4.3">section 3.4.3</a>), the schemes <span class="term">app</span>, <span class="term">data</span>&#160;and <span class="term">javascript</span>&#160;are not permitted, and URLs with schemes are neutralized so that, e.g., <span class="term">style="moz-binding&#58;url(http&#58;//danger)"</span>&#160;becomes <span class="term">style="moz-binding&#58;url(denied&#58;http&#58;//danger)"</span>.<br />
+&#160; With <span class="term">safe</span>&#160;set to <span class="term">1</span>, htmLawed considers <span class="term">CDATA</span>&#160;sections and HTML comments as plain text, and prohibits the <span class="term">applet</span>, <span class="term">audio</span>, <span class="term">canvas</span>, <span class="term">dialog</span>, <span class="term">embed</span>, <span class="term">iframe</span>, <span class="term">object</span>, <span class="term">script</span>&#160;and <span class="term">video</span>&#160;elements, and the <span class="term">on&#42;</span>&#160;attributes like <span class="term">onclick</span>. ( There are <span class="term">$config</span>&#160;parameters like <span class="term">css_expression</span>&#160;that are not affected by the value set for <span class="term">safe</span>&#160;but whose default values still contribute towards a more <em>safe</em>&#160;output.) Further, unless overridden by the value for parameter <span class="term">schemes</span>&#160;(see <a href="#s3.4.3">section 3.4.3</a>), the schemes <span class="term">app</span>, <span class="term">data</span>&#160;and <span class="term">javascript</span>&#160;are not permitted, and URLs with schemes are neutralized so that, e.g., <span class="term">style="moz-binding&#58;url(http&#58;//danger)"</span>&#160;becomes <span class="term">style="moz-binding&#58;url(denied&#58;http&#58;//danger)"</span>.<br />
 <br />
 &#160; Admins, however, may still want to completely deny the <span class="term">style</span>&#160;attribute, e.g., with code like<br />
 <br />
@@ -1751,27 +1790,27 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; If a value for a parameter auto-set through <span class="term">safe</span>&#160;is still manually provided, then that value can over-ride the auto-set value. E.g., with <span class="term">$config["safe"] = 1</span>&#160;and <span class="term">$config["elements"] = "&#42; +script"</span>, <span class="term">script</span>, but not <span class="term">applet</span>, is allowed. Such over-ride does not occur for <span class="term">deny_attribute</span>&#160;(for legacy reason) when comma-separated attribute names are provided as the value for this parameter (<a href="#s3.4">section 3.4</a>); instead htmLawed will add <span class="term">on&#42;</span>&#160;to the value provided for <span class="term">deny_attribute</span>.<br />
 <br />
-&#160; A page illustrating the efficacy of htmLawed's anti-XSS abilities with <span class="term">safe</span>&#160;set to <span class="term">1</span>&#160;against XSS vectors listed by <a href="http://ha.ckers.org/xss.html">RSnake</a>&#160;may be available <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/rsnake/RSnakeXSSTest.htm">here</a>.<br />
+&#160; A page illustrating the efficacy of htmLawed's anti-XSS abilities with <span class="term">safe</span>&#160;set to <span class="term">1</span>&#160;against XSS vectors listed by <a href="http://ha.ckers.org/xss.html">RSnake</a>&#160;may be available <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed/rsnake/RSnakeXSSTest.htm">here</a>.<br />
 
 </div>
 <div class="sub-section"><h3>
 <a name="s3.7" id="s3.7"></a><span class="item-no">3.7</span>&#160; Using a hook function
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; If <span class="term">$config["hook"]</span>&#160;is not set to <span class="term">0</span>, then htmLawed will allow preliminarily processed input to be altered by a hook function named by <span class="term">$config["hook"]</span>&#160;before starting the main work (but after handling of characters, entities, HTML comments and <span class="term">CDATA</span>&#160;sections -- see code for function <span class="term">htmLawed()</span>).<br />
+&#160; If <span class="term">$config["hook"]</span>&#160;is not set to <span class="term">0</span>, then htmLawed will allow preliminarily processed input to be altered by a function or class method named by <span class="term">$config["hook"]</span>&#160;before starting the main work (but after handling of characters, entities, HTML comments and <span class="term">CDATA</span>&#160;sections -- see code for function <span class="term">htmLawed()</span>). The function should have three arguments – the processed input string, and the finalized <span class="term">$config</span>&#160;and <span class="term">$spec</span>&#160;arrays, in order – and it should return the string after any manipulation.<br />
 <br />
 &#160; The hook function also allows one to alter the <em>finalized</em>&#160;values of <span class="term">$config</span>&#160;and <span class="term">$spec</span>.<br />
 <br />
 &#160; Note that the <span class="term">hook</span>&#160;parameter is different from the <span class="term">hook_tag</span>&#160;parameter (<a href="#s3.4.9">section 3.4.9</a>).<br />
 <br />
-&#160; Snippets of hook function code developed by others may be available on the <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">htmLawed</a>&#160;website.<br />
+&#160; Snippets of hook function code developed by others may be available on the <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">htmLawed</a>&#160;website.<br />
 
 </div>
 <div class="sub-section"><h3>
 <a name="s3.8" id="s3.8"></a><span class="item-no">3.8</span>&#160; Obtaining <em>finalized</em>&#160;parameter values
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; htmLawed can assign the <em>finalized</em>&#160;<span class="term">$config</span>&#160;and <span class="term">$spec</span>&#160;values to a variable named by <span class="term">$config["show_setting"]</span>. The variable, made global by htmLawed, is set as an array with three keys: <span class="term">config</span>, with the <span class="term">$config</span>&#160;value, <span class="term">spec</span>, with the <span class="term">$spec</span>&#160;value, and <span class="term">time</span>, with a value that is the Unix time (the output of PHP's <span class="term">microtime()</span>&#160;function) when the value was assigned. Admins should use a PHP-compliant variable name (e.g., one that does not begin with a numerical digit) that does not conflict with variable names in their non-htmLawed code.<br />
+&#160; htmLawed can assign the <em>finalized</em>&#160;<span class="term">$config</span>&#160;and <span class="term">$spec</span>&#160;values to a variable named by <span class="term">$config["show_setting"]</span>. The variable, made global by htmLawed, is set as an array with four keys: <span class="term">config</span>, with the <span class="term">$config</span>&#160;value, <span class="term">spec</span>, with the <span class="term">$spec</span>&#160;value, <span class="term">time</span>, with a value that is the Unix time (the output of PHP's <span class="term">microtime</span>&#160;function) when htmLawed completed filtering, and <span class="term">version</span>, with htmLawed version. Admins should use a PHP-compliant variable name (e.g., one that does not begin with a numerical digit) that does not conflict with variable names in their non-htmLawed code.<br />
 <br />
 &#160; The values, which are also post-hook function (if any), can be used to auto-generate information (on, e.g., the elements that are permitted) for input writers.<br />
 
@@ -1809,7 +1848,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s4.1" id="s4.1"></a><span class="item-no">4.1</span>&#160; Support
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; Software updates and forum-based community-support may be found at <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed</a>. For general PHP issues (not htmLawed-specific), support may be found through internet searches and at <a href="http://php.net">http://php.net</a>.<br />
+&#160; Software updates and forum-based community-support may be found at <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">https://bioinformatics.org/phplabware/internal_utilities/htmLawed</a>.<br />
 
 </div>
 <div class="sub-section"><h3>
@@ -1826,6 +1865,14 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; (The release date for the downloadable package of files containing documentation, demo script, test-cases, etc., besides the <span class="term">htmLawed.php</span>&#160;file, may be updated without a change-log entry if the secondary files, but not htmLawed per se, are revised.)<br />
 <br />
 &#160; <em>Version number - Release date. Notes</em><br />
+<br />
+&#160; 1.2.10 - 5 November 2022. Class methods can now be specified as <span class="term">$config</span>&#160;<span class="term">hook</span>&#160;and <span class="term">hook_tag</span>&#160;functions; corrects a PHP notice if <span class="term">$config["schemes"]</span>&#160;mistakenly lacks colons.<br />
+<br />
+&#160; 1.2.9 - 2 July 2022. Improves parsing of <span class="term">$config["deny_attribute"]</span>&#160;to permit spaces flanking comma characters and allow references to sets of all ARIA, data-* and event attributes; fixes parsing of <span class="term">$spec</span>&#160;for data-* attribute rules; now permits use of <span class="term">aria&#42;</span>, <span class="term">data&#42;</span>, and <span class="term">on&#42;</span>&#160;in <span class="term">$spec</span>; now covers all named HTML entities of current standard specification (this increased htmLawed code size by ~40%); recognizes that closing tag may be omitted for <span class="term">caption</span>, <span class="term">optgroup</span>, <span class="term">rp</span>, <span class="term">rt</span>, and <span class="term">tbody</span>&#160;as well; recognizes that <span class="term">archive</span>&#160;and <span class="term">poster</span>&#160;attribute values can have URLs, which can be multiple; recognizes <span class="term">onloadend</span>&#160;as global attribute; renames some internal functions; improved standards-compliance for element nesting.<br />
+<br />
+&#160; 1.2.8 - 6 June 2022. Fixes incorrect formatting of HTML comments when <span class="term">$config["comment"]</span>&#160;= 4; fixes misreading of entity-fied colon characters in <span class="term">style</span>&#160;attribute values; <span class="term">$config["show_setting"]</span>&#160;now includes htmLawed version; improved PHP 8.2 code compatibility, and readability<br />
+<br />
+&#160; 1.2.7 - 10 April 2022. Support for elements <span class="term">dialog</span>, <span class="term">picture</span>, <span class="term">slot</span>, and <span class="term">template</span>; support for custom HTML elements; support for global attributes <span class="term">autocapitalize</span>, <span class="term">autofocus</span>, <span class="term">enterkeyhint</span>, <span class="term">inputmode</span>, <span class="term">is</span>, and <span class="term">nonce</span>; support for 17 additional ARIA and 11 additional on* event handler attributes; support for attributes with names not beginning with a-z; fix for a minor bug arising during deprecated height/weight attribute transformation<br />
 <br />
 &#160; 1.2.6 - 4 September 2021. Fixes a bug that arises when <span class="term">$config["deny_attribute"]</span>&#160;has a <span class="term">data-&#42;</span>&#160;attribute with &gt; 1 hyphen character<br />
 <br />
@@ -1915,7 +1962,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; 1.0.2 - 13 February 2008. Improved implementation of <span class="term">$config["keep_bad"]</span><br />
 <br />
-&#160; 1.0.1 - 7 November 2007. Improved regex for identifying URLs, protocols and dynamic expressions (<span class="term">hl_tag()</span>&#160;and <span class="term">hl_prot()</span>); no error display with <span class="term">hl_regex()</span><br />
+&#160; 1.0.1 - 7 November 2007. Improved regex for identifying URLs, protocols and dynamic expressions; no error display during regex testing<br />
 <br />
 &#160; 1.0 - 2 November 2007. First release<br />
 
@@ -1941,14 +1988,14 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; (3) From version older than 1.2 to later, if htmLawed is used without <span class="term">$config["safe"]</span>&#160;set to 1: Unlike previous versions, htmLawed version 1.2 and later permit <span class="term">data</span>&#160;and <span class="term">javascript</span>&#160;URL schemes by default (see <a href="#s3.4.3">section 3.4.3</a>).<br />
 <br />
-&#160; Old versions of htmLawed may be available online. E.g., for version 1.0, check <a href="http://www.bioinformatics.org/phplabware/downloads/htmLawed1.zip">http://www.bioinformatics.org/phplabware/downloads/htmLawed1.zip</a>; for 1.1.1, <a href="http://www.bioinformatics.org/phplabware/downloads/htmLawed111.zip">http://www.bioinformatics.org/phplabware/downloads/htmLawed111.zip</a>; and for 1.1.22, <a href="http://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip">http://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip</a>.<br />
+&#160; Old versions of htmLawed may be available online. E.g., for version 1.0, check <a href="https://bioinformatics.org/phplabware/downloads/htmLawed1.zip">https://bioinformatics.org/phplabware/downloads/htmLawed1.zip</a>; for 1.1.1, <a href="https://bioinformatics.org/phplabware/downloads/htmLawed111.zip">https://bioinformatics.org/phplabware/downloads/htmLawed111.zip</a>; and for 1.1.22, <a href="https://bioinformatics.org/phplabware/downloads/htmLawed1122.zip">https://bioinformatics.org/phplabware/downloads/htmLawed1122.zip</a>.<br />
 
 </div>
 <div class="sub-section"><h3>
 <a name="s4.6" id="s4.6"></a><span class="item-no">4.6</span>&#160; Comparison with <span class="term">HTMLPurifier</span>
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; The HTMLPurifier PHP library by Edward Yang is a very good HTML filtering script that uses object oriented PHP code. Compared to htmLawed, it (as of year 2015):<br />
+&#160; The <a href="http://htmlpurifier.org">HTMLPurifier</a>&#160;PHP library by Edward Yang is a good HTML filtering script that uses object-oriented PHP code. Compared to htmLawed, as of year 2015, HTMLPurifier:<br />
 <br />
 &#160; * &#160;does not support PHP versions older than 5.0 (HTMLPurifier dropped PHP 4 support after version 2)<br />
 <br />
@@ -1956,27 +2003,29 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; * &#160;consumes 10-15 times more RAM memory (just including the HTMLPurifier files without calling the filter requires a few MBs of memory)<br />
 <br />
-&#160; * &#160;is expectedly slower<br />
+&#160; * &#160;is expectedly considerably slower<br />
 <br />
 &#160; * &#160;lacks many of the extra features of htmLawed (like entity conversions and code compaction/beautification)<br />
 <br />
 &#160; * &#160;has poor documentation<br />
 <br />
-&#160; However, HTMLPurifier has finer checks for character encodings and attribute values, and can log warnings and errors. Visit the HTMLPurifier <a href="http://htmlpurifier.org">website</a>&#160;for updated information.<br />
+&#160; * &#160;may have finer checks for character encodings and attribute values<br />
+<br />
+&#160; * &#160;can log warnings and errors<br />
 
 </div>
 <div class="sub-section"><h3>
 <a name="s4.7" id="s4.7"></a><span class="item-no">4.7</span>&#160; Use through application plug-ins/modules
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; Plug-ins/modules to implement htmLawed in applications such as Drupal may have been developed. Check the application websites and the htmLawed <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">forum</a>.<br />
+&#160; Plug-ins/modules to implement htmLawed in applications such as Drupal may have been developed. Check the application websites and the htmLawed <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">forum</a>.<br />
 
 </div>
 <div class="sub-section"><h3>
 <a name="s4.8" id="s4.8"></a><span class="item-no">4.8</span>&#160; Use in non-PHP applications
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; Non-PHP applications written in Python, Ruby, etc., may be able to use htmLawed through system calls to the PHP engine. Such code may have been documented on the internet. Also check the forum on the htmLawed <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">site</a>.<br />
+&#160; Non-PHP applications written in Python, Ruby, etc., may be able to use htmLawed through system calls to the PHP engine. Such code may have been documented on the internet. Also check the forum on the htmLawed <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">site</a>.<br />
 
 </div>
 <div class="sub-section"><h3>
@@ -1990,7 +2039,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s4.10" id="s4.10"></a><span class="item-no">4.10</span>&#160; Acknowledgements
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Alexandre Chouinard, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, Edward Yang, and many anonymous users.<br />
+&#160; Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Michael Butler, Dac Chartrand, Alexandre Chouinard, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Hideki Mitsuda, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, walrusmoose, Edward Yang, and many others.<br />
 <br />
 &#160; Thank you!<br />
 
@@ -2012,11 +2061,11 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s5.2" id="s5.2"></a><span class="item-no">5.2</span>&#160; Valid attribute-element combinations
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; * &#160;includes deprecated attributes (marked <span class="term">^</span>), attributes for microdata (marked <span class="term">&#42;</span>), the non-standard <span class="term">bordercolor</span>, and new-in-HTML5 attributes (marked <span class="term">~</span>); can have multiple comma-separated values (marked <span class="term">%</span>); can have multiple space-separated values (marked <span class="term">$</span>)<br />
+&#160; * &#160;includes deprecated attributes (marked <span class="term">^</span>), attributes for microdata (marked <span class="term">&#42;</span>), some non-standard attributes for <span class="term">embed</span>&#160;(marked <span class="term">&#42;&#42;</span>), and the non-standard <span class="term">bordercolor</span>; can have multiple comma-separated values (marked <span class="term">%</span>); can have multiple space-separated values (marked <span class="term">$</span>)<br />
 &#160; * &#160;only non-frameset, HTML body elements<br />
 &#160; * &#160;<span class="term">name</span>&#160;for <span class="term">a</span>&#160;and <span class="term">map</span>, and <span class="term">lang</span>&#160;are invalid in XHTML 1.1<br />
-&#160; * &#160;<span class="term">target</span>&#160;is valid for <span class="term">a</span>&#160;in XHTML 1.1 and higher<br />
 &#160; * &#160;<span class="term">xml&#58;space</span>&#160;is only for XHTML 1.1<br />
+&#160; * &#160;excludes data-* and author-specified, non-standard attributes of custom elements<br />
 <br />
 &#160; abbr - td, th<br />
 &#160; accept - form, input<br />
@@ -2026,17 +2075,17 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; allowfullscreen - iframe<br />
 &#160; alt - applet, area, img, input<br />
 &#160; archive - applet, object<br />
-&#160; async~ - script<br />
-&#160; autocomplete~ - input<br />
-&#160; autofocus~ - button, input, keygen, select, textarea<br />
-&#160; autoplay~ - audio, video<br />
+&#160; async - script<br />
+&#160; autocomplete - input<br />
+&#160; autofocus - button, input, keygen, select, textarea<br />
+&#160; autoplay - audio, video<br />
 &#160; axis - td, th<br />
 &#160; bgcolor - embed, table^, td^, th^, tr^<br />
 &#160; border - img, object^, table<br />
 &#160; bordercolor - table, td, tr<br />
 &#160; cellpadding - table<br />
 &#160; cellspacing - table<br />
-&#160; challenge~ - keygen<br />
+&#160; challenge - keygen<br />
 &#160; char - col, colgroup, tbody, td, tfoot, th, thead, tr<br />
 &#160; charoff - col, colgroup, tbody, td, tfoot, th, thead, tr<br />
 &#160; charset - a, script<br />
@@ -2052,94 +2101,94 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; colspan - td, th<br />
 &#160; compact - dir, dl^, menu, ol^, ul^<br />
 &#160; content - meta<br />
-&#160; controls~ - audio, video<br />
+&#160; controls - audio, video<br />
 &#160; coords - area, a<br />
-&#160; crossorigin~ - img<br />
+&#160; crossorigin - img<br />
 &#160; data - object<br />
 &#160; datetime - del, ins, time<br />
 &#160; declare - object<br />
-&#160; default~ - track<br />
+&#160; default - track<br />
 &#160; defer - script<br />
 &#160; dir - bdo<br />
-&#160; dirname~ - input, textarea<br />
+&#160; dirname - input, textarea<br />
 &#160; disabled - button, command, fieldset, input, keygen, optgroup, option, select, textarea<br />
-&#160; download~ - a<br />
+&#160; download - a<br />
 &#160; enctype - form<br />
 &#160; face - font<br />
 &#160; flashvars** - embed<br />
 &#160; for - label, output<br />
-&#160; form~ - button, fieldset, input, keygen, label, object, output, select, textarea<br />
-&#160; formaction~ - button, input<br />
-&#160; formenctype~ - button, input<br />
-&#160; formmethod~ - button, input<br />
-&#160; formnovalidate~ - button, input<br />
-&#160; formtarget~ - button, input<br />
+&#160; form - button, fieldset, input, keygen, label, object, output, select, textarea<br />
+&#160; formaction - button, input<br />
+&#160; formenctype - button, input<br />
+&#160; formmethod - button, input<br />
+&#160; formnovalidate - button, input<br />
+&#160; formtarget - button, input<br />
 &#160; frame - table<br />
 &#160; frameborder - iframe<br />
 &#160; headers - td, th<br />
 &#160; height - applet, canvas, embed, iframe, img, input, object, td^, th^, video<br />
-&#160; high~ - meter<br />
+&#160; high - meter<br />
 &#160; href - a, area, link<br />
 &#160; hreflang - a, area, link<br />
 &#160; hspace - applet, embed, img^, object^<br />
-&#160; icon~ - command<br />
+&#160; icon - command<br />
 &#160; ismap - img, input<br />
-&#160; keytype~ - keygen<br />
-&#160; keyparams~ - keygen<br />
-&#160; kind~ - track<br />
+&#160; keytype - keygen<br />
+&#160; keyparams - keygen<br />
+&#160; kind - track<br />
 &#160; label - command, menu, option, optgroup, track<br />
 &#160; language - script^<br />
-&#160; list~ - input<br />
+&#160; list - input<br />
 &#160; longdesc - img, iframe<br />
-&#160; loop~ - audio, video<br />
-&#160; low~ - meter<br />
+&#160; loop - audio, video<br />
+&#160; low - meter<br />
 &#160; marginheight - iframe<br />
 &#160; marginwidth - iframe<br />
-&#160; max~ - input, meter, progress<br />
+&#160; max - input, meter, progress<br />
 &#160; maxlength - input, textarea<br />
-&#160; media~ - a, area, link, source, style<br />
-&#160; mediagroup~ - audio, video<br />
+&#160; media - a, area, link, source, style<br />
+&#160; mediagroup - audio, video<br />
 &#160; method - form<br />
-&#160; min~ - input, meter<br />
+&#160; min - input, meter<br />
 &#160; model** - embed<br />
 &#160; multiple - input, select<br />
-&#160; muted~ - audio, video<br />
-&#160; name - a^, applet^, button, embed, fieldset, form^, iframe^, img^, input, keygen, map^, object, output, param, select, textarea<br />
+&#160; muted - audio, video<br />
+&#160; name - a^, applet^, button, embed, fieldset, form^, iframe^, img^, input, keygen, map^, object, output, param, select, slot, textarea<br />
 &#160; nohref - area<br />
 &#160; noshade - hr^<br />
-&#160; novalidate~ - form<br />
+&#160; novalidate - form<br />
 &#160; nowrap - td^, th^<br />
 &#160; object - applet<br />
-&#160; open~ - details<br />
-&#160; optimum~ - meter<br />
-&#160; pattern~ - input<br />
-&#160; ping~ - a, area<br />
-&#160; placeholder~ - input, textarea<br />
+&#160; open - details, dialog<br />
+&#160; optimum - meter<br />
+&#160; pattern - input<br />
+&#160; ping - a, area<br />
+&#160; placeholder - input, textarea<br />
 &#160; pluginspage** - embed<br />
 &#160; pluginurl** - embed<br />
-&#160; poster~ - video<br />
-&#160; pqg~ - keygen<br />
-&#160; preload~ - audio, video<br />
+&#160; poster - video<br />
+&#160; pqg - keygen<br />
+&#160; preload - audio, video<br />
 &#160; prompt - isindex<br />
-&#160; pubdate~ - time<br />
+&#160; pubdate - time<br />
 &#160; radiogroup* - command<br />
 &#160; readonly - input, textarea<br />
-&#160; required~ - input, select, textarea<br />
+&#160; required - input, select, textarea<br />
 &#160; rel$ - a, area, link<br />
 &#160; rev - a<br />
-&#160; reversed~ - old<br />
+&#160; reversed - old<br />
 &#160; rows - textarea<br />
 &#160; rowspan - td, th<br />
 &#160; rules - table<br />
-&#160; sandbox~ - iframe<br />
+&#160; sandbox - iframe<br />
 &#160; scope - td, th<br />
-&#160; scoped~ - style<br />
+&#160; scoped - style<br />
 &#160; scrolling - iframe<br />
-&#160; seamless~ - iframe<br />
+&#160; seamless - iframe<br />
 &#160; selected - option<br />
 &#160; shape - area, a<br />
 &#160; size - font, hr^, input, select<br />
-&#160; sizes~ - link<br />
+&#160; sizes - link<br />
 &#160; span - col, colgroup<br />
 &#160; src - audio, embed, iframe, img, input, script, source, track, video<br />
 &#160; srcdoc~ - iframe<br />
@@ -2163,7 +2212,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; The following attributes, including event-specific ones and attributes of ARIA and microdata specifications, are considered global and allowed in all elements:<br />
 <br />
-&#160; accesskey, aria-activedescendant, aria-atomic, aria-autocomplete, aria-busy, aria-checked, aria-controls, aria-describedby, aria-disabled, aria-dropeffect, aria-expanded, aria-flowto, aria-grabbed, aria-haspopup, aria-hidden, aria-invalid, aria-label, aria-labelledby, aria-level, aria-live, aria-multiline, aria-multiselectable, aria-orientation, aria-owns, aria-posinset, aria-pressed, aria-readonly, aria-relevant, aria-required, aria-selected, aria-setsize, aria-sort, aria-valuemax, aria-valuemin, aria-valuenow, aria-valuetext, class$, contenteditable, contextmenu, dir, draggable, dropzone, hidden, id, inert, itemid, itemprop, itemref, itemscope, itemtype, lang, onabort, onblur, oncanplay, oncanplaythrough, onchange, onclick, oncontextmenu, oncopy, oncuechange, oncut, ondblclick, ondrag, ondragend, ondragenter, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, onformchange, onforminput, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadstart, onlostpointercapture, onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpaste, onpause, onplay, onplaying, onpointercancel, ongotpointercapture, onpointerdown, onpointerenter, onpointerleave, onpointermove, onpointerout, onpointerover, onpointerup, onprogress, onratechange, onreadystatechange, onreset, onsearch, onscroll, onseeked, onseeking, onselect, onshow, onstalled, onsubmit, onsuspend, ontimeupdate, ontoggle, ontouchcancel, ontouchend, ontouchmove, ontouchstart, onvolumechange, onwaiting, onwheel, role, spellcheck, style, tabindex, title, translate, xmlns, xml:base, xml:lang, xml:space<br />
+&#160; accesskey, autocapitalize, autofocus, aria-activedescendant, aria-atomic, aria-autocomplete, aria-braillelabel, aria-brailleroledescription, aria-busy, aria-checked, aria-colcount, aria-colindex, aria-colindextext, aria-colspan, aria-controls, aria-current, aria-describedby, aria-description, aria-details, aria-disabled, aria-dropeffect, aria-errormessage, aria-expanded, aria-flowto, aria-grabbed, aria-haspopup, aria-hidden, aria-invalid, aria-keyshortcuts, aria-label, aria-labelledby, aria-level, aria-live, aria-multiline, aria-multiselectable, aria-orientation, aria-owns, aria-placeholder, aria-posinset, aria-pressed, aria-readonly, aria-relevant, aria-required, aria-roledescription, aria-rowcount, aria-rowindex, aria-rowindextext, aria-rowspan, aria-selected, aria-setsize, aria-sort, aria-valuemax, aria-valuemin, aria-valuenow, aria-valuetext, class, contenteditable, contextmenu, dir, draggable, dropzone, enterkeyhint, hidden, id, inert, inputmode, is, itemid, itemprop, itemref, itemscope, itemtype, lang, nonce, onabort, onblur, oncanplay, oncanplaythrough, onchange, onclick, oncontextmenu, oncopy, oncuechange, oncut, ondblclick, ondrag, ondragend, ondragenter, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, onformchange, onforminput, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadend, onloadstart, onlostpointercapture, onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpaste, onpause, onplay, onplaying, onpointercancel, ongotpointercapture, onpointerdown, onpointerenter, onpointerleave, onpointermove, onpointerout, onpointerover, onpointerup, onprogress, onratechange, onreadystatechange, onreset, onsearch, onscroll, onseeked, onseeking, onselect, onshow, onstalled, onsubmit, onsuspend, ontimeupdate, ontoggle, ontouchcancel, ontouchend, ontouchmove, ontouchstart, onvolumechange, onwaiting, onwheel, onauxclick, oncancel, onclose, oncontextlost, oncontextrestored, onformdata, onmouseenter, onmouseleave, onresize, onsecuritypolicyviolation, onslotchange, role, slot, spellcheck, style, tabindex, title, translate, xmlns, xml:base, xml:lang, xml:space<br />
 <br />
 &#160; Custom <em>data-*</em>&#160;attributes, where the first three characters of the value of <em>star</em>&#160;(*) after lower-casing do not equal <span class="term">xml</span>&#160;and the value of <em>star</em>&#160;does not have a colon (:), equal-to (=), newline, solidus (/), space, tab, or any A-Z character, are also considered global and allowed in all elements.<br />
 
@@ -2261,22 +2310,22 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; Except for the main <span class="term">htmLawed()</span>&#160;function, htmLawed's functions are <strong>name-spaced</strong>&#160;using the <span class="term">hl_</span>&#160;prefix. The <strong>functions</strong>&#160;and their roles are:<br />
 <br />
-&#160; * &#160;<span class="term">hl_attrval</span>&#160;- check attribute values against <span class="term">$spec</span><br />
-&#160; * &#160;<span class="term">hl_bal</span>&#160;- balance tags and ensure proper nesting<br />
-&#160; * &#160;<span class="term">hl_cmtcd</span>&#160;- handle CDATA sections and HTML comments<br />
-&#160; * &#160;<span class="term">hl_ent</span>&#160;- handle character entities<br />
-&#160; * &#160;<span class="term">hl_prot</span>&#160;- check a URL scheme/protocol<br />
+&#160; * &#160;<span class="term">hl_attributeValue</span>&#160;- check attribute values against <span class="term">$spec</span>&#160;rules<br />
+&#160; * &#160;<span class="term">hl_balance</span>&#160;- balance tags and ensure proper nesting<br />
+&#160; * &#160;<span class="term">hl_commentCdata</span>&#160;- handle CDATA sections and HTML comments<br />
+&#160; * &#160;<span class="term">hl_deprecatedElement</span>&#160;- transform element tags<br />
+&#160; * &#160;<span class="term">hl_entity</span>&#160;- handle character entities<br />
 &#160; * &#160;<span class="term">hl_regex</span>&#160;- check syntax of a regular expression<br />
-&#160; * &#160;<span class="term">hl_spec</span>&#160;- convert user-supplied <span class="term">$spec</span>&#160;value to one used internally<br />
+&#160; * &#160;<span class="term">hl_spec</span>&#160;- convert <span class="term">$spec</span>&#160;value to one used internally<br />
 &#160; * &#160;<span class="term">hl_tag</span>&#160;- handle element tags and attributes<br />
-&#160; * &#160;<span class="term">hl_tag2</span>&#160;- transform element tags<br />
 &#160; * &#160;<span class="term">hl_tidy</span>&#160;- compact/beautify HTML<br />
+&#160; * &#160;<span class="term">hl_url</span>&#160;- check URL-containing values<br />
 &#160; * &#160;<span class="term">hl_version</span>&#160;- report htmLawed version<br />
 &#160; * &#160;<span class="term">htmLawed</span>&#160;- main function<br />
 <br />
-&#160; <span class="term">htmLawed()</span>&#160;finalizes <span class="term">$spec</span>&#160;(with the help of <span class="term">hl_spec()</span>) and <span class="term">$config</span>, and globalizes them. Finalization of <span class="term">$config</span>&#160;involves setting default values if an inappropriate or invalid one is supplied. This includes calling <span class="term">hl_regex()</span>&#160;to check well-formedness of regular expression patterns if such expressions are user-supplied through <span class="term">$config</span>. <span class="term">htmLawed()</span>&#160;then removes invalid characters like nulls and <span class="term">x01</span>&#160;and appropriately handles entities using <span class="term">hl_ent()</span>. HTML comments and CDATA sections are identified and treated as per <span class="term">$config</span>&#160;with the help of <span class="term">hl_cmtcd()</span>. When retained, the <span class="term">&lt;</span>&#160;and <span class="term">&gt;</span>&#160;characters identifying them, and the <span class="term">&lt;</span>, <span class="term">&gt;</span>&#160;and <span class="term">&amp;</span>&#160;characters inside them, are replaced with control characters (code-points <span class="term">1</span>&#160;to <span class="term">5</span>) till any tag balancing is completed.<br />
+&#160; <span class="term">htmLawed()</span>&#160;finalizes <span class="term">$spec</span>&#160;(with the help of <span class="term">hl_spec()</span>) and <span class="term">$config</span>, and globalizes them. Finalization of <span class="term">$config</span>&#160;involves setting default values if an inappropriate or invalid one is supplied. This includes calling <span class="term">hl_regex()</span>&#160;to check well-formedness of regular expression patterns if such expressions are user-supplied through <span class="term">$config</span>. <span class="term">htmLawed()</span>&#160;then removes invalid characters like nulls and <span class="term">x01</span>&#160;and appropriately handles entities using <span class="term">hl_entity()</span>. HTML comments and CDATA sections are identified and treated as per <span class="term">$config</span>&#160;with the help of <span class="term">hl_commentCdata()</span>. When retained, the <span class="term">&lt;</span>&#160;and <span class="term">&gt;</span>&#160;characters identifying them, and the <span class="term">&lt;</span>, <span class="term">&gt;</span>&#160;and <span class="term">&amp;</span>&#160;characters inside them, are replaced with control characters (code-points <span class="term">1</span>&#160;to <span class="term">5</span>) till any tag balancing is completed.<br />
 <br />
-&#160; After this <em>initial processing</em>&#160;<span class="term">htmLawed()</span>&#160;identifies tags using regex and processes them with the help of <span class="term">hl_tag()</span>&#160;-- &#160;a large function that analyzes tag content, filtering it as per HTML standards, <span class="term">$config</span>&#160;and <span class="term">$spec</span>. Among other things, <span class="term">hl_tag()</span>&#160;transforms deprecated elements using <span class="term">hl_tag2()</span>, removes attributes from closing tags, checks attribute values as per <span class="term">$spec</span>&#160;rules using <span class="term">hl_attrval()</span>, and checks URL protocols using <span class="term">hl_prot()</span>. <span class="term">htmLawed()</span>&#160;performs tag balancing and nesting checks with a call to <span class="term">hl_bal()</span>, and optionally compacts/beautifies the output with proper white-spacing with a call to <span class="term">hl_tidy()</span>. The latter temporarily replaces white-space, and <span class="term">&lt;</span>, <span class="term">&gt;</span>&#160;and <span class="term">&amp;</span>&#160;characters inside <span class="term">pre</span>, <span class="term">script</span>&#160;and <span class="term">textarea</span>&#160;elements, and HTML comments and CDATA sections with control characters (code-points <span class="term">1</span>&#160;to <span class="term">5</span>, and <span class="term">7</span>).<br />
+&#160; After this <em>initial processing</em>&#160;<span class="term">htmLawed()</span>&#160;identifies tags using regex and processes them with the help of <span class="term">hl_tag()</span>&#160;-- &#160;a large function that analyzes tag content, filtering it as per HTML standards, <span class="term">$config</span>&#160;and <span class="term">$spec</span>. Among other things, <span class="term">hl_tag()</span>&#160;transforms deprecated elements using <span class="term">hl_deprecatedElement()</span>, removes attributes from closing tags, checks attribute values as per <span class="term">$spec</span>&#160;rules using <span class="term">hl_attributeValue()</span>, and checks URL protocols using <span class="term">hl_url()</span>. <span class="term">htmLawed()</span>&#160;performs tag balancing and nesting checks with a call to <span class="term">hl_balance()</span>, and optionally compacts/beautifies the output with proper white-spacing with a call to <span class="term">hl_tidy()</span>. The latter temporarily replaces white-space, and <span class="term">&lt;</span>, <span class="term">&gt;</span>&#160;and <span class="term">&amp;</span>&#160;characters inside <span class="term">pre</span>, <span class="term">script</span>&#160;and <span class="term">textarea</span>&#160;elements, and HTML comments and CDATA sections with control characters (code-points <span class="term">1</span>&#160;to <span class="term">5</span>, and <span class="term">7</span>).<br />
 <br />
 &#160; htmLawed permits the use of custom code or <strong>hook functions</strong>&#160;at two stages. The first, called inside <span class="term">htmLawed()</span>, allows the input text as well as the finalized <span class="term">$config</span>&#160;and <span class="term">$spec</span>&#160;values to be altered right after the initial processing (see <a href="#s3.7">section 3.7</a>). The second is called by <span class="term">hl_tag()</span>&#160;once the tag content is finalized (see <a href="#s3.4.9">section 3.4.9</a>).<br />
 <br />
@@ -2284,7 +2333,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 </div>
 </div>
 <br />
-<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 03 Sep, 2021 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
+<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 06 Nov, 2022 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
 </div><!-- ended div body -->
 </div><!-- ended div top -->
 </body>
