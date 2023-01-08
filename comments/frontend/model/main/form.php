@@ -1334,7 +1334,7 @@ class MainFormModel extends Model
     /* Convert email links (non-BB code) to HTML */
     private function convertEmails($comment)
     {
-        $comment = preg_replace('/([_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,3})/im', '<a href="mailto:\\1" ' . $this->getLinkAttributes() . '>\\1</a>', $comment);
+        $comment = preg_replace('/(^|[\n ])([\w]*?)([_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,3})/im', '<a href="mailto:\\3" ' . $this->getLinkAttributes() . '>\\3</a>', $comment);
 
         return $comment;
     }
