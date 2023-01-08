@@ -1094,12 +1094,6 @@ img.loading {
     }
 }
 
-@media all and (max-width: 800px) {
-    .chart_block {
-        display: none;
-    }
-}
-
 @media all and (max-width: 750px) {
     .error_header {
         display: none;

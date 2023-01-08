@@ -3020,10 +3020,8 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 html {
-  line-height: 1.15;
-  /* 1 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
 }
 
 /* Sections
@@ -3058,12 +3056,9 @@ h1 {
  * 2. Show the overflow in Edge and IE.
  */
 hr {
-  box-sizing: content-box;
-  /* 1 */
-  height: 0;
-  /* 1 */
-  overflow: visible;
-  /* 2 */
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
 }
 
 /**
@@ -3071,10 +3066,8 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-  font-family: monospace, monospace;
-  /* 1 */
-  font-size: 1em;
-  /* 2 */
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
 }
 
 /* Text-level semantics
@@ -3091,13 +3084,10 @@ a {
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
 abbr[title] {
-  border-bottom: none;
-  /* 1 */
-  text-decoration: underline;
-  /* 2 */
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
   -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
-  /* 2 */
+          text-decoration: underline dotted; /* 2 */
 }
 
 /**
@@ -3115,10 +3105,8 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
-  /* 1 */
-  font-size: 1em;
-  /* 2 */
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
 }
 
 /**
@@ -3168,14 +3156,10 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit;
-  /* 1 */
-  font-size: 100%;
-  /* 1 */
-  line-height: 1.15;
-  /* 1 */
-  margin: 0;
-  /* 2 */
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
 }
 
 /**
@@ -3183,8 +3167,7 @@ textarea {
  * 1. Show the overflow in Edge.
  */
 button,
-input {
-  /* 1 */
+input { /* 1 */
   overflow: visible;
 }
 
@@ -3193,8 +3176,7 @@ input {
  * 1. Remove the inheritance of text transform in Firefox.
  */
 button,
-select {
-  /* 1 */
+select { /* 1 */
   text-transform: none;
 }
 
@@ -3243,18 +3225,12 @@ fieldset {
  *    `fieldset` elements in all browsers.
  */
 legend {
-  box-sizing: border-box;
-  /* 1 */
-  color: inherit;
-  /* 2 */
-  display: table;
-  /* 1 */
-  max-width: 100%;
-  /* 1 */
-  padding: 0;
-  /* 3 */
-  white-space: normal;
-  /* 1 */
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
 }
 
 /**
@@ -3277,10 +3253,8 @@ textarea {
  */
 [type=checkbox],
 [type=radio] {
-  box-sizing: border-box;
-  /* 1 */
-  padding: 0;
-  /* 2 */
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
 }
 
 /**
@@ -3296,10 +3270,8 @@ textarea {
  * 2. Correct the outline style in Safari.
  */
 [type=search] {
-  -webkit-appearance: textfield;
-  /* 1 */
-  outline-offset: -2px;
-  /* 2 */
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
 }
 
 /**
@@ -3314,10 +3286,8 @@ textarea {
  * 2. Change font properties to `inherit` in Safari.
  */
 ::-webkit-file-upload-button {
-  -webkit-appearance: button;
-  /* 1 */
-  font: inherit;
-  /* 2 */
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
 }
 
 /* Interactive
@@ -4398,11 +4368,9 @@ img.loading {
     float: none;
     width: 100%;
   }
-
   #edit_comment_page .right {
     width: 100%;
   }
-
   #edit_comment_page h2 {
     display: none;
   }
@@ -4412,48 +4380,35 @@ img.loading {
     float: none;
     width: 100%;
   }
-
   #main_dashboard_page .right {
     width: 100%;
   }
-
   #main_dashboard_page .news_block {
     height: auto;
   }
-
   #report_phpinfo_page .phpinfodisplay {
     margin-left: 0;
     width: 100%;
-  }
-}
-@media all and (max-width: 800px) {
-  .chart_block {
-    display: none;
   }
 }
 @media all and (max-width: 750px) {
   .error_header {
     display: none;
   }
-
   #settings_email_editor_page .selection {
     float: none;
     margin-bottom: 10px;
     margin-top: 10px;
   }
-
   #data_list_page .selection {
     display: none;
   }
-
   #data_list_page .modified {
     display: none;
   }
-
   #tool_database_backup_page input[name=description] {
     width: 100%;
   }
-
   #tool_database_backup_page input[name=create] {
     float: none;
     margin-top: 10px !important;
@@ -4464,13 +4419,11 @@ img.loading {
   #settings_layout_comments_page .position_block {
     width: auto;
   }
-
   #settings_layout_comments_page .position_block .left, #settings_layout_comments_page .position_block .center, #settings_layout_comments_page .position_block .right {
     display: block;
     float: none;
     margin-bottom: 10px;
   }
-
   #settings_layout_comments_page .position_block .comments {
     margin-bottom: 25px;
   }
@@ -4479,12 +4432,10 @@ img.loading {
   #settings_email_editor_page .keywords {
     margin-top: 5px;
   }
-
   #settings_email_editor_page .keywords span {
     display: block;
     margin-top: 5px;
   }
-
   #settings_email_editor_page select {
     width: 100%;
   }
@@ -4498,124 +4449,98 @@ img.loading {
   .page_help_block {
     display: none;
   }
-
   .description .extra, .description_tab .extra {
     display: none;
   }
-
   .controls {
     margin-top: 0;
   }
-
   .controls .fieldset {
     display: inline;
     line-height: normal !important;
   }
-
   .controls .fieldset::after {
     margin-bottom: 20px !important;
   }
-
   .controls .fieldset label {
     display: block;
     margin-bottom: 3px;
   }
-
   .controls input, .controls select {
     display: inline;
     text-align: left;
   }
-
   .controls input[type=text], .controls input[type=password], .controls input[type=email] {
     padding: 5px;
     width: 100% !important;
   }
-
   .controls select {
     padding: 5px;
     width: 100%;
   }
-
   .controls textarea {
     margin-top: 0;
     width: 100%;
   }
-
   .buttons {
     margin-bottom: 5px;
   }
-
   .controls .button {
     margin-top: 10px;
     padding: 3px;
     width: 100%;
   }
-
   .controls .button:not(:first-child) {
     margin-top: 28px;
   }
-
   span.error {
     margin-top: 1px;
   }
-
   #extension_themes_page .sortable {
     margin-bottom: 15px;
   }
-
   #module_rich_snippets_page .other_section div {
     display: none;
   }
-
   #layout_form_comment_page span.error {
     margin-top: 0;
   }
-
   .note {
     display: none;
   }
-
   .hint {
     display: none;
   }
-
   .controls .fieldset::after {
     clear: both;
     content: "";
     display: block;
     margin-bottom: 10px;
   }
-
   .controls .divide_after input, .controls .divide_after select {
     margin-bottom: 10px;
   }
-
   .controls .divide_after span.error {
     margin-top: -6px;
   }
-
   #data_list_page .update {
     float: none;
   }
-
   .pagination_stats {
     float: none;
     margin-bottom: 25px;
     margin-top: 25px;
     text-align: center;
   }
-
   .pagination_links {
     display: flex;
     float: none;
     justify-content: space-between;
     margin-top: 18px;
   }
-
   .pagination_links span, .pagination_links span.active {
     padding: 5px;
   }
-
   #edit_comment_page .right textarea {
     width: 100%;
   }
@@ -4737,29 +4662,23 @@ div.info a:not([href]):last-child, div.warning a:not([href]):last-child {
     margin-left: 5%;
     width: 90%;
   }
-
   #login_page .box {
     margin-top: -110px;
   }
-
   #reset_page .box {
     margin-top: -75px;
   }
-
   #login_page label, #reset_page label {
     display: block;
     float: none;
     width: auto;
   }
-
   #login_page input[type=text], #login_page input[type=password], #reset_page input[type=email] {
     width: 100%;
   }
-
   #login_page input[type=submit], #reset_page input[type=submit] {
     width: 100%;
   }
-
   #login_page input {
     margin-bottom: 5px;
   }
@@ -4834,15 +4753,12 @@ nav ul {
   .flexnav li a {
     border-right: 0;
   }
-
   .flexnav .item-with-ul li:first-of-type a:first-of-type {
     border-top: 0;
   }
-
   .flexnav .item-with-ul li:last-of-type a:last-of-type {
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   }
-
   .flexnav .indent {
     padding-left: 25px;
   }
@@ -4911,15 +4827,12 @@ nav ul {
   .ui-tabs {
     margin-top: 12px;
   }
-
   .ui-tabs .ui-state-default {
     width: 100%;
   }
-
   .ui-tabs .ui-tabs-nav li a {
     width: 90%;
   }
-
   .ui-tabs .ui-widget-content {
     margin-top: 15px !important;
   }
@@ -4967,11 +4880,9 @@ nav ul {
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     float: none;
   }
-
   .ui-dialog .ui-dialog-buttonpane button {
     margin-left: 5px;
   }
-
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button {
     width: 100%;
   }
@@ -5086,33 +4997,27 @@ table.table {
   table.table, .table thead, .table tbody, .table th, .table td, .table tr {
     display: block;
   }
-
   .table tr {
     border: 1px solid #ccc;
     margin-bottom: 10px;
   }
-
   .table td {
     border: 0;
     border-bottom: 1px solid #dedede;
   }
-
   .table td:not(.selector):not(.actions)::before {
     color: #2c2c2c;
     content: attr(data-th);
     font-weight: bold;
     padding-right: 5px;
   }
-
   .table td.actions {
     display: flex;
     justify-content: space-between;
   }
-
   #extension_modules_page .table th:last-of-type, #extension_modules_page .table td:last-of-type:not(.no_results) {
     text-align: left;
   }
-
   #tool_database_backup_page .table th:last-of-type, #tool_database_backup_page .table td:last-of-type:not(.no_results) {
     text-align: left;
   }
@@ -5170,7 +5075,6 @@ table.table {
   #password_strength {
     margin-top: 0;
   }
-
   #password_description {
     float: none;
   }

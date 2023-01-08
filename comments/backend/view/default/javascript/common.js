@@ -416,9 +416,9 @@ $(document).ready(function() {
             data: data,
             options: {
                 responsive: true,
-                maintainAspectRatio : false,
+                maintainAspectRatio: false,
                 scales: {
-                    yAxes: {
+                    y: {
                         ticks: {
                             beginAtZero: true,
                             precision: 0
