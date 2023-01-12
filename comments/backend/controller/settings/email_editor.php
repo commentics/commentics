@@ -43,6 +43,18 @@ class SettingsEmailEditorController extends Controller
                     $this->data['languages']        = $backend_languages;
                     $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>admin link</span> <span>signature</span>';
                     break;
+                case 'edit':
+                    $this->data['lang_heading']     = $this->data['lang_heading_edit'];
+                    $this->data['lang_description'] = $this->data['lang_description_edit'];
+                    $this->data['languages']        = $backend_languages;
+                    $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>admin link</span> <span>signature</span>';
+                    break;
+                case 'delete':
+                    $this->data['lang_heading']     = $this->data['lang_heading_delete'];
+                    $this->data['lang_description'] = $this->data['lang_description_delete'];
+                    $this->data['languages']        = $backend_languages;
+                    $this->data['keywords']         = '<span>username</span> <span>page reference</span> <span>page url</span> <span>' . $this->setting->get('purpose') . ' url</span> <span>poster</span> <span>' . $this->setting->get('purpose') . '</span> <span>admin link</span> <span>signature</span>';
+                    break;
                 case 'new_version':
                     $this->data['lang_heading']     = $this->data['lang_heading_new_version'];
                     $this->data['lang_description'] = $this->data['lang_description_new_version'];
@@ -112,6 +124,8 @@ class SettingsEmailEditorController extends Controller
             $this->data['lang_select_comment_approve']               => 'comment_approve',
             $this->data['lang_select_comment_success']               => 'comment_success',
             $this->data['lang_select_flag']                          => 'flag',
+            $this->data['lang_select_edit']                          => 'edit',
+            $this->data['lang_select_delete']                        => 'delete',
             $this->data['lang_select_new_version']                   => 'new_version',
             $this->data['lang_select_password_reset']                => 'password_reset',
             $this->data['lang_select_setup_test']                    => 'setup_test',

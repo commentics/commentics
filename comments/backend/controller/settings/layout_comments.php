@@ -671,6 +671,28 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_flag_min_per_comment'] = '';
         }
 
+        /* Edit */
+
+        if (isset($this->request->post['show_edit'])) {
+            $this->data['show_edit'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_edit'])) {
+            $this->data['show_edit'] = false;
+        } else {
+            $this->data['show_edit'] = $this->setting->get('show_edit');
+        }
+
+        if (isset($this->request->post['max_edits'])) {
+            $this->data['max_edits'] = $this->request->post['max_edits'];
+        } else {
+            $this->data['max_edits'] = $this->setting->get('max_edits');
+        }
+
+        if (isset($this->error['max_edits'])) {
+            $this->data['error_max_edits'] = $this->error['max_edits'];
+        } else {
+            $this->data['error_max_edits'] = '';
+        }
+
         /* Delete */
 
         if (isset($this->request->post['show_delete'])) {
@@ -1308,6 +1330,12 @@ class SettingsLayoutCommentsController extends Controller
 
         if (!isset($this->request->post['flag_min_per_comment']) || !$this->validation->isInt($this->request->post['flag_min_per_comment']) || $this->request->post['flag_min_per_comment'] < 1 || $this->request->post['flag_min_per_comment'] > 1000) {
             $this->error['flag_min_per_comment'] = sprintf($this->data['lang_error_range'], 1, 1000);
+        }
+
+        /* Edit */
+
+        if (!isset($this->request->post['max_edits']) || !$this->validation->isInt($this->request->post['max_edits']) || $this->request->post['max_edits'] < 1 || $this->request->post['max_edits'] > 1000) {
+            $this->error['max_edits'] = sprintf($this->data['lang_error_range'], 1, 1000);
         }
 
         /* Reply */

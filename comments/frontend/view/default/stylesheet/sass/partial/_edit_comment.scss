@@ -1,0 +1,47 @@
+// _partial/_edit_comment.scss
+
+.edit_comment {
+    border: 1px solid $grey-lighter;
+    border-radius: 10px;
+    margin-top: 18px;
+    padding: 10px;
+
+    textarea {
+        height: 60px !important;
+    }
+
+    .cmtx_edit_comment_lower {
+        display: flex;
+        margin-top: 8px;
+    }
+
+    .cmtx_edit_comment_lower div {
+        flex: 1;
+    }
+
+    .cmtx_edit_comment_link a {
+        text-decoration: none !important;
+    }
+
+    .cmtx_edit_comment_agree {
+        color: $grey;
+    }
+
+    .cmtx_edit_comment_button input {
+        border-radius: 5px;
+    }
+
+    .cmtx_edit_comment_link, .cmtx_edit_comment_agree {
+        margin-top: 8px;
+    }
+
+    @media all and (max-width: 600px) {
+        .cmtx_edit_comment_lower {
+            display: block;
+        }
+
+        .cmtx_edit_comment_button {
+            margin-top: 8px;
+        }
+    }
+}

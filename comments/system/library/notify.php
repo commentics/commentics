@@ -147,6 +147,86 @@ class Notify
         }
     }
 
+    public function adminNotifyCommentEdit($id)
+    {
+        /* Get admins who have requested to be notified of a comment that is edited */
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "admins` WHERE `receive_email_edit` = '1' AND `is_enabled` = '1'");
+
+        $admins = $this->db->rows($query);
+
+        if ($admins) {
+            $comment = $this->comment->getComment($id); // get the details of the comment
+
+            $email = $this->email->get('edit');
+
+            foreach ($admins as $admin) {
+                $subject = $this->security->decode(str_ireplace('[username]', $admin['username'], $email['subject']));
+
+                $text = str_ireplace('[username]', $admin['username'], $email['text']);
+                $text = str_ireplace('[page reference]', $comment['page_reference'], $text);
+                $text = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $text);
+                $text = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $text);
+                $text = str_ireplace('[poster]', $comment['name'], $text);
+                $text = str_ireplace('[admin link]', $this->email->getAdminLink(), $text);
+                $text = str_ireplace('[signature]', $this->email->getSignatureText($this->page->getSiteId()), $text);
+                $text = $this->security->decode($text);
+                $text = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], 'text'), $text);
+
+                $html = str_ireplace('[username]', $admin['username'], $email['html']);
+                $html = str_ireplace('[page reference]', $comment['page_reference'], $html);
+                $html = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $html);
+                $html = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $html);
+                $html = str_ireplace('[poster]', $comment['name'], $html);
+                $html = str_ireplace('[admin link]', $this->email->getAdminLink(), $html);
+                $html = str_ireplace('[signature]', $this->email->getSignatureHtml($this->page->getSiteId()), $html);
+                $html = $this->security->decode($html);
+                $html = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], 'html'), $html);
+
+                $this->email->send($admin['email'], null, $subject, $text, $html, $admin['format'], $this->page->getSiteId());
+            }
+        }
+    }
+
+    public function adminNotifyCommentDelete($id)
+    {
+        /* Get admins who have requested to be notified of a comment that is deleted */
+        $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "admins` WHERE `receive_email_delete` = '1' AND `is_enabled` = '1'");
+
+        $admins = $this->db->rows($query);
+
+        if ($admins) {
+            $comment = $this->comment->getComment($id); // get the details of the comment
+
+            $email = $this->email->get('delete');
+
+            foreach ($admins as $admin) {
+                $subject = $this->security->decode(str_ireplace('[username]', $admin['username'], $email['subject']));
+
+                $text = str_ireplace('[username]', $admin['username'], $email['text']);
+                $text = str_ireplace('[page reference]', $comment['page_reference'], $text);
+                $text = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $text);
+                $text = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $text);
+                $text = str_ireplace('[poster]', $comment['name'], $text);
+                $text = str_ireplace('[admin link]', $this->email->getAdminLink(), $text);
+                $text = str_ireplace('[signature]', $this->email->getSignatureText($this->page->getSiteId()), $text);
+                $text = $this->security->decode($text);
+                $text = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], 'text'), $text);
+
+                $html = str_ireplace('[username]', $admin['username'], $email['html']);
+                $html = str_ireplace('[page reference]', $comment['page_reference'], $html);
+                $html = str_ireplace('[page url]', $this->prepareUrl($comment['page_url']), $html);
+                $html = str_ireplace('[' . $this->setting->get('purpose'). ' url]', $this->prepareUrl($this->comment->buildCommentUrl($comment['id'], $comment['page_url'])), $html);
+                $html = str_ireplace('[poster]', $comment['name'], $html);
+                $html = str_ireplace('[admin link]', $this->email->getAdminLink(), $html);
+                $html = str_ireplace('[signature]', $this->email->getSignatureHtml($this->page->getSiteId()), $html);
+                $html = $this->security->decode($html);
+                $html = str_ireplace('[' . $this->setting->get('purpose') . ']', $this->prepareComment($comment['comment'], 'html'), $html);
+
+                $this->email->send($admin['email'], null, $subject, $text, $html, $admin['format'], $this->page->getSiteId());
+            }
+        }
+    }
+
     /* Notify the admin that there is a newer version available */
     public function adminNotifyNewVersion($installed, $newest)
     {

@@ -198,6 +198,12 @@ class MainCommentsController extends Controller
                 $this->data['show_reply'] = false;
             }
 
+            if ($this->setting->get('show_edit') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
+                $this->data['show_edit'] = true;
+            } else {
+                $this->data['show_edit'] = false;
+            }
+
             if ($this->setting->get('show_delete') && $this->session->getId()) {
                 $this->data['show_delete'] = true;
             } else {
@@ -329,9 +335,10 @@ class MainCommentsController extends Controller
                 'lang_text_not_replying'  => $this->data['lang_text_not_replying'],
                 'lang_button_loading'     => $this->data['lang_button_loading'],
                 'lang_button_more'        => $this->data['lang_button_more'],
+                'lang_button_edit'        => $this->data['lang_button_edit'],
                 'lang_button_reply'       => $this->data['lang_button_reply'],
                 'lang_link_reply'         => $this->data['lang_link_reply'],
-                'lang_link_reload'        => $this->data['lang_link_reload'],
+                'lang_link_refresh'       => $this->data['lang_link_refresh'],
                 'date_auto'               => (bool) $this->setting->get('date_auto'),
                 'show_pagination'         => (bool) $this->setting->get('show_pagination'),
                 'quick_reply'             => (bool) $this->setting->get('quick_reply'),
@@ -608,7 +615,7 @@ class MainCommentsController extends Controller
         }
     }
 
-    public function delete()
+    public function original()
     {
         if ($this->request->isAjax()) {
             $this->response->addHeader('Content-Type: application/json');
@@ -618,7 +625,48 @@ class MainCommentsController extends Controller
             if (isset($this->request->post['cmtx_comment_id'])) {
                 $this->loadLanguage('main/comments');
 
-                $this->loadModel('main/comments');
+                $comment_id = $this->request->post['cmtx_comment_id'];
+
+                $comment = $this->comment->getComment($comment_id);
+
+                $ip_address = $this->user->getIpAddress();
+
+                if ($this->setting->get('maintenance_mode')) { // check if in maintenance mode
+                    $json['error'] = $this->data['lang_error_maintenance'];
+                } else if (!$this->setting->get('show_edit')) { // check if feature enabled
+                    $json['error'] = $this->data['lang_error_disabled'];
+                } else if (!$comment) { // check if comment exists
+                    $json['error'] = $this->data['lang_error_no_comment'];
+                } else if (!$this->user->ownComment($comment)) { // check if user is accessing own comment
+                    $json['error'] = $this->data['lang_error_own_comment'];
+                } else if ($this->user->isBanned($ip_address)) { // check if user is banned
+                    $json['error'] = $this->data['lang_error_banned'];
+                }
+
+                if (!$json) {
+                    if ($comment['number_edits'] >= $this->setting->get('max_edits')) {
+                        $json['error'] = $this->data['lang_error_max_edits'];
+                    }
+
+                    $json['original_comment'] = $comment['original_comment'];
+
+                    $json['success'] = true;
+                }
+            }
+
+            echo json_encode($json);
+        }
+    }
+
+    public function delete()
+    {
+        if ($this->request->isAjax()) {
+            $this->response->addHeader('Content-Type: application/json');
+
+            $json = array();
+
+            if (isset($this->request->post['cmtx_comment_id'])) {
+                $this->loadLanguage('main/comments');
 
                 $comment_id = $this->request->post['cmtx_comment_id'];
 
@@ -632,15 +680,18 @@ class MainCommentsController extends Controller
                     $json['error'] = $this->data['lang_error_disabled'];
                 } else if (!$comment) { // check if comment exists
                     $json['error'] = $this->data['lang_error_no_comment'];
-                } else if (!$comment['session_id'] || $comment['session_id'] != $this->session->getId()) { // check if user is deleting own comment
-                    $json['error'] = $this->data['lang_error_delete_own'];
-                } else if ($comment['ip_address'] != $ip_address) { // check if user is deleting own comment
-                    $json['error'] = $this->data['lang_error_delete_own'];
+                } else if (!$this->user->ownComment($comment)) { // check if user is deleting own comment
+                    $json['error'] = $this->data['lang_error_own_comment'];
                 } else if ($this->user->isBanned($ip_address)) { // check if user is banned
                     $json['error'] = $this->data['lang_error_banned'];
                 }
 
                 if (!$json) {
+                    /* Notify admins of delete */
+                    if (!$this->user->isAdmin()) {
+                        $this->notify->adminNotifyCommentDelete($comment_id);
+                    }
+
                     $this->comment->deleteComment($comment_id);
 
                     $json['success'] = true;

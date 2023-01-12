@@ -781,9 +781,9 @@ img.loading {
 }
 
 #settings_layout_comments_page .elements {
-    display: flex;
+    column-gap: 12px;
+    display: inline-flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 #settings_layout_comments_page .elements > div {
@@ -851,9 +851,9 @@ img.loading {
 }
 
 #settings_layout_form_page .elements {
-    display: flex;
+    column-gap: 12px;
+    display: inline-flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 #settings_layout_form_page .elements > div {

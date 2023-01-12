@@ -3,10 +3,12 @@
 $_['lang_message_success']                           = 'Email updated';
 
 // Heading
-$_['lang_heading_ban']                               = 'Email: Ban';
+$_['lang_heading_ban']                               = 'Email: Banned User';
 $_['lang_heading_comment_approve']                   = 'Email: Comment Approve';
 $_['lang_heading_comment_success']                   = 'Email: Comment Success';
-$_['lang_heading_flag']                              = 'Email: Flag';
+$_['lang_heading_flag']                              = 'Email: Flagged Comment';
+$_['lang_heading_edit']                              = 'Email: Edited Comment';
+$_['lang_heading_delete']                            = 'Email: Deleted Comment';
 $_['lang_heading_new_version']                       = 'Email: New Version';
 $_['lang_heading_password_reset']                    = 'Email: Password Reset';
 $_['lang_heading_setup_test']                        = 'Email: Setup Test';
@@ -22,8 +24,10 @@ $_['lang_notice']                                    = 'Select which email to ed
 // Description
 $_['lang_description_ban']                           = '<p>This is the email the administrator receives when there is a new ban.</p>';
 $_['lang_description_comment_approve']               = '<p>This is the email the administrator receives when there is a new comment that needs approval.</p>';
-$_['lang_description_comment_success']               = '<p>This is the email the administrator receives when there is a new comment that is successful.</p>';
-$_['lang_description_flag']                          = '<p>This is the email the administrator receives when a new comment is flagged.</p>';
+$_['lang_description_comment_success']               = '<p>This is the email the administrator receives when there is a new comment that is successful (does not need approval).</p>';
+$_['lang_description_flag']                          = '<p>This is the email the administrator receives when a new comment is flagged by a user.</p>';
+$_['lang_description_edit']                          = '<p>This is the email the administrator receives when a comment is edited by a user.</p>';
+$_['lang_description_delete']                        = '<p>This is the email the administrator receives when a comment is deleted by a user.</p>';
 $_['lang_description_new_version']                   = '<p>This is the email the administrator receives when a newer version is available.</p>';
 $_['lang_description_password_reset']                = '<p>This is the email the administrator receives when resetting the password.</p>';
 $_['lang_description_setup_test']                    = '<p>This is the email sent from the \'Settings -> Email -> Setup\' page.</p>';
@@ -35,10 +39,12 @@ $_['lang_description_user_comment_approved']         = '<p>This is the email the
 
 // Selection
 $_['lang_select_admin']                              = '---------- ADMIN ----------';
-$_['lang_select_ban']                                = 'Ban';
+$_['lang_select_ban']                                = 'Banned User';
 $_['lang_select_comment_approve']                    = 'Comment Approve';
 $_['lang_select_comment_success']                    = 'Comment Success';
-$_['lang_select_flag']                               = 'Flag';
+$_['lang_select_flag']                               = 'Flagged Comment';
+$_['lang_select_edit']                               = 'Edited Comment';
+$_['lang_select_delete']                             = 'Deleted Comment';
 $_['lang_select_new_version']                        = 'New Version';
 $_['lang_select_password_reset']                     = 'Password Reset';
 $_['lang_select_setup_test']                         = 'Setup Test';

@@ -891,6 +891,25 @@
                 </div>
             </div>
 
+            <div class="<?php echo ($show_edit ? 'element_enabled' : 'element_disabled') ?>">
+                <h2><?php echo $lang_subheading_edit; ?></h2>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_enabled; ?></label>
+                    <input type="checkbox" name="show_edit" value="1" <?php if ($show_edit) { echo 'checked'; } ?>>
+                    <a class="hint" data-hint="<?php echo $lang_hint_edit; ?>">[?]</a>
+                </div>
+
+                <div class="fieldset">
+                    <label><?php echo $lang_entry_max_edits; ?></label>
+                    <input type="text" required name="max_edits" class="small" value="<?php echo $max_edits; ?>" maxlength="4">
+                    <a class="hint" data-hint="<?php echo $lang_hint_max_edits; ?>">[?]</a>
+                    <?php if ($error_max_edits) { ?>
+                        <span class="error"><?php echo $error_max_edits; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
             <div class="<?php echo ($show_delete ? 'element_enabled' : 'element_disabled') ?>">
                 <h2><?php echo $lang_subheading_delete; ?></h2>
 

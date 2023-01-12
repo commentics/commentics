@@ -16,6 +16,7 @@ $_['lang_text_level_1']            = 'Regular';
 $_['lang_text_level_0']            = 'New';
 $_['lang_text_today']              = 'Today';
 $_['lang_text_yesterday']          = 'Yesterday';
+$_['lang_text_edited']             = '(Edited)';
 $_['lang_text_view']               = 'View';
 $_['lang_text_reply']              = 'reply';
 $_['lang_text_replies']            = 'replies';
@@ -44,6 +45,7 @@ $_['lang_title_report']            = 'Report';
 $_['lang_title_permalink']         = 'Permalink';
 $_['lang_title_reply']             = 'Reply';
 $_['lang_title_cancel_reply']      = 'Cancel this reply';
+$_['lang_title_edit']              = 'Edit';
 $_['lang_title_delete']            = 'Delete';
 $_['lang_title_digg']              = 'Digg';
 $_['lang_title_facebook']          = 'Facebook';
@@ -66,16 +68,16 @@ $_['lang_modal_close']             = 'Close';
 // Link
 $_['lang_link_close']              = 'Close';
 $_['lang_link_cancel']             = '[Cancel]';
-$_['lang_link_reload']             = '[Reload]';
+$_['lang_link_refresh']            = '[Refresh]';
 $_['lang_link_reply']              = 'Switch to full reply';
 
 // Button
-$_['lang_button_more']             = 'More <a>test</a> Comments';
+$_['lang_button_more']             = 'More Comments';
 $_['lang_button_loading']          = 'Loading..';
 $_['lang_button_reply']            = 'Add Reply';
+$_['lang_button_edit']             = 'Edit Comment';
 
 // Error
-$_['lang_error_no_comment']        = 'This comment no longer exists';
 $_['lang_error_vote_own']          = 'You can\'t vote for yourself';
 $_['lang_error_vote_already']      = 'You\'ve already voted';
 $_['lang_error_report_own']        = 'You can\'t report yourself';
@@ -84,5 +86,4 @@ $_['lang_error_report_already']    = 'You\'ve already reported';
 $_['lang_error_report_max']        = 'You can\'t report anymore';
 $_['lang_error_flagged']           = 'This is already flagged';
 $_['lang_error_verified']          = 'This is already verified';
-$_['lang_error_delete_own']        = 'You can\'t delete this comment';
 $_['lang_error_banned']            = 'You\'ve been banned';

@@ -149,6 +149,7 @@ $_['lang_text_moderate_akismet_y']        = 'This failed the Akismet check.';
 $_['lang_text_moderate_akismet_n']        = 'This passed the Akismet check.';
 $_['lang_text_moderate_all']              = 'Moderating all comments.';
 $_['lang_text_comment_success']           = 'Your comment has been added';
+$_['lang_text_comment_edited']            = 'Your comment has been edited';
 $_['lang_text_comment_approve']           = 'Your comment is awaiting approval';
 
 // Modal

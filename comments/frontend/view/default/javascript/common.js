@@ -78,6 +78,8 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 if (isInIframe) {
                     if (jQuery(this).closest('.quick_reply').length) {
                         var destination = jQuery('.quick_reply').offset();
+                    } else if (jQuery(this).closest('.edit_comment').length) {
+                        var destination = jQuery('.edit_comment').offset();
                     } else {
                         var destination = jQuery('.cmtx_checkbox_container').offset();
                     }
@@ -1444,6 +1446,131 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 jQuery('.cmtx_modal_close').trigger('click');
             });
 
+            /* Original comment */
+            jQuery('#cmtx_container').on('click', '.cmtx_edit_link', function(e) {
+                e.preventDefault();
+
+                var edit_link = jQuery(this);
+
+                var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
+
+                var request = jQuery.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/original',
+                    data: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id),
+                    dataType: 'json'
+                });
+
+                request.done(function(response) {
+                    jQuery('.quick_reply, .edit_comment').remove();
+
+                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
+
+                    edit_link.closest('.cmtx_comment_box').find('.cmtx_view_replies_link').trigger('click');
+
+                    if (response['success']) {
+                        html =  '<div class="edit_comment">';
+                        html += '  <div class="cmtx_edit_comment_comment_holder"><textarea name="cmtx_edit_comment" class="cmtx_field cmtx_textarea_field cmtx_comment_field cmtx_comment_field_active" placeholder="' + jQuery('#cmtx_comment').attr('placeholder') + '" title="' + jQuery('#cmtx_comment').attr('title') + '" maxlength="' + jQuery('#cmtx_comment').attr('maxlength') + '">' + response['original_comment'] + '</textarea></div>';
+
+                        var lang_text_agree = cmtx_js_settings_comments.lang_text_agree;
+                        lang_text_agree = lang_text_agree.replace('[1]', '<a href="#" data-cmtx-target-modal="#cmtx_privacy_modal">' + cmtx_js_settings_comments.lang_text_privacy + '</a>');
+                        lang_text_agree = lang_text_agree.replace('[2]', '<a href="#" data-cmtx-target-modal="#cmtx_terms_modal">' + cmtx_js_settings_comments.lang_text_terms + '</a>');
+
+                        html += '  <div class="cmtx_edit_comment_lower">';
+                        html += '    <div class="cmtx_edit_comment_link"></div>';
+                        html += '    <div class="cmtx_edit_comment_agree">' + lang_text_agree + '</div>';
+                        html += '    <div class="cmtx_edit_comment_button"><input type="button" class="' + jQuery('#cmtx_submit_button').attr('class') + ' cmtx_button_edit_comment" value="' + cmtx_js_settings_comments.lang_button_edit + '" title="' + cmtx_js_settings_comments.lang_button_edit + '"></div>';
+                        html += '  </div>';
+                        html += '</div>';
+
+                        edit_link.closest('.cmtx_main_area').append(html);
+                    }
+
+                    if (response['error']) {
+                        jQuery('.edit_comment').prepend('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
+
+                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
+                    }
+                });
+
+                request.fail(function(jqXHR, textStatus, errorThrown) {
+                    if (console && console.log) {
+                        console.log(jqXHR.responseText);
+                    }
+                });
+            });
+
+            /* Edit Comment */
+            jQuery('#cmtx_container').on('click', '.cmtx_button_edit_comment', function(e) {
+                e.preventDefault();
+
+                var edit_comment = jQuery(this).closest('.cmtx_comment_box').find('.edit_comment');
+
+                var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
+
+                var request = jQuery.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/edit',
+                    data: '&cmtx_comment=' + encodeURIComponent(edit_comment.find('textarea[name="cmtx_edit_comment"]').val().replace(/(\r\n|\n|\r)/gm, "\r\n")) + '&cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id),
+                    dataType: 'json',
+                    beforeSend: function() {
+                        edit_comment.find('.cmtx_button_edit_comment').val(cmtx_js_settings_form.lang_button_processing);
+
+                        edit_comment.find('.cmtx_button_edit_comment').prop('disabled', true);
+
+                        edit_comment.find('.cmtx_button_edit_comment').addClass('cmtx_button_disabled');
+                    }
+                });
+
+                request.always(function() {
+                    edit_comment.find('.cmtx_button_edit_comment').val(cmtx_js_settings_comments.lang_button_edit);
+
+                    edit_comment.find('.cmtx_button_edit_comment').prop('disabled', false);
+
+                    edit_comment.find('.cmtx_button_edit_comment').removeClass('cmtx_button_disabled');
+                });
+
+                request.done(function(response) {
+                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
+
+                    jQuery('.cmtx_field').removeClass('cmtx_field_error');
+
+                    if (response['result']['success']) {
+                        jQuery('.cmtx_message').remove();
+
+                        if (response['result']['approve']) {
+                            edit_comment.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + '</div>');
+                        } else {
+                            edit_comment.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + ' <a href="#" class="cmtx_edit_comment_refresh">' + cmtx_js_settings_comments.lang_link_refresh + '</a>' + '</div>');
+                        }
+
+                        jQuery('.cmtx_message_success').fadeIn(1500);
+                    }
+
+                    if (response['result']['error']) {
+                        if (response['error']) {
+                            if (response['error']['comment']) {
+                                edit_comment.find('textarea[name="cmtx_edit_comment"]').addClass('cmtx_field_error');
+
+                                edit_comment.find('textarea[name="cmtx_edit_comment"]').after('<span class="cmtx_error">' + response['error']['comment'] + '</span>');
+                            }
+                        }
+
+                        edit_comment.prepend('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
+
+                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
+                    }
+                });
+
+                request.fail(function(jqXHR, textStatus, errorThrown) {
+                    if (console && console.log) {
+                        console.log(jqXHR.responseText);
+                    }
+                });
+            });
+
             /* Delete modal */
             jQuery('body').on('click', '#cmtx_delete_modal_yes', function(e) {
                 e.preventDefault();
@@ -1544,7 +1671,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                 var quick_reply_email = jQuery(this).closest('.cmtx_comment_box').find('input[name="cmtx_quick_reply_email"]').val();
                 var quick_reply_comment = jQuery(this).closest('.cmtx_comment_box').find('textarea[name="cmtx_quick_reply_comment"]').val();
 
-                jQuery('.quick_reply').remove();
+                jQuery('.quick_reply, .edit_comment').remove();
 
                 if (cmtx_js_settings_comments.quick_reply && is_quick_reply) {
                     jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
@@ -1676,7 +1803,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
             });
 
             /* Return to comments link */
-            jQuery('#cmtx_container').on('click', '.cmtx_no_results a, .cmtx_return a, .cmtx_quick_reply_reload', function(e) {
+            jQuery('#cmtx_container').on('click', '.cmtx_no_results a, .cmtx_return a', function(e) {
                 e.preventDefault();
 
                 jQuery('#cmtx_search').val('');
@@ -1689,6 +1816,22 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     'page_number'   : '',
                     'sort_by'       : '',
                     'search'        : '',
+                    'effect'        : true
+                }
+
+                cmtxRefreshComments(options);
+            });
+
+            /* Refresh comments link */
+            jQuery('#cmtx_container').on('click', '.cmtx_edit_comment_refresh, .cmtx_quick_reply_refresh', function(e) {
+                e.preventDefault();
+
+                var options = {
+                    'commentics_url': cmtx_js_settings_comments.commentics_url,
+                    'page_id'       : cmtx_js_settings_comments.page_id,
+                    'page_number'   : '',
+                    'sort_by'       : cmtxGetSortByValue(),
+                    'search'        : cmtxGetSearchValue(),
                     'effect'        : true
                 }
 
@@ -1770,7 +1913,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                     type: 'POST',
                     cache: false,
                     url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/reply',
-                    data: serialized + '&cmtx_comment=' + encodeURIComponent(quick_reply.find('textarea[name="cmtx_quick_reply_comment"]').val()) + '&cmtx_email=' + encodeURIComponent(quick_reply.find('input[name="cmtx_quick_reply_email"]').val()) + '&cmtx_name=' + encodeURIComponent(quick_reply.find('input[name="cmtx_quick_reply_name"]').val()) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id) + jQuery('#cmtx_hidden_data').val(),
+                    data: serialized + '&cmtx_comment=' + encodeURIComponent(quick_reply.find('textarea[name="cmtx_quick_reply_comment"]').val().replace(/(\r\n|\n|\r)/gm, "\r\n")) + '&cmtx_email=' + encodeURIComponent(quick_reply.find('input[name="cmtx_quick_reply_email"]').val()) + '&cmtx_name=' + encodeURIComponent(quick_reply.find('input[name="cmtx_quick_reply_name"]').val()) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id) + jQuery('#cmtx_hidden_data').val(),
                     dataType: 'json',
                     beforeSend: function() {
                         quick_reply.find('.cmtx_button_quick_reply').val(cmtx_js_settings_form.lang_button_processing);
@@ -1802,7 +1945,7 @@ var cmtx_wait_for_jquery = setInterval(function() {
                         if (response['result']['approve']) {
                             quick_reply.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + '</div>');
                         } else {
-                            quick_reply.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + ' <a href="#" class="cmtx_quick_reply_reload">' + cmtx_js_settings_comments.lang_link_reload + '</a>' + '</div>');
+                            quick_reply.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + ' <a href="#" class="cmtx_quick_reply_refresh">' + cmtx_js_settings_comments.lang_link_refresh + '</a>' + '</div>');
                         }
 
                         jQuery('.cmtx_message_success').fadeIn(1500);
@@ -2098,6 +2241,17 @@ function cmtxGetSearchValue() {
     }
 
     return search;
+}
+
+/* Get the current page number */
+function cmtxGetCurrentPage() {
+    if (jQuery('.cmtx_pagination_box_active').length) {
+        return parseInt(jQuery('.cmtx_pagination_box_active').attr('data-cmtx-page'));
+    } else if (jQuery('#cmtx_next_page').length) {
+        return parseInt(jQuery('#cmtx_next_page').val() - 1);
+    } else {
+        return 1;
+    }
 }
 
 /* Infinite scroll */

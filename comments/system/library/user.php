@@ -80,6 +80,19 @@ class User
         }
     }
 
+    public function getUserByCommentId($comment_id)
+    {
+        $query = $this->db->query("SELECT `user_id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `id` = '" . (int) $comment_id . "' LIMIT 1");
+
+        $result = $this->db->row($query);
+
+        if ($result) {
+            return $this->getUser($result['user_id']);
+        } else {
+            return false;
+        }
+    }
+
     public function getUserByNameAndEmail($name, $email)
     {
         $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "users` WHERE `name` = '" . $this->db->escape($name) . "' AND `email` = '" . $this->db->escape($email) . "'");
@@ -231,6 +244,17 @@ class User
         } else {
             return false;
         }
+    }
+
+    public function ownComment($comment)
+    {
+        if (!$comment['session_id'] || $comment['session_id'] != $this->session->getId()) {
+            return false;
+        } else if ($comment['ip_address'] != $this->getIpAddress()) {
+            return false;
+        }
+
+        return true;
     }
 
     /* Checks if the user is banned */

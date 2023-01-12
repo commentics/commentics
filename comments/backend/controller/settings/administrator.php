@@ -31,12 +31,6 @@ class SettingsAdministratorController extends Controller
             $this->data['email'] = $admin['email'];
         }
 
-        if (isset($this->request->post['format'])) {
-            $this->data['format'] = $this->request->post['format'];
-        } else {
-            $this->data['format'] = $admin['format'];
-        }
-
         if (isset($this->request->post['receive_email_ban'])) {
             $this->data['receive_email_ban'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['receive_email_ban'])) {
@@ -67,6 +61,28 @@ class SettingsAdministratorController extends Controller
             $this->data['receive_email_flag'] = false;
         } else {
             $this->data['receive_email_flag'] = $admin['receive_email_flag'];
+        }
+
+        if (isset($this->request->post['receive_email_edit'])) {
+            $this->data['receive_email_edit'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['receive_email_edit'])) {
+            $this->data['receive_email_edit'] = false;
+        } else {
+            $this->data['receive_email_edit'] = $admin['receive_email_edit'];
+        }
+
+        if (isset($this->request->post['receive_email_delete'])) {
+            $this->data['receive_email_delete'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['receive_email_delete'])) {
+            $this->data['receive_email_delete'] = false;
+        } else {
+            $this->data['receive_email_delete'] = $admin['receive_email_delete'];
+        }
+
+        if (isset($this->request->post['format'])) {
+            $this->data['format'] = $this->request->post['format'];
+        } else {
+            $this->data['format'] = $admin['format'];
         }
 
         if (isset($this->error['username'])) {

@@ -155,6 +155,10 @@
                             <time class="cmtx_date">{{ comment.date_added }}</time>
                         @endif
                         <meta itemprop="dateCreated" content="{{ comment.date_added }}">
+
+                        @if comment.number_edits
+                            <span class="cmtx_edited">{{ lang_text_edited }}</span>
+                        @endif
                     </div>
                 @endif
 
@@ -192,6 +196,14 @@
                             <div class="cmtx_flag_area">
                                 <a href="#" class="cmtx_flag_link" title="{{ lang_title_report }}">
                                     <span class="cmtx_icon cmtx_flag_icon" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        @endif
+
+                        @if show_edit and comment.session_id equals session_id and comment.ip_address equals ip_address and comment.original_comment
+                            <div class="cmtx_edit_area">
+                                <a href="#" class="cmtx_edit_link" title="{{ lang_title_edit }}">
+                                    <span class="cmtx_icon cmtx_edit_icon" aria-hidden="true"></span>
                                 </a>
                             </div>
                         @endif

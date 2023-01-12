@@ -48,7 +48,7 @@
                 <div id="tab-<?php echo $value; ?>">
                     <div class="fieldset">
                         <label><?php echo $lang_entry_subject; ?></label>
-                        <input type="text" required name="field[<?php echo $value; ?>][subject]" class="large" value="<?php echo isset($field[$value]) ? $field[$value]['subject'] : ''; ?>" maxlength="250">
+                        <input type="text" name="field[<?php echo $value; ?>][subject]" class="large" value="<?php echo isset($field[$value]) ? $field[$value]['subject'] : ''; ?>" maxlength="250">
                         <?php if (isset($error_subject[$value])) { ?>
                             <span class="error"><?php echo $error_subject[$value]; ?></span>
                         <?php } ?>

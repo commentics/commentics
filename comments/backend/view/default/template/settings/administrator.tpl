@@ -68,18 +68,6 @@
         <h2><?php echo $lang_subheading; ?></h2>
 
         <div class="fieldset">
-            <label><?php echo $lang_entry_format; ?></label>
-            <select name="format">
-                <option value="html" <?php if ($format == 'html') { echo 'selected'; } ?>><?php echo $lang_select_html; ?></option>
-                <option value="text" <?php if ($format == 'text') { echo 'selected'; } ?>><?php echo $lang_select_text; ?></option>
-            </select>
-            <a class="hint" data-hint="<?php echo $lang_hint_format; ?>">[?]</a>
-            <?php if ($error_format) { ?>
-                <span class="error"><?php echo $error_format; ?></span>
-            <?php } ?>
-        </div>
-
-        <div class="fieldset">
             <label><?php echo $lang_entry_ban; ?></label>
             <input type="checkbox" name="receive_email_ban" value="1" <?php if ($receive_email_ban) { echo 'checked'; } ?>>
             <a class="hint" data-hint="<?php echo $lang_hint_ban; ?>">[?]</a>
@@ -101,6 +89,30 @@
             <label><?php echo $lang_entry_flag; ?></label>
             <input type="checkbox" name="receive_email_flag" value="1" <?php if ($receive_email_flag) { echo 'checked'; } ?>>
             <a class="hint" data-hint="<?php echo $lang_hint_flag; ?>">[?]</a>
+        </div>
+
+        <div class="fieldset">
+            <label><?php echo $lang_entry_edit; ?></label>
+            <input type="checkbox" name="receive_email_edit" value="1" <?php if ($receive_email_edit) { echo 'checked'; } ?>>
+            <a class="hint" data-hint="<?php echo $lang_hint_edit; ?>">[?]</a>
+        </div>
+
+        <div class="fieldset">
+            <label><?php echo $lang_entry_delete; ?></label>
+            <input type="checkbox" name="receive_email_delete" value="1" <?php if ($receive_email_delete) { echo 'checked'; } ?>>
+            <a class="hint" data-hint="<?php echo $lang_hint_delete; ?>">[?]</a>
+        </div>
+
+        <div class="fieldset">
+            <label><?php echo $lang_entry_format; ?></label>
+            <select name="format">
+                <option value="html" <?php if ($format == 'html') { echo 'selected'; } ?>><?php echo $lang_select_html; ?></option>
+                <option value="text" <?php if ($format == 'text') { echo 'selected'; } ?>><?php echo $lang_select_text; ?></option>
+            </select>
+            <a class="hint" data-hint="<?php echo $lang_hint_format; ?>">[?]</a>
+            <?php if ($error_format) { ?>
+                <span class="error"><?php echo $error_format; ?></span>
+            <?php } ?>
         </div>
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">

@@ -580,6 +580,8 @@ class MainFormController extends Controller
 
             $this->data['quick_reply'] = $this->setting->get('quick_reply');
 
+            $this->data['show_edit'] = $this->setting->get('show_edit');
+
             $this->data['page_id'] = $this->page->getId();
 
             $this->data['iframe'] = (int) $this->page->isIFrame();
@@ -1051,7 +1053,8 @@ class MainFormController extends Controller
                         'uploads'          => $uploads,
                         'extra_fields'     => $extra_fields,
                         'reply'            => false,
-                        'reply_id'         => array()
+                        'reply_id'         => array(),
+                        'number_edits'     => 0
                     );
 
                     extract($this->data);
@@ -1091,7 +1094,7 @@ class MainFormController extends Controller
                     /* Determine if the comment needs to be approved by the administrator */
                     $approve = $this->model_main_form->needsApproval($is_admin, $user, $page, $ip_address);
 
-                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form->getNotes(), $is_admin, $uploads, $extra_fields);
+                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form->getNotes(), $is_admin, $uploads, $extra_fields);
 
                     $this->comment->deleteCache($comment_id);
 
@@ -1162,6 +1165,112 @@ class MainFormController extends Controller
                     } else {
                         $json['result']['approve'] = false;
                         $json['result']['success'] = $this->data['lang_text_comment_success'];
+                    }
+                }
+            }
+
+            echo json_encode($json);
+        }
+    }
+
+    public function edit()
+    {
+        if ($this->request->isAjax()) {
+            $this->loadLanguage('main/form');
+
+            $this->loadModel('main/form');
+
+            $this->response->addHeader('Content-Type: application/json');
+
+            $json = array();
+
+            if (!$this->setting->get('show_edit')) { // check if feature enabled
+                $json['result']['error'] = $this->data['lang_error_disabled'];
+            } else {
+                /* Is this an administrator? */
+                $is_admin = $this->user->isAdmin();
+
+                if ($this->setting->get('maintenance_mode') && !$is_admin) {
+                    $json['result']['error'] = $this->setting->get('maintenance_message');
+                } else {
+                    if ($this->setting->get('enabled_form')) {
+                        $page_id = $this->page->getId();
+
+                        if ($page_id) {
+                            $page = $this->page->getPage($page_id);
+
+                            if ($page['is_form_enabled']) {
+                                $ip_address = $this->user->getIpAddress();
+
+                                if (isset($this->request->post['cmtx_comment_id'])) {
+                                    $comment_id = $this->request->post['cmtx_comment_id'];
+                                } else {
+                                    $comment_id = 0;
+                                }
+
+                                $comment = $this->comment->getComment($comment_id);
+
+                                if ($comment) {
+                                    if ($this->user->ownComment($comment)) {
+                                        if ($comment['number_edits'] < $this->setting->get('max_edits')) {
+                                            if ($this->user->isBanned($ip_address)) {
+                                                $json['result']['error'] = $this->data['lang_error_banned'];
+                                            } else {
+                                                /* Let the model access the language */
+                                                $this->model_main_form->data = $this->data;
+
+                                                /* Comment */
+                                                $this->model_main_form->validateComment(false);
+                                            }
+                                        } else {
+                                            $json['result']['error'] = $this->data['lang_error_max_edits'];
+                                        }
+                                    } else {
+                                        $json['result']['error'] = $this->data['lang_error_own_comment'];
+                                    }
+                                } else {
+                                    $json['result']['error'] = $this->data['lang_error_no_comment'];
+                                }
+                            } else {
+                                $json['result']['error'] = $this->data['lang_error_form_disabled'];
+                            }
+                        } else {
+                            $json['result']['error'] = $this->data['lang_error_page_invalid'];
+                        }
+                    } else {
+                        $json['result']['error'] = $this->data['lang_error_form_disabled'];
+                    }
+                }
+
+                $json = array_merge($json, $this->model_main_form->getJson());
+
+                if ($json && (isset($json['result']['error']) || isset($json['error']))) {
+                    if (isset($json['result']['error'])) {
+                        $json['error'] = '';
+                    } else {
+                        $json['result']['error'] = $this->data['lang_error_review'];
+                    }
+                } else {
+                    $user = $this->user->getUserByCommentId($comment_id);
+
+                    /* Determine if the comment needs to be approved by the administrator */
+                    $approve = $this->model_main_form->needsApproval($is_admin, $user, $page, $ip_address);
+
+                    $this->comment->editComment($comment_id, $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $approve, $this->model_main_form->getNotes());
+
+                    $this->comment->deleteCache($comment_id);
+
+                    /* Notify admins of edit */
+                    if (!$is_admin) {
+                        $this->notify->adminNotifyCommentEdit($comment_id);
+                    }
+
+                    if ($approve) {
+                        $json['result']['approve'] = true;
+                        $json['result']['success'] = $this->data['lang_text_comment_approve'];
+                    } else {
+                        $json['result']['approve'] = false;
+                        $json['result']['success'] = $this->data['lang_text_comment_edited'];
                     }
                 }
             }
@@ -1268,7 +1377,7 @@ class MainFormController extends Controller
                     /* Determine if the comment needs to be approved by the administrator */
                     $approve = $this->model_main_form->needsApproval($is_admin, $user, $page, $ip_address);
 
-                    $comment_id = $this->comment->createComment($user_id, $page_id, '', '', '', 0, 0, $this->request->post['cmtx_reply_to'], '', $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form->getNotes(), $is_admin, array(), array());
+                    $comment_id = $this->comment->createComment($user_id, $page_id, '', '', '', 0, 0, $this->request->post['cmtx_reply_to'], '', $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form->getNotes(), $is_admin, array(), array());
 
                     $this->comment->deleteCache($comment_id);
 

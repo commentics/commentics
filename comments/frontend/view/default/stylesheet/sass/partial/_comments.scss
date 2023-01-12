@@ -356,6 +356,11 @@
     font-weight: normal;
 }
 
+.cmtx_edited:before {
+    content: " ";
+    white-space: pre;
+}
+
 .cmtx_action_area {
     float: right;
 }
@@ -398,6 +403,11 @@
 .cmtx_flag_icon::before {
     color: $grey;
     content: '\f11d';
+}
+
+.cmtx_edit_icon::before {
+    color: $grey;
+    content: '\f040';
 }
 
 .cmtx_delete_icon::before {

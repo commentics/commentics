@@ -261,7 +261,7 @@
             </div>
         @endif
 
-        @if enabled_privacy or quick_reply
+        @if enabled_privacy or quick_reply or show_edit
             <div id="cmtx_privacy_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>
@@ -276,7 +276,7 @@
             </div>
         @endif
 
-        @if enabled_terms or quick_reply
+        @if enabled_terms or quick_reply or show_edit
             <div id="cmtx_terms_modal" class="cmtx_modal_box" role="dialog">
                 <header>
                     <a href="#" class="cmtx_modal_close">x</a>

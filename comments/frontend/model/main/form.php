@@ -80,6 +80,8 @@ class MainFormModel extends Model
         if (isset($this->request->post['cmtx_comment']) && $this->request->post['cmtx_comment'] != '') {
             $comment = $this->security->decode($this->request->post['cmtx_comment']);
 
+            $this->request->post['cmtx_original_comment'] = $comment;
+
             /* Check comment length does not exceed maximum */
             if ($this->validation->length($this->request->post['cmtx_comment']) > $this->setting->get('comment_maximum_characters')) {
                 $this->json['error']['comment'] = $this->data['lang_error_comment_max_length'];

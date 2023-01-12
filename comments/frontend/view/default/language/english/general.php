@@ -74,5 +74,8 @@ $_['lang_type_testimonial']     = 'testimonial';
 $_['lang_type_testimonials']    = 'testimonials';
 
 // Error
-$_['lang_error_maintenance']  = 'The script is in maintenance mode';
-$_['lang_error_disabled']     = 'This feature is disabled';
+$_['lang_error_no_comment']     = 'This comment no longer exists';
+$_['lang_error_own_comment']    = 'You can\'t modify this comment';
+$_['lang_error_max_edits']      = 'You can\'t edit this anymore';
+$_['lang_error_maintenance']    = 'The script is in maintenance mode';
+$_['lang_error_disabled']       = 'This feature is disabled';

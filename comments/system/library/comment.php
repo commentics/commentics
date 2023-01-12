@@ -18,9 +18,9 @@ class Comment
         $this->setting = $registry->get('setting');
     }
 
-    public function createComment($user_id, $page_id, $website, $town, $state_id, $country_id, $rating, $reply_to, $headline, $comment, $ip_address, $approve, $notes, $is_admin, $uploads, $extra_fields)
+    public function createComment($user_id, $page_id, $website, $town, $state_id, $country_id, $rating, $reply_to, $headline, $original_comment, $comment, $ip_address, $approve, $notes, $is_admin, $uploads, $extra_fields)
     {
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int) $user_id . "', `page_id` = '" . (int) $page_id . "', `website` = '" . $this->db->escape($website) . "', `town` = '" . $this->db->escape($town) . "', `state_id` = '" . (int) $state_id . "', `country_id` = '" . (int) $country_id . "', `rating` = '" . (int) $rating . "', `reply_to` = '" . (int) $reply_to . "', `headline` = '" . $this->db->escape($headline) . "', `comment` = '" . $this->db->escape($comment) . "', `reply` = '', `ip_address` = '" . $this->db->escape($ip_address) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `is_admin` = '" . (int) $is_admin . "', `is_sent` = '0', `sent_to` = '0', `likes` = '0', `dislikes` = '0', `reports` = '0', `is_sticky` = '0', `is_locked` = '0', `is_verified` = '0', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "comments` SET `user_id` = '" . (int) $user_id . "', `page_id` = '" . (int) $page_id . "', `website` = '" . $this->db->escape($website) . "', `town` = '" . $this->db->escape($town) . "', `state_id` = '" . (int) $state_id . "', `country_id` = '" . (int) $country_id . "', `rating` = '" . (int) $rating . "', `reply_to` = '" . (int) $reply_to . "', `headline` = '" . $this->db->escape($headline) . "', `original_comment` = '" . $this->db->escape($original_comment) . "', `comment` = '" . $this->db->escape($comment) . "', `reply` = '', `ip_address` = '" . $this->db->escape($ip_address) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `is_admin` = '" . (int) $is_admin . "', `is_sent` = '0', `sent_to` = '0', `likes` = '0', `dislikes` = '0', `reports` = '0', `is_sticky` = '0', `is_locked` = '0', `is_verified` = '0', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `date_modified` = NOW(), `date_added` = NOW()");
 
         $comment_id = $this->db->insertId();
 
@@ -33,6 +33,11 @@ class Comment
         }
 
         return $comment_id;
+    }
+
+    public function editComment($comment_id, $original_comment, $comment, $approve, $notes)
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `original_comment` = '" . $this->db->escape($original_comment) . "', `comment` = '" . $this->db->escape($comment) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `number_edits` = `number_edits` + 1 WHERE `id` = '" . (int) $comment_id . "'");
     }
 
     public function commentExists($id)
@@ -63,47 +68,49 @@ class Comment
             $uploads = $this->getUploads($id);
 
             $result = array(
-                'id'              => $comment['id'],
-                'user_id'         => $comment['user_id'],
-                'page_id'         => $comment['page_id'],
-                'name'            => $comment['name'],
-                'email'           => $comment['email'],
-                'page_reference'  => $comment['reference'],
-                'page_url'        => $comment['url'],
-                'website'         => $comment['website'],
-                'town'            => $comment['town'],
-                'state_id'        => $comment['state_id'],
-                'state'           => $comment['state_name'],
-                'country_id'      => $comment['country_id'],
-                'country'         => $comment['country_name'],
-                'rating'          => $comment['rating'],
-                'reply_to'        => $comment['reply_to'],
-                'headline'        => $comment['headline'],
-                'comment'         => $comment['comment'],
-                'reply'           => $comment['reply'],
-                'ip_address'      => $comment['ip_address'],
-                'is_approved'     => $comment['is_approved'],
-                'notes'           => $comment['notes'],
-                'is_admin'        => $comment['is_admin'],
-                'is_sent'         => $comment['is_sent'],
-                'sent_to'         => $comment['sent_to'],
-                'likes'           => $comment['likes'],
-                'dislikes'        => $comment['dislikes'],
-                'reports'         => $comment['reports'],
-                'is_sticky'       => $comment['is_sticky'],
-                'is_locked'       => $comment['is_locked'],
-                'is_verified'     => $comment['is_verified'],
-                'session_id'      => $comment['session_id'],
-                'date_modified'   => $comment['date_modified'],
-                'date_added'      => $comment['date_added'],
-                'token'           => $comment['token'],
-                'to_all'          => $comment['to_all'],
-                'to_admin'        => $comment['to_admin'],
-                'to_reply'        => $comment['to_reply'],
-                'to_approve'      => $comment['to_approve'],
-                'format'          => $comment['format'],
-                'date_added_user' => $comment['date_added_user'],
-                'uploads'         => $uploads
+                'id'               => $comment['id'],
+                'user_id'          => $comment['user_id'],
+                'page_id'          => $comment['page_id'],
+                'name'             => $comment['name'],
+                'email'            => $comment['email'],
+                'page_reference'   => $comment['reference'],
+                'page_url'         => $comment['url'],
+                'website'          => $comment['website'],
+                'town'             => $comment['town'],
+                'state_id'         => $comment['state_id'],
+                'state'            => $comment['state_name'],
+                'country_id'       => $comment['country_id'],
+                'country'          => $comment['country_name'],
+                'rating'           => $comment['rating'],
+                'reply_to'         => $comment['reply_to'],
+                'headline'         => $comment['headline'],
+                'original_comment' => $comment['original_comment'],
+                'comment'          => $comment['comment'],
+                'reply'            => $comment['reply'],
+                'ip_address'       => $comment['ip_address'],
+                'is_approved'      => $comment['is_approved'],
+                'notes'            => $comment['notes'],
+                'is_admin'         => $comment['is_admin'],
+                'is_sent'          => $comment['is_sent'],
+                'sent_to'          => $comment['sent_to'],
+                'likes'            => $comment['likes'],
+                'dislikes'         => $comment['dislikes'],
+                'reports'          => $comment['reports'],
+                'is_sticky'        => $comment['is_sticky'],
+                'is_locked'        => $comment['is_locked'],
+                'is_verified'      => $comment['is_verified'],
+                'number_edits'     => $comment['number_edits'],
+                'session_id'       => $comment['session_id'],
+                'date_modified'    => $comment['date_modified'],
+                'date_added'       => $comment['date_added'],
+                'token'            => $comment['token'],
+                'to_all'           => $comment['to_all'],
+                'to_admin'         => $comment['to_admin'],
+                'to_reply'         => $comment['to_reply'],
+                'to_approve'       => $comment['to_approve'],
+                'format'           => $comment['format'],
+                'date_added_user'  => $comment['date_added_user'],
+                'uploads'          => $uploads
             );
 
             $result = $this->addExtraFields($result, $comment);
