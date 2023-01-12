@@ -16,10 +16,13 @@ class MySqli
     public function connect($hostname, $username, $password, $database, $port, $prefix)
     {
         if (extension_loaded('mysqli')) {
-            if ($port) {
-                $this->link = @mysqli_connect($hostname, $username, $password, $database, $port);
-            } else {
-                $this->link = @mysqli_connect($hostname, $username, $password, $database);
+            try {
+                if ($port) {
+                    $this->link = @mysqli_connect($hostname, $username, $password, $database, $port);
+                } else {
+                    $this->link = @mysqli_connect($hostname, $username, $password, $database);
+                }
+            } catch(\Exception $e) {
             }
 
             if ($this->link) {
