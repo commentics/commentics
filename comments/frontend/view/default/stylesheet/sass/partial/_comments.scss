@@ -356,8 +356,8 @@
     font-weight: normal;
 }
 
-.cmtx_edited:before {
-    content: " ";
+.cmtx_edited::before {
+    content: ' ';
     white-space: pre;
 }
 
