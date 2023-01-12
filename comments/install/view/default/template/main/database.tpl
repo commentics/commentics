@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="database_page">
+<div id="database_page">
 
     <?php if ($writable) { ?>
 

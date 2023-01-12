@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="upgrade_1_page">
+<div id="upgrade_1_page">
 
     <?php if ($error) { ?>
 

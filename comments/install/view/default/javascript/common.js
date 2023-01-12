@@ -57,7 +57,7 @@ $(document).ready(function() {
     if ($('#cmtx_js_settings_install_1').length) {
         cmtx_js_settings_install_1 = JSON.parse($('#cmtx_js_settings_install_1').text());
 
-        $('.install_1_page .form').submit(function(e) {
+        $('#install_1_page .form').submit(function(e) {
             $('.field_error').remove();
 
             if ($('.password_1').val().length < 5) {

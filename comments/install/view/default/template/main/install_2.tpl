@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="install_2_page">
+<div id="install_2_page">
 
     <?php if ($error) { ?>
 

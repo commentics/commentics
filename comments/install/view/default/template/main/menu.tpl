@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="menu_page">
+<div id="menu_page">
 
     <p><?php echo $lang_text_action; ?></p>
 

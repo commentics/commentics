@@ -3020,10 +3020,8 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 html {
-  line-height: 1.15;
-  /* 1 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
 }
 
 /* Sections
@@ -3058,12 +3056,9 @@ h1 {
  * 2. Show the overflow in Edge and IE.
  */
 hr {
-  box-sizing: content-box;
-  /* 1 */
-  height: 0;
-  /* 1 */
-  overflow: visible;
-  /* 2 */
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
 }
 
 /**
@@ -3071,10 +3066,8 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-  font-family: monospace, monospace;
-  /* 1 */
-  font-size: 1em;
-  /* 2 */
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
 }
 
 /* Text-level semantics
@@ -3091,13 +3084,10 @@ a {
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
 abbr[title] {
-  border-bottom: none;
-  /* 1 */
-  text-decoration: underline;
-  /* 2 */
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
   -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
-  /* 2 */
+          text-decoration: underline dotted; /* 2 */
 }
 
 /**
@@ -3115,10 +3105,8 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
-  /* 1 */
-  font-size: 1em;
-  /* 2 */
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
 }
 
 /**
@@ -3168,14 +3156,10 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit;
-  /* 1 */
-  font-size: 100%;
-  /* 1 */
-  line-height: 1.15;
-  /* 1 */
-  margin: 0;
-  /* 2 */
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
 }
 
 /**
@@ -3183,8 +3167,7 @@ textarea {
  * 1. Show the overflow in Edge.
  */
 button,
-input {
-  /* 1 */
+input { /* 1 */
   overflow: visible;
 }
 
@@ -3193,8 +3176,7 @@ input {
  * 1. Remove the inheritance of text transform in Firefox.
  */
 button,
-select {
-  /* 1 */
+select { /* 1 */
   text-transform: none;
 }
 
@@ -3243,18 +3225,12 @@ fieldset {
  *    `fieldset` elements in all browsers.
  */
 legend {
-  box-sizing: border-box;
-  /* 1 */
-  color: inherit;
-  /* 2 */
-  display: table;
-  /* 1 */
-  max-width: 100%;
-  /* 1 */
-  padding: 0;
-  /* 3 */
-  white-space: normal;
-  /* 1 */
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
 }
 
 /**
@@ -3277,10 +3253,8 @@ textarea {
  */
 [type=checkbox],
 [type=radio] {
-  box-sizing: border-box;
-  /* 1 */
-  padding: 0;
-  /* 2 */
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
 }
 
 /**
@@ -3296,10 +3270,8 @@ textarea {
  * 2. Correct the outline style in Safari.
  */
 [type=search] {
-  -webkit-appearance: textfield;
-  /* 1 */
-  outline-offset: -2px;
-  /* 2 */
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
 }
 
 /**
@@ -3314,10 +3286,8 @@ textarea {
  * 2. Change font properties to `inherit` in Safari.
  */
 ::-webkit-file-upload-button {
-  -webkit-appearance: button;
-  /* 1 */
-  font: inherit;
-  /* 2 */
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
 }
 
 /* Interactive
@@ -3352,7 +3322,26 @@ template {
   display: none;
 }
 
+header, main {
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+header {
+  border-bottom: 0;
+  border-radius: 15px 15px 0 0;
+  padding: 30px 30px 0 30px;
+}
+
+main {
+  border-top: 0;
+  border-radius: 0 0 15px 15px;
+  padding: 1px 30px 30px 30px;
+}
+
 body {
+  background-color: #f1f1f1;
+  background-color: #f5f5f5;
   color: #2c2c2c;
   font-family: arial;
   font-size: 13px;
@@ -3412,23 +3401,13 @@ a:hover {
 /*********************** Steps ***********************/
 .steps {
   color: #adac9c;
+  display: flex;
   font-family: "Century Gothic", "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size: 1.3em;
   font-weight: bold;
-  margin-bottom: -17px;
+  justify-content: space-between;
+  padding-bottom: 10px;
   text-align: justify;
-  width: 100%;
-}
-
-.steps::after {
-  content: "";
-  display: inline-block;
-  width: 100%;
-}
-
-.steps .step {
-  display: inline-block;
-  text-align: center;
 }
 
 .steps .active {
@@ -3509,25 +3488,22 @@ input[type=text], input[type=email], input[type=password], select {
 }
 
 /******************* Database Page *******************/
-.database_page input, .database_page select {
+#database_page input, #database_page select {
   margin-bottom: 15px;
 }
-
-.database_page input[type=text], .database_page input[type=password], .database_page select {
+#database_page input[type=text], #database_page input[type=password], #database_page select {
   width: 250px;
 }
 
 /******************** System Page ********************/
-.system_page .row {
+#system_page .row {
   margin-bottom: 5px;
 }
-
-.system_page .item {
+#system_page .item {
   float: left;
   width: 250px;
 }
-
-.system_page .green, .system_page .amber, .system_page .red {
+#system_page .green, #system_page .amber, #system_page .red {
   background-color: #999;
   border-radius: 3px;
   color: #fff;
@@ -3542,24 +3518,19 @@ input[type=text], input[type=email], input[type=password], select {
   vertical-align: baseline;
   white-space: nowrap;
 }
-
-.system_page .green {
+#system_page .green {
   background-color: #060;
 }
-
-.system_page .amber {
+#system_page .amber {
   background-color: #ffac00;
 }
-
-.system_page .red {
+#system_page .red {
   background-color: #c00;
 }
-
-.system_page .error {
+#system_page .error {
   margin-bottom: 20px;
 }
-
-.system_page .note {
+#system_page .note {
   background-color: #fef6e0;
   border: 1px solid #efe1b9;
   color: #555;
@@ -3567,81 +3538,59 @@ input[type=text], input[type=email], input[type=password], select {
   margin-left: 15px;
   padding: 2px 0 3px 3px;
 }
-
-.system_page .button {
+#system_page .button {
   margin-top: 17px;
 }
 
 /********************* Menu Page *********************/
-.menu_page .choice:first-of-type {
+#menu_page .choice:first-of-type {
   margin-bottom: 5px;
 }
-
-.menu_page .button {
+#menu_page .button {
   margin-top: 15px;
 }
 
 /******************** Install 1 Page *****************/
-.install_1_page .left {
-  float: left;
-  margin-right: 5%;
-  margin-top: 5px;
-  width: 33%;
+#install_1_page form {
+  display: flex;
+  justify-content: space-between;
 }
-
-.install_1_page .center {
-  float: left;
-  margin-right: 5%;
-  margin-top: 5px;
-  width: 30%;
-}
-
-.install_1_page .right {
-  float: left;
-  margin-top: 5px;
-  width: 27%;
-}
-
-.install_1_page input[type=text], .install_1_page input[type=password], .install_1_page input[type=email], .install_1_page select {
+#install_1_page input[type=text], #install_1_page input[type=password], #install_1_page input[type=email], #install_1_page select {
   width: 250px;
 }
-
-.install_1_page input, .install_1_page select {
+#install_1_page input, #install_1_page select {
   margin-bottom: 15px;
 }
-
-.install_1_page .field_error {
+#install_1_page .field_error {
   color: #f00;
   font-size: 0.9em;
   margin-bottom: 10px;
   margin-top: -14px;
 }
-
-.install_1_page .button {
+#install_1_page .button {
   display: block;
   margin-top: 5px;
 }
 
 /******************** Upgrade 1 Page *****************/
-.upgrade_1_page .version {
+#upgrade_1_page .version {
   color: #27408b;
   float: left;
   font-weight: bold;
   width: 130px;
 }
-
-.upgrade_1_page .button {
+#upgrade_1_page .button {
   margin-top: 10px;
 }
 
 /******************** Media Queries ******************/
 @media all and (max-width: 1700px) {
-  .install_1_page .note {
+  #install_1_page .note {
     display: none;
   }
 }
 @media all and (max-width: 1200px) {
-  .install_1_page .heading_note {
+  #install_1_page .heading_note {
     display: none;
   }
 }
@@ -3651,48 +3600,14 @@ input[type=text], input[type=email], input[type=password], select {
     padding: 0;
     width: 95%;
   }
-
-  .steps .step {
-    float: left;
-    width: 33%;
-  }
-
-  .step:nth-child(1), .step:nth-child(4) {
-    text-align: left;
-  }
-
-  .step:nth-child(2), .step:nth-child(5) {
-    text-align: center;
-  }
-
-  .step:nth-child(3), .step:nth-child(6) {
-    text-align: right;
-  }
-
-  .step:nth-child(1), .step:nth-child(2), .step:nth-child(3) {
-    margin-bottom: 15px;
-  }
-
   .note {
     display: none;
   }
-
   input[type=text], input[type=email], input[type=password], select {
     width: 100% !important;
   }
-
-  .database_page br {
-    display: none;
-  }
-
-  .install_1_page .left, .install_1_page .center, .install_1_page .right {
-    float: none;
-    margin-right: 0;
-    width: auto;
-  }
-
-  .install_1_page br {
-    display: none;
+  #install_1_page form {
+    display: block;
   }
 }
 @media all and (max-width: 500px) {
@@ -3700,13 +3615,11 @@ input[type=text], input[type=email], input[type=password], select {
     margin-top: 5px;
     width: 100%;
   }
-
-  .system_page .item {
+  #system_page .item {
     float: none;
     width: auto;
   }
-
-  .system_page .green, .system_page .amber, .system_page .red {
+  #system_page .green, #system_page .amber, #system_page .red {
     float: right;
   }
 }
@@ -3762,27 +3675,21 @@ input[type=text], input[type=email], input[type=password], select {
   .strength_0 {
     width: 100%;
   }
-
   .strength_1 {
     width: 16%;
   }
-
   .strength_2 {
     width: 33%;
   }
-
   .strength_3 {
     width: 50%;
   }
-
   .strength_4 {
     width: 66%;
   }
-
   .strength_5 {
     width: 83%;
   }
-
   .strength_6 {
     width: 100%;
   }

@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="system_page">
+<div id="system_page">
 
     <?php if (!$check['continue']) { ?>
         <div class="error"><?php echo $lang_error_failure; ?></div>

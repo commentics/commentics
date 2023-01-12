@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="start_page">
+<div id="start_page">
 
     <p><?php echo $lang_text_welcome; ?></p>
 

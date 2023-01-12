@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="install_1_page">
+<div id="install_1_page">
 
     <?php if ($installed) { ?>
         <div class="error"><?php echo $lang_error_installed; ?></div>
