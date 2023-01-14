@@ -1709,7 +1709,7 @@ class MainFormModel extends Model
     }
 
     /* Checks if the user has previously rated the page */
-    private function hasUserRated($page_id)
+    public function hasUserRated($page_id)
     {
         if ($this->db->numRows($this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "comments` WHERE `page_id` = '" . (int) $page_id . "' AND `ip_address` = '" . $this->db->escape($this->user->getIpAddress()) . "' AND `rating` != '0'"))) {
             return true;
