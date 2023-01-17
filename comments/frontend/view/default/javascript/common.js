@@ -2409,9 +2409,9 @@ function cmtxViewReplies() {
 
             if (reply_counter) {
                 if (reply_counter == 1) {
-                    var view_replies = '<span class="cmtx_reply_view">' + cmtx_js_settings_comments.lang_text_view + '</span> <span class="cmtx_reply_num">1</span> ' + cmtx_js_settings_comments.lang_text_reply;
+                    var view_replies = '<span class="cmtx_reply_view">' + cmtx_js_settings_comments.lang_text_view + '</span> <span class="cmtx_reply_num">1</span> <span class="cmtx_reply_replies">' + cmtx_js_settings_comments.lang_text_reply + '</span>';
                 } else {
-                    var view_replies = '<span class="cmtx_reply_view">' + cmtx_js_settings_comments.lang_text_view + '</span> <span class="cmtx_reply_num">' + reply_counter + '</span> ' + cmtx_js_settings_comments.lang_text_replies;
+                    var view_replies = '<span class="cmtx_reply_view">' + cmtx_js_settings_comments.lang_text_view + '</span> <span class="cmtx_reply_num">' + reply_counter + '</span> <span class="cmtx_reply_replies">' + cmtx_js_settings_comments.lang_text_replies + '</span>';
                 }
 
                 jQuery(this).closest('.cmtx_comment_section').find('.cmtx_view_replies_link').html('<i class="fa fa-commenting-o" aria-hidden="true"></i> ' + view_replies);

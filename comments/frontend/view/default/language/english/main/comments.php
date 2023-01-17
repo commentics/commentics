@@ -32,9 +32,9 @@ $_['lang_text_no_permalink']       = 'No such comment';
 $_['lang_text_no_results']         = 'No results. <a href="" title="Go back">Go back</a>';
 $_['lang_text_no_comments']        = 'No comments yet. Be the first!';
 $_['lang_text_reported']           = 'Thanks for the report';
-$_['lang_text_privacy']            = 'privacy';
-$_['lang_text_terms']              = 'terms';
-$_['lang_text_agree']              = 'By posting you agree to the [1] and [2]';
+$_['lang_text_privacy']            = 'Privacy';
+$_['lang_text_terms']              = 'Terms';
+$_['lang_text_agree']              = '[1] / [2]';
 
 // Title
 $_['lang_title_sticky']            = 'Sticky';

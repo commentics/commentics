@@ -158,6 +158,16 @@
         margin-right: 8px;
     }
 
+    @media all and (max-width: 800px) {
+        .quick_reply .cmtx_message, .quick_reply .cmtx_error {
+            text-align: right;
+        }
+
+        .edit_comment .cmtx_message, .edit_comment .cmtx_error {
+            text-align: right;
+        }
+    }
+
     @media all and (max-width: 600px) {
         .cmtx_avatar_area {
             float: none;

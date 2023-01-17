@@ -629,7 +629,7 @@
         width: 100%;
     }
 
-    .cmtx_reply_view {
+    .cmtx_reply_view, .cmtx_reply_replies {
         display: none;
     }
 
@@ -731,7 +731,7 @@
         transform: none;
     }
 
-    .cmtx_reply_view {
+    .cmtx_reply_view, .cmtx_reply_replies {
         display: inline;
     }
 }

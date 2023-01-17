@@ -40,21 +40,30 @@
         color: $grey;
     }
 
+    .cmtx_quick_reply_agree a {
+        text-decoration: none !important;
+    }
+
     .cmtx_quick_reply_button input {
         border-radius: 5px;
     }
 
-    .cmtx_quick_reply_link, .cmtx_quick_reply_agree {
-        margin-top: 8px;
-    }
-
-    @media all and (max-width: 600px) {
+    @media all and (max-width: 800px) {
         .cmtx_quick_reply_lower {
             display: block;
+            text-align: center;
+        }
+
+        .cmtx_quick_reply_link, .cmtx_quick_reply_agree {
+            margin-top: 10px;
         }
 
         .cmtx_quick_reply_button {
-            margin-top: 8px;
+            margin-top: 14px;
+        }
+
+        .cmtx_message, .cmtx_error {
+            text-align: left;
         }
     }
 }
