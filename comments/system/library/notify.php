@@ -278,11 +278,11 @@ class Notify
         }
 
         /* Check that the user has a confirmed subscription for the page */
-        $query = $this->db->query(" SELECT *
-                                    FROM `" . CMTX_DB_PREFIX . "subscriptions`
-                                    WHERE `user_id` = '" . (int) $comment['user_id'] . "'
-                                    AND `page_id` = '" . (int) $comment['page_id'] . "'
-                                    AND `is_confirmed` = '1'");
+        $query = $this->db->query("SELECT *
+                                   FROM `" . CMTX_DB_PREFIX . "subscriptions`
+                                   WHERE `user_id` = '" . (int) $comment['user_id'] . "'
+                                   AND `page_id` = '" . (int) $comment['page_id'] . "'
+                                   AND `is_confirmed` = '1'");
 
         if (!$this->db->numRows($query)) {
             return;
@@ -341,9 +341,9 @@ class Notify
     public function subscriberNotification($id)
     {
         /* Get all user subscribers and store as property (stops users from receiving more than one email) */
-        $query = $this->db->query(" SELECT `id` FROM `" . CMTX_DB_PREFIX . "users`
-                                    WHERE `email` != ''
-                                    AND (`to_all` = '1' OR `to_admin` = '1' OR `to_reply` = '1')");
+        $query = $this->db->query("SELECT `id` FROM `" . CMTX_DB_PREFIX . "users`
+                                   WHERE `email` != ''
+                                   AND (`to_all` = '1' OR `to_admin` = '1' OR `to_reply` = '1')");
 
         $users = $this->db->rows($query);
 
@@ -377,10 +377,10 @@ class Notify
     /* Gets user IDs of parent comments */
     private function getParents($reply_to)
     {
-        $query = $this->db->query(" SELECT `u`.`id` AS `user_id`, `c`.`reply_to` AS `reply_to`
-                                    FROM `" . CMTX_DB_PREFIX . "comments` `c`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `c`.`user_id` = `u`.`id`
-                                    WHERE `c`.`id` = '" . (int) $reply_to . "'");
+        $query = $this->db->query("SELECT `u`.`id` AS `user_id`, `c`.`reply_to` AS `reply_to`
+                                   FROM `" . CMTX_DB_PREFIX . "comments` `c`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "users` `u` ON `c`.`user_id` = `u`.`id`
+                                   WHERE `c`.`id` = '" . (int) $reply_to . "'");
 
         $parent = $this->db->row($query);
 
@@ -396,15 +396,15 @@ class Notify
     private function notifySubscribersReply($comment)
     {
         /* Get subscribers who have requested a reply notification for the comment's page and whose subscription is confirmed */
-        $query = $this->db->query(" SELECT `u`.*, `p`.`reference` AS `page_reference`, `p`.`url` AS `page_url`
-                                    FROM `" . CMTX_DB_PREFIX . "users` `u`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
-                                    WHERE `u`.`email` != ''
-                                    AND (`u`.`to_all` = '1' OR `u`.`to_reply` = '1')
-                                    AND `u`.`id` IN (" . $this->db->escape(implode(',', $this->parents)) . ")
-                                    AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
-                                    AND `s`.`is_confirmed` = '1'");
+        $query = $this->db->query("SELECT `u`.*, `p`.`reference` AS `page_reference`, `p`.`url` AS `page_url`
+                                   FROM `" . CMTX_DB_PREFIX . "users` `u`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
+                                   WHERE `u`.`email` != ''
+                                   AND (`u`.`to_all` = '1' OR `u`.`to_reply` = '1')
+                                   AND `u`.`id` IN (" . $this->db->escape(implode(',', $this->parents)) . ")
+                                   AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
+                                   AND `s`.`is_confirmed` = '1'");
 
         $users = $this->db->rows($query);
 
@@ -448,14 +448,14 @@ class Notify
     private function notifySubscribersAdmin($comment)
     {
         /* Get subscribers who have requested an admin notification for the comment's page and whose subscription is confirmed */
-        $query = $this->db->query(" SELECT `u`.*, `p`.`reference` AS `page_reference`, `p`.`url` AS `page_url`
-                                    FROM `" . CMTX_DB_PREFIX . "users` `u`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
-                                    WHERE `u`.`email` != ''
-                                    AND (`u`.`to_all` = '1' OR `u`.`to_admin` = '1')
-                                    AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
-                                    AND `s`.`is_confirmed` = '1'");
+        $query = $this->db->query("SELECT `u`.*, `p`.`reference` AS `page_reference`, `p`.`url` AS `page_url`
+                                   FROM `" . CMTX_DB_PREFIX . "users` `u`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
+                                   WHERE `u`.`email` != ''
+                                   AND (`u`.`to_all` = '1' OR `u`.`to_admin` = '1')
+                                   AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
+                                   AND `s`.`is_confirmed` = '1'");
 
         $users = $this->db->rows($query);
 
@@ -499,14 +499,14 @@ class Notify
     private function notifySubscribersBasic($comment)
     {
         /* Get subscribers who have requested a notification for the comment's page and whose subscription is confirmed */
-        $query = $this->db->query(" SELECT `u`.*, `p`.`reference` AS `page_reference`, `p`.`url` AS `page_url`
-                                    FROM `" . CMTX_DB_PREFIX . "users` `u`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
-                                    LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
-                                    WHERE `u`.`email` != ''
-                                    AND `u`.`to_all` = '1'
-                                    AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
-                                    AND `s`.`is_confirmed` = '1'");
+        $query = $this->db->query("SELECT `u`.*, `p`.`reference` AS `page_reference`, `p`.`url` AS `page_url`
+                                   FROM `" . CMTX_DB_PREFIX . "users` `u`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "subscriptions` `s` ON `u`.`id` = `s`.`user_id`
+                                   LEFT JOIN `" . CMTX_DB_PREFIX . "pages` `p` ON `s`.`page_id` = `p`.`id`
+                                   WHERE `u`.`email` != ''
+                                   AND `u`.`to_all` = '1'
+                                   AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
+                                   AND `s`.`is_confirmed` = '1'");
 
         $users = $this->db->rows($query);
 
