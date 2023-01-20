@@ -237,7 +237,7 @@ class ManageCommentsModel extends Model
                 $this->singleSend($id);
             }
 
-            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '1', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
+            $this->comment->approveComment($id);
 
             $this->comment->deleteCache($id);
 

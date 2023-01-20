@@ -192,14 +192,28 @@ class Comment
         }
     }
 
+    public function isApproved($id)
+    {
+        if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "comments` WHERE `id` = '" . (int) $id . "' AND `is_approved` = '1'"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function approveComment($id)
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '1', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
+    }
+
     public function unapproveComment($id)
     {
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '0' WHERE `id` = '" . (int) $id . "'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '0', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
 
         $replies = $this->getReplies($id);
 
         foreach ($replies as $id) {
-            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '0' WHERE `id` = '" . (int) $id . "'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '0', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
         }
     }
 
