@@ -1,3 +1,52 @@
+Version: 4.4
+Date: 21st January 2023
+
+[Feature] Quick reply
+[Feature] User can edit comment
+[Feature] User can delete comment
+[Feature] Merge Users module
+[Improvement] PHP 8.2 compatibility
+[Improvement] Better PHP 8.1 compatibility
+[Improvement] Moves all JS and CSS out of templates
+[Improvement] Set if comment is by admin on edit comment page
+[Improvement] Adds setting for if email should be unique
+[Improvement] Updates countries and states
+[Improvement] Replaces Securimage with custom solution
+[Improvement] Adds setting to show empty pages in admin area
+[Improvement] Changes default date/time format
+[Improvement] Catches exceptions in MySQL
+[Improvement] Improves role of super admin
+[Improvement] Makes 'view replies link' more responsive
+[Improvement] View full size avatar in admin area
+[Improvement] Adds setting to count replies in comments heading
+[Improvement] Checks file and database versions match
+[Improvement] Adds ability to pass URL in integration code
+[Improvement] Updates the Redis caching code
+[Improvement] Sets default caching ports
+[Improvement] Adds ability to delete cache by prefix
+[Improvement] Improves dashboard icon styling
+[Improvement] Makes library methods more versatile
+[Improvement] Unapproving comment unapproves replies
+[Improvement] Language/CSS editor handles missing folders
+[Improvement] Improves installer styling
+[Improvement] Improves coding standards
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades jQuery UI script
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades chart script
+[Improvement] Downgrades highlight script
+[Bug Fix] Fixes empty value on CSS editor module
+[Bug Fix] Fixes dialog close button in admin area
+[Bug Fix] Fixes height between name/email field on mobile
+[Bug Fix] Fixes uploads overlay position styling
+[Bug Fix] Fixes state on edit comment page when no country
+[Bug Fix] Fixes notifications form not hiding extra fields
+[Bug Fix] Fixes email address BB code
+[Other] Allows extended hyphen in name
+[Other] Moves dialog encoding to engine
+
+*************************************************************************
+
 Version: 4.3
 Date: 29th January 2022
 
