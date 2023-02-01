@@ -389,6 +389,14 @@ class MainUpgrade2Model extends Model
 
             $this->model_main_install_2->createTableDeleted();
         }
+
+        if ($version == '4.4 -> 4.5') {
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'field_label', `value` = 'none'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'field_column', `value` = 'multiple'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'field_width', `value` = 'long'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'field_align', `value` = 'center'");
+            $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'comment_layout', `value` = 'layout_one'");
+        }
     }
 
     public function getInstalledVersion()

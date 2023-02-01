@@ -4,6 +4,7 @@ $_['lang_heading_comments']        = 'Comments';
 
 // Text
 $_['lang_text_says']               = 'says...';
+$_['lang_text_posted_by']          = 'Posted by';
 $_['lang_text_permalink']          = 'Share a link to this comment';
 $_['lang_text_replying_to']        = 'You are replying to';
 $_['lang_text_not_replying']       = 'You are not replying to anyone';

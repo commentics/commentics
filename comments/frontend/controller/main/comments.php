@@ -318,6 +318,8 @@ class MainCommentsController extends Controller
 
             $this->data['ip_address'] = $this->user->getIpAddress();
 
+            $this->data['comment_layout'] = $this->setting->get('comment_layout');
+
             /* These are passed to common.js via the template */
             $this->data['cmtx_js_settings_comments'] = array(
                 'commentics_url'          => $this->url->getCommenticsUrl(),

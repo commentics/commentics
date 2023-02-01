@@ -60,6 +60,18 @@
                 </div>
 
                 <div class="fieldset">
+                    <label><?php echo $lang_entry_inside_layout; ?></label>
+                    <select name="comment_layout">
+                        <option value="layout_one" <?php if ($comment_layout == 'layout_one') { echo 'selected'; } ?>><?php echo $lang_select_layout_one; ?></option>
+                        <option value="layout_two" <?php if ($comment_layout == 'layout_two') { echo 'selected'; } ?>><?php echo $lang_select_layout_two; ?></option>
+                    </select>
+                    <a class="hint" data-hint="<?php echo $lang_hint_comment_layout; ?>">[?]</a>
+                    <?php if ($error_comment_layout) { ?>
+                        <span class="error"><?php echo $error_comment_layout; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
                     <label><?php echo $lang_entry_positions; ?></label>
                     <div class="position_block">
                         <div class="row row_1">

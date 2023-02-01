@@ -1,4 +1,4 @@
-<div id="cmtx_perm_{{ comment.id }}" class="cmtx_comment_box cmtx_clear" data-cmtx-comment-id="{{ comment.id }}" itemscope itemtype="https://schema.org/Comment">
+<div id="cmtx_perm_{{ comment.id }}" class="cmtx_comment_box cmtx_comment_layout_one cmtx_clear" data-cmtx-comment-id="{{ comment.id }}" itemscope itemtype="https://schema.org/Comment">
     <div class="cmtx_content_area reply_indent_{{ reply_depth }}">
         @if avatar_type
             <div class="cmtx_avatar_area">

@@ -840,13 +840,16 @@ img.loading {
 
 /* Layout Form */
 
-#settings_layout_form_page .general_element {
-    margin-top: 25px;
+.section_container {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#settings_layout_form_page .element_heading {
-    font-size: 18px;
-    margin-bottom: 10px;
+.section_container > div:not(:last-child) {
+    margin-right: 50px;
+}
+
+#settings_layout_form_page .general_element {
     margin-top: 25px;
 }
 

@@ -1,0 +1,130 @@
+// _partial/_fields.scss
+
+/* Field Label */
+
+.cmtx_field_label_none {
+    .cmtx_label_container {
+        display: none;
+    }
+}
+
+.cmtx_field_label_above, .cmtx_field_label_side {
+    .cmtx_required {
+        background-image: none;
+    }
+
+    .cmtx_required::after {
+        color: $red;
+        content: ' *';
+        font-size: 12px;
+        padding-left: 2px;
+    }
+}
+
+.cmtx_field_label_side {
+    .cmtx_label_container, .cmtx_field_container {
+        display: inline-block;
+    }
+
+    .cmtx_label_container {
+        min-width: 85px;
+        vertical-align: top;
+    }
+}
+
+/* Field Width */
+
+.cmtx_field_width_long.cmtx_field_label_side {
+    .cmtx_field_container {
+        width: calc(100% - 85px);
+    }
+}
+
+.cmtx_field_width_short {
+    .cmtx_field_container {
+        width: 400px;
+    }
+
+    .cmtx_commenting_container .cmtx_field_container {
+        min-width: max-content;
+    }
+
+    .cmtx_message {
+        width: fit-content;
+    }
+
+    .cmtx_bb_code_container, .cmtx_smilies_container {
+        float: none;
+    }
+
+    .cmtx_icons_separator {
+        display: none;
+    }
+
+    .cmtx_smilies_container {
+        margin-top: 5px;
+    }
+
+    @media all and (max-width: 800px) {
+        .cmtx_message {
+            width: 100%;
+        }
+
+        .cmtx_field_container {
+            width: 100%;
+        }
+
+        .cmtx_commenting_container .cmtx_field_container {
+            min-width: 0;
+        }
+    }
+}
+
+/* Field Column */
+
+.cmtx_field_column_single {
+    .cmtx_user_row [class*='cmtx_col_'], .cmtx_geo_row [class*='cmtx_col_'], .cmtx_question_row [class*='cmtx_col_'] {
+        float: none;
+        width: auto;
+    }
+
+    .cmtx_user_row [class*='cmtx_col_'] + [class*='cmtx_col_'], .cmtx_geo_row [class*='cmtx_col_'] + [class*='cmtx_col_'], .cmtx_question_row [class*='cmtx_col_'] + [class*='cmtx_col_'] {
+        margin-top: 20px;
+    }
+
+    .cmtx_row:not(.cmtx_button_row) [class*='cmtx_col_'] {
+        padding: 0 !important;
+    }
+}
+
+/* Field Alignment */
+
+.cmtx_field_align_left.cmtx_field_label_none {
+    .cmtx_field.cmtx_required {
+        padding-left: 18px !important;
+    }
+
+    .cmtx_comment_field_active.cmtx_required {
+        padding-left: 6px !important;
+    }
+}
+
+.cmtx_field_align_left {
+    .cmtx_field {
+        text-align: left !important;
+    }
+
+    .cmtx_comment_field {
+        padding-left: 6px !important;
+    }
+
+    .cmtx_rating_row .cmtx_label_container {
+        vertical-align: middle;
+    }
+
+    .cmtx_rating {
+        border: none;
+        box-shadow: none;
+        text-align: left;
+    }
+}

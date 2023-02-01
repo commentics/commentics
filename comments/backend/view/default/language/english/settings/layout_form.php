@@ -36,6 +36,10 @@ $_['lang_entry_hide_form']         = 'Hide:';
 $_['lang_entry_js_disabled']       = 'Display JS Message:';
 $_['lang_entry_required_symbol']   = 'Display * Symbol:';
 $_['lang_entry_required_text']     = 'Display * Text:';
+$_['lang_entry_field_label']       = 'Field Label:';
+$_['lang_entry_field_column']      = 'Field Column:';
+$_['lang_entry_field_width']       = 'Field Width:';
+$_['lang_entry_field_align']       = 'Field Align:';
 $_['lang_entry_default']           = 'Default:';
 $_['lang_entry_maximum']           = 'Maximum:';
 $_['lang_entry_counter']           = 'Counter:';
@@ -70,6 +74,15 @@ $_['lang_entry_agree']             = 'Agree:';
 $_['lang_entry_new_window']        = 'New Win:';
 
 // Selection
+$_['lang_select_none']             = 'None';
+$_['lang_select_side']             = 'Side';
+$_['lang_select_above']            = 'Above';
+$_['lang_select_single']           = 'Single';
+$_['lang_select_multiple']         = 'Multiple';
+$_['lang_select_short']            = 'Short';
+$_['lang_select_long']             = 'Long';
+$_['lang_select_left']             = 'Left';
+$_['lang_select_center']           = 'Center';
 $_['lang_select_normal']           = 'Normal';
 $_['lang_select_disable']          = 'Disable';
 $_['lang_select_hide']             = 'Hide';
@@ -178,6 +191,7 @@ $_['lang_dialog_content_enabled']  = 'The following features are enabled on this
 $_['lang_dialog_content_disabled'] = 'The following features are disabled on this<br>page but enabled on the <a href="%s">comments</a> page';
 
 // Error
+$_['lang_error_field_combo']       = 'This combination is not possible';
 $_['lang_error_max_size']          = 'Must be between 0.1 and 99.9';
 $_['lang_error_max_total']         = 'Must be between 0.1 and 99.9';
 $_['lang_error_fopen']             = 'The fopen(URL) function must be enabled';

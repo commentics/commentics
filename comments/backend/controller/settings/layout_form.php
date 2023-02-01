@@ -59,6 +59,56 @@ class SettingsLayoutFormController extends Controller
             $this->data['display_required_text'] = $this->setting->get('display_required_text');
         }
 
+        if (isset($this->request->post['field_label'])) {
+            $this->data['field_label'] = $this->request->post['field_label'];
+        } else {
+            $this->data['field_label'] = $this->setting->get('field_label');
+        }
+
+        if (isset($this->request->post['field_column'])) {
+            $this->data['field_column'] = $this->request->post['field_column'];
+        } else {
+            $this->data['field_column'] = $this->setting->get('field_column');
+        }
+
+        if (isset($this->request->post['field_width'])) {
+            $this->data['field_width'] = $this->request->post['field_width'];
+        } else {
+            $this->data['field_width'] = $this->setting->get('field_width');
+        }
+
+        if (isset($this->request->post['field_align'])) {
+            $this->data['field_align'] = $this->request->post['field_align'];
+        } else {
+            $this->data['field_align'] = $this->setting->get('field_align');
+        }
+
+        if (isset($this->error['field_label'])) {
+            $this->data['error_field_label'] = $this->error['field_label'];
+        } else {
+            $this->data['error_field_label'] = '';
+        }
+
+        if (isset($this->error['field_column'])) {
+            $this->data['error_field_column'] = $this->error['field_column'];
+        } else {
+            $this->data['error_field_column'] = '';
+        }
+
+        if (isset($this->error['field_width'])) {
+            $this->data['error_field_width'] = $this->error['field_width'];
+        } else {
+            $this->data['error_field_width'] = '';
+        }
+
+        if (isset($this->error['field_align'])) {
+            $this->data['error_field_align'] = $this->error['field_align'];
+        } else {
+            $this->data['error_field_align'] = '';
+        }
+
+        /* Field Order */
+
         if (isset($this->request->post['order_fields'])) {
             $this->data['order_fields'] = $this->request->post['order_fields'];
         } else {
@@ -1284,6 +1334,28 @@ class SettingsLayoutFormController extends Controller
         }
 
         /* General */
+
+        if (!isset($this->request->post['field_label']) || !in_array($this->request->post['field_label'], array('none', 'side', 'above'))) {
+            $this->error['field_label'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['field_column']) || !in_array($this->request->post['field_column'], array('single', 'multiple'))) {
+            $this->error['field_column'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['field_width']) || !in_array($this->request->post['field_width'], array('short', 'long'))) {
+            $this->error['field_width'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['field_align']) || !in_array($this->request->post['field_align'], array('left', 'center'))) {
+            $this->error['field_align'] = $this->data['lang_error_selection'];
+        }
+
+        if (!$this->error && $this->request->post['field_column'] == 'multiple' && $this->request->post['field_width'] == 'short') {
+            $this->error['field_column'] = $this->error['field_width'] = $this->data['lang_error_field_combo'];
+        }
+
+        /* Field Order */
 
         if (isset($this->request->post['order_fields'])) {
             $order_fields = explode(',', $this->request->post['order_fields']);

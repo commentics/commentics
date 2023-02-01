@@ -17,6 +17,14 @@ class SettingsLayoutFormModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['display_required_text']) ? 1 : 0) . "' WHERE `title` = 'display_required_text'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['field_label']) . "' WHERE `title` = 'field_label'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['field_column']) . "' WHERE `title` = 'field_column'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['field_width']) . "' WHERE `title` = 'field_width'");
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['field_align']) . "' WHERE `title` = 'field_align'");
+
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['order_fields']) . "' WHERE `title` = 'order_fields'");
 
         /* BB Code */

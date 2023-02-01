@@ -69,6 +69,8 @@ class Template
 
                 if ($template == 'field/{{ field.template }}') {
                     $this->code = str_replace($tag, "<?php require(\$this->loadTemplate('field/' . \$field['template'])); ?>" . PHP_EOL, $this->code);
+                } else if ($template == 'comment/{{ comment_layout }}') {
+                    $this->code = str_replace($tag, "<?php require(\$this->loadTemplate('comment/' . \$comment_layout)); ?>" . PHP_EOL, $this->code);
                 } else {
                     $this->code = str_replace($tag, "<?php require(\$this->loadTemplate('$template')); ?>" . PHP_EOL, $this->code);
                 }

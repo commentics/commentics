@@ -8,6 +8,21 @@ $_['lang_entry_cookie']                   = 'Remember my form inputs<span class=
 $_['lang_entry_privacy']                  = 'I have read <span class="cmtx_checkbox_extra">and understand</span> the <a href="#" title="View the privacy policy" data-cmtx-target-modal="#cmtx_privacy_modal">privacy policy</a>';
 $_['lang_entry_terms']                    = 'I have read <span class="cmtx_checkbox_extra">and agree to</span> the <a href="#" title="View the terms and conditions" data-cmtx-target-modal="#cmtx_terms_modal">terms and conditions</a>';
 
+// Label
+$_['lang_label_name']                     = 'Name';
+$_['lang_label_email']                    = 'Email';
+$_['lang_label_comment']                  = 'Comment';
+$_['lang_label_upload']                   = 'Upload';
+$_['lang_label_headline']                 = 'Headline';
+$_['lang_label_rating']                   = 'Rating';
+$_['lang_label_website']                  = 'Website';
+$_['lang_label_town']                     = 'Town';
+$_['lang_label_country']                  = 'Country';
+$_['lang_label_state']                    = 'State';
+$_['lang_label_question']                 = 'Question';
+$_['lang_label_answer']                   = 'Answer';
+$_['lang_label_captcha']                  = 'Captcha';
+
 // Placeholder
 $_['lang_placeholder_comment']            = 'Enter your comment here ..';
 $_['lang_placeholder_headline']           = 'Headline';

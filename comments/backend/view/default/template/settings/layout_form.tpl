@@ -31,34 +31,85 @@
             <div>
                 <h2><?php echo $lang_subheading_general; ?></h2>
 
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_enabled; ?></label>
-                    <input type="checkbox" name="enabled_form" value="1" <?php if ($enabled_form) { echo 'checked'; } ?>>
-                    <a class="hint" data-hint="<?php echo $lang_hint_enabled_form; ?>">[?]</a>
-                </div>
+                <div class="section_container">
+                    <div class="section_general">
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_enabled; ?></label>
+                            <input type="checkbox" name="enabled_form" value="1" <?php if ($enabled_form) { echo 'checked'; } ?>>
+                            <a class="hint" data-hint="<?php echo $lang_hint_enabled_form; ?>">[?]</a>
+                        </div>
 
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_hide_form; ?></label>
-                    <input type="checkbox" name="hide_form" value="1" <?php if ($hide_form) { echo 'checked'; } ?>>
-                    <a class="hint" data-hint="<?php echo $lang_hint_hide_form; ?>">[?]</a>
-                </div>
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_hide_form; ?></label>
+                            <input type="checkbox" name="hide_form" value="1" <?php if ($hide_form) { echo 'checked'; } ?>>
+                            <a class="hint" data-hint="<?php echo $lang_hint_hide_form; ?>">[?]</a>
+                        </div>
 
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_js_disabled; ?></label>
-                    <input type="checkbox" name="display_javascript_disabled" value="1" <?php if ($display_javascript_disabled) { echo 'checked'; } ?>>
-                    <a class="hint" data-hint="<?php echo $lang_hint_js_disabled; ?>">[?]</a>
-                </div>
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_js_disabled; ?></label>
+                            <input type="checkbox" name="display_javascript_disabled" value="1" <?php if ($display_javascript_disabled) { echo 'checked'; } ?>>
+                            <a class="hint" data-hint="<?php echo $lang_hint_js_disabled; ?>">[?]</a>
+                        </div>
 
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_required_symbol; ?></label>
-                    <input type="checkbox" name="display_required_symbol" value="1" <?php if ($display_required_symbol) { echo 'checked'; } ?>>
-                    <a class="hint" data-hint="<?php echo $lang_hint_required_symbol; ?>">[?]</a>
-                </div>
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_required_symbol; ?></label>
+                            <input type="checkbox" name="display_required_symbol" value="1" <?php if ($display_required_symbol) { echo 'checked'; } ?>>
+                            <a class="hint" data-hint="<?php echo $lang_hint_required_symbol; ?>">[?]</a>
+                        </div>
 
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_required_text; ?></label>
-                    <input type="checkbox" name="display_required_text" value="1" <?php if ($display_required_text) { echo 'checked'; } ?>>
-                    <a class="hint" data-hint="<?php echo $lang_hint_required_text; ?>">[?]</a>
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_required_text; ?></label>
+                            <input type="checkbox" name="display_required_text" value="1" <?php if ($display_required_text) { echo 'checked'; } ?>>
+                            <a class="hint" data-hint="<?php echo $lang_hint_required_text; ?>">[?]</a>
+                        </div>
+                    </div>
+
+                    <div class="section_fields">
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_field_label; ?></label>
+                            <select name="field_label">
+                                <option value="none" <?php if ($field_label == 'none') { echo 'selected'; } ?>><?php echo $lang_select_none; ?></option>
+                                <option value="side" <?php if ($field_label == 'side') { echo 'selected'; } ?>><?php echo $lang_select_side; ?></option>
+                                <option value="above" <?php if ($field_label == 'above') { echo 'selected'; } ?>><?php echo $lang_select_above; ?></option>
+                            </select>
+                            <?php if ($error_field_label) { ?>
+                                <span class="error"><?php echo $error_field_label; ?></span>
+                            <?php } ?>
+                        </div>
+
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_field_column; ?></label>
+                            <select name="field_column">
+                                <option value="single" <?php if ($field_column == 'single') { echo 'selected'; } ?>><?php echo $lang_select_single; ?></option>
+                                <option value="multiple" <?php if ($field_column == 'multiple') { echo 'selected'; } ?>><?php echo $lang_select_multiple; ?></option>
+                            </select>
+                            <?php if ($error_field_column) { ?>
+                                <span class="error"><?php echo $error_field_column; ?></span>
+                            <?php } ?>
+                        </div>
+
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_field_width; ?></label>
+                            <select name="field_width">
+                                <option value="short" <?php if ($field_width == 'short') { echo 'selected'; } ?>><?php echo $lang_select_short; ?></option>
+                                <option value="long" <?php if ($field_width == 'long') { echo 'selected'; } ?>><?php echo $lang_select_long; ?></option>
+                            </select>
+                            <?php if ($error_field_width) { ?>
+                                <span class="error"><?php echo $error_field_width; ?></span>
+                            <?php } ?>
+                        </div>
+
+                        <div class="fieldset">
+                            <label><?php echo $lang_entry_field_align; ?></label>
+                            <select name="field_align">
+                                <option value="left" <?php if ($field_align == 'left') { echo 'selected'; } ?>><?php echo $lang_select_left; ?></option>
+                                <option value="center" <?php if ($field_align == 'center') { echo 'selected'; } ?>><?php echo $lang_select_center; ?></option>
+                            </select>
+                            <?php if ($error_field_align) { ?>
+                                <span class="error"><?php echo $error_field_align; ?></span>
+                            <?php } ?>
+                        </div>
+                    </div>
                 </div>
 
                 <p><?php echo $lang_text_fields; ?></p>

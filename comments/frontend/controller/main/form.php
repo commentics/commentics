@@ -109,8 +109,6 @@ class MainFormController extends Controller
 
             $this->data['comment'] = $this->setting->get('default_comment');
 
-            $this->data['comment_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
-
             $this->data['comment_maximum_characters'] = $this->setting->get('comment_maximum_characters');
 
             $this->data['enabled_counter'] = $this->setting->get('enabled_counter');
@@ -448,8 +446,6 @@ class MainFormController extends Controller
 
             $this->data['question'] = false;
 
-            $this->data['answer_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
-
             if ($this->setting->get('enabled_question')) {
                 $question = $this->model_main_form->getQuestion();
 
@@ -577,6 +573,15 @@ class MainFormController extends Controller
             } else {
                 $this->data['cmtx_admin_button'] = '';
             }
+
+            /* Field layout */
+            $this->data['field_label'] = 'cmtx_field_label_' . $this->setting->get('field_label');
+            $this->data['field_column'] = 'cmtx_field_column_' . $this->setting->get('field_column');
+            $this->data['field_width'] = 'cmtx_field_width_' . $this->setting->get('field_width');
+            $this->data['field_align'] = 'cmtx_field_align_' . $this->setting->get('field_align');
+
+            /* This is for fields that are always required */
+            $this->data['general_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
 
             $this->data['quick_reply'] = $this->setting->get('quick_reply');
 
@@ -1061,7 +1066,7 @@ class MainFormController extends Controller
 
                     ob_start();
 
-                    require $this->loadTemplate('main/comment');
+                    require $this->loadTemplate('comment/' . $this->setting->get('comment_layout'));
 
                     $json['result']['preview'] = ob_get_clean();
                 } else {

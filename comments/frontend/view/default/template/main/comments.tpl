@@ -35,7 +35,7 @@
 
                 <section class="cmtx_comment_section">
                     {# This is the parent comment #}
-                    @template main/comment
+                    @template comment/{{ comment_layout }}
 
                     {# If the comment has any replies they are put into a div #}
                     @if comment.reply_id
@@ -46,27 +46,27 @@
                     @foreach comment.reply_id as comment
                         @set reply_depth = 1
                         @increase count
-                        @template main/comment
+                        @template comment/{{ comment_layout }}
 
                         @foreach comment.reply_id as comment
                             @set reply_depth = 2
                             @increase count
-                            @template main/comment
+                            @template comment/{{ comment_layout }}
 
                             @foreach comment.reply_id as comment
                                 @set reply_depth = 3
                                 @increase count
-                                @template main/comment
+                                @template comment/{{ comment_layout }}
 
                                 @foreach comment.reply_id as comment
                                     @set reply_depth = 4
                                     @increase count
-                                    @template main/comment
+                                    @template comment/{{ comment_layout }}
 
                                     @foreach comment.reply_id as comment
                                         @set reply_depth = 5
                                         @increase count
-                                        @template main/comment
+                                        @template comment/{{ comment_layout }}
                                     @endforeach
 
                                 @endforeach

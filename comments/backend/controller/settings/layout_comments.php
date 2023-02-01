@@ -39,6 +39,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['comments_order'] = $this->setting->get('comments_order');
         }
 
+        if (isset($this->request->post['comment_layout'])) {
+            $this->data['comment_layout'] = $this->request->post['comment_layout'];
+        } else {
+            $this->data['comment_layout'] = $this->setting->get('comment_layout');
+        }
+
         if (isset($this->request->post['comments_position_1'])) {
             $this->data['comments_position_1'] = $this->request->post['comments_position_1'];
         } else {
@@ -115,6 +121,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['error_comments_order'] = $this->error['comments_order'];
         } else {
             $this->data['error_comments_order'] = '';
+        }
+
+        if (isset($this->error['comment_layout'])) {
+            $this->data['error_comment_layout'] = $this->error['comment_layout'];
+        } else {
+            $this->data['error_comment_layout'] = '';
         }
 
         if (isset($this->error['comments_position_1'])) {
@@ -1196,6 +1208,10 @@ class SettingsLayoutCommentsController extends Controller
 
         if (!isset($this->request->post['comments_order']) || !in_array($this->request->post['comments_order'], array('1', '2', '3', '4', '5', '6'))) {
             $this->error['comments_order'] = $this->data['lang_error_selection'];
+        }
+
+        if (!isset($this->request->post['comment_layout']) || !in_array($this->request->post['comment_layout'], array('layout_one', 'layout_two'))) {
+            $this->error['comment_layout'] = $this->data['lang_error_selection'];
         }
 
         $elements = array('', 'average_rating', 'custom', 'notify', 'online', 'page_number', 'pagination', 'rss', 'search', 'social', 'sort_by', 'topic');

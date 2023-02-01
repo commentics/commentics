@@ -18,9 +18,12 @@
 
 /* Form */
 @import 'partial/form';
+@import 'partial/fields';
 
 /* Comments */
 @import 'partial/comments';
+@import 'partial/comment';
+@import 'partial/parts';
 
 /* User */
 @import 'partial/user';

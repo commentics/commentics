@@ -13,6 +13,8 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['comments_order']) . "' WHERE `title` = 'comments_order'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['comment_layout']) . "' WHERE `title` = 'comment_layout'");
+
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_says']) ? 1 : 0) . "' WHERE `title` = 'show_says'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['comments_position_1']) . "' WHERE `title` = 'comments_position_1'");

@@ -204,10 +204,6 @@
     width: 100%;
 }
 
-.cmtx_select_field {
-    text-align: left !important;
-}
-
 .cmtx_textarea_field {
     height: 35px !important;
     min-height: 35px !important;
@@ -505,17 +501,9 @@ select.cmtx_required {
     padding-left: 0;
 }
 
-.cmtx_country_field {
-    text-align: left;
-}
-
 .cmtx_country_field option:first-child {
     color: $grey-lighter;
     display: none;
-}
-
-.cmtx_state_field {
-    text-align: left;
 }
 
 .cmtx_state_field option:first-child {
