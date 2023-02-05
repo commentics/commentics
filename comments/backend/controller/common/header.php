@@ -17,12 +17,16 @@ class CommonHeaderController extends Controller
 
         $this->data['stylesheet'] = $this->loadStylesheet('stylesheet.css');
 
+        $this->data['autoload_stylesheet'] = $this->autoloadStylesheet();
+
         if (isset($this->session->data['cmtx_admin_id'])) {
             $this->data['full_header'] = true;
 
             $this->data['logo'] = $this->loadImage('commentics/logo.png');
 
             $this->data['common'] = $this->loadJavascript('common.js');
+
+            $this->data['autoload_javascript'] = $this->autoloadJavascript();
 
             $this->data['has_restriction'] = $this->model_common_header->hasRestriction();
 

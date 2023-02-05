@@ -5,11 +5,17 @@
     <meta name="robots" content="noindex">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ common }}"></script>
+    @foreach autoload_javascript as autoload
+        <script src="{{ autoload }}" defer></script>
+    @endforeach
     <link rel="stylesheet" type="text/css" href="{{ stylesheet }}">
+    @foreach autoload_stylesheet as autoload
+        <link rel="stylesheet" type="text/css" href="{{ autoload }}">
+    @endforeach
     @if custom
         <link rel="stylesheet" type="text/css" href="{{ custom }}">
     @endif
-    <script src="{{ common }}"></script>
 </head>
 <body class="cmtx_user_body {{ cmtx_dir }}">
     <div id="cmtx_user_container" class="cmtx_user_container cmtx_clear">

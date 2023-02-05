@@ -68,6 +68,10 @@ class CommonHeaderController extends Controller
             $this->data['stylesheet'] = $this->loadStylesheet('stylesheet.css');
         }
 
+        $this->data['autoload_javascript'] = $this->autoloadJavascript();
+
+        $this->data['autoload_stylesheet'] = $this->autoloadStylesheet();
+
         $this->data['custom'] = $this->loadCustomCss();
 
         return $this->data;

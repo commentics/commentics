@@ -15,20 +15,19 @@ class ModuleLanguageEditorModel extends Model
 
     public function getText()
     {
-        $results = array();
+        $directories = $results = array();
 
-        $directory1 = $this->getDirectoryIterator(CMTX_DIR_ROOT . 'frontend/view/default/language/' . $this->setting->get('language_frontend') . '/');
-
-        $directory2 = $this->getDirectoryIterator(CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/');
+        $directories[] = $this->getDirectoryIterator(CMTX_DIR_ROOT . 'frontend/view/default/language/' . $this->setting->get('language_frontend') . '/');
+        $directories[] = $this->getDirectoryIterator(CMTX_DIR_ROOT . 'frontend/view/default/language/' . $this->setting->get('language_frontend') . '/autoload/');
+        $directories[] = $this->getDirectoryIterator(CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/');
+        $directories[] = $this->getDirectoryIterator(CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/autoload/');
 
         $iterator = new \AppendIterator();
 
-        if (!empty($directory1)) {
-            $iterator->append(new \RecursiveIteratorIterator($directory1));
-        }
-
-        if (!empty($directory2)) {
-            $iterator->append(new \RecursiveIteratorIterator($directory2));
+        foreach ($directories as $directory) {
+            if (!empty($directory)) {
+                $iterator->append(new \RecursiveIteratorIterator($directory));
+            }
         }
 
         $matches = new \RegexIterator($iterator, '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH);

@@ -186,6 +186,20 @@ abstract class Controller extends Base
             die('<b>Error</b>: Could not load language ' . strtolower($cmtx_language) . '!');
         }
 
+        /* Autoload language files if any exist (default theme) */
+        if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/autoload/')) {
+            foreach (glob(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/autoload/*.php') as $filename) {
+                require cmtx_modification($filename);
+            }
+        }
+
+        /* Autoload language files if any exist (custom theme) */
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/autoload/')) {
+            foreach (glob(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/autoload/*.php') as $filename) {
+                require cmtx_modification($filename);
+            }
+        }
+
         /* Load custom language file if it exists */
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom.php')) {
             require cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom.php');

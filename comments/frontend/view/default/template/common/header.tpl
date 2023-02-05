@@ -20,7 +20,15 @@
 
 <script src="{{ common }}" defer></script>
 
+@foreach autoload_javascript as autoload
+    <script src="{{ autoload }}" defer></script>
+@endforeach
+
 <link rel="stylesheet" type="text/css" href="{{ stylesheet }}">
+
+@foreach autoload_stylesheet as autoload
+    <link rel="stylesheet" type="text/css" href="{{ autoload }}">
+@endforeach
 
 @if custom
     <link rel="stylesheet" type="text/css" href="{{ custom }}">

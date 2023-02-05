@@ -31,9 +31,17 @@
     <script src="../3rdparty/hint_script/tooltip.js"></script>
 
     <script src="<?php echo $common; ?>"></script>
+
+    <?php foreach ($autoload_javascript as $autoload) { ?>
+        <script src="<?php echo $autoload; ?>"></script>
+    <?php } ?>
 <?php } ?>
 
     <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
+
+    <?php foreach ($autoload_stylesheet as $autoload) { ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo $autoload; ?>">
+    <?php } ?>
 </head>
 <body>
 

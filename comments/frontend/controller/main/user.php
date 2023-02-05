@@ -9,11 +9,15 @@ class MainUserController extends Controller
 
         $this->loadModel('main/user');
 
+        $this->data['common'] = $this->loadJavascript('common-jq.min.js');
+
+        $this->data['autoload_javascript'] = $this->autoloadJavascript();
+
         $this->data['stylesheet'] = $this->loadStylesheet('stylesheet.min.css');
 
-        $this->data['custom'] = $this->loadCustomCss();
+        $this->data['autoload_stylesheet'] = $this->autoloadStylesheet();
 
-        $this->data['common'] = $this->loadJavascript('common-jq.min.js');
+        $this->data['custom'] = $this->loadCustomCss();
 
         $this->data['commentics_url'] = $this->url->getCommenticsUrl();
 

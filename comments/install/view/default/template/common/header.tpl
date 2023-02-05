@@ -5,9 +5,15 @@
 <meta name="robots" content="noindex">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
 <script src="<?php echo $jquery; ?>"></script>
 <script src="<?php echo $common; ?>"></script>
+<?php foreach ($autoload_javascript as $autoload) { ?>
+    <script src="<?php echo $autoload; ?>"></script>
+<?php } ?>
+<link rel="stylesheet" type="text/css" href="<?php echo $stylesheet; ?>">
+<?php foreach ($autoload_stylesheet as $autoload) { ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo $autoload; ?>">
+<?php } ?>
 </head>
 <body>
 <header>
