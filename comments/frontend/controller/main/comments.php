@@ -135,7 +135,9 @@ class MainCommentsController extends Controller
                     $total = $this->data['total'];
                 }
 
-                $this->data['lang_heading_comments'] .= ' (' . $total . ')';
+                $this->data['heading_comments'] = $this->data['lang_heading_comments'] . ' (' . $total . ')';
+            } else {
+                $this->data['heading_comments'] = $this->data['lang_heading_comments'];
             }
 
             if ($this->setting->get('website_new_window')) {

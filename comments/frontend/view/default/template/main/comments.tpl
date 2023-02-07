@@ -1,5 +1,5 @@
 <div id="cmtx_comments_container" class="cmtx_comments_container cmtx_clear">
-    <h3 class="cmtx_comments_heading">{{ lang_heading_comments }}</h3>
+    <h3 class="cmtx_comments_heading">{{ heading_comments }}</h3>
 
     @if comments
         @if rich_snippets_enabled
