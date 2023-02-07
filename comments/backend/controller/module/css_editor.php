@@ -20,24 +20,14 @@ class ModuleCssEditorController extends Controller
         'Trebuchet MS',
         'Verdana'
     );
-    private $font_sizes = array(
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25
-    );
+    private $font_sizes = array();
+
+    public function __construct($registry)
+    {
+        parent::__construct($registry);
+
+        $this->font_sizes = range(10, 25);
+    }
 
     public function index()
     {
