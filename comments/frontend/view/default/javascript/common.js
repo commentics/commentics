@@ -2570,6 +2570,9 @@ function cmtxRefreshComments(options) {
             cmtxViewersOnline();
             cmtxCloseShareBox();
             cmtxClosePermalinkBox();
+
+            /* Serves as an event which can be listened to for after comments are loaded */
+            $('#cmtx_loading_helper').trigger('click');
         }
     });
 
