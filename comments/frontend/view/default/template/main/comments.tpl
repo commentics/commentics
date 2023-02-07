@@ -194,7 +194,7 @@
 
         <input type="hidden" name="cmtx_next_page" id="cmtx_next_page" value="2">
 
-        <div id="cmtx_loading_helper" data-cmtx-load="1" data-cmtx-total-comments="{{ total }}"></div>
+        <div id="cmtx_loading_helper" class="cmtx_hide" data-cmtx-load="1" data-cmtx-total-comments="{{ total }}"></div>
 
         @if rich_snippets_enabled
             </div>
