@@ -71,26 +71,31 @@ class MainPageController extends Controller
         if ($this->setting->has('css_editor_enabled') && $this->setting->get('css_editor_enabled')) {
             $this->data['css_editor_enabled'] = true;
 
+            $this->data['css_editor_general_enabled'] = $this->setting->get('css_editor_general_enabled');
             $this->data['css_editor_general_background_color'] = $this->setting->get('css_editor_general_background_color');
             $this->data['css_editor_general_foreground_color'] = $this->setting->get('css_editor_general_foreground_color');
             $this->data['css_editor_general_font_family'] = $this->setting->get('css_editor_general_font_family');
             $this->data['css_editor_general_font_size'] = $this->setting->get('css_editor_general_font_size');
 
+            $this->data['css_editor_heading_enabled'] = $this->setting->get('css_editor_heading_enabled');
             $this->data['css_editor_heading_background_color'] = $this->setting->get('css_editor_heading_background_color');
             $this->data['css_editor_heading_foreground_color'] = $this->setting->get('css_editor_heading_foreground_color');
             $this->data['css_editor_heading_font_family'] = $this->setting->get('css_editor_heading_font_family');
             $this->data['css_editor_heading_font_size'] = $this->setting->get('css_editor_heading_font_size');
 
+            $this->data['css_editor_link_enabled'] = $this->setting->get('css_editor_link_enabled');
             $this->data['css_editor_link_background_color'] = $this->setting->get('css_editor_link_background_color');
             $this->data['css_editor_link_foreground_color'] = $this->setting->get('css_editor_link_foreground_color');
             $this->data['css_editor_link_font_family'] = $this->setting->get('css_editor_link_font_family');
             $this->data['css_editor_link_font_size'] = $this->setting->get('css_editor_link_font_size');
 
+            $this->data['css_editor_primary_enabled'] = $this->setting->get('css_editor_primary_enabled');
             $this->data['css_editor_primary_button_background_color'] = $this->setting->get('css_editor_primary_button_background_color');
             $this->data['css_editor_primary_button_foreground_color'] = $this->setting->get('css_editor_primary_button_foreground_color');
             $this->data['css_editor_primary_button_font_family'] = $this->setting->get('css_editor_primary_button_font_family');
             $this->data['css_editor_primary_button_font_size'] = $this->setting->get('css_editor_primary_button_font_size');
 
+            $this->data['css_editor_secondary_enabled'] = $this->setting->get('css_editor_secondary_enabled');
             $this->data['css_editor_secondary_button_background_color'] = $this->setting->get('css_editor_secondary_button_background_color');
             $this->data['css_editor_secondary_button_foreground_color'] = $this->setting->get('css_editor_secondary_button_foreground_color');
             $this->data['css_editor_secondary_button_font_family'] = $this->setting->get('css_editor_secondary_button_font_family');

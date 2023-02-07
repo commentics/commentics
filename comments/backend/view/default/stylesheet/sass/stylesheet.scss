@@ -661,6 +661,14 @@ img.loading {
     margin-right: 20px;
     padding: 10px;
     padding-top: 5px;
+    position: relative;
+}
+
+#module_css_editor_page .elements .corner_checkbox {
+    position: absolute;
+    right: 8px;
+    text-align: center;
+    top: 8px;
 }
 
 #module_css_editor_page .elements h2 {

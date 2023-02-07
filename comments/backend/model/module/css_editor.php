@@ -18,26 +18,31 @@ class ModuleCssEditorModel extends Model
     {
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '1' WHERE `title` = 'css_editor_enabled'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['css_editor_general_enabled']) ? 1 : 0) . "' WHERE `title` = 'css_editor_general_enabled'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_general_background_color']) . "' WHERE `title` = 'css_editor_general_background_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_general_foreground_color']) . "' WHERE `title` = 'css_editor_general_foreground_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_general_font_family']) . "' WHERE `title` = 'css_editor_general_font_family'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_general_font_size']) . "' WHERE `title` = 'css_editor_general_font_size'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['css_editor_heading_enabled']) ? 1 : 0) . "' WHERE `title` = 'css_editor_heading_enabled'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_heading_background_color']) . "' WHERE `title` = 'css_editor_heading_background_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_heading_foreground_color']) . "' WHERE `title` = 'css_editor_heading_foreground_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_heading_font_family']) . "' WHERE `title` = 'css_editor_heading_font_family'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_heading_font_size']) . "' WHERE `title` = 'css_editor_heading_font_size'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['css_editor_link_enabled']) ? 1 : 0) . "' WHERE `title` = 'css_editor_link_enabled'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_link_background_color']) . "' WHERE `title` = 'css_editor_link_background_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_link_foreground_color']) . "' WHERE `title` = 'css_editor_link_foreground_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_link_font_family']) . "' WHERE `title` = 'css_editor_link_font_family'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_link_font_size']) . "' WHERE `title` = 'css_editor_link_font_size'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['css_editor_primary_enabled']) ? 1 : 0) . "' WHERE `title` = 'css_editor_primary_enabled'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_primary_button_background_color']) . "' WHERE `title` = 'css_editor_primary_button_background_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_primary_button_foreground_color']) . "' WHERE `title` = 'css_editor_primary_button_foreground_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_primary_button_font_family']) . "' WHERE `title` = 'css_editor_primary_button_font_family'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_primary_button_font_size']) . "' WHERE `title` = 'css_editor_primary_button_font_size'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['css_editor_secondary_enabled']) ? 1 : 0) . "' WHERE `title` = 'css_editor_secondary_enabled'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_secondary_button_background_color']) . "' WHERE `title` = 'css_editor_secondary_button_background_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_secondary_button_foreground_color']) . "' WHERE `title` = 'css_editor_secondary_button_foreground_color'");
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['css_editor_secondary_button_font_family']) . "' WHERE `title` = 'css_editor_secondary_button_font_family'");
@@ -66,26 +71,31 @@ class ModuleCssEditorModel extends Model
     {
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_enabled', `value` = '0'");
 
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_enabled', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_background_color', `value` = '#FFFFFF'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_foreground_color', `value` = '#000000'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_font_family', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_general_font_size', `value` = ''");
 
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_enabled', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_background_color', `value` = '#FFFFFF'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_foreground_color', `value` = '#000000'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_font_family', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_heading_font_size', `value` = ''");
 
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_link_enabled', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_link_background_color', `value` = '#FFFFFF'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_link_foreground_color', `value` = '#0000EE'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_link_font_family', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_link_font_size', `value` = ''");
 
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_primary_enabled', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_primary_button_background_color', `value` = '#3F6F95'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_primary_button_foreground_color', `value` = '#FFFFFF'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_primary_button_font_family', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_primary_button_font_size', `value` = ''");
 
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_secondary_enabled', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_secondary_button_background_color', `value` = '#E7E7E7'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_secondary_button_foreground_color', `value` = '#000000'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'module', `title` = 'css_editor_secondary_button_font_family', `value` = ''");

@@ -31,6 +31,10 @@
             <div>
                 <h2><?php echo $lang_subheading_general; ?></h2>
 
+                <div class="corner_checkbox">
+                    <input type="checkbox" name="css_editor_general_enabled" value="1" <?php if ($css_editor_general_enabled) { echo 'checked'; } ?>>
+                </div>
+
                 <div class="fieldset">
                     <label><?php echo $lang_entry_background_color; ?></label>
                     <input type="color" name="css_editor_general_background_color" value="<?php echo $css_editor_general_background_color; ?>">
@@ -76,6 +80,10 @@
 
             <div>
                 <h2><?php echo $lang_subheading_heading; ?></h2>
+
+                <div class="corner_checkbox">
+                    <input type="checkbox" name="css_editor_heading_enabled" value="1" <?php if ($css_editor_heading_enabled) { echo 'checked'; } ?>>
+                </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_background_color; ?></label>
@@ -123,6 +131,10 @@
             <div>
                 <h2><?php echo $lang_subheading_link; ?></h2>
 
+                <div class="corner_checkbox">
+                    <input type="checkbox" name="css_editor_link_enabled" value="1" <?php if ($css_editor_link_enabled) { echo 'checked'; } ?>>
+                </div>
+
                 <div class="fieldset">
                     <label><?php echo $lang_entry_background_color; ?></label>
                     <input type="color" name="css_editor_link_background_color" value="<?php echo $css_editor_link_background_color; ?>">
@@ -169,6 +181,10 @@
             <div>
                 <h2><?php echo $lang_subheading_primary; ?></h2>
 
+                <div class="corner_checkbox">
+                    <input type="checkbox" name="css_editor_primary_enabled" value="1" <?php if ($css_editor_primary_enabled) { echo 'checked'; } ?>>
+                </div>
+
                 <div class="fieldset">
                     <label><?php echo $lang_entry_background_color; ?></label>
                     <input type="color" name="css_editor_primary_button_background_color" value="<?php echo $css_editor_primary_button_background_color; ?>">
@@ -214,6 +230,10 @@
 
             <div>
                 <h2><?php echo $lang_subheading_secondary; ?></h2>
+
+                <div class="corner_checkbox">
+                    <input type="checkbox" name="css_editor_secondary_enabled" value="1" <?php if ($css_editor_secondary_enabled) { echo 'checked'; } ?>>
+                </div>
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_background_color; ?></label>

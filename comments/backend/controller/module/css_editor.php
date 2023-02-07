@@ -55,6 +55,14 @@ class ModuleCssEditorController extends Controller
             }
         }
 
+        if (isset($this->request->post['css_editor_general_enabled'])) {
+            $this->data['css_editor_general_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['css_editor_general_enabled'])) {
+            $this->data['css_editor_general_enabled'] = false;
+        } else {
+            $this->data['css_editor_general_enabled'] = $this->setting->get('css_editor_general_enabled');
+        }
+
         if (isset($this->request->post['css_editor_general_background_color'])) {
             $this->data['css_editor_general_background_color'] = $this->request->post['css_editor_general_background_color'];
         } else {
@@ -77,6 +85,14 @@ class ModuleCssEditorController extends Controller
             $this->data['css_editor_general_font_size'] = $this->request->post['css_editor_general_font_size'];
         } else {
             $this->data['css_editor_general_font_size'] = $this->setting->get('css_editor_general_font_size');
+        }
+
+        if (isset($this->request->post['css_editor_heading_enabled'])) {
+            $this->data['css_editor_heading_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['css_editor_heading_enabled'])) {
+            $this->data['css_editor_heading_enabled'] = false;
+        } else {
+            $this->data['css_editor_heading_enabled'] = $this->setting->get('css_editor_heading_enabled');
         }
 
         if (isset($this->request->post['css_editor_heading_background_color'])) {
@@ -103,6 +119,14 @@ class ModuleCssEditorController extends Controller
             $this->data['css_editor_heading_font_size'] = $this->setting->get('css_editor_heading_font_size');
         }
 
+        if (isset($this->request->post['css_editor_link_enabled'])) {
+            $this->data['css_editor_link_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['css_editor_link_enabled'])) {
+            $this->data['css_editor_link_enabled'] = false;
+        } else {
+            $this->data['css_editor_link_enabled'] = $this->setting->get('css_editor_link_enabled');
+        }
+
         if (isset($this->request->post['css_editor_link_background_color'])) {
             $this->data['css_editor_link_background_color'] = $this->request->post['css_editor_link_background_color'];
         } else {
@@ -127,6 +151,14 @@ class ModuleCssEditorController extends Controller
             $this->data['css_editor_link_font_size'] = $this->setting->get('css_editor_link_font_size');
         }
 
+        if (isset($this->request->post['css_editor_primary_enabled'])) {
+            $this->data['css_editor_primary_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['css_editor_primary_enabled'])) {
+            $this->data['css_editor_primary_enabled'] = false;
+        } else {
+            $this->data['css_editor_primary_enabled'] = $this->setting->get('css_editor_primary_enabled');
+        }
+
         if (isset($this->request->post['css_editor_primary_button_background_color'])) {
             $this->data['css_editor_primary_button_background_color'] = $this->request->post['css_editor_primary_button_background_color'];
         } else {
@@ -149,6 +181,14 @@ class ModuleCssEditorController extends Controller
             $this->data['css_editor_primary_button_font_size'] = $this->request->post['css_editor_primary_button_font_size'];
         } else {
             $this->data['css_editor_primary_button_font_size'] = $this->setting->get('css_editor_primary_button_font_size');
+        }
+
+        if (isset($this->request->post['css_editor_secondary_enabled'])) {
+            $this->data['css_editor_secondary_enabled'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['css_editor_secondary_enabled'])) {
+            $this->data['css_editor_secondary_enabled'] = false;
+        } else {
+            $this->data['css_editor_secondary_enabled'] = $this->setting->get('css_editor_secondary_enabled');
         }
 
         if (isset($this->request->post['css_editor_secondary_button_background_color'])) {
