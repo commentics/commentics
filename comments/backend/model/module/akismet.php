@@ -23,10 +23,6 @@ class ModuleAkismetModel extends Model
 
     public function uninstall()
     {
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'akismet_enabled'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'akismet_key'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'akismet_logging'");
+        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` LIKE 'akismet%'");
     }
 }

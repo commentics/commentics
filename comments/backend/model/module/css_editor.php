@@ -104,32 +104,7 @@ class ModuleCssEditorModel extends Model
 
     public function uninstall()
     {
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_enabled'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_general_background_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_general_foreground_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_general_font_family'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_general_font_size'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_heading_background_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_heading_foreground_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_heading_font_family'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_heading_font_size'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_link_background_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_link_foreground_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_link_font_family'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_link_font_size'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_primary_button_background_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_primary_button_foreground_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_primary_button_font_family'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_primary_button_font_size'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_secondary_button_background_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_secondary_button_foreground_color'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_secondary_button_font_family'");
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'css_editor_secondary_button_font_size'");
+        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` LIKE 'css_editor%'");
 
         $css_file = CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/stylesheet/css/custom.css';
 

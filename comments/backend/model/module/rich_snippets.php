@@ -47,11 +47,7 @@ class ModuleRichSnippetsModel extends Model
 
     public function uninstall()
     {
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rich_snippets_enabled'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rich_snippets_type'");
-
-        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'rich_snippets_other'");
+        $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` LIKE 'rich_snippets%'");
 
         $this->db->query("DROP TABLE IF EXISTS `" . CMTX_DB_PREFIX . "rich_snippets_properties`");
     }
