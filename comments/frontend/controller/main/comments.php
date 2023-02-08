@@ -331,6 +331,8 @@ class MainCommentsController extends Controller
             );
 
             $this->data['cmtx_js_settings_comments'] = json_encode($this->data['cmtx_js_settings_comments']);
+        } else {
+            $this->data['heading_comments'] = $this->data['lang_heading_comments'];
         }
 
         return $this->data;
