@@ -4098,9 +4098,6 @@ select.cmtx_required {
   font-weight: bold;
   margin: 0;
 }
-.cmtx_comment_layout_two .cmtx_posted_by {
-  margin-right: 4px;
-}
 .cmtx_comment_layout_two .cmtx_date_area {
   float: none;
   font-size: inherit;

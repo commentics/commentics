@@ -88,9 +88,7 @@
 
                 <div class="cmtx_user_area" itemprop="creator" itemscope itemtype="https://schema.org/Person">
                     @if show_says
-                        <span class="cmtx_posted_by">
-                            {{ lang_text_posted_by }}
-                        </span>
+                        <span class="cmtx_posted_by">{{ lang_text_posted_by }} </span>
                     @endif
 
                     @if comment.is_admin
