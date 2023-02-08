@@ -21,10 +21,10 @@ class ExtensionModulesController extends Controller
             $name = $this->loadWord('module/' . $module, 'lang_heading');
 
             $this->data['modules'][] = array(
-                'module' => $module,
-                'name' => $name,
+                'module'    => $module,
+                'name'      => $name,
                 'installed' => (in_array($module, $installed)) ? true : false,
-                'url' => 'index.php?route=module/' . $module
+                'url'       => 'index.php?route=module/' . $module
             );
         }
 
