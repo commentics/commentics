@@ -23,6 +23,11 @@ class Setting
         }
     }
 
+    public function all()
+    {
+        return $this->settings;
+    }
+
     public function get($title)
     {
         return $this->settings[$title];

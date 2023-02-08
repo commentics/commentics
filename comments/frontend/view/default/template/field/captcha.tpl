@@ -27,7 +27,7 @@
                         <span id="cmtx_captcha_refresh" class="cmtx_captcha_refresh fa fa-refresh" title="{{ lang_title_refresh }}"></span>
                     </div>
 
-                    <div><input type="text" name="cmtx_captcha" id="cmtx_captcha" class="cmtx_field cmtx_captcha_field {{ general_symbol }}" placeholder="{{ lang_placeholder_captcha }}" title="{{ lang_title_captcha }}" maxlength="{{ maximum_captcha }}"></div>
+                    <div><input type="text" name="cmtx_captcha" id="cmtx_captcha" class="cmtx_field cmtx_captcha_field {{ general_symbol }}" placeholder="{{ lang_placeholder_captcha }}" title="{{ lang_title_captcha }}" maxlength="{{ captcha_length }}"></div>
                 </div>
             </div>
         </div>

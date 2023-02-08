@@ -6,7 +6,7 @@
                     <label class="{{ headline_symbol }}">{{ lang_label_headline }}</label>
                 </div>
                 <div class="cmtx_field_container">
-                    <input type="text" name="cmtx_headline" id="cmtx_headline" class="cmtx_field cmtx_text_field cmtx_headline_field {{ headline_symbol }}" value="{{ headline }}" placeholder="{{ lang_placeholder_headline }}" title="{{ lang_title_headline }}" maxlength="{{ headline_maximum_characters }}">
+                    <input type="text" name="cmtx_headline" id="cmtx_headline" class="cmtx_field cmtx_text_field cmtx_headline_field {{ headline_symbol }}" value="{{ default_headline }}" placeholder="{{ lang_placeholder_headline }}" title="{{ lang_title_headline }}" maxlength="{{ headline_maximum_characters }}">
                 </div>
             </div>
         </div>

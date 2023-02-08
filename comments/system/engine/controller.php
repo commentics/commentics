@@ -47,6 +47,8 @@ abstract class Controller extends Base
 
         unset($cmtx_component, $cmtx_key, $cmtx_value, $generated_time);
 
+        extract($this->setting->all());
+
         extract($this->data);
 
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_view) . '.tpl')) {
@@ -76,6 +78,8 @@ abstract class Controller extends Base
 
             $this->data = array_merge($this->data, $controller->index($cmtx_component_data));
         }
+
+        extract($this->setting->all());
 
         extract($this->data);
 

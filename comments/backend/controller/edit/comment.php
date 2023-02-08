@@ -310,8 +310,6 @@ class EditCommentController extends Controller
 
         $this->data['link_spam'] = $this->security->decode($this->url->link('edit/spam', '&id=' . $this->request->get['id']));
 
-        $this->data['default_country'] = $this->setting->get('default_country');
-
         $this->data['link_back'] = $this->url->link('manage/comments');
 
         if ($this->setting->get('notice_edit_comment')) {

@@ -164,34 +164,6 @@ class MainCommentsController extends Controller
                 $this->data['hide_replies'] = '';
             }
 
-            $this->data['avatar_type']             = $this->setting->get('avatar_type');
-            $this->data['show_level']              = $this->setting->get('show_level');
-            $this->data['show_bio']                = $this->setting->get('show_bio');
-            $this->data['show_badge_top_poster']   = $this->setting->get('show_badge_top_poster');
-            $this->data['show_badge_most_likes']   = $this->setting->get('show_badge_most_likes');
-            $this->data['show_badge_first_poster'] = $this->setting->get('show_badge_first_poster');
-            $this->data['show_website']            = $this->setting->get('show_website');
-            $this->data['show_says']               = $this->setting->get('show_says');
-            $this->data['show_rating']             = $this->setting->get('show_rating');
-            $this->data['show_headline']           = $this->setting->get('show_headline');
-            $this->data['show_date']               = $this->setting->get('show_date');
-            $this->data['date_auto']               = $this->setting->get('date_auto');
-            $this->data['show_like']               = $this->setting->get('show_like');
-            $this->data['show_dislike']            = $this->setting->get('show_dislike');
-            $this->data['show_share']              = $this->setting->get('show_share');
-            $this->data['show_share_digg']         = $this->setting->get('show_share_digg');
-            $this->data['show_share_facebook']     = $this->setting->get('show_share_facebook');
-            $this->data['show_share_linkedin']     = $this->setting->get('show_share_linkedin');
-            $this->data['show_share_reddit']       = $this->setting->get('show_share_reddit');
-            $this->data['show_share_twitter']      = $this->setting->get('show_share_twitter');
-            $this->data['show_share_weibo']        = $this->setting->get('show_share_weibo');
-            $this->data['show_flag']               = $this->setting->get('show_flag');
-            $this->data['show_permalink']          = $this->setting->get('show_permalink');
-            $this->data['show_pagination']         = $this->setting->get('show_pagination');
-            $this->data['pagination_type']         = $this->setting->get('pagination_type');
-            $this->data['pagination_amount']       = $this->setting->get('pagination_amount');
-            $this->data['reply_max_depth']         = $this->setting->get('reply_depth');
-
             $this->data['is_preview'] = false;
 
             if ($this->setting->get('show_reply') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
@@ -303,9 +275,7 @@ class MainCommentsController extends Controller
             if ($this->setting->has('rich_snippets_enabled') && $this->setting->get('rich_snippets_enabled')) {
                 $this->data['rich_snippets_enabled'] = true;
 
-                if ($this->setting->get('rich_snippets_type') != 'other') {
-                    $this->data['rich_snippets_type'] = $this->setting->get('rich_snippets_type');
-                } else {
+                if ($this->setting->get('rich_snippets_type') == 'other') {
                     $this->data['rich_snippets_type'] = $this->setting->get('rich_snippets_other');
                 }
             } else {
@@ -319,8 +289,6 @@ class MainCommentsController extends Controller
             $this->data['session_id'] = $this->session->getId();
 
             $this->data['ip_address'] = $this->user->getIpAddress();
-
-            $this->data['comment_layout'] = $this->setting->get('comment_layout');
 
             /* These are passed to common.js via the template */
             $this->data['cmtx_js_settings_comments'] = array(
@@ -382,7 +350,7 @@ class MainCommentsController extends Controller
             $comment['avatar'] = $this->user->getAvatar($comment['user_id']);
 
             if ($this->setting->get('avatar_type') == 'gravatar') {
-                $comment['avatar_bio'] = '//www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=158';
+                $comment['avatar_bio'] = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=158';
             } else {
                 if (substr($comment['avatar'], -15) == 'misc/avatar.png') {
                     $comment['avatar_bio'] = $this->loadImage('misc/avatar_bio.png');
@@ -714,6 +682,8 @@ class MainCommentsController extends Controller
             $json = array();
 
             $comments = $this->index();
+
+            extract($this->setting->all());
 
             extract($this->data);
 

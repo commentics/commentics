@@ -751,16 +751,16 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['hide_replies'] = $this->setting->get('hide_replies');
         }
 
-        if (isset($this->request->post['reply_depth'])) {
-            $this->data['reply_depth'] = $this->request->post['reply_depth'];
+        if (isset($this->request->post['reply_max_depth'])) {
+            $this->data['reply_max_depth'] = $this->request->post['reply_max_depth'];
         } else {
-            $this->data['reply_depth'] = $this->setting->get('reply_depth');
+            $this->data['reply_max_depth'] = $this->setting->get('reply_max_depth');
         }
 
-        if (isset($this->error['reply_depth'])) {
-            $this->data['error_reply_depth'] = $this->error['reply_depth'];
+        if (isset($this->error['reply_max_depth'])) {
+            $this->data['error_reply_max_depth'] = $this->error['reply_max_depth'];
         } else {
-            $this->data['error_reply_depth'] = '';
+            $this->data['error_reply_max_depth'] = '';
         }
 
         /* Average Rating */
@@ -1356,8 +1356,8 @@ class SettingsLayoutCommentsController extends Controller
 
         /* Reply */
 
-        if (!isset($this->request->post['reply_depth']) || !$this->validation->isInt($this->request->post['reply_depth']) || $this->request->post['reply_depth'] < 1 || $this->request->post['reply_depth'] > 5) {
-            $this->error['reply_depth'] = sprintf($this->data['lang_error_range'], 1, 5);
+        if (!isset($this->request->post['reply_max_depth']) || !$this->validation->isInt($this->request->post['reply_max_depth']) || $this->request->post['reply_max_depth'] < 1 || $this->request->post['reply_max_depth'] > 5) {
+            $this->error['reply_max_depth'] = sprintf($this->data['lang_error_range'], 1, 5);
         }
 
         /* Custom */

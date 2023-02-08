@@ -40,21 +40,19 @@ class MainUserController extends Controller
 
                     $this->data['lang_heading'] = $user['name'];
 
-                    $this->data['avatar_type'] = $this->setting->get('avatar_type');
-
                     $this->data['avatar'] = $this->user->getAvatar($user['id'], true);
 
-                    if ($this->data['avatar_type'] == 'gravatar') {
+                    if ($this->setting->get('avatar_type') == 'gravatar') {
                         $this->data['lang_text_gravatar'] = sprintf($this->data['lang_text_gravatar'], '<a href="https://gravatar.com" target="_blank">https://gravatar.com</a>');
-                    } else if ($this->data['avatar_type'] == 'login') {
+                    } else if ($this->setting->get('avatar_type') == 'login') {
                         $this->data['lang_text_login'] = sprintf($this->data['lang_text_login'], $this->setting->get('site_name'));
-                    } else if ($this->data['avatar_type'] == 'selection') {
+                    } else if ($this->setting->get('avatar_type') == 'selection') {
                         $this->data['lang_text_selection'] = sprintf($this->data['lang_text_selection'], 'cmtx_avatar_selection_link');
 
                         $this->data['avatar_selection_attribution'] = $this->security->decode($this->setting->get('avatar_selection_attribution'));
 
                         $this->data['avatars'] = $this->model_main_user->getSelectableAvatars();
-                    } else if ($this->data['avatar_type'] == 'upload') {
+                    } else if ($this->setting->get('avatar_type') == 'upload') {
                         $this->data['lang_text_upload'] = sprintf($this->data['lang_text_upload'], 'cmtx_avatar_upload_link', $this->setting->get('avatar_upload_max_size'));
 
                         $this->data['can_upload_avatar'] = true;

@@ -28,12 +28,6 @@ class MainFormController extends Controller
 
             $hidden_data = '';
 
-            $this->data['display_javascript_disabled'] = $this->setting->get('display_javascript_disabled');
-
-            $this->data['display_required_text'] = $this->setting->get('display_required_text');
-
-            $this->data['display_required_symbol'] = $this->setting->get('display_required_symbol');
-
             $cookie = array();
 
             $cookie['name'] = $cookie['email'] = $cookie['website'] = $cookie['town'] = $cookie['country'] = $cookie['state'] = '';
@@ -53,86 +47,14 @@ class MainFormController extends Controller
                 }
             }
 
-            /* BB Code */
-
-            $this->data['enabled_bb_code'] = $this->setting->get('enabled_bb_code');
-
-            if ($this->data['enabled_bb_code']) {
-                $this->data['enabled_bb_code_bold']        = $this->setting->get('enabled_bb_code_bold');
-                $this->data['enabled_bb_code_italic']      = $this->setting->get('enabled_bb_code_italic');
-                $this->data['enabled_bb_code_underline']   = $this->setting->get('enabled_bb_code_underline');
-                $this->data['enabled_bb_code_strike']      = $this->setting->get('enabled_bb_code_strike');
-                $this->data['enabled_bb_code_superscript'] = $this->setting->get('enabled_bb_code_superscript');
-                $this->data['enabled_bb_code_subscript']   = $this->setting->get('enabled_bb_code_subscript');
-                $this->data['enabled_bb_code_code']        = $this->setting->get('enabled_bb_code_code');
-                $this->data['enabled_bb_code_php']         = $this->setting->get('enabled_bb_code_php');
-                $this->data['enabled_bb_code_quote']       = $this->setting->get('enabled_bb_code_quote');
-                $this->data['enabled_bb_code_line']        = $this->setting->get('enabled_bb_code_line');
-                $this->data['enabled_bb_code_bullet']      = $this->setting->get('enabled_bb_code_bullet');
-                $this->data['enabled_bb_code_numeric']     = $this->setting->get('enabled_bb_code_numeric');
-                $this->data['enabled_bb_code_link']        = $this->setting->get('enabled_bb_code_link');
-                $this->data['enabled_bb_code_email']       = $this->setting->get('enabled_bb_code_email');
-                $this->data['enabled_bb_code_image']       = $this->setting->get('enabled_bb_code_image');
-                $this->data['enabled_bb_code_youtube']     = $this->setting->get('enabled_bb_code_youtube');
-            } else {
-                $this->data['enabled_bb_code_bullet']  = false;
-                $this->data['enabled_bb_code_numeric'] = false;
-                $this->data['enabled_bb_code_link']    = false;
-                $this->data['enabled_bb_code_email']   = false;
-                $this->data['enabled_bb_code_image']   = false;
-                $this->data['enabled_bb_code_youtube'] = false;
-            }
-
-            /* Smilies */
-
-            $this->data['enabled_smilies'] = $this->setting->get('enabled_smilies');
-
-            if ($this->data['enabled_smilies']) {
-                $this->data['enabled_smilies_smile']    = $this->setting->get('enabled_smilies_smile');
-                $this->data['enabled_smilies_sad']      = $this->setting->get('enabled_smilies_sad');
-                $this->data['enabled_smilies_huh']      = $this->setting->get('enabled_smilies_huh');
-                $this->data['enabled_smilies_laugh']    = $this->setting->get('enabled_smilies_laugh');
-                $this->data['enabled_smilies_mad']      = $this->setting->get('enabled_smilies_mad');
-                $this->data['enabled_smilies_tongue']   = $this->setting->get('enabled_smilies_tongue');
-                $this->data['enabled_smilies_cry']      = $this->setting->get('enabled_smilies_cry');
-                $this->data['enabled_smilies_grin']     = $this->setting->get('enabled_smilies_grin');
-                $this->data['enabled_smilies_wink']     = $this->setting->get('enabled_smilies_wink');
-                $this->data['enabled_smilies_scared']   = $this->setting->get('enabled_smilies_scared');
-                $this->data['enabled_smilies_cool']     = $this->setting->get('enabled_smilies_cool');
-                $this->data['enabled_smilies_sleep']    = $this->setting->get('enabled_smilies_sleep');
-                $this->data['enabled_smilies_blush']    = $this->setting->get('enabled_smilies_blush');
-                $this->data['enabled_smilies_confused'] = $this->setting->get('enabled_smilies_confused');
-                $this->data['enabled_smilies_shocked']  = $this->setting->get('enabled_smilies_shocked');
-            }
-
-            /* Comment */
-
-            $this->data['comment'] = $this->setting->get('default_comment');
-
-            $this->data['comment_maximum_characters'] = $this->setting->get('comment_maximum_characters');
-
-            $this->data['enabled_counter'] = $this->setting->get('enabled_counter');
-
             /* Headline */
 
-            $this->data['enabled_headline'] = $this->setting->get('enabled_headline');
-
-            $this->data['headline'] = $this->setting->get('default_headline');
-
             $this->data['headline_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_headline') ? 'cmtx_required' : '');
-
-            $this->data['headline_maximum_characters'] = $this->setting->get('headline_maximum_characters');
-
-            /* Upload */
-
-            $this->data['enabled_upload'] = $this->setting->get('enabled_upload');
 
             /* Rating */
 
             if ($this->setting->get('repeat_rating') == 'hide' && $this->model_main_form->hasUserRated($this->page->getId(), $ip_address)) {
-                $this->data['enabled_rating'] = false;
-            } else {
-                $this->data['enabled_rating'] = $this->setting->get('enabled_rating');
+                $this->setting->set('enabled_rating', false);
             }
 
             $this->data['rating_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_rating') ? 'cmtx_required' : '');
@@ -202,11 +124,7 @@ class MainFormController extends Controller
 
             $this->data['name_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
 
-            $this->data['maximum_name'] = $this->setting->get('maximum_name');
-
             /* Email */
-
-            $this->data['enabled_email'] = $this->setting->get('enabled_email');
 
             $this->data['email_is_filled'] = false;
 
@@ -236,8 +154,6 @@ class MainFormController extends Controller
 
             $this->data['email_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_email') ? 'cmtx_required' : '');
 
-            $this->data['maximum_email'] = $this->setting->get('maximum_email');
-
             /* User */
 
             if ($this->data['name_is_filled'] && $this->data['filled_name_action'] == 'hide') {
@@ -247,12 +163,12 @@ class MainFormController extends Controller
             }
 
             if ($this->data['email_is_filled'] && $this->data['filled_email_action'] == 'hide') {
-                $this->data['enabled_email'] = false;
+                $this->setting->set('enabled_email', false);
 
                 $hidden_data .= '&cmtx_email=' . $this->url->encode($this->data['email']);
             }
 
-            $user_columns = (int) $this->data['enabled_name'] + (int) $this->data['enabled_email'];
+            $user_columns = (int) $this->data['enabled_name'] + (int) $this->setting->get('enabled_email');
 
             if ($user_columns) {
                 $user_row_visible = true;
@@ -268,8 +184,7 @@ class MainFormController extends Controller
                 $this->data['name_spacing'] = '';
             }
 
-            $this->data['cmtx_wait_for_comment'] = '';
-            $this->data['cmtx_wait_for_user'] = '';
+            $this->data['cmtx_wait_for_comment'] = $this->data['cmtx_wait_for_user'] = '';
 
             if ($this->setting->get('hide_form')) {
                 $this->data['cmtx_wait_for_comment'] = 'cmtx_wait_for_comment';
@@ -281,11 +196,11 @@ class MainFormController extends Controller
 
             /* We don't want the user to have to click into the name/email fields if they're already filled */
 
-            if (($this->data['enabled_name'] && $this->data['name_is_filled']) && (!$this->data['enabled_email'] || $this->data['enabled_email'] && $this->data['email_is_filled'])) {
+            if (($this->data['enabled_name'] && $this->data['name_is_filled']) && (!$this->setting->get('enabled_email') || $this->setting->get('enabled_email') && $this->data['email_is_filled'])) {
                 $this->data['cmtx_wait_for_user'] = '';
             }
 
-            if ((!$this->data['enabled_name']) && (!$this->data['enabled_email'] || $this->data['enabled_email'] && $this->data['email_is_filled'])) {
+            if ((!$this->data['enabled_name']) && (!$this->setting->get('enabled_email') || $this->setting->get('enabled_email') && $this->data['email_is_filled'])) {
                 $this->data['cmtx_wait_for_user'] = '';
             }
 
@@ -301,8 +216,6 @@ class MainFormController extends Controller
             }
 
             /* Website */
-
-            $this->data['enabled_website'] = $this->setting->get('enabled_website');
 
             $this->data['website_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_website') ? 'cmtx_required' : '');
 
@@ -332,17 +245,13 @@ class MainFormController extends Controller
                 $this->data['website_readonly'] = '';
             }
 
-            $this->data['maximum_website'] = $this->setting->get('maximum_website');
-
             if ($this->data['website_is_filled'] && $this->data['filled_website_action'] == 'hide') {
-                $this->data['enabled_website'] = false;
+                $this->setting->set('enabled_website', false);
 
                 $hidden_data .= '&cmtx_website=' . $this->url->encode($this->data['website']);
             }
 
             /* Town */
-
-            $this->data['enabled_town'] = $this->setting->get('enabled_town');
 
             $this->data['town_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_town') ? 'cmtx_required' : '');
 
@@ -372,11 +281,7 @@ class MainFormController extends Controller
                 $this->data['town_readonly'] = '';
             }
 
-            $this->data['maximum_town'] = $this->setting->get('maximum_town');
-
             /* Country */
-
-            $this->data['enabled_country'] = $this->setting->get('enabled_country');
 
             $this->data['country_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_country') ? 'cmtx_required' : '');
 
@@ -409,8 +314,6 @@ class MainFormController extends Controller
             }
 
             /* State */
-
-            $this->data['enabled_state'] = $this->setting->get('enabled_state');
 
             $this->data['state_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_state') ? 'cmtx_required' : '');
 
@@ -484,79 +387,39 @@ class MainFormController extends Controller
 
             /* ReCaptcha */
 
-            $this->data['recaptcha'] = false;
-
             if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha' && (bool) ini_get('allow_url_fopen')) {
                 $this->data['recaptcha'] = true;
-
-                $this->data['recaptcha_public_key'] = $this->setting->get('recaptcha_public_key');
-
-                $this->data['recaptcha_theme'] = $this->setting->get('recaptcha_theme');
-
-                $this->data['recaptcha_size'] = $this->setting->get('recaptcha_size');
+            } else {
+                $this->data['recaptcha'] = false;
             }
 
             /* Captcha */
 
-            $this->data['captcha'] = false;
-
-            $this->data['captcha_url'] = $this->setting->get('commentics_url') . 'frontend/index.php?route=main/form/captcha&page_id=' . $this->page->getId();
-
             if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'image' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext')) {
                 $this->data['captcha'] = true;
 
-                $this->data['maximum_captcha'] = $this->setting->get('captcha_length');
+                $this->data['captcha_url'] = $this->setting->get('commentics_url') . 'frontend/index.php?route=main/form/captcha&page_id=' . $this->page->getId();
+            } else {
+                $this->data['captcha'] = false;
             }
 
             /* Notify */
 
-            $this->data['enabled_notify'] = $this->setting->get('enabled_notify');
-
-            $default_notify = $this->setting->get('default_notify');
-
-            if ($default_notify) {
-                $this->data['notify_checked'] = 'checked';
-            } else {
-                $this->data['notify_checked'] = '';
-            }
+            $this->setting->get('default_notify') ? $this->data['notify_checked'] = 'checked' : $this->data['notify_checked'] = '';
 
             /* Cookie */
 
-            $this->data['enabled_cookie'] = $this->setting->get('enabled_cookie');
-
-            $default_cookie = $this->setting->get('default_cookie');
-
-            if ($default_cookie) {
-                $this->data['cookie_checked'] = 'checked';
-            } else {
-                $this->data['cookie_checked'] = '';
-            }
-
-            /* Privacy */
-
-            $this->data['enabled_privacy'] = $this->setting->get('enabled_privacy');
-
-            /* Terms */
-
-            $this->data['enabled_terms'] = $this->setting->get('enabled_terms');
-
-            /* Preview */
-
-            $this->data['enabled_preview'] = $this->setting->get('enabled_preview');
+            $this->setting->get('default_cookie') ? $this->data['cookie_checked'] = 'checked' : $this->data['cookie_checked'] = '';
 
             /* Powered By */
 
-            $this->data['enabled_powered_by'] = $this->setting->get('enabled_powered_by');
-
-            if ($this->data['enabled_powered_by']) {
+            if ($this->setting->get('enabled_powered_by')) {
                 if ($this->setting->get('powered_by_type') == 'text') {
                     $this->data['powered_by'] = sprintf($this->data['lang_text_powered_by'], 'https://commentics.com', $this->setting->get('powered_by_new_window') ? 'target="_blank"' : '');
                 } else {
                     $this->data['powered_by'] = '<a href="https://commentics.com" title="Commentics" ' . ($this->setting->get('powered_by_new_window') ? 'target="_blank"' : '') . '><img src="' . $this->loadImage('commentics/powered_by.png') . '"></a>';
                 }
             }
-
-            /* Misc */
 
             /* Maintenance mode */
             if ($this->setting->get('maintenance_mode')) {
@@ -566,9 +429,7 @@ class MainFormController extends Controller
             }
 
             /* Is this an administrator? */
-            $is_admin = $this->user->isAdmin();
-
-            if ($is_admin) {
+            if ($this->user->isAdmin()) {
                 $this->data['cmtx_admin_button'] = 'cmtx_admin_button';
             } else {
                 $this->data['cmtx_admin_button'] = '';
@@ -583,10 +444,6 @@ class MainFormController extends Controller
             /* This is for fields that are always required */
             $this->data['general_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
 
-            $this->data['quick_reply'] = $this->setting->get('quick_reply');
-
-            $this->data['show_edit'] = $this->setting->get('show_edit');
-
             $this->data['page_id'] = $this->page->getId();
 
             $this->data['iframe'] = (int) $this->page->isIFrame();
@@ -597,24 +454,24 @@ class MainFormController extends Controller
             unset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()]);
 
             if ($this->setting->get('enabled_town') && $this->data['town_is_filled'] && $this->data['filled_town_action'] == 'hide') {
-                $this->data['enabled_town'] = false;
+                $this->setting->set('enabled_town', false);
 
                 $hidden_data .= '&cmtx_town=' . $this->url->encode($this->data['town']);
             }
 
             if ($this->setting->get('enabled_country') && $this->data['country_is_filled'] && $this->data['filled_country_action'] == 'hide') {
-                $this->data['enabled_country'] = false;
+                $this->setting->set('enabled_country', false);
 
                 $hidden_data .= '&cmtx_country=' . $this->url->encode($this->data['country_id']);
             }
 
             if ($this->setting->get('enabled_state') && $this->data['state_is_filled'] && $this->data['filled_state_action'] == 'hide') {
-                $this->data['enabled_state'] = false;
+                $this->setting->set('enabled_state', false);
 
                 $hidden_data .= '&cmtx_state=' . $this->url->encode($this->data['state_id']);
             }
 
-            $geo_columns = (int) $this->data['enabled_town'] + (int) $this->data['enabled_country'] + (int) $this->data['enabled_state'];
+            $geo_columns = (int) $this->setting->get('enabled_town') + (int) $this->setting->get('enabled_country') + (int) $this->setting->get('enabled_state');
 
             if ($geo_columns) {
                 $geo_row_visible = true;
@@ -677,11 +534,11 @@ class MainFormController extends Controller
             $this->data['cmtx_js_settings_form'] = array(
                 'commentics_url'           => $this->url->getCommenticsUrl(),
                 'page_id'                  => (int) $this->page->getId(),
-                'enabled_country'          => (bool) $this->data['enabled_country'],
+                'enabled_country'          => (bool) $this->setting->get('enabled_country'),
                 'country_id'               => (int) $this->data['country_id'],
-                'enabled_state'            => (bool) $this->data['enabled_state'],
+                'enabled_state'            => (bool) $this->setting->get('enabled_state'),
                 'state_id'                 => (int) $this->data['state_id'],
-                'enabled_upload'           => (bool) $this->data['enabled_upload'],
+                'enabled_upload'           => (bool) $this->setting->get('enabled_upload'),
                 'maximum_upload_amount'    => (int) $this->setting->get('maximum_upload_amount'),
                 'maximum_upload_size'      => (float) $this->setting->get('maximum_upload_size'),
                 'maximum_upload_total'     => (float) $this->setting->get('maximum_upload_total'),

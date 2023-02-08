@@ -20,8 +20,6 @@ class MainPageController extends Controller
         /* Check maintenance */
         if ($this->setting->get('maintenance_mode') && !$this->data['is_admin']) {
             $this->data['maintenance_mode'] = true;
-
-            $this->data['maintenance_message'] = $this->setting->get('maintenance_message');
         } else {
             $this->data['maintenance_mode'] = false;
         }
@@ -32,9 +30,6 @@ class MainPageController extends Controller
         } else {
             $this->data['display_parsing'] = false;
         }
-
-        /* Display order */
-        $this->data['order_parts'] = $this->setting->get('order_parts');
 
         /* Auto Detect */
         if ($this->setting->get('auto_detect')) {
@@ -70,36 +65,6 @@ class MainPageController extends Controller
         /* CSS Editor */
         if ($this->setting->has('css_editor_enabled') && $this->setting->get('css_editor_enabled')) {
             $this->data['css_editor_enabled'] = true;
-
-            $this->data['css_editor_general_enabled'] = $this->setting->get('css_editor_general_enabled');
-            $this->data['css_editor_general_background_color'] = $this->setting->get('css_editor_general_background_color');
-            $this->data['css_editor_general_foreground_color'] = $this->setting->get('css_editor_general_foreground_color');
-            $this->data['css_editor_general_font_family'] = $this->setting->get('css_editor_general_font_family');
-            $this->data['css_editor_general_font_size'] = $this->setting->get('css_editor_general_font_size');
-
-            $this->data['css_editor_heading_enabled'] = $this->setting->get('css_editor_heading_enabled');
-            $this->data['css_editor_heading_background_color'] = $this->setting->get('css_editor_heading_background_color');
-            $this->data['css_editor_heading_foreground_color'] = $this->setting->get('css_editor_heading_foreground_color');
-            $this->data['css_editor_heading_font_family'] = $this->setting->get('css_editor_heading_font_family');
-            $this->data['css_editor_heading_font_size'] = $this->setting->get('css_editor_heading_font_size');
-
-            $this->data['css_editor_link_enabled'] = $this->setting->get('css_editor_link_enabled');
-            $this->data['css_editor_link_background_color'] = $this->setting->get('css_editor_link_background_color');
-            $this->data['css_editor_link_foreground_color'] = $this->setting->get('css_editor_link_foreground_color');
-            $this->data['css_editor_link_font_family'] = $this->setting->get('css_editor_link_font_family');
-            $this->data['css_editor_link_font_size'] = $this->setting->get('css_editor_link_font_size');
-
-            $this->data['css_editor_primary_enabled'] = $this->setting->get('css_editor_primary_enabled');
-            $this->data['css_editor_primary_button_background_color'] = $this->setting->get('css_editor_primary_button_background_color');
-            $this->data['css_editor_primary_button_foreground_color'] = $this->setting->get('css_editor_primary_button_foreground_color');
-            $this->data['css_editor_primary_button_font_family'] = $this->setting->get('css_editor_primary_button_font_family');
-            $this->data['css_editor_primary_button_font_size'] = $this->setting->get('css_editor_primary_button_font_size');
-
-            $this->data['css_editor_secondary_enabled'] = $this->setting->get('css_editor_secondary_enabled');
-            $this->data['css_editor_secondary_button_background_color'] = $this->setting->get('css_editor_secondary_button_background_color');
-            $this->data['css_editor_secondary_button_foreground_color'] = $this->setting->get('css_editor_secondary_button_foreground_color');
-            $this->data['css_editor_secondary_button_font_family'] = $this->setting->get('css_editor_secondary_button_font_family');
-            $this->data['css_editor_secondary_button_font_size'] = $this->setting->get('css_editor_secondary_button_font_size');
         } else {
             $this->data['css_editor_enabled'] = false;
         }

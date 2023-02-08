@@ -965,10 +965,10 @@
 
                 <div class="fieldset">
                     <label><?php echo $lang_entry_depth; ?></label>
-                    <input type="text" required name="reply_depth" class="small" value="<?php echo $reply_depth; ?>" maxlength="3">
-                    <a class="hint" data-hint="<?php echo $lang_hint_reply_depth; ?>">[?]</a>
-                    <?php if ($error_reply_depth) { ?>
-                        <span class="error"><?php echo $error_reply_depth; ?></span>
+                    <input type="text" required name="reply_max_depth" class="small" value="<?php echo $reply_max_depth; ?>" maxlength="3">
+                    <a class="hint" data-hint="<?php echo $lang_hint_reply_max_depth; ?>">[?]</a>
+                    <?php if ($error_reply_max_depth) { ?>
+                        <span class="error"><?php echo $error_reply_max_depth; ?></span>
                     <?php } ?>
                 </div>
             </div>

@@ -396,6 +396,8 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'field_width', `value` = 'long'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'form', `title` = 'field_align', `value` = 'center'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'comment_layout', `value` = 'layout_one'");
+
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = 'reply_max_depth' WHERE `title` = 'reply_depth'");
         }
     }
 

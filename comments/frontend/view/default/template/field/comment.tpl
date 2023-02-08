@@ -151,7 +151,7 @@
             <div class="cmtx_row cmtx_comment_row cmtx_clear">
                 <div class="cmtx_col_12">
                     <div class="cmtx_container cmtx_comment_container">
-                        <textarea name="cmtx_comment" id="cmtx_comment" class="cmtx_field cmtx_textarea_field cmtx_comment_field {{ general_symbol }}" placeholder="{{ lang_placeholder_comment }}" title="{{ lang_title_comment }}" maxlength="{{ comment_maximum_characters }}">{{ comment }}</textarea>
+                        <textarea name="cmtx_comment" id="cmtx_comment" class="cmtx_field cmtx_textarea_field cmtx_comment_field {{ general_symbol }}" placeholder="{{ lang_placeholder_comment }}" title="{{ lang_title_comment }}" maxlength="{{ comment_maximum_characters }}">{{ default_comment }}</textarea>
                     </div>
                 </div>
             </div>

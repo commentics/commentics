@@ -13,13 +13,6 @@ class PartSocialController extends Controller
             $this->data['new_window'] = '';
         }
 
-        $this->data['show_digg']     = $this->setting->get('show_social_digg');
-        $this->data['show_facebook'] = $this->setting->get('show_social_facebook');
-        $this->data['show_linkedin'] = $this->setting->get('show_social_linkedin');
-        $this->data['show_reddit']   = $this->setting->get('show_social_reddit');
-        $this->data['show_twitter']  = $this->setting->get('show_social_twitter');
-        $this->data['show_weibo']    = $this->setting->get('show_social_weibo');
-
         $url = $this->url->encode($this->page->getUrl());
 
         $reference = $this->url->encode($this->page->getReference());
