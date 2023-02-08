@@ -37,24 +37,6 @@ class AddStateController extends Controller
             $this->data['enabled'] = '1';
         }
 
-        if (isset($this->error['name'])) {
-            $this->data['error_name'] = $this->error['name'];
-        } else {
-            $this->data['error_name'] = '';
-        }
-
-        if (isset($this->error['country_code'])) {
-            $this->data['error_country_code'] = $this->error['country_code'];
-        } else {
-            $this->data['error_country_code'] = '';
-        }
-
-        if (isset($this->error['enabled'])) {
-            $this->data['error_enabled'] = $this->error['enabled'];
-        } else {
-            $this->data['error_enabled'] = '';
-        }
-
         $this->data['countries'] = $this->geo->getCountries(true);
 
         $this->data['link_back'] = $this->url->link('manage/states');

@@ -29,12 +29,6 @@ class TaskDeleteSubscriptionsController extends Controller
             $this->data['days_to_delete_subscriptions'] = $this->setting->get('days_to_delete_subscriptions');
         }
 
-        if (isset($this->error['days_to_delete_subscriptions'])) {
-            $this->data['error_days_to_delete_subscriptions'] = $this->error['days_to_delete_subscriptions'];
-        } else {
-            $this->data['error_days_to_delete_subscriptions'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('task/delete_subscriptions');

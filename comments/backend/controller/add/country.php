@@ -45,30 +45,6 @@ class AddCountryController extends Controller
             $this->data['enabled'] = '1';
         }
 
-        if (isset($this->error['name'])) {
-            $this->data['error_name'] = $this->error['name'];
-        } else {
-            $this->data['error_name'] = '';
-        }
-
-        if (isset($this->error['code'])) {
-            $this->data['error_code'] = $this->error['code'];
-        } else {
-            $this->data['error_code'] = '';
-        }
-
-        if (isset($this->error['top'])) {
-            $this->data['error_top'] = $this->error['top'];
-        } else {
-            $this->data['error_top'] = '';
-        }
-
-        if (isset($this->error['enabled'])) {
-            $this->data['error_enabled'] = $this->error['enabled'];
-        } else {
-            $this->data['error_enabled'] = '';
-        }
-
         $this->data['languages'] = $this->model_common_language->getFrontendLanguages();
 
         $this->data['link_back'] = $this->url->link('manage/countries');

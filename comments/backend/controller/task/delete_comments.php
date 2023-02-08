@@ -29,12 +29,6 @@ class TaskDeleteCommentsController extends Controller
             $this->data['days_to_delete_comments'] = $this->setting->get('days_to_delete_comments');
         }
 
-        if (isset($this->error['days_to_delete_comments'])) {
-            $this->data['error_days_to_delete_comments'] = $this->error['days_to_delete_comments'];
-        } else {
-            $this->data['error_days_to_delete_comments'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('task/delete_comments');

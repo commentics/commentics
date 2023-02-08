@@ -27,18 +27,6 @@ class ModuleMergeUsersController extends Controller
             $this->data['user_id_to'] = 0;
         }
 
-        if (isset($this->error['user_id_from'])) {
-            $this->data['error_user_id_from'] = $this->error['user_id_from'];
-        } else {
-            $this->data['error_user_id_from'] = '';
-        }
-
-        if (isset($this->error['user_id_to'])) {
-            $this->data['error_user_id_to'] = $this->error['user_id_to'];
-        } else {
-            $this->data['error_user_id_to'] = '';
-        }
-
         $users = $this->user->getUsers('name');
 
         foreach ($users as &$user) {

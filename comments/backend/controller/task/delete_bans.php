@@ -29,12 +29,6 @@ class TaskDeleteBansController extends Controller
             $this->data['days_to_delete_bans'] = $this->setting->get('days_to_delete_bans');
         }
 
-        if (isset($this->error['days_to_delete_bans'])) {
-            $this->data['error_days_to_delete_bans'] = $this->error['days_to_delete_bans'];
-        } else {
-            $this->data['error_days_to_delete_bans'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('task/delete_bans');

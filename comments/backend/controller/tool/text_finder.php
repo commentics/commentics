@@ -37,24 +37,6 @@ class ToolTextFinderController extends Controller
             $this->data['text'] = '';
         }
 
-        if (isset($this->error['location'])) {
-            $this->data['error_location'] = $this->error['location'];
-        } else {
-            $this->data['error_location'] = '';
-        }
-
-        if (isset($this->error['case'])) {
-            $this->data['error_case'] = $this->error['case'];
-        } else {
-            $this->data['error_case'] = '';
-        }
-
-        if (isset($this->error['text'])) {
-            $this->data['error_text'] = $this->error['text'];
-        } else {
-            $this->data['error_text'] = '';
-        }
-
         $this->data['lang_subheading'] = sprintf($this->data['lang_subheading'], $this->data['text']);
 
         $this->components = array('common/header', 'common/footer');

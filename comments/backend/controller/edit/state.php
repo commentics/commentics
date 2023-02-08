@@ -45,24 +45,6 @@ class EditStateController extends Controller
 
         $this->data['date_added'] = $this->variable->formatDate($state['date_added'], $this->data['lang_date_time_format'], $this->data);
 
-        if (isset($this->error['name'])) {
-            $this->data['error_name'] = $this->error['name'];
-        } else {
-            $this->data['error_name'] = '';
-        }
-
-        if (isset($this->error['country_code'])) {
-            $this->data['error_country_code'] = $this->error['country_code'];
-        } else {
-            $this->data['error_country_code'] = '';
-        }
-
-        if (isset($this->error['enabled'])) {
-            $this->data['error_enabled'] = $this->error['enabled'];
-        } else {
-            $this->data['error_enabled'] = '';
-        }
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['countries'] = $this->geo->getCountries(true);

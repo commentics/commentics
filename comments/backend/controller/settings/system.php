@@ -101,66 +101,6 @@ class SettingsSystemController extends Controller
             $this->data['admin_cookie_days'] = $this->setting->get('admin_cookie_days');
         }
 
-        if (isset($this->error['site_name'])) {
-            $this->data['error_site_name'] = $this->error['site_name'];
-        } else {
-            $this->data['error_site_name'] = '';
-        }
-
-        if (isset($this->error['site_domain'])) {
-            $this->data['error_site_domain'] = $this->error['site_domain'];
-        } else {
-            $this->data['error_site_domain'] = '';
-        }
-
-        if (isset($this->error['site_url'])) {
-            $this->data['error_site_url'] = $this->error['site_url'];
-        } else {
-            $this->data['error_site_url'] = '';
-        }
-
-        if (isset($this->error['time_zone'])) {
-            $this->data['error_time_zone'] = $this->error['time_zone'];
-        } else {
-            $this->data['error_time_zone'] = '';
-        }
-
-        if (isset($this->error['commentics_folder'])) {
-            $this->data['error_commentics_folder'] = $this->error['commentics_folder'];
-        } else {
-            $this->data['error_commentics_folder'] = '';
-        }
-
-        if (isset($this->error['commentics_url'])) {
-            $this->data['error_commentics_url'] = $this->error['commentics_url'];
-        } else {
-            $this->data['error_commentics_url'] = '';
-        }
-
-        if (isset($this->error['backend_folder'])) {
-            $this->data['error_backend_folder'] = $this->error['backend_folder'];
-        } else {
-            $this->data['error_backend_folder'] = '';
-        }
-
-        if (isset($this->error['purpose'])) {
-            $this->data['error_purpose'] = $this->error['purpose'];
-        } else {
-            $this->data['error_purpose'] = '';
-        }
-
-        if (isset($this->error['limit_results'])) {
-            $this->data['error_limit_results'] = $this->error['limit_results'];
-        } else {
-            $this->data['error_limit_results'] = '';
-        }
-
-        if (isset($this->error['admin_cookie_days'])) {
-            $this->data['error_admin_cookie_days'] = $this->error['admin_cookie_days'];
-        } else {
-            $this->data['error_admin_cookie_days'] = '';
-        }
-
         $this->data['lang_text_comments'] = $this->variable->fixCase($this->data['lang_type_comments']);
         $this->data['lang_text_reviews'] = $this->variable->fixCase($this->data['lang_type_reviews']);
         $this->data['lang_text_testimonials'] = $this->variable->fixCase($this->data['lang_type_testimonials']);

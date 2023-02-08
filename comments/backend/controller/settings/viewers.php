@@ -29,12 +29,6 @@ class SettingsViewersController extends Controller
             $this->data['viewers_timeout'] = $this->setting->get('viewers_timeout');
         }
 
-        if (isset($this->error['viewers_timeout'])) {
-            $this->data['error_viewers_timeout'] = $this->error['viewers_timeout'];
-        } else {
-            $this->data['error_viewers_timeout'] = '';
-        }
-
         if ($this->setting->get('notice_settings_viewers')) {
             $this->data['info'] = $this->data['lang_notice'];
         }

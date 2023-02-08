@@ -43,30 +43,6 @@ class SettingsCacheController extends Controller
             $this->data['cache_port'] = $this->setting->get('cache_port');
         }
 
-        if (isset($this->error['cache_type'])) {
-            $this->data['error_cache_type'] = $this->error['cache_type'];
-        } else {
-            $this->data['error_cache_type'] = '';
-        }
-
-        if (isset($this->error['cache_time'])) {
-            $this->data['error_cache_time'] = $this->error['cache_time'];
-        } else {
-            $this->data['error_cache_time'] = '';
-        }
-
-        if (isset($this->error['cache_host'])) {
-            $this->data['error_cache_host'] = $this->error['cache_host'];
-        } else {
-            $this->data['error_cache_host'] = '';
-        }
-
-        if (isset($this->error['cache_port'])) {
-            $this->data['error_cache_port'] = $this->error['cache_port'];
-        } else {
-            $this->data['error_cache_port'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/cache');

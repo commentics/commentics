@@ -71,30 +71,6 @@ class EditPageController extends Controller
 
         $this->data['date_added'] = $this->variable->formatDate($page['date_added'], $this->data['lang_date_time_format'], $this->data);
 
-        if (isset($this->error['identifier'])) {
-            $this->data['error_identifier'] = $this->error['identifier'];
-        } else {
-            $this->data['error_identifier'] = '';
-        }
-
-        if (isset($this->error['reference'])) {
-            $this->data['error_reference'] = $this->error['reference'];
-        } else {
-            $this->data['error_reference'] = '';
-        }
-
-        if (isset($this->error['url'])) {
-            $this->data['error_url'] = $this->error['url'];
-        } else {
-            $this->data['error_url'] = '';
-        }
-
-        if (isset($this->error['moderate'])) {
-            $this->data['error_moderate'] = $this->error['moderate'];
-        } else {
-            $this->data['error_moderate'] = '';
-        }
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['link_back'] = $this->url->link('manage/pages');

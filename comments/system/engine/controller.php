@@ -33,6 +33,16 @@ abstract class Controller extends Base
                     $cmtx_value = $this->variable->encodeDouble($cmtx_value);
                 }
             }
+
+            foreach ($this->data as $cmtx_key => $cmtx_value) {
+                if (substr($cmtx_key, 0, 5) != 'lang_') {
+                    if (isset($this->error[$cmtx_key])) {
+                        $this->data['error_' . $cmtx_key] = $this->error[$cmtx_key];
+                    } else {
+                        $this->data['error_' . $cmtx_key] = '';
+                    }
+                }
+            }
         }
 
         $generated_time = microtime(true) - CMTX_START_TIME;

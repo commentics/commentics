@@ -41,12 +41,6 @@ class EditSubscriptionController extends Controller
 
         $this->data['date_added'] = $this->variable->formatDate($subscription['date_added'], $this->data['lang_date_time_format'], $this->data);
 
-        if (isset($this->error['is_confirmed'])) {
-            $this->data['error_is_confirmed'] = $this->error['is_confirmed'];
-        } else {
-            $this->data['error_is_confirmed'] = '';
-        }
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['link_name'] = $this->url->link('edit/user', '&id=' . $subscription['user_id']);

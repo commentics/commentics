@@ -53,30 +53,6 @@ class EditCountryController extends Controller
 
         $this->data['date_added'] = $this->variable->formatDate($country['date_added'], $this->data['lang_date_time_format'], $this->data);
 
-        if (isset($this->error['name'])) {
-            $this->data['error_name'] = $this->error['name'];
-        } else {
-            $this->data['error_name'] = '';
-        }
-
-        if (isset($this->error['code'])) {
-            $this->data['error_code'] = $this->error['code'];
-        } else {
-            $this->data['error_code'] = '';
-        }
-
-        if (isset($this->error['top'])) {
-            $this->data['error_top'] = $this->error['top'];
-        } else {
-            $this->data['error_top'] = '';
-        }
-
-        if (isset($this->error['enabled'])) {
-            $this->data['error_enabled'] = $this->error['enabled'];
-        } else {
-            $this->data['error_enabled'] = '';
-        }
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['languages'] = $this->model_common_language->getFrontendLanguages();

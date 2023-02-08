@@ -39,18 +39,6 @@ class EditBanController extends Controller
 
         $this->data['date_added'] = $this->variable->formatDate($ban['date_added'], $this->data['lang_date_time_format'], $this->data);
 
-        if (isset($this->error['ip_address'])) {
-            $this->data['error_ip_address'] = $this->error['ip_address'];
-        } else {
-            $this->data['error_ip_address'] = '';
-        }
-
-        if (isset($this->error['reason'])) {
-            $this->data['error_reason'] = $this->error['reason'];
-        } else {
-            $this->data['error_reason'] = '';
-        }
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['link_back'] = $this->url->link('manage/bans');

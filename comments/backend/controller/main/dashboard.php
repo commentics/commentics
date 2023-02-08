@@ -172,12 +172,6 @@ class MainDashboardController extends Controller
             $this->data['notes'] = $this->model_main_dashboard->getNotes();
         }
 
-        if (isset($this->error['notes'])) {
-            $this->data['error_notes'] = $this->error['notes'];
-        } else {
-            $this->data['error_notes'] = '';
-        }
-
         if ($this->setting->get('check_referrer')) {
             $url = $this->url->decode($this->url->getPageUrl());
 

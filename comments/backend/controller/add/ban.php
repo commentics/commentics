@@ -30,19 +30,7 @@ class AddBanController extends Controller
         } else {
             $this->data['reason'] = '';
         }
-
-        if (isset($this->error['ip_address'])) {
-            $this->data['error_ip_address'] = $this->error['ip_address'];
-        } else {
-            $this->data['error_ip_address'] = '';
-        }
-
-        if (isset($this->error['reason'])) {
-            $this->data['error_reason'] = $this->error['reason'];
-        } else {
-            $this->data['error_reason'] = '';
-        }
-
+        
         $this->data['link_back'] = $this->url->link('manage/bans');
 
         $this->components = array('common/header', 'common/footer');

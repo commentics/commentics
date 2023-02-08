@@ -117,90 +117,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['comments_position_12'] = $this->setting->get('comments_position_12');
         }
 
-        if (isset($this->error['comments_order'])) {
-            $this->data['error_comments_order'] = $this->error['comments_order'];
-        } else {
-            $this->data['error_comments_order'] = '';
-        }
-
-        if (isset($this->error['comment_layout'])) {
-            $this->data['error_comment_layout'] = $this->error['comment_layout'];
-        } else {
-            $this->data['error_comment_layout'] = '';
-        }
-
-        if (isset($this->error['comments_position_1'])) {
-            $this->data['error_comments_position_1'] = $this->error['comments_position_1'];
-        } else {
-            $this->data['error_comments_position_1'] = '';
-        }
-
-        if (isset($this->error['comments_position_2'])) {
-            $this->data['error_comments_position_2'] = $this->error['comments_position_2'];
-        } else {
-            $this->data['error_comments_position_2'] = '';
-        }
-
-        if (isset($this->error['comments_position_3'])) {
-            $this->data['error_comments_position_3'] = $this->error['comments_position_3'];
-        } else {
-            $this->data['error_comments_position_3'] = '';
-        }
-
-        if (isset($this->error['comments_position_4'])) {
-            $this->data['error_comments_position_4'] = $this->error['comments_position_4'];
-        } else {
-            $this->data['error_comments_position_4'] = '';
-        }
-
-        if (isset($this->error['comments_position_5'])) {
-            $this->data['error_comments_position_5'] = $this->error['comments_position_5'];
-        } else {
-            $this->data['error_comments_position_5'] = '';
-        }
-
-        if (isset($this->error['comments_position_6'])) {
-            $this->data['error_comments_position_6'] = $this->error['comments_position_6'];
-        } else {
-            $this->data['error_comments_position_6'] = '';
-        }
-
-        if (isset($this->error['comments_position_7'])) {
-            $this->data['error_comments_position_7'] = $this->error['comments_position_7'];
-        } else {
-            $this->data['error_comments_position_7'] = '';
-        }
-
-        if (isset($this->error['comments_position_8'])) {
-            $this->data['error_comments_position_8'] = $this->error['comments_position_8'];
-        } else {
-            $this->data['error_comments_position_8'] = '';
-        }
-
-        if (isset($this->error['comments_position_9'])) {
-            $this->data['error_comments_position_9'] = $this->error['comments_position_9'];
-        } else {
-            $this->data['error_comments_position_9'] = '';
-        }
-
-        if (isset($this->error['comments_position_10'])) {
-            $this->data['error_comments_position_10'] = $this->error['comments_position_10'];
-        } else {
-            $this->data['error_comments_position_10'] = '';
-        }
-
-        if (isset($this->error['comments_position_11'])) {
-            $this->data['error_comments_position_11'] = $this->error['comments_position_11'];
-        } else {
-            $this->data['error_comments_position_11'] = '';
-        }
-
-        if (isset($this->error['comments_position_12'])) {
-            $this->data['error_comments_position_12'] = $this->error['comments_position_12'];
-        } else {
-            $this->data['error_comments_position_12'] = '';
-        }
-
         /* Avatar */
 
         if (isset($this->request->post['avatar_type'])) {
@@ -353,102 +269,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['show_badge_first_poster'] = false;
         } else {
             $this->data['show_badge_first_poster'] = $this->setting->get('show_badge_first_poster');
-        }
-
-        if (isset($this->error['avatar_type'])) {
-            $this->data['error_avatar_type'] = $this->error['avatar_type'];
-        } else {
-            $this->data['error_avatar_type'] = '';
-        }
-
-        if (isset($this->error['gravatar_default'])) {
-            $this->data['error_gravatar_default'] = $this->error['gravatar_default'];
-        } else {
-            $this->data['error_gravatar_default'] = '';
-        }
-
-        if (isset($this->error['gravatar_custom'])) {
-            $this->data['error_gravatar_custom'] = $this->error['gravatar_custom'];
-        } else {
-            $this->data['error_gravatar_custom'] = '';
-        }
-
-        if (isset($this->error['gravatar_size'])) {
-            $this->data['error_gravatar_size'] = $this->error['gravatar_size'];
-        } else {
-            $this->data['error_gravatar_size'] = '';
-        }
-
-        if (isset($this->error['gravatar_audience'])) {
-            $this->data['error_gravatar_audience'] = $this->error['gravatar_audience'];
-        } else {
-            $this->data['error_gravatar_audience'] = '';
-        }
-
-        if (isset($this->error['avatar_selection_attribution'])) {
-            $this->data['error_avatar_selection_attribution'] = $this->error['avatar_selection_attribution'];
-        } else {
-            $this->data['error_avatar_selection_attribution'] = '';
-        }
-
-        if (isset($this->error['avatar_upload_min_posts'])) {
-            $this->data['error_avatar_upload_min_posts'] = $this->error['avatar_upload_min_posts'];
-        } else {
-            $this->data['error_avatar_upload_min_posts'] = '';
-        }
-
-        if (isset($this->error['avatar_upload_min_days'])) {
-            $this->data['error_avatar_upload_min_days'] = $this->error['avatar_upload_min_days'];
-        } else {
-            $this->data['error_avatar_upload_min_days'] = '';
-        }
-
-        if (isset($this->error['avatar_upload_max_size'])) {
-            $this->data['error_avatar_upload_max_size'] = $this->error['avatar_upload_max_size'];
-        } else {
-            $this->data['error_avatar_upload_max_size'] = '';
-        }
-
-        if (isset($this->error['avatar_link_days'])) {
-            $this->data['error_avatar_link_days'] = $this->error['avatar_link_days'];
-        } else {
-            $this->data['error_avatar_link_days'] = '';
-        }
-
-        if (isset($this->error['level_5'])) {
-            $this->data['error_level_5'] = $this->error['level_5'];
-        } else {
-            $this->data['error_level_5'] = '';
-        }
-
-        if (isset($this->error['level_4'])) {
-            $this->data['error_level_4'] = $this->error['level_4'];
-        } else {
-            $this->data['error_level_4'] = '';
-        }
-
-        if (isset($this->error['level_3'])) {
-            $this->data['error_level_3'] = $this->error['level_3'];
-        } else {
-            $this->data['error_level_3'] = '';
-        }
-
-        if (isset($this->error['level_2'])) {
-            $this->data['error_level_2'] = $this->error['level_2'];
-        } else {
-            $this->data['error_level_2'] = '';
-        }
-
-        if (isset($this->error['level_1'])) {
-            $this->data['error_level_1'] = $this->error['level_1'];
-        } else {
-            $this->data['error_level_1'] = '';
-        }
-
-        if (isset($this->error['level_0'])) {
-            $this->data['error_level_0'] = $this->error['level_0'];
-        } else {
-            $this->data['error_level_0'] = '';
         }
 
         /* Name */
@@ -671,18 +491,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['flag_disapprove'] = $this->setting->get('flag_disapprove');
         }
 
-        if (isset($this->error['flag_max_per_user'])) {
-            $this->data['error_flag_max_per_user'] = $this->error['flag_max_per_user'];
-        } else {
-            $this->data['error_flag_max_per_user'] = '';
-        }
-
-        if (isset($this->error['flag_min_per_comment'])) {
-            $this->data['error_flag_min_per_comment'] = $this->error['flag_min_per_comment'];
-        } else {
-            $this->data['error_flag_min_per_comment'] = '';
-        }
-
         /* Edit */
 
         if (isset($this->request->post['show_edit'])) {
@@ -697,12 +505,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['max_edits'] = $this->request->post['max_edits'];
         } else {
             $this->data['max_edits'] = $this->setting->get('max_edits');
-        }
-
-        if (isset($this->error['max_edits'])) {
-            $this->data['error_max_edits'] = $this->error['max_edits'];
-        } else {
-            $this->data['error_max_edits'] = '';
         }
 
         /* Delete */
@@ -757,12 +559,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['reply_max_depth'] = $this->setting->get('reply_max_depth');
         }
 
-        if (isset($this->error['reply_max_depth'])) {
-            $this->data['error_reply_max_depth'] = $this->error['reply_max_depth'];
-        } else {
-            $this->data['error_reply_max_depth'] = '';
-        }
-
         /* Average Rating */
 
         if (isset($this->request->post['show_average_rating'])) {
@@ -795,12 +591,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['custom_content'] = $this->request->post['custom_content'];
         } else {
             $this->data['custom_content'] = $this->setting->get('custom_content');
-        }
-
-        if (isset($this->error['custom_content'])) {
-            $this->data['error_custom_content'] = $this->error['custom_content'];
-        } else {
-            $this->data['error_custom_content'] = '';
         }
 
         /* Notify */
@@ -837,12 +627,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['online_refresh_interval'] = $this->setting->get('online_refresh_interval');
         }
 
-        if (isset($this->error['online_refresh_interval'])) {
-            $this->data['error_online_refresh_interval'] = $this->error['online_refresh_interval'];
-        } else {
-            $this->data['error_online_refresh_interval'] = '';
-        }
-
         /* Pagination */
 
         if (isset($this->request->post['show_pagination'])) {
@@ -871,24 +655,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['pagination_range'] = $this->setting->get('pagination_range');
         }
 
-        if (isset($this->error['pagination_type'])) {
-            $this->data['error_pagination_type'] = $this->error['pagination_type'];
-        } else {
-            $this->data['error_pagination_type'] = '';
-        }
-
-        if (isset($this->error['pagination_amount'])) {
-            $this->data['error_pagination_amount'] = $this->error['pagination_amount'];
-        } else {
-            $this->data['error_pagination_amount'] = '';
-        }
-
-        if (isset($this->error['pagination_range'])) {
-            $this->data['error_pagination_range'] = $this->error['pagination_range'];
-        } else {
-            $this->data['error_pagination_range'] = '';
-        }
-
         /* Page Number */
 
         if (isset($this->request->post['show_page_number'])) {
@@ -903,12 +669,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['page_number_format'] = $this->request->post['page_number_format'];
         } else {
             $this->data['page_number_format'] = $this->setting->get('page_number_format');
-        }
-
-        if (isset($this->error['page_number_format'])) {
-            $this->data['error_page_number_format'] = $this->error['page_number_format'];
-        } else {
-            $this->data['error_page_number_format'] = '';
         }
 
         /* RSS */
@@ -941,12 +701,6 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['rss_limit_amount'] = $this->request->post['rss_limit_amount'];
         } else {
             $this->data['rss_limit_amount'] = $this->setting->get('rss_limit_amount');
-        }
-
-        if (isset($this->error['rss_limit_amount'])) {
-            $this->data['error_rss_limit_amount'] = $this->error['rss_limit_amount'];
-        } else {
-            $this->data['error_rss_limit_amount'] = '';
         }
 
         /* Search */

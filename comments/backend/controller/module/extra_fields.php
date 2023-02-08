@@ -249,54 +249,6 @@ class ModuleExtraFieldsController extends Controller
             $this->data['is_enabled'] = true;
         }
 
-        if (isset($this->error['name'])) {
-            $this->data['error_name'] = $this->error['name'];
-        } else {
-            $this->data['error_name'] = '';
-        }
-
-        if (isset($this->error['type'])) {
-            $this->data['error_type'] = $this->error['type'];
-        } else {
-            $this->data['error_type'] = '';
-        }
-
-        if (isset($this->error['values'])) {
-            $this->data['error_values'] = $this->error['values'];
-        } else {
-            $this->data['error_values'] = '';
-        }
-
-        if (isset($this->error['default'])) {
-            $this->data['error_default'] = $this->error['default'];
-        } else {
-            $this->data['error_default'] = '';
-        }
-
-        if (isset($this->error['minimum'])) {
-            $this->data['error_minimum'] = $this->error['minimum'];
-        } else {
-            $this->data['error_minimum'] = '';
-        }
-
-        if (isset($this->error['maximum'])) {
-            $this->data['error_maximum'] = $this->error['maximum'];
-        } else {
-            $this->data['error_maximum'] = '';
-        }
-
-        if (isset($this->error['validation'])) {
-            $this->data['error_validation'] = $this->error['validation'];
-        } else {
-            $this->data['error_validation'] = '';
-        }
-
-        if (isset($this->error['sort'])) {
-            $this->data['error_sort'] = $this->error['sort'];
-        } else {
-            $this->data['error_sort'] = '';
-        }
-
         $this->data['link_back'] = $this->url->link('module/extra_fields');
 
         $this->data['page'] = 'add';
@@ -408,54 +360,6 @@ class ModuleExtraFieldsController extends Controller
             $this->data['is_enabled'] = false;
         } else {
             $this->data['is_enabled'] = $field['is_enabled'];
-        }
-
-        if (isset($this->error['name'])) {
-            $this->data['error_name'] = $this->error['name'];
-        } else {
-            $this->data['error_name'] = '';
-        }
-
-        if (isset($this->error['type'])) {
-            $this->data['error_type'] = $this->error['type'];
-        } else {
-            $this->data['error_type'] = '';
-        }
-
-        if (isset($this->error['values'])) {
-            $this->data['error_values'] = $this->error['values'];
-        } else {
-            $this->data['error_values'] = '';
-        }
-
-        if (isset($this->error['default'])) {
-            $this->data['error_default'] = $this->error['default'];
-        } else {
-            $this->data['error_default'] = '';
-        }
-
-        if (isset($this->error['minimum'])) {
-            $this->data['error_minimum'] = $this->error['minimum'];
-        } else {
-            $this->data['error_minimum'] = '';
-        }
-
-        if (isset($this->error['maximum'])) {
-            $this->data['error_maximum'] = $this->error['maximum'];
-        } else {
-            $this->data['error_maximum'] = '';
-        }
-
-        if (isset($this->error['validation'])) {
-            $this->data['error_validation'] = $this->error['validation'];
-        } else {
-            $this->data['error_validation'] = '';
-        }
-
-        if (isset($this->error['sort'])) {
-            $this->data['error_sort'] = $this->error['sort'];
-        } else {
-            $this->data['error_sort'] = '';
         }
 
         $this->data['id'] = $this->request->get['id'];

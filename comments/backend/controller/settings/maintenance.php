@@ -29,12 +29,6 @@ class SettingsMaintenanceController extends Controller
             $this->data['maintenance_message'] = $this->setting->get('maintenance_message');
         }
 
-        if (isset($this->error['maintenance_message'])) {
-            $this->data['error_maintenance_message'] = $this->error['maintenance_message'];
-        } else {
-            $this->data['error_maintenance_message'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/maintenance');

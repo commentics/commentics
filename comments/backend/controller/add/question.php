@@ -39,24 +39,6 @@ class AddQuestionController extends Controller
             $this->data['language'] = $this->setting->get('language_frontend');
         }
 
-        if (isset($this->error['question'])) {
-            $this->data['error_question'] = $this->error['question'];
-        } else {
-            $this->data['error_question'] = '';
-        }
-
-        if (isset($this->error['answer'])) {
-            $this->data['error_answer'] = $this->error['answer'];
-        } else {
-            $this->data['error_answer'] = '';
-        }
-
-        if (isset($this->error['language'])) {
-            $this->data['error_language'] = $this->error['language'];
-        } else {
-            $this->data['error_language'] = '';
-        }
-
         $this->data['languages'] = $this->model_common_language->getFrontendLanguages();
 
         $this->data['link_back'] = $this->url->link('manage/questions');

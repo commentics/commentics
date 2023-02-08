@@ -45,18 +45,6 @@ class ModuleRichSnippetsController extends Controller
             $this->data['rich_snippets_properties'] = $this->model_module_rich_snippets->getRichSnippetsProperties();
         }
 
-        if (isset($this->error['rich_snippets_type'])) {
-            $this->data['error_rich_snippets_type'] = $this->error['rich_snippets_type'];
-        } else {
-            $this->data['error_rich_snippets_type'] = '';
-        }
-
-        if (isset($this->error['rich_snippets_other'])) {
-            $this->data['error_rich_snippets_other'] = $this->error['rich_snippets_other'];
-        } else {
-            $this->data['error_rich_snippets_other'] = '';
-        }
-
         $this->data['lang_description'] = sprintf($this->data['lang_description'], $this->loadImage('misc/example.png'));
 
         $this->data['link_back'] = $this->url->link('extension/modules');

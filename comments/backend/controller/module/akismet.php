@@ -45,12 +45,6 @@ class ModuleAkismetController extends Controller
             $this->data['akismet_logging'] = $this->setting->get('akismet_logging');
         }
 
-        if (isset($this->error['akismet_key'])) {
-            $this->data['error_akismet_key'] = $this->error['akismet_key'];
-        } else {
-            $this->data['error_akismet_key'] = '';
-        }
-
         $this->data['link_back'] = $this->url->link('extension/modules');
 
         $this->components = array('common/header', 'common/footer');

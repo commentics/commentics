@@ -27,12 +27,6 @@ class ToolExportImportController extends Controller
             $this->data['type'] = 'countries';
         }
 
-        if (isset($this->error['type'])) {
-            $this->data['error_type'] = $this->error['type'];
-        } else {
-            $this->data['error_type'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('tool/export_import');

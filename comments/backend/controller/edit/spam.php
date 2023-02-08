@@ -55,18 +55,6 @@ class EditSpamController extends Controller
             $this->data['add_website'] = false;
         }
 
-        if (isset($this->error['delete'])) {
-            $this->data['error_delete'] = $this->error['delete'];
-        } else {
-            $this->data['error_delete'] = '';
-        }
-
-        if (isset($this->error['ban'])) {
-            $this->data['error_ban'] = $this->error['ban'];
-        } else {
-            $this->data['error_ban'] = '';
-        }
-
         if ($comment['website']) {
             $this->data['has_website'] = true;
         } else {

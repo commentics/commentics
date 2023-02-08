@@ -83,30 +83,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['field_align'] = $this->setting->get('field_align');
         }
 
-        if (isset($this->error['field_label'])) {
-            $this->data['error_field_label'] = $this->error['field_label'];
-        } else {
-            $this->data['error_field_label'] = '';
-        }
-
-        if (isset($this->error['field_column'])) {
-            $this->data['error_field_column'] = $this->error['field_column'];
-        } else {
-            $this->data['error_field_column'] = '';
-        }
-
-        if (isset($this->error['field_width'])) {
-            $this->data['error_field_width'] = $this->error['field_width'];
-        } else {
-            $this->data['error_field_width'] = '';
-        }
-
-        if (isset($this->error['field_align'])) {
-            $this->data['error_field_align'] = $this->error['field_align'];
-        } else {
-            $this->data['error_field_align'] = '';
-        }
-
         /* Field Order */
 
         if (isset($this->request->post['order_fields'])) {
@@ -132,12 +108,6 @@ class SettingsLayoutFormController extends Controller
         }
 
         $this->data['fields'] = $fields;
-
-        if (isset($this->error['order_fields'])) {
-            $this->data['error_order_fields'] = $this->error['order_fields'];
-        } else {
-            $this->data['error_order_fields'] = '';
-        }
 
         /* BB Code */
 
@@ -433,18 +403,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['enabled_counter'] = $this->setting->get('enabled_counter');
         }
 
-        if (isset($this->error['default_comment'])) {
-            $this->data['error_default_comment'] = $this->error['default_comment'];
-        } else {
-            $this->data['error_default_comment'] = '';
-        }
-
-        if (isset($this->error['comment_maximum_characters'])) {
-            $this->data['error_comment_maximum_characters'] = $this->error['comment_maximum_characters'];
-        } else {
-            $this->data['error_comment_maximum_characters'] = '';
-        }
-
         /* Headline */
 
         if (isset($this->request->post['enabled_headline'])) {
@@ -475,18 +433,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['headline_maximum_characters'] = $this->setting->get('headline_maximum_characters');
         }
 
-        if (isset($this->error['default_headline'])) {
-            $this->data['error_default_headline'] = $this->error['default_headline'];
-        } else {
-            $this->data['error_default_headline'] = '';
-        }
-
-        if (isset($this->error['headline_maximum_characters'])) {
-            $this->data['error_headline_maximum_characters'] = $this->error['headline_maximum_characters'];
-        } else {
-            $this->data['error_headline_maximum_characters'] = '';
-        }
-
         /* Upload */
 
         if (isset($this->request->post['enabled_upload'])) {
@@ -513,24 +459,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['maximum_upload_total'] = $this->request->post['maximum_upload_total'];
         } else {
             $this->data['maximum_upload_total'] = $this->setting->get('maximum_upload_total');
-        }
-
-        if (isset($this->error['maximum_upload_size'])) {
-            $this->data['error_maximum_upload_size'] = $this->error['maximum_upload_size'];
-        } else {
-            $this->data['error_maximum_upload_size'] = '';
-        }
-
-        if (isset($this->error['maximum_upload_amount'])) {
-            $this->data['error_maximum_upload_amount'] = $this->error['maximum_upload_amount'];
-        } else {
-            $this->data['error_maximum_upload_amount'] = '';
-        }
-
-        if (isset($this->error['maximum_upload_total'])) {
-            $this->data['error_maximum_upload_total'] = $this->error['maximum_upload_total'];
-        } else {
-            $this->data['error_maximum_upload_total'] = '';
         }
 
         /* Rating */
@@ -563,18 +491,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['repeat_rating'] = $this->setting->get('repeat_rating');
         }
 
-        if (isset($this->error['default_rating'])) {
-            $this->data['error_default_rating'] = $this->error['default_rating'];
-        } else {
-            $this->data['error_default_rating'] = '';
-        }
-
-        if (isset($this->error['repeat_rating'])) {
-            $this->data['error_repeat_rating'] = $this->error['repeat_rating'];
-        } else {
-            $this->data['error_repeat_rating'] = '';
-        }
-
         /* Name */
 
         if (isset($this->request->post['default_name'])) {
@@ -599,30 +515,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['filled_name_login_action'] = $this->request->post['filled_name_login_action'];
         } else {
             $this->data['filled_name_login_action'] = $this->setting->get('filled_name_login_action');
-        }
-
-        if (isset($this->error['default_name'])) {
-            $this->data['error_default_name'] = $this->error['default_name'];
-        } else {
-            $this->data['error_default_name'] = '';
-        }
-
-        if (isset($this->error['maximum_name'])) {
-            $this->data['error_maximum_name'] = $this->error['maximum_name'];
-        } else {
-            $this->data['error_maximum_name'] = '';
-        }
-
-        if (isset($this->error['filled_name_cookie_action'])) {
-            $this->data['error_filled_name_cookie_action'] = $this->error['filled_name_cookie_action'];
-        } else {
-            $this->data['error_filled_name_cookie_action'] = '';
-        }
-
-        if (isset($this->error['filled_name_login_action'])) {
-            $this->data['error_filled_name_login_action'] = $this->error['filled_name_login_action'];
-        } else {
-            $this->data['error_filled_name_login_action'] = '';
         }
 
         /* Email */
@@ -667,30 +559,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['filled_email_login_action'] = $this->setting->get('filled_email_login_action');
         }
 
-        if (isset($this->error['default_email'])) {
-            $this->data['error_default_email'] = $this->error['default_email'];
-        } else {
-            $this->data['error_default_email'] = '';
-        }
-
-        if (isset($this->error['maximum_email'])) {
-            $this->data['error_maximum_email'] = $this->error['maximum_email'];
-        } else {
-            $this->data['error_maximum_email'] = '';
-        }
-
-        if (isset($this->error['filled_email_cookie_action'])) {
-            $this->data['error_filled_email_cookie_action'] = $this->error['filled_email_cookie_action'];
-        } else {
-            $this->data['error_filled_email_cookie_action'] = '';
-        }
-
-        if (isset($this->error['filled_email_login_action'])) {
-            $this->data['error_filled_email_login_action'] = $this->error['filled_email_login_action'];
-        } else {
-            $this->data['error_filled_email_login_action'] = '';
-        }
-
         /* Website */
 
         if (isset($this->request->post['enabled_website'])) {
@@ -731,30 +599,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['filled_website_login_action'] = $this->request->post['filled_website_login_action'];
         } else {
             $this->data['filled_website_login_action'] = $this->setting->get('filled_website_login_action');
-        }
-
-        if (isset($this->error['default_website'])) {
-            $this->data['error_default_website'] = $this->error['default_website'];
-        } else {
-            $this->data['error_default_website'] = '';
-        }
-
-        if (isset($this->error['maximum_website'])) {
-            $this->data['error_maximum_website'] = $this->error['maximum_website'];
-        } else {
-            $this->data['error_maximum_website'] = '';
-        }
-
-        if (isset($this->error['filled_website_cookie_action'])) {
-            $this->data['error_filled_website_cookie_action'] = $this->error['filled_website_cookie_action'];
-        } else {
-            $this->data['error_filled_website_cookie_action'] = '';
-        }
-
-        if (isset($this->error['filled_website_login_action'])) {
-            $this->data['error_filled_website_login_action'] = $this->error['filled_website_login_action'];
-        } else {
-            $this->data['error_filled_website_login_action'] = '';
         }
 
         /* Town */
@@ -799,30 +643,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['filled_town_login_action'] = $this->setting->get('filled_town_login_action');
         }
 
-        if (isset($this->error['default_town'])) {
-            $this->data['error_default_town'] = $this->error['default_town'];
-        } else {
-            $this->data['error_default_town'] = '';
-        }
-
-        if (isset($this->error['maximum_town'])) {
-            $this->data['error_maximum_town'] = $this->error['maximum_town'];
-        } else {
-            $this->data['error_maximum_town'] = '';
-        }
-
-        if (isset($this->error['filled_town_cookie_action'])) {
-            $this->data['error_filled_town_cookie_action'] = $this->error['filled_town_cookie_action'];
-        } else {
-            $this->data['error_filled_town_cookie_action'] = '';
-        }
-
-        if (isset($this->error['filled_town_login_action'])) {
-            $this->data['error_filled_town_login_action'] = $this->error['filled_town_login_action'];
-        } else {
-            $this->data['error_filled_town_login_action'] = '';
-        }
-
         /* State */
 
         if (isset($this->request->post['enabled_state'])) {
@@ -857,24 +677,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['filled_state_login_action'] = $this->request->post['filled_state_login_action'];
         } else {
             $this->data['filled_state_login_action'] = $this->setting->get('filled_state_login_action');
-        }
-
-        if (isset($this->error['default_state'])) {
-            $this->data['error_default_state'] = $this->error['default_state'];
-        } else {
-            $this->data['error_default_state'] = '';
-        }
-
-        if (isset($this->error['filled_state_cookie_action'])) {
-            $this->data['error_filled_state_cookie_action'] = $this->error['filled_state_cookie_action'];
-        } else {
-            $this->data['error_filled_state_cookie_action'] = '';
-        }
-
-        if (isset($this->error['filled_state_login_action'])) {
-            $this->data['error_filled_state_login_action'] = $this->error['filled_state_login_action'];
-        } else {
-            $this->data['error_filled_state_login_action'] = '';
         }
 
         $this->data['states'] = $this->geo->getStatesByCountryId($this->setting->get('default_country'));
@@ -915,24 +717,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['filled_country_login_action'] = $this->request->post['filled_country_login_action'];
         } else {
             $this->data['filled_country_login_action'] = $this->setting->get('filled_country_login_action');
-        }
-
-        if (isset($this->error['default_country'])) {
-            $this->data['error_default_country'] = $this->error['default_country'];
-        } else {
-            $this->data['error_default_country'] = '';
-        }
-
-        if (isset($this->error['filled_country_cookie_action'])) {
-            $this->data['error_filled_country_cookie_action'] = $this->error['filled_country_cookie_action'];
-        } else {
-            $this->data['error_filled_country_cookie_action'] = '';
-        }
-
-        if (isset($this->error['filled_country_login_action'])) {
-            $this->data['error_filled_country_login_action'] = $this->error['filled_country_login_action'];
-        } else {
-            $this->data['error_filled_country_login_action'] = '';
         }
 
         $this->data['countries'] = $this->geo->getCountries();
@@ -1069,114 +853,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['captcha_dots_color'] = $this->setting->get('captcha_dots_color');
         }
 
-        if (isset($this->error['captcha_type'])) {
-            $this->data['error_captcha_type'] = $this->error['captcha_type'];
-        } else {
-            $this->data['error_captcha_type'] = '';
-        }
-
-        if (isset($this->error['recaptcha_public_key'])) {
-            $this->data['error_recaptcha_public_key'] = $this->error['recaptcha_public_key'];
-        } else {
-            $this->data['error_recaptcha_public_key'] = '';
-        }
-
-        if (isset($this->error['recaptcha_private_key'])) {
-            $this->data['error_recaptcha_private_key'] = $this->error['recaptcha_private_key'];
-        } else {
-            $this->data['error_recaptcha_private_key'] = '';
-        }
-
-        if (isset($this->error['recaptcha_theme'])) {
-            $this->data['error_recaptcha_theme'] = $this->error['recaptcha_theme'];
-        } else {
-            $this->data['error_recaptcha_theme'] = '';
-        }
-
-        if (isset($this->error['recaptcha_size'])) {
-            $this->data['error_recaptcha_size'] = $this->error['recaptcha_size'];
-        } else {
-            $this->data['error_recaptcha_size'] = '';
-        }
-
-        if (isset($this->error['captcha_width'])) {
-            $this->data['error_captcha_width'] = $this->error['captcha_width'];
-        } else {
-            $this->data['error_captcha_width'] = '';
-        }
-
-        if (isset($this->error['captcha_height'])) {
-            $this->data['error_captcha_height'] = $this->error['captcha_height'];
-        } else {
-            $this->data['error_captcha_height'] = '';
-        }
-
-        if (isset($this->error['captcha_length'])) {
-            $this->data['error_captcha_length'] = $this->error['captcha_length'];
-        } else {
-            $this->data['error_captcha_length'] = '';
-        }
-
-        if (isset($this->error['captcha_lines'])) {
-            $this->data['error_captcha_lines'] = $this->error['captcha_lines'];
-        } else {
-            $this->data['error_captcha_lines'] = '';
-        }
-
-        if (isset($this->error['captcha_circles'])) {
-            $this->data['error_captcha_circles'] = $this->error['captcha_circles'];
-        } else {
-            $this->data['error_captcha_circles'] = '';
-        }
-
-        if (isset($this->error['captcha_squares'])) {
-            $this->data['error_captcha_squares'] = $this->error['captcha_squares'];
-        } else {
-            $this->data['error_captcha_squares'] = '';
-        }
-
-        if (isset($this->error['captcha_dots'])) {
-            $this->data['error_captcha_dots'] = $this->error['captcha_dots'];
-        } else {
-            $this->data['error_captcha_dots'] = '';
-        }
-
-        if (isset($this->error['captcha_text_color'])) {
-            $this->data['error_captcha_text_color'] = $this->error['captcha_text_color'];
-        } else {
-            $this->data['error_captcha_text_color'] = '';
-        }
-
-        if (isset($this->error['captcha_back_color'])) {
-            $this->data['error_captcha_back_color'] = $this->error['captcha_back_color'];
-        } else {
-            $this->data['error_captcha_back_color'] = '';
-        }
-
-        if (isset($this->error['captcha_line_color'])) {
-            $this->data['error_captcha_line_color'] = $this->error['captcha_line_color'];
-        } else {
-            $this->data['error_captcha_line_color'] = '';
-        }
-
-        if (isset($this->error['captcha_circle_color'])) {
-            $this->data['error_captcha_circle_color'] = $this->error['captcha_circle_color'];
-        } else {
-            $this->data['error_captcha_circle_color'] = '';
-        }
-
-        if (isset($this->error['captcha_square_color'])) {
-            $this->data['error_captcha_square_color'] = $this->error['captcha_square_color'];
-        } else {
-            $this->data['error_captcha_square_color'] = '';
-        }
-
-        if (isset($this->error['captcha_dots_color'])) {
-            $this->data['error_captcha_dots_color'] = $this->error['captcha_dots_color'];
-        } else {
-            $this->data['error_captcha_dots_color'] = '';
-        }
-
         /* Notify */
 
         if (isset($this->request->post['enabled_notify'])) {
@@ -1273,18 +949,6 @@ class SettingsLayoutFormController extends Controller
             $this->data['powered_by_new_window'] = false;
         } else {
             $this->data['powered_by_new_window'] = $this->setting->get('powered_by_new_window');
-        }
-
-        if (isset($this->error['enabled_powered_by'])) {
-            $this->data['error_enabled_powered_by'] = $this->error['enabled_powered_by'];
-        } else {
-            $this->data['error_enabled_powered_by'] = '';
-        }
-
-        if (isset($this->error['powered_by_type'])) {
-            $this->data['error_powered_by_type'] = $this->error['powered_by_type'];
-        } else {
-            $this->data['error_powered_by_type'] = '';
         }
 
         $this->data['layout_detect'] = $this->setting->get('layout_detect');

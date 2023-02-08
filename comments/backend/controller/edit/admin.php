@@ -65,22 +65,10 @@ class EditAdminController extends Controller
 
         $this->data['date_added'] = $this->variable->formatDate($admin['date_added'], $this->data['lang_date_time_format'], $this->data);
 
-        if (isset($this->error['username'])) {
-            $this->data['error_username'] = $this->error['username'];
-        } else {
-            $this->data['error_username'] = '';
-        }
-
         if (isset($this->error['password'])) {
             $this->data['error_password'] = $this->error['password'];
         } else {
             $this->data['error_password'] = '';
-        }
-
-        if (isset($this->error['email'])) {
-            $this->data['error_email'] = $this->error['email'];
-        } else {
-            $this->data['error_email'] = '';
         }
 
         $this->data['restrictions'] = $this->model_common_administrator->getRestrictions($this->request->get['id']);

@@ -29,12 +29,6 @@ class TaskDeleteVotersController extends Controller
             $this->data['days_to_delete_voters'] = $this->setting->get('days_to_delete_voters');
         }
 
-        if (isset($this->error['days_to_delete_voters'])) {
-            $this->data['error_days_to_delete_voters'] = $this->error['days_to_delete_voters'];
-        } else {
-            $this->data['error_days_to_delete_voters'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('task/delete_voters');

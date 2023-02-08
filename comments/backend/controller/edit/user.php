@@ -57,24 +57,6 @@ class EditUserController extends Controller
 
         $this->data['date_added'] = $this->variable->formatDate($user['date_added'], $this->data['lang_date_time_format'], $this->data);
 
-        if (isset($this->error['name'])) {
-            $this->data['error_name'] = $this->error['name'];
-        } else {
-            $this->data['error_name'] = '';
-        }
-
-        if (isset($this->error['email'])) {
-            $this->data['error_email'] = $this->error['email'];
-        } else {
-            $this->data['error_email'] = '';
-        }
-
-        if (isset($this->error['moderate'])) {
-            $this->data['error_moderate'] = $this->error['moderate'];
-        } else {
-            $this->data['error_moderate'] = '';
-        }
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['link_back'] = $this->url->link('manage/users');

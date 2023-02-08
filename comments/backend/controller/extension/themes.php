@@ -55,36 +55,6 @@ class ExtensionThemesController extends Controller
             $this->data['order_parts'] = $this->setting->get('order_parts');
         }
 
-        if (isset($this->error['theme_frontend'])) {
-            $this->data['error_theme_frontend'] = $this->error['theme_frontend'];
-        } else {
-            $this->data['error_theme_frontend'] = '';
-        }
-
-        if (isset($this->error['theme_backend'])) {
-            $this->data['error_theme_backend'] = $this->error['theme_backend'];
-        } else {
-            $this->data['error_theme_backend'] = '';
-        }
-
-        if (isset($this->error['jquery_source'])) {
-            $this->data['error_jquery_source'] = $this->error['jquery_source'];
-        } else {
-            $this->data['error_jquery_source'] = '';
-        }
-
-        if (isset($this->error['font_awesome_source'])) {
-            $this->data['error_font_awesome_source'] = $this->error['font_awesome_source'];
-        } else {
-            $this->data['error_font_awesome_source'] = '';
-        }
-
-        if (isset($this->error['order_parts'])) {
-            $this->data['error_order_parts'] = $this->error['order_parts'];
-        } else {
-            $this->data['error_order_parts'] = '';
-        }
-
         $this->data['frontend_themes'] = $this->model_extension_themes->getFrontendThemes();
 
         $this->data['backend_themes'] = $this->model_extension_themes->getBackendThemes();

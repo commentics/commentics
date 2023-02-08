@@ -85,28 +85,10 @@ class SettingsAdministratorController extends Controller
             $this->data['format'] = $admin['format'];
         }
 
-        if (isset($this->error['username'])) {
-            $this->data['error_username'] = $this->error['username'];
-        } else {
-            $this->data['error_username'] = '';
-        }
-
         if (isset($this->error['password'])) {
             $this->data['error_password'] = $this->error['password'];
         } else {
             $this->data['error_password'] = '';
-        }
-
-        if (isset($this->error['email'])) {
-            $this->data['error_email'] = $this->error['email'];
-        } else {
-            $this->data['error_email'] = '';
-        }
-
-        if (isset($this->error['format'])) {
-            $this->data['error_format'] = $this->error['format'];
-        } else {
-            $this->data['error_format'] = '';
         }
 
         $this->components = array('common/header', 'common/footer');

@@ -65,24 +65,6 @@ class SettingsFloodingController extends Controller
             $this->data['flood_control_maximum_all_pages'] = $this->setting->get('flood_control_maximum_all_pages');
         }
 
-        if (isset($this->error['flood_control_delay_time'])) {
-            $this->data['error_flood_control_delay_time'] = $this->error['flood_control_delay_time'];
-        } else {
-            $this->data['error_flood_control_delay_time'] = '';
-        }
-
-        if (isset($this->error['flood_control_maximum_amount'])) {
-            $this->data['error_flood_control_maximum_amount'] = $this->error['flood_control_maximum_amount'];
-        } else {
-            $this->data['error_flood_control_maximum_amount'] = '';
-        }
-
-        if (isset($this->error['flood_control_maximum_period'])) {
-            $this->data['error_flood_control_maximum_period'] = $this->error['flood_control_maximum_period'];
-        } else {
-            $this->data['error_flood_control_maximum_period'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/flooding');

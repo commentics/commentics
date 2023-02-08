@@ -79,42 +79,6 @@ class EditSiteController extends Controller
 
         $this->data['date_added'] = $this->variable->formatDate($site['date_added'], $this->data['lang_date_time_format'], $this->data);
 
-        if (isset($this->error['name'])) {
-            $this->data['error_name'] = $this->error['name'];
-        } else {
-            $this->data['error_name'] = '';
-        }
-
-        if (isset($this->error['domain'])) {
-            $this->data['error_domain'] = $this->error['domain'];
-        } else {
-            $this->data['error_domain'] = '';
-        }
-
-        if (isset($this->error['url'])) {
-            $this->data['error_url'] = $this->error['url'];
-        } else {
-            $this->data['error_url'] = '';
-        }
-
-        if (isset($this->error['from_name'])) {
-            $this->data['error_from_name'] = $this->error['from_name'];
-        } else {
-            $this->data['error_from_name'] = '';
-        }
-
-        if (isset($this->error['from_email'])) {
-            $this->data['error_from_email'] = $this->error['from_email'];
-        } else {
-            $this->data['error_from_email'] = '';
-        }
-
-        if (isset($this->error['reply_email'])) {
-            $this->data['error_reply_email'] = $this->error['reply_email'];
-        } else {
-            $this->data['error_reply_email'] = '';
-        }
-
         $this->data['id'] = $this->request->get['id'];
 
         $this->data['link_back'] = $this->url->link('manage/sites');

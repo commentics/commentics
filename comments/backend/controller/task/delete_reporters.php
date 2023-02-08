@@ -29,12 +29,6 @@ class TaskDeleteReportersController extends Controller
             $this->data['days_to_delete_reporters'] = $this->setting->get('days_to_delete_reporters');
         }
 
-        if (isset($this->error['days_to_delete_reporters'])) {
-            $this->data['error_days_to_delete_reporters'] = $this->error['days_to_delete_reporters'];
-        } else {
-            $this->data['error_days_to_delete_reporters'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('task/delete_reporters');

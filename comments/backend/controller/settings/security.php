@@ -69,18 +69,6 @@ class SettingsSecurityController extends Controller
             $this->data['ban_cookie_days'] = $this->setting->get('ban_cookie_days');
         }
 
-        if (isset($this->error['check_referrer'])) {
-            $this->data['error_check_referrer'] = $this->error['check_referrer'];
-        } else {
-            $this->data['error_check_referrer'] = '';
-        }
-
-        if (isset($this->error['ban_cookie_days'])) {
-            $this->data['error_ban_cookie_days'] = $this->error['ban_cookie_days'];
-        } else {
-            $this->data['error_ban_cookie_days'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/security');

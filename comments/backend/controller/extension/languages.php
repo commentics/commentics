@@ -37,18 +37,6 @@ class ExtensionLanguagesController extends Controller
             $this->data['rtl'] = $this->setting->get('rtl');
         }
 
-        if (isset($this->error['language_frontend'])) {
-            $this->data['error_language_frontend'] = $this->error['language_frontend'];
-        } else {
-            $this->data['error_language_frontend'] = '';
-        }
-
-        if (isset($this->error['language_backend'])) {
-            $this->data['error_language_backend'] = $this->error['language_backend'];
-        } else {
-            $this->data['error_language_backend'] = '';
-        }
-
         $this->data['frontend_languages'] = $this->model_common_language->getFrontendLanguages();
 
         $this->data['backend_languages'] = $this->model_common_language->getBackendLanguages();

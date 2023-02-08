@@ -27,18 +27,6 @@ class SettingsLicenceController extends Controller
             $this->data['forum_user'] = $this->setting->get('forum_user');
         }
 
-        if (isset($this->error['licence'])) {
-            $this->data['error_licence'] = $this->error['licence'];
-        } else {
-            $this->data['error_licence'] = '';
-        }
-
-        if (isset($this->error['forum_user'])) {
-            $this->data['error_forum_user'] = $this->error['forum_user'];
-        } else {
-            $this->data['error_forum_user'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('settings/licence');

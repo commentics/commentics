@@ -173,12 +173,6 @@ class DataListController extends Controller
             $this->data['lang_text_modified_by'] = $this->data['lang_text_not_modified'];
         }
 
-        if (isset($this->error['text'])) {
-            $this->data['error_text'] = $this->error['text'];
-        } else {
-            $this->data['error_text'] = '';
-        }
-
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('data/list');
