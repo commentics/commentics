@@ -95,6 +95,7 @@ abstract class Controller extends Base
 
         ob_start();
 
+        /* Some components have a view */
         if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_component) . '.tpl')) {
             $file = cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/template/' . strtolower($cmtx_component) . '.tpl');
         } else if (file_exists(CMTX_DIR_VIEW . 'default/template/' . strtolower($cmtx_component) . '.tpl')) {
