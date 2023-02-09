@@ -5,7 +5,7 @@ class MainFormModel extends Model
 {
     public $uploads = array();
     public $extra_fields = array();
-    public $data = array();
+    public $data = array(); // manually set from controller for language
     private $json = array();
     private $approve = '';
     private $notes = '';
@@ -20,6 +20,88 @@ class MainFormModel extends Model
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    public function getFormCookie()
+    {
+        $cookie = array();
+
+        $cookie['name'] = $cookie['email'] = $cookie['website'] = $cookie['town'] = $cookie['country'] = $cookie['state'] = '';
+
+        if ($this->cookie->exists('Commentics-Form')) {
+            $values = $this->cookie->get('Commentics-Form');
+
+            $values = explode('|', $values);
+
+            if (count($values) == 6) {
+                $cookie['name']    = $values[0];
+                $cookie['email']   = $values[1];
+                $cookie['website'] = $values[2];
+                $cookie['town']    = $values[3];
+                $cookie['country'] = $values[4];
+                $cookie['state']   = $values[5];
+            }
+        }
+
+        return $cookie;
+    }
+
+    public function setDefaultRating($data)
+    {
+        $default_rating = $this->setting->get('default_rating');
+
+        if ($default_rating == '1') {
+            $data['rating_1_checked'] = 'checked';
+        } else {
+            $data['rating_1_checked'] = '';
+        }
+
+        if ($default_rating == '2') {
+            $data['rating_2_checked'] = 'checked';
+        } else {
+            $data['rating_2_checked'] = '';
+        }
+
+        if ($default_rating == '3') {
+            $data['rating_3_checked'] = 'checked';
+        } else {
+            $data['rating_3_checked'] = '';
+        }
+
+        if ($default_rating == '4') {
+            $data['rating_4_checked'] = 'checked';
+        } else {
+            $data['rating_4_checked'] = '';
+        }
+
+        if ($default_rating == '5') {
+            $data['rating_5_checked'] = 'checked';
+        } else {
+            $data['rating_5_checked'] = '';
+        }
+
+        return $data;
+    }
+
+    public function setBBCodeTags($data)
+    {
+        $data['lang_tag_bb_code_bold']        = $data['lang_tag_bb_code_bold_start'] . '|' . $data['lang_tag_bb_code_bold_end'];
+        $data['lang_tag_bb_code_italic']      = $data['lang_tag_bb_code_italic_start'] . '|' . $data['lang_tag_bb_code_italic_end'];
+        $data['lang_tag_bb_code_underline']   = $data['lang_tag_bb_code_underline_start'] . '|' . $data['lang_tag_bb_code_underline_end'];
+        $data['lang_tag_bb_code_strike']      = $data['lang_tag_bb_code_strike_start'] . '|' . $data['lang_tag_bb_code_strike_end'];
+        $data['lang_tag_bb_code_superscript'] = $data['lang_tag_bb_code_superscript_start'] . '|' . $data['lang_tag_bb_code_superscript_end'];
+        $data['lang_tag_bb_code_subscript']   = $data['lang_tag_bb_code_subscript_start'] . '|' . $data['lang_tag_bb_code_subscript_end'];
+        $data['lang_tag_bb_code_code']        = $data['lang_tag_bb_code_code_start'] . '|' . $data['lang_tag_bb_code_code_end'];
+        $data['lang_tag_bb_code_php']         = $data['lang_tag_bb_code_php_start'] . '|' . $data['lang_tag_bb_code_php_end'];
+        $data['lang_tag_bb_code_quote']       = $data['lang_tag_bb_code_quote_start'] . '|' . $data['lang_tag_bb_code_quote_end'];
+        $data['lang_tag_bb_code_bullet']      = $data['lang_tag_bb_code_bullet_1'] . '|' . $data['lang_tag_bb_code_bullet_2'] . '|' . $data['lang_tag_bb_code_bullet_3'] . '|' . $data['lang_tag_bb_code_bullet_4'];
+        $data['lang_tag_bb_code_numeric']     = $data['lang_tag_bb_code_numeric_1'] . '|' . $data['lang_tag_bb_code_numeric_2'] . '|' . $data['lang_tag_bb_code_numeric_3'] . '|' . $data['lang_tag_bb_code_numeric_4'];
+        $data['lang_tag_bb_code_link']        = $data['lang_tag_bb_code_link_1'] . '|' . $data['lang_tag_bb_code_link_2'] . '|' . $data['lang_tag_bb_code_link_3'] . '|' . $data['lang_tag_bb_code_link_4'];
+        $data['lang_tag_bb_code_email']       = $data['lang_tag_bb_code_email_1'] . '|' . $data['lang_tag_bb_code_email_2'] . '|' . $data['lang_tag_bb_code_email_3'] . '|' . $data['lang_tag_bb_code_email_4'];
+        $data['lang_tag_bb_code_image']       = $data['lang_tag_bb_code_image_1'] . '|' . $data['lang_tag_bb_code_image_2'];
+        $data['lang_tag_bb_code_youtube']     = $data['lang_tag_bb_code_youtube_1'] . '|' . $data['lang_tag_bb_code_youtube_2'];
+
+        return $data;
     }
 
     public function validateFloodingDelay($is_admin, $page_id)

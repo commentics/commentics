@@ -26,26 +26,9 @@ class MainFormController extends Controller
 
             $this->data['commentics_url'] = $this->url->getCommenticsUrl();
 
-            $hidden_data = '';
+            $this->data['hidden_data'] = '';
 
-            $cookie = array();
-
-            $cookie['name'] = $cookie['email'] = $cookie['website'] = $cookie['town'] = $cookie['country'] = $cookie['state'] = '';
-
-            if ($this->cookie->exists('Commentics-Form')) {
-                $values = $this->cookie->get('Commentics-Form');
-
-                $values = explode('|', $values);
-
-                if (count($values) == 6) {
-                    $cookie['name']    = $values[0];
-                    $cookie['email']   = $values[1];
-                    $cookie['website'] = $values[2];
-                    $cookie['town']    = $values[3];
-                    $cookie['country'] = $values[4];
-                    $cookie['state']   = $values[5];
-                }
-            }
+            $cookie = $this->model_main_form->getFormCookie();
 
             /* Headline */
 
@@ -59,37 +42,7 @@ class MainFormController extends Controller
 
             $this->data['rating_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_rating') ? 'cmtx_required' : '');
 
-            $default_rating = $this->setting->get('default_rating');
-
-            if ($default_rating == '1') {
-                $this->data['rating_1_checked'] = 'checked';
-            } else {
-                $this->data['rating_1_checked'] = '';
-            }
-
-            if ($default_rating == '2') {
-                $this->data['rating_2_checked'] = 'checked';
-            } else {
-                $this->data['rating_2_checked'] = '';
-            }
-
-            if ($default_rating == '3') {
-                $this->data['rating_3_checked'] = 'checked';
-            } else {
-                $this->data['rating_3_checked'] = '';
-            }
-
-            if ($default_rating == '4') {
-                $this->data['rating_4_checked'] = 'checked';
-            } else {
-                $this->data['rating_4_checked'] = '';
-            }
-
-            if ($default_rating == '5') {
-                $this->data['rating_5_checked'] = 'checked';
-            } else {
-                $this->data['rating_5_checked'] = '';
-            }
+            $this->data = $this->model_main_form->setDefaultRating($this->data);
 
             /* Name */
 
@@ -159,13 +112,13 @@ class MainFormController extends Controller
             if ($this->data['name_is_filled'] && $this->data['filled_name_action'] == 'hide') {
                 $this->data['enabled_name'] = false;
 
-                $hidden_data .= '&cmtx_name=' . $this->url->encode($this->data['name']);
+                $this->data['hidden_data'] .= '&cmtx_name=' . $this->url->encode($this->data['name']);
             }
 
             if ($this->data['email_is_filled'] && $this->data['filled_email_action'] == 'hide') {
                 $this->setting->set('enabled_email', false);
 
-                $hidden_data .= '&cmtx_email=' . $this->url->encode($this->data['email']);
+                $this->data['hidden_data'] .= '&cmtx_email=' . $this->url->encode($this->data['email']);
             }
 
             $user_columns = (int) $this->data['enabled_name'] + (int) $this->setting->get('enabled_email');
@@ -248,7 +201,7 @@ class MainFormController extends Controller
             if ($this->data['website_is_filled'] && $this->data['filled_website_action'] == 'hide') {
                 $this->setting->set('enabled_website', false);
 
-                $hidden_data .= '&cmtx_website=' . $this->url->encode($this->data['website']);
+                $this->data['hidden_data'] .= '&cmtx_website=' . $this->url->encode($this->data['website']);
             }
 
             /* Town */
@@ -456,19 +409,19 @@ class MainFormController extends Controller
             if ($this->setting->get('enabled_town') && $this->data['town_is_filled'] && $this->data['filled_town_action'] == 'hide') {
                 $this->setting->set('enabled_town', false);
 
-                $hidden_data .= '&cmtx_town=' . $this->url->encode($this->data['town']);
+                $this->data['hidden_data'] .= '&cmtx_town=' . $this->url->encode($this->data['town']);
             }
 
             if ($this->setting->get('enabled_country') && $this->data['country_is_filled'] && $this->data['filled_country_action'] == 'hide') {
                 $this->setting->set('enabled_country', false);
 
-                $hidden_data .= '&cmtx_country=' . $this->url->encode($this->data['country_id']);
+                $this->data['hidden_data'] .= '&cmtx_country=' . $this->url->encode($this->data['country_id']);
             }
 
             if ($this->setting->get('enabled_state') && $this->data['state_is_filled'] && $this->data['filled_state_action'] == 'hide') {
                 $this->setting->set('enabled_state', false);
 
-                $hidden_data .= '&cmtx_state=' . $this->url->encode($this->data['state_id']);
+                $this->data['hidden_data'] .= '&cmtx_state=' . $this->url->encode($this->data['state_id']);
             }
 
             $geo_columns = (int) $this->setting->get('enabled_town') + (int) $this->setting->get('enabled_country') + (int) $this->setting->get('enabled_state');
@@ -501,34 +454,21 @@ class MainFormController extends Controller
 
             /* Avatar provided by login information */
             if ($this->user->getLogin('avatar')) {
-                $hidden_data .= '&cmtx_avatar=' . $this->url->encode($this->user->getLogin('avatar'));
+                $this->data['hidden_data'] .= '&cmtx_avatar=' . $this->url->encode($this->user->getLogin('avatar'));
             }
 
             if ($this->user->getLogin('name') || $this->user->getLogin('email')) {
-                $hidden_data .= '&cmtx_login=1';
+                $this->data['hidden_data'] .= '&cmtx_login=1';
             } else {
-                $hidden_data .= '&cmtx_login=0';
+                $this->data['hidden_data'] .= '&cmtx_login=0';
             }
 
-            $this->data['lang_tag_bb_code_bold']        = $this->data['lang_tag_bb_code_bold_start'] . '|' . $this->data['lang_tag_bb_code_bold_end'];
-            $this->data['lang_tag_bb_code_italic']      = $this->data['lang_tag_bb_code_italic_start'] . '|' . $this->data['lang_tag_bb_code_italic_end'];
-            $this->data['lang_tag_bb_code_underline']   = $this->data['lang_tag_bb_code_underline_start'] . '|' . $this->data['lang_tag_bb_code_underline_end'];
-            $this->data['lang_tag_bb_code_strike']      = $this->data['lang_tag_bb_code_strike_start'] . '|' . $this->data['lang_tag_bb_code_strike_end'];
-            $this->data['lang_tag_bb_code_superscript'] = $this->data['lang_tag_bb_code_superscript_start'] . '|' . $this->data['lang_tag_bb_code_superscript_end'];
-            $this->data['lang_tag_bb_code_subscript']   = $this->data['lang_tag_bb_code_subscript_start'] . '|' . $this->data['lang_tag_bb_code_subscript_end'];
-            $this->data['lang_tag_bb_code_code']        = $this->data['lang_tag_bb_code_code_start'] . '|' . $this->data['lang_tag_bb_code_code_end'];
-            $this->data['lang_tag_bb_code_php']         = $this->data['lang_tag_bb_code_php_start'] . '|' . $this->data['lang_tag_bb_code_php_end'];
-            $this->data['lang_tag_bb_code_quote']       = $this->data['lang_tag_bb_code_quote_start'] . '|' . $this->data['lang_tag_bb_code_quote_end'];
-            $this->data['lang_tag_bb_code_bullet']      = $this->data['lang_tag_bb_code_bullet_1'] . '|' . $this->data['lang_tag_bb_code_bullet_2'] . '|' . $this->data['lang_tag_bb_code_bullet_3'] . '|' . $this->data['lang_tag_bb_code_bullet_4'];
-            $this->data['lang_tag_bb_code_numeric']     = $this->data['lang_tag_bb_code_numeric_1'] . '|' . $this->data['lang_tag_bb_code_numeric_2'] . '|' . $this->data['lang_tag_bb_code_numeric_3'] . '|' . $this->data['lang_tag_bb_code_numeric_4'];
-            $this->data['lang_tag_bb_code_link']        = $this->data['lang_tag_bb_code_link_1'] . '|' . $this->data['lang_tag_bb_code_link_2'] . '|' . $this->data['lang_tag_bb_code_link_3'] . '|' . $this->data['lang_tag_bb_code_link_4'];
-            $this->data['lang_tag_bb_code_email']       = $this->data['lang_tag_bb_code_email_1'] . '|' . $this->data['lang_tag_bb_code_email_2'] . '|' . $this->data['lang_tag_bb_code_email_3'] . '|' . $this->data['lang_tag_bb_code_email_4'];
-            $this->data['lang_tag_bb_code_image']       = $this->data['lang_tag_bb_code_image_1'] . '|' . $this->data['lang_tag_bb_code_image_2'];
-            $this->data['lang_tag_bb_code_youtube']     = $this->data['lang_tag_bb_code_youtube_1'] . '|' . $this->data['lang_tag_bb_code_youtube_2'];
+            $this->data = $this->model_main_form->setBBCodeTags($this->data);
 
-            $this->data['lang_text_drag_and_drop']      = sprintf($this->data['lang_text_drag_and_drop'], $this->setting->get('maximum_upload_amount'));
+            $this->data['lang_text_drag_and_drop'] = sprintf($this->data['lang_text_drag_and_drop'], $this->setting->get('maximum_upload_amount'));
 
-            $this->data['hidden_data'] = str_replace('&', '&amp;', $hidden_data);
+            /* Stores form data to be posted in a hidden field */
+            $this->data['hidden_data'] = str_replace('&', '&amp;', $this->data['hidden_data']);
 
             /* These are passed to common.js via the template */
             $this->data['cmtx_js_settings_form'] = array(
@@ -837,20 +777,14 @@ class MainFormController extends Controller
 
                     $this->loadModel('main/comments');
 
+                    extract($this->setting->all());
+
                     $reply_depth = 0;
 
                     $show_bio = false;
 
-                    $avatar_type        = $this->setting->get('avatar_type');
-                    $show_level         = $this->setting->get('show_level');
-                    $show_rating        = $this->setting->get('show_rating');
-                    $show_website       = $this->setting->get('show_website');
                     $website_new_window = 'target="_blank"';
                     $website_no_follow  = '';
-                    $show_says          = $this->setting->get('show_says');
-                    $show_headline      = $this->setting->get('show_headline');
-                    $show_date          = $this->setting->get('show_date');
-                    $date_auto          = $this->setting->get('date_auto');
 
                     if ($avatar_login) {
                         $avatar = $avatar_login;
