@@ -26,10 +26,10 @@ class PartNotifyController extends Controller
     {
         if ($this->request->isAjax()) {
             $this->loadLanguage('main/form');
-
             $this->loadLanguage('part/notify');
 
             $this->loadModel('main/form');
+            $this->loadModel('main/form_validate');
 
             $this->response->addHeader('Content-Type: application/json');
 
@@ -56,38 +56,35 @@ class PartNotifyController extends Controller
                                 if ($this->user->isBanned($ip_address)) {
                                     $json['result']['error'] = $this->data['lang_error_banned'];
                                 } else {
-                                    /* Let the model access the language */
-                                    $this->model_main_form->data = $this->data;
-
                                     /* Check referrer */
-                                    $this->model_main_form->validateReferrer();
+                                    $this->model_main_form_validate->validateReferrer();
 
                                     /* Check honeypot */
-                                    $this->model_main_form->validateHoneypot();
+                                    $this->model_main_form_validate->validateHoneypot();
 
                                     /* Check time */
-                                    $this->model_main_form->validateTime();
+                                    $this->model_main_form_validate->validateTime();
 
                                     /* Name */
-                                    $this->model_main_form->validateName($is_admin);
+                                    $this->model_main_form_validate->validateName($is_admin);
 
                                     /* Email */
-                                    $this->model_main_form->validateEmail($is_admin);
+                                    $this->model_main_form_validate->validateEmail($is_admin);
 
                                     /* User */
-                                    $user = $this->model_main_form->validateUser();
+                                    $user = $this->model_main_form_validate->validateUser();
 
                                     /* Question */
-                                    $this->model_main_form->validateQuestion();
+                                    $this->model_main_form_validate->validateQuestion();
 
                                     /* ReCaptcha */
-                                    $this->model_main_form->validateReCaptcha();
+                                    $this->model_main_form_validate->validateReCaptcha();
 
                                     /* Image Captcha */
-                                    $this->model_main_form->validateImageCaptcha();
+                                    $this->model_main_form_validate->validateImageCaptcha();
 
                                     /* Captcha */
-                                    $this->model_main_form->validateCaptcha();
+                                    $this->model_main_form_validate->validateCaptcha();
 
                                     /* Subscription */
                                     if ($user) { // if the user exists
@@ -119,7 +116,7 @@ class PartNotifyController extends Controller
                 }
             }
 
-            $json = array_merge($json, $this->model_main_form->getJson());
+            $json = array_merge($json, $this->model_main_form_validate->getJson());
 
             if ($json && (isset($json['result']['error']) || isset($json['error']))) {
                 if (isset($json['result']['error'])) {

@@ -74,6 +74,106 @@ abstract class Controller extends Base
         require $cmtx_view;
     }
 
+
+    public function loadJavascript($cmtx_javascript)
+    {
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/javascript/' . strtolower($cmtx_javascript))) {
+            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/javascript/' . strtolower($cmtx_javascript));
+
+            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/javascript/' . strtolower($cmtx_javascript) . ($modified ? '?' . $modified : '');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/javascript/' . strtolower($cmtx_javascript))) {
+            $modified = filemtime(CMTX_DIR_VIEW . 'default/javascript/' . strtolower($cmtx_javascript));
+
+            return CMTX_HTTP_VIEW . 'default/javascript/' . strtolower($cmtx_javascript) . ($modified ? '?' . $modified : '');
+        } else {
+            die('<b>Error</b>: Could not load javascript ' . strtolower($cmtx_javascript) . '!');
+        }
+    }
+
+    public function autoloadJavascript()
+    {
+        $auto_load = array();
+
+        if (file_exists(CMTX_DIR_VIEW . 'default/javascript/autoload/')) {
+            foreach (glob(CMTX_DIR_VIEW . 'default/javascript/autoload/*.js') as $filename) {
+                $filename = basename($filename);
+
+                $modified = filemtime(CMTX_DIR_VIEW . 'default/javascript/autoload/' . $filename);
+
+                $auto_load[$filename] = CMTX_HTTP_VIEW . 'default/javascript/autoload/' . $filename . ($modified ? '?' . $modified : '');
+            }
+        }
+
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/javascript/autoload/')) {
+            foreach (glob(CMTX_DIR_VIEW . $this->setting->get('theme') . '/javascript/autoload/*.js') as $filename) {
+                $filename = basename($filename);
+
+                $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/javascript/autoload/' . $filename);
+
+                $auto_load[$filename] = CMTX_HTTP_VIEW . $this->setting->get('theme') . '/javascript/autoload/' . $filename . ($modified ? '?' . $modified : '');
+            }
+        }
+
+        return $auto_load;
+    }
+
+    public function loadStylesheet($cmtx_stylesheet)
+    {
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet))) {
+            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet));
+
+            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/' . strtolower($cmtx_stylesheet) . ($modified ? '?' . $modified : '');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet))) {
+            $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet));
+
+            return CMTX_HTTP_VIEW . 'default/stylesheet/css/' . strtolower($cmtx_stylesheet) . ($modified ? '?' . $modified : '');
+        } else {
+            die('<b>Error</b>: Could not load stylesheet ' . strtolower($cmtx_stylesheet) . '!');
+        }
+    }
+
+    public function autoloadStylesheet()
+    {
+        $auto_load = array();
+
+        if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/autoload/')) {
+            foreach (glob(CMTX_DIR_VIEW . 'default/stylesheet/css/autoload/*.css') as $filename) {
+                $filename = basename($filename);
+
+                $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/autoload/' . $filename);
+
+                $auto_load[$filename] = CMTX_HTTP_VIEW . 'default/stylesheet/css/autoload/' . $filename . ($modified ? '?' . $modified : '');
+            }
+        }
+
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/autoload/')) {
+            foreach (glob(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/autoload/*.css') as $filename) {
+                $filename = basename($filename);
+
+                $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/autoload/' . $filename);
+
+                $auto_load[$filename] = CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/autoload/' . $filename . ($modified ? '?' . $modified : '');
+            }
+        }
+
+        return $auto_load;
+    }
+
+    public function loadCustomCss()
+    {
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css')) {
+            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css');
+
+            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom.css' . ($modified ? '?' . $modified : '');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/custom.css')) {
+            $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/custom.css');
+
+            return CMTX_HTTP_VIEW . 'default/stylesheet/css/custom.css' . ($modified ? '?' . $modified : '');
+        } else {
+            return '';
+        }
+    }
+
     public function getComponent($cmtx_component, $cmtx_component_data = array())
     {
         /* Some components have a controller */
@@ -177,59 +277,5 @@ abstract class Controller extends Base
         } else {
             return $file;
         }
-    }
-
-    public function loadLanguage($cmtx_language)
-    {
-        /* Load general language file if it exists */
-        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php')) {
-            require cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/general.php');
-        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/general.php')) {
-            require cmtx_modification(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/general.php');
-        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/english/general.php')) {
-            require cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/general.php');
-        }
-
-        /* Always load requested language file */
-        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php')) {
-            require_once cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php');
-        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php')) {
-            require_once cmtx_modification(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/' . strtolower($cmtx_language) . '.php');
-        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/english/' . strtolower($cmtx_language) . '.php')) {
-            require_once cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/' . strtolower($cmtx_language) . '.php');
-        } else {
-            die('<b>Error</b>: Could not load language ' . strtolower($cmtx_language) . '!');
-        }
-
-        /* Autoload language files if any exist (default theme) */
-        if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/autoload/')) {
-            foreach (glob(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/autoload/*.php') as $filename) {
-                require cmtx_modification($filename);
-            }
-        }
-
-        /* Autoload language files if any exist (custom theme) */
-        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/autoload/')) {
-            foreach (glob(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/autoload/*.php') as $filename) {
-                require cmtx_modification($filename);
-            }
-        }
-
-        /* Load custom language file if it exists */
-        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom.php')) {
-            require cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom.php');
-        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/custom.php')) {
-            require cmtx_modification(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/custom.php');
-        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/english/custom.php')) {
-            require cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/custom.php');
-        }
-
-        /* Change the comment type wording if configured */
-        if ($this->setting->get('purpose') != 'comment') {
-            $_ = $this->changePurpose($_);
-        }
-
-        /* Combine language files together */
-        $this->data = array_merge($this->data, $_);
     }
 }

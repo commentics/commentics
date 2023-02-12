@@ -42,6 +42,10 @@
     <?php foreach ($autoload_stylesheet as $autoload) { ?>
         <link rel="stylesheet" type="text/css" href="<?php echo $autoload; ?>">
     <?php } ?>
+
+    <?php if ($custom) { ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo $custom; ?>">
+    <?php } ?>
 </head>
 <body>
 

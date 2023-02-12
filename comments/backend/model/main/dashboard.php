@@ -83,13 +83,13 @@ class MainDashboardModel extends Model
 
     public function getTipOfTheDay()
     {
-        $lang = $this->loadWord('main/dashboard');
+        $this->loadLanguage('main/dashboard');
 
         $tips = array();
 
         $counter = 0;
 
-        foreach ($lang as $key => $value) {
+        foreach ($this->data as $key => $value) {
             if ($this->variable->strpos($key, 'lang_tip_') === 0) {
                 $tips[$counter] = $value;
 
@@ -106,7 +106,7 @@ class MainDashboardModel extends Model
 
             $tip = $tips[$position];
         } else {
-            $tip = $lang['lang_text_no_tips'];
+            $tip = $this->data['lang_text_no_tips'];
         }
 
         return $tip;
@@ -114,7 +114,7 @@ class MainDashboardModel extends Model
 
     public function getQuickLinks()
     {
-        $lang = $this->loadWord('main/dashboard');
+        $this->loadLanguage('main/dashboard');
 
         $query = $this->db->query("SELECT `page`, COUNT(*) AS `frequency`
                                    FROM `" . CMTX_DB_PREFIX . "access`
@@ -134,8 +134,8 @@ class MainDashboardModel extends Model
             $results = $this->db->rows($query);
 
             foreach ($results as &$result) {
-                if (array_key_exists('lang_' . $result['page'], $lang)) {
-                    $result['text'] = $lang['lang_' . $result['page']];
+                if (array_key_exists('lang_' . $result['page'], $this->data)) {
+                    $result['text'] = $this->data['lang_' . $result['page']];
                 } else {
                     $result['text'] = $result['page'];
                 }
@@ -256,23 +256,23 @@ class MainDashboardModel extends Model
         $system_settings = array();
 
         if ($site_domain != $this->setting->get('site_domain')) {
-            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_site_domain');
+            $system_settings[] = $this->loadLanguage('main/dashboard', 'lang_text_site_domain');
         }
 
         if ($this->cleanSystemSettingUrl($site_url) != $this->cleanSystemSettingUrl($this->setting->get('site_url'))) {
-            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_site_url');
+            $system_settings[] = $this->loadLanguage('main/dashboard', 'lang_text_site_url');
         }
 
         if ($commentics_folder != $this->setting->get('commentics_folder')) {
-            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_commentics_folder');
+            $system_settings[] = $this->loadLanguage('main/dashboard', 'lang_text_commentics_folder');
         }
 
         if ($this->cleanSystemSettingUrl($commentics_url) != $this->cleanSystemSettingUrl($this->setting->get('commentics_url'))) {
-            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_commentics_url');
+            $system_settings[] = $this->loadLanguage('main/dashboard', 'lang_text_commentics_url');
         }
 
         if ($backend_folder != $this->setting->get('backend_folder')) {
-            $system_settings[] = $this->loadWord('main/dashboard', 'lang_text_backend_folder');
+            $system_settings[] = $this->loadLanguage('main/dashboard', 'lang_text_backend_folder');
         }
 
         return $system_settings;

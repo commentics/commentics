@@ -3,6 +3,13 @@ namespace Commentics;
 
 class ToolUpgradeModel extends Model
 {
+    public function __construct($registry)
+    {
+        parent::__construct($registry);
+
+        $this->loadLanguage('tool/upgrade');
+    }
+
     public function getNext($version, $versions)
     {
         $versions = json_decode($versions, true);
@@ -56,8 +63,6 @@ class ToolUpgradeModel extends Model
 
     public function download($version, $temp_folder)
     {
-        $lang = $this->loadWord('tool/upgrade');
-
         @ignore_user_abort(true);
         @set_time_limit(300);
 
@@ -85,7 +90,7 @@ class ToolUpgradeModel extends Model
         if ($package === false) {
             $error = curl_error($ch);
         } else if ($http_code != 200) {
-            $error = sprintf($lang['lang_error_status_code'], $http_code);
+            $error = sprintf($this->data['lang_error_status_code'], $http_code);
         }
 
         curl_close($ch);
@@ -98,15 +103,15 @@ class ToolUpgradeModel extends Model
 
                 if ($handle) {
                     if (fwrite($handle, $package) === false) {
-                        $error = $lang['lang_error_file_stream'];
+                        $error = $this->data['lang_error_file_stream'];
                     }
 
                     fclose($handle);
                 } else {
-                    $error = $lang['lang_error_file_handle'];
+                    $error = $this->data['lang_error_file_handle'];
                 }
             } else {
-                $error = $lang['lang_error_temp_write'];
+                $error = $this->data['lang_error_temp_write'];
             }
         }
 
@@ -115,8 +120,6 @@ class ToolUpgradeModel extends Model
 
     public function unpack($temp_folder)
     {
-        $lang = $this->loadWord('tool/upgrade');
-
         @ignore_user_abort(true);
         @set_time_limit(300);
 
@@ -134,15 +137,15 @@ class ToolUpgradeModel extends Model
             if ($res === true) {
                 // Extract the zip file
                 if (!$zip->extractTo($temp_folder)) {
-                    $error = $lang['lang_error_zip_extract'];
+                    $error = $this->data['lang_error_zip_extract'];
                 }
 
                 $zip->close();
             } else {
-                $error = sprintf($lang['lang_error_zip_open'], $res);
+                $error = sprintf($this->data['lang_error_zip_open'], $res);
             }
         } else {
-            $error = $lang['lang_error_no_zip'];
+            $error = $this->data['lang_error_no_zip'];
         }
 
         return $error;
@@ -150,24 +153,22 @@ class ToolUpgradeModel extends Model
 
     public function verify($temp_folder)
     {
-        $lang = $this->loadWord('tool/upgrade');
-
         $error = '';
 
         if (!file_exists($temp_folder . '/upload')) {
-            $error = sprintf($lang['lang_error_missing_folder'], 'upload');
+            $error = sprintf($this->data['lang_error_missing_folder'], 'upload');
         }
 
         if (!file_exists($temp_folder . '/files.php')) {
-            $error = sprintf($lang['lang_error_missing_file'], 'files.php');
+            $error = sprintf($this->data['lang_error_missing_file'], 'files.php');
         }
 
         if (!file_exists($temp_folder . '/requirements.php')) {
-            $error = sprintf($lang['lang_error_missing_file'], 'requirements.php');
+            $error = sprintf($this->data['lang_error_missing_file'], 'requirements.php');
         }
 
         if (!file_exists($temp_folder . '/sql.php')) {
-            $error = sprintf($lang['lang_error_missing_file'], 'sql.php');
+            $error = sprintf($this->data['lang_error_missing_file'], 'sql.php');
         }
 
         return $error;
@@ -175,8 +176,6 @@ class ToolUpgradeModel extends Model
 
     public function requirements($temp_folder)
     {
-        $lang = $this->loadWord('tool/upgrade');
-
         $error = '';
 
         if (file_exists($temp_folder . '/requirements.php')) {
@@ -186,7 +185,7 @@ class ToolUpgradeModel extends Model
                 $error = $fail;
             }
         } else {
-            $error = sprintf($lang['lang_error_missing_file'], 'requirements.php');
+            $error = sprintf($this->data['lang_error_missing_file'], 'requirements.php');
         }
 
         return $error;
@@ -194,8 +193,6 @@ class ToolUpgradeModel extends Model
 
     public function install($temp_folder)
     {
-        $lang = $this->loadWord('tool/upgrade');
-
         @ignore_user_abort(true);
         @set_time_limit(300);
 
@@ -244,7 +241,7 @@ class ToolUpgradeModel extends Model
                         $this->log->write('Could not mkdir: ' . $destination);
                         $this->log->write(error_get_last());
 
-                        return $lang['lang_error_create_dir'];
+                        return $this->data['lang_error_create_dir'];
                     }
                 }
             }
@@ -256,7 +253,7 @@ class ToolUpgradeModel extends Model
                     $this->log->write('Could not copy: ' . $destination);
                     $this->log->write(error_get_last());
 
-                    return $lang['lang_error_copy_file'];
+                    return $this->data['lang_error_copy_file'];
                 }
             }
         }
@@ -266,14 +263,12 @@ class ToolUpgradeModel extends Model
 
     public function database($temp_folder)
     {
-        $lang = $this->loadWord('tool/upgrade');
-
         $error = '';
 
         if (file_exists($temp_folder . '/sql.php')) {
             require_once $temp_folder . '/sql.php';
         } else {
-            $error = sprintf($lang['lang_error_missing_file'], 'sql.php');
+            $error = sprintf($this->data['lang_error_missing_file'], 'sql.php');
         }
 
         return $error;
@@ -281,14 +276,12 @@ class ToolUpgradeModel extends Model
 
     public function clean($temp_folder)
     {
-        $lang = $this->loadWord('tool/upgrade');
-
         $error = '';
 
         if (file_exists($temp_folder . '/files.php')) {
             require_once $temp_folder . '/files.php';
         } else {
-            $error = sprintf($lang['lang_error_missing_file'], 'files.php');
+            $error = sprintf($this->data['lang_error_missing_file'], 'files.php');
         }
 
         return $error;

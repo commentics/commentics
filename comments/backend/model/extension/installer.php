@@ -6,7 +6,7 @@ class ExtensionInstallerModel extends Model
     public function install()
     {
         // Load the error messages
-        $error = $this->loadWord('extension/installer');
+        $this->loadLanguage('extension/installer');
 
         // Name of the temp folder to store the uploaded zip file
         $temp_folder = CMTX_DIR_UPLOAD . 'temp-' . $this->variable->random();
@@ -16,7 +16,7 @@ class ExtensionInstallerModel extends Model
 
         // Check if the temp folder exists
         if (!is_dir($temp_folder)) {
-            return $error['lang_error_no_temp_dir'];
+            return $this->data['lang_error_no_temp_dir'];
         }
 
         // Location of the zip file once uploaded
@@ -31,7 +31,7 @@ class ExtensionInstallerModel extends Model
             if (!is_file($zip_file) || substr(str_replace('\\', '/', realpath($zip_file)), 0, strlen(CMTX_DIR_UPLOAD)) != CMTX_DIR_UPLOAD) {
                 remove_directory($temp_folder);
 
-                return $error['lang_error_zip_issue'];
+                return $this->data['lang_error_zip_issue'];
             }
 
             // We use the ZipArchive class
@@ -41,14 +41,14 @@ class ExtensionInstallerModel extends Model
             if ($zip->open($zip_file) === true) {
                 // Extract the zip file
                 if (!$zip->extractTo($temp_folder)) {
-                    return $error['lang_error_zip_extract'];
+                    return $this->data['lang_error_zip_extract'];
                 }
 
                 $zip->close();
             } else {
                 remove_directory($temp_folder);
 
-                return $error['lang_error_zip_open'];
+                return $this->data['lang_error_zip_open'];
             }
 
             // Delete the zip file
@@ -56,7 +56,7 @@ class ExtensionInstallerModel extends Model
         } else {
             remove_directory($temp_folder);
 
-            return $error['lang_error_zip_not_stored'];
+            return $this->data['lang_error_zip_not_stored'];
         }
 
         // Path to the /upload/ folder inside the extracted zip
@@ -66,7 +66,7 @@ class ExtensionInstallerModel extends Model
         if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(CMTX_DIR_UPLOAD)) != CMTX_DIR_UPLOAD) {
             remove_directory($temp_folder);
 
-            return $error['lang_error_no_upload_in_zip'];
+            return $this->data['lang_error_no_upload_in_zip'];
         }
 
         // Import translated countries if they exist
@@ -140,7 +140,7 @@ class ExtensionInstallerModel extends Model
                         $this->log->write('Could not mkdir: ' . $destination);
                         $this->log->write(error_get_last());
 
-                        return $error['lang_error_create_dir'];
+                        return $this->data['lang_error_create_dir'];
                     }
                 }
             }
@@ -154,7 +154,7 @@ class ExtensionInstallerModel extends Model
                     $this->log->write('Could not copy: ' . $destination);
                     $this->log->write(error_get_last());
 
-                    return $error['lang_error_copy_file'];
+                    return $this->data['lang_error_copy_file'];
                 }
             }
         }

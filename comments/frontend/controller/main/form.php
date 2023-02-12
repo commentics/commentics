@@ -8,6 +8,7 @@ class MainFormController extends Controller
         $this->loadLanguage('main/form');
 
         $this->loadModel('main/form');
+        $this->loadModel('main/form_prepare');
 
         if ($this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
             $this->data['display_form'] = true;
@@ -22,357 +23,66 @@ class MainFormController extends Controller
         }
 
         if ($this->data['display_form']) {
-            $ip_address = $this->user->getIpAddress();
-
             $this->data['commentics_url'] = $this->url->getCommenticsUrl();
 
+            /* Stores form data to be posted in a hidden field */
             $this->data['hidden_data'] = '';
 
             $cookie = $this->model_main_form->getFormCookie();
 
-            /* Headline */
+            /* Comment */
+            $this->data = $this->model_main_form_prepare->prepareComment($this->data);
 
-            $this->data['headline_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_headline') ? 'cmtx_required' : '');
+            /* Headline */
+            $this->data = $this->model_main_form_prepare->prepareHeading($this->data);
 
             /* Rating */
-
-            if ($this->setting->get('repeat_rating') == 'hide' && $this->model_main_form->hasUserRated($this->page->getId(), $ip_address)) {
-                $this->setting->set('enabled_rating', false);
-            }
-
-            $this->data['rating_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_rating') ? 'cmtx_required' : '');
-
-            $this->data = $this->model_main_form->setDefaultRating($this->data);
+            $this->data = $this->model_main_form_prepare->prepareRating($this->data);
 
             /* Name */
-
-            $this->data['enabled_name'] = true;
-
-            $this->data['name_is_filled'] = false;
-
-            $this->data['filled_name_action'] = 'normal';
-
-            /* The precedence is login info, cookie and default */
-            if ($this->user->getLogin('name')) {
-                $this->data['name'] = $this->user->getLogin('name');
-
-                $this->data['name_is_filled'] = true;
-
-                $this->data['filled_name_action'] = $this->setting->get('filled_name_login_action');
-            } else if ($cookie['name']) {
-                $this->data['name'] = $cookie['name'];
-
-                $this->data['name_is_filled'] = true;
-
-                $this->data['filled_name_action'] = $this->setting->get('filled_name_cookie_action');
-            } else {
-                $this->data['name'] = $this->setting->get('default_name');
-            }
-
-            if ($this->data['name_is_filled'] && $this->data['filled_name_action'] == 'disable') {
-                $this->data['name_readonly'] = 'readonly';
-            } else {
-                $this->data['name_readonly'] = '';
-            }
-
-            $this->data['name_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
+            $this->data = $this->model_main_form_prepare->prepareName($this->data, $cookie);
 
             /* Email */
-
-            $this->data['email_is_filled'] = false;
-
-            $this->data['filled_email_action'] = 'normal';
-
-            if ($this->user->getLogin('email')) {
-                $this->data['email'] = $this->user->getLogin('email');
-
-                $this->data['email_is_filled'] = true;
-
-                $this->data['filled_email_action'] = $this->setting->get('filled_email_login_action');
-            } else if ($cookie['email']) {
-                $this->data['email'] = $cookie['email'];
-
-                $this->data['email_is_filled'] = true;
-
-                $this->data['filled_email_action'] = $this->setting->get('filled_email_cookie_action');
-            } else {
-                $this->data['email'] = $this->setting->get('default_email');
-            }
-
-            if ($this->data['email_is_filled'] && $this->data['filled_email_action'] == 'disable') {
-                $this->data['email_readonly'] = 'readonly';
-            } else {
-                $this->data['email_readonly'] = '';
-            }
-
-            $this->data['email_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_email') ? 'cmtx_required' : '');
+            $this->data = $this->model_main_form_prepare->prepareEmail($this->data, $cookie);
 
             /* User */
-
-            if ($this->data['name_is_filled'] && $this->data['filled_name_action'] == 'hide') {
-                $this->data['enabled_name'] = false;
-
-                $this->data['hidden_data'] .= '&cmtx_name=' . $this->url->encode($this->data['name']);
-            }
-
-            if ($this->data['email_is_filled'] && $this->data['filled_email_action'] == 'hide') {
-                $this->setting->set('enabled_email', false);
-
-                $this->data['hidden_data'] .= '&cmtx_email=' . $this->url->encode($this->data['email']);
-            }
-
-            $user_columns = (int) $this->data['enabled_name'] + (int) $this->setting->get('enabled_email');
-
-            if ($user_columns) {
-                $user_row_visible = true;
-                $this->data['user_row_visible'] = '';
-            } else {
-                $user_row_visible = false;
-                $this->data['user_row_visible'] = 'cmtx_hide';
-            }
-
-            if ($user_columns == 2) {
-                $this->data['name_spacing'] = 'cmtx_name_spacing';
-            } else {
-                $this->data['name_spacing'] = '';
-            }
-
-            $this->data['cmtx_wait_for_comment'] = $this->data['cmtx_wait_for_user'] = '';
-
-            if ($this->setting->get('hide_form')) {
-                $this->data['cmtx_wait_for_comment'] = 'cmtx_wait_for_comment';
-
-                if ($user_row_visible) {
-                    $this->data['cmtx_wait_for_user'] = 'cmtx_wait_for_user';
-                }
-            }
-
-            /* We don't want the user to have to click into the name/email fields if they're already filled */
-
-            if (($this->data['enabled_name'] && $this->data['name_is_filled']) && (!$this->setting->get('enabled_email') || $this->setting->get('enabled_email') && $this->data['email_is_filled'])) {
-                $this->data['cmtx_wait_for_user'] = '';
-            }
-
-            if ((!$this->data['enabled_name']) && (!$this->setting->get('enabled_email') || $this->setting->get('enabled_email') && $this->data['email_is_filled'])) {
-                $this->data['cmtx_wait_for_user'] = '';
-            }
-
-            switch ($user_columns) {
-                case '1':
-                    $this->data['user_column_size'] = '12';
-                    break;
-                case '2':
-                    $this->data['user_column_size'] = '6';
-                    break;
-                default:
-                    $this->data['user_column_size'] = '6';
-            }
+            $this->data = $this->model_main_form_prepare->prepareUser($this->data);
 
             /* Website */
-
-            $this->data['website_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_website') ? 'cmtx_required' : '');
-
-            $this->data['website_is_filled'] = false;
-
-            $this->data['filled_website_action'] = 'normal';
-
-            if ($this->user->getLogin('website')) {
-                $this->data['website'] = $this->user->getLogin('website');
-
-                $this->data['website_is_filled'] = true;
-
-                $this->data['filled_website_action'] = $this->setting->get('filled_website_login_action');
-            } else if ($cookie['website']) {
-                $this->data['website'] = $cookie['website'];
-
-                $this->data['website_is_filled'] = true;
-
-                $this->data['filled_website_action'] = $this->setting->get('filled_website_cookie_action');
-            } else {
-                $this->data['website'] = $this->setting->get('default_website');
-            }
-
-            if ($this->data['website_is_filled'] && $this->data['filled_website_action'] == 'disable') {
-                $this->data['website_readonly'] = 'readonly';
-            } else {
-                $this->data['website_readonly'] = '';
-            }
-
-            if ($this->data['website_is_filled'] && $this->data['filled_website_action'] == 'hide') {
-                $this->setting->set('enabled_website', false);
-
-                $this->data['hidden_data'] .= '&cmtx_website=' . $this->url->encode($this->data['website']);
-            }
+            $this->data = $this->model_main_form_prepare->prepareWebsite($this->data, $cookie);
 
             /* Town */
-
-            $this->data['town_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_town') ? 'cmtx_required' : '');
-
-            $this->data['town_is_filled'] = false;
-
-            $this->data['filled_town_action'] = 'normal';
-
-            if ($this->user->getLogin('town')) {
-                $this->data['town'] = $this->user->getLogin('town');
-
-                $this->data['town_is_filled'] = true;
-
-                $this->data['filled_town_action'] = $this->setting->get('filled_town_login_action');
-            } else if ($cookie['town']) {
-                $this->data['town'] = $cookie['town'];
-
-                $this->data['town_is_filled'] = true;
-
-                $this->data['filled_town_action'] = $this->setting->get('filled_town_cookie_action');
-            } else {
-                $this->data['town'] = $this->setting->get('default_town');
-            }
-
-            if ($this->data['town_is_filled'] && $this->data['filled_town_action'] == 'disable') {
-                $this->data['town_readonly'] = 'readonly';
-            } else {
-                $this->data['town_readonly'] = '';
-            }
+            $this->data = $this->model_main_form_prepare->prepareTown($this->data, $cookie);
 
             /* Country */
-
-            $this->data['country_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_country') ? 'cmtx_required' : '');
-
-            $this->data['countries'] = array();
-
-            $this->data['country_is_filled'] = false;
-
-            $this->data['filled_country_action'] = 'normal';
-
-            if ($this->user->getLogin('country')) {
-                $this->data['country_id'] = $this->user->getLogin('country');
-
-                $this->data['country_is_filled'] = true;
-
-                $this->data['filled_country_action'] = $this->setting->get('filled_country_login_action');
-            } else if ($cookie['country']) {
-                $this->data['country_id'] = $cookie['country'];
-
-                $this->data['country_is_filled'] = true;
-
-                $this->data['filled_country_action'] = $this->setting->get('filled_country_cookie_action');
-            } else {
-                $this->data['country_id'] = $this->setting->get('default_country');
-            }
-
-            if ($this->data['country_is_filled'] && $this->data['filled_country_action'] == 'disable') {
-                $this->data['country_disabled'] = 'disabled';
-            } else {
-                $this->data['country_disabled'] = '';
-            }
+            $this->data = $this->model_main_form_prepare->prepareCountry($this->data, $cookie);
 
             /* State */
+            $this->data = $this->model_main_form_prepare->prepareState($this->data, $cookie);
 
-            $this->data['state_symbol'] = ($this->setting->get('display_required_symbol') && $this->setting->get('required_state') ? 'cmtx_required' : '');
-
-            $this->data['states'] = array();
-
-            $this->data['state_is_filled'] = false;
-
-            $this->data['filled_state_action'] = 'normal';
-
-            if ($this->user->getLogin('state')) {
-                $this->data['state_id'] = $this->user->getLogin('state');
-
-                $this->data['state_is_filled'] = true;
-
-                $this->data['filled_state_action'] = $this->setting->get('filled_state_login_action');
-            } else if ($cookie['state']) {
-                $this->data['state_id'] = $cookie['state'];
-
-                $this->data['state_is_filled'] = true;
-
-                $this->data['filled_state_action'] = $this->setting->get('filled_state_cookie_action');
-            } else {
-                $this->data['state_id'] = $this->setting->get('default_state');
-            }
-
-            if ($this->data['state_is_filled'] && $this->data['filled_state_action'] == 'disable') {
-                $this->data['state_disabled'] = 'disabled';
-            } else {
-                $this->data['state_disabled'] = '';
-            }
+            /* Geo */
+            $this->data = $this->model_main_form_prepare->prepareGeo($this->data);
 
             /* Question */
-
-            $this->data['question'] = false;
-
-            if ($this->setting->get('enabled_question')) {
-                $question = $this->model_main_form->getQuestion();
-
-                if ($question) {
-                    $this->session->data['cmtx_question_id_' . $this->page->getId()] = $question['id'];
-
-                    $this->data['question'] = $question['question'];
-                }
-            }
+            $this->data = $this->model_main_form_prepare->prepareQuestion($this->data);
 
             /* Extra fields */
-
-            $this->data['fields'] = array();
-
-            $fields = explode(',', $this->setting->get('order_fields'));
-
-            foreach ($fields as $field) {
-                /* Try to extract ID portion in case it's an extra field (such as field_1, field_2 etc) */
-                $field_id = $this->variable->substr($field, 6, strlen($field));
-
-                /* If we found an ID and it's an int then it's an extra field and we need to add more info to it */
-                if ($field_id && $this->validation->isInt($field_id)) {
-                    $field_info = $this->model_main_form->getExtraField($field_id);
-
-                    if ($field_info) {
-                        $field_info['template'] = 'extra';
-                        $field_info['values'] = explode(',', $field_info['values']);
-                        $field_info['symbol'] = ($this->setting->get('display_required_symbol') && $field_info['is_required'] ? 'cmtx_required' : '');
-
-                        $this->data['fields'][$field] = $field_info;
-                    }
-                } else {
-                    $this->data['fields'][$field] = array('template' => $field);
-                }
-            }
+            $this->data = $this->model_main_form_prepare->prepareExtraFields($this->data);
 
             /* ReCaptcha */
-
-            if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'recaptcha' && (bool) ini_get('allow_url_fopen')) {
-                $this->data['recaptcha'] = true;
-            } else {
-                $this->data['recaptcha'] = false;
-            }
+            $this->data = $this->model_main_form_prepare->prepareReCaptcha($this->data);
 
             /* Captcha */
-
-            if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'image' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext')) {
-                $this->data['captcha'] = true;
-
-                $this->data['captcha_url'] = $this->setting->get('commentics_url') . 'frontend/index.php?route=main/form/captcha&page_id=' . $this->page->getId();
-            } else {
-                $this->data['captcha'] = false;
-            }
+            $this->data = $this->model_main_form_prepare->prepareCaptcha($this->data);
 
             /* Notify */
-
-            $this->setting->get('default_notify') ? $this->data['notify_checked'] = 'checked' : $this->data['notify_checked'] = '';
+            $this->data = $this->model_main_form_prepare->prepareNotify($this->data);
 
             /* Cookie */
-
-            $this->setting->get('default_cookie') ? $this->data['cookie_checked'] = 'checked' : $this->data['cookie_checked'] = '';
+            $this->data = $this->model_main_form_prepare->prepareCookie($this->data);
 
             /* Powered By */
-
-            if ($this->setting->get('enabled_powered_by')) {
-                if ($this->setting->get('powered_by_type') == 'text') {
-                    $this->data['powered_by'] = sprintf($this->data['lang_text_powered_by'], 'https://commentics.com', $this->setting->get('powered_by_new_window') ? 'target="_blank"' : '');
-                } else {
-                    $this->data['powered_by'] = '<a href="https://commentics.com" title="Commentics" ' . ($this->setting->get('powered_by_new_window') ? 'target="_blank"' : '') . '><img src="' . $this->loadImage('commentics/powered_by.png') . '"></a>';
-                }
-            }
+            $this->data = $this->model_main_form_prepare->preparePoweredBy($this->data);
 
             /* Maintenance mode */
             if ($this->setting->get('maintenance_mode')) {
@@ -388,12 +98,6 @@ class MainFormController extends Controller
                 $this->data['cmtx_admin_button'] = '';
             }
 
-            /* Field layout */
-            $this->data['field_label'] = 'cmtx_field_label_' . $this->setting->get('field_label');
-            $this->data['field_column'] = 'cmtx_field_column_' . $this->setting->get('field_column');
-            $this->data['field_width'] = 'cmtx_field_width_' . $this->setting->get('field_width');
-            $this->data['field_align'] = 'cmtx_field_align_' . $this->setting->get('field_align');
-
             /* This is for fields that are always required */
             $this->data['general_symbol'] = ($this->setting->get('display_required_symbol') ? 'cmtx_required' : '');
 
@@ -406,69 +110,21 @@ class MainFormController extends Controller
             /* Unset that the Captcha is complete */
             unset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()]);
 
-            if ($this->setting->get('enabled_town') && $this->data['town_is_filled'] && $this->data['filled_town_action'] == 'hide') {
-                $this->setting->set('enabled_town', false);
-
-                $this->data['hidden_data'] .= '&cmtx_town=' . $this->url->encode($this->data['town']);
-            }
-
-            if ($this->setting->get('enabled_country') && $this->data['country_is_filled'] && $this->data['filled_country_action'] == 'hide') {
-                $this->setting->set('enabled_country', false);
-
-                $this->data['hidden_data'] .= '&cmtx_country=' . $this->url->encode($this->data['country_id']);
-            }
-
-            if ($this->setting->get('enabled_state') && $this->data['state_is_filled'] && $this->data['filled_state_action'] == 'hide') {
-                $this->setting->set('enabled_state', false);
-
-                $this->data['hidden_data'] .= '&cmtx_state=' . $this->url->encode($this->data['state_id']);
-            }
-
-            $geo_columns = (int) $this->setting->get('enabled_town') + (int) $this->setting->get('enabled_country') + (int) $this->setting->get('enabled_state');
-
-            if ($geo_columns) {
-                $geo_row_visible = true;
-            } else {
-                $geo_row_visible = false;
-            }
-
-            if (!$geo_row_visible) {
-                $this->data['geo_row_visible'] = 'cmtx_hide';
-            } else {
-                $this->data['geo_row_visible'] = $this->data['cmtx_wait_for_user'];
-            }
-
-            switch ($geo_columns) {
-                case '1':
-                    $this->data['geo_column_size'] = '12';
-                    break;
-                case '2':
-                    $this->data['geo_column_size'] = '6';
-                    break;
-                case '3':
-                    $this->data['geo_column_size'] = '4';
-                    break;
-                default:
-                    $this->data['geo_column_size'] = '4';
-            }
-
             /* Avatar provided by login information */
             if ($this->user->getLogin('avatar')) {
                 $this->data['hidden_data'] .= '&cmtx_avatar=' . $this->url->encode($this->user->getLogin('avatar'));
             }
 
+            /* Name/email provided by login information */
             if ($this->user->getLogin('name') || $this->user->getLogin('email')) {
                 $this->data['hidden_data'] .= '&cmtx_login=1';
             } else {
                 $this->data['hidden_data'] .= '&cmtx_login=0';
             }
 
-            $this->data = $this->model_main_form->setBBCodeTags($this->data);
+            $this->data['hidden_data'] = str_replace('&', '&amp;', $this->data['hidden_data']);
 
             $this->data['lang_text_drag_and_drop'] = sprintf($this->data['lang_text_drag_and_drop'], $this->setting->get('maximum_upload_amount'));
-
-            /* Stores form data to be posted in a hidden field */
-            $this->data['hidden_data'] = str_replace('&', '&amp;', $this->data['hidden_data']);
 
             /* These are passed to common.js via the template */
             $this->data['cmtx_js_settings_form'] = array(
@@ -560,66 +216,13 @@ class MainFormController extends Controller
                 $page_id = (int) $this->request->get['page_id'];
 
                 if ($this->page->pageExists($page_id)) {
-                    $this->loadModel('main/form');
+                    $this->loadModel('main/form_captcha');
 
-                    $captcha_length = $this->setting->get('captcha_length');
-
-                    $captcha_string = $this->variable->random($captcha_length, true);
+                    $captcha_string = $this->variable->random($this->setting->get('captcha_length'), true);
 
                     $this->session->data['cmtx_captcha_answer_' . $page_id] = $captcha_string;
 
-                    // Create the image
-                    $image = imagecreatetruecolor($this->setting->get('captcha_width'), $this->setting->get('captcha_height'));
-
-                    // Dimensions
-                    $width = imagesx($image);
-                    $height = imagesy($image);
-
-                    // Background color
-                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_back_color'));
-                    imagefilledrectangle($image, 0, 0, $width, $height, $color);
-
-                    // Draw lines
-                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_line_color'));
-                    for ($i = 0; $i < $this->setting->get('captcha_lines'); $i++) {
-                        imagesetthickness($image, rand(2, 10));
-                        imageline($image, ceil(rand(5, 145)), ceil(rand(0, 35)), ceil(rand(5, 145)), ceil(rand(0, 35)), $color);
-                    }
-
-                    // Draw circles
-                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_circle_color'), true);
-                    for ($i = 0; $i < $this->setting->get('captcha_circles'); $i++) {
-                        imagefilledellipse($image, ceil(rand(5, 145)), ceil(rand(0, 35)), 30, 30, $color);
-                    }
-
-                    // Draw squares
-                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_square_color'), true);
-                    for ($i = 0; $i < $this->setting->get('captcha_squares'); $i++) {
-                        imagesetthickness($image, rand(2, 4));
-                        imagerectangle($image, rand(-10, 190), rand(-10, 10), rand(-10, 190), rand(40, 60), $color);
-                    }
-
-                    // Draw dots
-                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_dots_color'));
-                    for ($i = 0; $i < $this->setting->get('captcha_dots'); $i++) {
-                        $x = mt_rand(0, $width);
-                        $y = mt_rand(0, $height);
-                        $size = mt_rand(1, 5);
-                        imagefilledarc($image, $x, $y, $size, $size, 0, mt_rand(180,360), $color, IMG_ARC_PIE);
-                    }
-
-                    // Draw characters
-                    $color = $this->model_main_form->hexColorAllocate($image, $this->setting->get('captcha_text_color'));
-                    $size = 20; // the font size in points
-                    $font = $this->loadFont('ahgbold.ttf'); // load font
-                    $letter_space = 170 / $captcha_length;
-                    $initial = 25;
-                    for ($i = 0; $i < $captcha_length; $i++) {
-                        $angle = rand(-15, 15); // the angle in degrees
-                        $x = $initial + (int) ($i * $letter_space); // the x coordinate of the character
-                        $y = rand(35, 55); // the y coordinate of the character
-                        imagettftext($image, $size, $angle, $x, $y, $color, $font, $captcha_string[$i]);
-                    }
+                    $image = $this->model_main_form_captcha->createImage($captcha_string);
 
                     $this->response->addHeader('Content-type: image/png');
 
@@ -636,6 +239,7 @@ class MainFormController extends Controller
             $this->loadLanguage('main/form');
 
             $this->loadModel('main/form');
+            $this->loadModel('main/form_validate');
 
             $this->response->addHeader('Content-Type: application/json');
 
@@ -659,9 +263,6 @@ class MainFormController extends Controller
                             if ($this->user->isBanned($ip_address)) {
                                 $json['result']['error'] = $this->data['lang_error_banned'];
                             } else {
-                                /* Let the model access the language */
-                                $this->model_main_form->data = $this->data;
-
                                 /* Is this a preview? */
                                 if ($this->setting->get('enabled_preview') && isset($this->request->post['cmtx_type']) && $this->request->post['cmtx_type'] == 'preview') {
                                     $is_preview = true;
@@ -670,76 +271,76 @@ class MainFormController extends Controller
                                 }
 
                                 /* Check for flooding (delay) */
-                                $this->model_main_form->validateFloodingDelay($is_admin, $page_id);
+                                $this->model_main_form_validate->validateFloodingDelay($is_admin, $page_id);
 
                                 /* Check for flooding (maximum) */
-                                $this->model_main_form->validateFloodingMaximum($is_admin, $page_id);
+                                $this->model_main_form_validate->validateFloodingMaximum($is_admin, $page_id);
 
                                 /* Check referrer */
-                                $this->model_main_form->validateReferrer();
+                                $this->model_main_form_validate->validateReferrer();
 
                                 /* Check honeypot */
-                                $this->model_main_form->validateHoneypot();
+                                $this->model_main_form_validate->validateHoneypot();
 
                                 /* Check time */
-                                $this->model_main_form->validateTime();
+                                $this->model_main_form_validate->validateTime();
 
                                 /* Comment */
-                                $this->model_main_form->validateComment($is_preview);
+                                $this->model_main_form_validate->validateComment($is_preview);
 
                                 /* Headline */
-                                $this->model_main_form->validateHeadline($is_preview);
+                                $this->model_main_form_validate->validateHeadline($is_preview);
 
                                 /* Name */
-                                $this->model_main_form->validateName($is_admin);
+                                $this->model_main_form_validate->validateName($is_admin);
 
                                 /* Email */
-                                $this->model_main_form->validateEmail($is_admin);
+                                $this->model_main_form_validate->validateEmail($is_admin);
 
                                 /* User */
-                                $user = $this->model_main_form->validateUser();
+                                $user = $this->model_main_form_validate->validateUser();
 
                                 /* Rating */
-                                $this->model_main_form->validateRating($page_id);
+                                $this->model_main_form_validate->validateRating($page_id);
 
                                 /* Website */
-                                $this->model_main_form->validateWebsite($is_admin);
+                                $this->model_main_form_validate->validateWebsite($is_admin);
 
                                 /* Town */
-                                $this->model_main_form->validateTown($is_admin);
+                                $this->model_main_form_validate->validateTown($is_admin);
 
                                 /* Country */
-                                $this->model_main_form->validateCountry();
+                                $this->model_main_form_validate->validateCountry();
 
                                 /* State */
-                                $this->model_main_form->validateState();
+                                $this->model_main_form_validate->validateState();
 
                                 /* Question */
-                                $this->model_main_form->validateQuestion();
+                                $this->model_main_form_validate->validateQuestion();
 
                                 /* Extra fields */
-                                $this->model_main_form->validateExtraFields($is_preview);
+                                $this->model_main_form_validate->validateExtraFields($is_preview);
 
                                 /* ReCaptcha */
-                                $this->model_main_form->validateReCaptcha();
+                                $this->model_main_form_validate->validateReCaptcha();
 
                                 /* Image Captcha */
-                                $this->model_main_form->validateImageCaptcha();
+                                $this->model_main_form_validate->validateImageCaptcha();
 
                                 /* Captcha */
-                                $this->model_main_form->validateCaptcha();
+                                $this->model_main_form_validate->validateCaptcha();
 
                                 /* Privacy */
-                                $this->model_main_form->validatePrivacy($is_preview);
+                                $this->model_main_form_validate->validatePrivacy($is_preview);
 
                                 /* Terms */
-                                $this->model_main_form->validateTerms($is_preview);
+                                $this->model_main_form_validate->validateTerms($is_preview);
 
                                 /* Reply */
-                                $this->model_main_form->validateReply();
+                                $this->model_main_form_validate->validateReply();
 
                                 /* Upload */
-                                $this->model_main_form->validateUpload($is_preview);
+                                $this->model_main_form_validate->validateUpload($is_preview);
 
                                 /* Avatar provided by login information */
                                 if ($this->setting->get('avatar_type') == 'login' && isset($this->request->post['cmtx_avatar']) && $this->validation->isUrl($this->request->post['cmtx_avatar']) && $this->request->post['cmtx_email']) {
@@ -759,7 +360,7 @@ class MainFormController extends Controller
                 }
             }
 
-            $json = array_merge($json, $this->model_main_form->getJson());
+            $json = array_merge($json, $this->model_main_form_validate->getJson());
 
             if ($json && (isset($json['result']['error']) || isset($json['error']))) {
                 if (isset($json['result']['error'])) {
@@ -768,9 +369,8 @@ class MainFormController extends Controller
                     $json['result']['error'] = $this->data['lang_error_review'];
                 }
             } else {
-                $approve = $this->model_main_form->approve;
-                $uploads = $this->model_main_form->uploads;
-                $extra_fields = $this->model_main_form->extra_fields;
+                $uploads = $this->model_main_form_validate->getUploads();
+                $extra_fields = $this->model_main_form_validate->getExtraFields();
 
                 if ($is_preview) {
                     $this->loadLanguage('main/comments');
@@ -888,9 +488,9 @@ class MainFormController extends Controller
                     }
 
                     /* Determine if the comment needs to be approved by the administrator */
-                    $approve = $this->model_main_form->needsApproval($is_admin, $user, $page, $ip_address);
+                    $approve = $this->model_main_form_validate->needsApproval($is_admin, $user, $page, $ip_address);
 
-                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form->getNotes(), $is_admin, $uploads, $extra_fields);
+                    $comment_id = $this->comment->createComment($user_id, $page_id, $this->request->post['cmtx_website'], $this->request->post['cmtx_town'], $this->request->post['cmtx_state'], $this->request->post['cmtx_country'], $this->request->post['cmtx_rating'], $this->request->post['cmtx_reply_to'], $this->request->post['cmtx_headline'], $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form_validate->getNotes(), $is_admin, $uploads, $extra_fields);
 
                     $this->comment->deleteCache($comment_id);
 
@@ -974,7 +574,7 @@ class MainFormController extends Controller
         if ($this->request->isAjax()) {
             $this->loadLanguage('main/form');
 
-            $this->loadModel('main/form');
+            $this->loadModel('main/form_validate');
 
             $this->response->addHeader('Content-Type: application/json');
 
@@ -1012,11 +612,8 @@ class MainFormController extends Controller
                                             if ($this->user->isBanned($ip_address)) {
                                                 $json['result']['error'] = $this->data['lang_error_banned'];
                                             } else {
-                                                /* Let the model access the language */
-                                                $this->model_main_form->data = $this->data;
-
                                                 /* Comment */
-                                                $this->model_main_form->validateComment(false);
+                                                $this->model_main_form_validate->validateComment(false);
                                             }
                                         } else {
                                             $json['result']['error'] = $this->data['lang_error_max_edits'];
@@ -1038,7 +635,7 @@ class MainFormController extends Controller
                     }
                 }
 
-                $json = array_merge($json, $this->model_main_form->getJson());
+                $json = array_merge($json, $this->model_main_form_validate->getJson());
 
                 if ($json && (isset($json['result']['error']) || isset($json['error']))) {
                     if (isset($json['result']['error'])) {
@@ -1050,9 +647,9 @@ class MainFormController extends Controller
                     $user = $this->user->getUserByCommentId($comment_id);
 
                     /* Determine if the comment needs to be approved by the administrator */
-                    $approve = $this->model_main_form->needsApproval($is_admin, $user, $page, $ip_address);
+                    $approve = $this->model_main_form_validate->needsApproval($is_admin, $user, $page, $ip_address);
 
-                    $this->comment->editComment($comment_id, $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $approve, $this->model_main_form->getNotes());
+                    $this->comment->editComment($comment_id, $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $approve, $this->model_main_form_validate->getNotes());
 
                     $this->comment->deleteCache($comment_id);
 
@@ -1080,7 +677,7 @@ class MainFormController extends Controller
         if ($this->request->isAjax()) {
             $this->loadLanguage('main/form');
 
-            $this->loadModel('main/form');
+            $this->loadModel('main/form_validate');
 
             $this->response->addHeader('Content-Type: application/json');
 
@@ -1107,38 +704,35 @@ class MainFormController extends Controller
                                 if ($this->user->isBanned($ip_address)) {
                                     $json['result']['error'] = $this->data['lang_error_banned'];
                                 } else {
-                                    /* Let the model access the language */
-                                    $this->model_main_form->data = $this->data;
-
                                     /* Check for flooding (delay) */
-                                    $this->model_main_form->validateFloodingDelay($is_admin, $page_id);
+                                    $this->model_main_form_validate->validateFloodingDelay($is_admin, $page_id);
 
                                     /* Check for flooding (maximum) */
-                                    $this->model_main_form->validateFloodingMaximum($is_admin, $page_id);
+                                    $this->model_main_form_validate->validateFloodingMaximum($is_admin, $page_id);
 
                                     /* Check referrer */
-                                    $this->model_main_form->validateReferrer();
+                                    $this->model_main_form_validate->validateReferrer();
 
                                     /* Check honeypot */
-                                    $this->model_main_form->validateHoneypot();
+                                    $this->model_main_form_validate->validateHoneypot();
 
                                     /* Check time */
-                                    $this->model_main_form->validateTime();
+                                    $this->model_main_form_validate->validateTime();
 
                                     /* Comment */
-                                    $this->model_main_form->validateComment(false);
+                                    $this->model_main_form_validate->validateComment(false);
 
                                     /* Name */
-                                    $this->model_main_form->validateName($is_admin);
+                                    $this->model_main_form_validate->validateName($is_admin);
 
                                     /* Email */
-                                    $this->model_main_form->validateEmail($is_admin);
+                                    $this->model_main_form_validate->validateEmail($is_admin);
 
                                     /* User */
-                                    $user = $this->model_main_form->validateUser();
+                                    $user = $this->model_main_form_validate->validateUser();
 
                                     /* Reply */
-                                    $this->model_main_form->validateReply(true);
+                                    $this->model_main_form_validate->validateReply(true);
                                 }
                             } else {
                                 $json['result']['error'] = $this->data['lang_error_form_disabled'];
@@ -1151,7 +745,7 @@ class MainFormController extends Controller
                     }
                 }
 
-                $json = array_merge($json, $this->model_main_form->getJson());
+                $json = array_merge($json, $this->model_main_form_validate->getJson());
 
                 if ($json && (isset($json['result']['error']) || isset($json['error']))) {
                     if (isset($json['result']['error'])) {
@@ -1171,9 +765,9 @@ class MainFormController extends Controller
                     }
 
                     /* Determine if the comment needs to be approved by the administrator */
-                    $approve = $this->model_main_form->needsApproval($is_admin, $user, $page, $ip_address);
+                    $approve = $this->model_main_form_validate->needsApproval($is_admin, $user, $page, $ip_address);
 
-                    $comment_id = $this->comment->createComment($user_id, $page_id, '', '', '', 0, 0, $this->request->post['cmtx_reply_to'], '', $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form->getNotes(), $is_admin, array(), array());
+                    $comment_id = $this->comment->createComment($user_id, $page_id, '', '', '', 0, 0, $this->request->post['cmtx_reply_to'], '', $this->request->post['cmtx_original_comment'], $this->request->post['cmtx_comment'], $ip_address, $approve, $this->model_main_form_validate->getNotes(), $is_admin, array(), array());
 
                     $this->comment->deleteCache($comment_id);
 

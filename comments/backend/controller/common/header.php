@@ -19,6 +19,8 @@ class CommonHeaderController extends Controller
 
         $this->data['autoload_stylesheet'] = $this->autoloadStylesheet();
 
+        $this->data['custom'] = $this->loadCustomCss();
+
         if (isset($this->session->data['cmtx_admin_id'])) {
             $this->data['full_header'] = true;
 

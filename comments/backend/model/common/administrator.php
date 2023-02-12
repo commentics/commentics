@@ -186,7 +186,7 @@ class CommonAdministratorModel extends Model
 
     private function getRestriction($page, $indent, $is_top, $viewable_pages, $modifiable_pages)
     {
-        $lang = $this->loadWord('common/administrator');
+        $this->loadLanguage('common/administrator');
 
         if (in_array($page, $viewable_pages)) {
             $is_viewable = true;
@@ -200,8 +200,8 @@ class CommonAdministratorModel extends Model
             $is_modifiable = false;
         }
 
-        if (array_key_exists('lang_' . $page, $lang)) {
-            $title = $lang['lang_' . $page];
+        if (array_key_exists('lang_' . $page, $this->data)) {
+            $title = $this->data['lang_' . $page];
         } else {
             $title = 'Undefined';
         }

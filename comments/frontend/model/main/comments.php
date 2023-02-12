@@ -233,66 +233,66 @@ class MainCommentsModel extends Model
     /* Convert the textual smilies into spans */
     public function convertSmilies($comment)
     {
-        $smiley = $this->loadWord('main/form');
+        $this->loadLanguage('main/form');
 
         if ($this->setting->get('enabled_smilies_smile')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_smile'], '<span title="' . $smiley['lang_title_smiley_smile'] . '" class="cmtx_smiley cmtx_smiley_smile"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_smile'], '<span title="' . $this->data['lang_title_smiley_smile'] . '" class="cmtx_smiley cmtx_smiley_smile"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_sad')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_sad'], '<span title="' . $smiley['lang_title_smiley_sad'] . '" class="cmtx_smiley cmtx_smiley_sad"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_sad'], '<span title="' . $this->data['lang_title_smiley_sad'] . '" class="cmtx_smiley cmtx_smiley_sad"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_huh')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_huh'], '<span title="' . $smiley['lang_title_smiley_huh'] . '" class="cmtx_smiley cmtx_smiley_huh"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_huh'], '<span title="' . $this->data['lang_title_smiley_huh'] . '" class="cmtx_smiley cmtx_smiley_huh"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_laugh')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_laugh'], '<span title="' . $smiley['lang_title_smiley_laugh'] . '" class="cmtx_smiley cmtx_smiley_laugh"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_laugh'], '<span title="' . $this->data['lang_title_smiley_laugh'] . '" class="cmtx_smiley cmtx_smiley_laugh"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_mad')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_mad'], '<span title="' . $smiley['lang_title_smiley_mad'] . '" class="cmtx_smiley cmtx_smiley_mad"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_mad'], '<span title="' . $this->data['lang_title_smiley_mad'] . '" class="cmtx_smiley cmtx_smiley_mad"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_tongue')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_tongue'], '<span title="' . $smiley['lang_title_smiley_tongue'] . '" class="cmtx_smiley cmtx_smiley_tongue"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_tongue'], '<span title="' . $this->data['lang_title_smiley_tongue'] . '" class="cmtx_smiley cmtx_smiley_tongue"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_cry')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_cry'], '<span title="' . $smiley['lang_title_smiley_cry'] . '" class="cmtx_smiley cmtx_smiley_cry"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_cry'], '<span title="' . $this->data['lang_title_smiley_cry'] . '" class="cmtx_smiley cmtx_smiley_cry"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_grin')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_grin'], '<span title="' . $smiley['lang_title_smiley_grin'] . '" class="cmtx_smiley cmtx_smiley_grin"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_grin'], '<span title="' . $this->data['lang_title_smiley_grin'] . '" class="cmtx_smiley cmtx_smiley_grin"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_wink')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_wink'], '<span title="' . $smiley['lang_title_smiley_wink'] . '" class="cmtx_smiley cmtx_smiley_wink"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_wink'], '<span title="' . $this->data['lang_title_smiley_wink'] . '" class="cmtx_smiley cmtx_smiley_wink"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_scared')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_scared'], '<span title="' . $smiley['lang_title_smiley_scared'] . '" class="cmtx_smiley cmtx_smiley_scared"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_scared'], '<span title="' . $this->data['lang_title_smiley_scared'] . '" class="cmtx_smiley cmtx_smiley_scared"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_cool')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_cool'], '<span title="' . $smiley['lang_title_smiley_cool'] . '" class="cmtx_smiley cmtx_smiley_cool"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_cool'], '<span title="' . $this->data['lang_title_smiley_cool'] . '" class="cmtx_smiley cmtx_smiley_cool"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_sleep')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_sleep'], '<span title="' . $smiley['lang_title_smiley_sleep'] . '" class="cmtx_smiley cmtx_smiley_sleep"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_sleep'], '<span title="' . $this->data['lang_title_smiley_sleep'] . '" class="cmtx_smiley cmtx_smiley_sleep"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_blush')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_blush'], '<span title="' . $smiley['lang_title_smiley_blush'] . '" class="cmtx_smiley cmtx_smiley_blush"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_blush'], '<span title="' . $this->data['lang_title_smiley_blush'] . '" class="cmtx_smiley cmtx_smiley_blush"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_confused')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_confused'], '<span title="' . $smiley['lang_title_smiley_confused'] . '" class="cmtx_smiley cmtx_smiley_confused"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_confused'], '<span title="' . $this->data['lang_title_smiley_confused'] . '" class="cmtx_smiley cmtx_smiley_confused"></span>', $comment);
         }
 
         if ($this->setting->get('enabled_smilies_shocked')) {
-            $comment = str_ireplace($smiley['lang_tag_smiley_shocked'], '<span title="' . $smiley['lang_title_smiley_shocked'] . '" class="cmtx_smiley cmtx_smiley_shocked"></span>', $comment);
+            $comment = str_ireplace($this->data['lang_tag_smiley_shocked'], '<span title="' . $this->data['lang_title_smiley_shocked'] . '" class="cmtx_smiley cmtx_smiley_shocked"></span>', $comment);
         }
 
         return $comment;

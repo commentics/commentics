@@ -10,11 +10,11 @@ class EditCommentModel extends Model
         unset($this->request->files['files']); // summernote
 
         if ($this->request->files) {
-            $lang = $this->loadWord('edit/comment');
+            $this->loadLanguage('edit/comment');
 
             foreach ($this->request->files as $file) {
                 if (!is_writable(CMTX_DIR_UPLOAD)) {
-                    $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_upload_writable'];
+                    $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . $this->data['lang_error_upload_writable'];
                     continue;
                 }
 
@@ -22,16 +22,16 @@ class EditCommentModel extends Model
 
                 if (!is_dir(CMTX_DIR_UPLOAD . $folder)) {
                     if (!mkdir(CMTX_DIR_UPLOAD . $folder, 0777, true)) {
-                        $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_folder_create'];
+                        $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . $this->data['lang_error_folder_create'];
                         continue;
                     }
                 }
 
                 if ($file['error']) {
                     if ($file['error'] == '1') {
-                        $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_image_code_1'];
+                        $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . $this->data['lang_error_image_code_1'];
                     } else {
-                        $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . sprintf($lang['lang_error_image_code'], $file['error']);
+                        $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . sprintf($this->data['lang_error_image_code'], $file['error']);
                     }
                     continue;
                 }
@@ -46,17 +46,17 @@ class EditCommentModel extends Model
                 );
 
                 if (!in_array($this->variable->strtolower($file_extension), $allowed_file_extensions)) {
-                    $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_image_extension'];
+                    $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . $this->data['lang_error_image_extension'];
                     continue;
                 }
 
                 if (@getimagesize($file['tmp_name']) == false) {
-                    $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_image_getimagesize'];
+                    $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . $this->data['lang_error_image_getimagesize'];
                     continue;
                 }
 
                 if (extension_loaded('gd') && @imagecreatefromstring(file_get_contents($file['tmp_name']) == false)) {
-                    $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_image_imagecreatefromstring'];
+                    $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . $this->data['lang_error_image_imagecreatefromstring'];
                     continue;
                 }
 
@@ -69,7 +69,7 @@ class EditCommentModel extends Model
                 );
 
                 if (!in_array($mime_type, $allowed_mime_types)) {
-                    $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_image_type'];
+                    $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . $this->data['lang_error_image_type'];
                     continue;
                 }
 
@@ -98,7 +98,7 @@ class EditCommentModel extends Model
 
                     $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "uploads` SET `user_id` = '" . (int) $data['user_id'] . "', `comment_id` = '" . (int) $id . "', `folder` = '" . $this->db->escape($folder) . "', `filename` = '" . $this->db->escape($filename) . "', `extension` = '" . $this->db->escape($extension) . "', `mime_type` = '" . $this->db->escape($mime_type) . "', `file_size` = '" . $this->db->escape($file_size) . "', `date_added` = NOW()");
                 } else {
-                    $this->session->data['cmtx_error'] = $lang['lang_error_upload_message'] . ' ' . $lang['lang_error_image_move_uploaded_file'];
+                    $this->session->data['cmtx_error'] = $this->data['lang_error_upload_message'] . ' ' . $this->data['lang_error_image_move_uploaded_file'];
                 }
             }
         }

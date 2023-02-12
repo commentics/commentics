@@ -17,6 +17,8 @@ class CommonHeaderController extends Controller
 
         $this->data['autoload_stylesheet'] = $this->autoloadStylesheet();
 
+        $this->data['custom'] = $this->loadCustomCss();
+
         $this->data['logo'] = $this->loadImage('commentics/logo.png');
 
         return $this->data;

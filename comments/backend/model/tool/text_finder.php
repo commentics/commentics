@@ -7,7 +7,7 @@ class ToolTextFinderModel extends Model
     {
         $results = array();
 
-        $lang_text_result = $this->loadWord('tool/text_finder', 'lang_text_result');
+        $lang_text_result = $this->loadLanguage('tool/text_finder', 'lang_text_result');
 
         $text = $this->security->decode($data['text']);
 

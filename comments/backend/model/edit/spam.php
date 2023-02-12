@@ -24,7 +24,7 @@ class EditSpamModel extends Model
 
             $ban_data = array(
                 'ip_address' => $comment['ip_address'],
-                'reason' => $this->loadWord('edit/spam', 'lang_text_reason')
+                'reason'     => $this->loadLanguage('edit/spam', 'lang_text_reason')
             );
 
             $this->model_add_ban->add($ban_data);

@@ -54,33 +54,33 @@ class MainUserModel extends Model
     /* Save the user's uploaded avatar */
     public function saveUploadedAvatar($user, $data)
     {
-        $responses = $this->loadWord('main/user');
+        $this->loadLanguage('main/user');
 
         if (isset($data['avatar'])) {
             $file = $data['avatar'];
 
             if (!is_writable(CMTX_DIR_UPLOAD)) {
-                return $responses['lang_error_upload_writable'];
+                return $this->data['lang_error_upload_writable'];
             }
 
             $folder = 'avatar/' . date('Y') . '/' . date('m');
 
             if (!is_dir(CMTX_DIR_UPLOAD . $folder)) {
                 if (!mkdir(CMTX_DIR_UPLOAD . $folder, 0777, true)) {
-                    return $responses['lang_error_folder_create'];
+                    return $this->data['lang_error_folder_create'];
                 }
             }
 
             if ($file['error']) {
                 if ($file['error'] == '1') {
-                    return $responses['lang_error_image_size'];
+                    return $this->data['lang_error_image_size'];
                 } else {
-                    return $responses['lang_error_image_error'];
+                    return $this->data['lang_error_image_error'];
                 }
             }
 
             if ($file['size'] > ($this->setting->get('avatar_upload_max_size') * pow(1024, 2))) {
-                return $responses['lang_error_image_size'];
+                return $this->data['lang_error_image_size'];
             }
 
             $file_extension = $this->variable->strstr($file['name'], '.');
@@ -93,15 +93,15 @@ class MainUserModel extends Model
             );
 
             if (!in_array($this->variable->strtolower($file_extension), $allowed_file_extensions)) {
-                return $responses['lang_error_image_extension'];
+                return $this->data['lang_error_image_extension'];
             }
 
             if (@getimagesize($file['tmp_name']) == false) {
-                return $responses['lang_error_image_data'];
+                return $this->data['lang_error_image_data'];
             }
 
             if (extension_loaded('gd') && @imagecreatefromstring(file_get_contents($file['tmp_name']) == false)) {
-                return $responses['lang_error_image_malformed'];
+                return $this->data['lang_error_image_malformed'];
             }
 
             $mime_type = $file['type'];
@@ -113,7 +113,7 @@ class MainUserModel extends Model
             );
 
             if (!in_array($mime_type, $allowed_mime_types)) {
-                return $responses['lang_error_image_type'];
+                return $this->data['lang_error_image_type'];
             }
 
             switch ($mime_type) {
@@ -170,10 +170,10 @@ class MainUserModel extends Model
                     'approve'   => $approve
                 );
             } else {
-                return $responses['lang_error_upload'];
+                return $this->data['lang_error_upload'];
             }
         } else {
-            return $responses['lang_error_no_image'];
+            return $this->data['lang_error_no_image'];
         }
     }
 
@@ -197,29 +197,29 @@ class MainUserModel extends Model
     /* Save the user's selected avatar */
     public function saveSelectedAvatar($user, $data)
     {
-        $responses = $this->loadWord('main/user');
+        $this->loadLanguage('main/user');
 
         if (isset($data['avatar'])) {
             $path_info = pathinfo($data['avatar']);
 
             if (!$path_info) {
-                return $responses['lang_error_path_info'];
+                return $this->data['lang_error_path_info'];
             }
 
             $path_info['filename'] = basename($path_info['filename']);
 
             if (!$this->validation->isSelectableAvatar($path_info['filename'])) {
-                return $responses['lang_error_image_filename'];
+                return $this->data['lang_error_image_filename'];
             }
 
             if (!in_array($path_info['extension'], array('jpg', 'png', 'gif'))) {
-                return $responses['lang_error_image_type'];
+                return $this->data['lang_error_image_type'];
             }
 
             $file = $path_info['filename'] . '.' . $path_info['extension'];
 
             if (!file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/image/avatar/' . $file) && !file_exists(CMTX_DIR_VIEW . 'default/image/avatar/' . $file)) {
-                return $responses['lang_error_no_selected_img'];
+                return $this->data['lang_error_no_selected_img'];
             }
 
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `avatar_selected` = '" . $this->db->escape($file) . "' WHERE `id` = '" . (int) $user['id'] . "'");
@@ -229,7 +229,7 @@ class MainUserModel extends Model
                 'extension' => $path_info['extension']
             );
         } else {
-            return $responses['lang_error_no_image'];
+            return $this->data['lang_error_no_image'];
         }
     }
 

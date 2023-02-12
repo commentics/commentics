@@ -343,39 +343,39 @@ class SettingsLayoutCommentsModel extends Model
         $layout_settings_enabled = $layout_settings_disabled = array();
 
         if ($this->setting->get('show_headline') && !$this->setting->get('enabled_headline')) {
-            $layout_settings_enabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_headline');
+            $layout_settings_enabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_headline');
         } else if (!$this->setting->get('show_headline') && $this->setting->get('enabled_headline')) {
-            $layout_settings_disabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_headline');
+            $layout_settings_disabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_headline');
         }
 
         if ($this->setting->get('show_rating') && !$this->setting->get('enabled_rating')) {
-            $layout_settings_enabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_rating');
+            $layout_settings_enabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_rating');
         } else if (!$this->setting->get('show_rating') && $this->setting->get('enabled_rating')) {
-            $layout_settings_disabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_rating');
+            $layout_settings_disabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_rating');
         }
 
         if ($this->setting->get('show_website') && !$this->setting->get('enabled_website')) {
-            $layout_settings_enabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_website');
+            $layout_settings_enabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_website');
         } else if (!$this->setting->get('show_website') && $this->setting->get('enabled_website')) {
-            $layout_settings_disabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_website');
+            $layout_settings_disabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_website');
         }
 
         if ($this->setting->get('show_town') && !$this->setting->get('enabled_town')) {
-            $layout_settings_enabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_town');
+            $layout_settings_enabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_town');
         } else if (!$this->setting->get('show_town') && $this->setting->get('enabled_town')) {
-            $layout_settings_disabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_town');
+            $layout_settings_disabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_town');
         }
 
         if ($this->setting->get('show_state') && !$this->setting->get('enabled_state')) {
-            $layout_settings_enabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_state');
+            $layout_settings_enabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_state');
         } else if (!$this->setting->get('show_state') && $this->setting->get('enabled_state')) {
-            $layout_settings_disabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_state');
+            $layout_settings_disabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_state');
         }
 
         if ($this->setting->get('show_country') && !$this->setting->get('enabled_country')) {
-            $layout_settings_enabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_country');
+            $layout_settings_enabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_country');
         } else if (!$this->setting->get('show_country') && $this->setting->get('enabled_country')) {
-            $layout_settings_disabled[] = $this->loadWord('settings/layout_comments', 'lang_subheading_country');
+            $layout_settings_disabled[] = $this->loadLanguage('settings/layout_comments', 'lang_subheading_country');
         }
 
         return array(

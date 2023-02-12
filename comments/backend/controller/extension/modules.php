@@ -18,7 +18,7 @@ class ExtensionModulesController extends Controller
         foreach ($files as $file) {
             $module = basename($file, '.php');
 
-            $name = $this->loadWord('module/' . $module, 'lang_heading');
+            $name = $this->loadLanguage('module/' . $module, 'lang_heading');
 
             $this->data['modules'][] = array(
                 'module'    => $module,
@@ -73,7 +73,7 @@ class ExtensionModulesController extends Controller
 
                 $module = $this->request->post['module'];
 
-                $name = $this->loadWord('module/' . $module, 'lang_heading');
+                $name = $this->loadLanguage('module/' . $module, 'lang_heading');
 
                 $this->data['success'] = sprintf($this->data['lang_message_installed'], $name);
             } else {
@@ -122,7 +122,7 @@ class ExtensionModulesController extends Controller
 
                 $module = $this->request->post['module'];
 
-                $name = $this->loadWord('module/' . $module, 'lang_heading');
+                $name = $this->loadLanguage('module/' . $module, 'lang_heading');
 
                 $this->data['success'] = sprintf($this->data['lang_message_uninstalled'], $name);
             } else {

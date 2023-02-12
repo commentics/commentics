@@ -8,17 +8,17 @@ class CommonFooterController extends Controller
         /* These are passed to common.js via the template */
         $this->data['js_settings'] = array();
 
-        $this->data['js_settings']['lang_entry_property'] = $this->loadWord('module/rich_snippets', 'lang_entry_property');
-        $this->data['js_settings']['lang_placeholder_name'] = $this->loadWord('module/rich_snippets', 'lang_placeholder_name');
-        $this->data['js_settings']['lang_placeholder_value'] = $this->loadWord('module/rich_snippets', 'lang_placeholder_value');
+        $this->data['js_settings']['lang_entry_property'] = $this->loadLanguage('module/rich_snippets', 'lang_entry_property');
+        $this->data['js_settings']['lang_placeholder_name'] = $this->loadLanguage('module/rich_snippets', 'lang_placeholder_name');
+        $this->data['js_settings']['lang_placeholder_value'] = $this->loadLanguage('module/rich_snippets', 'lang_placeholder_value');
 
-        $this->data['js_settings']['lang_link_more'] = $this->loadWord('data/list', 'lang_link_more');
-        $this->data['js_settings']['lang_link_less'] = $this->loadWord('data/list', 'lang_link_less');
+        $this->data['js_settings']['lang_link_more'] = $this->loadLanguage('data/list', 'lang_link_more');
+        $this->data['js_settings']['lang_link_less'] = $this->loadLanguage('data/list', 'lang_link_less');
 
-        $this->data['js_settings']['lang_text_comments'] = $this->loadWord('main/dashboard', 'lang_text_comments');
-        $this->data['js_settings']['lang_text_subscriptions'] = $this->loadWord('main/dashboard', 'lang_text_subscriptions');
+        $this->data['js_settings']['lang_text_comments'] = $this->loadLanguage('main/dashboard', 'lang_text_comments');
+        $this->data['js_settings']['lang_text_subscriptions'] = $this->loadLanguage('main/dashboard', 'lang_text_subscriptions');
 
-        $this->data['js_settings']['lang_text_nobody'] = $this->loadWord('edit/comment', 'lang_text_nobody');
+        $this->data['js_settings']['lang_text_nobody'] = $this->loadLanguage('edit/comment', 'lang_text_nobody');
 
         $this->loadLanguage('general');
 
