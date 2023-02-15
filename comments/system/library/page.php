@@ -97,6 +97,8 @@ class Page
 
             $page = $this->getPage($this->id);
 
+            $this->identifier = $page['identifier'];
+
             $this->reference = $page['reference'];
 
             $this->page_url = $page['url'];
