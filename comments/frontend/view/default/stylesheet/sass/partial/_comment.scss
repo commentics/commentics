@@ -33,6 +33,10 @@
     width: 72px;
 }
 
+.cmtx_avatar_shape_circle .cmtx_avatar {
+    border-radius: 50%;
+}
+
 .cmtx_level {
     background-color: $grey-dark;
     border-radius: 5px;

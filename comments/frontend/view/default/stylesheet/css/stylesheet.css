@@ -3496,6 +3496,10 @@ select.cmtx_required {
   width: 72px;
 }
 
+.cmtx_avatar_shape_circle .cmtx_avatar {
+  border-radius: 50%;
+}
+
 .cmtx_level {
   background-color: #4d4d4d;
   border-radius: 5px;

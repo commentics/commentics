@@ -617,6 +617,18 @@
                 </div>
 
                 <div class="fieldset">
+                    <label><?php echo $lang_entry_shape; ?></label>
+                    <select name="avatar_shape">
+                        <option value="circle" <?php if ($avatar_shape == 'circle') { echo 'selected'; } ?>><?php echo $lang_select_circle; ?></option>
+                        <option value="square" <?php if ($avatar_shape == 'square') { echo 'selected'; } ?>><?php echo $lang_select_square; ?></option>
+                    </select>
+                    <a class="hint" data-hint="<?php echo $lang_hint_avatar_shape; ?>">[?]</a>
+                    <?php if ($error_avatar_shape) { ?>
+                        <span class="error"><?php echo $error_avatar_shape; ?></span>
+                    <?php } ?>
+                </div>
+
+                <div class="fieldset">
                     <label><?php echo $lang_entry_user_link; ?></label>
                     <input type="checkbox" name="avatar_user_link" value="1" <?php if ($avatar_user_link) { echo 'checked'; } ?>>
                     <a class="hint" data-hint="<?php echo $lang_hint_avatar_user_link; ?>">[?]</a>

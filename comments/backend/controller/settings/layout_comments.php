@@ -181,6 +181,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['avatar_upload_approve'] = $this->setting->get('avatar_upload_approve');
         }
 
+        if (isset($this->request->post['avatar_shape'])) {
+            $this->data['avatar_shape'] = $this->request->post['avatar_shape'];
+        } else {
+            $this->data['avatar_shape'] = $this->setting->get('avatar_shape');
+        }
+
         if (isset($this->request->post['avatar_user_link'])) {
             $this->data['avatar_user_link'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['avatar_user_link'])) {
@@ -1062,6 +1068,10 @@ class SettingsLayoutCommentsController extends Controller
 
         if (!isset($this->request->post['avatar_upload_max_size']) || !$this->validation->isFloat($this->request->post['avatar_upload_max_size']) || $this->request->post['avatar_upload_max_size'] < 0.1 || $this->request->post['avatar_upload_max_size'] > 99.9) {
             $this->error['avatar_upload_max_size'] = $this->data['lang_error_max_size'];
+        }
+
+        if (!isset($this->request->post['avatar_shape']) || !in_array($this->request->post['avatar_shape'], array('circle', 'square'))) {
+            $this->error['avatar_shape'] = $this->data['lang_error_selection'];
         }
 
         if (!isset($this->request->post['avatar_link_days']) || !$this->validation->isInt($this->request->post['avatar_link_days']) || $this->request->post['avatar_link_days'] < 0 || $this->request->post['avatar_link_days'] > 999) {

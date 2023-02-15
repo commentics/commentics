@@ -1,4 +1,4 @@
-<div id="cmtx_comments_container" class="cmtx_comments_container cmtx_clear">
+<div id="cmtx_comments_container" class="cmtx_comments_container cmtx_avatar_shape_{{ avatar_shape }} cmtx_clear">
     <h3 class="cmtx_comments_heading">{{ heading_comments }}</h3>
 
     @if comments
