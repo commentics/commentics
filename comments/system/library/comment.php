@@ -5,6 +5,7 @@ class Comment
 {
     private $cache;
     private $db;
+    private $event;
     private $session;
     private $setting;
     private $parents = array();
@@ -14,6 +15,7 @@ class Comment
     {
         $this->cache   = $registry->get('cache');
         $this->db      = $registry->get('db');
+        $this->event   = $registry->get('event');
         $this->session = $registry->get('session');
         $this->setting = $registry->get('setting');
     }
@@ -32,12 +34,16 @@ class Comment
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `" . $this->db->escape($key) . "` = '" . $this->db->escape($value) . "' WHERE `id` = '" . (int) $comment_id . "'");
         }
 
+        $this->event->trigger('comment_added', array('comment_id' => $comment_id));
+
         return $comment_id;
     }
 
     public function editComment($comment_id, $original_comment, $comment, $approve, $notes)
     {
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `original_comment` = '" . $this->db->escape($original_comment) . "', `comment` = '" . $this->db->escape($comment) . "', `is_approved` = '" . ($approve ? 0 : 1) . "', `notes` = '" . $this->db->escape($notes) . "', `number_edits` = `number_edits` + 1 WHERE `id` = '" . (int) $comment_id . "'");
+
+        $this->event->trigger('comment_edited', array('comment_id' => $comment_id));
     }
 
     public function commentExists($id)
@@ -159,6 +165,8 @@ class Comment
 
         $this->deleteCache($id);
 
+        $this->event->trigger('comment_deleted', array('comment_id' => $id));
+
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "reporters` WHERE `comment_id` = '" . (int) $id . "'");
 
         $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "voters` WHERE `comment_id` = '" . (int) $id . "'");
@@ -204,11 +212,15 @@ class Comment
     public function approveComment($id)
     {
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '1', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
+
+        $this->event->trigger('comment_approved', array('comment_id' => $id));
     }
 
     public function unapproveComment($id)
     {
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "comments` SET `is_approved` = '0', `date_modified` = NOW() WHERE `id` = '" . (int) $id . "'");
+
+        $this->event->trigger('comment_unapproved', array('comment_id' => $id));
 
         $replies = $this->getReplies($id);
 

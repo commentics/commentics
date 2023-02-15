@@ -103,6 +103,8 @@ class PartAverageRatingController extends Controller
                 if (!$json) {
                     $this->model_part_average_rating->addRating($page_id, $rating, $ip_address);
 
+                    $this->event->trigger('page_rated', array('page_id' => $page_id));
+
                     $this->cache->delete('getaveragerating_pageid' . $page_id);
 
                     $json['success'] = $this->data['lang_error_rated'];

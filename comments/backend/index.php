@@ -53,6 +53,7 @@ define('CMTX_DIR_SYSTEM', CMTX_DIR_ROOT . 'system/');
 define('CMTX_DIR_BACKUPS', CMTX_DIR_SYSTEM . 'backups/');
 define('CMTX_DIR_CACHE', CMTX_DIR_SYSTEM . 'cache/');
 define('CMTX_DIR_ENGINE', CMTX_DIR_SYSTEM . 'engine/');
+define('CMTX_DIR_EVENTS', CMTX_DIR_SYSTEM . 'events/');
 define('CMTX_DIR_HELPER', CMTX_DIR_SYSTEM . 'helper/');
 define('CMTX_DIR_LIBRARY', CMTX_DIR_SYSTEM . 'library/');
 define('CMTX_DIR_LOGS', CMTX_DIR_SYSTEM . 'logs/');

@@ -518,6 +518,12 @@ class MainCommentsController extends Controller
                 if (!$json) {
                     $this->model_main_comments->addVote($comment_id, $type, $ip_address);
 
+                    if ($type == 'like') {
+                        $this->event->trigger('comment_liked', array('comment_id' => $comment_id));
+                    } else {
+                        $this->event->trigger('comment_disliked', array('comment_id' => $comment_id));
+                    }
+
                     $this->cache->delete('getcomment_commentid' . $comment_id . '_*');
 
                     $json['success'] = true;
@@ -569,7 +575,11 @@ class MainCommentsController extends Controller
                 }
 
                 if (!$json) {
+                    $this->event->trigger('comment_reported', array('comment_id' => $comment_id));
+
                     if (($comment['reports'] + 1) == $this->setting->get('flag_min_per_comment')) { // comment should be flagged
+                        $this->event->trigger('comment_flagged', array('comment_id' => $comment_id));
+
                         if ($this->setting->get('flag_disapprove')) {
                             $this->comment->unapproveComment($comment_id);
 

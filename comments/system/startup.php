@@ -69,6 +69,7 @@ require_once cmtx_modification(CMTX_DIR_LIBRARY . 'cookie.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'database.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'email.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'encryption.php');
+require_once cmtx_modification(CMTX_DIR_LIBRARY . 'event.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'geo.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'home.php');
 require_once cmtx_modification(CMTX_DIR_LIBRARY . 'log.php');
@@ -121,6 +122,9 @@ if ($cmtx_db->isConnected()) {
 
 $cmtx_log = new \Commentics\Log();
 $cmtx_registry->set('log', $cmtx_log);
+
+$cmtx_event = new \Commentics\Event($cmtx_registry);
+$cmtx_registry->set('event', $cmtx_event);
 
 $cmtx_request = new \Commentics\Request();
 $cmtx_registry->set('request', $cmtx_request);

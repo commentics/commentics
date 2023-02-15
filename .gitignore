@@ -23,6 +23,10 @@
 /comments/system/cache/template/*
 !/comments/system/cache/template/index.html
 
+# Event files
+/comments/system/events/*
+!/comments/system/events/index.html
+
 # Upload files
 /comments/upload/avatar/*
 !/comments/upload/avatar/index.html
