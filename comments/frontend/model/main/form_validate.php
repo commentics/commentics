@@ -1721,9 +1721,9 @@ class MainFormValidateModel extends Model
             $word = str_ireplace('\*', '[^ .,]*', $word); // allow use of wildcard symbol
 
             if ($boundary) {
-                $regexp = "/\b$word\b/i"; // pattern (b = word boundary, i = case-insensitive)
+                $regexp = "/\b$word\b/iu"; // pattern (b = word boundary, i = case-insensitive, u = unicode)
             } else {
-                $regexp = "/$word/i"; // pattern (i = case-insensitive)
+                $regexp = "/$word/iu"; // pattern (i = case-insensitive, u = unicode)
             }
 
             if (preg_match($regexp, $entry)) {
@@ -1749,9 +1749,9 @@ class MainFormValidateModel extends Model
             $word = str_ireplace('\*', '[^ .,]*', $word); // allow use of wildcard symbol
 
             if ($boundary) {
-                $regexp = "/\b$word\b/i"; // pattern (b = word boundary, i = case-insensitive)
+                $regexp = "/\b$word\b/iu"; // pattern (b = word boundary, i = case-insensitive, u = unicode)
             } else {
-                $regexp = "/$word/i"; // pattern (i = case-insensitive)
+                $regexp = "/$word/iu"; // pattern (i = case-insensitive, u = unicode)
             }
 
             $entry = preg_replace($regexp, $this->setting->get('swear_word_masking'), $entry);
