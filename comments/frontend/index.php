@@ -170,7 +170,9 @@ if (isset($cmtx_logged_in)) {
  * For example $cmtx_language = 'german'; selects '/frontend/view/default/language/german/'.
  */
 
-if (isset($cmtx_language)) {
+if (isset($_POST['cmtx_language'])) {
+    define('CMTX_LANGUAGE', $_POST['cmtx_language']);
+} else if (isset($cmtx_language)) {
     define('CMTX_LANGUAGE', $cmtx_language);
 }
 

@@ -162,7 +162,7 @@
         @endif
     @endif
 
-    {# These are passed to autodetect.js via the template #}
+    {# These are passed to common.js and autodetect.js via the template #}
     <div id="cmtx_js_settings_page" class="cmtx_hide" hidden>{{ cmtx_js_settings_page }}</div>
 
     {{ footer }}

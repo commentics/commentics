@@ -25,7 +25,7 @@ abstract class Base
         if (defined('CMTX_FRONTEND') && $this->setting->has('language_frontend')) {
             $this->setting->set('language', $this->setting->get('language_frontend'));
 
-            if (defined('CMTX_LANGUAGE')) {
+            if (defined('CMTX_LANGUAGE') && $this->validation->isFolder(CMTX_LANGUAGE)) {
                 $this->setting->set('language', CMTX_LANGUAGE);
             }
         }

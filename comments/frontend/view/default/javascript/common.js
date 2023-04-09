@@ -6,6 +6,11 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
         /* The document (excluding images) has finished loading */
         jQuery(document).ready(function() {
+            /* Page settings may not exist (if on user page) */
+            if (jQuery('#cmtx_js_settings_page').length) {
+                cmtx_js_settings_page = JSON.parse(jQuery('#cmtx_js_settings_page').text());
+            }
+
             /* Form settings may not exist (if the form is disabled) */
             if (jQuery('#cmtx_js_settings_form').length) {
                 cmtx_js_settings_form = JSON.parse(jQuery('#cmtx_js_settings_form').text());
@@ -29,6 +34,16 @@ var cmtx_wait_for_jquery = setInterval(function() {
             /* User settings may not exist (if not on user page) */
             if (jQuery('#cmtx_js_settings_user').length) {
                 cmtx_js_settings_user = JSON.parse(jQuery('#cmtx_js_settings_user').text());
+            }
+
+            /* Append language to all ajax requests */
+            if (typeof(cmtx_js_settings_page) != 'undefined') {
+                jQuery.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                    options.data += '&cmtx_language=' + cmtx_js_settings_page.language;
+                    if (options.data.charAt(0) == '&') {
+                        options.data = options.data.substr(1);
+                    }
+                });
             }
 
             /* Is Commentics loaded using the iFrame integration method */

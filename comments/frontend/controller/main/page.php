@@ -69,9 +69,10 @@ class MainPageController extends Controller
             $this->data['css_editor_enabled'] = false;
         }
 
-        /* These are passed to autodetect.js via the template */
+        /* These are passed to common.js and autodetect.js via the template */
         $this->data['cmtx_js_settings_page'] = array(
             'commentics_url' => $this->url->getCommenticsUrl(),
+            'language'       => $this->setting->get('language'),
             'auto_detect'    => (bool) $this->data['auto_detect']
         );
 
