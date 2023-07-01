@@ -1,0 +1,327 @@
+#!/usr/bin/env php
+<?php
+
+if (php_sapi_name() !== 'cli') {
+    exit;
+}
+
+define('CMTX_DIR_COMMENTS', 'comments/');
+define('CMTX_DIR_SYSTEM', CMTX_DIR_COMMENTS . 'system/');
+define('CMTX_DIR_BACKUPS', CMTX_DIR_SYSTEM . 'backups/');
+define('CMTX_DIR_CACHE', CMTX_DIR_SYSTEM . 'cache/');
+define('CMTX_DIR_EVENTS', CMTX_DIR_SYSTEM . 'events/');
+define('CMTX_DIR_HELPER', CMTX_DIR_SYSTEM . 'helper/');
+define('CMTX_DIR_LIBRARY', CMTX_DIR_SYSTEM . 'library/');
+define('CMTX_DIR_DATABASE', CMTX_DIR_LIBRARY . 'database/');
+
+class App
+{
+    private $commands = array(
+        'backup' => array(
+            'method'    => 'backup',
+            'info'      => 'Creates a database backup in \'system/backups\'. Can also use \'backup "reason for backup here"\'.',
+            'database'  => true
+        ),
+        'cache' => array(
+            'method'    => 'clearCache',
+            'info'      => 'Clears the cache. Can also use \'cache database\', \'cache modification\' or \'cache template\'.',
+            'database'  => false
+        ),
+        'down' => array(
+            'method'    => 'enableMaintenance',
+            'info'      => 'Puts the script in maintenance mode. Can also use \'down "reason for maintenance here"\'.',
+            'database'  => true
+        ),
+        'event' => array(
+            'method'    => 'event',
+            'info'      => 'Creates an event file in \'system/events\'.',
+            'database'  => false
+        ),
+        'list' => array(
+            'method'    => 'list',
+            'info'      => 'Shows a list of all available commands.',
+            'database'  => false
+        ),
+        'optimize' => array(
+            'method'    => 'optimize',
+            'info'      => 'Speeds up the database and helps avoid data corruption.',
+            'database'  => true
+        ),
+        'up' => array(
+            'method'    => 'disableMaintenance',
+            'info'      => 'Takes the script out of maintenance mode.',
+            'database'  => true
+        ),
+        'version' => array(
+            'method'    => 'getVersion',
+            'info'      => 'Gets the currently installed version of Commentics.',
+            'database'  => true
+        )
+    );
+    private $db = '';
+    private $variable = '';
+
+    public function isCommandValid($command) {
+        return (array_key_exists($command, $this->commands) ? true : false);
+    }
+
+    public function runCommand($argv)
+    {
+        if ($this->commands[$argv[1]]['database']) {
+            $this->connectDb();
+        }
+
+        $method = $this->commands[$argv[1]]['method'];
+
+        $this->{$method}($argv);
+    }
+
+    private function connectDb()
+    {
+        require CMTX_DIR_COMMENTS . 'config.php';
+        require CMTX_DIR_DATABASE . 'mysqli.php';
+
+        $this->db = new ('\Commentics\\MySqli')();
+
+        $this->db->connect(CMTX_DB_HOSTNAME, CMTX_DB_USERNAME, CMTX_DB_PASSWORD, CMTX_DB_DATABASE, CMTX_DB_PORT, CMTX_DB_PREFIX);
+
+        if (!$this->db->connected) {
+            exit("Could not connect to database\n");
+        }
+
+        if (!$this->db->installed) {
+            exit("Commentics is not installed\n");
+        }
+    }
+
+    private function clearCache($argv)
+    {
+        require CMTX_DIR_HELPER . 'remove_directory.php';
+
+        if (isset($argv[2]) && in_array($argv[2], array('database', 'modification', 'template'))) {
+            remove_directory(CMTX_DIR_CACHE . $argv[2] . '/', false, false);
+            echo "Cleared $argv[2] cache\n";
+        } else {
+            remove_directory(CMTX_DIR_CACHE . 'database/', false, false);
+            remove_directory(CMTX_DIR_CACHE . 'modification/', false, false);
+            remove_directory(CMTX_DIR_CACHE . 'template/', false, false);
+            echo "Cleared all cache\n";
+        }
+    }
+
+    private function event($argv)
+    {
+        if (!file_exists(CMTX_DIR_EVENTS . 'all.php')) {
+            $data = '';
+
+            $data .= '<?php' . PHP_EOL;
+            $data .= '// Variables available in this file:' . PHP_EOL;
+            $data .= '// $event, $page_id, $page_identifier, $page_reference and $page_url.' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a new comment is added */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_added\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a comment is edited (by either the admin or a user) */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_edited\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a comment is liked */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_liked\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a comment is disliked */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_disliked\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a comment is reported */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_reported\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a comment is flagged */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_flagged\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a comment is approved */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_approved\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a comment is unapproved */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_unapproved\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a comment is deleted (by either the admin or a user) */' . PHP_EOL;
+            $data .= 'if ($event == \'comment_deleted\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL . PHP_EOL;
+
+            $data .= '/* Event for when a page is rated (user has clicked the average rating stars) */' . PHP_EOL;
+            $data .= 'if ($event == \'page_rated\') {' . PHP_EOL;
+            $data .= '}' . PHP_EOL;
+
+            $handle = fopen(CMTX_DIR_EVENTS . 'all.php', 'w');
+
+            fputs($handle, preg_replace('/\t+/', '', $data));
+
+            fclose($handle);
+
+            echo "Event file created\n";
+        } else {
+            echo "Event file already exists\n";
+        }
+    }
+
+    private function list($argv)
+    {
+        foreach ($this->commands as $key => $value) {
+            echo "\e[32m" . $key . "\033[0m : " . $value['info'] . "\n";
+        }
+    }
+
+    private function backup($argv)
+    {
+        require CMTX_DIR_LIBRARY . 'variable.php';
+
+        $this->variable = new ('\Commentics\\Variable')();
+
+        $filename = CMTX_DIR_BACKUPS . $this->variable->random(50) . '.sql';
+
+        $query = $this->db->query("SHOW TABLES");
+
+        $result = $this->db->rows($query);
+
+        $tables = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($result));
+
+        $tables = iterator_to_array($tables, false);
+
+        $output = '';
+
+        foreach ($tables as $table) {
+            $output .= 'DROP TABLE IF EXISTS `' . $table . '`;' . "\n\n";
+
+            $query = $this->db->query("SHOW CREATE TABLE `" . $table . "`");
+
+            $result = $this->db->row($query);
+
+            $output .= $result['Create Table'] . ';' . "\n\n";
+
+            $query = $this->db->query("SELECT * FROM `" . $table . "`");
+
+            $results = $this->db->rows($query);
+
+            foreach ($results as $result) {
+                $columns = '';
+
+                foreach (array_keys($result) as $value) {
+                    $columns .= '`' . $value . '`, ';
+                }
+
+                $values = '';
+
+                foreach (array_values($result) as $value) {
+                    $value = str_replace(array("\x00", "\x0a", "\x0d", "\x1a"), array('\0', '\n', '\r', '\Z'), $value);
+                    $value = str_replace(array("\n", "\r", "\t"), array('\n', '\r', '\t'), $value);
+                    $value = str_replace(array("\n", "\r", "\t"), array('\n', '\r', '\t'), $value);
+                    $value = str_replace('\\', '\\\\', $value);
+                    $value = str_replace('\'', '\\\'', $value);
+                    $value = str_replace('\\\n', '\n', $value);
+                    $value = str_replace('\\\r', '\r', $value);
+                    $value = str_replace('\\\t', '\t', $value);
+
+                    $values .= '\'' . $value . '\', ';
+                }
+
+                $output .= 'INSERT INTO `' . $table . '` (' . preg_replace('/, $/', '', $columns) . ') VALUES (' . preg_replace('/, $/', '', $values) . ');' . "\n";
+            }
+
+            if ($results) {
+                $output .= "\n";
+            }
+        }
+
+        $output = rtrim($output, "\n\n");
+
+        $handle = fopen($filename, 'w+');
+
+        fwrite($handle, $output);
+
+        fclose($handle);
+
+        $size = filesize($filename);
+
+        $filename = basename($filename);
+
+        if (isset($argv[2])) {
+            $description = $argv[2];
+        } else {
+            $description = 'Created by console';
+        }
+
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "backups` SET `description` = '" . $this->db->escape($description) . "', `filename` = '" . $this->db->escape($filename) . "', `size` = '" . (int) $size . "', `date_added` = NOW()");
+
+        echo "Created backup\n";
+    }
+
+    private function optimize($argv)
+    {
+        $query = $this->db->query("SHOW TABLES");
+
+        $tables = $this->db->rows($query);
+
+        foreach ($tables as $table) {
+            $table = array_shift($table);
+
+            $this->db->query("OPTIMIZE TABLE `" . $this->db->escape($table) . "`");
+        }
+
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = NOW() WHERE `title` = 'optimize_date'");
+
+        echo "Optimized database\n";
+    }
+
+    private function getVersion($argv)
+    {
+        $query = $this->db->query("SELECT `version` FROM `" . CMTX_DB_PREFIX . "version` ORDER BY `date_added` DESC LIMIT 1");
+
+        $result = $this->db->row($query);
+
+        echo 'Version ' . $result['version'] . "\n";
+    }
+
+    private function enableMaintenance($argv)
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '1' WHERE `title` = 'maintenance_mode'");
+
+        if (isset($argv[2])) {
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($argv[2]) . "' WHERE `title` = 'maintenance_message'");
+        }
+
+        echo "Enabled maintenance mode\n";
+    }
+
+    private function disableMaintenance($argv)
+    {
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '0' WHERE `title` = 'maintenance_mode'");
+
+        echo "Disabled maintenance mode\n";
+    }
+}
+
+$app = new App();
+
+if (file_exists(CMTX_DIR_COMMENTS)) {
+    if (!file_exists(CMTX_DIR_COMMENTS) . 'config.php') {
+        if (isset($argv[1])) {
+            if ($app->isCommandValid($argv[1])) {
+                $app->runCommand($argv);
+            } else {
+                echo "Command not found\n";
+            }
+        } else {
+            echo "Command not given\n";
+        }
+    } else {
+        echo "Commentics is not installed\n";
+    }
+} else {
+    echo "Could not find comments folder. Please adjust on line 8.\n";
+}
