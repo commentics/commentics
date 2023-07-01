@@ -75,7 +75,7 @@ class Home
 
             $this->log->write('Calling: ' . $url);
 
-            $this->log->write('Outbound IP: ' . file_get_contents('http://ipecho.net/plain'));
+            $this->log->write('Outbound IP: ' . @file_get_contents('http://ipecho.net/plain'));
 
             if (extension_loaded('curl')) {
                 $this->log->write('Connection Method: cURL');
