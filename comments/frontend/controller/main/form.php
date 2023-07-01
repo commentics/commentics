@@ -193,7 +193,7 @@ class MainFormController extends Controller
             } else if ($this->setting->get('default_country')) {
                 $country_id = $this->setting->get('default_country');
             } else {
-                $country_id = '164'; // United States
+                $country_id = '189'; // United States
             }
 
             $states = $this->geo->getStatesByCountryId($country_id);
