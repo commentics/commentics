@@ -1,5 +1,7 @@
 <?php
-define('CMTX_START_TIME', microtime(true)); // record start time
+if (!defined('CMTX_START_TIME')) {
+    define('CMTX_START_TIME', microtime(true)); // record start time
+}
 
 error_reporting(-1); // report every possible error
 
@@ -31,25 +33,27 @@ if (!isset($_SERVER['REQUEST_URI'])) {
     }
 }
 
-function cmtx_modification($filename)
-{
-    if (defined('CMTX_FRONTEND')) {
-        $file = CMTX_DIR_CACHE . 'modification/' . substr($filename, strlen(CMTX_DIR_ROOT));
-    } else if (defined('CMTX_BACKEND')) {
-        $file = CMTX_DIR_CACHE . 'modification/' . substr($filename, strlen(CMTX_DIR_ROOT));
-    } else {
+if (!function_exists('cmtx_modification')) {
+    function cmtx_modification($filename)
+    {
+        if (defined('CMTX_FRONTEND')) {
+            $file = CMTX_DIR_CACHE . 'modification/' . substr($filename, strlen(CMTX_DIR_ROOT));
+        } else if (defined('CMTX_BACKEND')) {
+            $file = CMTX_DIR_CACHE . 'modification/' . substr($filename, strlen(CMTX_DIR_ROOT));
+        } else {
+            return $filename;
+        }
+
+        if (substr($filename, 0, strlen(CMTX_DIR_SYSTEM)) == CMTX_DIR_SYSTEM) {
+            $file = CMTX_DIR_CACHE . 'modification/' . 'system/' . substr($filename, strlen(CMTX_DIR_SYSTEM));
+        }
+
+        if (is_file($file)) {
+            return $file;
+        }
+
         return $filename;
     }
-
-    if (substr($filename, 0, strlen(CMTX_DIR_SYSTEM)) == CMTX_DIR_SYSTEM) {
-        $file = CMTX_DIR_CACHE . 'modification/' . 'system/' . substr($filename, strlen(CMTX_DIR_SYSTEM));
-    }
-
-    if (is_file($file)) {
-        return $file;
-    }
-
-    return $filename;
 }
 
 /* Load the helper classes */

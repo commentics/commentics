@@ -34,5 +34,12 @@
 !/comments/upload/comment/index.html
 
 # Gulp
-node_modules
-package-lock.json
+/node_modules/
+/package-lock.json
+
+# Composer
+/composer.lock
+/vendor/
+
+# PHPUnit
+/.phpunit.result.cache
