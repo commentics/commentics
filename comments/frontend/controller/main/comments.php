@@ -13,6 +13,8 @@ class MainCommentsController extends Controller
 
         $this->loadModel('main/comments');
 
+        $this->data['is_admin'] = $this->user->isAdmin();
+
         if ($this->setting->get('show_permalink') && isset($this->request->get['cmtx_perm']) && $this->validation->isInt($this->request->get['cmtx_perm'])) {
             $filter_comment_id = $this->request->get['cmtx_perm'];
         } else {
@@ -617,11 +619,11 @@ class MainCommentsController extends Controller
 
                 if ($this->setting->get('maintenance_mode')) { // check if in maintenance mode
                     $json['error'] = $this->data['lang_error_maintenance'];
-                } else if (!$this->setting->get('show_edit')) { // check if feature enabled
+                } else if (!$this->setting->get('show_edit') && !$this->user->isAdmin()) { // check if feature enabled
                     $json['error'] = $this->data['lang_error_disabled'];
                 } else if (!$comment) { // check if comment exists
                     $json['error'] = $this->data['lang_error_no_comment'];
-                } else if (!$this->user->ownComment($comment)) { // check if user is accessing own comment
+                } else if (!$this->user->ownComment($comment) && !$this->user->isAdmin()) { // check if user is accessing own comment
                     $json['error'] = $this->data['lang_error_own_comment'];
                 } else if ($this->user->isBanned($ip_address)) { // check if user is banned
                     $json['error'] = $this->data['lang_error_banned'];
@@ -660,11 +662,11 @@ class MainCommentsController extends Controller
 
                 if ($this->setting->get('maintenance_mode')) { // check if in maintenance mode
                     $json['error'] = $this->data['lang_error_maintenance'];
-                } else if (!$this->setting->get('show_delete')) { // check if feature enabled
+                } else if (!$this->setting->get('show_delete') && !$this->user->isAdmin()) { // check if feature enabled
                     $json['error'] = $this->data['lang_error_disabled'];
                 } else if (!$comment) { // check if comment exists
                     $json['error'] = $this->data['lang_error_no_comment'];
-                } else if (!$this->user->ownComment($comment)) { // check if user is deleting own comment
+                } else if (!$this->user->ownComment($comment) && !$this->user->isAdmin()) { // check if user is deleting own comment
                     $json['error'] = $this->data['lang_error_own_comment'];
                 } else if ($this->user->isBanned($ip_address)) { // check if user is banned
                     $json['error'] = $this->data['lang_error_banned'];

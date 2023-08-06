@@ -198,7 +198,7 @@
                             </div>
                         @endif
 
-                        @if show_edit and comment.session_id equals session_id and comment.ip_address equals ip_address and comment.original_comment
+                        @if ((show_edit and comment.session_id equals session_id and comment.ip_address equals ip_address or is_admin) and comment.original_comment)
                             <div class="cmtx_edit_area">
                                 <a href="#" class="cmtx_edit_link" title="{{ lang_title_edit }}">
                                     <span class="cmtx_icon cmtx_edit_icon" aria-hidden="true"></span>
@@ -206,7 +206,7 @@
                             </div>
                         @endif
 
-                        @if show_delete and comment.session_id equals session_id and comment.ip_address equals ip_address
+                        @if show_delete and comment.session_id equals session_id and comment.ip_address equals ip_address or is_admin
                             <div class="cmtx_delete_area">
                                 <a href="#" class="cmtx_delete_link" title="{{ lang_title_delete }}">
                                     <span class="cmtx_icon cmtx_delete_icon" aria-hidden="true"></span>

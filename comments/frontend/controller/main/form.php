@@ -580,7 +580,7 @@ class MainFormController extends Controller
 
             $json = array();
 
-            if (!$this->setting->get('show_edit')) { // check if feature enabled
+            if (!$this->setting->get('show_edit') && !$this->user->isAdmin()) { // check if feature enabled
                 $json['result']['error'] = $this->data['lang_error_disabled'];
             } else {
                 /* Is this an administrator? */
@@ -607,7 +607,7 @@ class MainFormController extends Controller
                                 $comment = $this->comment->getComment($comment_id);
 
                                 if ($comment) {
-                                    if ($this->user->ownComment($comment)) {
+                                    if ($this->user->ownComment($comment) || $this->user->isAdmin()) {
                                         if ($comment['number_edits'] < $this->setting->get('max_edits')) {
                                             if ($this->user->isBanned($ip_address)) {
                                                 $json['result']['error'] = $this->data['lang_error_banned'];
