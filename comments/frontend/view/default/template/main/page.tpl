@@ -28,17 +28,6 @@
         @endif
     @endif
 
-    @if auto_detect
-        <div id="cmtx_autodetect_modal" class="cmtx_modal_box" role="dialog">
-            <header>
-                <div>{{ lang_modal_autodetect_heading }}</div>
-            </header>
-            <div class="cmtx_modal_body">
-                {{ lang_modal_autodetect_content }}
-            </div>
-        </div>
-    @endif
-
     @if admin_detect
         <div id="cmtx_admindetect_modal" class="cmtx_modal_box" role="dialog">
             <header>
@@ -162,7 +151,7 @@
         @endif
     @endif
 
-    {# These are passed to common.js and autodetect.js via the template #}
+    {# These are passed to common.js via the template #}
     <div id="cmtx_js_settings_page" class="cmtx_hide" hidden>{{ cmtx_js_settings_page }}</div>
 
     {{ footer }}

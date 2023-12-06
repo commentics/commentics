@@ -525,7 +525,7 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Cambodia', `country_code` = 'KHM', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Cameroon', `country_code` = 'CMR', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Canada', `country_code` = 'CAN', `language` = 'english', `date_added` = NOW()");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Cape Verde', `country_code` = 'CPV', `language` = 'english', `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Cape Verde', `country_code` = 'CPV', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Central African Republic', `country_code` = 'CAF', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Chad', `country_code` = 'TCD', `language` = 'english', `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "geo` SET `name` = 'Chile', `country_code` = 'CHL', `language` = 'english', `date_added` = NOW()");
@@ -1217,9 +1217,7 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'theme_frontend', `value` = 'default'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'theme_backend', `value` = 'default'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'theme_install', `value` = 'default'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'auto_detect', `value` = '1'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'optimize', `value` = '1'");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'jquery_source', `value` = ''");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'theme', `title` = 'order_parts', `value` = 'form,comments'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'viewers', `title` = 'viewers_enabled', `value` = '0'");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'viewers', `title` = 'viewers_timeout', `value` = '1200'");
@@ -2357,12 +2355,12 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Western Macedonia') . "', `country_code` = 'GRC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Grenada
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Andrew') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint David') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint George') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint John') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Mark') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Patrick') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Andrew') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint David') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint George') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint John') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Mark') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Patrick') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Guatemala
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Alta Verapaz') . "', `country_code` = 'GTM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -2825,11 +2823,11 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('West Pokot') . "', `country_code` = 'KEN', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Kiribati
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Abaiang') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Butaritari') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Makin') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Marakei') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('North Tarawa') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Abaiang') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Butaritari') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Makin') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Marakei') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('North Tarawa') . "', `country_code` = 'KIR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Kosovo
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ferizaj') . "', `country_code` = 'UNK', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -2970,18 +2968,18 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Šiauliai') . "', `country_code` = 'LTU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Luxembourg
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Capellen') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Clervaux') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Diekirch') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Echternach') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Esch-sur-Alzette') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grevenmacher') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Luxembourg') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mersch') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Redange-sur-Attert') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Remich') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vianden') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Wiltz') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Capellen') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Clervaux') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Diekirch') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Echternach') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Esch-sur-Alzette') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grevenmacher') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Luxembourg') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mersch') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Redange-sur-Attert') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Remich') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vianden') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Wiltz') . "', `country_code` = 'LUX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Madagascar
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Alaotra-Mangoro') . "', `country_code` = 'MDG', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3056,9 +3054,9 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Terengganu Darul Iman') . "', `country_code` = 'MYS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Maldives
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Central Atolls') . "', `country_code` = 'MDV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Northern Atolls') . "', `country_code` = 'MDV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Southern Atolls') . "', `country_code` = 'MDV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Central Atolls') . "', `country_code` = 'MDV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Northern Atolls') . "', `country_code` = 'MDV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Southern Atolls') . "', `country_code` = 'MDV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Mali
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Bamako') . "', `country_code` = 'MLI', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3072,37 +3070,37 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Tombouctou') . "', `country_code` = 'MLI', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Malta
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Central Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Gozo Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Northern Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('South Eastern Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('South Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Central Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Gozo Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Northern Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('South Eastern Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('South Region') . "', `country_code` = 'MLT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Marshall Islands
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ailinglaplap Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ailuk Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Arno Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aur Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ebon Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Enewetok Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Jabat Island') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Jaluit Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kili Island') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kwajalein Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Lae Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Lib Island') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Likiep Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Majuro Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Maloelap Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mejit Island') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mili Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Namorik Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Namu Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rongelap Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ujae Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Utirik Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Wotho Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Wotje Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ailinglaplap Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ailuk Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Arno Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aur Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ebon Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Enewetok Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Jabat Island') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Jaluit Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kili Island') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kwajalein Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Lae Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Lib Island') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Likiep Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Majuro Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Maloelap Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mejit Island') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mili Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Namorik Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Namu Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rongelap Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ujae Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Utirik Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Wotho Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Wotje Atoll') . "', `country_code` = 'MHL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Mauritania
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Adrar') . "', `country_code` = 'MRT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3122,15 +3120,15 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Trarza') . "', `country_code` = 'MRT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Mauritius
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Flacq') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grand Port') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Moka') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Pamplemousses') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Plaines Wilhems') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Port Louis') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rivière du Rempart') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rivière Noire') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Savanne') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Flacq') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grand Port') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Moka') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Pamplemousses') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Plaines Wilhems') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Port Louis') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rivière du Rempart') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rivière Noire') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Savanne') . "', `country_code` = 'MUS', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Mexico
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aguascalientes') . "', `country_code` = 'MEX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3166,10 +3164,10 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Zacatecas') . "', `country_code` = 'MEX', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Micronesia
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Chuuk') . "', `country_code` = 'FSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kosrae') . "', `country_code` = 'FSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Pohnpei') . "', `country_code` = 'FSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Yap') . "', `country_code` = 'FSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Chuuk') . "', `country_code` = 'FSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kosrae') . "', `country_code` = 'FSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Pohnpei') . "', `country_code` = 'FSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Yap') . "', `country_code` = 'FSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Moldova
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anenii Noi') . "', `country_code` = 'MDA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3305,36 +3303,36 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Yangon') . "', `country_code` = 'MMR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Namibia
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Caprivi') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Erongo') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Hardap') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Karas') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kavango West') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kavango West') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kavango East') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Khomas') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kunene') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ohangwena') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Omaheke') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Omusati') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Oshana') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Oshikoto') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Otjozondjupa') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Caprivi') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Erongo') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Hardap') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Karas') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kavango West') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kavango West') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kavango East') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Khomas') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kunene') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ohangwena') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Omaheke') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Omusati') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Oshana') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Oshikoto') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Otjozondjupa') . "', `country_code` = 'NAM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Nauru
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aiwo') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anabar') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anetan') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anibare') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Baiti') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Boe') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Denigomodu') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ewa') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ijuw') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Meneng') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nibok') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Uaboe') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Yaren') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aiwo') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anabar') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anetan') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anibare') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Baiti') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Boe') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Denigomodu') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ewa') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ijuw') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Meneng') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nibok') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Uaboe') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Yaren') . "', `country_code` = 'NRU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Nepal
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Bagmati') . "', `country_code` = 'NPL', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3463,14 +3461,14 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('South Pyongan') . "', `country_code` = 'PRK', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // North Macedonia
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Eastern') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Northeastern') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Pelagonia') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Polog') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Skopje') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Southeastern') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Southwestern') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vardar') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Eastern') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Northeastern') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Pelagonia') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Polog') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Skopje') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Southeastern') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Southwestern') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vardar') . "', `country_code` = 'MKD', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Norway
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ayeyarwaddy') . "', `country_code` = 'NOR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3507,24 +3505,24 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Muscat') . "', `country_code` = 'OMN', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Overseas Territory
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anguilla') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aruba') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Bermuda') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Falklands') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Faroe Islands') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Gibraltar') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Greenland') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Guadeloupe') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Guam') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Guernsey') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Isle of Man') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Jersey') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Martinique') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Montserrat') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('New Caledonia') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Puerto Rico') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Réunion') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Svalbard') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anguilla') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aruba') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Bermuda') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Falklands') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Faroe Islands') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Gibraltar') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Greenland') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Guadeloupe') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Guam') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Guernsey') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Isle of Man') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Jersey') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Martinique') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Montserrat') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('New Caledonia') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Puerto Rico') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Réunion') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Svalbard') . "', `country_code` = 'OST', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Pakistan
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Azad Jammu and Kashmir') . "', `country_code` = 'PAK', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3537,22 +3535,22 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Sindh') . "', `country_code` = 'PAK', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Palau
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aimeliik') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Airai') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Angaur') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Hatohobei') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kayangel') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Koror') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Melekeok') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngaraard') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngarchelong') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngardmau') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngatpang') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngchesar') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngeremlengui') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");    
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngiwal') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Peleliu') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Sonsorol') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Aimeliik') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Airai') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Angaur') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Hatohobei') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Kayangel') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Koror') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Melekeok') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngaraard') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngarchelong') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngardmau') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngatpang') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngchesar') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngeremlengui') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ngiwal') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Peleliu') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Sonsorol') . "', `country_code` = 'PLW', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Palestine
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Bethlehem') . "', `country_code` = 'PSE', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3887,40 +3885,40 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rwamagana') . "', `country_code` = 'RWA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Saint Kitts and Nevis
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Christ Church Nichola Town') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Anne Sandy Point') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint George Basseterre') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint George Gingerland') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint James Windward') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint John Capisterre') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint John Figtree') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Mary Cayon') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Paul Capisterre') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Paul Charlestown') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Peter Basseterre') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Thomas Lowland') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Thomas Middle Island') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Trinity Palmetto Point') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Christ Church Nichola Town') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Anne Sandy Point') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint George Basseterre') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint George Gingerland') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint James Windward') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint John Capisterre') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint John Figtree') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Mary Cayon') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Paul Capisterre') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Paul Charlestown') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Peter Basseterre') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Thomas Lowland') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Thomas Middle Island') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Trinity Palmetto Point') . "', `country_code` = 'KNA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Saint Lucia
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse la Raye') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Canaries') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Castries') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Choiseul') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Dennery') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Gros Islet') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Laborie') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Micoud') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Soufrière') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vieux Fort') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse la Raye') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Canaries') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Castries') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Choiseul') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Dennery') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Gros Islet') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Laborie') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Micoud') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Soufrière') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vieux Fort') . "', `country_code` = 'LCA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Saint Vincent and the Grenadines
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Charlotte Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grenadines Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Andrew Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint David Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint George Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Patrick Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Charlotte Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grenadines Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Andrew Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint David Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint George Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Patrick Parish') . "', `country_code` = 'VCT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Samoa
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Eastern') . "', `country_code` = 'WSM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -3939,13 +3937,13 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Serravalle') . "', `country_code` = 'SMR', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // São Tomé and Príncipe
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Água Grande') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Cantagalo') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Caué') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Lembá') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Lobata') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mé-Zóchi') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Príncipe ') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Água Grande') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Cantagalo') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Caué') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Lembá') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Lobata') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mé-Zóchi') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Príncipe ') . "', `country_code` = 'STP', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Saudi Arabia
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('\'Asir') . "', `country_code` = 'SAU', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -4010,32 +4008,32 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Zlatibor') . "', `country_code` = 'SRB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Seychelles
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse aux Pins') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse Boileau') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse Étoile') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse Royale') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Au Cap') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Baie Lazare') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Baie Sainte Anne') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Beau Vallon') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Bel Air') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Belombre') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Cascade') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('English River') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Glacis') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grand\' Anse Mahé') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grand\' Anse Praslin') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('La Digue and Inner Islands') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Les Mamelles') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mont Buxton') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mont Fleuri') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Outer Islands') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Plaisance') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Pointe La Rue') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Port Glaud') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Roche Caïman') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Louis') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Takamaka') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse aux Pins') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse Boileau') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse Étoile') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Anse Royale') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Au Cap') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Baie Lazare') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Baie Sainte Anne') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Beau Vallon') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Bel Air') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Belombre') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Cascade') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('English River') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Glacis') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grand\' Anse Mahé') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Grand\' Anse Praslin') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('La Digue and Inner Islands') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Les Mamelles') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mont Buxton') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mont Fleuri') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Outer Islands') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Plaisance') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Pointe La Rue') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Port Glaud') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Roche Caïman') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Saint Louis') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Takamaka') . "', `country_code` = 'SYC', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Sierra Leone
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Bo') . "', `country_code` = 'SLE', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -4085,16 +4083,16 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Upper Carniola') . "', `country_code` = 'SVN', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Solomon Islands
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Capital Territory') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Central Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Choiseul Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Guadalcanal Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Isabel Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Makira-Ulawa Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Malaita Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rennell and Bellona Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Temotu Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Western Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Capital Territory') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Central Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Choiseul Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Guadalcanal Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Isabel Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Makira-Ulawa Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Malaita Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Rennell and Bellona Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Temotu Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Western Province') . "', `country_code` = 'SLB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Somalia
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Awdal') . "', `country_code` = 'SOM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -4454,11 +4452,11 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Savanes') . "', `country_code` = 'TGO', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Tonga
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Tongatapu') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vava\'u') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ha\'apai') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('\'Eua') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ongo Niua') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Tongatapu') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vava\'u') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ha\'apai') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('\'Eua') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Ongo Niua') . "', `country_code` = 'TON', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Trinidad and Tobago
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Caroni') . "', `country_code` = 'TTO', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -4588,15 +4586,15 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Mary') . "', `country_code` = 'TKM', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Tuvalu
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Funafuti') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nanumanga') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nanumea') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Niulakita') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Niutao') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nui') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nukufetau') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nukulaelae') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vaitupu') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Funafuti') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nanumanga') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nanumea') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Niulakita') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Niutao') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nui') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nukufetau') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Nukulaelae') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Vaitupu') . "', `country_code` = 'TUV', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Uganda
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Central') . "', `country_code` = 'UGA', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -4837,12 +4835,12 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Xorazm') . "', `country_code` = 'UZB', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Vanuatu
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Malampa') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Penama') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Sanma') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Shefa') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Tafea') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Torba') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");        
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Malampa') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Penama') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Sanma') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Shefa') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Tafea') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Torba') . "', `country_code` = 'VUT', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
 
         // Venezuela
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "states` SET `name` = '" . $this->prepareState('Andean') . "', `country_code` = 'VEN', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");

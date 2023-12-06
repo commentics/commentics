@@ -77,13 +77,9 @@
     margin-top: 16px !important;
 }
 
-#cmtx_privacy_modal .cmtx_modal_body, #cmtx_terms_modal .cmtx_modal_body, #cmtx_autodetect_modal .cmtx_modal_body {
+#cmtx_privacy_modal .cmtx_modal_body, #cmtx_terms_modal .cmtx_modal_body {
     margin-bottom: 5px;
     margin-top: 0;
-}
-
-#cmtx_autodetect_modal .cmtx_modal_body a {
-    text-decoration: none;
 }
 
 .cmtx_modal_box input[type='text'], .cmtx_modal_box input[type='url'], .cmtx_modal_box input[type='email'] {

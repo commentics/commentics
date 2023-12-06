@@ -1,746 +1,731 @@
-/* Wait for jQuery to load, in case loaded after Commentics */
-var cmtx_wait_for_jquery = setInterval(function() {
-    /* jQuery is loaded */
-    if (window.jQuery) {
-        clearInterval(cmtx_wait_for_jquery);
+/* The document (excluding images) has finished loading */
+document.addEventListener('DOMContentLoaded', function() {
+    /* Page settings may not exist (if on user page) */
+    if (document.querySelector('#cmtx_js_settings_page')) {
+        cmtx_js_settings_page = JSON.parse(document.querySelector('#cmtx_js_settings_page').innerText);
+    }
 
-        /* The document (excluding images) has finished loading */
-        jQuery(document).ready(function() {
-            /* Page settings may not exist (if on user page) */
-            if (jQuery('#cmtx_js_settings_page').length) {
-                cmtx_js_settings_page = JSON.parse(jQuery('#cmtx_js_settings_page').text());
-            }
+    /* Form settings may not exist (if the form is disabled) */
+    if (document.querySelector('#cmtx_js_settings_form')) {
+        cmtx_js_settings_form = JSON.parse(document.querySelector('#cmtx_js_settings_form').innerText);
+    }
 
-            /* Form settings may not exist (if the form is disabled) */
-            if (jQuery('#cmtx_js_settings_form').length) {
-                cmtx_js_settings_form = JSON.parse(jQuery('#cmtx_js_settings_form').text());
-            }
+    /* Comment settings may not exist (if there are no comments) */
+    if (document.querySelector('#cmtx_js_settings_comments')) {
+        cmtx_js_settings_comments = JSON.parse(document.querySelector('#cmtx_js_settings_comments').innerText);
+    }
 
-            /* Comment settings may not exist (if there are no comments) */
-            if (jQuery('#cmtx_js_settings_comments').length) {
-                cmtx_js_settings_comments = JSON.parse(jQuery('#cmtx_js_settings_comments').text());
-            }
+    /* Notify settings may not exist (if the notify feature is disabled) */
+    if (document.querySelector('#cmtx_js_settings_notify')) {
+        cmtx_js_settings_notify = JSON.parse(document.querySelector('#cmtx_js_settings_notify').innerText);
+    }
 
-            /* Notify settings may not exist (if the notify feature is disabled) */
-            if (jQuery('#cmtx_js_settings_notify').length) {
-                cmtx_js_settings_notify = JSON.parse(jQuery('#cmtx_js_settings_notify').text());
-            }
+    /* Online settings may not exist (if the online feature is disabled) */
+    if (document.querySelector('#cmtx_js_settings_online')) {
+        cmtx_js_settings_online = JSON.parse(document.querySelector('#cmtx_js_settings_online').innerText);
+    }
 
-            /* Online settings may not exist (if the online feature is disabled) */
-            if (jQuery('#cmtx_js_settings_online').length) {
-                cmtx_js_settings_online = JSON.parse(jQuery('#cmtx_js_settings_online').text());
-            }
+    /* User settings may not exist (if not on user page) */
+    if (document.querySelector('#cmtx_js_settings_user')) {
+        cmtx_js_settings_user = JSON.parse(document.querySelector('#cmtx_js_settings_user').innerText);
+    }
 
-            /* User settings may not exist (if not on user page) */
-            if (jQuery('#cmtx_js_settings_user').length) {
-                cmtx_js_settings_user = JSON.parse(jQuery('#cmtx_js_settings_user').text());
-            }
+    /* Is Commentics loaded using the iFrame integration method */
+    isInIframe = (window.location != window.parent.location) ? true : false;
 
-            /* Append language to all ajax requests */
-            if (typeof(cmtx_js_settings_page) != 'undefined') {
-                jQuery.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-                    options.data += '&cmtx_language=' + cmtx_js_settings_page.language;
-                    if (options.data.charAt(0) == '&') {
-                        options.data = options.data.substr(1);
-                    }
-                });
-            }
+    /* Initialise */
+    function cmtxInit() {
+        cmtxViewReplies();
+        cmtxTimeago();
+        cmtxHighlightCode();
+        cmtxViewersOnline();
+        cmtxCloseShareBox();
+        cmtxClosePermalinkBox();
+        cmtxBioPopup();
+        cmtxSearchFocus();
+        cmtxSearchEnter();
+        cmtxLightbox();
+    }
 
-            /* Is Commentics loaded using the iFrame integration method */
-            isInIframe = (window.location != window.parent.location) ? true : false;
+    /* Wrapper for all ajax requests */
+    function cmtxFetch(url, options) {
+        options.method = 'POST';
+        options.cache = 'no-store';
+        options.headers = {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'X-Requested-With': 'XMLHttpRequest'
+        };
 
-            /* Show a BB Code modal */
-            jQuery('#cmtx_container span[data-cmtx-target-modal]').click(function(e) {
-                e.preventDefault();
+        // If there's a file upload, we need to remove the content type.
+        if (typeof(options.file_upload) != 'undefined') {
+            delete options.headers['Content-Type'];
+        }
 
-                var target = jQuery(this).attr('data-cmtx-target-modal');
+        // Append the language
+        if (typeof(cmtx_js_settings_page) != 'undefined') {
+            options.body += '&cmtx_language=' + encodeURIComponent(cmtx_js_settings_page.language);
+        }
 
-                jQuery('body').append(jQuery(target));
+        // Remove the leading '&' if it exists
+        if (options.body.charAt(0) == '&') {
+            options.body = options.body.substr(1);
+        }
 
-                jQuery('body').append('<div class="cmtx_overlay"></div>');
+        // Send line breaks as \r\n
+        options.body = options.body.replace(new RegExp('%0A', 'g'), '%0D%0A');
+
+        return fetch(url, options);
+    }
+
+    /* Show a BB Code modal */
+    document.querySelectorAll('span[data-cmtx-target-modal]').forEach(function(element) {
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            var target = this.getAttribute('data-cmtx-target-modal');
+
+            document.body.appendChild(document.querySelector(target));
+
+            document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+            /*
+              * The following stops the modal from showing in the vertical centre of the iFrame
+              * Instead we position the modal relative to an element on the page
+            */
+            if (isInIframe) {
+                var destination = document.querySelector('.cmtx_bb_code_container').getBoundingClientRect();
+
+                document.querySelector(target).style.top = destination.top + 150 + 'px';
 
                 /*
-                 * The following stops the modal from showing in the vertical centre of the iFrame
-                 * Instead we position the modal relative to an element on the page
-                 */
-                if (isInIframe) {
-                    var destination = jQuery('.cmtx_bb_code_container').offset();
-
-                    jQuery(jQuery(target)).css({top: destination.top + 150});
-
-                    /*
-                     * The overlay is set to transparent as otherwise it would only cover the iFrame
-                     * It's still useful to show it so that clicking on the overlay closes the modal
-                     */
-                    jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                }
-
-                jQuery('.cmtx_overlay').fadeIn(200);
-
-                jQuery(target).fadeIn(200);
-            });
-
-            /* Show an agreement modal */
-            jQuery('#cmtx_container').on('click', 'a[data-cmtx-target-modal]', function(e) {
-                e.preventDefault();
-
-                var target = jQuery(this).attr('data-cmtx-target-modal');
-
-                jQuery('body').append(jQuery(target));
-
-                jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                if (isInIframe) {
-                    if (jQuery(this).closest('.quick_reply').length) {
-                        var destination = jQuery('.quick_reply').offset();
-                    } else if (jQuery(this).closest('.edit_comment').length) {
-                        var destination = jQuery('.edit_comment').offset();
-                    } else {
-                        var destination = jQuery('.cmtx_checkbox_container').offset();
-                    }
-
-                    jQuery(jQuery(target)).css({top: destination.top - 150});
-
-                    jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                }
-
-                jQuery('.cmtx_overlay').fadeIn(200);
-
-                jQuery(target).fadeIn(200);
-            });
-
-            /* Show the flag modal */
-            jQuery('#cmtx_container').on('click', '.cmtx_flag_link', function(e) {
-                e.preventDefault();
-
-                var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
-
-                jQuery('#cmtx_flag_modal_yes').attr('data-cmtx-comment-id', comment_id);
-
-                if (jQuery('body > #cmtx_flag_modal').length === 0) {
-                    jQuery('body').append(jQuery('#cmtx_flag_modal'));
-                }
-
-                jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                if (isInIframe) {
-                    var destination = jQuery(this).offset();
-
-                    jQuery('#cmtx_flag_modal').css({top: destination.top - 150});
-
-                    jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                }
-
-                jQuery('.cmtx_overlay').fadeIn(200);
-
-                jQuery('#cmtx_flag_modal').fadeIn(200);
-            });
-
-            /* Show the delete modal */
-            jQuery('#cmtx_container').on('click', '.cmtx_delete_link', function(e) {
-                e.preventDefault();
-
-                var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
-
-                jQuery('#cmtx_delete_modal_yes').attr('data-cmtx-comment-id', comment_id);
-
-                if (jQuery('body > #cmtx_delete_modal').length === 0) {
-                    jQuery('body').append(jQuery('#cmtx_delete_modal'));
-                }
-
-                jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                if (isInIframe) {
-                    var destination = jQuery(this).offset();
-
-                    jQuery('#cmtx_delete_modal').css({top: destination.top - 150});
-
-                    jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                }
-
-                jQuery('.cmtx_overlay').fadeIn(200);
-
-                jQuery('#cmtx_delete_modal').fadeIn(200);
-            });
-
-            /* Modal cancel button */
-            jQuery('body').on('click', '.cmtx_modal_box .cmtx_button_secondary', function(e) {
-                e.preventDefault();
-
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
-
-            /* Close modal */
-            jQuery('body').on('click', '.cmtx_modal_close, .cmtx_overlay', function(e) {
-                e.preventDefault();
-
-                jQuery('.cmtx_modal_box, .cmtx_overlay').fadeOut(200, function() {
-                    jQuery('.cmtx_overlay').remove();
-                });
-            });
-
-            /* Style the blank select options as placeholders */
-            var selected = jQuery('.cmtx_form_container select').find('option:selected');
-
-            if (selected.val() == '') {
-                jQuery('.cmtx_form_container select').css('color', '#666');
-                jQuery('.cmtx_form_container select').children().css('color', 'black');
+                  * The overlay is set to transparent as otherwise it would only cover the iFrame
+                  * It's still useful to show it so that clicking on the overlay closes the modal
+                */
+                document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
             }
 
-            jQuery('body').on('change', '.cmtx_form_container select', function() {
-                if (jQuery(this).find('option:selected').val() == '') {
-                    jQuery(this).css('color', '#666');
-                    jQuery(this).children().css('color', 'black');
+            cmtxFadeIn('.cmtx_overlay', 200);
+
+            cmtxFadeIn(target, 200);
+        });
+    });
+
+    /* Show an agreement modal */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('a[data-cmtx-target-modal]')) {
+            e.preventDefault();
+
+            var target = e.target.getAttribute('data-cmtx-target-modal');
+
+            document.body.appendChild(document.querySelector(target));
+
+            document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+            if (isInIframe) {
+                if (e.target.closest('.quick_reply')) {
+                    var destination = document.querySelector('.quick_reply').getBoundingClientRect();
+                } else if (e.target.closest('.edit_comment')) {
+                    var destination = document.querySelector('.edit_comment').getBoundingClientRect();
                 } else {
-                    jQuery(this).css('color', 'black');
-                    jQuery(this).children().css('color', 'black');
+                    var destination = document.querySelector('.cmtx_checkbox_container').getBoundingClientRect();
                 }
-            });
 
-            /* When the comment field gets focus, show some other fields */
-            jQuery('#cmtx_comment').focus(function() {
-                jQuery(this).addClass('cmtx_comment_field_active');
+                document.querySelector(target).style.top = destination.top - 150 + 'px';
 
-                jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
-
-                if (jQuery('input[name="cmtx_reply_to"]').val() == '') {
-                    jQuery('.cmtx_wait_for_comment').fadeIn('slow');
-                }
-            });
-
-            if (typeof(cmtx_js_settings_form) != 'undefined') {
-                if (!cmtx_js_settings_form.cmtx_wait_for_comment) {
-                    jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
-
-                    jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
-
-                    if (jQuery('input[name="cmtx_reply_to"]').val() == '') {
-                        jQuery('.cmtx_wait_for_comment').fadeIn('slow');
-                    }
-                }
+                document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
             }
 
-            /* When the name or email field gets focus, show some other fields */
-            jQuery('#cmtx_name, #cmtx_email').focus(function() {
-                if (jQuery('input[name="cmtx_subscribe"]').val() == '') {
-                    jQuery('.cmtx_wait_for_user').fadeIn('slow');
-                }
+            cmtxFadeIn('.cmtx_overlay', 200);
+
+            cmtxFadeIn(target, 200);
+        }
+    });
+
+    /* Show the flag modal */
+    document.addEventListener('click', function(e) {
+        var flag_link = e.target.closest('.cmtx_flag_link');
+
+        if (flag_link) {
+            e.preventDefault();
+
+            var comment_id = flag_link.closest('.cmtx_comment_box').getAttribute('data-cmtx-comment-id');
+
+            document.querySelector('#cmtx_flag_modal_yes').setAttribute('data-cmtx-comment-id', comment_id);
+
+            if (!document.querySelector('body > #cmtx_flag_modal')) {
+                document.body.appendChild(document.querySelector('#cmtx_flag_modal'));
+            }
+
+            document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+            if (isInIframe) {
+                var destination = flag_link.getBoundingClientRect();
+
+                document.querySelector('#cmtx_flag_modal').style.top = destination.top - 150 + 'px';
+
+                document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
+            }
+
+            cmtxFadeIn('.cmtx_overlay', 200);
+
+            cmtxFadeIn('#cmtx_flag_modal', 200);
+        }
+    });
+
+    /* Show the delete modal */
+    document.addEventListener('click', function(e) {
+        var delete_link = e.target.closest('.cmtx_delete_link');
+
+        if (delete_link) {
+            e.preventDefault();
+
+            var comment_id = delete_link.closest('.cmtx_comment_box').getAttribute('data-cmtx-comment-id');
+
+            document.querySelector('#cmtx_delete_modal_yes').setAttribute('data-cmtx-comment-id', comment_id);
+
+            if (!document.querySelector('body > #cmtx_delete_modal')) {
+                document.body.appendChild(document.querySelector('#cmtx_delete_modal'));
+            }
+
+            document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+            if (isInIframe) {
+                var destination = delete_link.getBoundingClientRect();
+
+                document.querySelector('#cmtx_delete_modal').style.top = destination.top - 150 + 'px';
+
+                document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
+            }
+
+            cmtxFadeIn('.cmtx_overlay', 200);
+
+            cmtxFadeIn('#cmtx_delete_modal', 200);
+        }
+    });
+
+    /* Modal cancel button */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_modal_box .cmtx_button_secondary')) {
+            e.preventDefault();
+
+            cmtxCloseModal();
+        }
+    });
+
+    /* Close modal */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_modal_close, .cmtx_overlay')) {
+            e.preventDefault();
+
+            document.querySelectorAll('.cmtx_modal_box, .cmtx_overlay').forEach(function(element) {
+                element.style.transition = `opacity 200ms ease-in-out`;
+                element.style.opacity = 0;
+
+                setTimeout(function() {
+                    element.style.display = 'none';
+
+                    cmtxRemoveIfExists('.cmtx_overlay');
+                }, 200);
             });
+        }
+    });
 
-            /* Adds a BB Code tag for the simple non-modal ones */
-            jQuery('.cmtx_bb_code:not([data-cmtx-target-modal])').click(function() {
-                var bb_code = jQuery(this).attr('data-cmtx-tag');
+    /* When the comment field gets focus, show some other fields */
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        document.querySelector('#cmtx_comment').addEventListener('focus', function() {
+            cmtxCommentFocus(true);
+        });
+    }
 
-                if (bb_code) {
-                    bb_code = bb_code.split('|');
+    /* If the comment field should show straight away, give it focus */
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        if (!cmtx_js_settings_form.cmtx_wait_for_comment) {
+            cmtxCommentFocus(false);
+        }
+    }
 
-                    if (typeof(bb_code[1]) === 'undefined') {
-                        cmtx_add_tag('', bb_code[0]);
-                    } else {
-                        cmtx_add_tag(bb_code[0], bb_code[1]);
-                    }
-                }
-            });
+    function cmtxCommentFocus($transition) {
+        if ($transition) {
+            document.querySelector('#cmtx_comment').classList.add('cmtx_comment_field_transition');
+        }
 
-            /* Adds a smiley tag */
-            jQuery('.cmtx_smilies_container .cmtx_smiley').click(function() {
-                var smiley = jQuery(this).attr('data-cmtx-tag');
+        document.querySelector('#cmtx_comment').classList.add('cmtx_comment_field_active');
 
-                cmtx_add_tag('', smiley);
-            });
+        document.querySelector('.cmtx_comment_container').classList.add('cmtx_comment_container_active');
 
-            /* Insert content from bullet modal */
-            jQuery('#cmtx_bullet_modal_insert').click(function(e) {
-                var bb_code = jQuery('.cmtx_bb_code_bullet').attr('data-cmtx-tag');
+        if (document.querySelector('input[name="cmtx_reply_to"]').value == '') {
+            cmtxFadeIn('.cmtx_wait_for_comment', 600);
+        }
+    }
 
+    /* When the name or email field gets focus, show some other fields */
+    document.querySelectorAll('#cmtx_name, #cmtx_email').forEach(function(element) {
+        element.addEventListener('focus', function() {
+            if (document.querySelector('input[name="cmtx_subscribe"]').value == '') {
+                cmtxFadeIn('.cmtx_wait_for_user', 800);
+            }
+        });
+    });
+
+    /* Adds a BB Code tag for the simple non-modal ones */
+    document.querySelectorAll('.cmtx_bb_code:not([data-cmtx-target-modal])').forEach(function(element) {
+        element.addEventListener('click', function() {
+            var bb_code = this.getAttribute('data-cmtx-tag');
+
+            if (bb_code) {
                 bb_code = bb_code.split('|');
 
-                var tag = '';
+                if (typeof(bb_code[1]) === 'undefined') {
+                    cmtxAddTag('', bb_code[0]);
+                } else {
+                    cmtxAddTag(bb_code[0], bb_code[1]);
+                }
+            }
+        });
+    });
 
-                jQuery('#cmtx_bullet_modal input[type="text"]').each(function() {
-                    var item = cmtxTrim(jQuery(this).val());
+    /* Adds a smiley tag */
+    document.querySelectorAll('.cmtx_smilies_container .cmtx_smiley').forEach(function(element) {
+        element.addEventListener('click', function() {
+            var smiley = this.getAttribute('data-cmtx-tag');
 
-                    if (item != null && item != '') {
-                        tag += bb_code[1] + item + bb_code[2] + '\r\n';
-                    }
-                });
+            cmtxAddTag('', smiley);
+        });
+    });
 
-                if (tag != null && tag != '') {
-                    tag = bb_code[0] + '\r\n' + tag + bb_code[3];
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        /* Insert content from bullet modal */
+        document.querySelector('#cmtx_bullet_modal_insert').addEventListener('click', function(e) {
+            var bb_code = document.querySelector('.cmtx_bb_code_bullet').getAttribute('data-cmtx-tag');
 
-                    cmtx_add_tag('', tag);
+            bb_code = bb_code.split('|');
+
+            var tag = '';
+
+            document.querySelectorAll('#cmtx_bullet_modal input[type="text"]').forEach(function(element) {
+                var item = cmtxTrim(element.value);
+
+                if (item != null && item != '') {
+                    tag += bb_code[1] + item + bb_code[2] + '\r\n';
+                }
+            });
+
+            if (tag != null && tag != '') {
+                tag = bb_code[0] + '\r\n' + tag + bb_code[3];
+
+                cmtxAddTag('', tag);
+            }
+
+            document.querySelector('#cmtx_bullet_modal input[type="text"]').value = '';
+
+            cmtxCloseModal();
+        });
+
+        /* Insert content from numeric modal */
+        document.querySelector('#cmtx_numeric_modal_insert').addEventListener('click', function(e) {
+            var bb_code = document.querySelector('.cmtx_bb_code_numeric').getAttribute('data-cmtx-tag');
+
+            bb_code = bb_code.split('|');
+
+            var tag = '';
+
+            document.querySelectorAll('#cmtx_numeric_modal input[type="text"]').forEach(function(element) {
+                var item = cmtxTrim(element.value);
+
+                if (item != null && item != '') {
+                    tag += bb_code[1] + item + bb_code[2] + '\r\n';
+                }
+            });
+
+            if (tag != null && tag != '') {
+                tag = bb_code[0] + '\r\n' + tag + bb_code[3];
+
+                cmtxAddTag('', tag);
+            }
+
+            document.querySelector('#cmtx_numeric_modal input[type="text"]').value = '';
+
+            cmtxCloseModal();
+        });
+
+        /* Insert content from link modal */
+        document.querySelector('#cmtx_link_modal_insert').addEventListener('click', function(e) {
+            var bb_code = document.querySelector('.cmtx_bb_code_link').getAttribute('data-cmtx-tag');
+
+            bb_code = bb_code.split('|');
+
+            var link = cmtxTrim(document.querySelector('#cmtx_link_modal input[type="url"]').value);
+
+            if (link != null && link != '' && link != 'http://') {
+                var text = cmtxTrim(document.querySelector('#cmtx_link_modal input[type="text"]').value);
+
+                if (text != null && text != '') {
+                    var tag = bb_code[1] + link + bb_code[2] + text + bb_code[3];
+                } else {
+                    var tag = bb_code[0] + link + bb_code[3];
                 }
 
-                jQuery('#cmtx_bullet_modal input[type="text"]').val('');
+                cmtxAddTag('', tag);
+            }
 
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
+            document.querySelector('#cmtx_link_modal input[type="url"]').value = 'http://';
 
-            /* Insert content from numeric modal */
-            jQuery('#cmtx_numeric_modal_insert').click(function(e) {
-                var bb_code = jQuery('.cmtx_bb_code_numeric').attr('data-cmtx-tag');
+            document.querySelector('#cmtx_link_modal input[type="text"]').value = '';
 
-                bb_code = bb_code.split('|');
+            cmtxCloseModal();
+        });
 
-                var tag = '';
+        /* Insert content from email modal */
+        document.querySelector('#cmtx_email_modal_insert').addEventListener('click', function(e) {
+            var bb_code = document.querySelector('.cmtx_bb_code_email').getAttribute('data-cmtx-tag');
 
-                jQuery('#cmtx_numeric_modal input[type="text"]').each(function() {
-                    var item = cmtxTrim(jQuery(this).val());
+            bb_code = bb_code.split('|');
 
-                    if (item != null && item != '') {
-                        tag += bb_code[1] + item + bb_code[2] + '\r\n';
-                    }
-                });
+            var email = cmtxTrim(document.querySelector('#cmtx_email_modal input[type="email"]').value);
 
-                if (tag != null && tag != '') {
-                    tag = bb_code[0] + '\r\n' + tag + bb_code[3];
+            if (email != null && email != '') {
+                var text = cmtxTrim(document.querySelector('#cmtx_email_modal input[type="text"]').value);
 
-                    cmtx_add_tag('', tag);
+                if (text != null && text != '') {
+                    var tag = bb_code[1] + email + bb_code[2] + text + bb_code[3];
+                } else {
+                    var tag = bb_code[0] + email + bb_code[3];
                 }
 
-                jQuery('#cmtx_numeric_modal input[type="text"]').val('');
+                cmtxAddTag('', tag);
+            }
 
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
+            document.querySelector('#cmtx_email_modal input[type="email"]').value = '';
 
-            /* Insert content from link modal */
-            jQuery('#cmtx_link_modal_insert').click(function(e) {
-                var bb_code = jQuery('.cmtx_bb_code_link').attr('data-cmtx-tag');
+            document.querySelector('#cmtx_email_modal input[type="text"]').value = '';
 
-                bb_code = bb_code.split('|');
+            cmtxCloseModal();
+        });
 
-                var link = cmtxTrim(jQuery('#cmtx_link_modal input[type="url"]').val());
+        /* Insert content from image modal */
+        document.querySelector('#cmtx_image_modal_insert').addEventListener('click', function(e) {
+            var bb_code = document.querySelector('.cmtx_bb_code_image').getAttribute('data-cmtx-tag');
 
-                if (link != null && link != '' && link != 'http://') {
-                    var text = cmtxTrim(jQuery('#cmtx_link_modal input[type="text"]').val());
+            bb_code = bb_code.split('|');
 
-                    if (text != null && text != '') {
-                        var tag = bb_code[1] + link + bb_code[2] + text + bb_code[3];
-                    } else {
-                        var tag = bb_code[0] + link + bb_code[3];
-                    }
+            var image = cmtxTrim(document.querySelector('#cmtx_image_modal input[type="url"]').value);
 
-                    cmtx_add_tag('', tag);
-                }
+            if (image != null && image != '' && image != 'http://') {
+                var tag = bb_code[0] + image + bb_code[1];
 
-                jQuery('#cmtx_link_modal input[type="url"]').val('http://');
+                cmtxAddTag('', tag);
+            }
 
-                jQuery('#cmtx_link_modal input[type="text"]').val('');
+            document.querySelector('#cmtx_image_modal input[type="url"]').value = 'http://';
 
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
+            cmtxCloseModal();
+        });
 
-            /* Insert content from email modal */
-            jQuery('#cmtx_email_modal_insert').click(function(e) {
-                var bb_code = jQuery('.cmtx_bb_code_email').attr('data-cmtx-tag');
+        /* Insert content from YouTube modal */
+        document.querySelector('#cmtx_youtube_modal_insert').addEventListener('click', function(e) {
+            var bb_code = document.querySelector('.cmtx_bb_code_youtube').getAttribute('data-cmtx-tag');
 
-                bb_code = bb_code.split('|');
+            bb_code = bb_code.split('|');
 
-                var email = cmtxTrim(jQuery('#cmtx_email_modal input[type="email"]').val());
+            var video = cmtxTrim(document.querySelector('#cmtx_youtube_modal input[type="url"]').value);
 
-                if (email != null && email != '') {
-                    var text = cmtxTrim(jQuery('#cmtx_email_modal input[type="text"]').val());
+            if (video != null && video != '' && video != 'http://') {
+                var tag = bb_code[0] + video + bb_code[1];
 
-                    if (text != null && text != '') {
-                        var tag = bb_code[1] + email + bb_code[2] + text + bb_code[3];
-                    } else {
-                        var tag = bb_code[0] + email + bb_code[3];
-                    }
+                cmtxAddTag('', tag);
+            }
 
-                    cmtx_add_tag('', tag);
-                }
+            document.querySelector('#cmtx_youtube_modal input[type="url"]').value = 'http://';
 
-                jQuery('#cmtx_email_modal input[type="email"]').val('');
+            cmtxCloseModal();
+        });
 
-                jQuery('#cmtx_email_modal input[type="text"]').val('');
-
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
-
-            /* Insert content from image modal */
-            jQuery('#cmtx_image_modal_insert').click(function(e) {
-                var bb_code = jQuery('.cmtx_bb_code_image').attr('data-cmtx-tag');
-
-                bb_code = bb_code.split('|');
-
-                var image = cmtxTrim(jQuery('#cmtx_image_modal input[type="url"]').val());
-
-                if (image != null && image != '' && image != 'http://') {
-                    var tag = bb_code[0] + image + bb_code[1];
-
-                    cmtx_add_tag('', tag);
-                }
-
-                jQuery('#cmtx_image_modal input[type="url"]').val('http://');
-
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
-
-            /* Insert content from YouTube modal */
-            jQuery('#cmtx_youtube_modal_insert').click(function(e) {
-                var bb_code = jQuery('.cmtx_bb_code_youtube').attr('data-cmtx-tag');
-
-                bb_code = bb_code.split('|');
-
-                var video = cmtxTrim(jQuery('#cmtx_youtube_modal input[type="url"]').val());
-
-                if (video != null && video != '' && video != 'http://') {
-                    var tag = bb_code[0] + video + bb_code[1];
-
-                    cmtx_add_tag('', tag);
-                }
-
-                jQuery('#cmtx_youtube_modal input[type="url"]').val('http://');
-
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
-
-            /* Update the comment counter whenever anything is entered */
-            jQuery('#cmtx_comment').keyup(function(e) {
-                cmtxUpdateCommentCounter();
-            });
-
-            /* Simulate entering a comment on page load to update the counter in case it has default text */
+        /* Update the comment counter whenever anything is entered */
+        document.querySelector('#cmtx_comment').addEventListener('keyup', function() {
             cmtxUpdateCommentCounter();
+        });
 
-            /* Allows the user to deselect the star rating */
-            jQuery('input[type="radio"][name="cmtx_rating"]').on('click', function() {
-                if (jQuery(this).is('.cmtx_rating_active')) {
-                    jQuery(this).prop('checked', false).removeClass('cmtx_rating_active');
+        /* Simulate entering a comment on page load to update the counter in case it has default text */
+        cmtxUpdateCommentCounter();
+
+        /* Allows the user to deselect the star rating */
+        document.querySelectorAll('input[type="radio"][name="cmtx_rating"]').forEach(function(element) {
+            element.addEventListener('click', function() {
+                if (this.classList.contains('cmtx_rating_active')) {
+                    this.checked = false;
+                    this.classList.remove('cmtx_rating_active');
                 } else {
-                    jQuery('input[type="radio"][name="cmtx_rating"].cmtx_rating_active').removeClass('cmtx_rating_active');
+                    document.querySelectorAll('input[type="radio"][name="cmtx_rating"].cmtx_rating_active').forEach(function(element) {
+                        element.classList.remove('cmtx_rating_active');
+                    });
 
-                    jQuery(this).addClass('cmtx_rating_active');
+                    this.classList.add('cmtx_rating_active');
+                }
+            });
+        });
+    }
+
+    /* Image uploads */
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        if (cmtx_js_settings_form.enabled_upload) {
+            total_size = 0;
+
+            document.querySelector('#cmtx_upload').addEventListener('change', function(e) {
+                e.preventDefault();
+
+                e.stopPropagation();
+
+                var image = document.querySelector('#cmtx_upload').files[0];
+
+                cmtx_upload(image);
+            });
+
+            function cmtx_upload(image) {
+                document.querySelector('.cmtx_upload_container').classList.remove('cmtx_dragging');
+
+                if (image) {
+                    var size = parseFloat((image.size / 1024 / 1024).toFixed(2));
+                    var filename = image.name;
+                    var extension = filename.split('.').pop().toLowerCase();
+
+                    if (cmtx_validate_upload(size, extension)) {
+                        var reader = new FileReader();
+
+                        reader.onload = function(e) {
+                            var src = e.target.result;
+
+                            template = '';
+
+                            template += '<div class="cmtx_image_upload">';
+                            template += '    <div class="cmtx_image_section">';
+                            template += '        <img src="' + src + '" draggable="false" data-cmtx-size="' + size + '">';
+                            template += '        <span class="cmtx_image_overlay">' + size + ' MB</span>';
+                            template += '    </div>';
+                            template += '    <div class="cmtx_button_section">';
+                            template += '        <button type="button" class="cmtx_button cmtx_button_remove" title="' + cmtx_js_settings_form.lang_button_remove + '">' + cmtx_js_settings_form.lang_button_remove + '</button>';
+                            template += '    </div>';
+                            template += '</div>';
+
+                            document.querySelector('.cmtx_image_container').insertAdjacentHTML('beforeend', template);
+                            cmtxShow('.cmtx_image_row');
+                        };
+
+                        reader.readAsDataURL(image);
+                    }
+                }
+            }
+
+            document.querySelector('.cmtx_upload_container').addEventListener('dragenter', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+
+            document.querySelector('.cmtx_upload_container').addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                document.querySelector('.cmtx_upload_container').classList.add('cmtx_dragging');
+            });
+
+            document.querySelector('.cmtx_upload_container').addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                document.querySelector('.cmtx_upload_container').classList.remove('cmtx_dragging');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target && e.target.matches('.cmtx_button_remove')) {
+                    e.preventDefault();
+
+                    e.target.closest('.cmtx_image_upload').remove();
+
+                    // Hide container if no images
+                    var num_images = document.querySelectorAll('.cmtx_image_upload').length;
+
+                    if (num_images == 0) {
+                        cmtxHide('.cmtx_image_row');
+                    }
                 }
             });
 
-            /* Image uploads */
-            if (typeof(cmtx_js_settings_form) != 'undefined') {
-                if (cmtx_js_settings_form.enabled_upload) {
-                    total_size = 0;
+            document.querySelector('#cmtx_upload').addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
 
-                    jQuery('#cmtx_upload').change(function(e) {
-                        e.preventDefault();
+                if (e.dataTransfer && e.dataTransfer.files.length) {
+                    cmtx_upload(e.dataTransfer.files[0]);
+                }
+            });
 
-                        e.stopPropagation();
+            function cmtx_validate_upload(size, extension) {
+                var num_images = document.querySelectorAll('.cmtx_image_upload').length;
 
-                        var image = jQuery('#cmtx_upload')[0].files[0];
+                var total_size = 0;
 
-                        cmtx_upload(image);
-                    });
+                document.querySelectorAll('.cmtx_image_upload').forEach(function(element) {
+                    total_size = Number(total_size) + Number(element.querySelector('img').getAttribute('data-cmtx-size'));
+                });
 
-                    function cmtx_upload(image) {
-                        jQuery('.cmtx_upload_container').removeClass('cmtx_dragging');
+                total_size = Number(total_size) + Number(size);
 
-                        if (image) {
-                            var size = parseFloat((image.size / 1024 / 1024).toFixed(2));
-                            var filename = image.name;
-                            var extension = filename.split('.').pop().toLowerCase();
+                if (num_images >= cmtx_js_settings_form.maximum_upload_amount) {
+                    document.querySelector('#cmtx_upload_modal .cmtx_modal_body').innerHTML = ('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_num.replace('%d', cmtx_js_settings_form.maximum_upload_amount));
 
-                            if (cmtx_validate_upload(size, extension)) {
-                                var reader = new FileReader();
+                    document.body.appendChild(document.querySelector('#cmtx_upload_modal'));
 
-                                reader.onload = function(e) {
-                                    var src = e.target.result;
+                    document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
 
-                                    template = '';
+                    if (isInIframe) {
+                        var destination = document.querySelector('.cmtx_upload_container').getBoundingClientRect();
 
-                                    template += '<div class="cmtx_image_upload">';
-                                    template += '    <div class="cmtx_image_section">';
-                                    template += '        <img src="' + src + '" draggable="false" data-cmtx-size="' + size + '">';
-                                    template += '        <span class="cmtx_image_overlay">' + size + ' MB</span>';
-                                    template += '    </div>';
-                                    template += '    <div class="cmtx_button_section">';
-                                    template += '        <button type="button" class="cmtx_button cmtx_button_remove" title="' + cmtx_js_settings_form.lang_button_remove + '">' + cmtx_js_settings_form.lang_button_remove + '</button>';
-                                    template += '    </div>';
-                                    template += '</div>';
+                        document.querySelector('#cmtx_upload_modal').style.top = destination.top + 50 + 'px';
 
-                                    jQuery('.cmtx_image_container').append(template);
-                                    jQuery('.cmtx_image_row').show();
-                                };
+                        document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
+                    }
 
-                                reader.readAsDataURL(image);
+                    cmtxFadeIn('.cmtx_overlay', 200);
+
+                    cmtxFadeIn('#cmtx_upload_modal', 200);
+
+                    return false;
+                }
+
+                if (size > cmtx_js_settings_form.maximum_upload_size) {
+                    document.querySelector('#cmtx_upload_modal .cmtx_modal_body').innerHTML = ('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_size.replace('%.1f', cmtx_js_settings_form.maximum_upload_size));
+
+                    document.body.appendChild(document.querySelector('#cmtx_upload_modal'));
+
+                    document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+                    if (isInIframe) {
+                        var destination = document.querySelector('.cmtx_upload_container').getBoundingClientRect();
+
+                        document.querySelector('#cmtx_upload_modal').style.top = destination.top + 50 + 'px';
+
+                        document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
+                    }
+
+                    cmtxFadeIn('.cmtx_overlay', 200);
+
+                    cmtxFadeIn('#cmtx_upload_modal', 200);
+
+                    return false;
+                }
+
+                if (total_size > cmtx_js_settings_form.maximum_upload_total) {
+                    document.querySelector('#cmtx_upload_modal .cmtx_modal_body').innerHTML = ('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_total.replace('%.1f', cmtx_js_settings_form.maximum_upload_total));
+
+                    document.body.appendChild(document.querySelector('#cmtx_upload_modal'));
+
+                    document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+                    if (isInIframe) {
+                        var destination = document.querySelector('.cmtx_upload_container').getBoundingClientRect();
+
+                        document.querySelector('#cmtx_upload_modal').style.top = destination.top + 50 + 'px';
+
+                        document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
+                    }
+
+                    cmtxFadeIn('.cmtx_overlay', 200);
+
+                    cmtxFadeIn('#cmtx_upload_modal', 200);
+
+                    return false;
+                }
+
+                if (!['gif', 'jpg', 'jpeg', 'png'].includes(extension)) {
+                    document.querySelector('#cmtx_upload_modal .cmtx_modal_body').innerHTML = ('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_type);
+
+                    document.body.appendChild(document.querySelector('#cmtx_upload_modal'));
+
+                    document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+                    if (isInIframe) {
+                        var destination = document.querySelector('.cmtx_upload_container').getBoundingClientRect();
+
+                        document.querySelector('#cmtx_upload_modal').style.top = destination.top + 50 + 'px';
+
+                        document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
+                    }
+
+                    cmtxFadeIn('.cmtx_overlay', 200);
+
+                    cmtxFadeIn('#cmtx_upload_modal', 200);
+
+                    return false;
+                }
+
+                return true;
+            }
+        }
+    }
+
+    /* Populate countries field */
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        if (cmtx_js_settings_form.enabled_country) {
+            document.querySelector('#cmtx_country').innerHTML = ('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
+
+            var request = cmtxFetch(cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getCountries', {
+                body: ''
+            });
+
+            request.then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                setTimeout(function() {
+                    countries = data;
+
+                    html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_country + '</option>';
+
+                    if (countries.length) {
+                        for (i = 0; i < countries.length; i++) {
+                            html += '<option value="' + countries[i]['id'] + '"';
+
+                            if (countries[i]['name'] == '---') {
+                                html += ' disabled';
+                            } else if (countries[i]['id'] == cmtx_js_settings_form.country_id) {
+                                html += ' selected';
                             }
+
+                            html += '>' + countries[i]['name'] + '</option>';
                         }
                     }
 
-                    jQuery('.cmtx_upload_container').bind('dragenter', function(e) {
-                        e.preventDefault();
+                    document.querySelector('#cmtx_country').innerHTML = html;
 
-                        e.stopPropagation();
-                    });
-
-                    jQuery('.cmtx_upload_container').bind('dragover', function(e) {
-                        e.preventDefault();
-
-                        e.stopPropagation();
-
-                        jQuery('.cmtx_upload_container').addClass('cmtx_dragging');
-                    });
-
-                    jQuery('.cmtx_upload_container').bind('dragleave', function(e) {
-                        e.preventDefault();
-
-                        e.stopPropagation();
-
-                        jQuery('.cmtx_upload_container').removeClass('cmtx_dragging');
-                    });
-
-                    jQuery('body').on('click', '.cmtx_button_remove', function(e) {
-                        e.preventDefault();
-
-                        jQuery(this).closest('.cmtx_image_upload').remove();
-
-                        // Hide container if no images
-                        var num_images = jQuery('.cmtx_image_upload').length;
-
-                        if (num_images == 0) {
-                            jQuery('.cmtx_image_row').hide();
-                        }
-                    });
-
-                    jQuery('body').on('drop', '#cmtx_upload', function(e) {
-                        e.preventDefault();
-
-                        e.stopPropagation();
-
-                        if (e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files.length) {
-                            cmtx_upload(e.originalEvent.dataTransfer.files[0]);
-                        }
-                    });
-
-                    function cmtx_validate_upload(size, extension) {
-                        var num_images = jQuery('.cmtx_image_upload').length;
-
-                        var total_size = 0;
-
-                        jQuery('.cmtx_image_upload').each(function() {
-                            total_size = Number(total_size) + Number(jQuery(this).find('img').attr('data-cmtx-size'));
-                        });
-
-                        total_size = Number(total_size) + Number(size);
-
-                        if (num_images >= cmtx_js_settings_form.maximum_upload_amount) {
-                            jQuery('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_num.replace('%d', cmtx_js_settings_form.maximum_upload_amount));
-
-                            jQuery('body').append(jQuery('#cmtx_upload_modal'));
-
-                            jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                            if (isInIframe) {
-                                var destination = jQuery('.cmtx_upload_container').offset();
-
-                                jQuery('#cmtx_upload_modal').css({top: destination.top + 50});
-
-                                jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                            }
-
-                            jQuery('.cmtx_overlay').fadeIn(200);
-
-                            jQuery('#cmtx_upload_modal').fadeIn(200);
-
-                            return false;
-                        }
-
-                        if (size > cmtx_js_settings_form.maximum_upload_size) {
-                            jQuery('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_size.replace('%.1f', cmtx_js_settings_form.maximum_upload_size));
-
-                            jQuery('body').append(jQuery('#cmtx_upload_modal'));
-
-                            jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                            if (isInIframe) {
-                                var destination = jQuery('.cmtx_upload_container').offset();
-
-                                jQuery('#cmtx_upload_modal').css({top: destination.top + 50});
-
-                                jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                            }
-
-                            jQuery('.cmtx_overlay').fadeIn(200);
-
-                            jQuery('#cmtx_upload_modal').fadeIn(200);
-
-                            return false;
-                        }
-
-                        if (total_size > cmtx_js_settings_form.maximum_upload_total) {
-                            jQuery('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_total.replace('%.1f', cmtx_js_settings_form.maximum_upload_total));
-
-                            jQuery('body').append(jQuery('#cmtx_upload_modal'));
-
-                            jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                            if (isInIframe) {
-                                var destination = jQuery('.cmtx_upload_container').offset();
-
-                                jQuery('#cmtx_upload_modal').css({top: destination.top + 50});
-
-                                jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                            }
-
-                            jQuery('.cmtx_overlay').fadeIn(200);
-
-                            jQuery('#cmtx_upload_modal').fadeIn(200);
-
-                            return false;
-                        }
-
-                        if (jQuery.inArray(extension, ['gif', 'jpg', 'jpeg', 'png']) == -1) {
-                            jQuery('#cmtx_upload_modal .cmtx_modal_body').html('<span class="cmtx_icon cmtx_alert_icon" aria-hidden="true"></span> ' + cmtx_js_settings_form.lang_error_file_type);
-
-                            jQuery('body').append(jQuery('#cmtx_upload_modal'));
-
-                            jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                            if (isInIframe) {
-                                var destination = jQuery('.cmtx_upload_container').offset();
-
-                                jQuery('#cmtx_upload_modal').css({top: destination.top + 50});
-
-                                jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                            }
-
-                            jQuery('.cmtx_overlay').fadeIn(200);
-
-                            jQuery('#cmtx_upload_modal').fadeIn(200);
-
-                            return false;
-                        }
-
-                        return true;
+                    if (cmtx_js_settings_form.enabled_state) {
+                        // trigger change event
+                        document.querySelector('#cmtx_country').dispatchEvent(new Event('change'));
                     }
+                }, 500);
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
                 }
-            }
+            });
+        }
+    }
 
-            /* Populate countries field */
-            if (typeof(cmtx_js_settings_form) != 'undefined') {
-                if (cmtx_js_settings_form.enabled_country) {
-                    var request = jQuery.ajax({
-                        type: 'POST',
-                        cache: false,
-                        url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getCountries',
-                        dataType: 'json',
-                        beforeSend: function() {
-                            jQuery('#cmtx_country').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
-                        }
+    /* Populate states field (when country field is enabled) */
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        if (cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
+            document.querySelector('#cmtx_country').addEventListener('change', function() {
+                document.querySelector('#cmtx_state').innerHTML = ('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
+
+                var country_id = document.querySelector('#cmtx_country').value;
+
+                if (country_id) {
+                    var request = cmtxFetch(cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates', {
+                        body: 'country_id=' + encodeURIComponent(country_id)
                     });
 
-                    request.done(function(response) {
+                    request.then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
                         setTimeout(function() {
-                            countries = response;
-
-                            html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_country + '</option>';
-
-                            if (countries.length) {
-                                for (i = 0; i < countries.length; i++) {
-                                    html += '<option value="' + countries[i]['id'] + '"';
-
-                                    if (countries[i]['name'] == '---') {
-                                        html += ' disabled';
-                                    } else if (countries[i]['id'] == cmtx_js_settings_form.country_id) {
-                                        html += ' selected';
-                                    }
-
-                                    html += '>' + countries[i]['name'] + '</option>';
-                                }
-                            }
-
-                            jQuery('#cmtx_country').html(html);
-
-                            if (cmtx_js_settings_form.enabled_state) {
-                                jQuery('#cmtx_country').trigger('change');
-                            }
-                        }, 500);
-                    });
-
-                    request.fail(function(jqXHR, textStatus, errorThrown) {
-                        if (console && console.log) {
-                            console.log(jqXHR.responseText);
-                        }
-                    });
-                }
-            }
-
-            /* Populate states field (when country field is enabled) */
-            if (typeof(cmtx_js_settings_form) != 'undefined') {
-                if (cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
-                    jQuery('#cmtx_country').bind('change', function() {
-                        var country_id = encodeURIComponent(jQuery('#cmtx_country').val());
-
-                        if (country_id) {
-                            var request = jQuery.ajax({
-                                type: 'POST',
-                                cache: false,
-                                url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates',
-                                data: 'country_id=' + country_id,
-                                dataType: 'json',
-                                beforeSend: function() {
-                                    jQuery('#cmtx_state').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
-                                }
-                            });
-
-                            request.done(function(response) {
-                                setTimeout(function() {
-                                    states = response;
-
-                                    html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
-
-                                    if (states.length) {
-                                        for (i = 0; i < states.length; i++) {
-                                            html += '<option value="' + states[i]['id'] + '"';
-
-                                            if (states[i]['id'] == cmtx_js_settings_form.state_id) {
-                                                html += ' selected';
-                                            }
-
-                                            html += '>' + states[i]['name'] + '</option>';
-                                        }
-                                    } else {
-                                        html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
-                                    }
-
-                                    jQuery('#cmtx_state').html(html);
-
-                                    jQuery('#cmtx_state').trigger('change');
-                                }, 500);
-                            });
-
-                            request.fail(function(jqXHR, textStatus, errorThrown) {
-                                if (console && console.log) {
-                                    console.log(jqXHR.responseText);
-                                }
-                            });
-                        } else {
-                            html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
-
-                            html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
-
-                            jQuery('#cmtx_state').html(html);
-                        }
-                    });
-
-                    jQuery('#cmtx_country').trigger('change');
-                }
-            }
-
-            /* Populate states field (when country field is disabled) */
-            if (typeof(cmtx_js_settings_form) != 'undefined') {
-                if (!cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
-                    var request = jQuery.ajax({
-                        type: 'POST',
-                        cache: false,
-                        url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates',
-                        data: 'country_id=0',
-                        dataType: 'json',
-                        beforeSend: function() {
-                            jQuery('#cmtx_state').html('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
-                        }
-                    });
-
-                    request.done(function(response) {
-                        setTimeout(function() {
-                            states = response;
+                            states = data;
 
                             html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
 
@@ -754,1494 +739,1837 @@ var cmtx_wait_for_jquery = setInterval(function() {
 
                                     html += '>' + states[i]['name'] + '</option>';
                                 }
+                            } else {
+                                html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
                             }
 
-                            jQuery('#cmtx_state').html(html);
+                            document.querySelector('#cmtx_state').innerHTML = html;
 
-                            jQuery('#cmtx_state').trigger('change');
+                            document.querySelector('#cmtx_state').dispatchEvent(new Event('change'));
                         }, 500);
-                    });
-
-                    request.fail(function(jqXHR, textStatus, errorThrown) {
+                    }).catch(function(error) {
                         if (console && console.log) {
-                            console.log(jqXHR.responseText);
+                            console.log(error);
                         }
                     });
+                } else {
+                    html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
+
+                    html += '<option value="" disabled>' + cmtx_js_settings_form.lang_text_country_first + '</option>';
+
+                    document.querySelector('#cmtx_state').innerHTML = html;
                 }
+            });
+
+            document.querySelector('#cmtx_country').dispatchEvent(new Event('change'));
+        }
+    }
+
+    /* Populate states field (when country field is disabled) */
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        if (!cmtx_js_settings_form.enabled_country && cmtx_js_settings_form.enabled_state) {
+            document.querySelector('#cmtx_state').innerHTML = ('<option value="">' + cmtx_js_settings_form.lang_text_loading + '</option>');
+
+            var request = cmtxFetch(cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/getStates', {
+                body: 'country_id=0'
+            });
+
+            request.then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                setTimeout(function() {
+                    states = data;
+
+                    html = '<option value="" hidden>' + cmtx_js_settings_form.lang_placeholder_state + '</option>';
+
+                    if (states.length) {
+                        for (i = 0; i < states.length; i++) {
+                            html += '<option value="' + states[i]['id'] + '"';
+
+                            if (states[i]['id'] == cmtx_js_settings_form.state_id) {
+                                html += ' selected';
+                            }
+
+                            html += '>' + states[i]['name'] + '</option>';
+                        }
+                    }
+
+                    document.querySelector('#cmtx_state').innerHTML = html;
+
+                    document.querySelector('#cmtx_state').dispatchEvent(new Event('change'));
+                }, 500);
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
+        }
+    }
+
+    /* Image captcha */
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        if (cmtx_js_settings_form.captcha) {
+            document.querySelector('#cmtx_captcha_refresh').addEventListener('click', function() {
+                var src = cmtx_js_settings_form.captcha_url + '&' + Math.random();
+
+                document.querySelector('#cmtx_captcha_image').setAttribute('src', src);
+            });
+        }
+    }
+
+    /* Submit or preview a comment */
+    document.querySelectorAll('#cmtx_submit_button, #cmtx_preview_button').forEach(function(element) {
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            cmtxRemoveIfExists('.cmtx_upload_field');
+
+            document.querySelectorAll('.cmtx_image_upload').forEach(function(element) {
+                var image = element.querySelector('img').getAttribute('src');
+
+                document.querySelector('#cmtx_form').insertAdjacentHTML('beforeend', '<input type="hidden" name="cmtx_upload[]" class="cmtx_upload_field" value="' + image + '">');
+            });
+
+            // Find any disabled inputs and remove the "disabled" attribute
+            var disabled = document.querySelector('#cmtx_form').querySelectorAll('input:disabled').forEach(function(element) {
+                element.removeAttribute('disabled');
+            });
+
+            // Serialize the form
+            var serialized = new URLSearchParams(new FormData(document.querySelector('#cmtx_form')));
+
+            // Re-disable the set of inputs that were originally disabled
+            if (disabled) {
+                disabled.forEach(function(element) {
+                    element.setAttribute('disabled', 'disabled');
+                });
             }
 
-            /* Image captcha */
-            if (typeof(cmtx_js_settings_form) != 'undefined') {
-                if (cmtx_js_settings_form.captcha) {
-                    jQuery('#cmtx_captcha_refresh').click(function() {
-                        var src = cmtx_js_settings_form.captcha_url + '&' + Math.random();
+            document.querySelectorAll('#cmtx_submit_button, #cmtx_preview_button').forEach(function(element) {
+                element.value = cmtx_js_settings_form.lang_button_processing;
+            });
 
-                        jQuery('#cmtx_captcha_image').attr('src', src);
+            document.querySelectorAll('#cmtx_submit_button, #cmtx_preview_button').forEach(function(element) {
+                element.disabled = true;
+                element.classList.add('cmtx_button_disabled');
+            });
+
+            var request = cmtxFetch(cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/submit', {
+                body: serialized + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id) + '&cmtx_type=' + encodeURIComponent(this.getAttribute('data-cmtx-type')) + document.querySelector('#cmtx_hidden_data').value
+            });
+
+            request.then(function(response) {
+                document.querySelector('#cmtx_submit_button').value = cmtx_js_settings_form.lang_button_submit;
+
+                if (document.querySelector('#cmtx_preview_button')) {
+                    document.querySelector('#cmtx_preview_button').value = cmtx_js_settings_form.lang_button_preview;
+                }
+
+                document.querySelectorAll('#cmtx_submit_button, #cmtx_preview_button').forEach(function(element) {
+                    element.disabled = false;
+                    element.classList.remove('cmtx_button_disabled');
+                });
+
+                document.querySelector('#cmtx_comment').classList.add('cmtx_comment_field_active');
+
+                document.querySelector('.cmtx_comment_container').classList.add('cmtx_comment_container_active');
+
+                cmtxFadeIn('.cmtx_wait_for_user, .cmtx_wait_for_comment', 600, '.cmtx_headline_row, .cmtx_rating_row');
+
+                if (document.querySelector('input[name="cmtx_reply_to"]').value == '') {
+                    cmtxFadeIn('.cmtx_headline_row', 600);
+                    cmtxFadeIn('.cmtx_rating_row', 600);
+                }
+
+                return response.json();
+            }).then(function(data) {
+                cmtxRemoveIfExists('.cmtx_message:not(.cmtx_message_reply), .cmtx_error');
+
+                document.querySelectorAll('.cmtx_field, .cmtx_rating').forEach(function(element) {
+                    element.classList.remove('cmtx_field_error');
+                });
+
+                if (data['result']['preview']) {
+                    document.querySelector('#cmtx_preview').innerHTML = data['result']['preview'];
+
+                    cmtxTimeago();
+                    cmtxHighlightCode();
+                } else {
+                    document.querySelector('#cmtx_preview').innerHTML = '';
+                }
+
+                if (data['result']['success']) {
+                    cmtxRemoveIfExists('.cmtx_message');
+
+                    document.querySelectorAll('#cmtx_comment, #cmtx_headline, #cmtx_answer, [name^="cmtx_field_"], #cmtx_captcha').forEach(function(element) {
+                        element.value = '';
                     });
+
+                    cmtxUpdateCommentCounter();
+
+                    cmtxRemoveIfExists('.cmtx_image_upload');
+
+                    cmtxHide('.cmtx_image_row');
+
+                    document.querySelectorAll('input[name="cmtx_rating"]').forEach(function(element) {
+                        element.checked = false;
+                        element.classList.remove('cmtx_rating_active');
+                    });
+
+                    if (data['hide_rating']) {
+                        cmtxRemoveIfExists('.cmtx_rating_row');
+                    }
+
+                    if (document.querySelector('#cmtx_captcha_refresh')) {
+                        document.querySelector('#cmtx_captcha_refresh').click();
+                    }
+
+                    if (typeof(grecaptcha) != 'undefined') {
+                        grecaptcha.reset();
+                    }
+
+                    document.querySelector('input[name="cmtx_reply_to"]').value = '';
+
+                    cmtxRemoveIfExists('.cmtx_message_reply');
+
+                    document.querySelector('#cmtx_form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_success">' + data['result']['success'] + '</div>');
+
+                    cmtxFadeIn('.cmtx_message_success', 200);
+
+                    if (data['user_link']) {
+                        document.querySelector('#cmtx_form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_info">' + data['user_link'] + '</div>');
+
+                        cmtxFadeIn('.cmtx_message_info', 200);
+                    }
+
+                    var options = {
+                        'commentics_url': cmtx_js_settings_form.commentics_url,
+                        'page_id'       : cmtx_js_settings_form.page_id,
+                        'page_number'   : '',
+                        'sort_by'       : '',
+                        'search'        : '',
+                        'effect'        : false
+                    }
+
+                    cmtxRefreshComments(options);
                 }
-            }
 
-            /* Submit or preview a comment */
-            jQuery('#cmtx_submit_button, #cmtx_preview_button').click(function(e) {
-                e.preventDefault();
+                if (data['result']['error']) {
+                    if (data['error']) {
+                        if (data['error']['comment']) {
+                            document.querySelector('#cmtx_comment').classList.add('cmtx_field_error');
 
-                jQuery('.cmtx_upload_field').remove();
-
-                jQuery('.cmtx_image_upload').each(function() {
-                    var image = jQuery(this).find('img').attr('src');
-
-                    jQuery('#cmtx_form').append('<input type="hidden" name="cmtx_upload[]" class="cmtx_upload_field" value="' + image + '">');
-                });
-
-                // Find any disabled inputs and remove the "disabled" attribute
-                var disabled = jQuery('#cmtx_form').find(':input:disabled').removeAttr('disabled');
-
-                // Serialize the form
-                var serialized = jQuery('#cmtx_form').serialize();
-
-                // Re-disable the set of inputs that were originally disabled
-                disabled.attr('disabled', 'disabled');
-
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/submit',
-                    data: serialized + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id) + '&cmtx_type=' + encodeURIComponent(jQuery(this).attr('data-cmtx-type')) + jQuery('#cmtx_hidden_data').val(),
-                    dataType: 'json',
-                    beforeSend: function() {
-                        jQuery('#cmtx_submit_button, #cmtx_preview_button').val(cmtx_js_settings_form.lang_button_processing);
-
-                        jQuery('#cmtx_submit_button, #cmtx_preview_button').prop('disabled', true);
-
-                        jQuery('#cmtx_submit_button, #cmtx_preview_button').addClass('cmtx_button_disabled');
-                    }
-                });
-
-                request.always(function() {
-                    jQuery('#cmtx_submit_button').val(cmtx_js_settings_form.lang_button_submit);
-
-                    jQuery('#cmtx_preview_button').val(cmtx_js_settings_form.lang_button_preview);
-
-                    jQuery('#cmtx_submit_button, #cmtx_preview_button').prop('disabled', false);
-
-                    jQuery('#cmtx_submit_button, #cmtx_preview_button').removeClass('cmtx_button_disabled');
-
-                    jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
-
-                    jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
-
-                    jQuery('.cmtx_wait_for_user, .cmtx_wait_for_comment').not('.cmtx_headline_row, .cmtx_rating_row').fadeIn('slow');
-
-                    if (jQuery('input[name="cmtx_reply_to"]').val() == '') {
-                        jQuery('.cmtx_headline_row').fadeIn('slow');
-
-                        jQuery('.cmtx_rating_row').fadeIn('slow');
-                    }
-                });
-
-                request.done(function(response) {
-                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
-
-                    jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
-
-                    if (response['result']['preview']) {
-                        jQuery('#cmtx_preview').html(response['result']['preview']);
-
-                        cmtxHighlightCode();
-                    } else {
-                        jQuery('#cmtx_preview').html('');
-                    }
-
-                    if (response['result']['success']) {
-                        jQuery('.cmtx_message').remove();
-
-                        jQuery('#cmtx_comment, #cmtx_headline, #cmtx_answer, [name^="cmtx_field_"], #cmtx_captcha').val('');
-
-                        cmtxUpdateCommentCounter();
-
-                        jQuery('.cmtx_image_upload').remove();
-
-                        jQuery('.cmtx_image_row').hide();
-
-                        jQuery('input[name="cmtx_rating"]').prop('checked', false).removeClass('cmtx_rating_active');
-
-                        if (response['hide_rating']) {
-                            jQuery('.cmtx_rating_row').remove();
+                            document.querySelector('#cmtx_comment').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['comment'] + '</span>');
                         }
 
-                        jQuery('#cmtx_captcha_refresh').trigger('click');
+                        if (data['error']['headline']) {
+                            document.querySelector('#cmtx_headline').classList.add('cmtx_field_error');
 
-                        if (typeof(grecaptcha) != 'undefined') {
+                            document.querySelector('#cmtx_headline').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['headline'] + '</span>');
+                        }
+
+                        if (data['error']['name']) {
+                            document.querySelector('#cmtx_name').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_name').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['name'] + '</span>');
+                        }
+
+                        if (data['error']['email']) {
+                            document.querySelector('#cmtx_email').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_email').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['email'] + '</span>');
+                        }
+
+                        if (data['error']['rating']) {
+                            document.querySelector('#cmtx_rating').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_rating').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['rating'] + '</span>');
+                        }
+
+                        if (data['error']['website']) {
+                            document.querySelector('#cmtx_website').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_website').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['website'] + '</span>');
+                        }
+
+                        if (data['error']['town']) {
+                            document.querySelector('#cmtx_town').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_town').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['town'] + '</span>');
+                        }
+
+                        if (data['error']['country']) {
+                            document.querySelector('#cmtx_country').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_country').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['country'] + '</span>');
+                        }
+
+                        if (data['error']['state']) {
+                            document.querySelector('#cmtx_state').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_state').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['state'] + '</span>');
+                        }
+
+                        if (data['error']['answer']) {
+                            document.querySelector('#cmtx_answer').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_answer').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['answer'] + '</span>');
+                        }
+
+                        for (var field in data['error']) {
+                            if (field.startsWith('cmtx_field_')) {
+                                document.querySelector('[name="' + field + '"]').classList.add('cmtx_field_error');
+
+                                document.querySelector('[name="' + field + '"]').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error'][field] + '</span>');
+                            }
+                        }
+
+                        if (data['error']['recaptcha']) {
+                            document.querySelector('#g-recaptcha').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['recaptcha'] + '</span>');
+
                             grecaptcha.reset();
                         }
 
-                        jQuery('input[name="cmtx_reply_to"]').val('');
+                        if (data['error']['captcha']) {
+                            document.querySelector('#cmtx_captcha').classList.add('cmtx_field_error');
 
-                        jQuery('.cmtx_message_reply').remove();
+                            document.querySelector('#cmtx_captcha').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['captcha'] + '</span>');
 
-                        jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_success">' + response['result']['success'] + '</div>');
+                            document.querySelector('#cmtx_captcha_refresh').click();
 
-                        jQuery('.cmtx_message_success').fadeIn(1500);
-
-                        if (response['user_link']) {
-                            jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_info">' + response['user_link'] + '</div>');
-
-                            jQuery('.cmtx_message_info').fadeIn(1500);
+                            document.querySelector('#cmtx_captcha').value = '';
                         }
-
-                        var options = {
-                            'commentics_url': cmtx_js_settings_form.commentics_url,
-                            'page_id'       : cmtx_js_settings_form.page_id,
-                            'page_number'   : '',
-                            'sort_by'       : '',
-                            'search'        : '',
-                            'effect'        : false
-                        }
-
-                        cmtxRefreshComments(options);
                     }
 
-                    if (response['result']['error']) {
-                        if (response['error']) {
-                            if (response['error']['comment']) {
-                                jQuery('#cmtx_comment').addClass('cmtx_field_error');
+                    document.querySelector('#cmtx_form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_error">' + data['result']['error'] + '</div>');
 
-                                jQuery('#cmtx_comment').after('<span class="cmtx_error">' + response['error']['comment'] + '</span>');
-                            }
+                    cmtxFadeIn('.cmtx_message_error, .cmtx_error', 2000);
+                }
 
-                            if (response['error']['headline']) {
-                                jQuery('#cmtx_headline').addClass('cmtx_field_error');
+                if (data['question']) {
+                    document.querySelector('#cmtx_question').textContent = data['question'];
+                }
 
-                                jQuery('#cmtx_headline').after('<span class="cmtx_error">' + response['error']['headline'] + '</span>');
-                            }
+                cmtxAutoScroll(document.querySelector('#cmtx_form_container'));
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
+        });
+    });
 
-                            if (response['error']['name']) {
-                                jQuery('#cmtx_name').addClass('cmtx_field_error');
+    /* Show a bio popup when hovering over the avatar image */
+    function cmtxBioPopup() {
+        document.querySelectorAll('.cmtx_avatar_area').forEach(function(element) {
+            element.addEventListener('mouseenter', (e) => {
+                cmtxFadeIn(e.target.querySelector('.cmtx_bio'), 750);
+            });
+        });
 
-                                jQuery('#cmtx_name').after('<span class="cmtx_error">' + response['error']['name'] + '</span>');
-                            }
+        document.querySelectorAll('.cmtx_avatar_area').forEach(function(element) {
+            element.addEventListener('mouseleave', (e) => {
+                cmtxFadeOut(e.target.querySelector('.cmtx_bio'), 750);
+            });
+        });
 
-                            if (response['error']['email']) {
-                                jQuery('#cmtx_email').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_email').after('<span class="cmtx_error">' + response['error']['email'] + '</span>');
-                            }
-
-                            if (response['error']['rating']) {
-                                jQuery('#cmtx_rating').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_rating').after('<span class="cmtx_error">' + response['error']['rating'] + '</span>');
-                            }
-
-                            if (response['error']['website']) {
-                                jQuery('#cmtx_website').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_website').after('<span class="cmtx_error">' + response['error']['website'] + '</span>');
-                            }
-
-                            if (response['error']['town']) {
-                                jQuery('#cmtx_town').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_town').after('<span class="cmtx_error">' + response['error']['town'] + '</span>');
-                            }
-
-                            if (response['error']['country']) {
-                                jQuery('#cmtx_country').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_country').after('<span class="cmtx_error">' + response['error']['country'] + '</span>');
-                            }
-
-                            if (response['error']['state']) {
-                                jQuery('#cmtx_state').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_state').after('<span class="cmtx_error">' + response['error']['state'] + '</span>');
-                            }
-
-                            if (response['error']['answer']) {
-                                jQuery('#cmtx_answer').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_answer').after('<span class="cmtx_error">' + response['error']['answer'] + '</span>');
-                            }
-
-                            for (var field in response['error']) {
-                                if (field.startsWith('cmtx_field_')) {
-                                    jQuery('[name="' + field + '"]').addClass('cmtx_field_error');
-
-                                    jQuery('[name="' + field + '"]').after('<span class="cmtx_error">' + response['error'][field] + '</span>');
-                                }
-                            }
-
-                            if (response['error']['recaptcha']) {
-                                jQuery('#g-recaptcha').after('<span class="cmtx_error">' + response['error']['recaptcha'] + '</span>');
-
-                                grecaptcha.reset();
-                            }
-
-                            if (response['error']['captcha']) {
-                                jQuery('#cmtx_captcha').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_captcha').after('<span class="cmtx_error">' + response['error']['captcha'] + '</span>');
-
-                                jQuery('#cmtx_captcha_refresh').trigger('click');
-
-                                jQuery('#cmtx_captcha').val('');
-                            }
-                        }
-
-                        jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
-
-                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
-                    }
-
-                    if (response['question']) {
-                        jQuery('#cmtx_question').text(response['question']);
-                    }
-
-                    cmtxAutoScroll(jQuery('#cmtx_form_container'));
-                });
-
-                request.fail(function(jqXHR, textStatus, errorThrown) {
-                    if (console && console.log) {
-                        console.log(jqXHR.responseText);
-                    }
+        if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+            document.querySelectorAll('.cmtx_bio').forEach(function(element) {
+                element.addEventListener('mouseenter', (e) => {
+                    cmtxFadeOut(e.target, 750);
                 });
             });
+        }
+    }
 
-            /* Show a bio popup when hovering over the avatar image */
-            jQuery('body').on('mouseenter', '.cmtx_avatar_area', function() {
-                jQuery(this).find('.cmtx_bio').stop(true, true).fadeIn(750);
-            });
+    /* Show replies when view replies link is clicked */
+    document.addEventListener('click', function(e) {
+        var view_replies_link = e.target.closest('.cmtx_view_replies_link');
 
-            jQuery('body').on('mouseleave', '.cmtx_avatar_area', function() {
-                jQuery(this).find('.cmtx_bio').stop(true, true).fadeOut(500);
-            });
+        if (view_replies_link) {
+            e.preventDefault();
 
-            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-                jQuery('body').on('mouseenter', '.cmtx_bio', function() {
-                    jQuery(this).stop(true, true).fadeOut(500);
-                });
+            cmtxHide(view_replies_link.parentElement);
+
+            cmtxFadeIn(view_replies_link.closest('.cmtx_comment_box').nextElementSibling, 600);
+        }
+    });
+
+    /* Sort by */
+    document.addEventListener('change', function(e) {
+        if (e.target && e.target.matches('.cmtx_sort_by_field')) {
+            e.preventDefault();
+
+            var options = {
+                'commentics_url': cmtx_js_settings_comments.commentics_url,
+                'page_id'       : cmtx_js_settings_comments.page_id,
+                'page_number'   : '',
+                'sort_by'       : e.target.value,
+                'search'        : cmtxGetSearchValue(),
+                'effect'        : true
             }
 
-            /* Show replies when view replies link is clicked */
-            jQuery('body').on('click', '.cmtx_view_replies_link', function(e) {
-                e.preventDefault();
+            cmtxRefreshComments(options);
+        }
+    });
 
-                jQuery(this).parent().hide();
-
-                jQuery(this).closest('.cmtx_comment_box').next().fadeIn('slow');
+    /* Search */
+    function cmtxSearchFocus() {
+        document.querySelectorAll('.cmtx_search').forEach(function(element) {
+            element.addEventListener('focus', function() {
+                this.classList.add('cmtx_search_focus');
             });
+        });
+    }
 
-            /* Sort by */
-            jQuery('#cmtx_container').on('change', '.cmtx_sort_by_field', function(e) {
-                e.preventDefault();
-
-                var options = {
-                    'commentics_url': cmtx_js_settings_comments.commentics_url,
-                    'page_id'       : cmtx_js_settings_comments.page_id,
-                    'page_number'   : '',
-                    'sort_by'       : jQuery(this).val(),
-                    'search'        : cmtxGetSearchValue(),
-                    'effect'        : true
-                }
-
-                cmtxRefreshComments(options);
-            });
-
-            /* Search */
-            jQuery('#cmtx_container').on('focus', '.cmtx_search', function(e) {
-                jQuery(this).addClass('cmtx_search_focus');
-            });
-
-            jQuery('#cmtx_container').on('click', '.cmtx_search_container .fa-search', function(e) {
-                e.preventDefault();
-
-                var options = {
-                    'commentics_url': cmtx_js_settings_comments.commentics_url,
-                    'page_id'       : cmtx_js_settings_comments.page_id,
-                    'page_number'   : '',
-                    'sort_by'       : cmtxGetSortByValue(),
-                    'search'        : jQuery(this).prev().val(),
-                    'effect'        : true
-                }
-
-                cmtxRefreshComments(options);
-            });
-
-            jQuery('#cmtx_container').on('keypress', '.cmtx_search', function(e) {
-                if (e.which == 13) {
-                    jQuery(this).next().trigger('click');
+    function cmtxSearchEnter() {
+        document.querySelectorAll('.cmtx_search').forEach(function(element) {
+            element.addEventListener('keypress', function(e) {
+                if (e.key == 'Enter') {
+                    e.target.nextElementSibling.click();
                 }
             });
+        });
+    }
 
-            /* Average rating */
-            jQuery('#cmtx_container').on('click', '.cmtx_average_rating_can_rate label', function(e) {
-                e.preventDefault();
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_search_container .fa-search')) {
+            e.preventDefault();
 
-                var element = jQuery(this);
+            var options = {
+                'commentics_url': cmtx_js_settings_comments.commentics_url,
+                'page_id'       : cmtx_js_settings_comments.page_id,
+                'page_number'   : '',
+                'sort_by'       : cmtxGetSortByValue(),
+                'search'        : e.target.previousElementSibling.value,
+                'effect'        : true
+            }
 
-                var rating = jQuery(this).prev().val();
+            cmtxRefreshComments(options);
+        }
+    });
 
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=part/average_rating/rate',
-                    data: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id) + '&cmtx_rating=' + encodeURIComponent(rating),
-                    dataType: 'json'
-                });
+    /* Average rating */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_average_rating_can_rate label')) {
+            e.preventDefault();
 
-                request.done(function(response) {
-                    if (response['success']) {
-                        jQuery('.cmtx_average_rating input').prop('checked', false);
+            var element = e.target;
 
-                        jQuery('.cmtx_average_rating input[value=' + response['average_rating'] + ']').prop('checked', true);
+            var rating = element.querySelector('input').value;
 
-                        jQuery('.cmtx_average_rating_stat_rating, .cmtx_average_rating_stat_number').fadeOut(250, function() {
-                            jQuery('.cmtx_average_rating_stat_rating').text(response['average_rating']).fadeIn(2000);
-
-                            jQuery('.cmtx_average_rating_stat_number').text(response['num_of_ratings']).fadeIn(2000);
-                        });
-
-                        jQuery('.cmtx_action_message_success').clearQueue();
-                        jQuery('.cmtx_action_message_success').html(response['success']);
-                        jQuery('.cmtx_action_message_success').fadeIn(500).delay(2000).fadeOut(500);
-
-                        var destination = element.offset();
-
-                        jQuery('.cmtx_action_message_success').offset({ top: destination.top - 25 , left: destination.left + 5 });
-                    }
-
-                    if (response['error']) {
-                        jQuery('.cmtx_action_message_error').clearQueue();
-                        jQuery('.cmtx_action_message_error').html(response['error']);
-                        jQuery('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
-
-                        var destination = element.offset();
-
-                        jQuery('.cmtx_action_message_error').offset({ top: destination.top - 25 , left: destination.left + 5 });
-                    }
-                });
-
-                request.fail(function(jqXHR, textStatus, errorThrown) {
-                    if (console && console.log) {
-                        console.log(jqXHR.responseText);
-                    }
-                });
+            var request = cmtxFetch(cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=part/average_rating/rate', {
+                body: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id) + '&cmtx_rating=' + encodeURIComponent(rating)
             });
 
-            /* Prevent users from clicking the stars if guest rating is disabled */
-            jQuery('#cmtx_container').on('click', '.cmtx_average_rating_cannot_rate label', function(e) {
-                e.preventDefault();
-            });
+            request.then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                if (data['success']) {
+                    document.querySelectorAll('.cmtx_average_rating input').forEach(function(element) {
+                        element.checked = false;
+                    });
 
-            /* Pagination */
-            jQuery('#cmtx_container').on('click', '.cmtx_pagination_url', function(e) {
-                e.preventDefault();
+                    document.querySelector('.cmtx_average_rating input[value="' + data['average_rating'] + '"]').checked = true;
 
-                // This is to stop multiple calls to this event.
-                // Occurs when pagination links shown twice (e.g. above and below comments).
-                e.stopImmediatePropagation();
+                    document.querySelector('.cmtx_average_rating_stat_rating').textContent = data['average_rating'];
+                    document.querySelector('.cmtx_average_rating_stat_number').textContent = data['num_of_ratings'];
 
-                var options = {
-                    'commentics_url': cmtx_js_settings_comments.commentics_url,
-                    'page_id'       : cmtx_js_settings_comments.page_id,
-                    'page_number'   : jQuery(this).find('span').attr('data-cmtx-page'),
-                    'sort_by'       : cmtxGetSortByValue(),
-                    'search'        : cmtxGetSearchValue(),
-                    'effect'        : true
+                    document.querySelector('.cmtx_action_message_success').innerHTML = data['success'];
+                    cmtxFadeInOut('.cmtx_action_message_success', 500, 2000, 500);
+
+                    var destination = element.getBoundingClientRect();
+
+                    document.querySelector('.cmtx_action_message_success').style.position = 'absolute';
+                    document.querySelector('.cmtx_action_message_success').style.top = (destination.top + cmtxGetScrollTop() - 25) + 'px';
+                    document.querySelector('.cmtx_action_message_success').style.left = (destination.left + 5) + 'px';
                 }
 
-                cmtxRefreshComments(options);
+                if (data['error']) {
+                    document.querySelector('.cmtx_action_message_error').innerHTML = data['error'];
+                    cmtxFadeInOut('.cmtx_action_message_error', 500, 2000, 500);
+
+                    var destination = element.getBoundingClientRect();
+
+                    document.querySelector('.cmtx_action_message_error').style.position = 'absolute';
+                    document.querySelector('.cmtx_action_message_error').style.top = (destination.top + cmtxGetScrollTop() - 25) + 'px';
+                    document.querySelector('.cmtx_action_message_error').style.left = (destination.left + 5) + 'px';
+                }
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    /* Prevent users from clicking the stars if guest rating is disabled */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_average_rating_cannot_rate label')) {
+            e.preventDefault();
+        }
+    });
+
+    /* Pagination */
+    document.addEventListener('click', function(e) {
+        var pagination_link = e.target.closest('.cmtx_pagination_url');
+
+        if (pagination_link) {
+            e.preventDefault();
+
+            // This is to stop multiple calls to this event.
+            // Occurs when pagination links shown twice (e.g. above and below comments).
+            e.stopImmediatePropagation();
+
+            var options = {
+                'commentics_url': cmtx_js_settings_comments.commentics_url,
+                'page_id'       : cmtx_js_settings_comments.page_id,
+                'page_number'   : pagination_link.querySelector('span').getAttribute('data-cmtx-page'),
+                'sort_by'       : cmtxGetSortByValue(),
+                'search'        : cmtxGetSearchValue(),
+                'effect'        : true
+            }
+
+            cmtxRefreshComments(options);
+        }
+    });
+
+    /* Notify */
+    document.addEventListener('click', function(e) {
+        var notify_link = e.target.closest('.cmtx_notify_block a');
+
+        if (notify_link) {
+            e.preventDefault();
+
+            document.querySelectorAll('.cmtx_message, .cmtx_error, .cmtx_subscribe_row').forEach(function(element) {
+                element.remove();
             });
 
-            /* Notify */
-            jQuery('#cmtx_container').on('click', '.cmtx_notify_block a', function(e) {
-                e.preventDefault();
+            document.querySelectorAll('.cmtx_field, .cmtx_rating').forEach(function(element) {
+                element.classList.remove('cmtx_field_error');
+            });
 
-                jQuery('.cmtx_message, .cmtx_error, .cmtx_subscribe_row').remove();
+            cmtxShow('.cmtx_wait_for_user');
 
-                jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
+            cmtxHide('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_image_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row');
 
-                jQuery('.cmtx_wait_for_user').show();
+            cmtxShow('.cmtx_question_row, .cmtx_captcha_row');
 
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_image_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row').hide();
+            if (document.querySelector('input[name="cmtx_subscribe"]').value == '') {
+                cmtx_heading_text = document.querySelector('.cmtx_form_heading').textContent;
+            }
 
-                jQuery('.cmtx_question_row, .cmtx_captcha_row').show();
+            document.querySelector('.cmtx_form_heading').textContent = cmtx_js_settings_notify.lang_heading_notify;
 
-                if (jQuery('input[name="cmtx_subscribe"]').val() == '') {
-                    cmtx_heading_text = jQuery('.cmtx_form_heading').text();
-                }
+            var notify_button = '';
 
-                jQuery('.cmtx_form_heading').text(cmtx_js_settings_notify.lang_heading_notify);
+            notify_button += '<div class="cmtx_row cmtx_button_row cmtx_subscribe_row cmtx_clear">';
 
-                var notify_button = '';
+                notify_button += '<div class="cmtx_col_2">';
 
-                notify_button += '<div class="cmtx_row cmtx_button_row cmtx_subscribe_row cmtx_clear">';
+                    notify_button += '<div class="cmtx_container cmtx_submit_button_container">';
 
-                    notify_button += '<div class="cmtx_col_2">';
-
-                        notify_button += '<div class="cmtx_container cmtx_submit_button_container">';
-
-                            notify_button += '<input type="button" id="cmtx_notify_button" class="cmtx_button cmtx_button_primary" value="' + cmtx_js_settings_notify.lang_button_notify + '" title="' + cmtx_js_settings_notify.lang_button_notify + '">';
-
-                        notify_button += '</div>';
+                        notify_button += '<input type="button" id="cmtx_notify_button" class="cmtx_button cmtx_button_primary" value="' + cmtx_js_settings_notify.lang_button_notify + '" title="' + cmtx_js_settings_notify.lang_button_notify + '">';
 
                     notify_button += '</div>';
 
-                    notify_button += '<div class="cmtx_col_10"></div>';
-
                 notify_button += '</div>';
 
-                jQuery('.cmtx_button_row').after(notify_button);
+                notify_button += '<div class="cmtx_col_10"></div>';
 
-                jQuery('input[name="cmtx_subscribe"]').val('1');
+            notify_button += '</div>';
 
-                jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_notify">' + cmtx_js_settings_notify.lang_text_notify_info + ' ' + '<a href="#" title="' + cmtx_js_settings_notify.lang_title_cancel_notify + '">' + cmtx_js_settings_notify.lang_link_cancel + '</a></div>');
+            document.querySelector('.cmtx_button_row').insertAdjacentHTML('afterend', notify_button);
 
-                cmtxAutoScroll(jQuery('#cmtx_form_container'));
+            document.querySelector('input[name="cmtx_subscribe"]').value = 1;
 
-                jQuery('.cmtx_message_notify').fadeIn(1000);
+            document.querySelector('#cmtx_form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_info cmtx_message_notify">' + cmtx_js_settings_notify.lang_text_notify_info + ' ' + '<a href="#" title="' + cmtx_js_settings_notify.lang_title_cancel_notify + '">' + cmtx_js_settings_notify.lang_link_cancel + '</a></div>');
+
+            cmtxAutoScroll(document.querySelector('#cmtx_form_container'));
+
+            cmtxFadeIn('.cmtx_message_notify', 1000);
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_message_notify a')) {
+            e.preventDefault();
+
+            cmtx_cancel_notify();
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('#cmtx_notify_button')) {
+            e.preventDefault();
+
+            // Find any disabled inputs and remove the "disabled" attribute
+            var disabled = document.querySelector('#cmtx_form').querySelectorAll('input:disabled').forEach(function(element) {
+                element.removeAttribute('disabled');
             });
 
-            jQuery('body').on('click', '.cmtx_message_notify a', function(e) {
-                e.preventDefault();
+            // Serialize the form
+            var serialized = new URLSearchParams(new FormData(document.querySelector('#cmtx_form')));
 
-                cmtx_cancel_notify();
+            // Re-disable the set of inputs that were originally disabled
+            if (disabled) {
+                disabled.forEach(function(element) {
+                    element.setAttribute('disabled', 'disabled');
+                });
+            }
+
+            document.querySelector('#cmtx_notify_button').value = cmtx_js_settings_notify.lang_button_processing;
+
+            document.querySelector('#cmtx_notify_button').disabled = true;
+
+            document.querySelector('#cmtx_notify_button').classList.add('cmtx_button_disabled');
+
+            var request = cmtxFetch(cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=part/notify/notify', {
+                body: serialized + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id) + document.querySelector('#cmtx_hidden_data').value
             });
 
-            jQuery('body').on('click', '#cmtx_notify_button', function(e) {
-                e.preventDefault();
+            request.then(function(response) {
+                document.querySelector('#cmtx_notify_button').value = cmtx_js_settings_notify.lang_button_notify;
 
-                // Find any disabled inputs and remove the "disabled" attribute
-                var disabled = jQuery('#cmtx_form').find(':input:disabled').removeAttr('disabled');
+                document.querySelector('#cmtx_notify_button').disabled = false;
 
-                // Serialize the form
-                var serialized = jQuery('#cmtx_form').serialize();
+                document.querySelector('#cmtx_notify_button').classList.remove('cmtx_button_disabled');
 
-                // Re-disable the set of inputs that were originally disabled
-                disabled.attr('disabled', 'disabled');
+                return response.json();
+            }).then(function(data) {
+                cmtxRemoveIfExists('.cmtx_message:not(.cmtx_message_notify');
 
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=part/notify/notify',
-                    data: serialized + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id) + jQuery('#cmtx_hidden_data').val(),
-                    dataType: 'json',
-                    beforeSend: function() {
-                        jQuery('#cmtx_notify_button').val(cmtx_js_settings_notify.lang_button_processing);
+                document.querySelectorAll('.cmtx_field, .cmtx_rating').forEach(function(element) {
+                    element.classList.remove('cmtx_field_error');
+                });
 
-                        jQuery('#cmtx_notify_button').prop('disabled', true);
+                if (data['result']['success']) {
+                    document.querySelector('#cmtx_answer').value = '';
+                    document.querySelector('#cmtx_captcha').value = '';
 
-                        jQuery('#cmtx_notify_button').addClass('cmtx_button_disabled');
+                    document.querySelector('#cmtx_captcha_refresh').click();
+
+                    if (typeof(grecaptcha) != 'undefined') {
+                        grecaptcha.reset();
                     }
-                });
 
-                request.always(function() {
-                    jQuery('#cmtx_notify_button').val(cmtx_js_settings_notify.lang_button_notify);
+                    cmtx_cancel_notify();
 
-                    jQuery('#cmtx_notify_button').prop('disabled', false);
+                    document.querySelector('#cmtx_form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_success">' + data['result']['success'] + '</div>');
 
-                    jQuery('#cmtx_notify_button').removeClass('cmtx_button_disabled');
-                });
+                    cmtxFadeIn('.cmtx_message_success', 1500);
+                }
 
-                request.done(function(response) {
-                    jQuery('.cmtx_message:not(.cmtx_message_notify), .cmtx_error').remove();
+                if (data['result']['error']) {
+                    if (data['error']) {
+                        if (data['error']['name']) {
+                            document.querySelector('#cmtx_name').classList.add('cmtx_field_error');
 
-                    jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
+                            document.querySelector('#cmtx_name').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['name'] + '</span>');
+                        }
 
-                    if (response['result']['success']) {
-                        jQuery('#cmtx_answer, #cmtx_captcha').val('');
+                        if (data['error']['email']) {
+                            document.querySelector('#cmtx_email').classList.add('cmtx_field_error');
 
-                        jQuery('#cmtx_captcha_refresh').trigger('click');
+                            document.querySelector('#cmtx_email').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['email'] + '</span>');
+                        }
 
-                        if (typeof(grecaptcha) != 'undefined') {
+                        if (data['error']['answer']) {
+                            document.querySelector('#cmtx_answer').classList.add('cmtx_field_error');
+
+                            document.querySelector('#cmtx_answer').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['answer'] + '</span>');
+                        }
+
+                        if (data['error']['recaptcha']) {
+                            document.querySelector('#g-recaptcha').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['recaptcha'] + '</span>');
+
                             grecaptcha.reset();
                         }
 
-                        cmtx_cancel_notify();
+                        if (data['error']['captcha']) {
+                            document.querySelector('#cmtx_captcha').classList.add('cmtx_field_error');
 
-                        jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_success">' + response['result']['success'] + '</div>');
+                            document.querySelector('#cmtx_captcha').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['captcha'] + '</span>');
 
-                        jQuery('.cmtx_message_success').fadeIn(1500);
-                    }
+                            document.querySelector('#cmtx_captcha_refresh').click();
 
-                    if (response['result']['error']) {
-                        if (response['error']) {
-                            if (response['error']['name']) {
-                                jQuery('#cmtx_name').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_name').after('<span class="cmtx_error">' + response['error']['name'] + '</span>');
-                            }
-
-                            if (response['error']['email']) {
-                                jQuery('#cmtx_email').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_email').after('<span class="cmtx_error">' + response['error']['email'] + '</span>');
-                            }
-
-                            if (response['error']['answer']) {
-                                jQuery('#cmtx_answer').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_answer').after('<span class="cmtx_error">' + response['error']['answer'] + '</span>');
-                            }
-
-                            if (response['error']['recaptcha']) {
-                                jQuery('#g-recaptcha').after('<span class="cmtx_error">' + response['error']['recaptcha'] + '</span>');
-
-                                grecaptcha.reset();
-                            }
-
-                            if (response['error']['captcha']) {
-                                jQuery('#cmtx_captcha').addClass('cmtx_field_error');
-
-                                jQuery('#cmtx_captcha').after('<span class="cmtx_error">' + response['error']['captcha'] + '</span>');
-
-                                jQuery('#cmtx_captcha_refresh').trigger('click');
-
-                                jQuery('#cmtx_captcha').val('');
-                            }
+                            document.querySelector('#cmtx_captcha').value = '';
                         }
-
-                        jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
-
-                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
                     }
 
-                    if (response['question']) {
-                        jQuery('#cmtx_question').text(response['question']);
-                    }
+                    document.querySelector('#cmtx_form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_error">' + data['result']['error'] + '</div>');
 
-                    cmtxAutoScroll(jQuery('#cmtx_form_container'));
-                });
+                    cmtxFadeIn('.cmtx_message_error, .cmtx_error', 2000);
+                }
+
+                if (data['question']) {
+                    document.querySelector('#cmtx_question').textContent = data['question'];
+                }
+
+                cmtxAutoScroll(document.querySelector('#cmtx_form_container'));
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
             });
+        }
+    });
 
-            function cmtx_cancel_notify() {
-                jQuery('.cmtx_message, .cmtx_error, .cmtx_subscribe_row').remove();
+    function cmtx_cancel_notify() {
+        cmtxRemoveIfExists('.cmtx_message, .cmtx_error, .cmtx_subscribe_row');
 
-                jQuery('.cmtx_field, .cmtx_rating').removeClass('cmtx_field_error');
+        document.querySelectorAll('.cmtx_field, .cmtx_rating').forEach(function(element) {
+            element.classList.remove('cmtx_field_error');
+        });
 
-                jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row').show();
+        cmtxShow('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_headline_row, .cmtx_upload_row, .cmtx_rating_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row');
 
-                jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
+        document.querySelector('#cmtx_comment').classList.add('cmtx_comment_field_active');
 
-                jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
+        document.querySelector('.cmtx_comment_container').classList.add('cmtx_comment_container_active');
 
-                jQuery('.cmtx_form_heading').text(cmtx_heading_text);
+        document.querySelector('.cmtx_form_heading').textContent = cmtx_heading_text;
 
-                jQuery('input[name="cmtx_subscribe"]').val('');
+        document.querySelector('input[name="cmtx_subscribe"]').value = '';
+    }
+
+    /* Like or dislike a comment */
+    document.addEventListener('click', function(e) {
+        var vote_link = e.target.closest('.cmtx_vote_link');
+
+        if (vote_link) {
+            e.preventDefault();
+
+            if (vote_link.classList.contains('cmtx_like_link')) {
+                var type = 'like';
+            } else {
+                var type = 'dislike';
             }
 
-            /* Like or dislike a comment */
-            jQuery('#cmtx_container').on('click', '.cmtx_vote_link', function(e) {
-                e.preventDefault();
+            var request = cmtxFetch(cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/vote', {
+                body: 'cmtx_comment_id=' + encodeURIComponent(vote_link.closest('.cmtx_comment_box').getAttribute('data-cmtx-comment-id')) + '&cmtx_type=' + encodeURIComponent(type)
+            });
 
-                var vote_link = jQuery(this);
+            request.then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                if (data['success']) {
+                    vote_link.querySelector('.cmtx_vote_count').textContent = (parseInt(vote_link.querySelector('.cmtx_vote_count').textContent, 10) + 1);
 
-                if (jQuery(this).hasClass('cmtx_like_link')) {
-                    var type = 'like';
-                } else {
-                    var type = 'dislike';
+                    if (type == 'like') {
+                        vote_link.querySelector('.cmtx_vote_count').classList.add('like_animation');
+
+                        setTimeout(function() {
+                            vote_link.querySelector('.cmtx_vote_count').classList.remove('like_animation');
+                        }, 2000);
+                    } else {
+                        vote_link.querySelector('.cmtx_vote_count').classList.add('dislike_animation');
+
+                        setTimeout(function() {
+                            vote_link.querySelector('.cmtx_vote_count').classList.remove('dislike_animation');
+                        }, 2000);
+                    }
                 }
 
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/vote',
-                    data: 'cmtx_comment_id=' + encodeURIComponent(jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id')) + '&cmtx_type=' + encodeURIComponent(type),
-                    dataType: 'json'
-                });
+                if (data['error']) {
+                    document.querySelector('.cmtx_action_message_error').innerHTML = data['error'];
+                    cmtxFadeInOut('.cmtx_action_message_error', 1000, 2000, 1000);
 
-                request.done(function(response) {
-                    if (response['success']) {
-                        vote_link.find('.cmtx_vote_count').text(parseInt(vote_link.find('.cmtx_vote_count').text(), 10) + 1);
+                    var destination = vote_link.getBoundingClientRect();
 
-                        if (type == 'like') {
-                            vote_link.find('.cmtx_vote_count').addClass('like_animation');
+                    document.querySelector('.cmtx_action_message_error').style.position = 'absolute';
+                    document.querySelector('.cmtx_action_message_error').style.top = (destination.top + cmtxGetScrollTop() - 25) + 'px';
+                    document.querySelector('.cmtx_action_message_error').style.left = (destination.left + 5) + 'px';
+                }
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
+        }
+    });
 
-                            setTimeout(function() {
-                                jQuery('.cmtx_vote_count').removeClass('like_animation');
-                            }, 2000);
-                        } else {
-                            vote_link.find('.cmtx_vote_count').addClass('dislike_animation');
+    /* Share a comment */
+    document.addEventListener('click', function(e) {
+        var share_link = e.target.closest('.cmtx_share_link');
 
-                            setTimeout(function() {
-                                jQuery('.cmtx_vote_count').removeClass('dislike_animation');
-                            }, 2000);
-                        }
-                    }
+        if (share_link) {
+            e.preventDefault();
 
-                    if (response['error']) {
-                        jQuery('.cmtx_action_message_error').clearQueue();
-                        jQuery('.cmtx_action_message_error').html(response['error']);
-                        jQuery('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
+            cmtxHide('.cmtx_share_box');
 
-                        var destination = vote_link.offset();
+            var permalink = encodeURIComponent(share_link.getAttribute('data-cmtx-sharelink'));
 
-                        jQuery('.cmtx_action_message_error').offset({ top: destination.top - 25 , left: destination.left - 45 });
-                    }
-                });
+            var reference = encodeURIComponent(document.querySelector('.cmtx_share_box').getAttribute('data-cmtx-reference'));
 
-                request.fail(function(jqXHR, textStatus, errorThrown) {
-                    if (console && console.log) {
-                        console.log(jqXHR.responseText);
-                    }
-                });
+            cmtxSetShareBoxHref('.cmtx_share_digg', 'http://digg.com/submit?url=' + permalink + '&title=' + reference);
+            cmtxSetShareBoxHref('.cmtx_share_facebook', 'https://www.facebook.com/sharer.php?u=' + permalink);
+            cmtxSetShareBoxHref('.cmtx_share_linkedin', 'https://www.linkedin.com/shareArticle?mini=true&url=' + permalink + '&title=' + reference);
+            cmtxSetShareBoxHref('.cmtx_share_reddit', 'https://reddit.com/submit?url=' + permalink + '&title=' + reference);
+            cmtxSetShareBoxHref('.cmtx_share_twitter', 'https://twitter.com/intent/tweet?url=' + permalink + '&text=' + reference);
+            cmtxSetShareBoxHref('.cmtx_share_weibo', 'http://service.weibo.com/share/share.php?url=' + permalink + '&title=' + reference);
+
+            cmtxFadeIn('.cmtx_share_box', 400);
+
+            var destination = share_link.getBoundingClientRect();
+
+            document.querySelector('.cmtx_share_box').style.position = 'absolute';
+            document.querySelector('.cmtx_share_box').style.top = (destination.top + cmtxGetScrollTop() - 30) + 'px';
+            document.querySelector('.cmtx_share_box').style.left = (destination.left - 55) + 'px';
+        }
+    });
+
+    /* Flag modal */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('#cmtx_flag_modal_yes')) {
+            e.preventDefault();
+
+            var comment_id = e.target.getAttribute('data-cmtx-comment-id');
+
+            var flag_link = document.querySelector('.cmtx_comment_box[data-cmtx-comment-id="' + comment_id + '"] .cmtx_flag_link');
+
+            var request = cmtxFetch(cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/flag', {
+                body: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id)
             });
 
-            /* Share a comment */
-            jQuery('#cmtx_container').on('click', '.cmtx_share_link', function(e) {
-                e.preventDefault();
-
-                jQuery('.cmtx_share_box').hide();
-
-                var share_link = jQuery(this);
-
-                var permalink = encodeURIComponent(jQuery(this).attr('data-cmtx-sharelink'));
-
-                var reference = encodeURIComponent(jQuery('.cmtx_share_box').attr('data-cmtx-reference'));
-
-                jQuery('.cmtx_share_digg').parent().attr('href', 'http://digg.com/submit?url=' + permalink + '&title=' + reference);
-                jQuery('.cmtx_share_facebook').parent().attr('href', 'https://www.facebook.com/sharer.php?u=' + permalink);
-                jQuery('.cmtx_share_linkedin').parent().attr('href', 'https://www.linkedin.com/shareArticle?mini=true&url=' + permalink + '&title=' + reference);
-                jQuery('.cmtx_share_reddit').parent().attr('href', 'https://reddit.com/submit?url=' + permalink + '&title=' + reference);
-                jQuery('.cmtx_share_twitter').parent().attr('href', 'https://twitter.com/intent/tweet?url=' + permalink + '&text=' + reference);
-                jQuery('.cmtx_share_weibo').parent().attr('href', 'http://service.weibo.com/share/share.php?url=' + permalink + '&title=' + reference);
-
-                jQuery('.cmtx_share_box').clearQueue();
-                jQuery('.cmtx_share_box').fadeIn(400);
-
-                var destination = share_link.offset();
-
-                jQuery('.cmtx_share_box').offset({ top: destination.top - 30 , left: destination.left - 55 });
-            });
-
-            /* Flag modal */
-            jQuery('body').on('click', '#cmtx_flag_modal_yes', function(e) {
-                e.preventDefault();
-
-                var comment_id = jQuery(this).attr('data-cmtx-comment-id');
-
-                var flag_link = jQuery('.cmtx_comment_box[data-cmtx-comment-id=' + comment_id + '] .cmtx_flag_link');
-
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/flag',
-                    data: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id),
-                    dataType: 'json'
-                });
-
-                request.done(function(response) {
-                    if (response['success']) {
-                        jQuery('.cmtx_action_message_success').clearQueue();
-                        jQuery('.cmtx_action_message_success').html(response['success']);
-                        jQuery('.cmtx_action_message_success').fadeIn(500).delay(2000).fadeOut(500);
-
-                        var destination = flag_link.offset();
-
-                        jQuery('.cmtx_action_message_success').offset({ top: destination.top - 25 , left: destination.left - 100 });
-                    }
-
-                    if (response['error']) {
-                        jQuery('.cmtx_action_message_error').clearQueue();
-                        jQuery('.cmtx_action_message_error').html(response['error']);
-                        jQuery('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
-
-                        var destination = flag_link.offset();
-
-                        jQuery('.cmtx_action_message_error').offset({top: destination.top - 25, left: destination.left - 100});
-                    }
-                });
-
-                request.fail(function(jqXHR, textStatus, errorThrown) {
-                    if (console && console.log) {
-                        console.log(jqXHR.responseText);
-                    }
-                });
-
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
-
-            /* Original comment */
-            jQuery('#cmtx_container').on('click', '.cmtx_edit_link', function(e) {
-                e.preventDefault();
-
-                var edit_link = jQuery(this);
-
-                var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
-
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/original',
-                    data: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id),
-                    dataType: 'json'
-                });
-
-                request.done(function(response) {
-                    jQuery('.quick_reply, .edit_comment').remove();
-
-                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
-
-                    edit_link.closest('.cmtx_comment_box').find('.cmtx_view_replies_link').trigger('click');
-
-                    if (response['success']) {
-                        html =  '<div class="edit_comment">';
-                        html += '  <div class="cmtx_edit_comment_comment_holder"><textarea name="cmtx_edit_comment" class="cmtx_field cmtx_textarea_field cmtx_comment_field cmtx_comment_field_active" placeholder="' + jQuery('#cmtx_comment').attr('placeholder') + '" title="' + jQuery('#cmtx_comment').attr('title') + '" maxlength="' + jQuery('#cmtx_comment').attr('maxlength') + '">' + response['original_comment'] + '</textarea></div>';
-
-                        var lang_text_agree = cmtx_js_settings_comments.lang_text_agree;
-                        lang_text_agree = lang_text_agree.replace('[1]', '<a href="#" data-cmtx-target-modal="#cmtx_privacy_modal">' + cmtx_js_settings_comments.lang_text_privacy + '</a>');
-                        lang_text_agree = lang_text_agree.replace('[2]', '<a href="#" data-cmtx-target-modal="#cmtx_terms_modal">' + cmtx_js_settings_comments.lang_text_terms + '</a>');
-
-                        html += '  <div class="cmtx_edit_comment_lower">';
-                        html += '    <div class="cmtx_edit_comment_link"></div>';
-                        html += '    <div class="cmtx_edit_comment_agree">' + lang_text_agree + '</div>';
-                        html += '    <div class="cmtx_edit_comment_button"><input type="button" class="' + jQuery('#cmtx_submit_button').attr('class') + ' cmtx_button_edit_comment" value="' + cmtx_js_settings_comments.lang_button_edit + '" title="' + cmtx_js_settings_comments.lang_button_edit + '"></div>';
-                        html += '  </div>';
-                        html += '</div>';
-
-                        edit_link.closest('.cmtx_main_area').append(html);
-                    }
-
-                    if (response['error']) {
-                        jQuery('.edit_comment').prepend('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
-
-                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
-                    }
-                });
-
-                request.fail(function(jqXHR, textStatus, errorThrown) {
-                    if (console && console.log) {
-                        console.log(jqXHR.responseText);
-                    }
-                });
-            });
-
-            /* Edit Comment */
-            jQuery('#cmtx_container').on('click', '.cmtx_button_edit_comment', function(e) {
-                e.preventDefault();
-
-                var edit_comment = jQuery(this).closest('.cmtx_comment_box').find('.edit_comment');
-
-                var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
-
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/edit',
-                    data: '&cmtx_comment=' + encodeURIComponent(edit_comment.find('textarea[name="cmtx_edit_comment"]').val().replace(/(\r\n|\n|\r)/gm, "\r\n")) + '&cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id),
-                    dataType: 'json',
-                    beforeSend: function() {
-                        edit_comment.find('.cmtx_button_edit_comment').val(cmtx_js_settings_form.lang_button_processing);
-
-                        edit_comment.find('.cmtx_button_edit_comment').prop('disabled', true);
-
-                        edit_comment.find('.cmtx_button_edit_comment').addClass('cmtx_button_disabled');
-                    }
-                });
-
-                request.always(function() {
-                    edit_comment.find('.cmtx_button_edit_comment').val(cmtx_js_settings_comments.lang_button_edit);
-
-                    edit_comment.find('.cmtx_button_edit_comment').prop('disabled', false);
-
-                    edit_comment.find('.cmtx_button_edit_comment').removeClass('cmtx_button_disabled');
-                });
-
-                request.done(function(response) {
-                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
-
-                    jQuery('.cmtx_field').removeClass('cmtx_field_error');
-
-                    if (response['result']['success']) {
-                        jQuery('.cmtx_message').remove();
-
-                        if (response['result']['approve']) {
-                            edit_comment.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + '</div>');
-                        } else {
-                            edit_comment.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + ' <a href="#" class="cmtx_edit_comment_refresh">' + cmtx_js_settings_comments.lang_link_refresh + '</a>' + '</div>');
-                        }
-
-                        jQuery('.cmtx_message_success').fadeIn(1500);
-                    }
-
-                    if (response['result']['error']) {
-                        if (response['error']) {
-                            if (response['error']['comment']) {
-                                edit_comment.find('textarea[name="cmtx_edit_comment"]').addClass('cmtx_field_error');
-
-                                edit_comment.find('textarea[name="cmtx_edit_comment"]').after('<span class="cmtx_error">' + response['error']['comment'] + '</span>');
-                            }
-                        }
-
-                        edit_comment.prepend('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
-
-                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
-                    }
-                });
-
-                request.fail(function(jqXHR, textStatus, errorThrown) {
-                    if (console && console.log) {
-                        console.log(jqXHR.responseText);
-                    }
-                });
-            });
-
-            /* Delete modal */
-            jQuery('body').on('click', '#cmtx_delete_modal_yes', function(e) {
-                e.preventDefault();
-
-                var comment_id = jQuery(this).attr('data-cmtx-comment-id');
-
-                var delete_link = jQuery('.cmtx_comment_box[data-cmtx-comment-id=' + comment_id + '] .cmtx_delete_link');
-
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/delete',
-                    data: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id),
-                    dataType: 'json'
-                });
-
-                request.done(function(response) {
-                    if (response['success']) {
-                        var options = {
-                            'commentics_url': cmtx_js_settings_comments.commentics_url,
-                            'page_id'       : cmtx_js_settings_comments.page_id,
-                            'page_number'   : '',
-                            'sort_by'       : '',
-                            'search'        : '',
-                            'effect'        : true
-                        }
-
-                        cmtxRefreshComments(options);
-                    }
-
-                    if (response['error']) {
-                        jQuery('.cmtx_action_message_error').clearQueue();
-                        jQuery('.cmtx_action_message_error').html(response['error']);
-                        jQuery('.cmtx_action_message_error').fadeIn(500).delay(2000).fadeOut(500);
-
-                        var destination = delete_link.offset();
-
-                        jQuery('.cmtx_action_message_error').offset({top: destination.top - 25, left: destination.left - 100});
-                    }
-                });
-
-                request.fail(function(jqXHR, textStatus, errorThrown) {
-                    if (console && console.log) {
-                        console.log(jqXHR.responseText);
-                    }
-                });
-
-                jQuery('.cmtx_modal_close').trigger('click');
-            });
-
-            /* Permalink for a comment */
-            jQuery('#cmtx_container').on('click', '.cmtx_permalink_link', function(e) {
-                e.preventDefault();
-
-                jQuery('.cmtx_permalink_box').hide();
-
-                var permalink_link = jQuery(this);
-
-                var permalink = jQuery(this).attr('data-cmtx-permalink');
-
-                jQuery('#cmtx_permalink').val(permalink);
-
-                jQuery('.cmtx_permalink_box').clearQueue();
-                jQuery('.cmtx_permalink_box').fadeIn(400);
-
-                var box_width = jQuery('.cmtx_permalink_box').width();
-
-                var destination = permalink_link.offset();
-
-                jQuery('.cmtx_permalink_box').offset({ top: destination.top - 70 , left: destination.left - box_width });
-
-                jQuery('#cmtx_permalink').select();
-            });
-
-            jQuery('#cmtx_container').on('click', '.cmtx_permalink_box a', function(e) {
-                e.preventDefault();
-
-                jQuery('.cmtx_permalink_box').fadeOut(400);
-            });
-
-            /* Reply to a comment */
-            jQuery('#cmtx_container').on('click', '.cmtx_reply_link', function(e) {
-                e.preventDefault();
-
-                if (jQuery(this).closest('.quick_reply').length) {
-                    var is_quick_reply = false;
-                } else {
-                    var is_quick_reply = true;
+            request.then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                if (data['success']) {
+                    document.querySelector('.cmtx_action_message_success').innerHTML = data['success'];
+                    cmtxFadeInOut('.cmtx_action_message_success', 500, 2000, 500);
+
+                    var destination = flag_link.getBoundingClientRect();
+
+                    document.querySelector('.cmtx_action_message_success').style.position = 'absolute';
+                    document.querySelector('.cmtx_action_message_success').style.top = (destination.top + cmtxGetScrollTop() - 25) + 'px';
+                    document.querySelector('.cmtx_action_message_success').style.left = (destination.left - 100) + 'px';
                 }
 
-                var comment_id = jQuery(this).closest('.cmtx_comment_box').attr('data-cmtx-comment-id');
+                if (data['error']) {
+                    document.querySelector('.cmtx_action_message_error').innerHTML = data['error'];
+                    cmtxFadeInOut('.cmtx_action_message_error', 500, 2000, 500);
 
-                jQuery('input[name="cmtx_reply_to"]').val(comment_id);
+                    var destination = flag_link.getBoundingClientRect();
 
-                var name = jQuery(this).closest('.cmtx_comment_box').find('.cmtx_name_text').text();
+                    document.querySelector('.cmtx_action_message_error').style.position = 'absolute';
+                    document.querySelector('.cmtx_action_message_error').style.top = (destination.top + cmtxGetScrollTop() - 25) + 'px';
+                    document.querySelector('.cmtx_action_message_error').style.left = (destination.left - 100) + 'px';
+                }
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
 
-                var quick_reply_name = jQuery(this).closest('.cmtx_comment_box').find('input[name="cmtx_quick_reply_name"]').val();
-                var quick_reply_email = jQuery(this).closest('.cmtx_comment_box').find('input[name="cmtx_quick_reply_email"]').val();
-                var quick_reply_comment = jQuery(this).closest('.cmtx_comment_box').find('textarea[name="cmtx_quick_reply_comment"]').val();
+            cmtxCloseModal();
+        }
+    });
 
-                jQuery('.quick_reply, .edit_comment').remove();
+    /* Original comment */
+    document.addEventListener('click', function(e) {
+        var edit_link = e.target.closest('.cmtx_edit_link');
 
-                if (cmtx_js_settings_comments.quick_reply && is_quick_reply) {
-                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
+        if (edit_link) {
+            e.preventDefault();
 
-                    jQuery(this).closest('.cmtx_comment_box').find('.cmtx_view_replies_link').trigger('click');
+            var comment_id = edit_link.closest('.cmtx_comment_box').getAttribute('data-cmtx-comment-id');
 
-                    html =  '<div class="quick_reply">';
-                    html += '  <div class="cmtx_quick_reply_comment_holder"><textarea name="cmtx_quick_reply_comment" class="cmtx_field cmtx_textarea_field cmtx_comment_field cmtx_comment_field_active" placeholder="' + jQuery('#cmtx_comment').attr('placeholder') + '" title="' + jQuery('#cmtx_comment').attr('title') + '" maxlength="' + jQuery('#cmtx_comment').attr('maxlength') + '"></textarea></div>';
+            var request = cmtxFetch(cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/original', {
+                body: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id)
+            });
 
-                    if (jQuery('#cmtx_name').length || jQuery('#cmtx_email').length) {
-                        html += '  <div class="cmtx_quick_reply_user">';
+            request.then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                cmtxRemoveIfExists('.cmtx_message:not(.cmtx_message_reply), .cmtx_error, .quick_reply, .edit_comment');
 
-                        if (jQuery('#cmtx_name').length) {
-                            html += '<div class="cmtx_quick_reply_name_holder"><input type="text" name="cmtx_quick_reply_name" class="' + jQuery('#cmtx_name').attr('class') + '" value="' + jQuery('#cmtx_name').val() + '" placeholder="' + jQuery('#cmtx_name').attr('placeholder') + '" title="' + jQuery('#cmtx_name').attr('title') + '" maxlength="' + jQuery('#cmtx_name').attr('maxlength') + '" ' + (jQuery('#cmtx_name').is('[readonly]') ? 'readonly' : '') + '></div>';
-                        }
+                var view_replies_link = edit_link.closest('.cmtx_comment_box').querySelector('.cmtx_view_replies_link');
+                if (view_replies_link) {
+                    view_replies_link.click();
+                }
 
-                        if (jQuery('#cmtx_email').length) {
-                            html += '<div class="cmtx_quick_reply_email_holder"><input type="email" name="cmtx_quick_reply_email" class="' + jQuery('#cmtx_email').attr('class') + '" value="' + jQuery('#cmtx_email').val() + '" placeholder="' + jQuery('#cmtx_email').attr('placeholder') + '" title="' + jQuery('#cmtx_email').attr('title') + '" maxlength="' + jQuery('#cmtx_email').attr('maxlength') + '" ' + (jQuery('#cmtx_email').is('[readonly]') ? 'readonly' : '') + '></div>';
-                        }
-
-                        html += '  </div>';
-                    }
+                if (data['success']) {
+                    html =  '<div class="edit_comment">';
+                    html += '  <div class="cmtx_edit_comment_comment_holder"><textarea name="cmtx_edit_comment" class="cmtx_field cmtx_textarea_field cmtx_comment_field cmtx_comment_field_active" placeholder="' + document.querySelector('#cmtx_comment').getAttribute('placeholder') + '" title="' + document.querySelector('#cmtx_comment').getAttribute('title') + '" maxlength="' + document.querySelector('#cmtx_comment').getAttribute('maxlength') + '">' + data['original_comment'] + '</textarea></div>';
 
                     var lang_text_agree = cmtx_js_settings_comments.lang_text_agree;
                     lang_text_agree = lang_text_agree.replace('[1]', '<a href="#" data-cmtx-target-modal="#cmtx_privacy_modal">' + cmtx_js_settings_comments.lang_text_privacy + '</a>');
                     lang_text_agree = lang_text_agree.replace('[2]', '<a href="#" data-cmtx-target-modal="#cmtx_terms_modal">' + cmtx_js_settings_comments.lang_text_terms + '</a>');
 
-                    html += '  <div class="cmtx_quick_reply_lower">';
-                    html += '    <div class="cmtx_quick_reply_link"><a href="#" class="cmtx_reply_link">' + cmtx_js_settings_comments.lang_link_reply + '</a></div>';
-                    html += '    <div class="cmtx_quick_reply_agree">' + lang_text_agree + '</div>';
-                    html += '    <div class="cmtx_quick_reply_button"><input type="button" class="' + jQuery('#cmtx_submit_button').attr('class') + ' cmtx_button_quick_reply" value="' + cmtx_js_settings_comments.lang_button_reply + '" title="' + cmtx_js_settings_comments.lang_button_reply + '"></div>';
+                    html += '  <div class="cmtx_edit_comment_lower">';
+                    html += '    <div class="cmtx_edit_comment_link"></div>';
+                    html += '    <div class="cmtx_edit_comment_agree">' + lang_text_agree + '</div>';
+                    html += '    <div class="cmtx_edit_comment_button"><input type="button" class="' + document.querySelector('#cmtx_submit_button').getAttribute('class') + ' cmtx_button_edit_comment" value="' + cmtx_js_settings_comments.lang_button_edit + '" title="' + cmtx_js_settings_comments.lang_button_edit + '"></div>';
                     html += '  </div>';
                     html += '</div>';
 
-                    jQuery(this).closest('.cmtx_main_area').append(html);
-                } else {
-                    /* Copy quick reply values to main form */
-                    if (quick_reply_name) {
-                        jQuery('#cmtx_name').val(quick_reply_name);
+                    edit_link.closest('.cmtx_main_area').insertAdjacentHTML('afterend', html);
+                }
+
+                if (data['error']) {
+                    document.querySelector('.edit_comment').insertAdjacentHTML('afterbegin', '<div class="cmtx_message cmtx_message_error">' + data['error'] + '</div>');
+
+                    cmtxFadeIn('.cmtx_message_error, .cmtx_error', 2000);
+                }
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    /* Edit Comment */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_button_edit_comment')) {
+            e.preventDefault();
+
+            var edit_comment = e.target.closest('.cmtx_comment_box').querySelector('.edit_comment');
+
+            edit_comment.querySelector('.cmtx_button_edit_comment').value = cmtx_js_settings_form.lang_button_processing;
+
+            edit_comment.querySelector('.cmtx_button_edit_comment').disabled = true;
+
+            edit_comment.querySelector('.cmtx_button_edit_comment').classList.add('cmtx_button_disabled');
+
+            var comment_id = edit_comment.closest('.cmtx_comment_box').getAttribute('data-cmtx-comment-id');
+
+            var request = cmtxFetch(cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/form/edit', {
+                body: 'cmtx_comment=' + encodeURIComponent(edit_comment.querySelector('textarea[name="cmtx_edit_comment"]').value.replace(/(\r\n|\n|\r)/gm, "\r\n")) + '&cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id)
+            });
+
+            request.then(function(response) {
+                edit_comment.querySelector('.cmtx_button_edit_comment').value = cmtx_js_settings_comments.lang_button_edit;
+
+                edit_comment.querySelector('.cmtx_button_edit_comment').disabled = false;
+
+                edit_comment.querySelector('.cmtx_button_edit_comment').classList.remove('cmtx_button_disabled');
+
+                return response.json();
+            }).then(function(data) {
+                cmtxRemoveIfExists('.cmtx_message:not(.cmtx_message_reply), .cmtx_error');
+
+                document.querySelectorAll('.cmtx_field').forEach(function(element) {
+                    element.classList.remove('cmtx_field_error');
+                });
+
+                if (data['result']['success']) {
+                    cmtxRemoveIfExists('.cmtx_message');
+
+                    if (data['result']['approve']) {
+                        edit_comment.innerHTML = ('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + data['result']['success'] + '</div>');
+                    } else {
+                        edit_comment.innerHTML = ('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + data['result']['success'] + ' <a href="#" class="cmtx_edit_comment_refresh">' + cmtx_js_settings_comments.lang_link_refresh + '</a>' + '</div>');
                     }
 
-                    if (quick_reply_email) {
-                        jQuery('#cmtx_email').val(quick_reply_email);
+                    cmtxFadeIn('.cmtx_message_success', 1500);
+                }
+
+                if (data['result']['error']) {
+                    if (data['error']) {
+                        if (data['error']['comment']) {
+                            edit_comment.querySelector('textarea[name="cmtx_edit_comment"]').classList.add('cmtx_field_error');
+
+                            edit_comment.querySelector('textarea[name="cmtx_edit_comment"]').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['comment'] + '</span>');
+                        }
                     }
 
-                    if (quick_reply_comment) {
-                        jQuery('#cmtx_comment').val(quick_reply_comment);
+                    edit_comment.insertAdjacentHTML('afterbegin', '<div class="cmtx_message cmtx_message_error">' + data['result']['error'] + '</div>');
+
+                    cmtxFadeIn('.cmtx_message_error, .cmtx_error', 2000);
+                }
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    /* Delete modal */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('#cmtx_delete_modal_yes')) {
+            e.preventDefault();
+
+            var comment_id = e.target.getAttribute('data-cmtx-comment-id');
+
+            var delete_link = document.querySelector('.cmtx_comment_box[data-cmtx-comment-id="' + comment_id + '"] .cmtx_delete_link');
+
+            var request = cmtxFetch(cmtx_js_settings_comments.commentics_url + 'frontend/index.php?route=main/comments/delete', {
+                body: 'cmtx_comment_id=' + encodeURIComponent(comment_id) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_comments.page_id)
+            });
+
+            request.then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                if (data['success']) {
+                    var options = {
+                        'commentics_url': cmtx_js_settings_comments.commentics_url,
+                        'page_id'       : cmtx_js_settings_comments.page_id,
+                        'page_number'   : '',
+                        'sort_by'       : '',
+                        'search'        : '',
+                        'effect'        : true
                     }
-                    /* End of copying values */
 
-                    if (jQuery('input[name="cmtx_subscribe"]').val() == '1') {
-                        cmtx_cancel_notify();
-                    }
+                    cmtxRefreshComments(options);
+                }
 
-                    jQuery('.cmtx_message_info').remove();
+                if (data['error']) {
+                    document.querySelector('.cmtx_action_message_error').innerHTML = data['error'];
+                    cmtxFadeInOut('.cmtx_action_message_error', 500, 2000, 500);
 
-                    jQuery('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row').show();
+                    var destination = delete_link.getBoundingClientRect();
 
-                    jQuery('.cmtx_headline_row, .cmtx_rating_row').hide();
-
-                    jQuery('#cmtx_comment').addClass('cmtx_comment_field_active');
-
-                    jQuery('.cmtx_comment_container').addClass('cmtx_comment_container_active');
-
-                    jQuery('#cmtx_form').before('<div class="cmtx_message cmtx_message_info cmtx_message_reply">' + cmtx_js_settings_comments.lang_text_replying_to + ' ' + name + ' <a href="#" title="' + cmtx_js_settings_comments.lang_title_cancel_reply + '">' + cmtx_js_settings_comments.lang_link_cancel + '</a></div>');
-
-                    cmtxAutoScroll(jQuery('#cmtx_form_container'));
-
-                    jQuery('.cmtx_message_reply').fadeIn(2000);
+                    document.querySelector('.cmtx_action_message_error').style.position = 'absolute';
+                    document.querySelector('.cmtx_action_message_error').style.top = (destination.top + cmtxGetScrollTop() - 25) + 'px';
+                    document.querySelector('.cmtx_action_message_error').style.left = (destination.left - 100) + 'px';
+                }
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
                 }
             });
 
-            jQuery('body').on('click', '.cmtx_message_reply a', function(e) {
-                e.preventDefault();
+            cmtxCloseModal();
+        }
+    });
 
-                jQuery('.cmtx_headline_row, .cmtx_rating_row').show();
+    /* Permalink for a comment */
+    document.addEventListener('click', function(e) {
+        var permalink_link = e.target.closest('.cmtx_permalink_link');
 
-                jQuery('input[name="cmtx_reply_to"]').val('');
+        if (permalink_link) {
+            e.preventDefault();
 
-                jQuery('.cmtx_message_reply').text(cmtx_js_settings_comments.lang_text_not_replying);
-            });
+            cmtxHide('.cmtx_permalink_box');
 
-            /* Lightbox for comment uploads */
-            jQuery('#cmtx_container').on('click', '.cmtx_comments_container .cmtx_upload_area a', function(e) {
-                var src = jQuery(this).find('img').attr('src');
+            var permalink = permalink_link.getAttribute('data-cmtx-permalink');
+
+            document.querySelector('#cmtx_permalink').value = permalink;
+
+            cmtxFadeIn('.cmtx_permalink_box', 400);
+
+            var box_width = document.querySelector('.cmtx_permalink_box').clientWidth;
+
+            var destination = permalink_link.getBoundingClientRect();
+
+            document.querySelector('.cmtx_permalink_box').style.position = 'absolute';
+            document.querySelector('.cmtx_permalink_box').style.top = (destination.top + cmtxGetScrollTop() - 70) + 'px';
+            document.querySelector('.cmtx_permalink_box').style.left = (destination.left - box_width) + 'px';
+
+            document.querySelector('#cmtx_permalink').select();
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_permalink_box a')) {
+            e.preventDefault();
+
+            cmtxFadeOut('.cmtx_permalink_box', 400);
+        }
+    });
+
+    /* If element exists, get value, otherwise return '' */
+    function cmtxGetValue(element) {
+        if (element) {
+            return element.value;
+        } else {
+            return '';
+        }
+    }
+
+    /* Reply to a comment */
+    document.addEventListener('click', function(e) {
+        if (e.target && (e.target.matches('.cmtx_reply_icon') || e.target.matches('.cmtx_reply_link'))) {
+            e.preventDefault();
+
+            if (e.target.closest('.quick_reply')) {
+                var is_quick_reply = false;
+            } else {
+                var is_quick_reply = true;
+            }
+
+            var comment_id = e.target.closest('.cmtx_comment_box').getAttribute('data-cmtx-comment-id');
+
+            document.querySelector('input[name="cmtx_reply_to"]').value = comment_id;
+
+            var name = e.target.closest('.cmtx_comment_box').querySelector('.cmtx_name_text').textContent;
+
+            var quick_reply_name = cmtxGetValue(e.target.closest('.cmtx_comment_box').querySelector('input[name="cmtx_quick_reply_name"]'));
+            var quick_reply_email = cmtxGetValue(e.target.closest('.cmtx_comment_box').querySelector('input[name="cmtx_quick_reply_email"]'));
+            var quick_reply_comment = cmtxGetValue(e.target.closest('.cmtx_comment_box').querySelector('textarea[name="cmtx_quick_reply_comment"]'));
+
+            cmtxRemoveIfExists('.quick_reply, .edit_comment');
+
+            if (cmtx_js_settings_comments.quick_reply && is_quick_reply) {
+                cmtxRemoveIfExists('.cmtx_message:not(.cmtx_message_reply), .cmtx_error');
+
+                var view_replies_link = e.target.closest('.cmtx_comment_box').querySelector('.cmtx_view_replies_link');
+                if (view_replies_link) {
+                    view_replies_link.click();
+                }
+
+                html =  '<div class="quick_reply">';
+                html += '  <div class="cmtx_quick_reply_comment_holder"><textarea name="cmtx_quick_reply_comment" class="cmtx_field cmtx_textarea_field cmtx_comment_field cmtx_comment_field_active" placeholder="' + document.querySelector('#cmtx_comment').getAttribute('placeholder') + '" title="' + document.querySelector('#cmtx_comment').getAttribute('title') + '" maxlength="' + document.querySelector('#cmtx_comment').getAttribute('maxlength') + '"></textarea></div>';
+
+                if (document.querySelector('#cmtx_name') || document.querySelector('#cmtx_email')) {
+                    html += '  <div class="cmtx_quick_reply_user">';
+
+                    if (document.querySelector('#cmtx_name')) {
+                        html += '<div class="cmtx_quick_reply_name_holder"><input type="text" name="cmtx_quick_reply_name" class="' + document.querySelector('#cmtx_name').getAttribute('class') + '" value="' + document.querySelector('#cmtx_name').value + '" placeholder="' + document.querySelector('#cmtx_name').getAttribute('placeholder') + '" title="' + document.querySelector('#cmtx_name').getAttribute('title') + '" maxlength="' + document.querySelector('#cmtx_name').getAttribute('maxlength') + '" ' + (document.querySelector('#cmtx_name').hasAttribute('readonly') ? 'readonly' : '') + '></div>';
+                    }
+
+                    if (document.querySelector('#cmtx_email')) {
+                        html += '<div class="cmtx_quick_reply_email_holder"><input type="email" name="cmtx_quick_reply_email" class="' + document.querySelector('#cmtx_email').getAttribute('class') + '" value="' + document.querySelector('#cmtx_email').value + '" placeholder="' + document.querySelector('#cmtx_email').getAttribute('placeholder') + '" title="' + document.querySelector('#cmtx_email').getAttribute('title') + '" maxlength="' + document.querySelector('#cmtx_email').getAttribute('maxlength') + '" ' + (document.querySelector('#cmtx_email').hasAttribute('readonly') ? 'readonly' : '') + '></div>';
+                    }
+
+                    html += '  </div>';
+                }
+
+                var lang_text_agree = cmtx_js_settings_comments.lang_text_agree;
+                lang_text_agree = lang_text_agree.replace('[1]', '<a href="#" data-cmtx-target-modal="#cmtx_privacy_modal">' + cmtx_js_settings_comments.lang_text_privacy + '</a>');
+                lang_text_agree = lang_text_agree.replace('[2]', '<a href="#" data-cmtx-target-modal="#cmtx_terms_modal">' + cmtx_js_settings_comments.lang_text_terms + '</a>');
+
+                html += '  <div class="cmtx_quick_reply_lower">';
+                html += '    <div class="cmtx_quick_reply_link"><a href="#" class="cmtx_reply_link">' + cmtx_js_settings_comments.lang_link_reply + '</a></div>';
+                html += '    <div class="cmtx_quick_reply_agree">' + lang_text_agree + '</div>';
+                html += '    <div class="cmtx_quick_reply_button"><input type="button" class="' + document.querySelector('#cmtx_submit_button').getAttribute('class') + ' cmtx_button_quick_reply" value="' + cmtx_js_settings_comments.lang_button_reply + '" title="' + cmtx_js_settings_comments.lang_button_reply + '"></div>';
+                html += '  </div>';
+                html += '</div>';
+
+                e.target.closest('.cmtx_main_area').insertAdjacentHTML('afterend', html);
+            } else {
+                /* Copy quick reply values to main form */
+                if (quick_reply_name) {
+                    document.querySelector('#cmtx_name').value = quick_reply_name;
+                }
+
+                if (quick_reply_email) {
+                    document.querySelector('#cmtx_email').value = quick_reply_email;
+                }
+
+                if (quick_reply_comment) {
+                    document.querySelector('#cmtx_comment').value = quick_reply_comment;
+                    cmtxUpdateCommentCounter();
+                }
+                /* End of copying values */
+
+                if (document.querySelector('input[name="cmtx_subscribe"]').value == 1) {
+                    cmtx_cancel_notify();
+                }
+
+                cmtxRemoveIfExists('.cmtx_message_info');
+
+                cmtxShow('.cmtx_icons_row, .cmtx_comment_row, .cmtx_counter_row, .cmtx_upload_row, .cmtx_website_row, .cmtx_geo_row, .cmtx_question_row, .cmtx_captcha_row, .cmtx_checkbox_container, .cmtx_button_row, .cmtx_extra_row');
+
+                cmtxHide('.cmtx_headline_row, .cmtx_rating_row');
+
+                document.querySelector('#cmtx_comment').classList.add('cmtx_comment_field_active');
+
+                document.querySelector('.cmtx_comment_container').classList.add('cmtx_comment_container_active');
+
+                document.querySelector('#cmtx_form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_info cmtx_message_reply">' + cmtx_js_settings_comments.lang_text_replying_to + ' ' + name + ' <a href="#" title="' + cmtx_js_settings_comments.lang_title_cancel_reply + '">' + cmtx_js_settings_comments.lang_link_cancel + '</a></div>');
+
+                cmtxAutoScroll(document.querySelector('#cmtx_form_container'));
+
+                cmtxFadeIn('.cmtx_message_reply', 2000);
+            }
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_message_reply a')) {
+            e.preventDefault();
+
+            cmtxShow('.cmtx_headline_row, .cmtx_rating_row');
+
+            document.querySelector('input[name="cmtx_reply_to"]').value = '';
+
+            document.querySelector('.cmtx_message_reply').textContent = cmtx_js_settings_comments.lang_text_not_replying;
+        }
+    });
+
+    /* Lightbox for comment uploads */
+    function cmtxLightbox() {
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.matches('.cmtx_comments_container .cmtx_upload_area img')) {
+                var src = e.target.getAttribute('src');
 
                 if (isInIframe) {
-                    jQuery(this).attr('href', src);
+                    e.target.parentElement.setAttribute('href', src);
                 } else {
                     e.preventDefault();
 
-                    jQuery('#cmtx_lightbox_modal .cmtx_modal_body').html('<img src="' + src + '" class="cmtx_lightbox_image">');
+                    document.querySelector('#cmtx_lightbox_modal .cmtx_modal_body').innerHTML = ('<img src="' + src + '" class="cmtx_lightbox_image">');
 
-                    jQuery('body').append(jQuery('#cmtx_lightbox_modal'));
+                    document.body.appendChild(document.querySelector('#cmtx_lightbox_modal'));
 
-                    jQuery('body').append('<div class="cmtx_overlay"></div>');
+                    document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
 
-                    jQuery('.cmtx_overlay').fadeIn(200);
+                    cmtxFadeIn('.cmtx_overlay', 200);
 
-                    jQuery('#cmtx_lightbox_modal').fadeIn(200);
+                    cmtxFadeIn('#cmtx_lightbox_modal', 200);
                 }
-            });
-
-            /* Load more comments button */
-            jQuery('#cmtx_container').on('click', '#cmtx_more_button', function(e) {
-                e.preventDefault();
-
-                jQuery('#cmtx_more_button').val(cmtx_js_settings_comments.lang_button_loading);
-
-                jQuery('#cmtx_more_button').prop('disabled', true);
-
-                jQuery('#cmtx_more_button').addClass('cmtx_button_disabled');
-
-                var next_page = parseInt(jQuery('#cmtx_next_page').val());
-
-                jQuery('#cmtx_next_page').val(next_page + 1);
-
-                var options = {
-                    'commentics_url': cmtx_js_settings_comments.commentics_url,
-                    'page_id'       : cmtx_js_settings_comments.page_id,
-                    'page_number'   : next_page,
-                    'sort_by'       : cmtxGetSortByValue(),
-                    'search'        : cmtxGetSearchValue(),
-                    'pagination'    : 'button',
-                    'effect'        : false
-                }
-
-                cmtxRefreshComments(options);
-            });
-
-            /* Return to comments link */
-            jQuery('#cmtx_container').on('click', '.cmtx_no_results a, .cmtx_return a', function(e) {
-                e.preventDefault();
-
-                jQuery('#cmtx_search').val('');
-
-                cmtx_js_settings_comments.is_permalink = false;
-
-                var options = {
-                    'commentics_url': cmtx_js_settings_comments.commentics_url,
-                    'page_id'       : cmtx_js_settings_comments.page_id,
-                    'page_number'   : '',
-                    'sort_by'       : '',
-                    'search'        : '',
-                    'effect'        : true
-                }
-
-                cmtxRefreshComments(options);
-            });
-
-            /* Refresh comments link */
-            jQuery('#cmtx_container').on('click', '.cmtx_edit_comment_refresh, .cmtx_quick_reply_refresh', function(e) {
-                e.preventDefault();
-
-                var options = {
-                    'commentics_url': cmtx_js_settings_comments.commentics_url,
-                    'page_id'       : cmtx_js_settings_comments.page_id,
-                    'page_number'   : '',
-                    'sort_by'       : cmtxGetSortByValue(),
-                    'search'        : cmtxGetSearchValue(),
-                    'effect'        : true
-                }
-
-                cmtxRefreshComments(options);
-            });
-
-            /* Infinite scroll */
-            if (typeof(cmtx_js_settings_comments) != 'undefined') {
-                if (cmtx_js_settings_comments.show_pagination && cmtx_js_settings_comments.pagination_type == 'infinite') {
-                    if (isInIframe) {
-                        if (window.addEventListener) {
-                            window.addEventListener('message', function (e) {
-                                if (e.data && e.data == 'infinite_scroll' && !cmtx_js_settings_comments.is_permalink) {
-                                    cmtxInfiniteScrollIframe();
-                                }
-                            }, false);
-                        }
-                    } else {
-                        jQuery(window).off('scroll', cmtxInfiniteScroll).on('scroll', cmtxInfiniteScroll);
-                    }
-                }
-            }
-
-            cmtxViewReplies();
-            cmtxTimeago();
-            cmtxHighlightCode();
-            cmtxViewersOnline();
-            cmtxCloseShareBox();
-            cmtxClosePermalinkBox();
-
-            /* Admin Detect modal */
-
-            if (typeof(cmtx_js_settings_form) != 'undefined') {
-                if (jQuery('#cmtx_admindetect_modal').length) {
-                    jQuery('body').append(jQuery('#cmtx_admindetect_modal'));
-
-                    jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                    if (isInIframe) {
-                        var destination = jQuery('#cmtx_container').offset();
-
-                        jQuery('#cmtx_admindetect_modal').css({top: destination.top + 130});
-
-                        jQuery('.cmtx_overlay').css('background-color', 'transparent');
-                    }
-
-                    jQuery('.cmtx_overlay').fadeIn(200);
-
-                    jQuery('#cmtx_admindetect_modal').fadeIn(200);
-                }
-
-                jQuery('body').on('click', '#cmtx_admindetect_modal_stop', function(e) {
-                    e.preventDefault();
-
-                    jQuery.ajax({
-                        url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/page/adminDetect',
-                    })
-
-                    jQuery('.cmtx_modal_close').trigger('click');
-                });
-            }
-
-            /* Quick reply */
-            jQuery('#cmtx_container').on('click', '.cmtx_button_quick_reply', function(e) {
-                e.preventDefault();
-
-                var quick_reply = jQuery(this).closest('.cmtx_comment_box').find('.quick_reply');
-
-                // Find any disabled inputs and remove the "disabled" attribute
-                var disabled = jQuery('#cmtx_form').find(':input:disabled').removeAttr('disabled');
-
-                // Serialize the form
-                var serialized = jQuery('#cmtx_form').serialize();
-
-                // Re-disable the set of inputs that were originally disabled
-                disabled.attr('disabled', 'disabled');
-
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/reply',
-                    data: serialized + '&cmtx_comment=' + encodeURIComponent(quick_reply.find('textarea[name="cmtx_quick_reply_comment"]').val().replace(/(\r\n|\n|\r)/gm, "\r\n")) + '&cmtx_email=' + encodeURIComponent(quick_reply.find('input[name="cmtx_quick_reply_email"]').val()) + '&cmtx_name=' + encodeURIComponent(quick_reply.find('input[name="cmtx_quick_reply_name"]').val()) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id) + jQuery('#cmtx_hidden_data').val(),
-                    dataType: 'json',
-                    beforeSend: function() {
-                        quick_reply.find('.cmtx_button_quick_reply').val(cmtx_js_settings_form.lang_button_processing);
-
-                        quick_reply.find('.cmtx_button_quick_reply').prop('disabled', true);
-
-                        quick_reply.find('.cmtx_button_quick_reply').addClass('cmtx_button_disabled');
-                    }
-                });
-
-                request.always(function() {
-                    quick_reply.find('.cmtx_button_quick_reply').val(cmtx_js_settings_comments.lang_button_reply);
-
-                    quick_reply.find('.cmtx_button_quick_reply').prop('disabled', false);
-
-                    quick_reply.find('.cmtx_button_quick_reply').removeClass('cmtx_button_disabled');
-                });
-
-                request.done(function(response) {
-                    jQuery('.cmtx_message:not(.cmtx_message_reply), .cmtx_error').remove();
-
-                    jQuery('.cmtx_field').removeClass('cmtx_field_error');
-
-                    if (response['result']['success']) {
-                        jQuery('.cmtx_message').remove();
-
-                        jQuery('input[name="cmtx_reply_to"]').val('');
-
-                        if (response['result']['approve']) {
-                            quick_reply.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + '</div>');
-                        } else {
-                            quick_reply.html('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + response['result']['success'] + ' <a href="#" class="cmtx_quick_reply_refresh">' + cmtx_js_settings_comments.lang_link_refresh + '</a>' + '</div>');
-                        }
-
-                        jQuery('.cmtx_message_success').fadeIn(1500);
-                    }
-
-                    if (response['result']['error']) {
-                        if (response['error']) {
-                            if (response['error']['comment']) {
-                                quick_reply.find('textarea[name="cmtx_quick_reply_comment"]').addClass('cmtx_field_error');
-
-                                quick_reply.find('textarea[name="cmtx_quick_reply_comment"]').after('<span class="cmtx_error">' + response['error']['comment'] + '</span>');
-                            }
-
-                            if (response['error']['name']) {
-                                quick_reply.find('input[name="cmtx_quick_reply_name"]').addClass('cmtx_field_error');
-
-                                quick_reply.find('input[name="cmtx_quick_reply_name"]').after('<span class="cmtx_error">' + response['error']['name'] + '</span>');
-                            }
-
-                            if (response['error']['email']) {
-                                quick_reply.find('input[name="cmtx_quick_reply_email"]').addClass('cmtx_field_error');
-
-                                quick_reply.find('input[name="cmtx_quick_reply_email"]').after('<span class="cmtx_error">' + response['error']['email'] + '</span>');
-                            }
-                        }
-
-                        quick_reply.prepend('<div class="cmtx_message cmtx_message_error">' + response['result']['error'] + '</div>');
-
-                        jQuery('.cmtx_message_error, .cmtx_error').fadeIn(2000);
-                    }
-                });
-
-                request.fail(function(jqXHR, textStatus, errorThrown) {
-                    if (console && console.log) {
-                        console.log(jqXHR.responseText);
-                    }
-                });
-            });
-
-            /* User Page */
-
-            if (typeof(cmtx_js_settings_user) != 'undefined') {
-                /* Show an avatar selection modal */
-                jQuery('#cmtx_avatar_selection_link').click(function(e) {
-                    e.preventDefault();
-
-                    jQuery('body').append('<div class="cmtx_overlay"></div>');
-
-                    jQuery('.cmtx_overlay').fadeIn(200);
-
-                    jQuery('#cmtx_avatar_selection_modal').fadeIn(200);
-                });
-
-                jQuery('.cmtx_avatar_selection_img').click(function(e) {
-                    e.preventDefault();
-
-                    var src = jQuery(this).attr('src');
-
-                    jQuery('.cmtx_avatar_image').attr('src', src);
-
-                    jQuery('.cmtx_avatar_image_links').show();
-
-                    jQuery('.cmtx_modal_close').trigger('click');
-                });
-
-                var readURL = function(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            jQuery('.cmtx_avatar_image').attr('src', e.target.result);
-                        }
-
-                        reader.readAsDataURL(input.files[0]);
-
-                        jQuery('.cmtx_avatar_image_links').show();
-                    }
-                }
-
-                jQuery('#cmtx_avatar_image_input').on('change', function() {
-                    readURL(this);
-                });
-
-                jQuery('#cmtx_avatar_upload_link').on('click', function(e) {
-                    e.preventDefault();
-
-                   jQuery('#cmtx_avatar_image_input').click();
-                });
-
-                jQuery('#cmtx_avatar_save_link').on('click', function(e) {
-                    e.preventDefault();
-
-                    var avatar_type = jQuery('.cmtx_avatar_image').attr('data-type');
-
-                    var formData = new FormData();
-
-                    formData.append('u-t', cmtx_js_settings_user.token);
-
-                    if (avatar_type == 'selection') {
-                        formData.append('avatar', jQuery('.cmtx_avatar_image').attr('src'));
-                        var method = 'saveSelectedAvatar';
-                    } else {
-                        formData.append('avatar', jQuery('#cmtx_avatar_image_input')[0].files[0]);
-                        var method = 'saveUploadedAvatar';
-                    }
-
-                    var request = jQuery.ajax({
-                        type: 'POST',
-                        cache: false,
-                        url: cmtx_js_settings_user.commentics_url + 'frontend/index.php?route=main/user/' + method,
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        dataType: 'json',
-                        beforeSend: function() {
-                            jQuery('.cmtx_message').remove();
-
-                            jQuery('form').before('<div class="cmtx_message cmtx_message_info">' + cmtx_js_settings_user.lang_text_saving + '</div>');
-
-                            jQuery('.cmtx_message').show();
-                        }
-                    });
-
-                    request.done(function(response) {
-                        cmtxAutoScroll(jQuery('.cmtx_user_container'));
-
-                        setTimeout(function() {
-                            jQuery('.cmtx_message').remove();
-
-                            if (response['success']) {
-                                jQuery('form').before('<div class="cmtx_message cmtx_message_success">' + response['success'] + '</div>');
-
-                                jQuery('.cmtx_message').show();
-
-                                jQuery('.cmtx_avatar_image_links').hide();
-                            }
-
-                            if (response['error']) {
-                                jQuery('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
-
-                                jQuery('.cmtx_message').show();
-                            }
-                        }, 1000);
-                    });
-                });
-
-                if (cmtx_js_settings_user.to_all) {
-                    jQuery('#cmtx_user_container .cmtx_notifications_area_custom').hide();
-                } else {
-                    jQuery('#cmtx_user_container .cmtx_notifications_area_custom').show();
-                }
-
-                jQuery('#cmtx_user_container input[name="to_all"]').on('change', function() {
-                    if (jQuery(this).val() == '1') {
-                        jQuery('#cmtx_user_container .cmtx_notifications_area_custom').fadeOut(500);
-                    } else {
-                        jQuery('#cmtx_user_container .cmtx_notifications_area_custom').fadeIn(1000);
-                    }
-                });
-
-                cmtxTimeago();
-
-                jQuery('#cmtx_user_container .cmtx_settings_container input').change(function(e) {
-                    var request = jQuery.ajax({
-                        type: 'POST',
-                        cache: false,
-                        url: cmtx_js_settings_user.commentics_url + 'frontend/index.php?route=main/user/save',
-                        data: jQuery('form').serialize() + '&u-t=' + encodeURIComponent(cmtx_js_settings_user.token),
-                        dataType: 'json',
-                        beforeSend: function() {
-                            jQuery('.cmtx_message').remove();
-
-                            jQuery('form').before('<div class="cmtx_message cmtx_message_info">' + cmtx_js_settings_user.lang_text_saving + '</div>');
-
-                            jQuery('.cmtx_message').show();
-                        }
-                    });
-
-                    request.done(function(response) {
-                        cmtxAutoScroll(jQuery('.cmtx_user_container'));
-
-                        setTimeout(function() {
-                            jQuery('.cmtx_message').remove();
-
-                            if (response['success']) {
-                                jQuery('form').before('<div class="cmtx_message cmtx_message_success">' + response['success'] + '</div>');
-
-                                jQuery('.cmtx_message').show();
-                            }
-
-                            if (response['error']) {
-                                jQuery('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
-
-                                jQuery('.cmtx_message').show();
-                            }
-                        }, 1000);
-                    });
-                });
-
-                jQuery('#cmtx_user_container .cmtx_trash_icon').click(function(e) {
-                    var trash_icon = jQuery(this);
-
-                    var request = jQuery.ajax({
-                        type: 'POST',
-                        cache: false,
-                        url: cmtx_js_settings_user.commentics_url + 'frontend/index.php?route=main/user/deleteSubscription',
-                        data: '&u-t=' + encodeURIComponent(cmtx_js_settings_user.token) + '&s-t=' + encodeURIComponent(jQuery(trash_icon).attr('data-sub-token')),
-                        dataType: 'json'
-                    });
-
-                    request.done(function(response) {
-                        jQuery('.cmtx_message').remove();
-
-                        if (response['success']) {
-                            jQuery(trash_icon).parent().parent().remove();
-
-                            jQuery('.count').text(response['count']);
-
-                            if (response['count'] == '0') {
-                                jQuery('tbody').append('<tr><td class="cmtx_no_results" colspan="4">' + cmtx_js_settings_user.lang_text_no_results + '</td></tr>');
-                            } else {
-                                var i = 1;
-
-                                jQuery('tbody tr td:first-child').each(function() {
-                                    jQuery(this).text(i);
-
-                                    i++;
-                                });
-                            }
-                        }
-
-                        if (response['error']) {
-                            cmtxAutoScroll(jQuery('.cmtx_user_container'));
-
-                            jQuery('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
-
-                            jQuery('.cmtx_message').show();
-                        }
-                    });
-                });
-
-                jQuery('#cmtx_user_container .cmtx_delete_all').click(function(e) {
-                    e.preventDefault();
-
-                    var request = jQuery.ajax({
-                        type: 'POST',
-                        cache: false,
-                        url: cmtx_js_settings_user.commentics_url + 'frontend/index.php?route=main/user/deleteAllSubscriptions',
-                        data: '&u-t=' + encodeURIComponent(cmtx_js_settings_user.token),
-                        dataType: 'json'
-                    });
-
-                    request.done(function(response) {
-                        jQuery('.cmtx_message').remove();
-
-                        if (response['success']) {
-                            jQuery('.count').text('0');
-
-                            jQuery('tbody').html('<tr><td class="cmtx_no_results" colspan="4">' + cmtx_js_settings_user.lang_text_no_results + '</td></tr>');
-                        }
-
-                        if (response['error']) {
-                            cmtxAutoScroll(jQuery('.cmtx_user_container'));
-
-                            jQuery('form').before('<div class="cmtx_message cmtx_message_error">' + response['error'] + '</div>');
-
-                            jQuery('.cmtx_message').show();
-                        }
-                    });
-                });
             }
         });
     }
-}, 100);
+
+    /* Load more comments button */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('#cmtx_more_button')) {
+            e.preventDefault();
+
+            document.querySelector('#cmtx_more_button').value = cmtx_js_settings_comments.lang_button_loading;
+
+            document.querySelector('#cmtx_more_button').disabled = true;
+
+            document.querySelector('#cmtx_more_button').classList.add('cmtx_button_disabled');
+
+            var next_page = parseInt(document.querySelector('#cmtx_next_page').value);
+
+            document.querySelector('#cmtx_next_page').value = (next_page + 1);
+
+            var options = {
+                'commentics_url': cmtx_js_settings_comments.commentics_url,
+                'page_id'       : cmtx_js_settings_comments.page_id,
+                'page_number'   : next_page,
+                'sort_by'       : cmtxGetSortByValue(),
+                'search'        : cmtxGetSearchValue(),
+                'pagination'    : 'button',
+                'effect'        : false
+            }
+
+            cmtxRefreshComments(options);
+        }
+    });
+
+    /* Return to comments link */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_no_results a, .cmtx_return a')) {
+            e.preventDefault();
+
+            document.querySelectorAll('.cmtx_search').forEach(function(element) {
+                element.value = '';
+            });
+
+            cmtx_js_settings_comments.is_permalink = false;
+
+            var options = {
+                'commentics_url': cmtx_js_settings_comments.commentics_url,
+                'page_id'       : cmtx_js_settings_comments.page_id,
+                'page_number'   : '',
+                'sort_by'       : '',
+                'search'        : '',
+                'effect'        : true
+            }
+
+            cmtxRefreshComments(options);
+        }
+    });
+
+    /* Refresh comments link */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_edit_comment_refresh, .cmtx_quick_reply_refresh')) {
+            e.preventDefault();
+
+            var options = {
+                'commentics_url': cmtx_js_settings_comments.commentics_url,
+                'page_id'       : cmtx_js_settings_comments.page_id,
+                'page_number'   : '',
+                'sort_by'       : cmtxGetSortByValue(),
+                'search'        : cmtxGetSearchValue(),
+                'effect'        : true
+            }
+
+            cmtxRefreshComments(options);
+        }
+    });
+
+    /* Infinite scroll */
+    if (typeof(cmtx_js_settings_comments) != 'undefined') {
+        if (cmtx_js_settings_comments.show_pagination && cmtx_js_settings_comments.pagination_type == 'infinite') {
+            if (isInIframe) {
+                if (window.addEventListener) {
+                    window.addEventListener('message', function (e) {
+                        if (e.data && e.data == 'infinite_scroll' && !cmtx_js_settings_comments.is_permalink) {
+                            cmtxInfiniteScrollIframe();
+                        }
+                    }, false);
+                }
+            } else {
+                // Remove the event listener (if it exists)
+                window.removeEventListener('scroll', cmtxInfiniteScroll);
+
+                // Add the event listener
+                window.addEventListener('scroll', cmtxInfiniteScroll);
+            }
+        }
+    }
+
+    /* Admin Detect modal */
+
+    if (typeof(cmtx_js_settings_form) != 'undefined') {
+        if (document.querySelector('#cmtx_admindetect_modal')) {
+            document.body.appendChild(document.querySelector('#cmtx_admindetect_modal'));
+
+            document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+            if (isInIframe) {
+                var destination = document.querySelector('#cmtx_container').getBoundingClientRect();
+
+                document.querySelector('#cmtx_admindetect_modal').style.top = destination.top + 130 + 'px';
+
+                document.querySelector('.cmtx_overlay').style.backgroundColor = 'transparent';
+            }
+
+            cmtxFadeIn('.cmtx_overlay', 200);
+
+            cmtxFadeIn('#cmtx_admindetect_modal', 200);
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.matches('#cmtx_admindetect_modal_stop')) {
+                e.preventDefault();
+
+                var request = cmtxFetch(cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/page/adminDetect', {
+                    body: ''
+                });
+
+                request.then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                }).catch(function(error) {
+                    if (console && console.log) {
+                        console.log(error);
+                    }
+                });
+
+                cmtxCloseModal();
+            }
+        });
+    }
+
+    /* Quick reply */
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.matches('.cmtx_button_quick_reply')) {
+            e.preventDefault();
+
+            var quick_reply = e.target.closest('.cmtx_comment_box').querySelector('.quick_reply');
+
+            // Find any disabled inputs and remove the "disabled" attribute
+            var disabled = document.querySelector('#cmtx_form').querySelectorAll('input:disabled').forEach(function(element) {
+                element.removeAttribute('disabled');
+            });
+
+            // Serialize the form
+            var serialized = new URLSearchParams(new FormData(document.querySelector('#cmtx_form')));
+
+            // Re-disable the set of inputs that were originally disabled
+            if (disabled) {
+                disabled.forEach(function(element) {
+                    element.setAttribute('disabled', 'disabled');
+                });
+            }
+
+            quick_reply.querySelector('.cmtx_button_quick_reply').value = cmtx_js_settings_form.lang_button_processing;
+
+            quick_reply.querySelector('.cmtx_button_quick_reply').disabled = true;
+
+            quick_reply.querySelector('.cmtx_button_quick_reply').classList.add('cmtx_button_disabled');
+
+            if (quick_reply.querySelector('input[name="cmtx_quick_reply_email"]')) {
+                var quick_reply_email = quick_reply.querySelector('input[name="cmtx_quick_reply_email"]').value;
+            } else {
+                var quick_reply_email = '';
+            }
+
+            if (quick_reply.querySelector('input[name="cmtx_quick_reply_name"]')) {
+                var quick_reply_name = quick_reply.querySelector('input[name="cmtx_quick_reply_name"]').value;
+            } else {
+                var quick_reply_name = '';
+            }
+
+            var request = cmtxFetch(cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/form/reply', {
+                body: serialized + '&cmtx_comment=' + encodeURIComponent(quick_reply.querySelector('textarea[name="cmtx_quick_reply_comment"]').value.replace(/(\r\n|\n|\r)/gm, "\r\n")) + '&cmtx_email=' + encodeURIComponent(quick_reply_email) + '&cmtx_name=' + encodeURIComponent(quick_reply_name) + '&cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_form.page_id) + document.querySelector('#cmtx_hidden_data').value
+            });
+
+            request.then(function(response) {
+                quick_reply.querySelector('.cmtx_button_quick_reply').value = cmtx_js_settings_comments.lang_button_reply;
+
+                quick_reply.querySelector('.cmtx_button_quick_reply').disabled = false;
+
+                quick_reply.querySelector('.cmtx_button_quick_reply').classList.remove('cmtx_button_disabled');
+
+                return response.json();
+            }).then(function(data) {
+                cmtxRemoveIfExists('.cmtx_message:not(.cmtx_message_reply), .cmtx_error');
+
+                document.querySelectorAll('.cmtx_field').forEach(function(element) {
+                    element.classList.remove('cmtx_field_error');
+                });
+
+                if (data['result']['success']) {
+                    cmtxRemoveIfExists('.cmtx_message');
+
+                    document.querySelector('input[name="cmtx_reply_to"]').value = '';
+
+                    if (data['result']['approve']) {
+                        quick_reply.innerHTML = ('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + data['result']['success'] + '</div>');
+                    } else {
+                        quick_reply.innerHTML = ('<div class="cmtx_message cmtx_message_success cmtx_m-0">' + data['result']['success'] + ' <a href="#" class="cmtx_quick_reply_refresh">' + cmtx_js_settings_comments.lang_link_refresh + '</a>' + '</div>');
+                    }
+
+                    cmtxFadeIn('.cmtx_message_success', 1500);
+                }
+
+                if (data['result']['error']) {
+                    if (data['error']) {
+                        if (data['error']['comment']) {
+                            quick_reply.querySelector('textarea[name="cmtx_quick_reply_comment"]').classList.add('cmtx_field_error');
+
+                            quick_reply.querySelector('textarea[name="cmtx_quick_reply_comment"]').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['comment'] + '</span>');
+                        }
+
+                        if (data['error']['name']) {
+                            quick_reply.querySelector('input[name="cmtx_quick_reply_name"]').classList.add('cmtx_field_error');
+
+                            quick_reply.querySelector('input[name="cmtx_quick_reply_name"]').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['name'] + '</span>');
+                        }
+
+                        if (data['error']['email']) {
+                            quick_reply.querySelector('input[name="cmtx_quick_reply_email"]').classList.add('cmtx_field_error');
+
+                            quick_reply.querySelector('input[name="cmtx_quick_reply_email"]').insertAdjacentHTML('afterend', '<span class="cmtx_error">' + data['error']['email'] + '</span>');
+                        }
+                    }
+
+                    quick_reply.insertAdjacentHTML('afterbegin', '<div class="cmtx_message cmtx_message_error">' + data['result']['error'] + '</div>');
+
+                    cmtxFadeIn('.cmtx_message_error, .cmtx_error', 2000);
+                }
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    /* Function to refresh the comments using ajax */
+    function cmtxRefreshComments(options) {
+        if (options.effect) {
+            cmtxShow('.cmtx_loading_icon');
+
+            document.querySelector('body').classList.add('cmtx_loading_body');
+        }
+
+        var request = cmtxFetch(options.commentics_url + 'frontend/index.php?route=main/comments/getComments', {
+            body: 'cmtx_page_id=' + encodeURIComponent(options.page_id) + '&cmtx_sort_by=' + encodeURIComponent(options.sort_by) + '&cmtx_search=' + encodeURIComponent(options.search) + '&cmtx_page=' + encodeURIComponent(options.page_number)
+        });
+
+        request.then(function(response) {
+            if (options.effect) {
+                cmtxHide('.cmtx_loading_icon');
+
+                document.body.classList.remove('cmtx_loading_body');
+            }
+
+            return response.json();
+        }).then(function(data) {
+            if (data['result']) {
+                if (options.pagination == 'button' || options.pagination == 'infinite') {
+                    var response_html = new DOMParser().parseFromString(data['result'], 'text/html');
+
+                    if (response_html.querySelector('.cmtx_comment_boxes')) {
+                        var comments = response_html.querySelector('.cmtx_comment_boxes').innerHTML;
+
+                        document.querySelector('.cmtx_comment_boxes').insertAdjacentHTML('beforeend', comments);
+                    }
+
+                    if (document.querySelector('#cmtx_more_button')) {
+                        document.querySelector('#cmtx_more_button').value = cmtx_js_settings_comments.lang_button_more;
+
+                        document.querySelector('#cmtx_more_button').disabled = false;
+
+                        document.querySelector('#cmtx_more_button').classList.remove('cmtx_button_disabled');
+                    }
+
+                    var total_comments = parseInt(document.querySelector('#cmtx_loading_helper').getAttribute('data-cmtx-total-comments'));
+
+                    if (total_comments > document.querySelector('.cmtx_comment_section').length) {
+                        // there are more comments that can be loaded
+                    } else {
+                        cmtxRemoveIfExists('#cmtx_more_button');
+
+                        document.querySelector('#cmtx_loading_helper').setAttribute('data-cmtx-load', '0');
+                    }
+                } else {
+                    document.querySelector('.cmtx_comments_section').innerHTML = data['result'];
+                }
+
+                document.querySelectorAll('.cmtx_search').forEach(function(element) {
+                    if (element.value != '') {
+                        element.classList.add('cmtx_search_focus');
+                    }
+                });
+
+                cmtxRemoveIfExists('body > #cmtx_flag_modal, body > #cmtx_delete_modal');
+
+                /* Load the comment settings in case they weren't already loaded (if there were no comments) */
+                if (document.querySelector('#cmtx_js_settings_comments')) {
+                    cmtx_js_settings_comments = JSON.parse(document.querySelector('#cmtx_js_settings_comments').innerText);
+                }
+
+                /* Load the notify settings in case they weren't already loaded (if there were no comments) */
+                if (document.querySelector('#cmtx_js_settings_notify')) {
+                    cmtx_js_settings_notify = JSON.parse(document.querySelector('#cmtx_js_settings_notify').innerText);
+                }
+
+                /* Load the online settings in case they weren't already loaded (if there were no comments) */
+                if (document.querySelector('#cmtx_js_settings_online')) {
+                    cmtx_js_settings_online = JSON.parse(document.querySelector('#cmtx_js_settings_online').innerText);
+                }
+
+                /* Re-initialise */
+                cmtxInit();
+
+                /* Serves as an event which can be listened to for after comments are loaded */
+                document.querySelector('#cmtx_loading_helper').click();
+            }
+        }).catch(function(error) {
+            if (console && console.log) {
+                console.log(error);
+            }
+        });
+    }
+
+    /* Infinite scroll */
+    var scroll_timeout = null;
+
+    function cmtxInfiniteScroll() {
+        if (document.querySelector('#cmtx_loading_helper').getAttribute('data-cmtx-load') == '1') {
+            clearTimeout(scroll_timeout);
+
+            scroll_timeout = setTimeout(function() {
+                var element_distance = Math.ceil(document.querySelector('#cmtx_loading_helper').getBoundingClientRect().top + window.scrollY);
+
+                // if the sum of the window height and scroll distance from the top is greater than the target element's distance from the top
+                if ((window.innerHeight + cmtxGetScrollTop()) > element_distance) {
+                    var next_page = parseInt(document.querySelector('#cmtx_next_page').value);
+
+                    document.querySelector('#cmtx_next_page').value = (next_page + 1);
+
+                    var options = {
+                        'commentics_url': cmtx_js_settings_comments.commentics_url,
+                        'page_id'       : cmtx_js_settings_comments.page_id,
+                        'page_number'   : next_page,
+                        'sort_by'       : cmtxGetSortByValue(),
+                        'search'        : cmtxGetSearchValue(),
+                        'pagination'    : 'infinite',
+                        'effect'        : false
+                    }
+
+                    cmtxRefreshComments(options);
+                }
+            }, 200);
+        }
+    }
+
+    function cmtxInfiniteScrollIframe(e) {
+        if (document.querySelector('#cmtx_loading_helper').getAttribute('data-cmtx-load') == '1') {
+            var next_page = parseInt(document.querySelector('#cmtx_next_page').value);
+
+            document.querySelector('#cmtx_next_page').value = (next_page + 1);
+
+            var options = {
+                'commentics_url': cmtx_js_settings_comments.commentics_url,
+                'page_id'       : cmtx_js_settings_comments.page_id,
+                'page_number'   : next_page,
+                'sort_by'       : cmtxGetSortByValue(),
+                'search'        : cmtxGetSearchValue(),
+                'pagination'    : 'infinite',
+                'effect'        : false
+            }
+
+            cmtxRefreshComments(options);
+        }
+    }
+
+    if (typeof window.iFrameResizer != 'undefined' && window.iFrameResizer != null) {
+        window.iFrameResizer = {
+            messageCallback: function (message) {
+                console.log(message);
+            }
+        };
+    }
+
+    /* Initialise */
+    cmtxInit();
+
+    /* User Page */
+
+    if (typeof(cmtx_js_settings_user) != 'undefined') {
+        cmtxTimeago();
+
+        /* Show an avatar selection modal */
+        if (document.querySelector('#cmtx_avatar_selection_link')) {
+            document.querySelector('#cmtx_avatar_selection_link').addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.body.insertAdjacentHTML('beforeend', '<div class="cmtx_overlay"></div>');
+
+                cmtxFadeIn('.cmtx_overlay', 200);
+
+                cmtxFadeIn('#cmtx_avatar_selection_modal', 200);
+            });
+        }
+
+        document.querySelectorAll('.cmtx_avatar_selection_img').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                var src = this.getAttribute('src');
+
+                document.querySelector('.cmtx_avatar_image').setAttribute('src', src);
+
+                cmtxShow('.cmtx_avatar_image_links');
+
+                cmtxCloseModal();
+            });
+        });
+
+        var readURL = function(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    document.querySelector('.cmtx_avatar_image').setAttribute('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+
+                cmtxShow('.cmtx_avatar_image_links');
+            }
+        }
+
+        if (document.querySelector('#cmtx_avatar_image_input')) {
+            document.querySelector('#cmtx_avatar_image_input').addEventListener('change', function() {
+                readURL(this);
+            });
+        }
+
+        if (document.querySelector('#cmtx_avatar_upload_link')) {
+            document.querySelector('#cmtx_avatar_upload_link').addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector('#cmtx_avatar_image_input').click();
+            });
+        }
+
+        if (document.querySelector('#cmtx_avatar_save_link')) {
+            document.querySelector('#cmtx_avatar_save_link').addEventListener('click', function(e) {
+                e.preventDefault();
+
+                var avatar_type = document.querySelector('.cmtx_avatar_image').getAttribute('data-type');
+
+                var formData = new FormData();
+
+                if (avatar_type == 'selection') {
+                    formData.append('avatar', document.querySelector('.cmtx_avatar_image').getAttribute('src'));
+                    var method = 'saveSelectedAvatar';
+                } else { // upload
+                    formData.append('avatar', document.querySelector('#cmtx_avatar_image_input').files[0]);
+                    var method = 'saveUploadedAvatar';
+                }
+
+                cmtxRemoveIfExists('.cmtx_message');
+
+                document.querySelector('form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_info">' + cmtx_js_settings_user.lang_text_saving + '</div>');
+
+                cmtxShow('.cmtx_message');
+
+                var request = cmtxFetch(cmtx_js_settings_user.commentics_url + 'frontend/index.php?route=main/user/' + method + '&u-t=' + encodeURIComponent(cmtx_js_settings_user.token), {
+                    body: formData,
+                    file_upload: true
+                });
+
+                request.then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    cmtxAutoScroll(document.querySelector('.cmtx_user_container'));
+
+                    setTimeout(function() {
+                        cmtxRemoveIfExists('.cmtx_message');
+
+                        if (data['success']) {
+                            document.querySelector('form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_success">' + data['success'] + '</div>');
+
+                            cmtxShow('.cmtx_message');
+
+                            cmtxHide('.cmtx_avatar_image_links');
+                        }
+
+                        if (data['error']) {
+                            document.querySelector('form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_error">' + data['error'] + '</div>');
+
+                            cmtxShow('.cmtx_message');
+                        }
+                    }, 1000);
+                }).catch(function(error) {
+                    if (console && console.log) {
+                        console.log(error);
+                    }
+                });
+            });
+        }
+
+        if (cmtx_js_settings_user.to_all) {
+            cmtxHide('#cmtx_user_container .cmtx_notifications_area_custom');
+        } else {
+            cmtxShow('#cmtx_user_container .cmtx_notifications_area_custom');
+        }
+
+        document.querySelectorAll('#cmtx_user_container input[name="to_all"]').forEach(function(element) {
+            element.addEventListener('change', function(e) {
+                if (e.target.value == '1') {
+                    cmtxFadeOut('#cmtx_user_container .cmtx_notifications_area_custom', 500);
+                } else {
+                    cmtxFadeIn('#cmtx_user_container .cmtx_notifications_area_custom', 500);
+                }
+            });
+        });
+
+        document.querySelectorAll('#cmtx_user_container .cmtx_settings_container input').forEach(function(element) {
+            element.addEventListener('change', function() {
+                cmtxRemoveIfExists('.cmtx_message');
+
+                document.querySelector('form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_info">' + cmtx_js_settings_user.lang_text_saving + '</div>');
+
+                cmtxShow('.cmtx_message');
+
+                // Serialize the form
+                var serialized = new URLSearchParams(new FormData(document.querySelector('form')));
+
+                var request = cmtxFetch(cmtx_js_settings_user.commentics_url + 'frontend/index.php?route=main/user/save', {
+                    body: serialized + '&u-t=' + encodeURIComponent(cmtx_js_settings_user.token)
+                });
+
+                request.then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    cmtxAutoScroll(document.querySelector('.cmtx_user_container'));
+
+                    setTimeout(function() {
+                        cmtxRemoveIfExists('.cmtx_message');
+
+                        if (data['success']) {
+                            document.querySelector('form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_success">' + data['success'] + '</div>');
+
+                            cmtxShow('.cmtx_message');
+                        }
+
+                        if (data['error']) {
+                            document.querySelector('form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_error">' + data['error'] + '</div>');
+
+                            cmtxShow('.cmtx_message');
+                        }
+                    }, 1000);
+                }).catch(function(error) {
+                    if (console && console.log) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+        document.querySelectorAll('#cmtx_user_container .cmtx_trash_icon').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                var trash_icon = e.target;
+
+                var request = cmtxFetch(cmtx_js_settings_user.commentics_url + 'frontend/index.php?route=main/user/deleteSubscription', {
+                    body: '&u-t=' + encodeURIComponent(cmtx_js_settings_user.token) + '&s-t=' + encodeURIComponent(trash_icon.getAttribute('data-sub-token'))
+                });
+
+                request.then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    cmtxRemoveIfExists('.cmtx_message');
+
+                    if (data['success']) {
+                        trash_icon.parentElement.parentElement.remove();
+
+                        document.querySelector('.count').textContent = data['count'];
+
+                        if (data['count'] == '0') {
+                            document.querySelector('tbody').insertAdjacentHTML('afterend', '<tr><td class="cmtx_no_results" colspan="4">' + cmtx_js_settings_user.lang_text_no_results + '</td></tr>');
+                        } else {
+                            var i = 1;
+
+                            document.querySelectorAll('tbody tr td:first-child').forEach(function(element) {
+                                element.textContent = i;
+
+                                i++;
+                            });
+                        }
+                    }
+
+                    if (data['error']) {
+                        cmtxAutoScroll(document.querySelector('.cmtx_user_container'));
+
+                        document.querySelector('form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_error">' + data['error'] + '</div>');
+
+                        cmtxShow('.cmtx_message');
+                    }
+                }).catch(function(error) {
+                    if (console && console.log) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+        document.querySelector('#cmtx_user_container .cmtx_delete_all').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            var request = cmtxFetch(cmtx_js_settings_user.commentics_url + 'frontend/index.php?route=main/user/deleteAllSubscriptions', {
+                body: '&u-t=' + encodeURIComponent(cmtx_js_settings_user.token)
+            });
+
+            request.then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                cmtxRemoveIfExists('.cmtx_message');
+
+                if (data['success']) {
+                    document.querySelector('.count').textContent = '0';
+
+                    document.querySelector('tbody').innerHTML = ('<tr><td class="cmtx_no_results" colspan="4">' + cmtx_js_settings_user.lang_text_no_results + '</td></tr>');
+                }
+
+                if (data['error']) {
+                    cmtxAutoScroll(document.querySelector('.cmtx_user_container'));
+
+                    document.querySelector('form').insertAdjacentHTML('beforebegin', '<div class="cmtx_message cmtx_message_error">' + data['error'] + '</div>');
+
+                    cmtxShow('.cmtx_message');
+                }
+            }).catch(function(error) {
+                if (console && console.log) {
+                    console.log(error);
+                }
+            });
+        });
+    }
+});
 
 /* Get the value from the sort by field */
 function cmtxGetSortByValue() {
-    var sort_by = jQuery('select[name="cmtx_sort_by"]').val();
+    var sort_by = '';
 
-    if (typeof(sort_by) == 'undefined') {
-        sort_by = '';
+    if (document.querySelector('select[name="cmtx_sort_by"]')) {
+        sort_by = document.querySelector('select[name="cmtx_sort_by"]').value;
     }
 
     return sort_by;
@@ -2249,10 +2577,10 @@ function cmtxGetSortByValue() {
 
 /* Get the value from the search field */
 function cmtxGetSearchValue() {
-    var search = jQuery('input[name="cmtx_search"]').val();
+    var search = '';
 
-    if (typeof(search) == 'undefined') {
-        search = '';
+    if (document.querySelector('input[name="cmtx_search"]')) {
+        search = document.querySelector('input[name="cmtx_search"]').value;
     }
 
     return search;
@@ -2260,125 +2588,85 @@ function cmtxGetSearchValue() {
 
 /* Get the current page number */
 function cmtxGetCurrentPage() {
-    if (jQuery('.cmtx_pagination_box_active').length) {
-        return parseInt(jQuery('.cmtx_pagination_box_active').attr('data-cmtx-page'));
-    } else if (jQuery('#cmtx_next_page').length) {
-        return parseInt(jQuery('#cmtx_next_page').val() - 1);
+    if (document.querySelector('.cmtx_pagination_box_active')) {
+        return parseInt(document.querySelector('.cmtx_pagination_box_active').getAttribute('data-cmtx-page'));
+    } else if (document.querySelector('#cmtx_next_page')) {
+        return parseInt(document.querySelector('#cmtx_next_page').value - 1);
     } else {
         return 1;
     }
 }
 
-/* Infinite scroll */
-var scroll_timeout = null;
-
-function cmtxInfiniteScroll() {
-    if (jQuery('#cmtx_loading_helper').attr('data-cmtx-load') == '1') {
-        clearTimeout(scroll_timeout);
-
-        scroll_timeout = setTimeout(function() {
-            var element_distance = Math.ceil(jQuery('#cmtx_loading_helper').offset().top);
-
-            // if the sum of the window height and scroll distance from the top is greater than the target element's distance from the top
-            if ((jQuery(window).height() + jQuery(this).scrollTop()) > element_distance) {
-                var next_page = parseInt(jQuery('#cmtx_next_page').val());
-
-                jQuery('#cmtx_next_page').val(next_page + 1);
-
-                var options = {
-                    'commentics_url': cmtx_js_settings_comments.commentics_url,
-                    'page_id'       : cmtx_js_settings_comments.page_id,
-                    'page_number'   : next_page,
-                    'sort_by'       : cmtxGetSortByValue(),
-                    'search'        : cmtxGetSearchValue(),
-                    'pagination'    : 'infinite',
-                    'effect'        : false
-                }
-
-                cmtxRefreshComments(options);
-            }
-        }, 200);
-    }
-}
-
-function cmtxInfiniteScrollIframe(e) {
-    if (jQuery('#cmtx_loading_helper').attr('data-cmtx-load') == '1') {
-        var next_page = parseInt(jQuery('#cmtx_next_page').val());
-
-        jQuery('#cmtx_next_page').val(next_page + 1);
-
-        var options = {
-            'commentics_url': cmtx_js_settings_comments.commentics_url,
-            'page_id'       : cmtx_js_settings_comments.page_id,
-            'page_number'   : next_page,
-            'sort_by'       : cmtxGetSortByValue(),
-            'search'        : cmtxGetSearchValue(),
-            'pagination'    : 'infinite',
-            'effect'        : false
-        }
-
-        cmtxRefreshComments(options);
-    }
-}
-
-if (typeof window.iFrameResizer != 'undefined' && window.iFrameResizer != null) {
-    window.iFrameResizer = {
-        messageCallback: function (message) {
-            console.log(message);
-        }
-    };
-}
-
 /* Auto update the time with e.g. '2 minutes ago' */
 function cmtxTimeago() {
     if (typeof(cmtx_js_settings_comments) != 'undefined') {
-        if (cmtx_js_settings_comments.date_auto) {
-            jQuery.timeago.settings.strings = {
-                suffixAgo: cmtx_js_settings_comments.timeago_suffixAgo,
-                inPast   : cmtx_js_settings_comments.timeago_inPast,
-                seconds  : cmtx_js_settings_comments.timeago_seconds,
-                minute   : cmtx_js_settings_comments.timeago_minute,
-                minutes  : cmtx_js_settings_comments.timeago_minutes,
-                hour     : cmtx_js_settings_comments.timeago_hour,
-                hours    : cmtx_js_settings_comments.timeago_hours,
-                day      : cmtx_js_settings_comments.timeago_day,
-                days     : cmtx_js_settings_comments.timeago_days,
-                month    : cmtx_js_settings_comments.timeago_month,
-                months   : cmtx_js_settings_comments.timeago_months,
-                year     : cmtx_js_settings_comments.timeago_year,
-                years    : cmtx_js_settings_comments.timeago_years
-            };
-
-            jQuery('.cmtx_date_area .timeago').timeago();
-        }
+        var settings = cmtx_js_settings_comments;
+    } else if (typeof(cmtx_js_settings_user) != 'undefined') {
+        var settings = cmtx_js_settings_user;
+    } else {
+        return;
     }
 
-    if (typeof(cmtx_js_settings_user) != 'undefined') {
-        jQuery.timeago.settings.strings = {
-            suffixAgo: cmtx_js_settings_user.timeago_suffixAgo,
-            inPast   : cmtx_js_settings_user.timeago_inPast,
-            seconds  : cmtx_js_settings_user.timeago_seconds,
-            minute   : cmtx_js_settings_user.timeago_minute,
-            minutes  : cmtx_js_settings_user.timeago_minutes,
-            hour     : cmtx_js_settings_user.timeago_hour,
-            hours    : cmtx_js_settings_user.timeago_hours,
-            day      : cmtx_js_settings_user.timeago_day,
-            days     : cmtx_js_settings_user.timeago_days,
-            month    : cmtx_js_settings_user.timeago_month,
-            months   : cmtx_js_settings_user.timeago_months,
-            year     : cmtx_js_settings_user.timeago_year,
-            years    : cmtx_js_settings_user.timeago_years
-        };
+    if (settings.date_auto) {
+        document.querySelectorAll('.cmtx_timeago').forEach(function(element) {
+            var timestamp = new Date(element.getAttribute('datetime'));
 
-        jQuery('#cmtx_user_container .timeago').timeago();
+            var now = new Date();
+            var diff = now - timestamp;
+
+            var seconds = Math.floor(diff / 1000);
+            var minutes = Math.floor(seconds / 60);
+            var hours = Math.floor(minutes / 60);
+            var days = Math.floor(hours / 24);
+            var months = Math.floor(days / 30);
+            var years = Math.floor(months / 12);
+
+            if (years > 0) {
+                if (years == 1) {
+                    timestamp = settings.timeago_year;
+                } else {
+                    timestamp = settings.timeago_years.replace('%d', years);
+                }
+            } else if (months > 0) {
+                if (months == 1) {
+                    timestamp = settings.timeago_month;
+                } else {
+                    timestamp = settings.timeago_months.replace('%d', months);
+                }
+            } else if (days > 0) {
+                if (days == 1) {
+                    timestamp = settings.timeago_day;
+                } else {
+                    timestamp = settings.timeago_days.replace('%d', days);
+                }
+            } else if (hours > 0) {
+                if (hours == 1) {
+                    timestamp = settings.timeago_hour;
+                } else {
+                    timestamp = settings.timeago_hours.replace('%d', hours);
+                }
+            } else if (minutes > 0) {
+                if (minutes == 1) {
+                    timestamp = settings.timeago_minute;
+                } else {
+                    timestamp = settings.timeago_minutes.replace('%d', minutes);
+                }
+            } else {
+                timestamp = settings.timeago_now;
+            }
+
+            element.innerText = timestamp;
+        });
+
+        setInterval(cmtxTimeago, 60000);
     }
 }
 
 /* Highlight any user-entered code */
 function cmtxHighlightCode() {
     if (typeof(hljs) != 'undefined' && typeof(hljs.highlightElement) != 'undefined') {
-        jQuery('.cmtx_code_box, .cmtx_php_box').each(function(i, el) {
-            hljs.highlightElement(el);
+        document.querySelectorAll('.cmtx_code_box, .cmtx_php_box').forEach(function(element) {
+            hljs.highlightElement(element);
         });
     }
 }
@@ -2388,27 +2676,27 @@ function cmtxViewersOnline() {
     if (typeof(cmtx_js_settings_online) != 'undefined') {
         if (cmtx_js_settings_online.online_refresh_enabled) {
             setInterval(function() {
-                var request = jQuery.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: cmtx_js_settings_online.commentics_url + 'frontend/index.php?route=part/online/refresh',
-                    data: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_online.page_id),
-                    dataType: 'json'
+                var request = cmtxFetch(cmtx_js_settings_online.commentics_url + 'frontend/index.php?route=part/online/refresh', {
+                    body: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_online.page_id)
                 });
 
-                request.done(function(response) {
-                    if (response['online'] != 'undefined') { // may be zero
-                        if (jQuery('.cmtx_online_num').first().text() != response['online']) { // only update if different
-                            jQuery('.cmtx_online_num').fadeOut(function() {
-                                jQuery('.cmtx_online_num').text(response['online']).fadeIn();
-                            });
+                request.then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    if (data['online'] != 'undefined') { // may be zero
+                        if (document.querySelector('.cmtx_online_num').textContent.trim() != data['online']) { // only update if different
+                            cmtxFadeOut('.cmtx_online_num', 400);
+                            setInterval(function() {
+                                document.querySelectorAll('.cmtx_online_num').forEach(function(element) {
+                                    element.textContent = data['online'];
+                                    cmtxFadeIn(element, 400);
+                                });
+                            }, 400);
                         }
                     }
-                });
-
-                request.fail(function(jqXHR, textStatus, errorThrown) {
+                }).catch(function(error) {
                     if (console && console.log) {
-                        console.log(jqXHR.responseText);
+                        console.log(error);
                     }
                 });
             }, cmtx_js_settings_online.online_refresh_interval);
@@ -2419,8 +2707,8 @@ function cmtxViewersOnline() {
 /* Show the 'View x replies' link */
 function cmtxViewReplies() {
     if (typeof(cmtx_js_settings_comments) != 'undefined') {
-        jQuery('.cmtx_reply_counter').each(function() {
-            var reply_counter = jQuery(this).text();
+        document.querySelectorAll('.cmtx_reply_counter').forEach(function(element) {
+            var reply_counter = element.textContent;
 
             if (reply_counter) {
                 if (reply_counter == 1) {
@@ -2429,20 +2717,35 @@ function cmtxViewReplies() {
                     var view_replies = '<span class="cmtx_reply_view">' + cmtx_js_settings_comments.lang_text_view + '</span> <span class="cmtx_reply_num">' + reply_counter + '</span> <span class="cmtx_reply_replies">' + cmtx_js_settings_comments.lang_text_replies + '</span>';
                 }
 
-                jQuery(this).closest('.cmtx_comment_section').find('.cmtx_view_replies_link').html('<i class="fa fa-commenting-o" aria-hidden="true"></i> ' + view_replies);
+                var comment_section = element.closest('.cmtx_comment_section');
+
+                var replies_link = comment_section.querySelector('.cmtx_view_replies_link');
+
+                if (replies_link) {
+                    replies_link.innerHTML = ('<i class="fa fa-commenting-o" aria-hidden="true"></i> ' + view_replies);
+                }
             }
         });
     }
 }
 
+/* Set the href attribute for the Share Box */
+function cmtxSetShareBoxHref(selector, href) {
+    var share_box = document.querySelector(selector);
+
+    if (share_box) {
+        share_box.parentElement.setAttribute('href', href);
+    }
+}
+
 /* Close the share box when clicking off it */
 function cmtxCloseShareBox() {
-    if (jQuery('.cmtx_share_box').length) {
-        jQuery(document).mouseup(function(e) {
-            var container = jQuery('.cmtx_share_box');
+    if (document.querySelector('.cmtx_share_box')) {
+        document.addEventListener('mouseup', function(e) {
+            var container = document.querySelector('.cmtx_share_box');
 
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                container.fadeOut(400);
+            if (container !== e.target && !container.contains(e.target)) {
+                cmtxFadeOut('.cmtx_share_box', 400);
             }
         });
     }
@@ -2450,43 +2753,193 @@ function cmtxCloseShareBox() {
 
 /* Close the permalink box when clicking off it */
 function cmtxClosePermalinkBox() {
-    if (jQuery('.cmtx_permalink_box').length) {
-        jQuery(document).mouseup(function(e) {
-            var container = jQuery('.cmtx_permalink_box');
+    if (document.querySelector('.cmtx_permalink_box')) {
+        document.addEventListener('mouseup', function(e) {
+            var container = document.querySelector('.cmtx_permalink_box');
 
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                container.fadeOut(400);
+            if (container !== e.target && !container.contains(e.target)) {
+                cmtxFadeOut('.cmtx_permalink_box', 400);
             }
         });
     }
 }
 
+/* Close any open modals */
+function cmtxCloseModal() {
+    document.querySelectorAll('.cmtx_modal_close').forEach(function(element) {
+        element.click();
+    });
+}
+
+function cmtxHide(selectorOrElement) {
+    var elements;
+
+    if (typeof selectorOrElement === 'string') {
+        // If it's a selector, use querySelectorAll
+        elements = document.querySelectorAll(selectorOrElement);
+    } else if (selectorOrElement instanceof Element) {
+        // If it's a DOM element, create an array with that element
+        elements = [selectorOrElement];
+    } else {
+        console.error('Invalid parameter type. Expected selector or DOM element.');
+        return;
+    }
+
+    elements.forEach(function(element) {
+        element.style.display = 'none';
+    });
+}
+
+function cmtxShow(selectorOrElement) {
+    var elements;
+
+    if (typeof selectorOrElement === 'string') {
+        // If it's a selector, use querySelectorAll
+        elements = document.querySelectorAll(selectorOrElement);
+    } else if (selectorOrElement instanceof Element) {
+        // If it's a DOM element, create an array with that element
+        elements = [selectorOrElement];
+    } else {
+        console.error('Invalid parameter type. Expected selector or DOM element.');
+        return;
+    }
+
+    elements.forEach(function(element) {
+        element.style.display = 'block';
+    });
+}
+
+function cmtxFadeIn(selectorOrElement, duration, not = '') {
+    var elements;
+
+    if (typeof selectorOrElement === 'string') {
+        // If it's a selector, use querySelectorAll
+        elements = document.querySelectorAll(selectorOrElement);
+    } else if (selectorOrElement instanceof Element) {
+        // If it's a DOM element, create an array with that element
+        elements = [selectorOrElement];
+    } else {
+        console.error('Invalid parameter type. Expected selector or DOM element.');
+        return;
+    }
+
+    elements.forEach(function(element) {
+        if (not == '' || !element.matches(not)) {
+            // Set the initial opacity to 0
+            element.style.opacity = 0;
+            element.style.display = 'block';
+
+            // Apply the transition
+            element.style.transition = `opacity ${duration}ms ease-in-out`;
+
+            // Trigger a reflow to make sure the transition starts from the initial state
+            void element.offsetWidth;
+
+            // Set the final opacity to 1 to start the transition
+            element.style.opacity = 1;
+        }
+    });
+}
+
+function cmtxFadeOut(selectorOrElement, duration, not = '') {
+    var elements;
+
+    if (typeof selectorOrElement === 'string') {
+        // If it's a selector, use querySelectorAll
+        elements = document.querySelectorAll(selectorOrElement);
+    } else if (selectorOrElement instanceof Element) {
+        // If it's a DOM element, create an array with that element
+        elements = [selectorOrElement];
+    } else {
+        console.error('Invalid parameter type. Expected selector or DOM element.');
+        return;
+    }
+
+    elements.forEach(function(element) {
+        if (not == '' || !element.matches(not)) {
+            // Set the initial opacity to 1
+            element.style.opacity = 1;
+            element.style.display = 'none';
+
+            // Apply the transition
+            element.style.transition = `opacity ${duration}ms ease-in-out`;
+
+            // Trigger a reflow to make sure the transition starts from the initial state
+            void element.offsetWidth;
+
+            // Set the final opacity to 0 to start the transition
+            element.style.opacity = 0;
+        }
+    });
+}
+
+var timeoutId; // used in cmtxFadeInOut() function below
+
+function cmtxFadeInOut(selectorOrElement, durationIn, delay, durationOut) {
+    var elements;
+
+    if (typeof selectorOrElement === 'string') {
+        // If it's a selector, use querySelectorAll
+        elements = document.querySelectorAll(selectorOrElement);
+    } else if (selectorOrElement instanceof Element) {
+        // If it's a DOM element, create an array with that element
+        elements = [selectorOrElement];
+    } else {
+        console.error('Invalid parameter type. Expected selector or DOM element.');
+        return;
+    }
+
+    // Clear any existing timeout
+    clearTimeout(timeoutId);
+
+    elements.forEach(function(element) {
+        // Fade in
+        element.style.opacity = 0;
+        element.style.display = 'block';
+        element.style.transition = `opacity ${durationIn}ms ease-in-out`;
+        void element.offsetWidth;
+        element.style.opacity = 1;
+
+        // Delay
+        timeoutId = setTimeout(function() {
+            // Fade out
+            element.style.transition = `opacity ${durationOut}ms ease-in-out`;
+            element.style.opacity = 0;
+        }, delay);
+    });
+}
+
+/* Remove element if it exists */
+function cmtxRemoveIfExists(selector) {
+    document.querySelectorAll(selector).forEach(function(element) {
+        element.remove();
+    });
+}
+
 /* Auto scroll to element */
 function cmtxAutoScroll(element) {
     try {
-       element[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (error) {
        // fallback for browsers like Edge that don't yet support the options parameter
-       element[0].scrollIntoView(true);
+       element.scrollIntoView(true);
     }
 }
 
 /* Update the comment counter */
 function cmtxUpdateCommentCounter() {
-    if (jQuery('#cmtx_comment').length) {
-        var length = jQuery('#cmtx_comment').val().length;
+    if (document.querySelector('#cmtx_comment') && document.querySelector('#cmtx_counter')) {
+        var length = document.querySelector('#cmtx_comment').value.length;
 
-        var maximum = jQuery('#cmtx_comment').attr('maxlength');
+        var maximum = document.querySelector('#cmtx_comment').getAttribute('maxlength');
 
-        jQuery('#cmtx_counter').html(maximum - length);
+        document.querySelector('#cmtx_counter').textContent = maximum - length;
     }
 }
 
 /* Adds a tag (BB Code or Smiley) to the comment field */
-function cmtx_add_tag(start, end) {
-    var obj = document.getElementById('cmtx_comment');
-
-    jQuery('#cmtx_comment').focus();
+function cmtxAddTag(start, end) {
+    var obj = document.querySelector('#cmtx_comment');
 
     if (document.selection && document.selection.createRange) { // Internet Explorer
         selection = document.selection.createRange();
@@ -2495,107 +2948,23 @@ function cmtx_add_tag(start, end) {
             selection.text = start + selection.text + end;
         }
     } else if (typeof(obj) != 'undefined') { // Firefox
-        var length = jQuery('#cmtx_comment').val().length;
+        var length = document.querySelector('#cmtx_comment').value.length;
         var selection_start = obj.selectionStart;
         var selection_end = obj.selectionEnd;
 
-        jQuery('#cmtx_comment').val(obj.value.substring(0, selection_start) + start + obj.value.substring(selection_start, selection_end) + end + obj.value.substring(selection_end, length));
+        document.querySelector('#cmtx_comment').value = (obj.value.substring(0, selection_start) + start + obj.value.substring(selection_start, selection_end) + end + obj.value.substring(selection_end, length));
     } else {
-        jQuery('#cmtx_comment').val(start + end);
+        document.querySelector('#cmtx_comment').value = (start + end);
     }
 
     cmtxUpdateCommentCounter();
 
-    jQuery('#cmtx_comment').focus();
+    obj.focus();
 }
 
-/* Function to refresh the comments using ajax */
-function cmtxRefreshComments(options) {
-    var request = jQuery.ajax({
-        type: 'POST',
-        cache: false,
-        url: options.commentics_url + 'frontend/index.php?route=main/comments/getComments',
-        data: 'cmtx_page_id=' + encodeURIComponent(options.page_id) + '&cmtx_sort_by=' + encodeURIComponent(options.sort_by) + '&cmtx_search=' + encodeURIComponent(options.search) + '&cmtx_page=' + encodeURIComponent(options.page_number),
-        dataType: 'json',
-        beforeSend: function() {
-            if (options.effect) {
-                jQuery('.cmtx_loading_icon').show();
-
-                jQuery('body').addClass('cmtx_loading_body');
-            }
-        }
-    });
-
-    request.always(function() {
-        if (options.effect) {
-            jQuery('.cmtx_loading_icon').hide();
-
-            jQuery('body').removeClass('cmtx_loading_body');
-        }
-    });
-
-    request.done(function(response) {
-        if (response['result']) {
-            if (options.pagination == 'button' || options.pagination == 'infinite') {
-                var comments = jQuery('.cmtx_comment_boxes', jQuery(response['result'])).html();
-
-                jQuery('.cmtx_comment_boxes').append(comments);
-
-                jQuery('#cmtx_more_button').val(cmtx_js_settings_comments.lang_button_more);
-
-                jQuery('#cmtx_more_button').prop('disabled', false);
-
-                jQuery('#cmtx_more_button').removeClass('cmtx_button_disabled');
-
-                var total_comments = parseInt(jQuery('#cmtx_loading_helper').attr('data-cmtx-total-comments'));
-
-                if (total_comments > jQuery('.cmtx_comment_section').length) {
-                    // there are more comments that can be loaded
-                } else {
-                    jQuery('#cmtx_more_button').remove();
-
-                    jQuery('#cmtx_loading_helper').attr('data-cmtx-load', '0');
-                }
-            } else {
-                jQuery('.cmtx_comments_section').html(response['result']);
-            }
-
-            if (jQuery('#cmtx_search').val() != '') {
-                jQuery('#cmtx_search').addClass('cmtx_search_focus');
-            };
-
-            /* Load the comment settings in case they weren't already loaded (if there were no comments) */
-            if (jQuery('#cmtx_js_settings_comments').length) {
-                cmtx_js_settings_comments = JSON.parse(jQuery('#cmtx_js_settings_comments').text());
-            }
-
-            /* Load the notify settings in case they weren't already loaded (if there were no comments) */
-            if (jQuery('#cmtx_js_settings_notify').length) {
-                cmtx_js_settings_notify = JSON.parse(jQuery('#cmtx_js_settings_notify').text());
-            }
-
-            /* Load the online settings in case they weren't already loaded (if there were no comments) */
-            if (jQuery('#cmtx_js_settings_online').length) {
-                cmtx_js_settings_online = JSON.parse(jQuery('#cmtx_js_settings_online').text());
-            }
-
-            cmtxViewReplies();
-            cmtxTimeago();
-            cmtxHighlightCode();
-            cmtxViewersOnline();
-            cmtxCloseShareBox();
-            cmtxClosePermalinkBox();
-
-            /* Serves as an event which can be listened to for after comments are loaded */
-            $('#cmtx_loading_helper').trigger('click');
-        }
-    });
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        if (console && console.log) {
-            console.log(jqXHR.responseText);
-        }
-    });
+/* Get the scroll position from the top of the page */
+function cmtxGetScrollTop() {
+    return window.scrollY || document.documentElement.scrollTop;
 }
 
 /* Trims a string */

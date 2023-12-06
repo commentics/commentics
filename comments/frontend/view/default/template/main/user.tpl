@@ -127,7 +127,7 @@
                                     <tr>
                                         <td>{{ count }}</td>
                                         <td><a href="{{ subscription.url }}" target="_blank">{{ subscription.reference }}</a></td>
-                                        <td><time class="timeago" datetime="{{ subscription.date_added }}" title="{{ subscription.date_added_title }}"></time></td>
+                                        <td><time class="cmtx_timeago" datetime="{{ subscription.datetime }}" title="{{ subscription.date_added }}">{{ subscription.date_added }}</time></td>
                                         <td><span class="cmtx_trash_icon" title="{{ lang_title_delete }}" data-sub-token="{{ subscription.token }}"></span></td>
                                     </tr>
 

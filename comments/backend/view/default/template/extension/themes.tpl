@@ -58,29 +58,9 @@
         <h2><?php echo $lang_subheading; ?></h2>
 
         <div class="fieldset">
-            <label><?php echo $lang_entry_auto_detect; ?></label>
-            <input type="checkbox" name="auto_detect" value="1" <?php if ($auto_detect) { echo 'checked'; } ?>>
-            <a class="hint" data-hint="<?php echo $lang_hint_auto_detect; ?>">[?]</a>
-        </div>
-
-        <div class="fieldset">
             <label><?php echo $lang_entry_optimize; ?></label>
             <input type="checkbox" name="optimize" value="1" <?php if ($optimize) { echo 'checked'; } ?>>
             <a class="hint" data-hint="<?php echo $lang_hint_optimize; ?>">[?]</a>
-        </div>
-
-        <div class="fieldset">
-            <label><?php echo $lang_entry_jquery; ?></label>
-            <select name="jquery_source">
-                <option value="" <?php if ($jquery_source == '') { echo 'selected'; } ?>><?php echo $lang_select_no; ?></option>
-                <option value="local" <?php if ($jquery_source == 'local') { echo 'selected'; } ?>><?php echo $lang_select_local; ?></option>
-                <option value="google" <?php if ($jquery_source == 'google') { echo 'selected'; } ?>><?php echo $lang_select_google; ?></option>
-                <option value="jquery" <?php if ($jquery_source == 'jquery') { echo 'selected'; } ?>><?php echo $lang_select_jquery; ?></option>
-            </select>
-            <a class="hint" data-hint="<?php echo $lang_hint_jquery_source; ?>">[?]</a>
-            <?php if ($error_jquery_source) { ?>
-                <span class="error"><?php echo $error_jquery_source; ?></span>
-            <?php } ?>
         </div>
 
         <p><?php echo $lang_text_parts; ?></p>

@@ -149,12 +149,8 @@
             <div class="cmtx_date_and_action_area">
                 @if show_date
                     <div class="cmtx_date_area">
-                        @if date_auto
-                            <time class="cmtx_date timeago" datetime="{{ comment.date_added }}" title="{{ comment.date_added_title }}">{{ comment.date_added_title }}</time>
-                        @else
-                            <time class="cmtx_date">{{ comment.date_added }}</time>
-                        @endif
-                        <meta itemprop="dateCreated" content="{{ comment.date_added }}">
+                        <time class="cmtx_date cmtx_timeago" datetime="{{ comment.datetime }}" title="{{ comment.date_added }}">{{ comment.date_added }}</time>
+                        <meta itemprop="dateCreated" content="{{ comment.datetime }}">
 
                         @if comment.number_edits
                             <span class="cmtx_edited">{{ lang_text_edited }}</span>
@@ -200,22 +196,26 @@
                             </div>
                         @endif
 
-                        @if show_edit and comment.session_id equals session_id and comment.ip_address equals ip_address or is_admin
-                            @if comment.original_comment
-                                <div class="cmtx_edit_area">
-                                    <a href="#" class="cmtx_edit_link" title="{{ lang_title_edit }}">
-                                        <span class="cmtx_icon cmtx_edit_icon" aria-hidden="true"></span>
-                                    </a>
-                                </div>
+                        @if show_edit
+                            @if comment.session_id equals session_id and comment.ip_address equals ip_address or is_admin
+                                @if comment.original_comment
+                                    <div class="cmtx_edit_area">
+                                        <a href="#" class="cmtx_edit_link" title="{{ lang_title_edit }}">
+                                            <span class="cmtx_icon cmtx_edit_icon" aria-hidden="true"></span>
+                                        </a>
+                                    </div>
+                                @endif
                             @endif
                         @endif
 
-                        @if show_delete and comment.session_id equals session_id and comment.ip_address equals ip_address or is_admin
-                            <div class="cmtx_delete_area">
-                                <a href="#" class="cmtx_delete_link" title="{{ lang_title_delete }}">
-                                    <span class="cmtx_icon cmtx_delete_icon" aria-hidden="true"></span>
-                                </a>
-                            </div>
+                        @if show_delete
+                            @if comment.session_id equals session_id and comment.ip_address equals ip_address or is_admin
+                                <div class="cmtx_delete_area">
+                                    <a href="#" class="cmtx_delete_link" title="{{ lang_title_delete }}">
+                                        <span class="cmtx_icon cmtx_delete_icon" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            @endif
                         @endif
 
                         @if show_permalink

@@ -9,11 +9,7 @@ class ExtensionThemesModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['theme_backend']) . "' WHERE `title` = 'theme_backend'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['auto_detect']) ? 1 : 0) . "' WHERE `title` = 'auto_detect'");
-
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['optimize']) ? 1 : 0) . "' WHERE `title` = 'optimize'");
-
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['jquery_source']) . "' WHERE `title` = 'jquery_source'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['order_parts']) . "' WHERE `title` = 'order_parts'");
 

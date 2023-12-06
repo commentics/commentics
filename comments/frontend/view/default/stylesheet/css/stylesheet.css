@@ -2988,6 +2988,9 @@
   line-height: normal;
   padding: 5px !important;
   text-align: left !important;
+}
+
+.cmtx_comment_field_transition {
   transition: height 0.25s ease-in !important;
 }
 
@@ -4129,11 +4132,11 @@ select.cmtx_required {
   vertical-align: middle;
 }
 
-.cmtx_average_rating > input {
+.cmtx_average_rating input {
   display: none;
 }
 
-.cmtx_average_rating > label::before {
+.cmtx_average_rating label::before {
   content: "\f005";
   display: inline-block;
   font-family: FontAwesome;
@@ -4142,26 +4145,18 @@ select.cmtx_required {
   margin: 5px;
 }
 
-.cmtx_average_rating > label {
+.cmtx_average_rating label {
   color: #e6e6e6;
   float: right;
   padding: 0;
   width: auto;
 }
 
-.cmtx_average_rating > input:checked ~ label {
+.cmtx_average_rating .cmtx_rating_label_checked, .cmtx_average_rating .cmtx_rating_label_checked ~ label {
   color: #ffd700;
 }
 
-.cmtx_average_rating_can_rate:not(:checked) > label:hover {
-  color: #ffd700;
-}
-
-.cmtx_average_rating_can_rate:not(:checked) > label:hover ~ label {
-  color: #ffd700;
-}
-
-.cmtx_average_rating_can_rate > input:checked + label:hover, .cmtx_average_rating_can_rate > input:checked ~ label:hover, .cmtx_average_rating_can_rate > label:hover ~ input:checked ~ label, .cmtx_average_rating_can_rate > input:checked ~ label:hover ~ label {
+.cmtx_average_rating_can_rate label:hover, .cmtx_average_rating_can_rate label:hover ~ label {
   color: #ffed85;
 }
 
@@ -4693,13 +4688,9 @@ select.cmtx_required {
   margin-top: 16px !important;
 }
 
-#cmtx_privacy_modal .cmtx_modal_body, #cmtx_terms_modal .cmtx_modal_body, #cmtx_autodetect_modal .cmtx_modal_body {
+#cmtx_privacy_modal .cmtx_modal_body, #cmtx_terms_modal .cmtx_modal_body {
   margin-bottom: 5px;
   margin-top: 0;
-}
-
-#cmtx_autodetect_modal .cmtx_modal_body a {
-  text-decoration: none;
 }
 
 .cmtx_modal_box input[type=text], .cmtx_modal_box input[type=url], .cmtx_modal_box input[type=email] {

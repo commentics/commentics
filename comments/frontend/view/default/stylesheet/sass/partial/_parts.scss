@@ -8,11 +8,11 @@
     vertical-align: middle;
 }
 
-.cmtx_average_rating > input {
+.cmtx_average_rating input {
     display: none;
 }
 
-.cmtx_average_rating > label::before {
+.cmtx_average_rating label::before {
     content: '\f005';
     display: inline-block;
     font-family: FontAwesome;
@@ -21,26 +21,18 @@
     margin: 5px;
 }
 
-.cmtx_average_rating > label {
+.cmtx_average_rating label {
     color: $star-empty;
     float: right;
     padding: 0;
     width: auto;
 }
 
-.cmtx_average_rating > input:checked ~ label { // the rating
+.cmtx_average_rating .cmtx_rating_label_checked, .cmtx_average_rating .cmtx_rating_label_checked ~ label {
     color: $star-full;
 }
 
-.cmtx_average_rating_can_rate:not(:checked) > label:hover { // currently hovered star
-    color: $star-full;
-}
-
-.cmtx_average_rating_can_rate:not(:checked) > label:hover ~ label { // stars before the currently hovered star
-    color: $star-full;
-}
-
-.cmtx_average_rating_can_rate > input:checked + label:hover, .cmtx_average_rating_can_rate > input:checked ~ label:hover, .cmtx_average_rating_can_rate > label:hover ~ input:checked ~ label, .cmtx_average_rating_can_rate > input:checked ~ label:hover ~ label {
+.cmtx_average_rating_can_rate label:hover, .cmtx_average_rating_can_rate label:hover ~ label {
     color: $star-hover;
 }
 

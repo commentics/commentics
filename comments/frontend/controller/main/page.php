@@ -31,21 +31,6 @@ class MainPageController extends Controller
             $this->data['display_parsing'] = false;
         }
 
-        /* Auto Detect */
-        if ($this->setting->get('auto_detect')) {
-            if ($this->page->isIFrame()) { // if this is an iFrame integration, we don't need AutoDetect as we'll always load jQuery
-                $this->data['auto_detect'] = false;
-
-                $this->model_main_page->autoDetect(array('jquery' => '1')); // turn the AutoDetect setting off
-            } else {
-                $this->data['auto_detect'] = true;
-
-                $this->data['lang_modal_autodetect_content'] = sprintf($this->data['lang_modal_autodetect_content'], 'https://commentics.com/autodetect');
-            }
-        } else {
-            $this->data['auto_detect'] = false;
-        }
-
         /* Admin Detect */
         if ($this->setting->get('admin_detect') && $this->data['is_admin']) {
             $this->data['admin_detect'] = true;
@@ -69,11 +54,10 @@ class MainPageController extends Controller
             $this->data['css_editor_enabled'] = false;
         }
 
-        /* These are passed to common.js and autodetect.js via the template */
+        /* These are passed to common.js via the template */
         $this->data['cmtx_js_settings_page'] = array(
             'commentics_url' => $this->url->getCommenticsUrl(),
-            'language'       => $this->setting->get('language'),
-            'auto_detect'    => (bool) $this->data['auto_detect']
+            'language'       => $this->setting->get('language')
         );
 
         $this->data['cmtx_js_settings_page'] = json_encode($this->data['cmtx_js_settings_page']);
@@ -81,19 +65,6 @@ class MainPageController extends Controller
         $this->components = array('common/header', 'common/footer', 'main/form', 'main/comments');
 
         $this->loadView('main/page');
-    }
-
-    public function autoDetect()
-    {
-        if ($this->request->isAjax()) {
-            if ($this->setting->get('auto_detect')) {
-                $this->loadModel('main/page');
-
-                if (isset($this->request->get['jquery'])) {
-                    $this->model_main_page->autoDetect($this->request->get);
-                }
-            }
-        }
     }
 
     public function adminDetect()

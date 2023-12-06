@@ -9,7 +9,7 @@ class MainUserController extends Controller
 
         $this->loadModel('main/user');
 
-        $this->data['common'] = $this->loadJavascript('common-jq.min.js');
+        $this->data['common'] = $this->loadJavascript('common.js');
 
         $this->data['autoload_javascript'] = $this->autoloadJavascript();
 
@@ -137,9 +137,9 @@ class MainUserController extends Controller
                     $this->data['lang_text_subscriptions_section'] = sprintf($this->data['lang_text_subscriptions_section'], '<span class="count">' . count($subscriptions) . '</span>');
 
                     foreach ($subscriptions as &$subscription) {
-                        $subscription['date_added'] = $this->variable->formatDate($subscription['date_added'], 'c', $this->data);
+                        $subscription['datetime'] = $this->variable->formatDate($subscription['date_added'], 'c', $this->data);
 
-                        $subscription['date_added_title'] = $this->variable->formatDate($subscription['date_added'], $this->data['lang_date_time_format'], $this->data);
+                        $subscription['date_added'] = $this->variable->formatDate($subscription['date_added'], $this->data['lang_date_time_format'], $this->data);
                     }
 
                     $this->data['subscriptions'] = $subscriptions;
@@ -158,9 +158,8 @@ class MainUserController extends Controller
                         'to_all'               => (bool) $user['to_all'],
                         'lang_text_saving'     => $this->data['lang_text_saving'],
                         'lang_text_no_results' => $this->data['lang_text_no_results'],
-                        'timeago_suffixAgo'    => $this->data['lang_text_timeago_ago'],
-                        'timeago_inPast'       => $this->data['lang_text_timeago_second'],
-                        'timeago_seconds'      => $this->data['lang_text_timeago_seconds'],
+                        'date_auto'            => (bool) $this->setting->get('date_auto'),
+                        'timeago_now'          => $this->data['lang_text_timeago_now'],
                         'timeago_minute'       => $this->data['lang_text_timeago_minute'],
                         'timeago_minutes'      => $this->data['lang_text_timeago_minutes'],
                         'timeago_hour'         => $this->data['lang_text_timeago_hour'],
@@ -194,12 +193,12 @@ class MainUserController extends Controller
 
             $json = array();
 
-            if (isset($this->request->post['u-t'])) {
+            if (isset($this->request->get['u-t'])) {
                 $this->loadLanguage('main/user');
 
                 $this->loadModel('main/user');
 
-                $user = $this->user->getUserByToken($this->request->post['u-t']);
+                $user = $this->user->getUserByToken($this->request->get['u-t']);
 
                 $ip_address = $this->user->getIpAddress();
 
@@ -252,12 +251,12 @@ class MainUserController extends Controller
 
             $json = array();
 
-            if (isset($this->request->post['u-t'])) {
+            if (isset($this->request->get['u-t'])) {
                 $this->loadLanguage('main/user');
 
                 $this->loadModel('main/user');
 
-                $user = $this->user->getUserByToken($this->request->post['u-t']);
+                $user = $this->user->getUserByToken($this->request->get['u-t']);
 
                 $ip_address = $this->user->getIpAddress();
 

@@ -27,26 +27,12 @@ class ExtensionThemesController extends Controller
             $this->data['theme_backend'] = $this->setting->get('theme_backend');
         }
 
-        if (isset($this->request->post['auto_detect'])) {
-            $this->data['auto_detect'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['auto_detect'])) {
-            $this->data['auto_detect'] = false;
-        } else {
-            $this->data['auto_detect'] = $this->setting->get('auto_detect');
-        }
-
         if (isset($this->request->post['optimize'])) {
             $this->data['optimize'] = true;
         } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['optimize'])) {
             $this->data['optimize'] = false;
         } else {
             $this->data['optimize'] = $this->setting->get('optimize');
-        }
-
-        if (isset($this->request->post['jquery_source'])) {
-            $this->data['jquery_source'] = $this->request->post['jquery_source'];
-        } else {
-            $this->data['jquery_source'] = $this->setting->get('jquery_source');
         }
 
         if (isset($this->request->post['order_parts'])) {
@@ -132,10 +118,6 @@ class ExtensionThemesController extends Controller
 
         if (!isset($this->request->post['theme_backend']) || !in_array($this->request->post['theme_backend'], $this->model_extension_themes->getBackendThemes())) {
             $this->error['theme_backend'] = $this->data['lang_error_selection'];
-        }
-
-        if (!isset($this->request->post['jquery_source']) || !in_array($this->request->post['jquery_source'], array('', 'local', 'google', 'jquery'))) {
-            $this->error['jquery_source'] = $this->data['lang_error_selection'];
         }
 
         if (!isset($this->request->post['order_parts']) || !in_array($this->request->post['order_parts'], array('form,comments', 'comments,form'))) {

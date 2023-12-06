@@ -51,19 +51,17 @@ $_['lang_saturday_short']       = 'Sat';
 $_['lang_sunday_short']         = 'Sun';
 
 // Timeago
-$_['lang_text_timeago_ago']     = 'ago';
-$_['lang_text_timeago_second']  = 'a moment';
-$_['lang_text_timeago_seconds'] = 'less than a minute';
-$_['lang_text_timeago_minute']  = 'a minute';
-$_['lang_text_timeago_minutes'] = '%d minutes';
-$_['lang_text_timeago_hour']    = 'an hour';
-$_['lang_text_timeago_hours']   = '%d hours';
-$_['lang_text_timeago_day']     = 'a day';
-$_['lang_text_timeago_days']    = '%d days';
-$_['lang_text_timeago_month']   = 'a month';
-$_['lang_text_timeago_months']  = '%d months';
-$_['lang_text_timeago_year']    = 'a year';
-$_['lang_text_timeago_years']   = '%d years';
+$_['lang_text_timeago_now']     = 'just now';
+$_['lang_text_timeago_minute']  = 'a minute ago';
+$_['lang_text_timeago_minutes'] = '%d minutes ago';
+$_['lang_text_timeago_hour']    = 'an hour ago';
+$_['lang_text_timeago_hours']   = '%d hours ago';
+$_['lang_text_timeago_day']     = 'a day ago';
+$_['lang_text_timeago_days']    = '%d days ago';
+$_['lang_text_timeago_month']   = 'a month ago';
+$_['lang_text_timeago_months']  = '%d months ago';
+$_['lang_text_timeago_year']    = 'a year ago';
+$_['lang_text_timeago_years']   = '%d years ago';
 
 // Types
 $_['lang_type_comment']         = 'comment';

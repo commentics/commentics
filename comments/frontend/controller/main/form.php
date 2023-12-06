@@ -245,7 +245,6 @@ class MainFormController extends Controller
 
             $json = array();
 
-            /* Is this an administrator? */
             $is_admin = $this->user->isAdmin();
 
             if ($this->setting->get('maintenance_mode') && !$is_admin) {
@@ -426,12 +425,6 @@ class MainFormController extends Controller
 
                     $date_added = $this->data['lang_text_today'];
 
-                    if ($this->setting->get('date_auto')) {
-                        $date_added_title = $this->data['lang_text_timeago_second'] . ' ' . $this->data['lang_text_timeago_ago'];
-                    } else {
-                        $date_added_title = '';
-                    }
-
                     $comment = array(
                         'id'               => 0,
                         'avatar'           => $avatar,
@@ -445,7 +438,7 @@ class MainFormController extends Controller
                         'headline'         => $this->request->post['cmtx_headline'],
                         'is_admin'         => $is_admin,
                         'date_added'       => $date_added,
-                        'date_added_title' => $date_added_title,
+                        'datetime'         => '',
                         'uploads'          => $uploads,
                         'extra_fields'     => $extra_fields,
                         'reply'            => false,

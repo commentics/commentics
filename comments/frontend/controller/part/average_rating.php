@@ -37,32 +37,42 @@ class PartAverageRatingController extends Controller
 
         if ($this->data['average_rating'] == 5) {
             $this->data['rating_5_checked'] = 'checked';
+            $this->data['rating_5_label'] = 'cmtx_rating_label_checked';
         } else {
             $this->data['rating_5_checked'] = '';
+            $this->data['rating_5_label'] = 'cmtx_rating_label_not_checked';
         }
 
         if ($this->data['average_rating'] == 4) {
             $this->data['rating_4_checked'] = 'checked';
+            $this->data['rating_4_label'] = 'cmtx_rating_label_checked';
         } else {
             $this->data['rating_4_checked'] = '';
+            $this->data['rating_4_label'] = 'cmtx_rating_label_not_checked';
         }
 
         if ($this->data['average_rating'] == 3) {
             $this->data['rating_3_checked'] = 'checked';
+            $this->data['rating_3_label'] = 'cmtx_rating_label_checked';
         } else {
             $this->data['rating_3_checked'] = '';
+            $this->data['rating_3_label'] = 'cmtx_rating_label_not_checked';
         }
 
         if ($this->data['average_rating'] == 2) {
             $this->data['rating_2_checked'] = 'checked';
+            $this->data['rating_2_label'] = 'cmtx_rating_label_checked';
         } else {
             $this->data['rating_2_checked'] = '';
+            $this->data['rating_2_label'] = 'cmtx_rating_label_not_checked';
         }
 
         if ($this->data['average_rating'] == 1) {
             $this->data['rating_1_checked'] = 'checked';
+            $this->data['rating_1_label'] = 'cmtx_rating_label_checked';
         } else {
             $this->data['rating_1_checked'] = '';
+            $this->data['rating_1_label'] = 'cmtx_rating_label_not_checked';
         }
 
         return $this->data;

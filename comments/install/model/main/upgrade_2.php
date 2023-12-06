@@ -398,7 +398,16 @@ class MainUpgrade2Model extends Model
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'comment_layout', `value` = 'layout_one'");
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'comments', `title` = 'avatar_shape', `value` = 'square'");
 
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'auto_detect'");
+            $this->db->query("DELETE FROM `" . CMTX_DB_PREFIX . "settings` WHERE `title` = 'jquery_source'");
+
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `title` = 'reply_max_depth' WHERE `title` = 'reply_depth'");
+
+            remove_directory(CMTX_DIR_3RDPARTY . 'timeago/');
+            remove_directory(CMTX_DIR_ROOT . 'frontend/view/default/javascript/jquery/');
+
+            @unlink(CMTX_DIR_ROOT . 'frontend/view/default/javascript/autodetect.js');
+            @unlink(CMTX_DIR_ROOT . 'frontend/view/default/javascript/common-jq.min.js');
         }
     }
 

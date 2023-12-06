@@ -1,10 +1,10 @@
 <div class="cmtx_average_rating_block">
     <div class="cmtx_average_rating {{ average_rating_guest }}">
-        <input type="radio" id="cmtx_avg_star_5" name="cmtx_rating" value="5" {{ rating_5_checked }}><label for="cmtx_avg_star_5" title="{{ lang_title_avg_rating_5 }}"></label>
-        <input type="radio" id="cmtx_avg_star_4" name="cmtx_rating" value="4" {{ rating_4_checked }}><label for="cmtx_avg_star_4" title="{{ lang_title_avg_rating_4 }}"></label>
-        <input type="radio" id="cmtx_avg_star_3" name="cmtx_rating" value="3" {{ rating_3_checked }}><label for="cmtx_avg_star_3" title="{{ lang_title_avg_rating_3 }}"></label>
-        <input type="radio" id="cmtx_avg_star_2" name="cmtx_rating" value="2" {{ rating_2_checked }}><label for="cmtx_avg_star_2" title="{{ lang_title_avg_rating_2 }}"></label>
-        <input type="radio" id="cmtx_avg_star_1" name="cmtx_rating" value="1" {{ rating_1_checked }}><label for="cmtx_avg_star_1" title="{{ lang_title_avg_rating_1 }}"></label>
+        <label class="{{ rating_5_label }}" title="{{ lang_title_avg_rating_5 }}"><input type="radio" name="cmtx_rating" value="5" {{ rating_5_checked }}></label>
+        <label class="{{ rating_4_label }}" title="{{ lang_title_avg_rating_4 }}"><input type="radio" name="cmtx_rating" value="4" {{ rating_4_checked }}></label>
+        <label class="{{ rating_3_label }}" title="{{ lang_title_avg_rating_3 }}"><input type="radio" name="cmtx_rating" value="3" {{ rating_3_checked }}></label>
+        <label class="{{ rating_2_label }}" title="{{ lang_title_avg_rating_2 }}"><input type="radio" name="cmtx_rating" value="2" {{ rating_2_checked }}></label>
+        <label class="{{ rating_1_label }}" title="{{ lang_title_avg_rating_1 }}"><input type="radio" name="cmtx_rating" value="1" {{ rating_1_checked }}></label>
     </div>
     @if rich_snippets_enabled
         <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">

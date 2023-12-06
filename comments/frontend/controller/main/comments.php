@@ -174,13 +174,13 @@ class MainCommentsController extends Controller
                 $this->data['show_reply'] = false;
             }
 
-            if ($this->setting->get('show_edit') && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
+            if (($this->setting->get('show_edit') || $this->data['is_admin']) && $this->session->getId() && $this->setting->get('enabled_form') && $this->page->isFormEnabled()) {
                 $this->data['show_edit'] = true;
             } else {
                 $this->data['show_edit'] = false;
             }
 
-            if ($this->setting->get('show_delete') && $this->session->getId()) {
+            if (($this->setting->get('show_delete') || $this->data['is_admin']) && $this->session->getId()) {
                 $this->data['show_delete'] = true;
             } else {
                 $this->data['show_delete'] = false;
@@ -317,9 +317,7 @@ class MainCommentsController extends Controller
                 'show_pagination'         => (bool) $this->setting->get('show_pagination'),
                 'quick_reply'             => (bool) $this->setting->get('quick_reply'),
                 'pagination_type'         => $this->setting->get('pagination_type'),
-                'timeago_suffixAgo'       => $this->data['lang_text_timeago_ago'],
-                'timeago_inPast'          => $this->data['lang_text_timeago_second'],
-                'timeago_seconds'         => $this->data['lang_text_timeago_seconds'],
+                'timeago_now'             => $this->data['lang_text_timeago_now'],
                 'timeago_minute'          => $this->data['lang_text_timeago_minute'],
                 'timeago_minutes'         => $this->data['lang_text_timeago_minutes'],
                 'timeago_hour'            => $this->data['lang_text_timeago_hour'],
@@ -452,10 +450,10 @@ class MainCommentsController extends Controller
 
         $comment['permalink'] = $this->comment->buildCommentUrl($comment['id'], $comment['page_url']);
 
-        if ($this->setting->get('date_auto')) {
-            $comment['date_added'] = $this->variable->formatDate($comment['date_added'], 'c', $this->data);
+        $comment['datetime'] = $this->variable->formatDate($comment['date_added'], 'c', $this->data);
 
-            $comment['date_added_title'] = $this->variable->formatDate($comment['date_added'], $this->data['lang_date_time_format'], $this->data);
+        if ($this->setting->get('date_auto')) {
+            $comment['date_added'] = $this->variable->formatDate($comment['date_added'], $this->data['lang_date_time_format'], $this->data);
         } else {
             $day_difference = $this->model_main_comments->calculateDayDifference($comment['date_added']);
 
