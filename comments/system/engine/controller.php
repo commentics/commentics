@@ -26,14 +26,6 @@ abstract class Controller extends Base
         }
 
         if (defined('CMTX_BACKEND')) {
-            foreach ($this->data as $cmtx_key => &$cmtx_value) {
-                if (substr($cmtx_key, 0, 10) == 'lang_hint_') {
-                    $cmtx_value = $this->variable->hint($cmtx_value);
-                } else if (substr($cmtx_key, 0, 12) == 'lang_dialog_' && substr($cmtx_key, -6) == '_title') {
-                    $cmtx_value = $this->variable->encodeDouble($cmtx_value);
-                }
-            }
-
             foreach ($this->data as $cmtx_key => $cmtx_value) {
                 if (substr($cmtx_key, 0, 5) != 'lang_') {
                     if (isset($this->error[$cmtx_key])) {
@@ -41,6 +33,14 @@ abstract class Controller extends Base
                     } else {
                         $this->data['error_' . $cmtx_key] = '';
                     }
+                }
+            }
+
+            foreach ($this->data as $cmtx_key => &$cmtx_value) {
+                if (substr($cmtx_key, 0, 10) == 'lang_hint_') {
+                    $cmtx_value = $this->variable->hint($cmtx_value);
+                } else if (substr($cmtx_key, 0, 12) == 'lang_dialog_' && substr($cmtx_key, -6) == '_title') {
+                    $cmtx_value = $this->variable->encodeDouble($cmtx_value);
                 }
             }
         }
@@ -169,6 +169,21 @@ abstract class Controller extends Base
             $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/custom.css');
 
             return CMTX_HTTP_VIEW . 'default/stylesheet/css/custom.css' . ($modified ? '?' . $modified : '');
+        } else {
+            return '';
+        }
+    }
+
+    public function loadSiteCss($site_id)
+    {
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/stylesheet_' . $site_id . '.css')) {
+            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/stylesheet_' . $site_id . '.css');
+
+            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/stylesheet_' . $site_id . '.css' . ($modified ? '?' . $modified : '');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/stylesheet_' . $site_id . '.css')) {
+            $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/stylesheet_' . $site_id . '.css');
+
+            return CMTX_HTTP_VIEW . 'default/stylesheet/css/stylesheet_' . $site_id . '.css' . ($modified ? '?' . $modified : '');
         } else {
             return '';
         }

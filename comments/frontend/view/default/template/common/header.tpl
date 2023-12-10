@@ -21,3 +21,7 @@
 @if custom
     <link rel="stylesheet" type="text/css" href="{{ custom }}">
 @endif
+
+@if site_css
+  <link rel="stylesheet" type="text/css" href="{{ site_css }}">
+@endif

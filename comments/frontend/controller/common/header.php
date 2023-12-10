@@ -37,6 +37,8 @@ class CommonHeaderController extends Controller
 
         $this->data['custom'] = $this->loadCustomCss();
 
+        $this->data['site_css'] = $this->loadSiteCss($this->page->getSiteId());
+
         return $this->data;
     }
 }
