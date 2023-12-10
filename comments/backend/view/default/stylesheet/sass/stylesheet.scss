@@ -61,7 +61,7 @@ nav .fa {
     border: 1px solid;
     color: #d8000c;
     float: right;
-    margin-top: 8px;
+    margin-top: 10px;
     padding: 5px 5px 5px 25px;
     position: relative;
 }
@@ -688,6 +688,10 @@ img.loading {
     margin-bottom: 20px;
 }
 
+#module_language_editor_page thead th:first-of-type {
+    width: 1px;
+}
+
 #module_language_editor_page .text_value input {
     width: 100%;
 }
@@ -1122,6 +1126,15 @@ img.loading {
 
     #data_list_page .modified {
         display: none;
+    }
+
+    #module_language_editor_page thead th:first-of-type {
+        width: auto;
+    }
+
+    #module_language_editor_page .text_value input {
+        padding: 0 !important;
+        width: auto !important;
     }
 
     #tool_database_backup_page input[name='description'] {

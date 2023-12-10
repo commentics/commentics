@@ -9,9 +9,16 @@ class ModuleLanguageEditorModel extends Model
         'lang_title_linkedin',
         'lang_title_reddit',
         'lang_title_twitter',
-        'lang_title_weibo',
-        'lang_text_powered_by'
+        'lang_title_weibo'
     );
+    private $file = '';
+
+    public function __construct($registry)
+    {
+        parent::__construct($registry);
+
+        $this->file = CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/custom.php';
+    }
 
     public function getText()
     {
@@ -103,24 +110,70 @@ class ModuleLanguageEditorModel extends Model
         return $directory_iterator;
     }
 
+    private function addComments($handle, $key)
+    {
+        switch ($key) {
+            case 'lang_date_time_format':
+                $value = 'Date & Time';
+                break;
+            case 'lang_type_comment':
+                $value = 'General';
+            break;
+            case 'lang_heading_comments':
+                $value = 'Comments';
+            break;
+            case 'lang_heading_form':
+                $value = 'Form';
+            break;
+            case 'lang_modal_upload_heading':
+                $value = 'Modal';
+            break;
+            case 'lang_error_page_invalid':
+                $value = 'Errors';
+            break;
+            case 'lang_button_submit':
+                $value = 'Button';
+            break;
+            case 'lang_heading_maintenance':
+                $value = 'Page';
+            break;
+            case 'lang_message_success':
+                $value = 'User';
+            break;
+            case 'lang_title_avg_rating_1':
+                $value = 'Other';
+            break;
+            default:
+                $value = '';
+        }
+
+        if ($value) {
+            if ($key != 'lang_date_time_format') {
+                fputs($handle, "\r\n");
+            }
+
+            fputs($handle, '// ' . $value . "\r\n");
+        }
+    }
+
     public function update($data)
     {
-        $language_file = CMTX_DIR_ROOT . 'frontend/view/' . $this->setting->get('theme_frontend') . '/language/' . $this->setting->get('language_frontend') . '/custom.php';
-
-        $directory = dirname($language_file);
+        $directory = dirname($this->file);
 
         if (!is_dir($directory)) {
             @mkdir($directory, 0777, true);
         }
 
-        file_put_contents($language_file, '<?php' . "\r\n");
+        file_put_contents($this->file, '<?php' . "\r\n");
 
-        $handle = fopen($language_file, 'a');
+        $handle = fopen($this->file, 'a');
 
         $ignore = array('csrf_key');
 
         foreach ($data as $key => $value) {
             if (!in_array($key, $ignore) && trim($value)) {
+                $this->addComments($handle, $key);
+
                 $value = $this->security->decode($value);
 
                 $value = str_replace("'", "\\'", $value);
@@ -130,5 +183,38 @@ class ModuleLanguageEditorModel extends Model
         }
 
         fclose($handle);
+    }
+
+    public function reset()
+    {
+        if ($this->fileExists()) {
+            @unlink($this->file);
+        }
+    }
+
+    public function download()
+    {
+        if ($this->fileExists()) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . basename($this->file) . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($this->file));
+
+            readfile($this->file);
+
+            die();
+        }
+    }
+
+    public function fileExists()
+    {
+        if (file_exists($this->file)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

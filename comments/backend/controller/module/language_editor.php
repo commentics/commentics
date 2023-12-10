@@ -13,15 +13,47 @@ class ModuleLanguageEditorController extends Controller
             if ($this->validate()) {
                 $this->model_module_language_editor->update($this->request->post);
             }
+        } else if (isset($this->request->get['reset'])) {
+            $this->data['success'] = $this->data['lang_message_reset'];
         }
 
         $this->data['results'] = $this->model_module_language_editor->getText();
+
+        $this->data['file_exists'] = $this->model_module_language_editor->fileExists();
 
         $this->data['link_back'] = $this->url->link('extension/modules');
 
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('module/language_editor');
+    }
+
+    public function reset()
+    {
+        $this->loadLanguage('module/language_editor');
+
+        $this->loadModel('module/language_editor');
+
+        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+            if ($this->validate()) {
+                $this->model_module_language_editor->reset();
+            }
+        }
+
+        $this->response->redirect('module/language_editor&reset');
+    }
+
+    public function download()
+    {
+        $this->loadLanguage('module/language_editor');
+
+        $this->loadModel('module/language_editor');
+
+        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+            if ($this->validate()) {
+                $this->model_module_language_editor->download();
+            }
+        }
     }
 
     private function validate()

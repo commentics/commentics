@@ -9,6 +9,3 @@ $_['lang_heading']         = 'Error Log';
 
 // Description
 $_['lang_description']     = '<p>This report shows any error messages. Click the Reset button to clear the log.</p>';
-
-// Button
-$_['lang_button_reset']    = 'Reset';

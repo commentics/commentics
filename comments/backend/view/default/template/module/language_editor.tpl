@@ -58,10 +58,23 @@
 
         <input type="hidden" name="csrf_key" value="<?php echo $csrf_key; ?>">
 
-        <p><input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>"></p>
+        <div class="buttons">
+            <input type="submit" class="button" value="<?php echo $lang_button_update; ?>" title="<?php echo $lang_button_update; ?>">
 
-        <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>        
+            <input type="button" id="edit_all" class="button" value="<?php echo $lang_button_edit_all; ?>" title="<?php echo $lang_button_edit_all; ?>">
+
+            <?php if ($file_exists) { ?>
+                <input type="button" id="reset" class="button" value="<?php echo $lang_button_reset; ?>" title="<?php echo $lang_button_reset; ?>">
+                <input type="button" id="download" class="button" value="<?php echo $lang_button_download; ?>" title="<?php echo $lang_button_download; ?>">
+            <?php } ?>
+        </div>
+
+        <div class="links"><a href="<?php echo $link_back; ?>"><?php echo $lang_link_back; ?></a></div>
     </form>
+
+    <div id="reset_dialog" title="<?php echo $lang_dialog_reset_title; ?>" class="hide">
+        <span class="ui-icon ui-icon-alert"></span> <?php echo $lang_dialog_reset_content; ?>
+    </div>
 
 </div>
 

@@ -114,3 +114,5 @@ $_['lang_button_view']             = 'View';
 $_['lang_button_add']              = 'Add';
 $_['lang_button_edit']             = 'Edit';
 $_['lang_button_delete']           = 'Delete';
+$_['lang_button_download']         = 'Download';
+$_['lang_button_reset']            = 'Reset';

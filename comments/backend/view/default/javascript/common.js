@@ -2371,6 +2371,42 @@ $(document).ready(function() {
         }
     });
 
+    $('#module_language_editor_page #edit_all').click(function() {
+        $('#module_language_editor_page .text_value').trigger('dblclick');
+    });
+
+    $('#module_language_editor_page #reset').click(function(e) {
+        e.preventDefault();
+
+        $('#reset_dialog').dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto',
+            resizable: false,
+            draggable: false,
+            center: true,
+            buttons: {
+                'Yes': function() {
+                    $('form').attr('action', 'index.php?route=module/language_editor/reset');
+                    $('form').submit();
+                },
+                'No': function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        translate_buttons();
+
+        $('#reset_dialog').dialog('open');
+    });
+
+    $('#module_language_editor_page #download').click(function() {
+        $('form').attr('action', 'index.php?route=module/language_editor/download');
+        $('form').submit();
+        $('form').attr('action', 'index.php?route=module/language_editor');
+    });
+
     /* Rich Snippets module */
 
     $('#module_rich_snippets_page select[name="rich_snippets_type"]').on('change', function() {
