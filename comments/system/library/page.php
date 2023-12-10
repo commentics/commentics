@@ -7,6 +7,7 @@ class Page
     private $request;
     private $security;
     private $session;
+    private $setting;
     private $url;
     private $id = 0;
     private $identifier = '';
@@ -22,6 +23,7 @@ class Page
         $this->request  = $registry->get('request');
         $this->security = $registry->get('security');
         $this->session  = $registry->get('session');
+        $this->setting  = $registry->get('setting');
         $this->url      = $registry->get('url');
 
         if (defined('CMTX_IDENTIFIER')) {
@@ -45,7 +47,7 @@ class Page
         if ($this->identifier) {
             $domain = str_ireplace('www.', '', parse_url($this->url->decode($this->page_url), PHP_URL_HOST));
 
-            if ($this->iframe && isset($this->request->server['HTTP_REFERER']) && $this->request->server['HTTP_REFERER']) {
+            if ($this->iframe && $this->setting->get('check_referrer') && isset($this->request->server['HTTP_REFERER']) && $this->request->server['HTTP_REFERER']) {
                 $referrer = str_ireplace('www.', '', parse_url($this->url->decode($this->request->server['HTTP_REFERER']), PHP_URL_HOST));
 
                 if ($referrer) {
