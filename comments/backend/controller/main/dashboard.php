@@ -161,7 +161,11 @@ class MainDashboardController extends Controller
 
             $sponsors = json_decode($sponsors, true);
 
-            $this->data['sponsors'] = $sponsors['sponsors'];
+            if ($sponsors) {
+                $this->data['sponsors'] = $sponsors['sponsors'];
+            } else {
+                $this->data['sponsors'] = array();
+            }
         } else {
             $this->data['sponsors'] = array();
         }
