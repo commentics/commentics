@@ -76,9 +76,7 @@ gulp.task('sass-install', function() {
 });
 
 var js_files = [
-    'comments/frontend/view/default/javascript/autodetect.js',
     'comments/3rdparty/highlight/highlight.js',
-    'comments/3rdparty/timeago/timeago.js',
     'comments/frontend/view/default/javascript/common.js'
 ];
 
@@ -92,21 +90,7 @@ gulp.task('common', function() {
         .pipe(gulp.dest('comments/frontend/view/default/javascript'));
 });
 
-var jquery = [
-    'comments/frontend/view/default/javascript/jquery/jquery.min.js'
-];
-
-/* Concatenate and minify JS (with jQuery) */
-gulp.task('common-jq', function() {
-    return gulp.src(jquery.concat(js_files))
-        .pipe(concat('common-jq.min.js'))
-        .pipe(gulp.dest('comments/frontend/view/default/javascript'))
-        .pipe(strip())
-        .pipe(terser())
-        .pipe(gulp.dest('comments/frontend/view/default/javascript'));
-});
-
-/* Auto precompile Sass on save */
+/* Auto precompile on save */
 gulp.task('watch', function() {
     gulp.watch('comments/backend/view/default/stylesheet/sass/**/*.scss', gulp.series('sass-backend'));
     gulp.watch('comments/frontend/view/default/stylesheet/sass/**/*.scss', gulp.series('sass-frontend'));
@@ -118,7 +102,7 @@ gulp.task('lint', gulp.series('lint-backend', 'lint-frontend', 'lint-install'));
 
 gulp.task('sass', gulp.series('sass-backend', 'sass-frontend', 'sass-install'));
 
-gulp.task('js', gulp.series('common', 'common-jq'));
+gulp.task('js', gulp.series('common'));
 
 /* Default task when running gulp without a command */
 gulp.task('default', gulp.series('watch'));
