@@ -292,7 +292,7 @@ class MainFormValidateModel extends Model
         }
     }
 
-    public function validateHeadline()
+    public function validateHeadline($is_preview)
     {
         if ($this->setting->get('enabled_headline') && empty($this->request->post['cmtx_reply_to'])) {
             if (isset($this->request->post['cmtx_headline']) && $this->request->post['cmtx_headline'] != '') {
