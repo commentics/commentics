@@ -465,6 +465,8 @@ class MainFormPrepareModel extends Model
             $data['captcha_url'] = $this->setting->get('commentics_url') . 'frontend/index.php?route=main/form/captcha&page_id=' . $this->page->getId();
         } else {
             $data['captcha'] = false;
+
+            $data['captcha_url'] = '';
         }
 
         return $data;
