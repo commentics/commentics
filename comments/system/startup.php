@@ -190,7 +190,7 @@ $cmtx_registry->set('site', $cmtx_site);
 $cmtx_task = new \Commentics\Task($cmtx_registry);
 $cmtx_registry->set('task', $cmtx_task);
 
-$cmtx_template = new \Commentics\Template($cmtx_registry);
+$cmtx_template = new \Commentics\Template();
 $cmtx_registry->set('template', $cmtx_template);
 
 /* Load the engine classes */
