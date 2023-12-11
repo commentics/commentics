@@ -418,6 +418,10 @@
     transition: height 0.25s ease-in !important;
 }
 
+.cmtx_comment_field_near_bottom:hover {
+    cursor: ns-resize;
+}
+
 .cmtx_counter {
     color: $grey;
     font-size: 13px;

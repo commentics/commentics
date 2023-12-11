@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cmtxSearchFocus();
         cmtxSearchEnter();
         cmtxLightbox();
+        cmtxCommentResize();
     }
 
     /* Wrapper for all ajax requests */
@@ -256,6 +257,44 @@ document.addEventListener('DOMContentLoaded', function() {
         if (document.querySelector('input[name="cmtx_reply_to"]').value == '') {
             cmtxFadeIn('.cmtx_wait_for_comment', 600);
         }
+    }
+
+    /* Allow the vertical resizing of the comment field */
+    function cmtxCommentResize() {
+        document.querySelectorAll('.cmtx_comment_field').forEach(function(element) {
+            element.addEventListener('mousedown', function(e) {
+                var startHeight = element.clientHeight;
+                var startY = e.clientY;
+
+                function cmtxHandleMouseMove(e) {
+                    var newHeight = startHeight + (e.clientY - startY);
+
+                    if (newHeight > 33) {
+                        element.classList.remove('cmtx_comment_field_transition');
+                        element.style.setProperty('height', newHeight + 'px', 'important');
+                    }
+                }
+
+                function cmtxHandleMouseUp() {
+                    document.removeEventListener('mousemove', cmtxHandleMouseMove);
+                    document.removeEventListener('mouseup', cmtxHandleMouseUp);
+                }
+
+                document.addEventListener('mousemove', cmtxHandleMouseMove);
+                document.addEventListener('mouseup', cmtxHandleMouseUp);
+            });
+
+            element.addEventListener('mousemove', function(e) {
+                var rect = element.getBoundingClientRect();
+                var distanceFromBottom = rect.bottom - e.clientY;
+
+                if (distanceFromBottom <= 10 && rect.height > 50) {
+                    element.classList.add('cmtx_comment_field_near_bottom');
+                } else {
+                    element.classList.remove('cmtx_comment_field_near_bottom');
+                }
+            });
+        });
     }
 
     /* When the name or email field gets focus, show some other fields */
@@ -1605,6 +1644,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     html += '</div>';
 
                     edit_link.closest('.cmtx_main_area').insertAdjacentHTML('afterend', html);
+
+                    cmtxCommentResize();
                 }
 
                 if (data['error']) {
@@ -1840,6 +1881,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 html += '</div>';
 
                 e.target.closest('.cmtx_main_area').insertAdjacentHTML('afterend', html);
+
+                cmtxCommentResize();
             } else {
                 /* Copy quick reply values to main form */
                 if (quick_reply_name) {
