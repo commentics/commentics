@@ -7,8 +7,6 @@ class CommonHeaderController extends Controller
     {
         $this->loadLanguage('common/header');
 
-        $this->data['jquery'] = $this->loadJavascript('jquery/jquery.min.js');
-
         $this->data['common'] = $this->loadJavascript('common.js');
 
         $this->data['autoload_javascript'] = $this->autoloadJavascript();

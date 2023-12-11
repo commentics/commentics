@@ -5,7 +5,6 @@
 <meta name="robots" content="noindex">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="<?php echo $jquery; ?>"></script>
 <script src="<?php echo $common; ?>"></script>
 <?php foreach ($autoload_javascript as $autoload) { ?>
     <script src="<?php echo $autoload; ?>"></script>
