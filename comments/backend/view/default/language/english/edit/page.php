@@ -40,6 +40,9 @@ $_['lang_text_subscriptions_plural'] = 'This page has <a href="%s">%d</a> subscr
 $_['lang_dialog_delete_title']       = 'Delete Page';
 $_['lang_dialog_delete_content']     = 'The page\'s comments and subscriptions will be deleted.<br>Are you sure you want to delete this?';
 
+// Link
+$_['lang_link_view_page']            = 'View Page';
+
 // Error
 $_['lang_error_identifier_exists']   = 'This identifier already exists';
 $_['lang_error_url']                 = 'The URL entered is invalid';

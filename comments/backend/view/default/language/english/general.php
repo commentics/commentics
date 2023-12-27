@@ -5,6 +5,7 @@ $_['lang_message_error']           = 'Please review the errors below';
 
 // Entry
 $_['lang_entry_enabled']           = 'Enabled:';
+$_['lang_entry_link']              = 'Link:';
 
 // Text
 $_['lang_text_enabled']            = 'Enabled';

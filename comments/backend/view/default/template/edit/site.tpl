@@ -94,6 +94,11 @@
         </div>
 
         <div class="fieldset">
+            <label><?php echo $lang_entry_link; ?></label>
+            <div><a href="<?php echo $url; ?>" target="_blank"><?php echo $lang_link_view_site; ?></a></div>
+        </div>
+
+        <div class="fieldset">
             <label><?php echo $lang_entry_date; ?></label>
             <div><?php echo $date_added; ?></div>
         </div>

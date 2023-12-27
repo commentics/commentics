@@ -36,6 +36,10 @@ a:hover {
     color: #00f;
 }
 
+a img {
+    vertical-align: middle;
+}
+
 .header_top {
     background: rgba(0, 0, 0, 0) linear-gradient(#c6c6c6, #fff) repeat scroll 0 0;
     height: 50px;
@@ -382,11 +386,6 @@ img.loading {
     color: #ffd700;
 }
 
-.avatar {
-    height: 72px;
-    width: 72px;
-}
-
 .hide {
     display: none;
 }
@@ -537,6 +536,11 @@ img.loading {
     margin-bottom: 15px;
 }
 
+#manage_users_page .avatar {
+    height: 72px;
+    width: 72px;
+}
+
 /* Edit */
 
 #edit_admin_page input[name='viewable_pages[]'], #add_admin_page input[name='viewable_pages[]'] {
@@ -561,12 +565,12 @@ img.loading {
 }
 
 #edit_comment_page .left textarea {
-    height: 245px;
+    height: 235px;
     width: 500px;
 }
 
 #edit_comment_page textarea[name='notes'] {
-    height: 65px;
+    height: 40px;
     width: 300px;
 }
 
@@ -619,6 +623,15 @@ img.loading {
 
 #edit_spam_page .section div .error {
     margin-top: 0;
+}
+
+div.error + .avatar_section {
+    margin-top: 10px;
+}
+
+#edit_user_page .avatar {
+    height: 150px;
+    width: 150px;
 }
 
 /* Extension */

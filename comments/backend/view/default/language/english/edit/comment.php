@@ -80,6 +80,9 @@ $_['lang_dialog_delete_content']             = 'Any replies of the comment will 
 // Button
 $_['lang_button_spam']                       = 'Spam..';
 
+// Link
+$_['lang_link_view_comment']                 = 'View Comment';
+
 // Error
 $_['lang_error_url']                         = 'The URL entered is invalid';
 $_['lang_error_upload_message']              = 'There was a problem uploading your image.';

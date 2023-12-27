@@ -14,12 +14,16 @@ $_['lang_entry_email']               = 'Email:';
 $_['lang_entry_comments']            = 'Comments:';
 $_['lang_entry_subscriptions']       = 'Subscriptions:';
 $_['lang_entry_moderate']            = 'Moderate:';
+$_['lang_entry_avatar']              = 'Avatar:';
 $_['lang_entry_date']                = 'Date:';
 
 // Selection
 $_['lang_select_default']            = 'Default';
 $_['lang_select_never']              = 'Never';
 $_['lang_select_always']             = 'Always';
+$_['lang_select_no_action']          = 'No Action';
+$_['lang_select_approve']            = 'Approve';
+$_['lang_select_disapprove']         = 'Disapprove';
 
 // Hint
 $_['lang_hint_moderate']             = 'Moderate this user differently or just use the default settings from \'Settings -> Approval\'.';
@@ -33,6 +37,9 @@ $_['lang_text_subscriptions_plural'] = 'This user has <a href="%s">%d</a> subscr
 // Dialog
 $_['lang_dialog_delete_title']       = 'Delete User';
 $_['lang_dialog_delete_content']     = 'The user\'s comments and subscriptions will be deleted.<br>Are you sure you want to delete this?';
+
+// Link
+$_['lang_link_view_user']            = 'View User';
 
 // Error
 $_['lang_error_name_exists']         = 'This name already exists';

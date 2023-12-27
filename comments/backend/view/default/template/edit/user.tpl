@@ -24,6 +24,12 @@
         <div class="warning"><?php echo $warning; ?></div>
     <?php } ?>
 
+    <?php if ($avatar_type) { ?>
+        <div class="avatar_section">
+            <a href="<?php echo $avatar_image; ?>" target="_blank"><img src="<?php echo $avatar_image; ?>" class="avatar"></a>
+        </div>
+    <?php } ?>
+
     <div class="description"><?php echo $lang_description; ?></div>
 
     <form action="index.php?route=edit/user&amp;id=<?php echo $id; ?>" class="controls" method="post">
@@ -64,6 +70,31 @@
             <?php if ($error_moderate) { ?>
                 <span class="error"><?php echo $error_moderate; ?></span>
             <?php } ?>
+        </div>
+
+        <?php if ($avatar_type == 'upload') { ?>
+            <div class="fieldset">
+                <label><?php echo $lang_entry_avatar; ?></label>
+                <select name="avatar">
+                    <option value="" <?php if ($avatar == '') { echo 'selected'; } ?>><?php echo $lang_select_no_action; ?></option>
+
+                    <?php if ($avatar_pending_id) { ?>
+                        <option value="approve" <?php if ($avatar == 'approve') { echo 'selected'; } ?>><?php echo $lang_select_approve; ?></option>
+                    <?php } ?>
+
+                    <?php if ($avatar_pending_id || $avatar_id) { ?>
+                        <option value="disapprove" <?php if ($avatar == 'disapprove') { echo 'selected'; } ?>><?php echo $lang_select_disapprove; ?></option>
+                    <?php } ?>
+                </select>
+                <?php if ($error_avatar) { ?>
+                    <span class="error"><?php echo $error_avatar; ?></span>
+                <?php } ?>
+            </div>
+        <?php } ?>
+
+        <div class="fieldset">
+            <label><?php echo $lang_entry_link; ?></label>
+            <div><a href="<?php echo $link_user; ?>" target="_blank"><?php echo $lang_link_view_user; ?></a></div>
         </div>
 
         <div class="fieldset">

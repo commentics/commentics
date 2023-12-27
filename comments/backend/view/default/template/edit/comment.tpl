@@ -265,6 +265,11 @@
             </div>
 
             <div class="fieldset">
+                <label><?php echo $lang_entry_link; ?></label>
+                <div><a href="<?php echo $link_comment; ?>" target="_blank"><?php echo $lang_link_view_comment; ?></a></div>
+            </div>
+
+            <div class="fieldset">
                 <label><?php echo $lang_entry_date; ?></label>
                 <div><?php echo $date_added; ?></div>
             </div>

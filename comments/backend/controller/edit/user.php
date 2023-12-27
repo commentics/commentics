@@ -25,6 +25,11 @@ class EditUserController extends Controller
 
         $user = $this->user->getUser($this->request->get['id']);
 
+        $this->data['avatar_image'] = ($this->setting->get('avatar_type')) ? $this->user->getAvatar($user['id'], true) : '';
+
+        $this->data['avatar_id'] = $user['avatar_id'];
+        $this->data['avatar_pending_id'] = $user['avatar_pending_id'];
+
         if (isset($this->request->post['name'])) {
             $this->data['name'] = $this->request->post['name'];
         } else {
@@ -54,6 +59,14 @@ class EditUserController extends Controller
         } else {
             $this->data['moderate'] = $user['moderate'];
         }
+
+        if (isset($this->request->post['avatar'])) {
+            $this->data['avatar'] = $this->request->post['avatar'];
+        } else {
+            $this->data['avatar'] = '';
+        }
+
+        $this->data['link_user'] = $this->setting->get('commentics_url') . 'frontend/index.php?route=main/user&u-t=' . $user['token'];
 
         $this->data['date_added'] = $this->variable->formatDate($user['date_added'], $this->data['lang_date_time_format'], $this->data);
 

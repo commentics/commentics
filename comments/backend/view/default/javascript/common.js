@@ -1473,7 +1473,7 @@ $(document).ready(function() {
 
     if ($('#edit_comment_page .wysiwyg').length) {
         $('#edit_comment_page .wysiwyg').summernote({
-            height: 175,
+            height: 180,
             disableDragAndDrop: true,
             shortcuts: false,
             toolbar: [
