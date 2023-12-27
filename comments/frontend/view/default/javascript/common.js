@@ -67,13 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
             options.body += '&cmtx_language=' + encodeURIComponent(cmtx_js_settings_page.language);
         }
 
-        // Remove the leading '&' if it exists
-        if (options.body.charAt(0) == '&') {
-            options.body = options.body.substr(1);
-        }
+        if (typeof(options.body) == 'string') {
+            // Remove the leading '&' if it exists
+            if (options.body.charAt(0) == '&') {
+                options.body = options.body.substr(1);
+            }
 
-        // Send line breaks as \r\n
-        options.body = options.body.replace(new RegExp('%0A', 'g'), '%0D%0A');
+            // Send line breaks as \r\n
+            options.body = options.body.replace(new RegExp('%0A', 'g'), '%0D%0A');
+        }
 
         return fetch(url, options);
     }
