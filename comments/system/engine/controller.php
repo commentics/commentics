@@ -176,14 +176,14 @@ abstract class Controller extends Base
 
     public function loadSiteCss($site_id)
     {
-        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/stylesheet_' . $site_id . '.css')) {
-            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/stylesheet_' . $site_id . '.css');
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom_' . $site_id . '.css')) {
+            $modified = filemtime(CMTX_DIR_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom_' . $site_id . '.css');
 
-            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/stylesheet_' . $site_id . '.css' . ($modified ? '?' . $modified : '');
-        } else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/stylesheet_' . $site_id . '.css')) {
-            $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/stylesheet_' . $site_id . '.css');
+            return CMTX_HTTP_VIEW . $this->setting->get('theme') . '/stylesheet/css/custom_' . $site_id . '.css' . ($modified ? '?' . $modified : '');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/stylesheet/css/custom_' . $site_id . '.css')) {
+            $modified = filemtime(CMTX_DIR_VIEW . 'default/stylesheet/css/custom_' . $site_id . '.css');
 
-            return CMTX_HTTP_VIEW . 'default/stylesheet/css/stylesheet_' . $site_id . '.css' . ($modified ? '?' . $modified : '');
+            return CMTX_HTTP_VIEW . 'default/stylesheet/css/custom_' . $site_id . '.css' . ($modified ? '?' . $modified : '');
         } else {
             return '';
         }

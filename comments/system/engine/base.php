@@ -139,6 +139,15 @@ abstract class Base
             require cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/custom.php');
         }
 
+        /* Load site specific language file if it exists */
+        if (file_exists(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom_' . $this->page->getSiteId() . '.php')) {
+            require cmtx_modification(CMTX_DIR_VIEW . $this->setting->get('theme') . '/language/' . $this->setting->get('language') . '/custom_' . $this->page->getSiteId() . '.php');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/custom_' . $this->page->getSiteId() . '.php')) {
+            require cmtx_modification(CMTX_DIR_VIEW . 'default/language/' . $this->setting->get('language') . '/custom_' . $this->page->getSiteId() . '.php');
+        } else if (file_exists(CMTX_DIR_VIEW . 'default/language/english/custom_' . $this->page->getSiteId() . '.php')) {
+            require cmtx_modification(CMTX_DIR_VIEW . 'default/language/english/custom_' . $this->page->getSiteId() . '.php');
+        }
+
         /* Change the comment type wording if configured */
         if ($this->setting->get('purpose') != 'comment') {
             $_ = $this->changePurpose($_);
