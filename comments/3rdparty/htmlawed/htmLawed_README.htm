@@ -112,8 +112,8 @@ span.totop a, span.totop a:visited {color: #6699cc;}
 
 <div id="body">
 <br />
-<div class="comment">htmLawed_README.txt, 5 November 2022<br />
-htmLawed 1.2.10<br />
+<div class="comment">htmLawed_README.txt, 4 August 2023<br />
+htmLawed 1.2.15<br />
 Copyright Santosh Patnaik<br />
 Dual licensed with LGPL 3 and GPL 2+<br />
 A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabware/internal_utilities/htmLawed">https://bioinformatics.org/phplabware/internal_utilities/htmLawed</a>&#160;</div>
@@ -484,8 +484,8 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 &#160; <strong>schemes</strong><br />
 &#160; Array of attribute-specific, comma-separated, lower-cased list of schemes (protocols) allowed in attributes accepting URLs (or <span class="term">!</span>&#160;to <em>deny</em>&#160;any URL); <span class="term">&#42;</span>&#160;covers all unspecified attributes; see <a href="#s3.4.3">section 3.4.3</a><br />
 <br />
-&#160; <span class="term">href&#58; aim, app, feed, file, ftp, gopher, http, https, javascript, irc, mailto, news, nntp, sftp, ssh, tel, telnet; &#42;&#58;data, file, http, https, javascript</span>&#160; *^<br />
-&#160; <span class="term">href&#58; aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet; style&#58; !; &#42;&#58;file, http, https</span>&#160; "<br />
+&#160; <span class="term">href&#58; aim, app, feed, file, ftp, gopher, http, https, javascript, irc, mailto, news, nntp, sftp, ssh, tel, telnet, ws, wss; &#42;&#58;data, file, http, https, javascript, ws, wss</span>&#160; *^<br />
+&#160; <span class="term">href&#58; aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet, ws, wss; style&#58; !; &#42;&#58;file, http, https, ws, wss</span>&#160; "<br />
 <br />
 &#160; <strong>show_setting</strong><br />
 &#160; Name of a PHP variable to assign the <em>finalized</em>&#160;<span class="term">$config</span>&#160;and <span class="term">$spec</span>&#160;values; see <a href="#s3.8">section 3.8</a><br />
@@ -1341,9 +1341,7 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 <a name="s3.4" id="s3.4"></a><span class="item-no">3.4</span>&#160; Attributes
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-
-<code class="code">&#160; &#160; In its default setting, htmLawed will only permit attributes described in the HTML specifications (including deprecated ones). A list of the attributes and the elements they are allowed in is in section&#58;- #5.2. Using the &#39;$spec&#39; argument, htmLawed can be forced to permit custom, non-standard attributes as well as custom rules for standard attributes (section&#58;- #2.3).</code>
-<br />
+&#160; In its default setting, htmLawed will only permit attributes described in the HTML specifications (including deprecated ones). A list of the attributes and the elements they are allowed in is in <a href="#s5.2">section 5.2</a>. Using the <span class="term">$spec</span>&#160;argument, htmLawed can be forced to permit custom, non-standard attributes as well as custom rules for standard attributes (<a href="#s2.3">section 2.3</a>).<br />
 <br />
 &#160; Custom <em>data-*</em>&#160;(<em>data-star</em>) attributes, where the first three characters of the value of <em>star</em>&#160;(*) after lower-casing do not equal <span class="term">xml</span>, and the value of <em>star</em>&#160;does not have a colon (:), equal-to (=), newline, solidus (/), space or tab character, or any upper-case A-Z character are allowed in all elements. ARIA, event and microdata attributes like <span class="term">aria-live</span>, <span class="term">onclick</span>&#160;and <span class="term">itemid</span>&#160;are also considered global attributes (<a href="#s5.2">section 5.2</a>).<br />
 <br />
@@ -1415,13 +1413,13 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 &#160; By default htmLawed permits these schemes in URLs for the <span class="term">href</span>&#160;attribute:<br />
 <br />
 
-<code class="code">&#160; &#160; aim, app, feed, file, ftp, gopher, http, https, javascript, irc, mailto, news, nntp, sftp, ssh, tel, telnet</code>
+<code class="code">&#160; &#160; aim, app, feed, file, ftp, gopher, http, https, javascript, irc, mailto, news, nntp, sftp, ssh, tel, telnet, ws, wss</code>
 <br />
 <br />
-&#160; Also, only <span class="term">data</span>, <span class="term">file</span>, <span class="term">http</span>, <span class="term">https</span>&#160;and <span class="term">javascript</span>&#160;are permitted in these attributes that accept URLs:<br />
+&#160; Also, only <span class="term">data</span>, <span class="term">file</span>, <span class="term">http</span>, <span class="term">https</span>, <span class="term">javascript</span>, <span class="term">ws</span>&#160;and <span class="term">wss</span>&#160;are permitted in these attributes that accept URLs:<br />
 <br />
 
-<code class="code">&#160; &#160; action, archive, cite, classid, codebase, data, itemtype, longdesc, model, pluginspage, pluginurl, poster, src, srcset, style, usemap, and event attributes like onclick</code>
+<code class="code">&#160; &#160; action, archive, cite, classid, codebase, data, formaction, itemtype, longdesc, model, pluginspage, pluginurl, poster, src, srcset, style, usemap, and event attributes like onclick</code>
 <br />
 <br />
 &#160; With <span class="term">$config["safe"] = 1</span>&#160;(<a href="#s3.6">section 3.6</a>), the above is changed to disallow <span class="term">app</span>, <span class="term">data</span>&#160;and <span class="term">javascript</span>.<br />
@@ -1438,7 +1436,7 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 <br />
 &#160; <span class="term">!</span>&#160;can be put in the list of schemes to disallow all protocols as well as <em>local</em>&#160;URLs. Thus, with <span class="term">href&#58; http, style&#58; !</span>, <span class="term">&lt;a href="http&#58;//cnn.com" style="background-image&#58; url(local.jpg);"&gt;CNN&lt;/a&gt;</span>&#160;will become <span class="term">&lt;a href="http&#58;//cnn.com" style="background-image&#58; url(denied&#58;local.jpg);"&gt;CNN&lt;/a&gt;</span><br />
 <br />
-&#160; With <span class="term">$config["safe"] = 1</span>, all URLs are disallowed in the <span class="term">style</span>&#160;attribute values.<br />
+&#160; With <span class="term">$config["safe"] = 1</span>&#160;(<a href="#s3.6">section 3.6</a>), all URLs are disallowed in the <span class="term">style</span>&#160;attribute values, unless a rule for <span class="term">style</span>&#160;is explicitly specified in <span class="term">$config["schemes"]</span>&#160;or <span class="term">$config["style_pass"]</span>&#160;(<a href="#s3.4.8">section 3.4.8</a>) is set to <span class="term">1</span>.<br />
 
 </div>
 <div class="sub-sub-section"><h4>
@@ -1480,7 +1478,7 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 &#160; If <span class="term">$config["no_deprecated_attr"]</span>&#160;is <span class="term">0</span>, then deprecated attributes are removed and, in most cases, their values are transformed to CSS style properties and added to the <span class="term">style</span>&#160;attributes (function <span class="term">hl_tag()</span>). Except for <span class="term">bordercolor</span>&#160;for <span class="term">table</span>, <span class="term">tr</span>&#160;and <span class="term">td</span>, the scores of proprietary attributes that were never part of any cross-browser standard are not supported in this functionality.<br />
 <br />
 &#160; * &#160;align in caption, div, h, h2, h3, h4, h5, h6, hr, img, input, legend, object, p, table - for <span class="term">img</span>&#160;with value of <span class="term">left</span>&#160;or <span class="term">right</span>, becomes, e.g., <span class="term">float&#58; left</span>; for <span class="term">div</span>&#160;and <span class="term">table</span>&#160;with value <span class="term">center</span>, becomes <span class="term">margin&#58; auto</span>; all others become, e.g., <span class="term">text-align&#58; right</span><br />
-&#160; * &#160;bgcolor in table, td, th and tr - E.g., <span class="term">bgcolor="#ffffff"</span>&#160;becomes <span class="term">background-color&#58; #ffffff</span><br />
+&#160; * &#160;bgcolor in table, tbody, td, tfoot, th, thead, tr - E.g., <span class="term">bgcolor="#ffffff"</span>&#160;becomes <span class="term">background-color&#58; #ffffff</span><br />
 &#160; * &#160;border in object - E.g., <span class="term">height="10"</span>&#160;becomes <span class="term">height&#58; 10px</span><br />
 &#160; * &#160;bordercolor in table, td and tr - E.g., <span class="term">bordercolor=#999999</span>&#160;becomes <span class="term">border-color&#58; #999999;</span><br />
 &#160; * &#160;compact in dl, ol and ul - <span class="term">font-size&#58; 85%</span><br />
@@ -1641,6 +1639,8 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 &#160; It is also possible to have htmLawed let through any <span class="term">style</span>&#160;value by setting <span class="term">$config["style_pass"]</span>&#160;to <span class="term">1</span>.<br />
 <br />
 &#160; As such, it is better to set up a CSS file with class declarations, disallow the <span class="term">style</span>&#160;attribute, set a <span class="term">$spec</span>&#160;rule (see <a href="#s2.3">section 2.3</a>) for <span class="term">class</span>&#160;for the <span class="term">oneof</span>&#160;or <span class="term">match</span>&#160;parameter, and ask writers to make use of the <span class="term">class</span>&#160;attribute.<br />
+<br />
+&#160; With <span class="term">$config["safe"] = 1</span>&#160;(<a href="#s3.6">section 3.6</a>) , all URLs are disallowed in the <span class="term">style</span>&#160;attribute values, unless a rule for <span class="term">style</span>&#160;is explicitly specified in <span class="term">$config["schemes"]</span>&#160;(<a href="#s3.4.3">section 3.4.3</a>) or <span class="term">$config["style_pass"]</span>&#160;is set to <span class="term">1</span>.<br />
 
 </div>
 <div class="sub-sub-section"><h4>
@@ -1775,7 +1775,7 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 <code class="code">&#160; &#160; elements - &#42; -applet -audio -canvas -dialog -embed -iframe -object -script -video</code>
 <br />
 
-<code class="code">&#160; &#160; schemes - href&#58; aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet; style&#58; !; &#42;&#58;file, http, https</code>
+<code class="code">&#160; &#160; schemes - href&#58; aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet, ws, wss; style&#58; !; &#42;&#58;file, http, https, ws, wss</code>
 <br />
 <br />
 &#160; With <span class="term">safe</span>&#160;set to <span class="term">1</span>, htmLawed considers <span class="term">CDATA</span>&#160;sections and HTML comments as plain text, and prohibits the <span class="term">applet</span>, <span class="term">audio</span>, <span class="term">canvas</span>, <span class="term">dialog</span>, <span class="term">embed</span>, <span class="term">iframe</span>, <span class="term">object</span>, <span class="term">script</span>&#160;and <span class="term">video</span>&#160;elements, and the <span class="term">on&#42;</span>&#160;attributes like <span class="term">onclick</span>. ( There are <span class="term">$config</span>&#160;parameters like <span class="term">css_expression</span>&#160;that are not affected by the value set for <span class="term">safe</span>&#160;but whose default values still contribute towards a more <em>safe</em>&#160;output.) Further, unless overridden by the value for parameter <span class="term">schemes</span>&#160;(see <a href="#s3.4.3">section 3.4.3</a>), the schemes <span class="term">app</span>, <span class="term">data</span>&#160;and <span class="term">javascript</span>&#160;are not permitted, and URLs with schemes are neutralized so that, e.g., <span class="term">style="moz-binding&#58;url(http&#58;//danger)"</span>&#160;becomes <span class="term">style="moz-binding&#58;url(denied&#58;http&#58;//danger)"</span>.<br />
@@ -1785,6 +1785,8 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 
 <code class="code">&#160; &#160; $processed = htmLawed($text, array(&#39;safe&#39;=&gt;1, &#39;deny_attribute&#39;=&gt;&#39;style&#39;));</code>
 <br />
+<br />
+&#160; With <span class="term">$config["safe"] = 1</span>, all URLs are disallowed in the <span class="term">style</span>&#160;attribute values, unless a rule for <span class="term">style</span>&#160;is explicitly specified in <span class="term">$config["schemes"]</span>&#160;(<a href="#s3.4.3">section 3.4.3</a>) or <span class="term">$config["style_pass"]</span>&#160;(<a href="#s3.4.8">section 3.4.8</a>) is set to <span class="term">1</span>.<br />
 <br />
 &#160; Permitting the <span class="term">style</span>&#160;attribute brings in risks of <em>click-jacking</em>, etc. CSS property values can render a page non-functional or be used to deface it. Except for URLs, dynamic expressions, and some other things, htmLawed does not completely check <span class="term">style</span>&#160;values. It does provide ways for the code-developer implementing htmLawed to do such checks through the <span class="term">$spec</span>&#160;argument, and through the <span class="term">hook_tag</span>&#160;parameter (see <a href="#s3.4.8">section 3.4.8</a>&#160;for more). Disallowing style completely and relying on CSS classes and stylesheet files is recommended.<br />
 <br />
@@ -1865,6 +1867,16 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 &#160; (The release date for the downloadable package of files containing documentation, demo script, test-cases, etc., besides the <span class="term">htmLawed.php</span>&#160;file, may be updated without a change-log entry if the secondary files, but not htmLawed per se, are revised.)<br />
 <br />
 &#160; <em>Version number - Release date. Notes</em><br />
+<br />
+&#160; 1.2.15 - 4 August 2023. Proper checking of attribute <span class="term">formaction</span>; transformation for deprecated attribute <span class="term">bgcolor</span>&#160;for <span class="term">tbody</span>, <span class="term">tfoot</span>, and <span class="term">thead</span>; support for URL schemes <span class="term">ws</span>&#160;and <span class="term">wss</span><br />
+<br />
+&#160; 1.2.14 - 25 May 2023. Fixed issue that prevented use of attribute <span class="term">srcset</span>&#160;in <span class="term">link</span>&#160;and <span class="term">source</span><br />
+<br />
+&#160; 1.2.13 - 1 May 2023. Fixed issues with nesting for <span class="term">details</span>&#160;and <span class="term">ruby</span>, handling of self-closing tags, handling of multiple values in <span class="term">sizes</span>, and <span class="term">$config["schemes"]</span>&#160;parsing<br />
+<br />
+&#160; 1.2.12 - 25 April 2023. Fixed issue that prevented use of attribute <span class="term">sizes</span>&#160;in <span class="term">img</span>&#160;and <span class="term">source</span><br />
+<br />
+&#160; 1.2.11 - 23 January 2023. Fixes an XSS vulnerability arising from a lack of inspection for the alphabetical HTML entity for colon character in URLs<br />
 <br />
 &#160; 1.2.10 - 5 November 2022. Class methods can now be specified as <span class="term">$config</span>&#160;<span class="term">hook</span>&#160;and <span class="term">hook_tag</span>&#160;functions; corrects a PHP notice if <span class="term">$config["schemes"]</span>&#160;mistakenly lacks colons.<br />
 <br />
@@ -2039,7 +2051,7 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 <a name="s4.10" id="s4.10"></a><span class="item-no">4.10</span>&#160; Acknowledgements
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Michael Butler, Dac Chartrand, Alexandre Chouinard, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Hideki Mitsuda, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, walrusmoose, Edward Yang, and many others.<br />
+&#160; Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Michael Butler, Dac Chartrand, Alexandre Chouinard, NinCollin, Alexandra Ellwood, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Hideki Mitsuda, jtojnar, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, walrusmoose, Edward Yang, and many others.<br />
 <br />
 &#160; Thank you!<br />
 
@@ -2080,7 +2092,7 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 &#160; autofocus - button, input, keygen, select, textarea<br />
 &#160; autoplay - audio, video<br />
 &#160; axis - td, th<br />
-&#160; bgcolor - embed, table^, td^, th^, tr^<br />
+&#160; bgcolor - embed, table^, tbody^, td^, tfoot^, th^, thead^, tr^<br />
 &#160; border - img, object^, table<br />
 &#160; bordercolor - table, td, tr<br />
 &#160; cellpadding - table<br />
@@ -2188,12 +2200,12 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 &#160; selected - option<br />
 &#160; shape - area, a<br />
 &#160; size - font, hr^, input, select<br />
-&#160; sizes - link<br />
+&#160; sizes - img, link, source<br />
 &#160; span - col, colgroup<br />
 &#160; src - audio, embed, iframe, img, input, script, source, track, video<br />
 &#160; srcdoc~ - iframe<br />
 &#160; srclang~ - track<br />
-&#160; srcset~% - img<br />
+&#160; srcset~% - img, link, source<br />
 &#160; standby - object<br />
 &#160; start - ol<br />
 &#160; step~ - input<br />
@@ -2333,7 +2345,7 @@ A PHP Labware internal utility &#45; <a href="https://bioinformatics.org/phplabw
 </div>
 </div>
 <br />
-<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 06 Nov, 2022 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
+<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 05 Aug, 2023 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
 </div><!-- ended div body -->
 </div><!-- ended div top -->
 </body>

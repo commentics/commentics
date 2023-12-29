@@ -1,6 +1,6 @@
 /*
-htmLawed_README.txt, 5 November 2022
-htmLawed 1.2.10
+htmLawed_README.txt, 4 August 2023
+htmLawed 1.2.15
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_utilities/htmLawed
@@ -408,8 +408,8 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
   *schemes*
   Array of attribute-specific, comma-separated, lower-cased list of schemes (protocols) allowed in attributes accepting URLs (or '!' to `deny` any URL); '*' covers all unspecified attributes; see section:- #3.4.3
 
-  'href: aim, app, feed, file, ftp, gopher, http, https, javascript, irc, mailto, news, nntp, sftp, ssh, tel, telnet; *:data, file, http, https, javascript'  *^
-  'href: aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet; style: !; *:file, http, https'  "
+  'href: aim, app, feed, file, ftp, gopher, http, https, javascript, irc, mailto, news, nntp, sftp, ssh, tel, telnet, ws, wss; *:data, file, http, https, javascript, ws, wss'  *^
+  'href: aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet, ws, wss; style: !; *:file, http, https, ws, wss'  "
 
   *show_setting*
   Name of a PHP variable to assign the `finalized` '$config' and '$spec' values; see section:- #3.8
@@ -1052,7 +1052,7 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
 -- 3.4  Attributes -------------------------------------------------o
 
 
-    In its default setting, htmLawed will only permit attributes described in the HTML specifications (including deprecated ones). A list of the attributes and the elements they are allowed in is in section:- #5.2. Using the '$spec' argument, htmLawed can be forced to permit custom, non-standard attributes as well as custom rules for standard attributes (section:- #2.3).
+  In its default setting, htmLawed will only permit attributes described in the HTML specifications (including deprecated ones). A list of the attributes and the elements they are allowed in is in section:- #5.2. Using the '$spec' argument, htmLawed can be forced to permit custom, non-standard attributes as well as custom rules for standard attributes (section:- #2.3).
   
   Custom `data-*` (`data-star`) attributes, where the first three characters of the value of `star` (*) after lower-casing do not equal 'xml', and the value of `star` does not have a colon (:), equal-to (=), newline, solidus (/), space or tab character, or any upper-case A-Z character are allowed in all elements. ARIA, event and microdata attributes like 'aria-live', 'onclick' and 'itemid' are also considered global attributes (section:- #5.2).
 
@@ -1117,11 +1117,11 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
 
   By default htmLawed permits these schemes in URLs for the 'href' attribute:
 
-    aim, app, feed, file, ftp, gopher, http, https, javascript, irc, mailto, news, nntp, sftp, ssh, tel, telnet
+    aim, app, feed, file, ftp, gopher, http, https, javascript, irc, mailto, news, nntp, sftp, ssh, tel, telnet, ws, wss
 
-  Also, only 'data', 'file', 'http', 'https' and 'javascript' are permitted in these attributes that accept URLs:
+  Also, only 'data', 'file', 'http', 'https', 'javascript', 'ws' and 'wss' are permitted in these attributes that accept URLs:
 
-    action, archive, cite, classid, codebase, data, itemtype, longdesc, model, pluginspage, pluginurl, poster, src, srcset, style, usemap, and event attributes like onclick
+    action, archive, cite, classid, codebase, data, formaction, itemtype, longdesc, model, pluginspage, pluginurl, poster, src, srcset, style, usemap, and event attributes like onclick
 
   With '$config["safe"] = 1' (section:- #3.6), the above is changed to disallow 'app', 'data' and 'javascript'.
 
@@ -1137,7 +1137,7 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
   
   '!' can be put in the list of schemes to disallow all protocols as well as `local` URLs. Thus, with 'href: http, style: !', '<a href="http://cnn.com" style="background-image: url(local.jpg);">CNN</a>' will become '<a href="http://cnn.com" style="background-image: url(denied:local.jpg);">CNN</a>'
 
-  With '$config["safe"] = 1', all URLs are disallowed in the 'style' attribute values.
+  With '$config["safe"] = 1' (section:- #3.6), all URLs are disallowed in the 'style' attribute values, unless a rule for 'style' is explicitly specified in '$config["schemes"]' or '$config["style_pass"]' (section:- #3.4.8) is set to '1'.
 
 
 .. 3.4.4  Absolute & relative URLs in attribute values ............o
@@ -1170,7 +1170,7 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
   If '$config["no_deprecated_attr"]' is '0', then deprecated attributes are removed and, in most cases, their values are transformed to CSS style properties and added to the 'style' attributes (function 'hl_tag()'). Except for 'bordercolor' for 'table', 'tr' and 'td', the scores of proprietary attributes that were never part of any cross-browser standard are not supported in this functionality.
 
   *  align in caption, div, h, h2, h3, h4, h5, h6, hr, img, input, legend, object, p, table - for 'img' with value of 'left' or 'right', becomes, e.g., 'float: left'; for 'div' and 'table' with value 'center', becomes 'margin: auto'; all others become, e.g., 'text-align: right'
-  *  bgcolor in table, td, th and tr - E.g., 'bgcolor="#ffffff"' becomes 'background-color: #ffffff'
+  *  bgcolor in table, tbody, td, tfoot, th, thead, tr - E.g., 'bgcolor="#ffffff"' becomes 'background-color: #ffffff'
   *  border in object - E.g., 'height="10"' becomes 'height: 10px'
   *  bordercolor in table, td and tr - E.g., 'bordercolor=#999999' becomes 'border-color: #999999;'
   *  compact in dl, ol and ul - 'font-size: 85%'
@@ -1260,6 +1260,8 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
 
   As such, it is better to set up a CSS file with class declarations, disallow the 'style' attribute, set a '$spec' rule (see section:- #2.3) for 'class' for the 'oneof' or 'match' parameter, and ask writers to make use of the 'class' attribute.
 
+  With '$config["safe"] = 1' (section:- #3.6) , all URLs are disallowed in the 'style' attribute values, unless a rule for 'style' is explicitly specified in '$config["schemes"]' (section:- #3.4.3) or '$config["style_pass"]' is set to '1'.
+
 
 .. 3.4.9  Hook function for tag content ............................o
 
@@ -1329,7 +1331,7 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
     comment - 0
     deny_attribute - on*
     elements - * -applet -audio -canvas -dialog -embed -iframe -object -script -video
-    schemes - href: aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet; style: !; *:file, http, https
+    schemes - href: aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, tel, telnet, ws, wss; style: !; *:file, http, https, ws, wss
 
   With 'safe' set to '1', htmLawed considers 'CDATA' sections and HTML comments as plain text, and prohibits the 'applet', 'audio', 'canvas', 'dialog', 'embed', 'iframe', 'object', 'script' and 'video' elements, and the 'on*' attributes like 'onclick'. ( There are '$config' parameters like 'css_expression' that are not affected by the value set for 'safe' but whose default values still contribute towards a more `safe` output.) Further, unless overridden by the value for parameter 'schemes' (see section:- #3.4.3), the schemes 'app', 'data' and 'javascript' are not permitted, and URLs with schemes are neutralized so that, e.g., 'style="moz-binding:url(http://danger)"' becomes 'style="moz-binding:url(denied:http://danger)"'.
 
@@ -1337,7 +1339,9 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
 
     $processed = htmLawed($text, array('safe'=>1, 'deny_attribute'=>'style'));
 
-  Permitting the 'style' attribute brings in risks of `click-jacking`, etc. CSS property values can render a page non-functional or be used to deface it. Except for URLs, dynamic expressions, and some other things, htmLawed does not completely check 'style' values. It does provide ways for the code-developer implementing htmLawed to do such checks through the '$spec' argument, and through the 'hook_tag' parameter (see section:- #3.4.8 for more). Disallowing style completely and relying on CSS classes and stylesheet files is recommended. 
+  With '$config["safe"] = 1', all URLs are disallowed in the 'style' attribute values, unless a rule for 'style' is explicitly specified in '$config["schemes"]' (section:- #3.4.3) or '$config["style_pass"]' (section:- #3.4.8) is set to '1'.
+
+  Permitting the 'style' attribute brings in risks of `click-jacking`, etc. CSS property values can render a page non-functional or be used to deface it. Except for URLs, dynamic expressions, and some other things, htmLawed does not completely check 'style' values. It does provide ways for the code-developer implementing htmLawed to do such checks through the '$spec' argument, and through the 'hook_tag' parameter (see section:- #3.4.8 for more). Disallowing style completely and relying on CSS classes and stylesheet files is recommended.
   
   If a value for a parameter auto-set through 'safe' is still manually provided, then that value can over-ride the auto-set value. E.g., with '$config["safe"] = 1' and '$config["elements"] = "* +script"', 'script', but not 'applet', is allowed. Such over-ride does not occur for 'deny_attribute' (for legacy reason) when comma-separated attribute names are provided as the value for this parameter (section:- #3.4); instead htmLawed will add 'on*' to the value provided for 'deny_attribute'.
 
@@ -1403,6 +1407,16 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
   (The release date for the downloadable package of files containing documentation, demo script, test-cases, etc., besides the 'htmLawed.php' file, may be updated without a change-log entry if the secondary files, but not htmLawed per se, are revised.)
 
   `Version number - Release date. Notes`
+
+  1.2.15 - 4 August 2023. Proper checking of attribute 'formaction'; transformation for deprecated attribute 'bgcolor' for 'tbody', 'tfoot', and 'thead'; support for URL schemes 'ws' and 'wss'
+
+  1.2.14 - 25 May 2023. Fixed issue that prevented use of attribute 'srcset' in 'link' and 'source'
+
+  1.2.13 - 1 May 2023. Fixed issues with nesting for 'details' and 'ruby', handling of self-closing tags, handling of multiple values in 'sizes', and '$config["schemes"]' parsing
+
+  1.2.12 - 25 April 2023. Fixed issue that prevented use of attribute 'sizes' in 'img' and 'source'
+
+  1.2.11 - 23 January 2023. Fixes an XSS vulnerability arising from a lack of inspection for the alphabetical HTML entity for colon character in URLs
 
   1.2.10 - 5 November 2022. Class methods can now be specified as '$config' 'hook' and 'hook_tag' functions; corrects a PHP notice if '$config["schemes"]' mistakenly lacks colons.
 
@@ -1570,7 +1584,7 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
 -- 4.10  Acknowledgements ------------------------------------------o
 
 
-  Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Michael Butler, Dac Chartrand, Alexandre Chouinard, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Hideki Mitsuda, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, walrusmoose, Edward Yang, and many others.
+  Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Michael Butler, Dac Chartrand, Alexandre Chouinard, NinCollin, Alexandra Ellwood, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Hideki Mitsuda, jtojnar, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, walrusmoose, Edward Yang, and many others.
 
   Thank you!
 
@@ -1608,7 +1622,7 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
   autofocus - button, input, keygen, select, textarea
   autoplay - audio, video
   axis - td, th
-  bgcolor - embed, table^, td^, th^, tr^
+  bgcolor - embed, table^, tbody^, td^, tfoot^, th^, thead^, tr^
   border - img, object^, table
   bordercolor - table, td, tr
   cellpadding - table
@@ -1716,12 +1730,12 @@ A PHP Labware internal utility - https://bioinformatics.org/phplabware/internal_
   selected - option
   shape - area, a
   size - font, hr^, input, select
-  sizes - link
+  sizes - img, link, source
   span - col, colgroup
   src - audio, embed, iframe, img, input, script, source, track, video
   srcdoc~ - iframe
   srclang~ - track
-  srcset~% - img
+  srcset~% - img, link, source
   standby - object
   start - ol
   step~ - input
