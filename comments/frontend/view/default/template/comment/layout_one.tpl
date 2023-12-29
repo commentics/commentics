@@ -80,7 +80,7 @@
                     </div>
                 @endif
 
-                <div class="cmtx_user_area" itemprop="creator" itemscope itemtype="https://schema.org/Person">
+                <div class="cmtx_user_area" itemprop="author" itemscope itemtype="https://schema.org/Person">
                     @if comment.is_admin
                     <span class="cmtx_name cmtx_name_admin">
                     @else
@@ -150,7 +150,7 @@
                 @if show_date
                     <div class="cmtx_date_area">
                         <time class="cmtx_date cmtx_timeago" datetime="{{ comment.datetime }}" title="{{ comment.date_added }}">{{ comment.date_added }}</time>
-                        <meta itemprop="dateCreated" content="{{ comment.datetime }}">
+                        <meta itemprop="datePublished" content="{{ comment.datetime }}">
 
                         @if comment.number_edits
                             <span class="cmtx_edited">{{ lang_text_edited }}</span>
