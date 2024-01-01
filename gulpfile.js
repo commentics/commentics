@@ -1,44 +1,44 @@
 var gulp = require('gulp');
 
-var autoprefix = require('gulp-autoprefixer');
+var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass')(require('sass'));
-var stylelint = require('gulp-stylelint');
+var sassLint = require('gulp-sass-lint');
 var terser = require('gulp-terser');
 var strip = require('gulp-strip-comments');
 
 // Lint backend Sass
 gulp.task('lint-backend', function() {
     return gulp.src('comments/backend/view/default/stylesheet/sass/stylesheet.scss')
-        .pipe(stylelint({
-            reporters: [
-                {formatter: 'string', console: true}
-            ]
-        }));
+    .pipe(sassLint({
+        configFile: '.sasslint.yml'
+    }))
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError())
 });
 
 // Lint frontend Sass
 gulp.task('lint-frontend', function() {
     return gulp.src('comments/frontend/view/default/stylesheet/sass/partial/*.scss')
-        .pipe(stylelint({
-            reporters: [
-                {formatter: 'string', console: true}
-            ]
-        }));
+        .pipe(sassLint({
+            configFile: '.sasslint.yml'
+        }))
+        .pipe(sassLint.format())
+        .pipe(sassLint.failOnError())
 });
 
 // Lint install Sass
 gulp.task('lint-install', function() {
     return gulp.src('comments/install/view/default/stylesheet/sass/stylesheet.scss')
-        .pipe(stylelint({
-            reporters: [
-                {formatter: 'string', console: true}
-            ]
-        }));
+    .pipe(sassLint({
+        configFile: '.sasslint.yml'
+    }))
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError())
 });
 
-var autoprefixOptions = {
+var autoprefixerOptions = {
     Browserslist: ['last 2 versions']
 };
 
@@ -46,7 +46,7 @@ var autoprefixOptions = {
 gulp.task('sass-backend', function() {
     return gulp.src('comments/backend/view/default/stylesheet/sass/stylesheet.scss')
         .pipe(sass({outputStyle: 'expanded'}))
-        .pipe(autoprefix(autoprefixOptions))
+        .pipe(autoprefixer(autoprefixerOptions))
         .pipe(gulp.dest('comments/backend/view/default/stylesheet/css'))
         .pipe(rename('stylesheet.min.css'))
         .pipe(sass({outputStyle: 'compressed'}))
@@ -57,7 +57,7 @@ gulp.task('sass-backend', function() {
 gulp.task('sass-frontend', function() {
     return gulp.src('comments/frontend/view/default/stylesheet/sass/stylesheet.scss')
         .pipe(sass({outputStyle: 'expanded'}))
-        .pipe(autoprefix(autoprefixOptions))
+        .pipe(autoprefixer(autoprefixerOptions))
         .pipe(gulp.dest('comments/frontend/view/default/stylesheet/css'))
         .pipe(rename('stylesheet.min.css'))
         .pipe(sass({outputStyle: 'compressed'}))
@@ -68,7 +68,7 @@ gulp.task('sass-frontend', function() {
 gulp.task('sass-install', function() {
     return gulp.src('comments/install/view/default/stylesheet/sass/stylesheet.scss')
         .pipe(sass({outputStyle: 'expanded'}))
-        .pipe(autoprefix(autoprefixOptions))
+        .pipe(autoprefixer(autoprefixerOptions))
         .pipe(gulp.dest('comments/install/view/default/stylesheet/css'))
         .pipe(rename('stylesheet.min.css'))
         .pipe(sass({outputStyle: 'compressed'}))

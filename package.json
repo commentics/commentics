@@ -7,12 +7,10 @@
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
-    "gulp-strip-comments": "^2.5.2",
-    "gulp-stylelint": "^13.0.0",
+    "gulp-strip-comments": "^2.6.0",
     "gulp-terser": "^2.1.0",
-    "sass": "^1.57.1",
-    "stylelint": "^13.0.0",
-    "stylelint-config-sass-guidelines": "^9.0.1"
+    "sass": "^1.69.6",
+    "gulp-sass-lint": "^1.4.0"
   },
   "dependencies": {}
 }
