@@ -4,5 +4,5 @@
 .gitignore export-ignore
 gulpfile.js export-ignore
 package.json export-ignore
-.stylelintrc export-ignore
+.sasslint.yml export-ignore
 cmtx export-ignore

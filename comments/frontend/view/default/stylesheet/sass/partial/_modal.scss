@@ -3,10 +3,10 @@
 .cmtx_modal_box {
     background: $white;
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, .1);
     border-bottom: 1px solid $grey;
     border-radius: 4px;
-    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
     color: $black !important;
     display: none;
     left: 50%;
@@ -47,7 +47,7 @@
 }
 
 .cmtx_modal_box footer {
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(0, 0, 0, .02);
     border-top: 1px solid $grey-lighter;
     padding: 10px;
     text-align: right;
@@ -120,7 +120,7 @@
 }
 
 .cmtx_overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, .5);
     bottom: 0;
     display: none;
     height: 100%;
@@ -135,9 +135,6 @@
 @media all and (max-width: 500px) {
     .cmtx_form_container .cmtx_modal_box {
         min-width: 0;
-    }
-
-    .cmtx_form_container .cmtx_modal_box {
         width: 80%;
     }
 }

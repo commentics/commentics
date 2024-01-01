@@ -19,7 +19,7 @@
 
 .cmtx_preview_text {
     color: $grey;
-    font-size: 0.8em;
+    font-size: .8em;
     font-weight: normal;
     margin-top: 9px;
 }
@@ -27,7 +27,7 @@
 .cmtx_maintenance_mode_admin, .cmtx_javascript_disabled {
     background-color: $beige;
     border: 1px dotted $grey;
-    font-size: 0.9em;
+    font-size: .9em;
     margin-bottom: 15px;
     padding: 7px;
 }
@@ -173,7 +173,7 @@
 .cmtx_error {
     color: $red;
     display: block;
-    font-size: 0.9em;
+    font-size: .9em;
     margin-top: 2px;
 }
 
@@ -181,7 +181,7 @@
     background-color: $white !important;
     border: 1px solid $grey-lighter;
     border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset;
     color: $black !important;
     font-weight: normal;
     height: 35px !important;
@@ -415,7 +415,7 @@
 }
 
 .cmtx_comment_field_transition {
-    transition: height 0.25s ease-in !important;
+    transition: height .25s ease-in !important;
 }
 
 .cmtx_comment_field_near_bottom:hover {
@@ -438,7 +438,7 @@
 .cmtx_image_container {
     border: 1px solid $grey-lighter;
     border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset;
     padding: 5px;
 }
 
@@ -458,7 +458,7 @@
     background-color: $white;
     border: 1px solid $grey-lighter;
     border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset;
     text-align: center;
 }
 

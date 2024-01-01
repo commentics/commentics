@@ -62,7 +62,7 @@
     opacity: 0;
     position: absolute;
     text-align: center;
-    transition: all 0.5s ease;
+    transition: opacity .5s ease;
     width: 100%;
     z-index: $z-index-upload;
 }
@@ -81,10 +81,4 @@
     &:hover {
         background-color: darken(#d22828, 10%);
     }
-}
-
-.cmtx_remove_image:hover {
-    background: #c13b2a;
-    color: $white;
-    transition: all 0.2s ease;
 }

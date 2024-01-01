@@ -153,7 +153,7 @@
 
     .cmtx_custom_text {
         color: $grey;
-        font-size: 0.8em;
+        font-size: .8em;
         margin-bottom: 8px;
     }
 
@@ -259,15 +259,12 @@
         }
 
         .cmtx_format_area {
+            margin-left: 0;
             margin-top: 30px;
         }
 
         .cmtx_notifications_area {
             margin-right: 0;
-        }
-
-        .cmtx_format_area {
-            margin-left: 0;
         }
     }
 

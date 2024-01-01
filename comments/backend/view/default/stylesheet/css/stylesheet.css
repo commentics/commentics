@@ -3452,6 +3452,7 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 .controls .fieldset label {
   display: table-cell;
   padding-right: 15px;
+  vertical-align: top;
 }
 
 .controls textarea {
@@ -3541,10 +3542,6 @@ span.error {
 
 .controls .divide_after div {
   margin-bottom: 10px;
-}
-
-.controls .fieldset label {
-  vertical-align: top;
 }
 
 .controls .divide_after + .fieldset label {
@@ -4496,9 +4493,6 @@ div.error + .avatar_section {
     display: inline;
     line-height: normal !important;
   }
-  .controls .fieldset::after {
-    margin-bottom: 20px !important;
-  }
   .controls .fieldset label {
     display: block;
     margin-bottom: 3px;
@@ -4552,7 +4546,7 @@ div.error + .avatar_section {
     clear: both;
     content: "";
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 20px !important;
   }
   .controls .divide_after input, .controls .divide_after select {
     margin-bottom: 10px;
@@ -4835,20 +4829,14 @@ nav ul {
 }
 
 .ui-tabs .ui-tabs-panel {
-  padding: 0;
-}
-
-.ui-tabs .ui-tabs-nav {
-  margin-bottom: 5px;
-  padding: 0;
-}
-
-.ui-tabs .ui-tabs-panel {
   margin-top: 5px;
+  padding: 0;
 }
 
 .ui-tabs .ui-tabs-nav {
   border-bottom: 1px solid #dfdfdf;
+  margin-bottom: 5px;
+  padding: 0;
 }
 
 .ui-tabs .ui-tabs-nav li {

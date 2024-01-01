@@ -37,7 +37,7 @@
 }
 
 .cmtx_average_rating_stats {
-    font-size: 0.8em;
+    font-size: .8em;
     vertical-align: middle;
 }
 
@@ -226,14 +226,13 @@
 
 .cmtx_sort_by_text {
     color: $grey;
-    font-size: 0.8em;
+    font-size: .8em;
 }
 
 .cmtx_sort_by_field {
     display: inline-block !important;
     font-family: inherit;
     font-size: inherit;
-    height: auto !important;
     height: 25px !important;
     line-height: 25px;
     padding: 0 !important;

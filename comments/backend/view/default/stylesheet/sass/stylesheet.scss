@@ -114,7 +114,7 @@ h3 {
 }
 
 .page_help_block a {
-    font-size: 0.9em;
+    font-size: .9em;
     text-decoration: none;
 }
 
@@ -134,6 +134,7 @@ input[type='text'], input[type='email'], input[type='password'], select, textare
 .controls .fieldset label {
     display: table-cell;
     padding-right: 15px;
+    vertical-align: top;
 }
 
 .controls textarea {
@@ -172,13 +173,13 @@ input.large_plus[type='text'], input.large_plus[type='password'], input.large_pl
 
 .note {
     color: #838b8b;
-    font-size: 0.85em;
+    font-size: .85em;
     font-style: italic;
     margin-left: 3px;
 }
 
 .hint {
-    font-size: 0.9em;
+    font-size: .9em;
     margin-left: 15px;
     outline: 0;
     text-decoration: none;
@@ -206,7 +207,7 @@ input.large_plus[type='text'], input.large_plus[type='password'], input.large_pl
 span.error {
     color: #f00;
     display: block;
-    font-size: 0.9em;
+    font-size: .9em;
     line-height: normal;
     margin-bottom: 5px;
     margin-top: -5px;
@@ -223,10 +224,6 @@ span.error {
 
 .controls .divide_after div {
     margin-bottom: 10px;
-}
-
-.controls .fieldset label {
-    vertical-align: top;
 }
 
 .controls .divide_after + .fieldset label {
@@ -260,7 +257,7 @@ span.error {
     border-width: 1px;
     color: #fff;
     cursor: pointer;
-    font: bold 12px arial,helvetica,sans-serif !important;
+    font: bold 12px arial, helvetica, sans-serif !important;
     padding: 1px 7px 2px;
     text-align: center !important;
     white-space: nowrap;
@@ -1216,10 +1213,6 @@ div.error + .avatar_section {
         line-height: normal !important;
     }
 
-    .controls .fieldset::after {
-        margin-bottom: 20px !important;
-    }
-
     .controls .fieldset label {
         display: block;
         margin-bottom: 3px;
@@ -1287,7 +1280,7 @@ div.error + .avatar_section {
         clear: both;
         content: '';
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 20px !important;
     }
 
     .controls .divide_after input, .controls .divide_after select {
@@ -1433,7 +1426,7 @@ div.info a:not([href]):last-child, div.warning a:not([href]):last-child {
 }
 
 #login_page .link, #reset_page .link {
-    font-size: 0.7em;
+    font-size: .7em;
     margin-top: 10px;
     text-align: center;
 }
@@ -1504,7 +1497,7 @@ nav ul {
     cursor: pointer !important;
     outline: 0;
     overflow: visible !important;
-    padding: 0.6em;
+    padding: .6em;
     text-decoration: none;
 }
 
@@ -1549,7 +1542,7 @@ nav ul {
     }
 
     .flexnav .item-with-ul li:last-of-type a:last-of-type {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        border-bottom: 1px solid rgba(0, 0, 0, .15);
     }
 
     .flexnav .indent {
@@ -1567,7 +1560,7 @@ nav ul {
 }
 
 .ui-tabs .description {
-    font-size: 0.9em;
+    font-size: .9em;
 }
 
 .ui-tabs .description p {
@@ -1593,20 +1586,14 @@ nav ul {
 }
 
 .ui-tabs .ui-tabs-panel {
-    padding: 0;
-}
-
-.ui-tabs .ui-tabs-nav {
-    margin-bottom: 5px;
-    padding: 0;
-}
-
-.ui-tabs .ui-tabs-panel {
     margin-top: 5px;
+    padding: 0;
 }
 
 .ui-tabs .ui-tabs-nav {
     border-bottom: 1px solid #dfdfdf;
+    margin-bottom: 5px;
+    padding: 0;
 }
 
 .ui-tabs .ui-tabs-nav li {
@@ -1849,7 +1836,7 @@ table.table {
 
 #password_description {
     float: left;
-    font-size: 0.8em;
+    font-size: .8em;
     line-height: 15px;
     margin-bottom: -10px;
 }

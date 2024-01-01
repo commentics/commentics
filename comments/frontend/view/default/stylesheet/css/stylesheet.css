@@ -2546,7 +2546,7 @@
   opacity: 0;
   position: absolute;
   text-align: center;
-  transition: all 0.5s ease;
+  transition: opacity 0.5s ease;
   width: 100%;
   z-index: 6000;
 }
@@ -2564,12 +2564,6 @@
 }
 .cmtx_button_remove:hover {
   background-color: #a72020;
-}
-
-.cmtx_remove_image:hover {
-  background: #c13b2a;
-  color: #fff;
-  transition: all 0.2s ease;
 }
 
 /* Form */
@@ -2772,7 +2766,6 @@
   cursor: not-allowed;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 
@@ -3349,7 +3342,7 @@ select.cmtx_required {
   vertical-align: middle;
 }
 .cmtx_field_align_left .cmtx_rating {
-  border: none;
+  border: 0;
   box-shadow: none;
   text-align: left;
 }
@@ -3680,6 +3673,10 @@ select.cmtx_required {
   margin-top: 7px;
   padding-bottom: 0;
   padding-top: 0;
+}
+
+.cmtx_code_box, .cmtx_php_box {
+  white-space: pre;
 }
 
 .cmtx_code_box, .cmtx_php_box, .cmtx_quote_box {
@@ -4094,10 +4091,10 @@ select.cmtx_required {
   }
 }
 .cmtx_comment_layout_two .cmtx_rating_area {
-  position: static;
-  margin-bottom: 5px;
   display: inline-block;
+  margin-bottom: 5px;
   margin-right: 10px;
+  position: static;
 }
 .cmtx_comment_layout_two .cmtx_headline_area {
   display: inline-block;
@@ -4353,7 +4350,6 @@ select.cmtx_required {
   display: inline-block !important;
   font-family: inherit;
   font-size: inherit;
-  height: auto !important;
   height: 25px !important;
   line-height: 25px;
   padding: 0 !important;
@@ -4586,13 +4582,11 @@ select.cmtx_required {
     width: 100%;
   }
   .cmtx_user_container .cmtx_format_area {
+    margin-left: 0;
     margin-top: 30px;
   }
   .cmtx_user_container .cmtx_notifications_area {
     margin-right: 0;
-  }
-  .cmtx_user_container .cmtx_format_area {
-    margin-left: 0;
   }
 }
 @media all and (max-width: 750px) {
@@ -4750,8 +4744,6 @@ select.cmtx_required {
 @media all and (max-width: 500px) {
   .cmtx_form_container .cmtx_modal_box {
     min-width: 0;
-  }
-  .cmtx_form_container .cmtx_modal_box {
     width: 80%;
   }
 }

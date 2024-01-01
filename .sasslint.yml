@@ -1,0 +1,24 @@
+# 0 (disabled)
+# 1 (warning)
+# 2 (error)
+
+options:
+  merge-default-rules: true
+files:
+  ignore: 'comments\frontend\view\default\stylesheet\sass\partial\_fontawesome.scss'
+rules:
+  no-important: 0
+  no-ids: 0
+  indentation:
+    - 1
+    -
+      size: 4
+  class-name-format: 0
+  no-color-literals: 0
+  single-line-per-selector: 0
+  force-pseudo-nesting: 0
+  force-element-nesting: 0
+  force-attribute-nesting: 0
+  no-qualifying-elements: 0
+  no-css-comments: 0
+  no-vendor-prefixes: 0

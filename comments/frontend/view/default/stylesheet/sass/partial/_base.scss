@@ -35,7 +35,7 @@ $red-dark:   darken($red, 5%);
     padding: 10px;
     text-align: center;
     text-decoration: none;
-    transition-duration: 0.4s;
+    transition-duration: .4s;
     width: 100%;
 
     &:hover {
@@ -58,7 +58,7 @@ $red-dark:   darken($red, 5%);
 
 .cmtx_button_disabled {
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: .6;
 }
 
 .cmtx_button_row input[type='button'], .cmtx_more_button_row input[type='button'] {

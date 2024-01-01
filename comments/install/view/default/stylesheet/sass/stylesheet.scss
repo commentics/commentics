@@ -23,7 +23,6 @@ main {
 }
 
 body {
-    background-color: #f1f1f1;
     background-color: #f5f5f5;
     color: #2c2c2c;
     font-family: arial;
@@ -78,7 +77,7 @@ a:hover {
 }
 
 .heading_note {
-    font-size: 0.9em;
+    font-size: .9em;
     font-style: italic;
 }
 
@@ -116,7 +115,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
 }
 
 .note {
-    font-size: 0.75em;
+    font-size: .75em;
 }
 
 .button {
@@ -126,7 +125,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
     border-width: 1px;
     color: #fff;
     cursor: pointer;
-    font: bold 12px arial,helvetica,sans-serif;
+    font: bold 12px arial, helvetica, sans-serif;
     padding: 1px 7px 2px;
     text-align: center !important;
     white-space: nowrap;
@@ -209,7 +208,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
         min-width: 29px;
         padding: 2px 4px;
         text-align: center;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
         vertical-align: baseline;
         white-space: nowrap;
     }
@@ -234,7 +233,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
         background-color: #fef6e0;
         border: 1px solid #efe1b9;
         color: #555;
-        font-size: 0.8em;
+        font-size: .8em;
         margin-left: 15px;
         padding: 2px 0 3px 3px;
     }
@@ -274,7 +273,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
 
     .field_error {
         color: #f00;
-        font-size: 0.9em;
+        font-size: .9em;
         margin-bottom: 10px;
         margin-top: -14px;
     }
@@ -359,7 +358,7 @@ input[type='text'], input[type='email'], input[type='password'], select {
 
 #password_description {
     display: block;
-    font-size: 0.8em;
+    font-size: .8em;
     line-height: 15px;
     margin-bottom: 12px;
 }
