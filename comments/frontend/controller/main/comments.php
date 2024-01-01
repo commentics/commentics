@@ -434,6 +434,10 @@ class MainCommentsController extends Controller
             $comment['comment'] = $this->model_main_comments->convertSmilies($comment['comment']);
         }
 
+        if ($this->setting->get('enabled_bb_code') && ($this->setting->get('enabled_bb_code_code') || $this->setting->get('enabled_bb_code_php'))) {
+            $comment['comment'] = $this->model_main_comments->highlightCode($comment['comment']);
+        }
+
         $comment['comment'] = $this->model_main_comments->purifyComment($comment['comment']);
 
         $uploads = $comment['uploads'];

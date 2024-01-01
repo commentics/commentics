@@ -421,6 +421,10 @@ class MainFormController extends Controller
                         $comment_post = $this->model_main_comments->convertSmilies($comment_post);
                     }
 
+                    if ($this->setting->get('enabled_bb_code') && ($this->setting->get('enabled_bb_code_code') || $this->setting->get('enabled_bb_code_php'))) {
+                        $comment_post = $this->model_main_comments->highlightCode($comment_post);
+                    }
+
                     $comment_post = $this->model_main_comments->purifyComment($comment_post);
 
                     $date_added = $this->data['lang_text_today'];

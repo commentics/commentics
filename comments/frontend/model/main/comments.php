@@ -298,6 +298,20 @@ class MainCommentsModel extends Model
         return $comment;
     }
 
+    /* Highlight any code entered */
+    public function highlightCode($comment)
+    {
+        $pattern = '/<div class="cmtx_.*_box.*">(.*?)<\/div>/s';
+
+        $replacement = function ($match) {
+            return str_replace('<br />', "\r\n", $match[0]);
+        };
+
+        $comment = preg_replace_callback($pattern, $replacement, $comment);
+
+        return $comment;
+    }
+
     /* Purify the comment. Ensures properly balanced tags and neutralizes attacks. */
     public function purifyComment($comment)
     {
