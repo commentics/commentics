@@ -67,6 +67,41 @@
                                         @set reply_depth = 5
                                         @increase count
                                         @template comment/{{ comment_layout }}
+
+                                        @foreach comment.reply_id as comment
+                                            @set reply_depth = 6
+                                            @increase count
+                                            @template comment/{{ comment_layout }}
+
+                                            @foreach comment.reply_id as comment
+                                                @set reply_depth = 7
+                                                @increase count
+                                                @template comment/{{ comment_layout }}
+
+                                                @foreach comment.reply_id as comment
+                                                    @set reply_depth = 8
+                                                    @increase count
+                                                    @template comment/{{ comment_layout }}
+
+                                                    @foreach comment.reply_id as comment
+                                                        @set reply_depth = 9
+                                                        @increase count
+                                                        @template comment/{{ comment_layout }}
+
+                                                        @foreach comment.reply_id as comment
+                                                            @set reply_depth = 10
+                                                            @increase count
+                                                            @template comment/{{ comment_layout }}
+                                                        @endforeach
+
+                                                    @endforeach
+
+                                                @endforeach
+
+                                            @endforeach
+
+                                        @endforeach
+
                                     @endforeach
 
                                 @endforeach

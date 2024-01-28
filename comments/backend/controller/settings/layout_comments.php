@@ -1120,8 +1120,8 @@ class SettingsLayoutCommentsController extends Controller
 
         /* Reply */
 
-        if (!isset($this->request->post['reply_max_depth']) || !$this->validation->isInt($this->request->post['reply_max_depth']) || $this->request->post['reply_max_depth'] < 1 || $this->request->post['reply_max_depth'] > 5) {
-            $this->error['reply_max_depth'] = sprintf($this->data['lang_error_range'], 1, 5);
+        if (!isset($this->request->post['reply_max_depth']) || !$this->validation->isInt($this->request->post['reply_max_depth']) || $this->request->post['reply_max_depth'] < 1 || $this->request->post['reply_max_depth'] > 10) {
+            $this->error['reply_max_depth'] = sprintf($this->data['lang_error_range'], 1, 10);
         }
 
         /* Custom */
