@@ -265,25 +265,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function cmtxCommentResize() {
         document.querySelectorAll('.cmtx_comment_field').forEach(function(element) {
             element.addEventListener('mousedown', function(e) {
-                var startHeight = element.clientHeight;
-                var startY = e.clientY;
+                if (element.classList.contains('cmtx_comment_field_near_bottom')) {
+                    var startHeight = element.clientHeight;
+                    var startY = e.clientY;
 
-                function cmtxHandleMouseMove(e) {
-                    var newHeight = startHeight + (e.clientY - startY);
+                    function cmtxHandleMouseMove(e) {
+                        var newHeight = startHeight + (e.clientY - startY);
 
-                    if (newHeight > 33) {
-                        element.classList.remove('cmtx_comment_field_transition');
-                        element.style.setProperty('height', newHeight + 'px', 'important');
+                        if (newHeight > 33) {
+                            element.classList.remove('cmtx_comment_field_transition');
+                            element.style.setProperty('height', newHeight + 'px', 'important');
+                        }
                     }
-                }
 
-                function cmtxHandleMouseUp() {
-                    document.removeEventListener('mousemove', cmtxHandleMouseMove);
-                    document.removeEventListener('mouseup', cmtxHandleMouseUp);
-                }
+                    function cmtxHandleMouseUp() {
+                        document.removeEventListener('mousemove', cmtxHandleMouseMove);
+                        document.removeEventListener('mouseup', cmtxHandleMouseUp);
+                    }
 
-                document.addEventListener('mousemove', cmtxHandleMouseMove);
-                document.addEventListener('mouseup', cmtxHandleMouseUp);
+                    document.addEventListener('mousemove', cmtxHandleMouseMove);
+                    document.addEventListener('mouseup', cmtxHandleMouseUp);
+                }
             });
 
             element.addEventListener('mousemove', function(e) {
@@ -2350,6 +2352,33 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
+    /* Viewers Online */
+    function cmtxViewersOnline() {
+        if (typeof(cmtx_js_settings_online) != 'undefined') {
+            if (cmtx_js_settings_online.online_refresh_enabled) {
+                setInterval(function() {
+                    var request = cmtxFetch(cmtx_js_settings_online.commentics_url + 'frontend/index.php?route=part/online/refresh', {
+                        body: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_online.page_id)
+                    });
+
+                    request.then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        if (data['online'] != 'undefined') { // may be zero
+                            document.querySelectorAll('.cmtx_online_num').forEach(function(element) {
+                                element.textContent = data['online'];
+                            });
+                        }
+                    }).catch(function(error) {
+                        if (console && console.log) {
+                            console.log(error);
+                        }
+                    });
+                }, cmtx_js_settings_online.online_refresh_interval);
+            }
+        }
+    }
+
     /* Initialise */
     cmtxInit();
 
@@ -2716,39 +2745,6 @@ function cmtxHighlightCode() {
     }
 }
 
-/* Viewers Online */
-function cmtxViewersOnline() {
-    if (typeof(cmtx_js_settings_online) != 'undefined') {
-        if (cmtx_js_settings_online.online_refresh_enabled) {
-            setInterval(function() {
-                var request = cmtxFetch(cmtx_js_settings_online.commentics_url + 'frontend/index.php?route=part/online/refresh', {
-                    body: 'cmtx_page_id=' + encodeURIComponent(cmtx_js_settings_online.page_id)
-                });
-
-                request.then(function(response) {
-                    return response.json();
-                }).then(function(data) {
-                    if (data['online'] != 'undefined') { // may be zero
-                        if (document.querySelector('.cmtx_online_num').textContent.trim() != data['online']) { // only update if different
-                            cmtxFadeOut('.cmtx_online_num', 400);
-                            setInterval(function() {
-                                document.querySelectorAll('.cmtx_online_num').forEach(function(element) {
-                                    element.textContent = data['online'];
-                                    cmtxFadeIn(element, 400);
-                                });
-                            }, 400);
-                        }
-                    }
-                }).catch(function(error) {
-                    if (console && console.log) {
-                        console.log(error);
-                    }
-                });
-            }, cmtx_js_settings_online.online_refresh_interval);
-        }
-    }
-}
-
 /* Show the 'View x replies' link */
 function cmtxViewReplies() {
     if (typeof(cmtx_js_settings_comments) != 'undefined') {
@@ -2904,7 +2900,6 @@ function cmtxFadeOut(selectorOrElement, duration, not = '') {
         if (not == '' || !element.matches(not)) {
             // Set the initial opacity to 1
             element.style.opacity = 1;
-            element.style.display = 'none';
 
             // Apply the transition
             element.style.transition = `opacity ${duration}ms ease-in-out`;
@@ -2914,6 +2909,10 @@ function cmtxFadeOut(selectorOrElement, duration, not = '') {
 
             // Set the final opacity to 0 to start the transition
             element.style.opacity = 0;
+
+            setTimeout(function() {
+                element.style.display = 'none';
+            }, duration);
         }
     });
 }
