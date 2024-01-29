@@ -241,7 +241,7 @@ class MainDashboardModel extends Model
 
     public function checkSystemSettings()
     {
-        $site_domain = str_ireplace('www.', '', parse_url($this->url->decode($this->url->getPageUrl()), PHP_URL_HOST));
+        $site_domain = $this->url->getDomainFromUrl($this->url->getPageUrl());
 
         $site_url = 'http' . ($this->url->isHttps() ? 's' : '') . '://' . parse_url($this->url->decode($this->url->getPageUrl()), PHP_URL_HOST);
 

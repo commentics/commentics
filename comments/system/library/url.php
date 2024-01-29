@@ -91,4 +91,22 @@ class Url
 
         return false;
     }
+
+    /* Gets the domain from the supplied URL parameter */
+    public function getDomainFromUrl($url)
+    {
+        $domain = '';
+
+        $url = $this->decode($url);
+
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            $domain = parse_url($url, PHP_URL_HOST);
+
+            if ($domain) {
+                $domain = str_ireplace('www.', '', $domain);
+            }
+        }
+
+        return $domain;
+    }
 }

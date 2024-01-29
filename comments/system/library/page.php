@@ -45,17 +45,7 @@ class Page
         }
 
         if ($this->identifier) {
-            $domain = str_ireplace('www.', '', parse_url($this->url->decode($this->page_url), PHP_URL_HOST));
-
-            if ($this->iframe && $this->setting->get('check_referrer') && isset($this->request->server['HTTP_REFERER']) && $this->request->server['HTTP_REFERER']) {
-                $referrer = str_ireplace('www.', '', parse_url($this->url->decode($this->request->server['HTTP_REFERER']), PHP_URL_HOST));
-
-                if ($referrer) {
-                    if ($domain != $referrer) {
-                        die('<b>Error:</b> Could not be loaded from the domain \'' . $this->security->encode($referrer) . '\'');
-                    }
-                }
-            }
+            $domain = $this->url->getDomainFromUrl($this->page_url);
 
             if ($domain) {
                 $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "sites` WHERE `domain` = '" . $this->db->escape($domain) . "'");
@@ -72,7 +62,17 @@ class Page
                     die('<b>Error:</b> No site found with the domain \'' . $this->security->encode($domain) . '\' (<a href="https://commentics.com/faq/iframe-integration/no-site-found" target="_blank">Learn more</a>)');
                 }
             } else {
-                die('<b>Error:</b> No domain provided');
+                die('<b>Error:</b> No domain found');
+            }
+
+            if ($this->iframe && $this->setting->get('check_referrer') && !empty($this->request->server['HTTP_REFERER'])) {
+                $referrer = $this->url->getDomainFromUrl($this->request->server['HTTP_REFERER']);
+
+                if ($referrer) {
+                    if ($domain != $referrer) {
+                        die('<b>Error:</b> Could not be loaded from the domain \'' . $this->security->encode($referrer) . '\'');
+                    }
+                }
             }
 
             $page = $this->getPageByIdentifier($this->identifier, $this->site_id);
