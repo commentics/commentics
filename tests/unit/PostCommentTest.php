@@ -23,6 +23,7 @@ class PostCommentTest extends TestCase
         $this->setPostData('cmtx_time', time() - 10);
         $this->setPostData('cmtx_name', 'PHPUnit');
         $this->setPostData('cmtx_email', 'test@commentics.com');
+        $this->setPostData('cmtx_headline', 'An example headline');
         $this->setPostData('cmtx_comment', 'This is a test by PHPUnit');
         $this->setPostData('cmtx_privacy', 1);
         $this->setPostData('cmtx_terms', 1);
