@@ -18,6 +18,8 @@ class Event
     public function trigger($event, $data = array())
     {
         if ($this->has_events) {
+            $comment_id = 0;
+
             if (isset($data['page_id'])) {
                 $page = $this->getPageById($data['page_id']);
             } else if (isset($data['comment_id'])) {
