@@ -2245,7 +2245,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     var total_comments = parseInt(document.querySelector('#cmtx_loading_helper').getAttribute('data-cmtx-total-comments'));
 
-                    if (total_comments > document.querySelector('.cmtx_comment_section').length) {
+                    if (total_comments > document.querySelectorAll('.cmtx_comment_section').length) {
                         // there are more comments that can be loaded
                     } else {
                         cmtxRemoveIfExists('#cmtx_more_button');
