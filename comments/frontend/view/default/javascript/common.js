@@ -2785,7 +2785,7 @@ function cmtxCloseShareBox() {
         document.addEventListener('mouseup', function(e) {
             var container = document.querySelector('.cmtx_share_box');
 
-            if (container !== e.target && !container.contains(e.target)) {
+            if (container !== e.target && !container.contains(e.target) && !e.target.classList.contains('cmtx_share_icon')) {
                 cmtxFadeOut('.cmtx_share_box', 400);
             }
         });
@@ -2798,7 +2798,7 @@ function cmtxClosePermalinkBox() {
         document.addEventListener('mouseup', function(e) {
             var container = document.querySelector('.cmtx_permalink_box');
 
-            if (container !== e.target && !container.contains(e.target)) {
+            if (container !== e.target && !container.contains(e.target) && !e.target.classList.contains('cmtx_permalink_icon')) {
                 cmtxFadeOut('.cmtx_permalink_box', 400);
             }
         });
