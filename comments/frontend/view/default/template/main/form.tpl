@@ -1,4 +1,4 @@
-<div id="cmtx_form_container" class="cmtx_form_container cmtx_field_label_{{ field_label }} cmtx_field_column_{{ field_column }} cmtx_field_width_{{ field_width }} cmtx_field_align_{{ field_align }} cmtx_clear">
+<div id="cmtx_form_container" class="cmtx_form_container cmtx_field_label_{{ field_label }} cmtx_field_column_{{ field_column }} cmtx_field_width_{{ field_width }} cmtx_field_align_{{ field_align }} cmtx_avatar_shape_{{ avatar_shape }} cmtx_clear">
     <h3 class="cmtx_form_heading">{{ lang_heading_form }}</h3>
 
     <div id="cmtx_preview"></div>
