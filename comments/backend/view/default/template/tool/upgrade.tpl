@@ -27,7 +27,7 @@
     <div id="upgrade-progress"></div>
 
     <?php if ($start) { ?>
-        <div id="start-upgrade"></div>
+        <div id="start-upgrade" data-csrf-key="<?php echo $csrf_key; ?>"></div>
     <?php } else { ?>
         <?php if ($next_version) { ?>
             <p><?php echo $lang_text_newer; ?> <?php echo $lang_text_version; ?></p>

@@ -2527,7 +2527,7 @@ $(document).ready(function() {
     /* Tool Upgrade */
 
     if ($('#tool_upgrade_page #start-upgrade').length) {
-        var csrf_key = $('input[name="csrf_key"]').val();
+        var csrf_key = $('#start-upgrade').attr('data-csrf-key');
 
         cmtx_start_upgrade(csrf_key);
     }
