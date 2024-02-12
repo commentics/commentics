@@ -1,3 +1,46 @@
+Version: 4.5
+Date: 12th February 2024
+
+[Feature] Events system
+[Feature] CLI (Command-line Interface)
+[Improvement] PHP 8.3 compatibility
+[Improvement] Uses vanilla JS on frontend
+[Improvement] Adds PHPUnit tests
+[Improvement] Choose various field layouts
+[Improvement] Choose two comment layouts
+[Improvement] Site specific CSS / language
+[Improvement] Admin can edit/delete comments on frontend
+[Improvement] Adds avatar shape setting
+[Improvement] Autoload folders for JS/CSS
+[Improvement] Additional CSS Editor settings
+[Improvement] Auto passes settings to templates
+[Improvement] Moves more code to models
+[Improvement] Uses less code for admin errors
+[Improvement] Uses less code for uninstalling modules
+[Improvement] User page respects 'Auto Update' time setting
+[Improvement] Language editor improvements
+[Improvement] Updates states
+[Improvement] Adds ability to resize comment field
+[Improvement] Uses referrer setting for iframe
+[Improvement] More control on admin edit pages
+[Improvement] Updates to structured data markup
+[Improvement] Adds getDomainFromUrl method
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades htmLawed script
+[Improvement] Upgrades chart script
+[Improvement] Upgrades highlight script
+[Bug Fix] Fix for language in ajax requests
+[Bug Fix] Fix for if modifying comments heading
+[Bug Fix] Fix for regex non-Latin characters
+[Bug Fix] Fix for default country
+[Bug Fix] Fix for one-click upgrade
+[Other] Removes loadWord() method
+[Other] Removes Timeago script
+[Other] Suppresses possible error
+[Other] Checks sponsors are valid
+
+*************************************************************************
+
 Version: 4.4
 Date: 21st January 2023
 
@@ -546,7 +589,7 @@ Date: 2nd February 2013
 [Bug Fix] No height below reply message in Chrome
 [Bug Fix] Clicking BB Code/Smilies inserted URL of image
 [Bug Fix] Comment button IDs were not unique
-[Bug Fix] Characters like ö, ç and ü were encoded
+[Bug Fix] Characters like Ã¶, Ã§ and Ã¼ were encoded
 [Bug Fix] Question mark at times wrongly removed from URL
 [Bug Fix] Viewers feature did not auto refresh
 [Bug Fix] Multiple spaces in user inputs were preserved
