@@ -116,7 +116,7 @@ class App
 
             $data .= '<?php' . PHP_EOL;
             $data .= '// Variables available in this file:' . PHP_EOL;
-            $data .= '// $event, $page_id, $page_identifier, $page_reference and $page_url.' . PHP_EOL . PHP_EOL;
+            $data .= '// $event, $page_id, $comment_id, $page_identifier, $page_reference and $page_url.' . PHP_EOL . PHP_EOL;
 
             $data .= '/* Event for when a new comment is added */' . PHP_EOL;
             $data .= 'if ($event == \'comment_added\') {' . PHP_EOL;
