@@ -48,6 +48,8 @@ class ToolUpgradeController extends Controller
             $this->data['info'] = sprintf($this->data['lang_notice'], $this->url->link('tool/database_backup'));
         }
 
+        $this->data['lang_text_manual_update'] = sprintf($this->data['lang_text_manual_update'], 'https://commentics.com/upgrade');
+
         $this->components = array('common/header', 'common/footer');
 
         $this->loadView('tool/upgrade');

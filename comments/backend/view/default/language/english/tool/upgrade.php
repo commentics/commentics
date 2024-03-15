@@ -7,6 +7,7 @@ $_['lang_notice']               = 'Make sure to back up your <a href="%s">databa
 
 // Text
 $_['lang_text_no_update']       = 'There is no upgrade package available.';
+$_['lang_text_manual_update']   = 'Please upgrade <a href="%s" target="_blank">manually</a> instead.';
 $_['lang_text_newer']           = 'A newer version of Commentics is available.';
 $_['lang_text_version']         = 'You can upgrade to v%s automatically.';
 $_['lang_text_download']        = 'Downloading update from %s';

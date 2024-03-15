@@ -41,6 +41,8 @@
             </form>
         <?php } else { ?>
             <p><?php echo $lang_text_no_update; ?></p>
+
+            <p><?php echo $lang_text_manual_update; ?></p>
         <?php } ?>
     <?php } ?>
 
