@@ -397,7 +397,7 @@ class Email
                 $lines = explode("\n", $body);
 
                 foreach ($lines as $line) {
-                    $results = str_split($line, 998);
+                    $results = ($line === '') ? array('') : str_split($line, 998);
 
                     foreach ($results as $result) {
                         if (substr(PHP_OS, 0, 3) != 'WIN') {
