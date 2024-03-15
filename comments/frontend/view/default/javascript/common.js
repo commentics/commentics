@@ -338,150 +338,162 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (typeof(cmtx_js_settings_form) != 'undefined') {
         /* Insert content from bullet modal */
-        document.querySelector('#cmtx_bullet_modal_insert').addEventListener('click', function(e) {
-            var bb_code = document.querySelector('.cmtx_bb_code_bullet').getAttribute('data-cmtx-tag');
+        if (document.querySelector('#cmtx_bullet_modal_insert')) {
+            document.querySelector('#cmtx_bullet_modal_insert').addEventListener('click', function() {
+                var bb_code = document.querySelector('.cmtx_bb_code_bullet').getAttribute('data-cmtx-tag');
 
-            bb_code = bb_code.split('|');
+                bb_code = bb_code.split('|');
 
-            var tag = '';
+                var tag = '';
 
-            document.querySelectorAll('#cmtx_bullet_modal input[type="text"]').forEach(function(element) {
-                var item = cmtxTrim(element.value);
+                document.querySelectorAll('#cmtx_bullet_modal input[type="text"]').forEach(function(element) {
+                    var item = cmtxTrim(element.value);
 
-                if (item != null && item != '') {
-                    tag += bb_code[1] + item + bb_code[2] + '\r\n';
+                    if (item != null && item != '') {
+                        tag += bb_code[1] + item + bb_code[2] + '\r\n';
+                    }
+                });
+
+                if (tag != null && tag != '') {
+                    tag = bb_code[0] + '\r\n' + tag + bb_code[3];
+
+                    cmtxAddTag('', tag);
                 }
+
+                document.querySelector('#cmtx_bullet_modal input[type="text"]').value = '';
+
+                cmtxCloseModal();
             });
-
-            if (tag != null && tag != '') {
-                tag = bb_code[0] + '\r\n' + tag + bb_code[3];
-
-                cmtxAddTag('', tag);
-            }
-
-            document.querySelector('#cmtx_bullet_modal input[type="text"]').value = '';
-
-            cmtxCloseModal();
-        });
+        }
 
         /* Insert content from numeric modal */
-        document.querySelector('#cmtx_numeric_modal_insert').addEventListener('click', function(e) {
-            var bb_code = document.querySelector('.cmtx_bb_code_numeric').getAttribute('data-cmtx-tag');
+        if (document.querySelector('#cmtx_numeric_modal_insert')) {
+            document.querySelector('#cmtx_numeric_modal_insert').addEventListener('click', function() {
+                var bb_code = document.querySelector('.cmtx_bb_code_numeric').getAttribute('data-cmtx-tag');
 
-            bb_code = bb_code.split('|');
+                bb_code = bb_code.split('|');
 
-            var tag = '';
+                var tag = '';
 
-            document.querySelectorAll('#cmtx_numeric_modal input[type="text"]').forEach(function(element) {
-                var item = cmtxTrim(element.value);
+                document.querySelectorAll('#cmtx_numeric_modal input[type="text"]').forEach(function(element) {
+                    var item = cmtxTrim(element.value);
 
-                if (item != null && item != '') {
-                    tag += bb_code[1] + item + bb_code[2] + '\r\n';
+                    if (item != null && item != '') {
+                        tag += bb_code[1] + item + bb_code[2] + '\r\n';
+                    }
+                });
+
+                if (tag != null && tag != '') {
+                    tag = bb_code[0] + '\r\n' + tag + bb_code[3];
+
+                    cmtxAddTag('', tag);
                 }
+
+                document.querySelector('#cmtx_numeric_modal input[type="text"]').value = '';
+
+                cmtxCloseModal();
             });
-
-            if (tag != null && tag != '') {
-                tag = bb_code[0] + '\r\n' + tag + bb_code[3];
-
-                cmtxAddTag('', tag);
-            }
-
-            document.querySelector('#cmtx_numeric_modal input[type="text"]').value = '';
-
-            cmtxCloseModal();
-        });
+        }
 
         /* Insert content from link modal */
-        document.querySelector('#cmtx_link_modal_insert').addEventListener('click', function(e) {
-            var bb_code = document.querySelector('.cmtx_bb_code_link').getAttribute('data-cmtx-tag');
+        if (document.querySelector('#cmtx_link_modal_insert')) {
+            document.querySelector('#cmtx_link_modal_insert').addEventListener('click', function() {
+                var bb_code = document.querySelector('.cmtx_bb_code_link').getAttribute('data-cmtx-tag');
 
-            bb_code = bb_code.split('|');
+                bb_code = bb_code.split('|');
 
-            var link = cmtxTrim(document.querySelector('#cmtx_link_modal input[type="url"]').value);
+                var link = cmtxTrim(document.querySelector('#cmtx_link_modal input[type="url"]').value);
 
-            if (link != null && link != '' && link != 'http://') {
-                var text = cmtxTrim(document.querySelector('#cmtx_link_modal input[type="text"]').value);
+                if (link != null && link != '' && link != 'http://') {
+                    var text = cmtxTrim(document.querySelector('#cmtx_link_modal input[type="text"]').value);
 
-                if (text != null && text != '') {
-                    var tag = bb_code[1] + link + bb_code[2] + text + bb_code[3];
-                } else {
-                    var tag = bb_code[0] + link + bb_code[3];
+                    if (text != null && text != '') {
+                        var tag = bb_code[1] + link + bb_code[2] + text + bb_code[3];
+                    } else {
+                        var tag = bb_code[0] + link + bb_code[3];
+                    }
+
+                    cmtxAddTag('', tag);
                 }
 
-                cmtxAddTag('', tag);
-            }
+                document.querySelector('#cmtx_link_modal input[type="url"]').value = 'http://';
 
-            document.querySelector('#cmtx_link_modal input[type="url"]').value = 'http://';
+                document.querySelector('#cmtx_link_modal input[type="text"]').value = '';
 
-            document.querySelector('#cmtx_link_modal input[type="text"]').value = '';
-
-            cmtxCloseModal();
-        });
+                cmtxCloseModal();
+            });
+        }
 
         /* Insert content from email modal */
-        document.querySelector('#cmtx_email_modal_insert').addEventListener('click', function(e) {
-            var bb_code = document.querySelector('.cmtx_bb_code_email').getAttribute('data-cmtx-tag');
+        if (document.querySelector('#cmtx_email_modal_insert')) {
+            document.querySelector('#cmtx_email_modal_insert').addEventListener('click', function() {
+                var bb_code = document.querySelector('.cmtx_bb_code_email').getAttribute('data-cmtx-tag');
 
-            bb_code = bb_code.split('|');
+                bb_code = bb_code.split('|');
 
-            var email = cmtxTrim(document.querySelector('#cmtx_email_modal input[type="email"]').value);
+                var email = cmtxTrim(document.querySelector('#cmtx_email_modal input[type="email"]').value);
 
-            if (email != null && email != '') {
-                var text = cmtxTrim(document.querySelector('#cmtx_email_modal input[type="text"]').value);
+                if (email != null && email != '') {
+                    var text = cmtxTrim(document.querySelector('#cmtx_email_modal input[type="text"]').value);
 
-                if (text != null && text != '') {
-                    var tag = bb_code[1] + email + bb_code[2] + text + bb_code[3];
-                } else {
-                    var tag = bb_code[0] + email + bb_code[3];
+                    if (text != null && text != '') {
+                        var tag = bb_code[1] + email + bb_code[2] + text + bb_code[3];
+                    } else {
+                        var tag = bb_code[0] + email + bb_code[3];
+                    }
+
+                    cmtxAddTag('', tag);
                 }
 
-                cmtxAddTag('', tag);
-            }
+                document.querySelector('#cmtx_email_modal input[type="email"]').value = '';
 
-            document.querySelector('#cmtx_email_modal input[type="email"]').value = '';
+                document.querySelector('#cmtx_email_modal input[type="text"]').value = '';
 
-            document.querySelector('#cmtx_email_modal input[type="text"]').value = '';
-
-            cmtxCloseModal();
-        });
+                cmtxCloseModal();
+            });
+        }
 
         /* Insert content from image modal */
-        document.querySelector('#cmtx_image_modal_insert').addEventListener('click', function(e) {
-            var bb_code = document.querySelector('.cmtx_bb_code_image').getAttribute('data-cmtx-tag');
+        if (document.querySelector('#cmtx_image_modal_insert')) {
+            document.querySelector('#cmtx_image_modal_insert').addEventListener('click', function() {
+                var bb_code = document.querySelector('.cmtx_bb_code_image').getAttribute('data-cmtx-tag');
 
-            bb_code = bb_code.split('|');
+                bb_code = bb_code.split('|');
 
-            var image = cmtxTrim(document.querySelector('#cmtx_image_modal input[type="url"]').value);
+                var image = cmtxTrim(document.querySelector('#cmtx_image_modal input[type="url"]').value);
 
-            if (image != null && image != '' && image != 'http://') {
-                var tag = bb_code[0] + image + bb_code[1];
+                if (image != null && image != '' && image != 'http://') {
+                    var tag = bb_code[0] + image + bb_code[1];
 
-                cmtxAddTag('', tag);
-            }
+                    cmtxAddTag('', tag);
+                }
 
-            document.querySelector('#cmtx_image_modal input[type="url"]').value = 'http://';
+                document.querySelector('#cmtx_image_modal input[type="url"]').value = 'http://';
 
-            cmtxCloseModal();
-        });
+                cmtxCloseModal();
+            });
+        }
 
         /* Insert content from YouTube modal */
-        document.querySelector('#cmtx_youtube_modal_insert').addEventListener('click', function(e) {
-            var bb_code = document.querySelector('.cmtx_bb_code_youtube').getAttribute('data-cmtx-tag');
+        if (document.querySelector('#cmtx_youtube_modal_insert')) {
+            document.querySelector('#cmtx_youtube_modal_insert').addEventListener('click', function() {
+                var bb_code = document.querySelector('.cmtx_bb_code_youtube').getAttribute('data-cmtx-tag');
 
-            bb_code = bb_code.split('|');
+                bb_code = bb_code.split('|');
 
-            var video = cmtxTrim(document.querySelector('#cmtx_youtube_modal input[type="url"]').value);
+                var video = cmtxTrim(document.querySelector('#cmtx_youtube_modal input[type="url"]').value);
 
-            if (video != null && video != '' && video != 'http://') {
-                var tag = bb_code[0] + video + bb_code[1];
+                if (video != null && video != '' && video != 'http://') {
+                    var tag = bb_code[0] + video + bb_code[1];
 
-                cmtxAddTag('', tag);
-            }
+                    cmtxAddTag('', tag);
+                }
 
-            document.querySelector('#cmtx_youtube_modal input[type="url"]').value = 'http://';
+                document.querySelector('#cmtx_youtube_modal input[type="url"]').value = 'http://';
 
-            cmtxCloseModal();
-        });
+                cmtxCloseModal();
+            });
+        }
 
         /* Update the comment counter whenever anything is entered */
         document.querySelector('#cmtx_comment').addEventListener('keyup', function() {
