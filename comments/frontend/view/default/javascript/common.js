@@ -2092,17 +2092,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.target && e.target.matches('#cmtx_admindetect_modal_stop')) {
                 e.preventDefault();
 
-                var request = cmtxFetch(cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/page/adminDetect', {
+                cmtxFetch(cmtx_js_settings_form.commentics_url + 'frontend/index.php?route=main/page/adminDetect', {
                     body: ''
-                });
-
-                request.then(function(response) {
-                    return response.json();
-                }).then(function(data) {
-                }).catch(function(error) {
-                    if (console && console.log) {
-                        console.log(error);
-                    }
                 });
 
                 cmtxCloseModal();
