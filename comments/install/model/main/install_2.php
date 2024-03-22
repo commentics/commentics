@@ -5054,8 +5054,6 @@ class MainInstall2Model extends Model
 
     private function prepareState($state)
     {
-        //$state = utf8_encode($state);
-
         $state = $this->db->escape($state);
 
         return $state;

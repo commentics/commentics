@@ -523,6 +523,8 @@ class MainFormValidateModel extends Model
     {
         if ($this->setting->get('enabled_email')) {
             if (isset($this->request->post['cmtx_email']) && $this->request->post['cmtx_email'] != '') {
+                $this->request->post['cmtx_email'] = $this->url->decode($this->request->post['cmtx_email']);
+
                 $email = $this->security->decode($this->request->post['cmtx_email']);
 
                 if (!$this->validation->isEmail($email)) {
@@ -651,6 +653,8 @@ class MainFormValidateModel extends Model
                 if ($scheme != 'http' && $scheme != 'https') {
                     $this->request->post['cmtx_website'] = 'http://' . $this->request->post['cmtx_website'];
                 }
+
+                $this->request->post['cmtx_website'] = $this->url->decode($this->request->post['cmtx_website']);
 
                 $website = $this->security->decode($this->request->post['cmtx_website']);
 
@@ -1452,7 +1456,9 @@ class MainFormValidateModel extends Model
 
     private function callbackLinkOne(array $matches)
     {
-        if (filter_var($matches[1], FILTER_VALIDATE_URL)) {
+        $matches[1] = $this->url->decode($matches[1]);
+
+        if (filter_var($this->url->encodeParts($matches[1]), FILTER_VALIDATE_URL)) {
             return '<a href="' . $matches[1] . '"' . $this->getLinkAttributes() . '>' . $matches[1] . '</a>';
         } else {
             return 'cmtx-invalid-bb-code-link';
@@ -1461,7 +1467,10 @@ class MainFormValidateModel extends Model
 
     private function callbackLinkTwo(array $matches)
     {
-        if (filter_var($matches[1], FILTER_VALIDATE_URL)) {
+        $matches[1] = $this->url->decode($matches[1]);
+        $matches[2] = $this->url->decode($matches[2]);
+
+        if (filter_var($this->url->encodeParts($matches[1]), FILTER_VALIDATE_URL)) {
             return '<a href="' . $matches[1] . '"' . $this->getLinkAttributes() . '>' . $matches[2] . '</a>';
         } else {
             return 'cmtx-invalid-bb-code-link';
@@ -1470,7 +1479,9 @@ class MainFormValidateModel extends Model
 
     private function callbackEmailOne(array $matches)
     {
-        if (filter_var($matches[1], FILTER_VALIDATE_EMAIL)) {
+        $matches[1] = $this->url->decode($matches[1]);
+
+        if (filter_var($this->url->encodeParts($matches[1]), FILTER_VALIDATE_EMAIL)) {
             return '<a href="mailto:' . $matches[1] . '"' . $this->getLinkAttributes() . '>' . $matches[1] . '</a>';
         } else {
             return 'cmtx-invalid-bb-code-link';
@@ -1479,7 +1490,10 @@ class MainFormValidateModel extends Model
 
     private function callbackEmailTwo(array $matches)
     {
-        if (filter_var($matches[1], FILTER_VALIDATE_EMAIL)) {
+        $matches[1] = $this->url->decode($matches[1]);
+        $matches[2] = $this->url->decode($matches[2]);
+
+        if (filter_var($this->url->encodeParts($matches[1]), FILTER_VALIDATE_EMAIL)) {
             return '<a href="mailto:' . $matches[1] . '"' . $this->getLinkAttributes() . '>' . $matches[2] . '</a>';
         } else {
             return 'cmtx-invalid-bb-code-link';
@@ -1488,7 +1502,9 @@ class MainFormValidateModel extends Model
 
     private function callbackImage(array $matches)
     {
-        if (filter_var($matches[1], FILTER_VALIDATE_URL)) {
+        $matches[1] = $this->url->decode($matches[1]);
+
+        if (filter_var($this->url->encodeParts($matches[1]), FILTER_VALIDATE_URL)) {
             return '<img src="' . $matches[1] . '">';
         } else {
             return 'cmtx-invalid-bb-code-link';
@@ -1497,9 +1513,9 @@ class MainFormValidateModel extends Model
 
     private function callbackYouTube(array $matches)
     {
-        $url = $matches[1];
+        $url = $this->url->decode($matches[1]);
 
-        if (filter_var($url, FILTER_VALIDATE_URL)) {
+        if (filter_var($this->url->encodeParts($url), FILTER_VALIDATE_URL)) {
             if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match)) {
                 $video_id = $match[1];
 
@@ -1525,7 +1541,7 @@ class MainFormValidateModel extends Model
     /* Convert email links (non-BB code) to HTML */
     private function convertEmails($comment)
     {
-        $comment = preg_replace('/(^|[\n ])([\w]*?)([_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,3})/im', '<a href="mailto:\\3" ' . $this->getLinkAttributes() . '>\\3</a>', $comment);
+        $comment = preg_replace('/(^|[\n ])([\w]*?)([_\.0-9a-z+\-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,3})/im', '<a href="mailto:\\3" ' . $this->getLinkAttributes() . '>\\3</a>', $comment);
 
         return $comment;
     }

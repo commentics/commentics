@@ -30,6 +30,18 @@ class Url
         return urlencode($url);
     }
 
+    /* Encodes only relevant parts (for use with filter_var functions) */
+    public function encodeParts($url)
+    {
+        $url = preg_replace_callback("/[\"<>`\\x{0080}-\\x{FFFF}]+/u", function ($match) {
+            return rawurlencode($match[0]);
+        }, $url);
+
+        $url = str_replace(' ', '+', $url);
+
+        return $url;
+    }
+
     public function decode($url)
     {
         return urldecode($url);
@@ -96,8 +108,6 @@ class Url
     public function getDomainFromUrl($url)
     {
         $domain = '';
-
-        $url = $this->decode($url);
 
         if (filter_var($url, FILTER_VALIDATE_URL)) {
             $domain = parse_url($url, PHP_URL_HOST);

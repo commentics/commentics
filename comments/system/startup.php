@@ -142,9 +142,6 @@ $cmtx_registry->set('security', $cmtx_security);
 $cmtx_session = new \Commentics\Session();
 $cmtx_registry->set('session', $cmtx_session);
 
-$cmtx_validation = new \Commentics\Validation();
-$cmtx_registry->set('validation', $cmtx_validation);
-
 $cmtx_variable = new \Commentics\Variable();
 $cmtx_registry->set('variable', $cmtx_variable);
 
@@ -156,6 +153,9 @@ $cmtx_registry->set('modification', $cmtx_modification);
 
 $cmtx_url = new \Commentics\Url($cmtx_registry);
 $cmtx_registry->set('url', $cmtx_url);
+
+$cmtx_validation = new \Commentics\Validation($cmtx_registry);
+$cmtx_registry->set('validation', $cmtx_validation);
 
 $cmtx_encryption = new \Commentics\Encryption($cmtx_registry);
 $cmtx_registry->set('encryption', $cmtx_encryption);

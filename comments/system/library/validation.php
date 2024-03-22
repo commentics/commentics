@@ -3,6 +3,13 @@ namespace Commentics;
 
 class Validation
 {
+    private $url;
+
+    public function __construct($registry)
+    {
+        $this->url = $registry->get('url');
+    }
+
     public function isInt($value)
     {
         return ctype_digit($value);
@@ -44,7 +51,7 @@ class Validation
 
     public function isEmail($value)
     {
-        if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($this->url->encodeParts($value), FILTER_VALIDATE_EMAIL)) {
             return true;
         } else {
             return false;
@@ -53,7 +60,7 @@ class Validation
 
     public function isUrl($value)
     {
-        if (filter_var($value, FILTER_VALIDATE_URL)) {
+        if (filter_var($this->url->encodeParts($value), FILTER_VALIDATE_URL)) {
             return true;
         } else {
             return false;
@@ -101,7 +108,7 @@ class Validation
         if (function_exists('mb_strlen') && is_callable('mb_strlen')) {
             return mb_strlen($value, 'UTF-8');
         } else {
-            return strlen(utf8_decode($value));
+            return strlen($value);
         }
     }
 }
