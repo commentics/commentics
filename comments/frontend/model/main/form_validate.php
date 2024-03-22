@@ -320,7 +320,7 @@ class MainFormValidateModel extends Model
                     } else if ($this->setting->get('check_capitals_action') == 'approve') {
                         $this->approve .= $this->data['lang_error_headline_has_capitals'] . "\r\n";
                     } else {
-                        $json['result']['error'] = $this->data['lang_error_ban'];
+                        $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                         $this->user->ban($this->data['lang_error_headline_has_capitals']);
                     }
@@ -333,7 +333,7 @@ class MainFormValidateModel extends Model
                     } else if ($this->setting->get('check_repeats_action') == 'approve') {
                         $this->approve .= $this->data['lang_error_headline_has_repeats'] . "\r\n";
                     } else {
-                        $json['result']['error'] = $this->data['lang_error_ban'];
+                        $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                         $this->user->ban($this->data['lang_error_headline_has_repeats']);
                     }
@@ -357,7 +357,7 @@ class MainFormValidateModel extends Model
                         } else if ($this->setting->get('mild_swear_words_action') == 'approve') {
                             $this->approve .= $this->data['lang_error_headline_mild_swearing'] . "\r\n";
                         } else {
-                            $json['result']['error'] = $this->data['lang_error_ban'];
+                            $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                             $this->user->ban($this->data['lang_error_headline_mild_swearing']);
                         }
@@ -382,7 +382,7 @@ class MainFormValidateModel extends Model
                         } else if ($this->setting->get('strong_swear_words_action') == 'approve') {
                             $this->approve .= $this->data['lang_error_headline_strong_swearing'] . "\r\n";
                         } else {
-                            $json['result']['error'] = $this->data['lang_error_ban'];
+                            $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                             $this->user->ban($this->data['lang_error_headline_strong_swearing']);
                         }
@@ -397,7 +397,7 @@ class MainFormValidateModel extends Model
                         } else if ($this->setting->get('spam_words_action') == 'approve') {
                             $this->approve .= $this->data['lang_error_headline_spam'] . "\r\n";
                         } else {
-                            $json['result']['error'] = $this->data['lang_error_ban'];
+                            $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                             $this->user->ban($this->data['lang_error_headline_spam']);
                         }
@@ -411,7 +411,7 @@ class MainFormValidateModel extends Model
                     } else if ($this->setting->get('link_in_headline_action') == 'approve') {
                         $this->approve .= $this->data['lang_error_headline_has_link'] . "\r\n";
                     } else {
-                        $json['result']['error'] = $this->data['lang_error_ban'];
+                        $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                         $this->user->ban($this->data['lang_error_headline_has_link']);
                     }
@@ -424,7 +424,7 @@ class MainFormValidateModel extends Model
                     } else if ($this->setting->get('banned_websites_as_headline_action') == 'approve') {
                         $this->approve .= $this->data['lang_error_website_banned'] . "\r\n";
                     } else {
-                        $json['result']['error'] = $this->data['lang_error_ban'];
+                        $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                         $this->user->ban($this->data['lang_error_website_banned']);
                     }
@@ -473,7 +473,7 @@ class MainFormValidateModel extends Model
                 } else if ($this->setting->get('link_in_name_action') == 'approve') {
                     $this->approve .= $this->data['lang_error_name_has_link'] . "\r\n";
                 } else {
-                    $json['result']['error'] = $this->data['lang_error_ban'];
+                    $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                     $this->user->ban($this->data['lang_error_name_has_link']);
                 }
@@ -485,7 +485,7 @@ class MainFormValidateModel extends Model
                 } else if ($this->setting->get('reserved_names_action') == 'approve') {
                     $this->approve .= $this->data['lang_error_name_reserved'] . "\r\n";
                 } else {
-                    $json['result']['error'] = $this->data['lang_error_ban'];
+                    $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                     $this->user->ban($this->data['lang_error_name_reserved']);
                 }
@@ -497,7 +497,7 @@ class MainFormValidateModel extends Model
                 } else if ($this->setting->get('dummy_names_action') == 'approve') {
                     $this->approve .= $this->data['lang_error_name_dummy'] . "\r\n";
                 } else {
-                    $json['result']['error'] = $this->data['lang_error_ban'];
+                    $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                     $this->user->ban($this->data['lang_error_name_dummy']);
                 }
@@ -509,7 +509,7 @@ class MainFormValidateModel extends Model
                 } else if ($this->setting->get('banned_names_action') == 'approve') {
                     $this->approve .= $this->data['lang_error_name_banned'] . "\r\n";
                 } else {
-                    $json['result']['error'] = $this->data['lang_error_ban'];
+                    $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                     $this->user->ban($this->data['lang_error_name_banned']);
                 }
@@ -536,7 +536,7 @@ class MainFormValidateModel extends Model
                 }
 
                 if ($this->security->isInjected($email)) {
-                    $json['result']['error'] = $this->data['lang_error_ban'];
+                    $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                     $this->user->ban($this->data['lang_error_email_injected']);
                 }
@@ -547,7 +547,7 @@ class MainFormValidateModel extends Model
                     } else if ($this->setting->get('reserved_emails_action') == 'approve') {
                         $this->approve .= $this->data['lang_error_email_reserved'] . "\r\n";
                     } else {
-                        $json['result']['error'] = $this->data['lang_error_ban'];
+                        $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                         $this->user->ban($this->data['lang_error_email_reserved']);
                     }
@@ -559,7 +559,7 @@ class MainFormValidateModel extends Model
                     } else if ($this->setting->get('dummy_emails_action') == 'approve') {
                         $this->approve .= $this->data['lang_error_email_dummy'] . "\r\n";
                     } else {
-                        $json['result']['error'] = $this->data['lang_error_ban'];
+                        $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                         $this->user->ban($this->data['lang_error_email_dummy']);
                     }
@@ -571,7 +571,7 @@ class MainFormValidateModel extends Model
                     } else if ($this->setting->get('banned_emails_action') == 'approve') {
                         $this->approve .= $this->data['lang_error_email_banned'] . "\r\n";
                     } else {
-                        $json['result']['error'] = $this->data['lang_error_ban'];
+                        $this->json['result']['error'] = $this->data['lang_error_ban'];
 
                         $this->user->ban($this->data['lang_error_email_banned']);
                     }
