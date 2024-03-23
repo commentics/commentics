@@ -409,6 +409,9 @@ class MainUpgrade2Model extends Model
             @unlink(CMTX_DIR_ROOT . 'frontend/view/default/javascript/autodetect.js');
             @unlink(CMTX_DIR_ROOT . 'frontend/view/default/javascript/common-jq.min.js');
         }
+
+        if ($version == '4.5 -> 4.5.1') {
+        }
     }
 
     public function getInstalledVersion()
