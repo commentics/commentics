@@ -1,3 +1,12 @@
+Version: 4.5.1
+Date: 23rd March 2024
+[Bug Fix] Fix JS error for BB code
+[Bug Fix] Fix behaviour of str_split for emails
+[Bug Fix] Fix URL encoding
+[Bug Fix] Fix message if banned
+[Bug Fix] Fix JS for admin detection modal
+[Other] Add note if no upgrade package available
+
 Version: 4.5
 Date: 12th February 2024
 
