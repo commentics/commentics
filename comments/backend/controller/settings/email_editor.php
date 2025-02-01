@@ -144,6 +144,24 @@ class SettingsEmailEditorController extends Controller
             $this->data['field'] = $this->model_settings_email_editor->getEmail($this->request->get['type']);
         }
 
+        if (isset($this->error['subject'])) {
+            $this->data['error_subject'] = $this->error['subject'];
+        } else {
+            $this->data['error_subject'] = '';
+        }
+
+        if (isset($this->error['text'])) {
+            $this->data['error_text'] = $this->error['text'];
+        } else {
+            $this->data['error_text'] = '';
+        }
+
+        if (isset($this->error['html'])) {
+            $this->data['error_html'] = $this->error['html'];
+        } else {
+            $this->data['error_html'] = '';
+        }
+
         if ($this->setting->get('notice_settings_email_editor')) {
             $this->data['info'] = $this->data['lang_notice'];
         }
@@ -177,12 +195,12 @@ class SettingsEmailEditorController extends Controller
                 $this->error['subject'][$key] = sprintf($this->data['lang_error_length'], 1, 250);
             }
 
-            if (!isset($value['text']) || $this->validation->length($value['text']) < 1 || $this->validation->length($value['text']) > 5000) {
-                $this->error['text'][$key] = sprintf($this->data['lang_error_length'], 1, 5000);
+            if (!isset($value['text']) || $this->validation->length($value['text']) < 1 || $this->validation->length($value['text']) > 10000) {
+                $this->error['text'][$key] = sprintf($this->data['lang_error_length'], 1, 10000);
             }
 
-            if (!isset($value['html']) || $this->validation->length($value['html']) < 1 || $this->validation->length($value['html']) > 5000) {
-                $this->error['html'][$key] = sprintf($this->data['lang_error_length'], 1, 5000);
+            if (!isset($value['html']) || $this->validation->length($value['html']) < 1 || $this->validation->length($value['html']) > 10000) {
+                $this->error['html'][$key] = sprintf($this->data['lang_error_length'], 1, 10000);
             }
         }
 
