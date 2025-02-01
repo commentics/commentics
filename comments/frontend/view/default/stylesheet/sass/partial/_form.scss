@@ -553,13 +553,13 @@ select.cmtx_required {
     display: inline-block;
     margin-right: 2px !important;
     vertical-align: baseline;
-    width: auto;
+    width: initial;
 }
 
 .cmtx_checkbox_container label {
     display: inline-block;
     float: none;
-    width: auto;
+    width: initial;
 }
 
 .cmtx_button_row {
