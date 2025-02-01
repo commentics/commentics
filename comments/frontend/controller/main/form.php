@@ -211,6 +211,8 @@ class MainFormController extends Controller
 
     public function captcha()
     {
+        header('X-Robots-Tag: noindex');
+
         if ($this->setting->get('enabled_captcha') && $this->setting->get('captcha_type') == 'image' && extension_loaded('gd') && function_exists('imagettftext') && is_callable('imagettftext')) {
             if (isset($this->request->get['page_id'])) {
                 $page_id = (int) $this->request->get['page_id'];
