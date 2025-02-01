@@ -165,7 +165,7 @@ $(document).ready(function() {
     });
 
     /* Delete dialog on 'edit' pages */
-    $('input[name="delete"]').click(function(e) {
+    $('#edit_comment_page input[name="delete"]').click(function(e) {
         e.preventDefault();
 
         var id = $(this).data('id');
