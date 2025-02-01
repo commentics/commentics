@@ -19,6 +19,8 @@ class SettingsEmailSetupModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['smtp_password']) . "' WHERE `title` = 'smtp_password'");
 
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['newline']) . "' WHERE `title` = 'newline'");
+
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['from_name']) . "' WHERE `title` = 'from_name'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['from_email']) . "' WHERE `title` = 'from_email'");

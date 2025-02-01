@@ -23,6 +23,7 @@ $_['lang_entry_encrypt']         = 'Encrypt:';
 $_['lang_entry_timeout']         = 'Timeout:';
 $_['lang_entry_username']        = 'Username:';
 $_['lang_entry_password']        = 'Password:';
+$_['lang_entry_newline']         = 'Newline:';
 $_['lang_entry_keywords']        = 'Keywords:';
 $_['lang_entry_from_name']       = 'From Name:';
 $_['lang_entry_from_email']      = 'From Email:';
@@ -36,6 +37,8 @@ $_['lang_select_php']            = 'PHP';
 $_['lang_select_smtp']           = 'SMTP';
 $_['lang_select_ssl']            = 'SSL';
 $_['lang_select_tls']            = 'TLS';
+$_['lang_select_crlf']           = 'CRLF';
+$_['lang_select_lf']             = 'LF';
 
 // Error
 $_['lang_error_email_invalid']   = 'Must be a valid email address';

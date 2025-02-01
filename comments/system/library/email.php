@@ -6,12 +6,17 @@ class Email
     private $db;
     private $log;
     private $setting;
+    private $newline = "\r\n";
 
     public function __construct($registry)
     {
         $this->db      = $registry->get('db');
         $this->log     = $registry->get('log');
         $this->setting = $registry->get('setting');
+
+        if ($this->setting->get('newline') == 'LF') {
+            $this->newline = "\n";
+        }
     }
 
     public function get($type)
@@ -128,37 +133,37 @@ class Email
 
         $boundary = md5(uniqid());
 
-        $headers  = 'MIME-Version: 1.0' . PHP_EOL;
-        $headers .= 'Message-ID: <' . md5(time() . mt_rand()) . '@' . $this->setting->get('site_domain') . '>' . PHP_EOL;
-        $headers .= 'From: ' . $from_name . ' <' . $from_email . '>' . PHP_EOL;
+        $headers  = 'MIME-Version: 1.0' . $this->newline;
+        $headers .= 'Message-ID: <' . md5(time() . mt_rand()) . '@' . $this->setting->get('site_domain') . '>' . $this->newline;
+        $headers .= 'From: ' . $from_name . ' <' . $from_email . '>' . $this->newline;
 
         if ($this->setting->get('transport_method') == 'smtp') {
-            $headers .= 'To: ' . ($to_name ? $to_name . ' <' . $to_email . '>' : $to_email) . PHP_EOL;
-            $headers .= 'Subject: ' . $subject . PHP_EOL;
+            $headers .= 'To: ' . ($to_name ? $to_name . ' <' . $to_email . '>' : $to_email) . $this->newline;
+            $headers .= 'Subject: ' . $subject . $this->newline;
         }
 
-        $headers .= 'Reply-To: ' . $from_name . ' <' . $reply_email . '>' . PHP_EOL;
-        $headers .= 'Return-Path: ' . $from_email . PHP_EOL;
-        $headers .= 'Date: ' . date('D, d M Y H:i:s O') . PHP_EOL;
-        $headers .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . PHP_EOL . PHP_EOL;
+        $headers .= 'Reply-To: ' . $from_name . ' <' . $reply_email . '>' . $this->newline;
+        $headers .= 'Return-Path: ' . $from_email . $this->newline;
+        $headers .= 'Date: ' . date('D, d M Y H:i:s O') . $this->newline;
+        $headers .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . $this->newline . $this->newline;
 
-        $body = '--' . $boundary . PHP_EOL;
+        $body = '--' . $boundary . $this->newline;
 
         if ($format == 'text') {
-            $body .= 'Content-Type: text/plain; charset="utf-8"' . PHP_EOL;
-            $body .= 'Content-Transfer-Encoding: 8bit' . PHP_EOL . PHP_EOL;
-            $body .= $text . PHP_EOL;
+            $body .= 'Content-Type: text/plain; charset="utf-8"' . $this->newline;
+            $body .= 'Content-Transfer-Encoding: 8bit' . $this->newline . $this->newline;
+            $body .= $text . $this->newline;
         } else {
-            $body .= 'Content-Type: multipart/alternative; boundary="' . $boundary . '_alt"' . PHP_EOL . PHP_EOL;
-            $body .= '--' . $boundary . '_alt' . PHP_EOL;
-            $body .= 'Content-Type: text/plain; charset="utf-8"' . PHP_EOL;
-            $body .= 'Content-Transfer-Encoding: 8bit' . PHP_EOL . PHP_EOL;
-            $body .= $text . PHP_EOL;
-            $body .= '--' . $boundary . '_alt' . PHP_EOL;
-            $body .= 'Content-Type: text/html; charset="utf-8"' . PHP_EOL;
-            $body .= 'Content-Transfer-Encoding: 8bit' . PHP_EOL . PHP_EOL;
-            $body .= $html . PHP_EOL;
-            $body .= '--' . $boundary . '_alt--' . PHP_EOL;
+            $body .= 'Content-Type: multipart/alternative; boundary="' . $boundary . '_alt"' . $this->newline . $this->newline;
+            $body .= '--' . $boundary . '_alt' . $this->newline;
+            $body .= 'Content-Type: text/plain; charset="utf-8"' . $this->newline;
+            $body .= 'Content-Transfer-Encoding: 8bit' . $this->newline . $this->newline;
+            $body .= $text . $this->newline;
+            $body .= '--' . $boundary . '_alt' . $this->newline;
+            $body .= 'Content-Type: text/html; charset="utf-8"' . $this->newline;
+            $body .= 'Content-Transfer-Encoding: 8bit' . $this->newline . $this->newline;
+            $body .= $html . $this->newline;
+            $body .= '--' . $boundary . '_alt--' . $this->newline;
         }
 
         foreach ($attachments as $attachment) {

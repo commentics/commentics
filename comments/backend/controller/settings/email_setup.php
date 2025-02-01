@@ -63,6 +63,12 @@ class SettingsEmailSetupController extends Controller
             $this->data['smtp_password'] = $this->setting->get('smtp_password');
         }
 
+        if (isset($this->request->post['newline'])) {
+            $this->data['newline'] = $this->request->post['newline'];
+        } else {
+            $this->data['newline'] = $this->setting->get('newline');
+        }
+
         if (isset($this->request->post['from_name'])) {
             $this->data['from_name'] = $this->request->post['from_name'];
         } else {
@@ -136,6 +142,10 @@ class SettingsEmailSetupController extends Controller
 
         if (!isset($this->request->post['smtp_password']) || $this->validation->length($this->request->post['smtp_password']) > 250) {
             $this->error['smtp_password'] = sprintf($this->data['lang_error_length'], 0, 250);
+        }
+
+        if (!isset($this->request->post['newline']) || !in_array($this->request->post['newline'], array('CRLF', 'LF'))) {
+            $this->error['newline'] = $this->data['lang_error_selection'];
         }
 
         if (!isset($this->request->post['from_name']) || $this->validation->length($this->request->post['from_name']) < 1 || $this->validation->length($this->request->post['from_name']) > 250) {
