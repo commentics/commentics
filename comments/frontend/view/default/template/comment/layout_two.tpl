@@ -119,7 +119,6 @@
                     @if show_date
                         <span class="cmtx_date_area">
                             <time class="cmtx_date cmtx_timeago" datetime="{{ comment.datetime }}" title="{{ comment.date_added }}">{{ comment.date_added }}</time>
-                            <meta itemprop="datePublished" content="{{ comment.datetime }}">
 
                             @if comment.number_edits
                                 <span class="cmtx_edited">{{ lang_text_edited }}</span>
@@ -128,6 +127,8 @@
                     @endif
                 </div>
             </div>
+
+            <meta itemprop="datePublished" content="{{ comment.datetime }}">
 
             <div class="cmtx_comment_area" itemprop="text">
                 {{ comment.comment }}
