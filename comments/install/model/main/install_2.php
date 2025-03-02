@@ -734,6 +734,8 @@ class MainInstall2Model extends Model
             `date_added` datetime NOT NULL,
             PRIMARY KEY (`id`)
         ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+
+        $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD INDEX idx_identifier_site_id (`identifier`(200), `site_id`)");
         /*****************************************************************************************************************/
     }
 
