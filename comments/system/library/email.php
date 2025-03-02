@@ -14,7 +14,7 @@ class Email
         $this->log     = $registry->get('log');
         $this->setting = $registry->get('setting');
 
-        if ($this->setting->get('newline') == 'LF') {
+        if ($this->setting->has('newline') && $this->setting->get('newline') == 'LF') {
             $this->newline = "\n";
         }
     }
@@ -106,6 +106,8 @@ class Email
         }
 
         $this->log->setFilename('errors');
+
+        $subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 
         $from_name = $this->setting->get('from_name');
         $from_email = $this->setting->get('from_email');
