@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+}
+
+.wrapper {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+}
+
+.content {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.content .heading {
+    color: #000;
+    font-size: 24px;
+}
+
+.content .message {
+    color: #999;
+    font-size: 18px;
+}
+
+.content .link {
+    font-size: 14px;
+    margin-top: 25px;
+}
