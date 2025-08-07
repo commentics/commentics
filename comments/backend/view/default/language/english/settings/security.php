@@ -15,12 +15,16 @@ $_['lang_entry_ssl_certificate']  = 'SSL Certificate:';
 $_['lang_entry_delete_install']   = 'Delete Install:';
 $_['lang_entry_ban_cookie']       = 'Ban Cookie:';
 
+// Text
+$_['lang_text_loose']             = 'Loose';
+$_['lang_text_strict']            = 'Strict';
+
 // Hint
 $_['lang_hint_check_referrer']    = 'Whether to check that the form was submitted from your own website.';
 $_['lang_hint_check_config']      = 'Whether to check that the config file is read-only.';
 $_['lang_hint_check_honeypot']    = 'Whether to add an input, hidden by CSS, to be left empty. Bots tend to fill in this form field.';
 $_['lang_hint_check_time']        = 'Whether to check that it took less than 5 seconds to submit the comment form. Bots often submit forms instantly without waiting.';
-$_['lang_hint_check_ip_address']  = 'Whether to check that the admin\'s IP address remains the same.';
+$_['lang_hint_check_ip_address']  = 'Check that the admin\'s IP address remains the same. Loose only checks the first three octets, while Strict checks the full IP address.';
 $_['lang_hint_ssl_certificate']   = 'Whether to force the backend to use dedicated SSL.';
 $_['lang_hint_delete_install']    = 'Delete the install folder (if you see a warning message at the top right corner of the page saying to).';
 $_['lang_hint_ban_cookie']        = 'The amount of days before the ban cookie expires.';

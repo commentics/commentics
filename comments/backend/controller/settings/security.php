@@ -48,9 +48,7 @@ class SettingsSecurityController extends Controller
         }
 
         if (isset($this->request->post['check_ip_address'])) {
-            $this->data['check_ip_address'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['check_ip_address'])) {
-            $this->data['check_ip_address'] = false;
+            $this->data['check_ip_address'] = $this->request->post['check_ip_address'];
         } else {
             $this->data['check_ip_address'] = $this->setting->get('check_ip_address');
         }
@@ -94,6 +92,10 @@ class SettingsSecurityController extends Controller
             if (!$this->variable->stristr($url, $domain)) { // if URL does not contain domain
                 $this->error['check_referrer'] = $this->data['lang_error_check_referrer'];
             }
+        }
+
+        if (!isset($this->request->post['check_ip_address']) || !in_array($this->request->post['check_ip_address'], array('', 'loose', 'strict'))) {
+            $this->error['check_ip_address'] = $this->data['lang_error_selection'];
         }
 
         if (!isset($this->request->post['ban_cookie_days']) || !$this->validation->isInt($this->request->post['ban_cookie_days']) || $this->request->post['ban_cookie_days'] < 1 || $this->request->post['ban_cookie_days'] > 1000) {

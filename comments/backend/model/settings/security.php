@@ -13,7 +13,7 @@ class SettingsSecurityModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['check_time']) ? 1 : 0) . "' WHERE `title` = 'check_time'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['check_ip_address']) ? 1 : 0) . "' WHERE `title` = 'check_ip_address'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . $this->db->escape($data['check_ip_address']) . "' WHERE `title` = 'check_ip_address'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['ssl_certificate']) ? 1 : 0) . "' WHERE `title` = 'ssl_certificate'");
 

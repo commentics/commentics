@@ -56,8 +56,15 @@
 
         <div class="fieldset">
             <label><?php echo $lang_entry_check_ip_address; ?></label>
-            <input type="checkbox" name="check_ip_address" value="1" <?php if ($check_ip_address) { echo 'checked'; } ?>>
+            <select name="check_ip_address">
+                <option value="" <?php if ($check_ip_address == '') { echo 'selected'; } ?>><?php echo $lang_text_no; ?></option>
+                <option value="loose" <?php if ($check_ip_address == 'loose') { echo 'selected'; } ?>><?php echo $lang_text_loose; ?></option>
+                <option value="strict" <?php if ($check_ip_address == 'strict') { echo 'selected'; } ?>><?php echo $lang_text_strict; ?></option>
+            </select>
             <a class="hint" data-hint="<?php echo $lang_hint_check_ip_address; ?>">[?]</a>
+            <?php if ($error_check_ip_address) { ?>
+                <span class="error"><?php echo $error_check_ip_address; ?></span>
+            <?php } ?>
         </div>
 
         <div class="fieldset">

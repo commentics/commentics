@@ -359,6 +359,51 @@ class User
         }
     }
 
+    public function doesCurrentIpAddressMatch($ip_addresses)
+    {
+        $current_ip = $this->getIpAddress();
+
+        $is_current_ip_v4 = filter_var($current_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+        $is_current_ip_v6 = filter_var($current_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+
+        if (!$is_current_ip_v4 && !$is_current_ip_v6) {
+            return false; // Invalid IP
+        }
+
+        foreach ($ip_addresses as $ip_address) {
+            $ip_address = trim($ip_address);
+
+            $is_ip_address_v4 = filter_var($ip_address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+            $is_ip_address_v6 = filter_var($ip_address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+
+            // Ensure same IP version
+            if (($is_current_ip_v4 && !$is_ip_address_v4) || ($is_current_ip_v6 && !$is_ip_address_v6)) {
+                continue;
+            }
+
+            if ($this->setting->get('check_ip_address') == 'strict') {
+                if ($current_ip == $ip_address) {
+                    return true;
+                }
+            } else if ($this->setting->get('check_ip_address') == 'loose') {
+                if ($is_current_ip_v4) {
+                    $current_ip_shortened = implode('.', array_slice(explode('.', $current_ip), 0, 3));
+                    $ip_address_shortened = implode('.', array_slice(explode('.', $ip_address), 0, 3));
+                } else { // IPv6
+                    $current_ip_shortened = implode(':', array_slice(explode(':', $current_ip), 0, 4));
+                    $ip_address_shortened = implode(':', array_slice(explode(':', $ip_address), 0, 4));
+                }
+
+                // Compare shortened versions
+                if ($current_ip_shortened == $ip_address_shortened) {
+                    return true;
+                }
+            }
+        }
+
+        return false; // No match
+    }
+
     public function getUserAgent()
     {
         if (isset($this->request->server['HTTP_USER_AGENT']) && $this->validation->length($this->request->server['HTTP_USER_AGENT']) < 250) {

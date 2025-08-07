@@ -88,15 +88,18 @@ class LoginLoginController extends Controller
             }
 
             // verify ip-address is the same
-            if ($this->setting->get('check_ip_address') && $this->session->data['cmtx_user_ip'] != $this->user->getIpAddress()) {
-                $this->loadModel('login/logout');
+            if ($this->setting->get('check_ip_address')) {
+                if (!$this->user->doesCurrentIpAddressMatch([$this->session->data['cmtx_user_ip']])) {
+                    $this->loadModel('login/logout');
 
-                $this->model_login_logout->logout();
+                    $this->model_login_logout->logout();
+                }
             }
 
             // update whether administrator is a super admin
             $this->session->data['cmtx_is_super'] = $admin['is_super'];
 
+            // redirect to dashboard if already logged in
             if (isset($this->request->get['route']) && $this->request->get['route'] == 'login/login') {
                 $this->response->redirect('main/dashboard');
             }

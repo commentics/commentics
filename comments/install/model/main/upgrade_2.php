@@ -416,6 +416,9 @@ class MainUpgrade2Model extends Model
         if ($version == '4.5.1 -> 4.6') {
             $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "settings` SET `category` = 'email', `title` = 'newline', `value` = 'CRLF'");
 
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '' WHERE `title` = 'check_ip_address' AND `value` = '0'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = 'strict' WHERE `title` = 'check_ip_address' AND `value` = '1'");
+
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD INDEX idx_identifier_site_id (`identifier`(200), `site_id`)");
         }
 
