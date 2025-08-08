@@ -40,7 +40,7 @@ class ToolExportImportModel extends Model
 
         $output = fopen('php://output', 'w');
 
-        fputcsv($output, $columns);
+        fputcsv($output, $columns, ',', '"', '\\');
 
         $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "countries`");
 
@@ -63,7 +63,7 @@ class ToolExportImportModel extends Model
                 }
             }
 
-            fputcsv($output, $data);
+            fputcsv($output, $data, ',', '"', '\\');
         }
 
         fclose($output);
@@ -86,7 +86,7 @@ class ToolExportImportModel extends Model
 
         $output = fopen('php://output', 'w');
 
-        fputcsv($output, $columns);
+        fputcsv($output, $columns, ',', '"', '\\');
 
         $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "emails`");
 
@@ -101,7 +101,7 @@ class ToolExportImportModel extends Model
             $data[] = $email['html'];
             $data[] = $email['language'];
 
-            fputcsv($output, $data);
+            fputcsv($output, $data, ',', '"', '\\');
         }
 
         fclose($output);
@@ -123,7 +123,7 @@ class ToolExportImportModel extends Model
 
         $output = fopen('php://output', 'w');
 
-        fputcsv($output, $columns);
+        fputcsv($output, $columns, ',', '"', '\\');
 
         $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "questions`");
 
@@ -137,7 +137,7 @@ class ToolExportImportModel extends Model
             $data[] = $question['answer'];
             $data[] = $question['language'];
 
-            fputcsv($output, $data);
+            fputcsv($output, $data, ',', '"', '\\');
         }
 
         fclose($output);
