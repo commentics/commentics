@@ -13,10 +13,6 @@ class Email
         $this->db      = $registry->get('db');
         $this->log     = $registry->get('log');
         $this->setting = $registry->get('setting');
-
-        if ($this->setting->has('newline') && $this->setting->get('newline') == 'LF') {
-            $this->newline = "\n";
-        }
     }
 
     public function get($type)
@@ -176,17 +172,17 @@ class Email
 
                 fclose($handle);
 
-                $body .= '--' . $boundary . PHP_EOL;
-                $body .= 'Content-Type: application/octet-stream; name="' . basename($attachment) . '"' . PHP_EOL;
-                $body .= 'Content-Transfer-Encoding: base64' . PHP_EOL;
-                $body .= 'Content-Disposition: attachment; filename="' . basename($attachment) . '"' . PHP_EOL;
-                $body .= 'Content-ID: <' . urlencode(basename($attachment)) . '>' . PHP_EOL;
-                $body .= 'X-Attachment-Id: ' . urlencode(basename($attachment)) . PHP_EOL . PHP_EOL;
+                $body .= '--' . $boundary . $this->newline;
+                $body .= 'Content-Type: application/octet-stream; name="' . basename($attachment) . '"' . $this->newline;
+                $body .= 'Content-Transfer-Encoding: base64' . $this->newline;
+                $body .= 'Content-Disposition: attachment; filename="' . basename($attachment) . '"' . $this->newline;
+                $body .= 'Content-ID: <' . urlencode(basename($attachment)) . '>' . $this->newline;
+                $body .= 'X-Attachment-Id: ' . urlencode(basename($attachment)) . $this->newline . $this->newline;
                 $body .= chunk_split(base64_encode($content));
             }
         }
 
-        $body .= '--' . $boundary . '--' . PHP_EOL;
+        $body .= '--' . $boundary . '--' . $this->newline;
 
         if ($this->setting->get('transport_method') == 'php') {
             if ($to_name) {

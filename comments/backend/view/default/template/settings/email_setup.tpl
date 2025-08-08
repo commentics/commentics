@@ -100,17 +100,6 @@
                         <span class="error"><?php echo $error_smtp_password; ?></span>
                     <?php } ?>
                 </div>
-
-                <div class="fieldset">
-                    <label><?php echo $lang_entry_newline; ?></label>
-                    <select name="newline">
-                        <option value="CRLF" <?php if ($newline == 'CRLF') { echo 'selected'; } ?>><?php echo $lang_select_crlf; ?></option>
-                        <option value="LF" <?php if ($newline == 'LF') { echo 'selected'; } ?>><?php echo $lang_select_lf; ?></option>
-                    </select>
-                    <?php if ($error_newline) { ?>
-                        <span class="error"><?php echo $error_newline; ?></span>
-                    <?php } ?>
-                </div>
             </div>
 
             <div id="tab-sender">
