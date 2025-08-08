@@ -277,7 +277,6 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'GUY', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'HTI', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'HND', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'HKG', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'HUN', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'ISL', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'IND', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
@@ -395,7 +394,6 @@ class MainInstall2Model extends Model
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'URY', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'UZB', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'VUT', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'VAT', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'VEN', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'VNM', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "countries` SET `code` = 'YEM', `top` = '0', `enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
