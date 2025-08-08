@@ -339,8 +339,12 @@ class User
     /* Checks if the user is the administrator */
     private function isAdministrator()
     {
-        if (isset($this->session->data['cmtx_admin_id'])) {
-            return true;
+        if (isset($this->session->data['cmtx_detection_key'])) {
+            if ($this->db->numRows($this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "admins` WHERE `detection_key` = '" . $this->db->escape($this->session->data['cmtx_detection_key']) . "' AND `is_enabled` = '1'"))) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

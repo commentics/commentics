@@ -43,13 +43,14 @@ class LoginLoginController extends Controller
 
                 $admin_id = $admin['id'];
 
-                $this->session->data['cmtx_admin_id']   = $admin_id;
-                $this->session->data['cmtx_username']   = $this->request->post['username'];
-                $this->session->data['cmtx_is_super']   = $admin['is_super'];
-                $this->session->data['cmtx_csrf_key']   = $this->variable->random();
-                $this->session->data['cmtx_user_agent'] = $this->user->getUserAgent();
-                $this->session->data['cmtx_user_lang']  = $this->user->getAcceptLanguage();
-                $this->session->data['cmtx_user_ip']    = $this->user->getIpAddress();
+                $this->session->data['cmtx_admin_id']      = $admin_id;
+                $this->session->data['cmtx_username']      = $this->request->post['username'];
+                $this->session->data['cmtx_is_super']      = $admin['is_super'];
+                $this->session->data['cmtx_detection_key'] = $admin['detection_key'];
+                $this->session->data['cmtx_csrf_key']      = $this->variable->random();
+                $this->session->data['cmtx_user_agent']    = $this->user->getUserAgent();
+                $this->session->data['cmtx_user_lang']     = $this->user->getAcceptLanguage();
+                $this->session->data['cmtx_user_ip']       = $this->user->getIpAddress();
 
                 $this->model_login_login->login($admin_id);
 

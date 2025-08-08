@@ -15,6 +15,7 @@ class MainInstall2Model extends Model
         $purpose           = $this->request->post['purpose'];
         $ip_address        = $this->user->getIpAddress();
         $cookie_key        = $this->variable->random();
+        $detection_key     = $this->variable->random();
         $security_key      = $this->variable->random();
         $session_key       = $this->variable->random();
         $encryption_key    = $this->variable->random();
@@ -28,7 +29,7 @@ class MainInstall2Model extends Model
         $this->db->query("ALTER DATABASE `" . CMTX_DB_DATABASE . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
         $this->createTableAccess();
-        $this->createTableAdmins($username, $password, $email, $ip_address, $cookie_key);
+        $this->createTableAdmins($username, $password, $email, $ip_address, $cookie_key, $detection_key);
         $this->createTableAttempts();
         $this->createTableBackups();
         $this->createTableBans();
@@ -73,7 +74,7 @@ class MainInstall2Model extends Model
         /*****************************************************************************************************************/
     }
 
-    public function createTableAdmins($username, $password, $email, $ip_address, $cookie_key)
+    public function createTableAdmins($username, $password, $email, $ip_address, $cookie_key, $detection_key)
     {
         /********************************************** CREATE TABLE 'admins' ********************************************/
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . CMTX_DB_PREFIX . "admins` (
@@ -83,6 +84,7 @@ class MainInstall2Model extends Model
             `email` varchar(250) NOT NULL default '',
             `ip_address` varchar(250) NOT NULL default '',
             `cookie_key` varchar(250) NOT NULL default '',
+            `detection_key` varchar(250) NOT NULL default '',
             `receive_email_ban` tinyint(1) unsigned NOT NULL default '1',
             `receive_email_comment_approve` tinyint(1) unsigned NOT NULL default '1',
             `receive_email_comment_success` tinyint(1) unsigned NOT NULL default '1',
@@ -103,7 +105,7 @@ class MainInstall2Model extends Model
             PRIMARY KEY (`id`)
         ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "admins` SET `username` = '" . $this->db->escape($username) . "', `password` = '" . $this->db->escape($password) . "', `email` = '" . $this->db->escape($email) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `cookie_key` = '" . $this->db->escape($cookie_key) . "', `receive_email_ban` = '1', `receive_email_comment_approve` = '1', `receive_email_comment_success` = '1', `receive_email_flag` = '1', `login_attempts` = '0', `resets` = '0', `last_login` = NOW(), `restrict_pages` = '0', `viewable_pages` = '', `modifiable_pages` = '', `format` = 'html', `is_super` = '1', `is_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "admins` SET `username` = '" . $this->db->escape($username) . "', `password` = '" . $this->db->escape($password) . "', `email` = '" . $this->db->escape($email) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `cookie_key` = '" . $this->db->escape($cookie_key) . "', `detection_key` = '" . $this->db->escape($detection_key) . "', `receive_email_ban` = '1', `receive_email_comment_approve` = '1', `receive_email_comment_success` = '1', `receive_email_flag` = '1', `login_attempts` = '0', `resets` = '0', `last_login` = NOW(), `restrict_pages` = '0', `viewable_pages` = '', `modifiable_pages` = '', `format` = 'html', `is_super` = '1', `is_enabled` = '1', `date_modified` = NOW(), `date_added` = NOW()");
         /*****************************************************************************************************************/
     }
 

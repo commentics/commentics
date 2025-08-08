@@ -420,6 +420,16 @@ class MainUpgrade2Model extends Model
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = 'strict' WHERE `title` = 'check_ip_address' AND `value` = '1'");
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "pages` ADD INDEX idx_identifier_site_id (`identifier`(200), `site_id`)");
+
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "admins` ADD `detection_key` varchar(250) NOT NULL default ''");
+
+            $query = $this->db->query("SELECT * FROM `" . CMTX_DB_PREFIX . "admins`");
+
+            $admins = $this->db->rows($query);
+
+            foreach ($admins as $admin) {
+                $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "admins` SET `detection_key` = '" . $this->db->escape($this->variable->random()) . "' WHERE `id` = '" . (int) $admin['id'] . "'");
+            }
         }
 
     }
