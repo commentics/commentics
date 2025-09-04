@@ -93,6 +93,9 @@ class MainFormValidateModel extends Model
     public function validateComment($is_preview)
     {
         if (isset($this->request->post['cmtx_comment']) && $this->request->post['cmtx_comment'] != '') {
+            /* Replace instances of \r\r\n with a single \r\n */
+            $this->request->post['cmtx_comment'] = str_replace("\r\r\n", "\r\n", $this->request->post['cmtx_comment']);
+
             $comment = $this->security->decode($this->request->post['cmtx_comment']);
 
             $this->request->post['cmtx_original_comment'] = $comment;
@@ -279,6 +282,9 @@ class MainFormValidateModel extends Model
 
             /* Purify the comment. Ensures properly balanced tags and neutralizes attacks. */
             $this->request->post['cmtx_comment'] = $this->purifyComment($this->request->post['cmtx_comment']);
+
+            /* Remove any empty paragraph tags */
+            $this->request->post['cmtx_comment'] = str_replace('<p></p>', '', $this->request->post['cmtx_comment']);
 
             /* Finally remove any space at beginning and end */
             $this->request->post['cmtx_comment'] = trim($this->request->post['cmtx_comment']);
@@ -1531,9 +1537,22 @@ class MainFormValidateModel extends Model
     /* Convert web links (non-BB code) to HTML */
     private function convertLinks($comment)
     {
-        $comment = preg_replace("/(^|[\n ])([\w]*?)((ht|f)tp(s)?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\"" . $this->getLinkAttributes() . ">$3</a>", $comment);
+        // Allow space, newline or opening punctuation before URLs
+        $boundary = '(^|[\n \(\[\{<])';
 
-        $comment = preg_replace("/(^|[\n ])([\w]*?)((www|ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\"" . $this->getLinkAttributes() . ">$3</a>", $comment);
+        // Pattern for http://, https://, ftp://
+        $comment = preg_replace(
+            "/$boundary([\w]*?)((?:ht|f)tp(?:s)?:\/\/[^\s<\"\n\r\t]*[^\s<\"\n\r\t\.\,\!\?\)\]\}:])/is",
+            "$1$2<a href=\"$3\"" . $this->getLinkAttributes() . ">$3</a>",
+            $comment
+        );
+
+        // Pattern for www. and ftp.
+        $comment = preg_replace(
+            "/$boundary([\w]*?)((?:www|ftp)\.[^\s<\"\t\n\r]*[^\s<\"\t\n\r\.\,\!\?\)\]\}:])/is",
+            "$1$2<a href=\"http://$3\"" . $this->getLinkAttributes() . ">$3</a>",
+            $comment
+        );
 
         return $comment;
     }
@@ -1541,8 +1560,11 @@ class MainFormValidateModel extends Model
     /* Convert email links (non-BB code) to HTML */
     private function convertEmails($comment)
     {
-        $comment = preg_replace('/(^|[\n ])([\w]*?)([_\.0-9a-z+\-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,3})/im', '<a href="mailto:\\3" ' . $this->getLinkAttributes() . '>\\3</a>', $comment);
-
+        $comment = preg_replace(
+            '/(^|[\n (])([a-z0-9_\+-]+(\.[a-z0-9_\+-]+)*@([a-z0-9-]+\.)+[a-z]{2,})(?=[\s\.,;:!)]|$)/im',
+            '$1<a href="mailto:$2"' . $this->getLinkAttributes() . '>$2</a>',
+            $comment
+        );
         return $comment;
     }
 
