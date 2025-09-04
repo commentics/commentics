@@ -12,7 +12,7 @@ class Validation
 
     public function isInt($value)
     {
-        return ctype_digit($value);
+        return ctype_digit((string) $value);
     }
 
     public function isAlpha($value)

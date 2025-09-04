@@ -34,7 +34,7 @@ class Request
         $file = fopen($file, 'r');
 
         if ($file) {
-            while ($row = fgetcsv($file)) {
+            while (($row = fgetcsv($file, 0, ",", '"', "\\")) !== false) {
                 $csv_data[] = $row;
             }
 
