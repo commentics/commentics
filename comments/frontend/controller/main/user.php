@@ -34,6 +34,15 @@ class MainUserController extends Controller
                 if ($user) {
                     $this->model_main_user->resetAttempts();
 
+                    if ($user['language'] && $user['language'] != $this->setting->get('language')) {
+                        $this->setting->set('language', $user['language']);
+                        $this->loadLanguage('main/user'); // reload language
+                    }
+
+                    if ($user['rtl']) {
+                        $this->setting->set('rtl', $user['rtl']);
+                    }
+
                     $this->data['user'] = $user;
 
                     $this->data['lang_title'] .= ': ' . $user['name'];
@@ -169,7 +178,9 @@ class MainUserController extends Controller
                         'timeago_month'        => $this->data['lang_text_timeago_month'],
                         'timeago_months'       => $this->data['lang_text_timeago_months'],
                         'timeago_year'         => $this->data['lang_text_timeago_year'],
-                        'timeago_years'        => $this->data['lang_text_timeago_years']
+                        'timeago_years'        => $this->data['lang_text_timeago_years'],
+                        'language'             => $this->setting->get('language'),
+                        'rtl'                  => $this->setting->get('rtl')
                     );
 
                     $this->data['cmtx_js_settings_user'] = json_encode($this->data['cmtx_js_settings_user']);

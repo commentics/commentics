@@ -278,17 +278,21 @@ class Notify
         }
 
         /* Check that the user has a confirmed subscription for the page */
-        $query = $this->db->query("SELECT *
-                                   FROM `" . CMTX_DB_PREFIX . "subscriptions`
-                                   WHERE `user_id` = '" . (int) $comment['user_id'] . "'
-                                   AND `page_id` = '" . (int) $comment['page_id'] . "'
-                                   AND `is_confirmed` = '1'");
+        $query = $this->db->query("SELECT `s`.*, `u`.`language`
+                                   FROM `" . CMTX_DB_PREFIX . "subscriptions` AS `s`
+                                   INNER JOIN `" . CMTX_DB_PREFIX . "users` AS `u`
+                                   ON `s`.`user_id` = `u`.`id`
+                                   WHERE `s`.`user_id` = '" . (int) $comment['user_id'] . "'
+                                   AND `s`.`page_id` = '" . (int) $comment['page_id'] . "'
+                                   AND `s`.`is_confirmed` = '1'");
 
         if (!$this->db->numRows($query)) {
             return;
         }
 
-        $email = $this->email->get('user_comment_approved');
+        $user = $this->db->row($query);
+
+        $email = $this->email->get('user_comment_approved', $user['language']);
 
         $subject = $this->security->decode(str_ireplace('[name]', $comment['name'], $email['subject']));
 
@@ -314,9 +318,9 @@ class Notify
     }
 
     /* Request confirmation from the user that they want to be subscribed */
-    public function subscriberConfirmation($format, $name, $to_email, $page_reference, $page_url, $user_token, $subscription_token)
+    public function subscriberConfirmation($format, $name, $to_email, $page_reference, $page_url, $user_token, $subscription_token, $language)
     {
-        $email = $this->email->get('subscriber_confirmation');
+        $email = $this->email->get('subscriber_confirmation', $language);
 
         $subject = $this->security->decode($email['subject']);
 
@@ -409,9 +413,9 @@ class Notify
         $users = $this->db->rows($query);
 
         if ($users) {
-            $email = $this->email->get('subscriber_notification_reply');
-
             foreach ($users as $user) {
+                $email = $this->email->get('subscriber_notification_reply', $user['language']);
+
                 if (in_array($user['id'], $this->users)) { // if the user has not already received an email
                     $subject = $this->security->decode(str_ireplace('[name]', $user['name'], $email['subject']));
 
@@ -460,9 +464,9 @@ class Notify
         $users = $this->db->rows($query);
 
         if ($users) {
-            $email = $this->email->get('subscriber_notification_admin');
-
             foreach ($users as $user) {
+                $email = $this->email->get('subscriber_notification_admin', $user['language']);
+
                 if (in_array($user['id'], $this->users)) { // if the user has not already received an email
                     $subject = $this->security->decode(str_ireplace('[name]', $user['name'], $email['subject']));
 
@@ -511,9 +515,9 @@ class Notify
         $users = $this->db->rows($query);
 
         if ($users) {
-            $email = $this->email->get('subscriber_notification_basic');
-
             foreach ($users as $user) {
+                $email = $this->email->get('subscriber_notification_basic', $user['language']);
+
                 if (in_array($user['id'], $this->users)) { // if the user has not already received an email
                     $subject = $this->security->decode(str_ireplace('[name]', $user['name'], $email['subject']));
 

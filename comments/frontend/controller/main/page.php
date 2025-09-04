@@ -57,7 +57,8 @@ class MainPageController extends Controller
         /* These are passed to common.js via the template */
         $this->data['cmtx_js_settings_page'] = array(
             'commentics_url' => $this->url->getCommenticsUrl(),
-            'language'       => $this->setting->get('language')
+            'language'       => $this->setting->get('language'),
+            'rtl'            => $this->setting->get('rtl')
         );
 
         $this->data['cmtx_js_settings_page'] = json_encode($this->data['cmtx_js_settings_page']);

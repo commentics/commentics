@@ -56,6 +56,8 @@ class PartNotifyController extends Controller
                                 if ($this->user->isBanned($ip_address)) {
                                     $json['result']['error'] = $this->data['lang_error_banned'];
                                 } else {
+                                    $this->setting->set('required_email', true);
+
                                     /* Check referrer */
                                     $this->model_main_form_validate->validateReferrer();
 
@@ -149,7 +151,7 @@ class PartNotifyController extends Controller
 
                 $subscription_id = $this->model_main_form->addSubscription($user_id, $page_id, $subscription_token, $ip_address);
 
-                $this->notify->subscriberConfirmation($this->setting->get('notify_format'), $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $page['reference'], $page['url'], $user_token, $subscription_token);
+                $this->notify->subscriberConfirmation($this->setting->get('notify_format'), $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $page['reference'], $page['url'], $user_token, $subscription_token, $this->setting->get('language'));
 
                 /* Unset that the Captcha is complete so the user has to pass it again */
                 unset($this->session->data['cmtx_captcha_complete_' . $this->page->getId()]);

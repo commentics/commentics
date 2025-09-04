@@ -428,8 +428,10 @@ class MainUpgrade2Model extends Model
             foreach ($admins as $admin) {
                 $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "admins` SET `detection_key` = '" . $this->db->escape($this->variable->random()) . "' WHERE `id` = '" . (int) $admin['id'] . "'");
             }
-        }
 
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `language` varchar(250) DEFAULT NULL");
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `rtl` tinyint(1) unsigned DEFAULT NULL");
+        }
     }
 
     public function getInstalledVersion()

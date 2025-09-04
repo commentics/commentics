@@ -111,4 +111,17 @@ class Validation
             return strlen($value);
         }
     }
+
+    public function languageFolderExists($folder)
+    {
+        if ($this->isFolder($folder)) {
+            $pattern = CMTX_DIR_VIEW . '*/language/' . $folder;
+
+            $matches = glob($pattern, GLOB_ONLYDIR);
+
+            return !empty($matches);
+        } else {
+            return false;
+        }
+    }
 }

@@ -176,6 +176,12 @@ if (isset($_POST['cmtx_language'])) {
     define('CMTX_LANGUAGE', $cmtx_language);
 }
 
+if (isset($_POST['cmtx_rtl'])) {
+    define('CMTX_RTL', (int) $_POST['cmtx_rtl']);
+} else if (isset($cmtx_rtl)) {
+    define('CMTX_RTL', (int) $cmtx_rtl);
+}
+
 require_once CMTX_DIR_SYSTEM . 'startup.php';
 
 if (!$cmtx_db->isConnected()) {

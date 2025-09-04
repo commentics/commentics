@@ -34,13 +34,13 @@ class User
         $this->variable   = $registry->get('variable');
 
         if (defined('CMTX_FRONTEND')) {
-            $this->login['name']    = (defined('CMTX_NAME')) ? $this->security->encode(CMTX_NAME) : '';
-            $this->login['email']   = (defined('CMTX_EMAIL')) ? $this->security->encode(CMTX_EMAIL) : '';
-            $this->login['website'] = (defined('CMTX_WEBSITE')) ? $this->security->encode(CMTX_WEBSITE) : '';
-            $this->login['town']    = (defined('CMTX_TOWN')) ? $this->security->encode(CMTX_TOWN) : '';
-            $this->login['country'] = (defined('CMTX_COUNTRY')) ? $this->security->encode(CMTX_COUNTRY) : '';
-            $this->login['state']   = (defined('CMTX_STATE')) ? $this->security->encode(CMTX_STATE) : '';
-            $this->login['avatar']  = (defined('CMTX_AVATAR')) ? $this->security->encode(CMTX_AVATAR) : '';
+            $this->login['name']     = (defined('CMTX_NAME')) ? $this->security->encode(CMTX_NAME) : '';
+            $this->login['email']    = (defined('CMTX_EMAIL')) ? $this->security->encode(CMTX_EMAIL) : '';
+            $this->login['website']  = (defined('CMTX_WEBSITE')) ? $this->security->encode(CMTX_WEBSITE) : '';
+            $this->login['town']     = (defined('CMTX_TOWN')) ? $this->security->encode(CMTX_TOWN) : '';
+            $this->login['country']  = (defined('CMTX_COUNTRY')) ? $this->security->encode(CMTX_COUNTRY) : '';
+            $this->login['state']    = (defined('CMTX_STATE')) ? $this->security->encode(CMTX_STATE) : '';
+            $this->login['avatar']   = (defined('CMTX_AVATAR')) ? $this->security->encode(CMTX_AVATAR) : '';
 
             $this->is_admin = $this->isAdministrator();
 
@@ -48,12 +48,22 @@ class User
             if ($this->setting->get('avatar_type') == 'login' && $this->login['avatar'] && $this->validation->isUrl($this->login['avatar']) && $this->login['name'] && $this->login['email']) {
                 $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `avatar_login` = '" . $this->db->escape($this->login['avatar']) . "' WHERE `name` = '" . $this->db->escape($this->login['name']) . "' AND `email` = '" . $this->db->escape($this->login['email']) . "'");
             }
+
+            /* Update language by login information */
+            if (defined('CMTX_LANGUAGE') && $this->validation->languageFolderExists(CMTX_LANGUAGE) && $this->login['name'] && $this->login['email']) {
+                $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `language` = '" . $this->db->escape(CMTX_LANGUAGE) . "' WHERE `name` = '" . $this->db->escape($this->login['name']) . "' AND `email` = '" . $this->db->escape($this->login['email']) . "'");
+            }
+
+            /* Update RTL provided by login information */
+            if (defined('CMTX_RTL') && in_array(CMTX_RTL, array(0,1)) && $this->login['name'] && $this->login['email']) {
+                $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "users` SET `rtl` = '" . (int) CMTX_RTL . "' WHERE `name` = '" . $this->db->escape($this->login['name']) . "' AND `email` = '" . $this->db->escape($this->login['email']) . "'");
+            }
         }
     }
 
     public function createUser($name, $email, $token, $ip_address)
     {
-        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "users` SET `name` = '" . $this->db->escape($name) . "', `email` = '" . $this->db->escape($email) . "', `moderate` = 'default', `token` = '" . $this->db->escape($token) . "', `to_all` = '" . ($this->setting->get('notify_type') == 'all' ? 1 : 0) . "', `to_admin` = '1', `to_reply` = '1', `to_approve` = '1', `format` = '" . $this->db->escape($this->setting->get('notify_format')) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `date_modified` = NOW(), `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . CMTX_DB_PREFIX . "users` SET `name` = '" . $this->db->escape($name) . "', `email` = '" . $this->db->escape($email) . "', `language` = '" . $this->db->escape($this->setting->get('language')) . "', `rtl` = '" . $this->db->escape($this->setting->get('rtl')) . "', `moderate` = 'default', `token` = '" . $this->db->escape($token) . "', `to_all` = '" . ($this->setting->get('notify_type') == 'all' ? 1 : 0) . "', `to_admin` = '1', `to_reply` = '1', `to_approve` = '1', `format` = '" . $this->db->escape($this->setting->get('notify_format')) . "', `ip_address` = '" . $this->db->escape($ip_address) . "', `date_modified` = NOW(), `date_added` = NOW()");
 
         return $this->db->insertId();
     }
@@ -169,6 +179,8 @@ class User
                 'avatar_login'       => $user['avatar_login'],
                 'name'               => $user['name'],
                 'email'              => $user['email'],
+                'language'           => $user['language'],
+                'rtl'                => $user['rtl'],
                 'moderate'           => $user['moderate'],
                 'token'              => $user['token'],
                 'to_all'             => $user['to_all'],

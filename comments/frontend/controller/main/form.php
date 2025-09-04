@@ -130,6 +130,7 @@ class MainFormController extends Controller
             $this->data['cmtx_js_settings_form'] = array(
                 'commentics_url'           => $this->url->getCommenticsUrl(),
                 'page_id'                  => (int) $this->page->getId(),
+                'required_email'           => (bool) $this->setting->get('required_email'),
                 'enabled_country'          => (bool) $this->setting->get('enabled_country'),
                 'country_id'               => (int) $this->data['country_id'],
                 'enabled_state'            => (bool) $this->setting->get('enabled_state'),
@@ -513,7 +514,7 @@ class MainFormController extends Controller
 
                             $subscription_id = $this->model_main_form->addSubscription($user_id, $page_id, $subscription_token, $ip_address);
 
-                            $this->notify->subscriberConfirmation($this->setting->get('notify_format'), $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $page['reference'], $page['url'], $user_token, $subscription_token);
+                            $this->notify->subscriberConfirmation($this->setting->get('notify_format'), $this->request->post['cmtx_name'], $this->request->post['cmtx_email'], $page['reference'], $page['url'], $user_token, $subscription_token, $this->setting->get('language'));
                         }
                     }
 

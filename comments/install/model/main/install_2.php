@@ -4966,6 +4966,8 @@ class MainInstall2Model extends Model
             `avatar_login` varchar(250) NOT NULL default '',
             `name` varchar(250) NOT NULL default '',
             `email` varchar(250) NOT NULL default '',
+            `language` varchar(250) DEFAULT NULL,
+            `rtl` tinyint(1) unsigned DEFAULT NULL,
             `moderate` varchar(250) NOT NULL default 'default',
             `token` varchar(250) NOT NULL default '',
             `to_all` tinyint(1) unsigned NOT NULL default '1',

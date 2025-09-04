@@ -15,11 +15,13 @@ class Email
         $this->setting = $registry->get('setting');
     }
 
-    public function get($type)
+    public function get($type, $language = NULL)
     {
         /* The new version email is sent from the frontend but uses the backend language */
         if ($type == 'new_version') {
             $language = $this->setting->get('language_backend');
+        } else if ($language) {
+            // Allow passing a specific language
         } else {
             $language = $this->setting->get('language');
         }
