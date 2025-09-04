@@ -112,6 +112,7 @@ class EditCommentModel extends Model
         $this->event->trigger('comment_edited', array('comment_id' => $id));
 
         if ($data['is_approved'] == 1 && !$this->comment->isApproved($id)) {
+            $this->notify->approvalNotification($id);
             $this->comment->approveComment($id);
         } else if ($data['is_approved'] == 0 && $this->comment->isApproved($id)) {
             $this->comment->unapproveComment($id);
