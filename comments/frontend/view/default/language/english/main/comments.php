@@ -69,7 +69,6 @@ $_['lang_modal_close']             = 'Close';
 // Link
 $_['lang_link_close']              = 'Close';
 $_['lang_link_cancel']             = '[Cancel]';
-$_['lang_link_refresh']            = '[Refresh]';
 $_['lang_link_reply']              = 'Switch to full reply';
 
 // Button

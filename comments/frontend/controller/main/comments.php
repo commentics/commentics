@@ -312,7 +312,6 @@ class MainCommentsController extends Controller
                 'lang_button_edit'        => $this->data['lang_button_edit'],
                 'lang_button_reply'       => $this->data['lang_button_reply'],
                 'lang_link_reply'         => $this->data['lang_link_reply'],
-                'lang_link_refresh'       => $this->data['lang_link_refresh'],
                 'date_auto'               => (bool) $this->setting->get('date_auto'),
                 'show_pagination'         => (bool) $this->setting->get('show_pagination'),
                 'quick_reply'             => (bool) $this->setting->get('quick_reply'),
