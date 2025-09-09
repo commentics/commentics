@@ -375,7 +375,7 @@ class User
         }
     }
 
-    public function doesCurrentIpAddressMatch($ip_addresses)
+    public function doesCurrentIpAddressMatch($ip_addresses, $strictness)
     {
         $current_ip = $this->getIpAddress();
 
@@ -397,11 +397,11 @@ class User
                 continue;
             }
 
-            if ($this->setting->get('check_ip_address') == 'strict') {
+            if ($strictness == 'strict') {
                 if ($current_ip == $ip_address) {
                     return true;
                 }
-            } else if ($this->setting->get('check_ip_address') == 'loose') {
+            } else if ($strictness == 'loose') {
                 if ($is_current_ip_v4) {
                     $current_ip_shortened = implode('.', array_slice(explode('.', $current_ip), 0, 3));
                     $ip_address_shortened = implode('.', array_slice(explode('.', $ip_address), 0, 3));

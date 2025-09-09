@@ -90,7 +90,7 @@ class LoginLoginController extends Controller
 
             // verify ip-address is the same
             if ($this->setting->get('check_ip_address')) {
-                if (!$this->user->doesCurrentIpAddressMatch([$this->session->data['cmtx_user_ip']])) {
+                if (!$this->user->doesCurrentIpAddressMatch([$this->session->data['cmtx_user_ip']], $this->setting->get('check_ip_address'))) {
                     $this->loadModel('login/logout');
 
                     $this->model_login_logout->logout();
