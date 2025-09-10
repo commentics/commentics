@@ -70,6 +70,7 @@ $_['lang_manage/states']             = 'Manage States';
 $_['lang_manage/subscriptions']      = 'Manage Subscriptions';
 $_['lang_manage/users']              = 'Manage Users';
 $_['lang_module/akismet']            = 'Akismet Module';
+$_['lang_module/api']                = 'API Module';
 $_['lang_module/chart']              = 'Chart Module';
 $_['lang_module/css_editor']         = 'CSS Editor';
 $_['lang_module/extra_fields']       = 'Extra Fields';
