@@ -433,6 +433,9 @@ class MainUpgrade2Model extends Model
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `rtl` tinyint(1) unsigned DEFAULT NULL");
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "sites` ADD `update_urls` tinyint(1) unsigned NOT NULL default '0'");
+
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `title` = 'show_social_x' WHERE `title` = 'show_social_twitter'");
+            $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `title` = 'show_share_x' WHERE `title` = 'show_share_twitter'");
         }
     }
 

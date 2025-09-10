@@ -147,7 +147,7 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_reddit']) ? 1 : 0) . "' WHERE `title` = 'show_share_reddit'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_twitter']) ? 1 : 0) . "' WHERE `title` = 'show_share_twitter'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_x']) ? 1 : 0) . "' WHERE `title` = 'show_share_x'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_share_weibo']) ? 1 : 0) . "' WHERE `title` = 'show_share_weibo'");
 
@@ -253,7 +253,7 @@ class SettingsLayoutCommentsModel extends Model
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_reddit']) ? 1 : 0) . "' WHERE `title` = 'show_social_reddit'");
 
-        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_twitter']) ? 1 : 0) . "' WHERE `title` = 'show_social_twitter'");
+        $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_x']) ? 1 : 0) . "' WHERE `title` = 'show_social_x'");
 
         $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `value` = '" . (isset($data['show_social_weibo']) ? 1 : 0) . "' WHERE `title` = 'show_social_weibo'");
 
@@ -290,7 +290,7 @@ class SettingsLayoutCommentsModel extends Model
 
         $shares['reddit'] = $this->getShareImage('reddit.png');
 
-        $shares['twitter'] = $this->getShareImage('twitter.png');
+        $shares['x'] = $this->getShareImage('x.png');
 
         $shares['weibo'] = $this->getShareImage('weibo.png');
 
@@ -320,7 +320,7 @@ class SettingsLayoutCommentsModel extends Model
 
         $socials['reddit'] = $this->getSocialImage('reddit.png');
 
-        $socials['twitter'] = $this->getSocialImage('twitter.png');
+        $socials['x'] = $this->getSocialImage('x.png');
 
         $socials['weibo'] = $this->getSocialImage('weibo.png');
 

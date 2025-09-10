@@ -434,8 +434,8 @@
                 </div>
 
                 <div class="fieldset">
-                    <label><img src="<?php echo $socials['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
-                    <input type="checkbox" name="show_social_twitter" value="1" <?php if ($show_social_twitter) { echo 'checked'; } ?>>
+                    <label><img src="<?php echo $socials['x']; ?>" title="<?php echo $lang_title_x; ?>"></label>
+                    <input type="checkbox" name="show_social_x" value="1" <?php if ($show_social_x) { echo 'checked'; } ?>>
                 </div>
 
                 <div class="fieldset">
@@ -871,8 +871,8 @@
                 </div>
 
                 <div class="fieldset">
-                    <label><img src="<?php echo $shares['twitter']; ?>" title="<?php echo $lang_title_twitter; ?>"></label>
-                    <input type="checkbox" name="show_share_twitter" value="1" <?php if ($show_share_twitter) { echo 'checked'; } ?>>
+                    <label><img src="<?php echo $shares['x']; ?>" title="<?php echo $lang_title_x; ?>"></label>
+                    <input type="checkbox" name="show_share_x" value="1" <?php if ($show_share_x) { echo 'checked'; } ?>>
                 </div>
 
                 <div class="fieldset">

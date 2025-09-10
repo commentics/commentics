@@ -449,12 +449,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['show_share_reddit'] = $this->setting->get('show_share_reddit');
         }
 
-        if (isset($this->request->post['show_share_twitter'])) {
-            $this->data['show_share_twitter'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_twitter'])) {
-            $this->data['show_share_twitter'] = false;
+        if (isset($this->request->post['show_share_x'])) {
+            $this->data['show_share_x'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_share_x'])) {
+            $this->data['show_share_x'] = false;
         } else {
-            $this->data['show_share_twitter'] = $this->setting->get('show_share_twitter');
+            $this->data['show_share_x'] = $this->setting->get('show_share_x');
         }
 
         if (isset($this->request->post['show_share_weibo'])) {
@@ -769,12 +769,12 @@ class SettingsLayoutCommentsController extends Controller
             $this->data['show_social_reddit'] = $this->setting->get('show_social_reddit');
         }
 
-        if (isset($this->request->post['show_social_twitter'])) {
-            $this->data['show_social_twitter'] = true;
-        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_twitter'])) {
-            $this->data['show_social_twitter'] = false;
+        if (isset($this->request->post['show_social_x'])) {
+            $this->data['show_social_x'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['show_social_x'])) {
+            $this->data['show_social_x'] = false;
         } else {
-            $this->data['show_social_twitter'] = $this->setting->get('show_social_twitter');
+            $this->data['show_social_x'] = $this->setting->get('show_social_x');
         }
 
         if (isset($this->request->post['show_social_weibo'])) {

@@ -8,7 +8,7 @@ class ModuleLanguageEditorModel extends Model
         'lang_title_facebook',
         'lang_title_linkedin',
         'lang_title_reddit',
-        'lang_title_twitter',
+        'lang_title_x',
         'lang_title_weibo'
     );
     private $file = '';

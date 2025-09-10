@@ -15,8 +15,8 @@
         <a href="{{ reddit_url }}" {{ new_window }} title="{{ lang_title_reddit }}"><span class="cmtx_social cmtx_social_reddit"></span></a>
     @endif
 
-    @if show_social_twitter
-        <a href="{{ twitter_url }}" {{ new_window }} title="{{ lang_title_twitter }}"><span class="cmtx_social cmtx_social_twitter"></span></a>
+    @if show_social_x
+        <a href="{{ x_url }}" {{ new_window }} title="{{ lang_title_x }}"><span class="cmtx_social cmtx_social_x"></span></a>
     @endif
 
     @if show_social_weibo

@@ -1580,7 +1580,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cmtxSetShareBoxHref('.cmtx_share_facebook', 'https://www.facebook.com/sharer.php?u=' + permalink);
             cmtxSetShareBoxHref('.cmtx_share_linkedin', 'https://www.linkedin.com/shareArticle?mini=true&url=' + permalink + '&title=' + reference);
             cmtxSetShareBoxHref('.cmtx_share_reddit', 'https://reddit.com/submit?url=' + permalink + '&title=' + reference);
-            cmtxSetShareBoxHref('.cmtx_share_twitter', 'https://twitter.com/intent/tweet?url=' + permalink + '&text=' + reference);
+            cmtxSetShareBoxHref('.cmtx_share_x', 'https://x.com/intent/tweet?url=' + permalink + '&text=' + reference);
             cmtxSetShareBoxHref('.cmtx_share_weibo', 'http://service.weibo.com/share/share.php?url=' + permalink + '&title=' + reference);
 
             cmtxFadeIn('.cmtx_share_box', 400);

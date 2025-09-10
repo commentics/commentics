@@ -175,8 +175,8 @@
                     <a href="#" {{ share_new_window }} title="{{ lang_title_reddit }}"><span class="cmtx_share cmtx_share_reddit"></span></a>
                 @endif
 
-                @if show_share_twitter
-                    <a href="#" {{ share_new_window }} title="{{ lang_title_twitter }}"><span class="cmtx_share cmtx_share_twitter"></span></a>
+                @if show_share_x
+                    <a href="#" {{ share_new_window }} title="{{ lang_title_x }}"><span class="cmtx_share cmtx_share_x"></span></a>
                 @endif
 
                 @if show_share_weibo
