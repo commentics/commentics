@@ -83,6 +83,10 @@ class Page
                 $this->page_url = $page['url'];
 
                 $this->form_enabled = $page['is_form_enabled'];
+
+                if ($site['update_urls'] && !$this->request->isAjax()) {
+                    $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "pages` SET `url` = '" . $this->db->escape($this->url->getPageUrl()) . "' WHERE `id` = '" . (int) $page['id'] . "'");
+                }
             } else {
                 if ($site['new_pages']) {
                     if (isset($this->session->data['cmtx_block'])) {

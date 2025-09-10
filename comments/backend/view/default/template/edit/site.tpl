@@ -67,6 +67,12 @@
         </div>
 
         <div class="fieldset">
+            <label><?php echo $lang_entry_update_urls; ?></label>
+            <input type="checkbox" name="update_urls" value="1" <?php if ($update_urls) { echo 'checked'; } ?>>
+            <a class="hint" data-hint="<?php echo $lang_hint_update_urls; ?>">[?]</a>
+        </div>
+
+        <div class="fieldset">
             <label><?php echo $lang_entry_from_name; ?></label>
             <input type="text" name="from_name" class="large" value="<?php echo $from_name; ?>" maxlength="250">
             <a class="hint" data-hint="<?php echo $lang_hint_from_name; ?>">[?]</a>

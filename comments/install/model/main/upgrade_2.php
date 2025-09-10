@@ -431,6 +431,8 @@ class MainUpgrade2Model extends Model
 
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `language` varchar(250) DEFAULT NULL");
             $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "users` ADD `rtl` tinyint(1) unsigned DEFAULT NULL");
+
+            $this->db->query("ALTER TABLE `" . CMTX_DB_PREFIX . "sites` ADD `update_urls` tinyint(1) unsigned NOT NULL default '0'");
         }
     }
 

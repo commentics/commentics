@@ -53,6 +53,14 @@ class AddSiteController extends Controller
             $this->data['new_pages'] = true;
         }
 
+        if (isset($this->request->post['update_urls'])) {
+            $this->data['update_urls'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['update_urls'])) {
+            $this->data['update_urls'] = false;
+        } else {
+            $this->data['update_urls'] = false;
+        }
+
         if (isset($this->request->post['from_name'])) {
             $this->data['from_name'] = $this->request->post['from_name'];
         } else {

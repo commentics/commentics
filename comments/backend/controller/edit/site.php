@@ -59,6 +59,14 @@ class EditSiteController extends Controller
             $this->data['new_pages'] = $site['new_pages'];
         }
 
+        if (isset($this->request->post['update_urls'])) {
+            $this->data['update_urls'] = true;
+        } else if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post['update_urls'])) {
+            $this->data['update_urls'] = false;
+        } else {
+            $this->data['update_urls'] = $site['update_urls'];
+        }
+
         if (isset($this->request->post['from_name'])) {
             $this->data['from_name'] = $this->request->post['from_name'];
         } else {
