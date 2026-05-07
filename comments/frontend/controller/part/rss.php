@@ -44,18 +44,19 @@ class PartRssController extends Controller
 
                 $output .= '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
 
-                $output .= '<rss version="2.0">' . PHP_EOL;
+                $output .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
 
                 $output .= '<channel>' . PHP_EOL;
                 $output .= '<title><![CDATA[' . $site['name'] . ']]></title>' . PHP_EOL;
                 $output .= '<link><![CDATA[' . $site['url'] . ']]></link>' . PHP_EOL;
                 $output .= '<description><![CDATA[' . $this->data['lang_text_description'] . ']]></description>' . PHP_EOL;
                 $output .= '<generator>Commentics</generator>' . PHP_EOL;
+                $output .= '<atom:link href="' . $this->url->getCommenticsUrl(false) . 'frontend/index.php?route=part/rss/rss&amp;id=' . $this->request->get['id'] . '" rel="self" type="application/rss+xml" />' . PHP_EOL;
 
                 foreach ($comments as $comment) {
                     foreach ($comment['uploads'] as $upload) {
                         if (file_exists(CMTX_DIR_UPLOAD . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'])) {
-                            $comment['comment'] .= '<img src="' . $this->url->getCommenticsUrl() . 'upload/' . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'] . '" width="200"> ';
+                            $comment['comment'] .= '<img src="' . $this->url->getCommenticsUrl(false) . 'upload/' . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'] . '" width="200"> ';
                         }
                     }
 
