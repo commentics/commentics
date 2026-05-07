@@ -59,7 +59,7 @@ class ModuleCssEditorModel extends Model
 
             $handle = fopen($css_file, 'w');
 
-            fputs($handle, $data['css']);
+            fputs($handle, $this->security->decode($data['css']));
 
             fclose($handle);
         } else {
