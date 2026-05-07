@@ -6,6 +6,7 @@ class MainCommentsController extends Controller
     private $top_poster = 0;
     private $most_likes = 0;
     private $first_poster = 0;
+    private $filter_comment_id = 0;
 
     public function index()
     {
@@ -76,8 +77,14 @@ class MainCommentsController extends Controller
             }
         }
 
+        if ($filter_comment_id) {
+            $root_comment_id = $this->comment->getTopParent($filter_comment_id);
+        } else {
+            $root_comment_id = 0;
+        }
+
         $data = array(
-            'filter_comment_id' => $filter_comment_id,
+            'filter_comment_id' => $root_comment_id,
             'filter_page_id'    => $this->page->getId(),
             'filter_comment'    => $filter_comment,
             'count_replies'     => false,
@@ -106,6 +113,8 @@ class MainCommentsController extends Controller
             $this->data['is_search'] = false;
         }
 
+        $this->filter_comment_id = $filter_comment_id;
+
         if ($this->data['total']) {
             if ($this->setting->get('show_bio')) {
                 if ($this->setting->get('show_badge_top_poster')) {
@@ -128,13 +137,17 @@ class MainCommentsController extends Controller
             if ($this->setting->get('show_comment_count')) {
                 if ($this->setting->get('count_replies')) {
                     if ($this->data['is_permalink']) {
-                        $total = $this->data['total'] + count($this->comment->getReplies($filter_comment_id));
+                        $total = 1 + count($this->comment->getParents($filter_comment_id)) + count($this->comment->getReplies($filter_comment_id));
                     } else {
                         $data['count_replies'] = true;
                         $total = $this->model_main_comments->getComments($data, true);
                     }
                 } else {
-                    $total = $this->data['total'];
+                    if ($this->data['is_permalink']) {
+                        $total = 1;
+                    } else {
+                        $total = $this->data['total'];
+                    }
                 }
 
                 $this->data['heading_comments'] = $this->data['lang_heading_comments'] . ' (' . $total . ')';
@@ -346,6 +359,13 @@ class MainCommentsController extends Controller
         }
 
         $comment = $this->comment->getComment($id);
+
+        // Is comment a permalink?
+        if ($this->filter_comment_id == $comment['id']) {
+            $comment['is_permalink'] = 'cmtx_permalink';
+        } else {
+            $comment['is_permalink'] = '';
+        }
 
         if ($this->setting->get('avatar_type')) {
             $comment['avatar'] = $this->user->getAvatar($comment['user_id']);

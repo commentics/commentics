@@ -396,7 +396,6 @@
     0% {
         background: #529214;
     }
-
     100% {
         background: none;
     }
@@ -411,7 +410,6 @@
     0% {
         background: #d12f19;
     }
-
     100% {
         background: none;
     }
@@ -544,6 +542,23 @@
     color: $blue;
     font-size: .9em;
     text-decoration: none;
+}
+
+@keyframes permalink_keyframe {
+    0% {
+        background: $beige;
+    }
+    50% {
+        background: $beige;
+    }
+    100% {
+        background: transparent;
+    }
+}
+
+.cmtx_permalink {
+    animation-duration: 3s;
+    animation-name: permalink_keyframe;
 }
 
 .cmtx_youtube_container iframe {

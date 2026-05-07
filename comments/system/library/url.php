@@ -54,13 +54,22 @@ class Url
     }
 
     /*
-     * Gets a protocol-relative version of the Commentics URL setting from 'Settings -> System'.
-     * It uses the same protocol as what the browser is using to request the referring page.
-     * For example http://www.example.com becomes //www.example.com
-     */
-    public function getCommenticsUrl()
+    * Gets the Commentics URL setting from 'Settings -> System'.
+    * If $protocol_relative is true, returns a protocol-relative URL (e.g. //www.example.com).
+    * Otherwise, returns a fully-qualified URL (e.g. https://www.example.com).
+    */
+    public function getCommenticsUrl($protocol_relative = true)
     {
-        $commentics_url = preg_replace('/^https?:/', '', $this->setting->get('commentics_url'));
+        $commentics_url = $this->setting->get('commentics_url');
+
+        if ($protocol_relative) {
+            // Strip protocol to make it protocol-relative
+            $commentics_url = preg_replace('/^https?:/', '', $commentics_url);
+        } else {
+            // Ensure it includes the correct protocol (based on the current request)
+            $scheme = !empty($this->request->server['HTTPS']) && $this->request->server['HTTPS'] != 'off' ? 'https:' : 'http:';
+            $commentics_url = preg_replace('/^https?:/', $scheme, $commentics_url);
+        }
 
         /* If URL being viewed contains www. */
         if (substr(strtolower($this->request->server['HTTP_HOST']), 0, 4) == 'www.') {

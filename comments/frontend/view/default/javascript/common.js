@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cmtxViewReplies();
         cmtxTimeago();
         cmtxHighlightCode();
+        cmtxHighlightPermalink();
         cmtxViewersOnline();
         cmtxCloseShareBox();
         cmtxClosePermalinkBox();
@@ -59,31 +60,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // If there's a file upload, we need to remove the content type.
         if (typeof(options.file_upload) != 'undefined') {
+            var is_file_upload = true;
             delete options.headers['Content-Type'];
+        } else {
+            var is_file_upload = false;
         }
 
-        // Append the language
-        if (typeof(cmtx_js_settings_page) != 'undefined') {
-            options.body += '&cmtx_language=' + encodeURIComponent(cmtx_js_settings_page.language);
-        } else if (typeof(cmtx_js_settings_user) != 'undefined') {
-            options.body += '&cmtx_language=' + encodeURIComponent(cmtx_js_settings_user.language);
-        }
-
-        // Append RTL
-        if (typeof(cmtx_js_settings_page) != 'undefined') {
-            options.body += '&cmtx_rtl=' + encodeURIComponent(cmtx_js_settings_page.rtl);
-        } else if (typeof(cmtx_js_settings_user) != 'undefined') {
-            options.body += '&cmtx_rtl=' + encodeURIComponent(cmtx_js_settings_user.rtl);
-        }
-
-        if (typeof(options.body) == 'string') {
-            // Remove the leading '&' if it exists
-            if (options.body.charAt(0) == '&') {
-                options.body = options.body.substr(1);
+        // Only append language + rtl if not uploading a file
+        if (!is_file_upload) {
+            if (typeof(cmtx_js_settings_page) != 'undefined') {
+                options.body += '&cmtx_language=' + encodeURIComponent(cmtx_js_settings_page.language);
+                options.body += '&cmtx_rtl=' + encodeURIComponent(cmtx_js_settings_page.rtl);
+            } else if (typeof(cmtx_js_settings_user) != 'undefined') {
+                options.body += '&cmtx_language=' + encodeURIComponent(cmtx_js_settings_user.language);
+                options.body += '&cmtx_rtl=' + encodeURIComponent(cmtx_js_settings_user.rtl);
             }
 
-            // Send line breaks as \r\n
-            options.body = options.body.replace(new RegExp('%0A', 'g'), '%0D%0A');
+            if (typeof(options.body) == 'string') {
+                if (options.body.charAt(0) == '&') {
+                    options.body = options.body.substr(1);
+                }
+
+                options.body = options.body.replace(new RegExp('%0A', 'g'), '%0D%0A');
+            }
+        } else {
+            // For file uploads, append these to FormData instead
+            if (typeof(cmtx_js_settings_page) != 'undefined') {
+                options.body.append('cmtx_language', cmtx_js_settings_page.language);
+                options.body.append('cmtx_rtl', cmtx_js_settings_page.rtl);
+            } else if (typeof(cmtx_js_settings_user) != 'undefined') {
+                options.body.append('cmtx_language', cmtx_js_settings_user.language);
+                options.body.append('cmtx_rtl', cmtx_js_settings_user.rtl);
+            }
         }
 
         return fetch(url, options);
@@ -2789,6 +2797,23 @@ function cmtxViewReplies() {
                 }
             }
         });
+    }
+}
+
+/* Highlight the permalinked comment */
+function cmtxHighlightPermalink() {
+    var permalink = document.querySelector('.cmtx_permalink');
+
+    if (permalink) {
+        var view_replies_link = document.querySelector('.cmtx_view_replies_link');
+
+        if (view_replies_link) {
+            view_replies_link.click();
+        }
+
+        setTimeout(function() {
+            cmtxAutoScroll(permalink);
+        }, 600);
     }
 }
 

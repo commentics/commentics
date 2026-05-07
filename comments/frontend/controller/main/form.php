@@ -449,6 +449,7 @@ class MainFormController extends Controller
                         'extra_fields'     => $extra_fields,
                         'reply'            => false,
                         'reply_id'         => array(),
+                        'is_permalink'     => false,
                         'number_edits'     => 0
                     );
 

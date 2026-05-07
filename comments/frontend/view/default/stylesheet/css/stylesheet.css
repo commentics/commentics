@@ -4006,6 +4006,22 @@ select.cmtx_required {
   text-decoration: none;
 }
 
+@keyframes permalink_keyframe {
+  0% {
+    background: #fdfcdc;
+  }
+  50% {
+    background: #fdfcdc;
+  }
+  100% {
+    background: transparent;
+  }
+}
+.cmtx_permalink {
+  animation-duration: 3s;
+  animation-name: permalink_keyframe;
+}
+
 .cmtx_youtube_container iframe {
   height: auto;
   max-width: 100%;

@@ -1,4 +1,4 @@
-<div id="cmtx_perm_{{ comment.id }}" class="cmtx_comment_box cmtx_comment_layout_two cmtx_clear" data-cmtx-comment-id="{{ comment.id }}" itemprop="comment" itemscope itemtype="https://schema.org/Comment">
+<div id="cmtx_perm_{{ comment.id }}" class="cmtx_comment_box cmtx_comment_layout_two cmtx_clear {{ comment.is_permalink }}" data-cmtx-comment-id="{{ comment.id }}" itemprop="comment" itemscope itemtype="https://schema.org/Comment">
     <div class="cmtx_content_area reply_indent_{{ reply_depth }}">
         @if avatar_type
             <div class="cmtx_avatar_area">
@@ -118,7 +118,7 @@
 
                     @if show_date
                         <span class="cmtx_date_area">
-                            <time class="cmtx_date cmtx_timeago" datetime="{{ comment.datetime }}" title="{{ comment.date_added }}">{{ comment.date_added }}</time>
+                            <time class="cmtx_date cmtx_timeago" datetime="{{ comment.datetime }}" title="{{ comment.date_added }}" dir="ltr">{{ comment.date_added }}</time>
 
                             @if comment.number_edits
                                 <span class="cmtx_edited">{{ lang_text_edited }}</span>
