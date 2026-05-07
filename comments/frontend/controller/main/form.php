@@ -230,7 +230,6 @@ class MainFormController extends Controller
                     $this->response->addHeader('Content-type: image/png');
 
                     imagepng($image);
-                    imagedestroy($image);
                 }
             }
         }

@@ -56,16 +56,18 @@ class Home
 
                 $curl_info = curl_getinfo($ch);
             }
-
-            curl_close($ch);
         } else if ((bool) ini_get('allow_url_fopen')) {
             $latest_version = @file_get_contents($url);
 
             if ($debug) {
                 $fopen_error = error_get_last();
 
-                if (isset($http_response_header)) {
-                    $fopen_http_response_header = $http_response_header;
+                if (function_exists('http_get_last_response_headers')) {
+                    // PHP 8.4+
+                    $response_headers = http_get_last_response_headers();
+                } elseif (isset($http_response_header)) {
+                    // Older PHP versions
+                    $response_headers = $http_response_header;
                 }
             }
         }
@@ -91,9 +93,9 @@ class Home
                 $this->log->write('Error: ' . trim($fopen_error['message']));
             }
 
-            if (isset($fopen_http_response_header)) {
-                $this->log->write('HTTP Response Header:');
-                $this->log->write($fopen_http_response_header);
+            if (isset($response_headers)) {
+                $this->log->write('HTTP Response Headers:');
+                $this->log->write($response_headers);
             }
 
             if (isset($curl_errno)) {
@@ -128,7 +130,7 @@ class Home
             if ($url != 'https://www.example.com') {
                 $url = 'https://www.example.com';
 
-                unset($curl_errno, $curl_error, $fopen_http_response_header);
+                unset($curl_errno, $curl_error, $response_headers);
 
                 $this->log->write('Comparing with example.com');
 
@@ -160,8 +162,6 @@ class Home
             curl_setopt($ch, CURLOPT_URL, $url);
 
             $versions = curl_exec($ch);
-
-            curl_close($ch);
         } else if ((bool) ini_get('allow_url_fopen')) {
             $versions = file_get_contents($url);
         }
@@ -190,8 +190,6 @@ class Home
             curl_setopt($ch, CURLOPT_URL, $url);
 
             $news = curl_exec($ch);
-
-            curl_close($ch);
         } else if ((bool) ini_get('allow_url_fopen')) {
             $news = file_get_contents($url);
         }
@@ -220,8 +218,6 @@ class Home
             curl_setopt($ch, CURLOPT_URL, $url);
 
             $sponsors = curl_exec($ch);
-
-            curl_close($ch);
         } else if ((bool) ini_get('allow_url_fopen')) {
             $sponsors = file_get_contents($url);
         }
@@ -279,8 +275,6 @@ class Home
                 curl_setopt($ch, CURLOPT_URL, $url);
 
                 $result = curl_exec($ch);
-
-                curl_close($ch);
             } else if ((bool) ini_get('allow_url_fopen')) {
                 $result = file_get_contents($url);
             }
@@ -316,8 +310,6 @@ class Home
             curl_setopt($ch, CURLOPT_URL, $url);
 
             $result = curl_exec($ch);
-
-            curl_close($ch);
         } else if ((bool) ini_get('allow_url_fopen')) {
             $result = file_get_contents($url);
         }

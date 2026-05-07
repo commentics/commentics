@@ -1163,8 +1163,6 @@ class MainFormValidateModel extends Model
             $this->log->write($response);
         }
 
-        curl_close($ch);
-
         if ($response != 'false') {
             return true;
         } else {
@@ -1661,8 +1659,6 @@ class MainFormValidateModel extends Model
             curl_exec($ch);
 
             $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-            curl_close($ch);
 
             if (!in_array($http_code, array(200, 301, 302))) {
                 return false;

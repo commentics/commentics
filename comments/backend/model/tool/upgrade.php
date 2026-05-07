@@ -56,8 +56,6 @@ class ToolUpgradeModel extends Model
 
         $changelog = curl_exec($ch);
 
-        curl_close($ch);
-
         return $changelog;
     }
 
@@ -92,8 +90,6 @@ class ToolUpgradeModel extends Model
         } else if ($http_code != 200) {
             $error = sprintf($this->data['lang_error_status_code'], $http_code);
         }
-
-        curl_close($ch);
 
         if (!$error) {
             if (is_writable($temp_folder)) {
