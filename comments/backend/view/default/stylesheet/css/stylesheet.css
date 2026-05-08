@@ -4848,6 +4848,17 @@ nav ul {
   font-size: 13px !important;
 }
 
+.ui-tabs .ui-tabs-active .ui-tabs-anchor {
+  background: #fff;
+  color: #454545;
+}
+
+.ui-tabs .ui-state-active {
+  background: #fff;
+  border: 1px solid #dfdfdf;
+  border-bottom: 0;
+}
+
 @media all and (max-width: 500px) {
   .ui-tabs {
     margin-top: 12px;
@@ -4899,6 +4910,12 @@ nav ul {
 
 .ui-dialog-content a {
   outline: none;
+}
+
+.ui-dialog-buttonset button:active {
+  border: 1px solid #ccc;
+  background: #ededed;
+  color: #454545;
 }
 
 @media all and (max-width: 500px) {
@@ -4957,6 +4974,50 @@ nav ul {
 
 .ui-autocomplete .ui-state-focus {
   background: #ffffea;
+}
+
+/*********************** Lightbox *******************/
+#lightbox {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+#lightbox.active {
+  display: flex;
+}
+
+.lightbox-inner {
+  max-height: 90%;
+  max-width: 90%;
+  position: relative;
+}
+
+.lightbox-image {
+  border-radius: 4px;
+  display: block;
+  max-height: 90vh;
+  max-width: 100%;
+}
+
+.lightbox-close {
+  background: none;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 32px;
+  line-height: 1;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: -40px;
 }
 
 /*********************** Table **********************/

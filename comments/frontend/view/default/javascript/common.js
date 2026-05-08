@@ -3064,6 +3064,6 @@ function cmtxGetScrollTop() {
 }
 
 /* Trims a string */
-function cmtxTrim(string) {
-    return string.trim(string);
+function trim(value) {
+    return value.trim();
 }

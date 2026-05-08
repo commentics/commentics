@@ -438,6 +438,8 @@ class MainUpgrade2Model extends Model
             $this->db->query("UPDATE `" . CMTX_DB_PREFIX . "settings` SET `title` = 'show_share_x' WHERE `title` = 'show_share_twitter'");
             @unlink(CMTX_DIR_ROOT . 'frontend/view/default/image/social/twitter.png');
             @unlink(CMTX_DIR_ROOT . 'frontend/view/default/image/share/twitter.png');
+
+            remove_directory(CMTX_DIR_3RDPARTY . 'colorbox/');
         }
     }
 

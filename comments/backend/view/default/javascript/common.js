@@ -45,7 +45,7 @@ $(document).ready(function() {
     $('input[name="password_1"]').keyup(function() {
         var password = $('input[name="password_1"]').val();
 
-        password = $.trim(password);
+        password = trim(password);
 
         var description = [];
 
@@ -1690,14 +1690,6 @@ $(document).ready(function() {
         });
     });
 
-    if ($('#edit_comment_page a.gallery').length) {
-        $('#edit_comment_page a.gallery').colorbox({
-            maxWidth: '80%',
-            maxHeight: '50%',
-            rel: 'gallery'
-        })
-    }
-
     /* Edit Spam */
 
     $('#edit_spam_page .button').click(function(e) {
@@ -2510,12 +2502,6 @@ $(document).ready(function() {
 
     $('select[name="theme_backend"]').trigger('change');
 
-    if ($('#extension_themes_page a.gallery').length) {
-        $('#extension_themes_page a.gallery').colorbox({
-            maxHeight: '70%',
-        })
-    }
-
     $('#extension_themes_page #sortable').sortable({
         update: function() {
             var order = $(this).sortable('toArray', {attribute: 'data-id'}).toString();
@@ -2539,6 +2525,35 @@ $(document).ready(function() {
 
         window.history.back();
     });
+
+    /* Lightbox */
+
+    const $lightbox = $('#lightbox');
+    const $image = $('.lightbox-image');
+
+    $(document).on('click', 'a.gallery', function(e) {
+        e.preventDefault();
+
+        $image.attr('src', $(this).attr('href'));
+
+        $lightbox.addClass('active');
+    });
+
+    $('.lightbox-close').on('click', function() {
+        $lightbox.removeClass('active');
+    });
+
+    $lightbox.on('click', function(e) {
+        if ($(e.target).is('#lightbox')) {
+            $lightbox.removeClass('active');
+        }
+    });
+
+    $(document).on('keyup', function(e) {
+        if (e.key === 'Escape') {
+            $lightbox.removeClass('active');
+        }
+    });
 });
 
 function translate_buttons() {
@@ -2546,6 +2561,10 @@ function translate_buttons() {
     $('.ui-button:contains("No")').text(js_settings.lang_text_no);
     $('.ui-button:contains("Stop")').text(js_settings.lang_dialog_stop);
     $('.ui-button:contains("Close")').text(js_settings.lang_dialog_close);
+}
+
+function trim(value) {
+    return value.trim();
 }
 
 /* Upgrade */

@@ -24,11 +24,6 @@
         <link rel="stylesheet" type="text/css" href="../3rdparty/summernote/summernote-lite.css">
     <?php } ?>
 
-    <?php if ($route == 'edit/comment' || $route == 'extension/themes' || $route == 'tool/text_finder') { ?>
-        <link rel="stylesheet" type="text/css" href="../3rdparty/colorbox/colorbox.css">
-        <script src="../3rdparty/colorbox/jquery.colorbox-min.js"></script>
-    <?php } ?>
-
     <script src="../3rdparty/hint_script/tooltip.js"></script>
 
     <script src="<?php echo $common; ?>"></script>
