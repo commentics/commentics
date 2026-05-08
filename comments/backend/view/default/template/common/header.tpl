@@ -19,6 +19,7 @@
     <?php } ?>
 
     <?php if ($wysiwyg_enabled && $route == 'edit/comment') { ?>
+        <script src="<?php echo $jquery_migrate; ?>"></script>
         <script src="../3rdparty/summernote/summernote-lite.js"></script>
         <link rel="stylesheet" type="text/css" href="../3rdparty/summernote/summernote-lite.css">
     <?php } ?>

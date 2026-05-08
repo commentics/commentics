@@ -20,7 +20,7 @@
     var options = context.options;
     var lang = options.langInfo;
 
-    self.icon = '<i class="fa fa-object-group"/>';
+    self.icon = '<i class="fa fa-object-group"></i>';
 
     // add context menu button for dialog
     context.memo('button.databasic', function() {
@@ -237,7 +237,7 @@
 
           $saveBtn
             .text(info.node ? lang.databasic.edit : lang.databasic.insert)
-            .click(function(event) {
+            .on('click', function(event) {
               event.preventDefault();
 
               deferred.resolve({ test: $inpTest.val() });

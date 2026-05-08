@@ -13,6 +13,8 @@ class CommonHeaderController extends Controller
 
         $this->data['jquery_ui'] = $this->loadJavascript('jquery/jquery-ui.min.js');
 
+        $this->data['jquery_migrate'] = $this->loadJavascript('jquery/jquery-migrate.min.js');
+
         $this->data['jquery_theme'] = $this->loadJavascript('jquery/jquery-ui.min.css');
 
         $this->data['stylesheet'] = $this->loadStylesheet('stylesheet.css');
