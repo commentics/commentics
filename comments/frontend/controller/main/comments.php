@@ -355,150 +355,149 @@ class MainCommentsController extends Controller
         $result = $this->cache->get('getcomment_commentid' . $id . '_' . $this->setting->get('language'));
 
         if ($result !== false) {
-            return $result;
+            $comment = $result;
+        } else {
+            $comment = $this->comment->getComment($id);
+
+            if ($this->setting->get('avatar_type')) {
+                $comment['avatar'] = $this->user->getAvatar($comment['user_id']);
+
+                if ($this->setting->get('avatar_type') == 'gravatar') {
+                    $comment['avatar_bio'] = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=158';
+                } else {
+                    if (substr($comment['avatar'], -15) == 'misc/avatar.png') {
+                        $comment['avatar_bio'] = $this->loadImage('misc/avatar_bio.png');
+                    } else {
+                        $comment['avatar_bio'] = $comment['avatar'];
+                    }
+                }
+
+                $num_approved_comments = $this->user->getNumApprovedComments($comment['user_id']);
+
+                if ($comment['is_admin']) {
+                    $comment['level'] = $this->data['lang_text_admin'];
+                } else {
+                    if ($num_approved_comments >= $this->setting->get('level_5')) {
+                        $comment['level'] = $this->data['lang_text_level_5'];
+                    } else if ($num_approved_comments >= $this->setting->get('level_4')) {
+                        $comment['level'] = $this->data['lang_text_level_4'];
+                    } else if ($num_approved_comments >= $this->setting->get('level_3')) {
+                        $comment['level'] = $this->data['lang_text_level_3'];
+                    } else if ($num_approved_comments >= $this->setting->get('level_2')) {
+                        $comment['level'] = $this->data['lang_text_level_2'];
+                    } else if ($num_approved_comments >= $this->setting->get('level_1')) {
+                        $comment['level'] = $this->data['lang_text_level_1'];
+                    } else if ($num_approved_comments >= $this->setting->get('level_0')) {
+                        $comment['level'] = $this->data['lang_text_level_0'];
+                    } else {
+                        $comment['level'] = '';
+                    }
+                }
+
+                if ($this->top_poster == $comment['user_id']) {
+                    $comment['top_poster'] = true;
+                } else {
+                    $comment['top_poster'] = false;
+                }
+
+                if ($this->most_likes == $comment['user_id']) {
+                    $comment['most_likes'] = true;
+                } else {
+                    $comment['most_likes'] = false;
+                }
+
+                if ($this->first_poster == $comment['user_id']) {
+                    $comment['first_poster'] = true;
+                } else {
+                    $comment['first_poster'] = false;
+                }
+
+                $comment['bio_info_posts'] = $num_approved_comments;
+
+                if ($this->setting->get('show_like')) {
+                    $comment['bio_info_likes'] = $this->user->getNumLikedComments($comment['user_id']);
+                }
+
+                if ($this->setting->get('show_dislike')) {
+                    $comment['bio_info_dislikes'] = $this->user->getNumDislikedComments($comment['user_id']);
+                }
+
+                $comment['bio_info_since'] = $this->variable->formatDate($comment['date_added_user'], 'M Y', $this->data);
+            }
+
+            $location = '';
+
+            if ($this->setting->get('show_town') && $comment['town']) {
+                $location .= '<span itemprop="addressLocality">' . $comment['town'] . '</span>, ';
+            }
+
+            if ($this->setting->get('show_state') && $comment['state']) {
+                $location .= '<span itemprop="addressRegion">' . $comment['state'] . '</span>, ';
+            }
+
+            if ($this->setting->get('show_country') && $comment['country']) {
+                $location .= '<span itemprop="addressCountry">' . $comment['country'] . '</span>, ';
+            }
+
+            $comment['location'] = rtrim($location, ', ');
+
+            if ($this->setting->get('enabled_smilies')) {
+                $comment['comment'] = $this->model_main_comments->convertSmilies($comment['comment']);
+            }
+
+            if ($this->setting->get('enabled_bb_code') && ($this->setting->get('enabled_bb_code_code') || $this->setting->get('enabled_bb_code_php'))) {
+                $comment['comment'] = $this->model_main_comments->highlightCode($comment['comment']);
+            }
+
+            $comment['comment'] = $this->model_main_comments->purifyComment($comment['comment']);
+
+            $uploads = $comment['uploads'];
+
+            foreach ($uploads as $key => &$upload) {
+                if (file_exists(CMTX_DIR_UPLOAD . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'])) {
+                    $upload['image'] = $this->url->getCommenticsUrl() . 'upload/' . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'];
+                } else {
+                    unset($uploads[$key]);
+                }
+            }
+
+            $comment['uploads'] = $uploads;
+
+            $comment['permalink'] = $this->comment->buildCommentUrl($comment['id'], $comment['page_url']);
+
+            $comment['datetime'] = $this->variable->formatDate($comment['date_added'], 'c', $this->data);
+
+            if ($this->setting->get('date_auto')) {
+                $comment['date_added'] = $this->variable->formatDate($comment['date_added'], $this->data['lang_date_time_format'], $this->data);
+            } else {
+                $day_difference = $this->model_main_comments->calculateDayDifference($comment['date_added']);
+
+                if ($day_difference == 0) {
+                    $comment['date_added'] = $this->data['lang_text_today'] . ' ' . $this->variable->formatDate($comment['date_added'], $this->data['lang_time_format'], $this->data);
+                } else if ($day_difference == 1) {
+                    $comment['date_added'] = $this->data['lang_text_yesterday'] . ' ' . $this->variable->formatDate($comment['date_added'], $this->data['lang_time_format'], $this->data);
+                } else {
+                    $comment['date_added'] = $this->variable->formatDate($comment['date_added'], $this->data['lang_date_time_format'], $this->data);
+                }
+            }
+
+            $replies = $this->model_main_comments->getReplies($comment['id']);
+
+            $comment['reply_id'] = array();
+
+            foreach ($replies as $reply) {
+                $comment['reply_id'][$reply['id']] = $this->getComment($reply['id']);
+            }
+
+            if ($comment['reply_to'] == 0) {
+                $this->cache->set('getcomment_commentid' . $id . '_' . $this->setting->get('language'), $comment);
+            }
         }
 
-        $comment = $this->comment->getComment($id);
-
-        // Is comment a permalink?
         if ($this->filter_comment_id == $comment['id']) {
             $comment['is_permalink'] = 'cmtx_permalink';
         } else {
             $comment['is_permalink'] = '';
-        }
-
-        if ($this->setting->get('avatar_type')) {
-            $comment['avatar'] = $this->user->getAvatar($comment['user_id']);
-
-            if ($this->setting->get('avatar_type') == 'gravatar') {
-                $comment['avatar_bio'] = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($comment['email']))) . '?d=' . ($this->setting->get('gravatar_default') == 'custom' ? $this->url->encode($this->setting->get('gravatar_custom')) : $this->setting->get('gravatar_default')) . '&amp;r=' . $this->setting->get('gravatar_audience') . '&amp;s=158';
-            } else {
-                if (substr($comment['avatar'], -15) == 'misc/avatar.png') {
-                    $comment['avatar_bio'] = $this->loadImage('misc/avatar_bio.png');
-                } else {
-                    $comment['avatar_bio'] = $comment['avatar'];
-                }
-            }
-
-            $num_approved_comments = $this->user->getNumApprovedComments($comment['user_id']);
-
-            if ($comment['is_admin']) {
-                $comment['level'] = $this->data['lang_text_admin'];
-            } else {
-                if ($num_approved_comments >= $this->setting->get('level_5')) {
-                    $comment['level'] = $this->data['lang_text_level_5'];
-                } else if ($num_approved_comments >= $this->setting->get('level_4')) {
-                    $comment['level'] = $this->data['lang_text_level_4'];
-                } else if ($num_approved_comments >= $this->setting->get('level_3')) {
-                    $comment['level'] = $this->data['lang_text_level_3'];
-                } else if ($num_approved_comments >= $this->setting->get('level_2')) {
-                    $comment['level'] = $this->data['lang_text_level_2'];
-                } else if ($num_approved_comments >= $this->setting->get('level_1')) {
-                    $comment['level'] = $this->data['lang_text_level_1'];
-                } else if ($num_approved_comments >= $this->setting->get('level_0')) {
-                    $comment['level'] = $this->data['lang_text_level_0'];
-                } else {
-                    $comment['level'] = '';
-                }
-            }
-
-            if ($this->top_poster == $comment['user_id']) {
-                $comment['top_poster'] = true;
-            } else {
-                $comment['top_poster'] = false;
-            }
-
-            if ($this->most_likes == $comment['user_id']) {
-                $comment['most_likes'] = true;
-            } else {
-                $comment['most_likes'] = false;
-            }
-
-            if ($this->first_poster == $comment['user_id']) {
-                $comment['first_poster'] = true;
-            } else {
-                $comment['first_poster'] = false;
-            }
-
-            $comment['bio_info_posts'] = $num_approved_comments;
-
-            if ($this->setting->get('show_like')) {
-                $comment['bio_info_likes'] = $this->user->getNumLikedComments($comment['user_id']);
-            }
-
-            if ($this->setting->get('show_dislike')) {
-                $comment['bio_info_dislikes'] = $this->user->getNumDislikedComments($comment['user_id']);
-            }
-
-            $comment['bio_info_since'] = $this->variable->formatDate($comment['date_added_user'], 'M Y', $this->data);
-        }
-
-        $location = '';
-
-        if ($this->setting->get('show_town') && $comment['town']) {
-            $location .= '<span itemprop="addressLocality">' . $comment['town'] . '</span>, ';
-        }
-
-        if ($this->setting->get('show_state') && $comment['state']) {
-            $location .= '<span itemprop="addressRegion">' . $comment['state'] . '</span>, ';
-        }
-
-        if ($this->setting->get('show_country') && $comment['country']) {
-            $location .= '<span itemprop="addressCountry">' . $comment['country'] . '</span>, ';
-        }
-
-        $comment['location'] = rtrim($location, ', ');
-
-        if ($this->setting->get('enabled_smilies')) {
-            $comment['comment'] = $this->model_main_comments->convertSmilies($comment['comment']);
-        }
-
-        if ($this->setting->get('enabled_bb_code') && ($this->setting->get('enabled_bb_code_code') || $this->setting->get('enabled_bb_code_php'))) {
-            $comment['comment'] = $this->model_main_comments->highlightCode($comment['comment']);
-        }
-
-        $comment['comment'] = $this->model_main_comments->purifyComment($comment['comment']);
-
-        $uploads = $comment['uploads'];
-
-        foreach ($uploads as $key => &$upload) {
-            if (file_exists(CMTX_DIR_UPLOAD . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'])) {
-                $upload['image'] = $this->url->getCommenticsUrl() . 'upload/' . $upload['folder'] . '/' . $upload['filename'] . '.' . $upload['extension'];
-            } else {
-                unset($uploads[$key]);
-            }
-        }
-
-        $comment['uploads'] = $uploads;
-
-        $comment['permalink'] = $this->comment->buildCommentUrl($comment['id'], $comment['page_url']);
-
-        $comment['datetime'] = $this->variable->formatDate($comment['date_added'], 'c', $this->data);
-
-        if ($this->setting->get('date_auto')) {
-            $comment['date_added'] = $this->variable->formatDate($comment['date_added'], $this->data['lang_date_time_format'], $this->data);
-        } else {
-            $day_difference = $this->model_main_comments->calculateDayDifference($comment['date_added']);
-
-            if ($day_difference == 0) {
-                $comment['date_added'] = $this->data['lang_text_today'] . ' ' . $this->variable->formatDate($comment['date_added'], $this->data['lang_time_format'], $this->data);
-            } else if ($day_difference == 1) {
-                $comment['date_added'] = $this->data['lang_text_yesterday'] . ' ' . $this->variable->formatDate($comment['date_added'], $this->data['lang_time_format'], $this->data);
-            } else {
-                $comment['date_added'] = $this->variable->formatDate($comment['date_added'], $this->data['lang_date_time_format'], $this->data);
-            }
-        }
-
-        $replies = $this->model_main_comments->getReplies($comment['id']);
-
-        $comment['reply_id'] = array();
-
-        foreach ($replies as $reply) {
-            $comment['reply_id'][$reply['id']] = $this->getComment($reply['id']);
-        }
-
-        if ($comment['reply_to'] == 0) {
-            $this->cache->set('getcomment_commentid' . $id . '_' . $this->setting->get('language'), $comment);
         }
 
         return $comment;
