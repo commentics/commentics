@@ -65,9 +65,6 @@ class Home
                 if (function_exists('http_get_last_response_headers')) {
                     // PHP 8.4+
                     $response_headers = http_get_last_response_headers();
-                } elseif (isset($http_response_header)) {
-                    // Older PHP versions
-                    $response_headers = $http_response_header;
                 }
             }
         }
