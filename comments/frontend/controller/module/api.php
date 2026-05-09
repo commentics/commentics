@@ -51,7 +51,7 @@ class ModuleApiController extends Controller
         }
 
         // Ensure content type
-        $content_type = $this->request->server['CONTENT_TYPE'] ?? '';
+        $content_type = isset($this->request->server['CONTENT_TYPE']) ? $this->request->server['CONTENT_TYPE'] : '';
         if (stripos($content_type, 'application/json') !== 0) {
             $this->send_response(400, [
                 'status' => 'error',
@@ -90,7 +90,7 @@ class ModuleApiController extends Controller
         $this->model_module_api->resetAttempts($ip_address);
 
         // Check action
-        $action = $input['action'] ?? '';
+        $action = isset($input['action']) ? $input['action'] : '';
         if (!$action) {
             $this->send_response(400, [
                 'status' => 'error',
@@ -101,9 +101,9 @@ class ModuleApiController extends Controller
         // Handle actions
         switch ($action) {
             case 'update_user':
-                $old_email = $input['old_email'] ?? '';
-                $new_email = $input['new_email'] ?? '';
-                $new_name  = $input['new_name'] ?? '';
+                $old_email = isset($input['old_email']) ? $input['old_email'] : '';
+                $new_email = isset($input['new_email']) ? $input['new_email'] : '';
+                $new_name  = isset($input['new_name']) ? $input['new_name'] : '';
 
                 if (!$old_email || !$new_email || !$new_name) {
                     $this->send_response(400, [
@@ -130,7 +130,7 @@ class ModuleApiController extends Controller
                     ]);
                 }
             case 'delete_user':
-                $email = $input['email'] ?? '';
+                $email = isset($input['email']) ? $input['email'] : '';
 
                 if (!$email) {
                     $this->send_response(400, [
