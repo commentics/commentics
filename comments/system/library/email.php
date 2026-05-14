@@ -230,7 +230,7 @@ class Email
                 }
 
                 if (substr($reply, 0, 3) != 250) {
-                    $this->log->write('Email Error: EHLO not accepted from server');
+                    $this->log->write('Email Error: EHLO not accepted from server - ' . trim($reply));
                     return;
                 }
 
@@ -248,7 +248,7 @@ class Email
                     }
 
                     if (substr($reply, 0, 3) != 220) {
-                        $this->log->write('Email Error: STARTTLS not accepted from server');
+                        $this->log->write('Email Error: STARTTLS not accepted from server - ' . trim($reply));
                         return;
                     }
 
@@ -269,7 +269,7 @@ class Email
                     }
 
                     if (substr($reply, 0, 3) != 250) {
-                        $this->log->write('Email Error: EHLO not accepted from server');
+                        $this->log->write('Email Error: EHLO not accepted from server - ' . trim($reply));
                         return;
                     }
 
@@ -286,7 +286,7 @@ class Email
                     }
 
                     if (substr($reply, 0, 3) != 334) {
-                        $this->log->write('Email Error: AUTH LOGIN not accepted from server');
+                        $this->log->write('Email Error: AUTH LOGIN not accepted from server - ' . trim($reply));
                         return;
                     }
 
@@ -303,7 +303,7 @@ class Email
                     }
 
                     if (substr($reply, 0, 3) != 334) {
-                        $this->log->write('Email Error: Username not accepted from server');
+                        $this->log->write('Email Error: Username not accepted from server - ' . trim($reply));
                         return;
                     }
 
@@ -320,7 +320,7 @@ class Email
                     }
 
                     if (substr($reply, 0, 3) != 235) {
-                        $this->log->write('Email Error: Password not accepted from server');
+                        $this->log->write('Email Error: Password not accepted from server - ' . trim($reply));
                         return;
                     }
                 } else {
@@ -337,7 +337,7 @@ class Email
                     }
 
                     if (substr($reply, 0, 3) != 250) {
-                        $this->log->write('Email Error: HELO not accepted from server');
+                        $this->log->write('Email Error: HELO not accepted from server - ' . trim($reply));
                         return;
                     }
                 }
@@ -355,7 +355,7 @@ class Email
                 }
 
                 if (substr($reply, 0, 3) != 250) {
-                    $this->log->write('Email Error: MAIL FROM not accepted from server');
+                    $this->log->write('Email Error: MAIL FROM not accepted from server - ' . trim($reply));
                     $this->log->write('MAIL FROM: ' . $from_email);
                     return;
                 }
@@ -373,7 +373,7 @@ class Email
                 }
 
                 if ((substr($reply, 0, 3) != 250) && (substr($reply, 0, 3) != 251)) {
-                    $this->log->write('Email Error: RCPT TO not accepted from server');
+                    $this->log->write('Email Error: RCPT TO not accepted from server - ' . trim($reply));
                     $this->log->write('RCPT TO: ' . $to_email);
                     return;
                 }
@@ -391,7 +391,7 @@ class Email
                 }
 
                 if (substr($reply, 0, 3) != 354) {
-                    $this->log->write('Email Error: DATA not accepted from server');
+                    $this->log->write('Email Error: DATA command not accepted from server - ' . trim($reply));
                     return;
                 }
 
@@ -402,13 +402,15 @@ class Email
                 $lines = explode("\n", $body);
 
                 foreach ($lines as $line) {
+                    if (isset($line[0]) && $line[0] == '.') {
+                        $line = '.' . $line;
+                    }
+
                     $results = ($line === '') ? array('') : str_split($line, 998);
 
                     foreach ($results as $result) {
-                        if (substr(PHP_OS, 0, 3) != 'WIN') {
+                        foreach ($results as $result) {
                             fputs($handle, $result . "\r\n");
-                        } else {
-                            fputs($handle, str_replace("\n", "\r\n", $result) . "\r\n");
                         }
                     }
                 }
@@ -426,7 +428,7 @@ class Email
                 }
 
                 if (substr($reply, 0, 3) != 250) {
-                    $this->log->write('Email Error: DATA not accepted from server');
+                    $this->log->write('Email Error: Message body not accepted from server - ' . trim($reply));
                     return;
                 }
 
@@ -443,7 +445,7 @@ class Email
                 }
 
                 if (substr($reply, 0, 3) != 221) {
-                    $this->log->write('Email Error: QUIT not accepted from server');
+                    $this->log->write('Email Error: QUIT not accepted from server - ' . trim($reply));
                     return;
                 }
 
