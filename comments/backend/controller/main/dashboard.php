@@ -82,16 +82,61 @@ class MainDashboardController extends Controller
         $this->data['lang_text_stats_total'] = sprintf($this->data['lang_text_stats_total'], $this->model_main_dashboard->getNumCommentsTotal(), $this->model_main_dashboard->getNumSubscriptionsTotal(), $this->model_main_dashboard->getNumBansTotal());
 
         if ($this->setting->get('language_backend') == 'english') {
-            $this->data['lang_text_stats_action'] = str_replace(array('1 comments that require', '1 reviews that require', '1 testimonials that require'), array('1 comment that requires', '1 review that requires', '1 testimonial that requires'), $this->data['lang_text_stats_action']);
-            $this->data['lang_text_stats_action'] = str_replace(array('1 comments are', '1 reviews are', '1 testimonials are'), array('1 comment is', '1 review is', '1 testimonial is'), $this->data['lang_text_stats_action']);
+            $this->data['lang_text_stats_action'] = preg_replace(
+                array(
+                    '/\b1 comments that require\b/',
+                    '/\b1 reviews that require\b/',
+                    '/\b1 testimonials that require\b/',
+                    '/\b1 comments are\b/',
+                    '/\b1 reviews are\b/',
+                    '/\b1 testimonials are\b/'
+                ),
+                array(
+                    '1 comment that requires',
+                    '1 review that requires',
+                    '1 testimonial that requires',
+                    '1 comment is',
+                    '1 review is',
+                    '1 testimonial is'
+                ),
+                $this->data['lang_text_stats_action']
+            );
 
-            $this->data['lang_text_stats_today'] = str_replace(array('1 new comments', '1 new reviews', '1 new testimonials'), array('1 new comment', '1 new review', '1 new testimonial'), $this->data['lang_text_stats_today']);
-            $this->data['lang_text_stats_today'] = str_replace('1 new subscriptions', '1 new subscription', $this->data['lang_text_stats_today']);
-            $this->data['lang_text_stats_today'] = str_replace('1 new bans', '1 new ban', $this->data['lang_text_stats_today']);
+            $this->data['lang_text_stats_today'] = preg_replace(
+                array(
+                    '/\b1 new comments\b/',
+                    '/\b1 new reviews\b/',
+                    '/\b1 new testimonials\b/',
+                    '/\b1 new subscriptions\b/',
+                    '/\b1 new bans\b/'
+                ),
+                array(
+                    '1 new comment',
+                    '1 new review',
+                    '1 new testimonial',
+                    '1 new subscription',
+                    '1 new ban'
+                ),
+                $this->data['lang_text_stats_today']
+            );
 
-            $this->data['lang_text_stats_total'] = str_replace(array('1 comments', '1 reviews', '1 testimonials'), array('1 comment', '1 review', '1 testimonial'), $this->data['lang_text_stats_total']);
-            $this->data['lang_text_stats_total'] = str_replace('1 subscriptions', '1 subscription', $this->data['lang_text_stats_total']);
-            $this->data['lang_text_stats_total'] = str_replace('1 bans', '1 ban', $this->data['lang_text_stats_total']);
+            $this->data['lang_text_stats_total'] = preg_replace(
+                array(
+                    '/\b1 comments\b/',
+                    '/\b1 reviews\b/',
+                    '/\b1 testimonials\b/',
+                    '/\b1 subscriptions\b/',
+                    '/\b1 bans\b/'
+                ),
+                array(
+                    '1 comment',
+                    '1 review',
+                    '1 testimonial',
+                    '1 subscription',
+                    '1 ban'
+                ),
+                $this->data['lang_text_stats_total']
+            );
         }
 
         $this->data['tip_of_the_day'] = $this->model_main_dashboard->getTipOfTheDay();
