@@ -267,7 +267,7 @@ class Comment
 
         $result = $this->db->row($query);
 
-        if ($result['reply_to']) {
+        if ($result && $result['reply_to']) {
             return $this->getTopParent($result['reply_to']);
         } else {
             return $id;
