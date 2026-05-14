@@ -95,6 +95,10 @@
     content: '\f0e2';
 }
 
+#cmtx_loading_helper {
+    visibility: hidden;
+}
+
 @media all and (max-width: 800px) {
     .cmtx_comments_row_one, .cmtx_comments_row_two {
         margin-bottom: 0;

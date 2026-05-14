@@ -3443,6 +3443,10 @@ select.cmtx_required {
   content: "\f0e2";
 }
 
+#cmtx_loading_helper {
+  visibility: hidden;
+}
+
 @media all and (max-width: 800px) {
   .cmtx_comments_row_one, .cmtx_comments_row_two {
     margin-bottom: 0;
@@ -3489,11 +3493,11 @@ select.cmtx_required {
 }
 
 .cmtx_avatar_area img {
-  height: 72px;
+  height: 78px;
   max-width: 100%;
   position: relative;
   vertical-align: middle;
-  width: 72px;
+  width: 78px;
 }
 
 .cmtx_avatar_shape_circle .cmtx_avatar {

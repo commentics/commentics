@@ -2070,7 +2070,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isInIframe) {
                 if (window.addEventListener) {
                     window.addEventListener('message', function (e) {
-                        if (e.data && e.data == 'infinite_scroll' && !cmtx_js_settings_comments.is_permalink) {
+                        if (e.data && e.data == 'infinite_scroll') {
                             cmtxInfiniteScrollIframe();
                         }
                     }, false);
@@ -2292,8 +2292,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                cmtxRemoveIfExists('body > #cmtx_flag_modal, body > #cmtx_delete_modal');
-
                 /* Load the comment settings in case they weren't already loaded (if there were no comments) */
                 if (document.querySelector('#cmtx_js_settings_comments')) {
                     cmtx_js_settings_comments = JSON.parse(document.querySelector('#cmtx_js_settings_comments').innerText);
@@ -2326,51 +2324,55 @@ document.addEventListener('DOMContentLoaded', function() {
     var scroll_timeout = null;
 
     function cmtxInfiniteScroll() {
-        if (document.querySelector('#cmtx_loading_helper').getAttribute('data-cmtx-load') == '1') {
-            clearTimeout(scroll_timeout);
+        if (!document.querySelector('.cmtx_permalink')) {
+            if (document.querySelector('#cmtx_loading_helper').getAttribute('data-cmtx-load') == '1') {
+                clearTimeout(scroll_timeout);
 
-            scroll_timeout = setTimeout(function() {
-                var element_distance = Math.ceil(document.querySelector('#cmtx_loading_helper').getBoundingClientRect().top + window.scrollY);
+                scroll_timeout = setTimeout(function() {
+                    var rect = document.querySelector('#cmtx_loading_helper').getBoundingClientRect();
 
-                // if the sum of the window height and scroll distance from the top is greater than the target element's distance from the top
-                if ((window.innerHeight + cmtxGetScrollTop()) > element_distance) {
-                    var next_page = parseInt(document.querySelector('#cmtx_next_page').value);
+                    // if the loading helper is visible in the viewport
+                    if (rect.top <= window.innerHeight) {
+                        var next_page = parseInt(document.querySelector('#cmtx_next_page').value);
 
-                    document.querySelector('#cmtx_next_page').value = (next_page + 1);
+                        document.querySelector('#cmtx_next_page').value = (next_page + 1);
 
-                    var options = {
-                        'commentics_url': cmtx_js_settings_comments.commentics_url,
-                        'page_id'       : cmtx_js_settings_comments.page_id,
-                        'page_number'   : next_page,
-                        'sort_by'       : cmtxGetSortByValue(),
-                        'search'        : cmtxGetSearchValue(),
-                        'pagination'    : 'infinite',
-                        'effect'        : false
+                        var options = {
+                            'commentics_url': cmtx_js_settings_comments.commentics_url,
+                            'page_id'       : cmtx_js_settings_comments.page_id,
+                            'page_number'   : next_page,
+                            'sort_by'       : cmtxGetSortByValue(),
+                            'search'        : cmtxGetSearchValue(),
+                            'pagination'    : 'infinite',
+                            'effect'        : false
+                        };
+
+                        cmtxRefreshComments(options);
                     }
-
-                    cmtxRefreshComments(options);
-                }
-            }, 200);
+                }, 200);
+            }
         }
     }
 
     function cmtxInfiniteScrollIframe(e) {
-        if (document.querySelector('#cmtx_loading_helper').getAttribute('data-cmtx-load') == '1') {
-            var next_page = parseInt(document.querySelector('#cmtx_next_page').value);
+        if (!document.querySelector('.cmtx_permalink')) {
+            if (document.querySelector('#cmtx_loading_helper').getAttribute('data-cmtx-load') == '1') {
+                var next_page = parseInt(document.querySelector('#cmtx_next_page').value);
 
-            document.querySelector('#cmtx_next_page').value = (next_page + 1);
+                document.querySelector('#cmtx_next_page').value = (next_page + 1);
 
-            var options = {
-                'commentics_url': cmtx_js_settings_comments.commentics_url,
-                'page_id'       : cmtx_js_settings_comments.page_id,
-                'page_number'   : next_page,
-                'sort_by'       : cmtxGetSortByValue(),
-                'search'        : cmtxGetSearchValue(),
-                'pagination'    : 'infinite',
-                'effect'        : false
+                var options = {
+                    'commentics_url': cmtx_js_settings_comments.commentics_url,
+                    'page_id'       : cmtx_js_settings_comments.page_id,
+                    'page_number'   : next_page,
+                    'sort_by'       : cmtxGetSortByValue(),
+                    'search'        : cmtxGetSearchValue(),
+                    'pagination'    : 'infinite',
+                    'effect'        : false
+                }
+
+                cmtxRefreshComments(options);
             }
-
-            cmtxRefreshComments(options);
         }
     }
 
