@@ -494,15 +494,21 @@ class MainCommentsController extends Controller
             }
         }
 
-        if ($this->filter_comment_id == $comment['id']) {
-            $comment['is_permalink'] = 'cmtx_permalink';
-        } else {
-            $comment['is_permalink'] = '';
-        }
+        $this->applyPermalinkState($comment);
 
         return $comment;
     }
 
+    private function applyPermalinkState(&$comment)
+    {
+        $comment['is_permalink'] = ($this->filter_comment_id == $comment['id']) ? 'cmtx_permalink' : '';
+
+        if (!empty($comment['reply_id'])) {
+            foreach ($comment['reply_id'] as &$reply) {
+                $this->applyPermalinkState($reply);
+            }
+        }
+    }
     public function vote()
     {
         if ($this->request->isAjax()) {
