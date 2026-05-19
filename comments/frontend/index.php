@@ -44,8 +44,8 @@ if (!headers_sent()) {
     header('Content-Type: text/html; charset=utf-8');
 }
 
-define('CMTX_DIR_THIS', dirname(__FILE__) . '/');
-define('CMTX_DIR_ROOT', dirname(CMTX_DIR_THIS) . '/');
+define('CMTX_DIR_THIS', str_replace('\\', '/', dirname(__FILE__) . '/'));
+define('CMTX_DIR_ROOT', str_replace('\\', '/', dirname(CMTX_DIR_THIS) . '/'));
 define('CMTX_DIR_SYSTEM', CMTX_DIR_ROOT . 'system/');
 define('CMTX_DIR_BACKUPS', CMTX_DIR_SYSTEM . 'backups/');
 define('CMTX_DIR_CACHE', CMTX_DIR_SYSTEM . 'cache/');
