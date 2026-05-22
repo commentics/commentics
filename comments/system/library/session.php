@@ -56,5 +56,9 @@ class Session
     public function end()
     {
         unset($_SESSION['commentics'][$this->key]);
+
+        if (empty($_SESSION['commentics'])) {
+            unset($_SESSION['commentics']);
+        }
     }
 }
