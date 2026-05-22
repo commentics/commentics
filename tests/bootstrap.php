@@ -11,7 +11,7 @@ class Bootstrap
         if (!defined('CMTX_FRONTEND')) {
             define('CMTX_FRONTEND', true);
 
-            define('CMTX_VERSION', '4.4');
+            define('CMTX_VERSION', '4.6');
 
             define('CMTX_DIR_THIS', __DIR__ . '/../comments/frontend/');
             define('CMTX_DIR_ROOT', dirname(CMTX_DIR_THIS) . '/');

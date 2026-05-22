@@ -1,3 +1,49 @@
+Version: 4.6
+Date: 22nd May 2026
+[Feature] API module
+[Improvement] PHP 8.5 compatibility
+[Improvement] Increases email text max length
+[Improvement] Adds MySQL index to improve speed
+[Improvement] Adds "no frontend" message
+[Improvement] Adds ability for loose IP address check
+[Improvement] Improves sessions for multiple installs
+[Improvement] Updates countries
+[Improvement] Adds ability to pass RTL in integration code
+[Improvement] User page and emails in user's language
+[Improvement] No need to click refresh after edit/reply
+[Improvement] Adds setting to auto update page URLs
+[Improvement] Permalink shows surrounding comments
+[Improvement] Replaces colorbox with custom solution
+[Improvement] Improves email logging
+[Improvement] Upgrades jQuery script
+[Improvement] Upgrades jQuery UI script
+[Improvement] Upgrades highlight script
+[Improvement] Upgrades chart script
+[Improvement] Upgrades Summernote script
+[Bug Fix] Fix email newline character
+[Bug Fix] Fix checkbox styling
+[Bug Fix] Fix schema.org datePublished for layout two
+[Bug Fix] Fix schema.org missing itemprop comment
+[Bug Fix] Fix noindex for captcha response
+[Bug Fix] Fix email subject encoding
+[Bug Fix] Fix email field always required for notify
+[Bug Fix] Fix notify form error messages duplicating
+[Bug Fix] Fix preserving line breaks in BB code
+[Bug Fix] Fix automatic link conversion
+[Bug Fix] Fix empty paragraph tags
+[Bug Fix] Fix no approval email when editing comment
+[Bug Fix] Fix user page avatar upload
+[Bug Fix] Fix RSS validation
+[Bug Fix] Fix custom CSS encoding
+[Bug Fix] Fix bulk deleting users
+[Bug Fix] Fix wording of dashboard statistics
+[Bug Fix] Fix infinite scroll
+[Bug Fix] Fix modal dialog after loading more comments
+[Other] Increases specificity of admin delete dialog
+[Other] Increases size of avatar
+[Other] Disables referrer check by default
+[Other] Renames Twitter to X
+
 Version: 4.5.1
 Date: 23rd March 2024
 [Bug Fix] Fix JS error for BB code
